@@ -42,6 +42,8 @@ class NARClient(object):
                                                                 from_index=from_index,
                                                                 size=size,
                                                                 resolved=True).results
+        for instance in instances:
+            self.cache[instance.data["@id"]] = instance
         return [cls.from_kg_instance(instance, self) # todo: lazy resolution
                 for instance in instances]
 
@@ -51,6 +53,8 @@ class NARClient(object):
             filter_query=quote_plus(json.dumps(filter)), 
             context=quote_plus(json.dumps(context)), 
             resolved=True)
+        for instance in response.results:
+            self.cache[instance.data["@id"]] = instance
         return response.results
 
     def instance_from_full_uri(self, uri):

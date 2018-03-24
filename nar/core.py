@@ -3,7 +3,7 @@ core
 
 """
 
-from .base import KGobject
+from .base import KGobject, cache
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age
 
@@ -44,6 +44,7 @@ class Subject(KGobject):
                 f'{self.age!r}, {self.death_date!r}, {self.id})')
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         """docstring"""
         D = instance.data
@@ -99,6 +100,7 @@ class Organization(KGobject):
                 f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         """docstring"""
         D = instance.data
@@ -157,6 +159,7 @@ class Person(KGobject):
                 f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         """docstring"""
         D = instance.data

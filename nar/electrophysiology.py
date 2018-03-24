@@ -3,7 +3,7 @@ electrophysiology
 
 """
 
-from .base import KGobject
+from .base import KGobject, cache
 from .commons import QuantitativeValue
 from .core import Subject, Person
 
@@ -21,6 +21,7 @@ class Trace(object):
         self.id = id
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:Trace' in D["@type"]
@@ -39,6 +40,7 @@ class PatchedCell(object):
         self.id = id
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:PatchedCell' in D["@type"]
@@ -84,8 +86,6 @@ class Slice(KGobject):  # should move to "core" module?
         self.name = name
         self.subject = subject
         self.brain_slicing_activity = brain_slicing_activity
-        if brain_slicing_activity:
-            self.brain_slicing_activity.slices.append(self)  # hack
         self.id = id
 
     def __repr__(self):
@@ -93,33 +93,40 @@ class Slice(KGobject):  # should move to "core" module?
                 f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
 
     @classmethod
-    def from_kg_instance(cls, instance, client):
+    @cache
+    def from_kg_instance(cls, instance, client, **existing):
         D = instance.data
         assert 'nsg:Slice' in D["@type"]
         slice = instance
-        # get the slicing activity
-        slicing_activity = client.filter_query(
-            path="neuralactivity/experiment/brainslicing/v0.1.0",
-            filter = {
-                "path": "prov:generated",
-                "op": "in",
-                "value": slice.data["@id"]
-            },
-            context = {
-                "prov": "http://www.w3.org/ns/prov#",
-            })[0]
 
         # get the subject
         subject_instance = client.instance_from_full_uri(slice.data["wasDerivedFrom"]["@id"])
         subject = Subject.from_kg_instance(subject_instance, client)
 
-        brain_slicing_activity = BrainSlicingActivity.from_kg_instance(slicing_activity, client)
-        brain_slicing_activity.subject = subject  # todo: proper lazy resolution
+        obj = cls(name=D["name"],
+                  subject=subject,
+                  brain_slicing_activity=existing.get("brain_slicing_activity", None),
+                  id=D["@id"])
 
-        return cls(name=D["name"],
-                   subject=subject,
-                   brain_slicing_activity=brain_slicing_activity,
-                   id=D["@id"])
+        # cache the object to avoid recursion when creating BrainSlicingActivity
+        KGobject.cache[obj.id] = obj
+
+        # get the slicing activity if necessary
+        if "brain_slicing_activity" not in existing:
+            slicing_activity = client.filter_query(
+                path="neuralactivity/experiment/brainslicing/v0.1.0",
+                filter = {
+                    "path": "prov:generated",
+                    "op": "in",
+                    "value": slice.data["@id"]
+                },
+                context = {
+                    "prov": "http://www.w3.org/ns/prov#",
+                }
+            )[0]
+            obj.brain_slicing_activity = BrainSlicingActivity.from_kg_instance(slicing_activity, client)
+
+        return obj
 
     def save(self, client, exists_ok=True):
         """docstring"""
@@ -281,6 +288,7 @@ class PatchedSlice(object):
         self.patch_clamp_activity.patched_slice = self
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:PatchedSlice' in D["@type"]
@@ -314,6 +322,7 @@ class PatchClampActivity(object):
         self.id = id
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         """
         docstring
@@ -357,6 +366,7 @@ class PatchClampExperiment(object):
             trace.generated_by = self
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         """
         docstring

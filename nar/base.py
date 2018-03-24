@@ -2,9 +2,12 @@
 
 """
 
+from functools import wraps
+
 
 class KGobject(object):
     """Base class for Knowledge Graph objects"""
+    cache = {}
 
     @classmethod
     def list(cls, client):
@@ -41,3 +44,19 @@ class KGobject(object):
                     raise ResourceExistsError(f"Already exists in the Knowledge Graph: {self!r}")
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
+            KGobject.cache[self.id] = self
+
+
+def cache(f):
+    @wraps(f)
+    def wrapper(cls, instance, client, **existing):
+        if instance.data["@id"] in KGobject.cache:
+            obj = KGobject.cache[instance.data["@id"]]
+            print(f"Found in cache: {obj.id}")
+            return obj
+        else:
+            obj = f(cls, instance, client, **existing)
+            KGobject.cache[obj.id] = obj
+            print(f"Added to cache: {obj.id}")
+            return obj
+    return wrapper
