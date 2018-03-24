@@ -3,12 +3,12 @@ core
 
 """
 
-from .base import KGobject, cache
+from .base import KGObject, KGProxy, cache
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age
 
 
-class Subject(KGobject):
+class Subject(KGObject):
     """docstring"""
     path = "neuralactivity/core/subject/v0.1.0"
     context = {
@@ -76,7 +76,7 @@ class Subject(KGobject):
         self._save(data, client, exists_ok)
 
 
-class Organization(KGobject):
+class Organization(KGObject):
     """docstring"""
     path = "neuralactivity/core/organization/v0.1.0"
     context = {
@@ -106,8 +106,7 @@ class Organization(KGobject):
         D = instance.data
         assert 'nsg:Organization' in D["@type"]
         if "parentOrganization" in D:
-            parent = cls.from_kg_instance(client.instance_from_full_uri(D["parentOrganization"]["@id"]),
-                                          client)
+            parent = KGProxy(cls, D["parentOrganization"]["@id"])
         else:
             parent = None
         address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
@@ -135,7 +134,7 @@ class Organization(KGobject):
         self._save(data, client, exists_ok)
 
 
-class Person(KGobject):
+class Person(KGObject):
     """docstring"""
     path = "neuralactivity/core/person/v0.1.0"
     context = {
@@ -164,8 +163,7 @@ class Person(KGobject):
         """docstring"""
         D = instance.data
         assert 'nsg:Person' in D["@type"]
-        affiliation = Organization.from_kg_instance(client.instance_from_full_uri(D["affiliation"]["@id"]),
-                                                    client)
+        affiliation = KGProxy(Organization, D["affiliation"]["@id"])
         return cls(D["familyName"], D["givenName"], D.get("email", None),
                    affiliation, D["@id"])
 
@@ -214,4 +212,6 @@ class Person(KGobject):
             }
         self._save(data, client, exists_ok)
         
-        
+    def resolve(self, client):
+        if hasattr(self.affiliation, "resolve"):
+            self.affiliation = self.affiliation.resolve(client)

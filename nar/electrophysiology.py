@@ -3,7 +3,7 @@ electrophysiology
 
 """
 
-from .base import KGobject, cache
+from .base import KGObject, KGProxy, KGQuery, cache
 from .commons import QuantitativeValue
 from .core import Subject, Person
 
@@ -70,7 +70,7 @@ class PatchedCell(object):
                    D["@id"])
 
 
-class Slice(KGobject):  # should move to "core" module?
+class Slice(KGObject):  # should move to "core" module?
     """docstring"""
     path = "neuralactivity/core/slice/v0.1.0"
     context = {
@@ -94,38 +94,21 @@ class Slice(KGobject):  # should move to "core" module?
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, **existing):
+    def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:Slice' in D["@type"]
-        slice = instance
-
-        # get the subject
-        subject_instance = client.instance_from_full_uri(slice.data["wasDerivedFrom"]["@id"])
-        subject = Subject.from_kg_instance(subject_instance, client)
-
         obj = cls(name=D["name"],
-                  subject=subject,
-                  brain_slicing_activity=existing.get("brain_slicing_activity", None),
+                  subject=KGProxy(Subject, D["wasDerivedFrom"]["@id"]),
+                  brain_slicing_activity=KGQuery(BrainSlicingActivity,
+                                                 filter = {
+                                                     "path": "prov:generated",
+                                                     "op": "in",
+                                                     "value": D["@id"]
+                                                 },
+                                                 context = {
+                                                     "prov": "http://www.w3.org/ns/prov#",
+                                                 }),
                   id=D["@id"])
-
-        # cache the object to avoid recursion when creating BrainSlicingActivity
-        KGobject.cache[obj.id] = obj
-
-        # get the slicing activity if necessary
-        if "brain_slicing_activity" not in existing:
-            slicing_activity = client.filter_query(
-                path="neuralactivity/experiment/brainslicing/v0.1.0",
-                filter = {
-                    "path": "prov:generated",
-                    "op": "in",
-                    "value": slice.data["@id"]
-                },
-                context = {
-                    "prov": "http://www.w3.org/ns/prov#",
-                }
-            )[0]
-            obj.brain_slicing_activity = BrainSlicingActivity.from_kg_instance(slicing_activity, client)
-
         return obj
 
     def save(self, client, exists_ok=True):
@@ -144,8 +127,14 @@ class Slice(KGobject):  # should move to "core" module?
         }
         self._save(data, client, exists_ok)
 
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+        if hasattr(self.brain_slicing_activity, "resolve"):
+            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
-class BrainSlicingActivity(KGobject):
+
+class BrainSlicingActivity(KGObject):
     """docstring"""
     path = "neuralactivity/experiment/brainslicing/v0.1.0"
     context = {
@@ -192,31 +181,18 @@ class BrainSlicingActivity(KGobject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:BrainSlicing' in D["@type"]
-        slicing_activity = instance
-        # get list of people involved in slicing
-        slicing_activity_people = []
-        for person_uri in slicing_activity.data["wasAssociatedWith"]:
-            slicing_activity_people.append(
-                Person.from_kg_instance(client.instance_from_full_uri(person_uri["@id"]),
-                                        client)
-            )
-        subject = Subject.from_kg_instance(client.instance_from_full_uri(slicing_activity.data["used"]["@id"]),
-                                           client)
-
-        obj = cls(subject=subject,
-                  slices=[],
+        obj = cls(subject=KGProxy(Subject, D["used"]["@id"]),
+                  slices=[KGProxy(Slice, slice_uri["@id"]) 
+                          for slice_uri in D["generated"]],
                   brain_location=D["brainLocation"],
                   slicing_plane=D["slicingPlane"],
                   slicing_angle=D.get("slicingAngle", None),
                   cutting_solution=D.get("solution", None),
                   cutting_thickness=QuantitativeValue.from_jsonld(D["cuttingThickness"]),
                   start_time=D.get("startedAtTime", None),
-                  people=slicing_activity_people,
+                  people=[KGProxy(Person, person_uri["@id"]) 
+                          for person_uri in D["wasAssociatedWith"]],
                   id=D["@id"])
-        
-        obj.slices = [Slice.from_kg_instance(client.instance_from_full_uri(slice_uri["@id"]), client, brain_slicing_activity=obj)
-                      for slice_uri in slicing_activity.data["generated"]]
-        
         return obj
 
     def exists(self, client):
@@ -277,6 +253,16 @@ class BrainSlicingActivity(KGobject):
                 } for person in self.people
             ]
         self._save(data, client, exists_ok)
+
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+        for i, slice in enumerate(self.slices):
+            if hasattr(slice, "resolve"):
+                self.slices[i] = slice.resolve(client)
+        for i, person in enumerate(self.people):
+            if hasattr(person, "resolve"):
+                self.people[i] = person.resolve(client)
 
 
 class PatchedSlice(object):
