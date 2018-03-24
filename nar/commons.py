@@ -14,9 +14,9 @@ class Address(NamedTuple):
 class OntologyTerm(object):
     """docstring"""
 
-    def __init__(self, label, iri):
+    def __init__(self, label, iri=None):
         self.label = label
-        self.iri = iri
+        self.iri = iri or self.iri_map[label]
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -35,32 +35,57 @@ class OntologyTerm(object):
 
 class Species(OntologyTerm):
     """docstring"""
-    pass
+    iri_map = {
+        "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090"
+    }
 
 
 class Strain(OntologyTerm):
     """docstring"""
-    pass
+    iri_map = {
+        "Tg2576": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+    }
+
 
 class Sex(OntologyTerm):
     """docstring"""
-    pass
+    iri_map = {
+        "male": "schema:Male",
+        "female": "schema:Female"
+    }
 
 
 class QuantitativeValue(object):
-    def __init__(self, value, unit_text, unit_code):
+    """docstring"""
+    unit_codes = {
+        "days": "http://purl.obolibrary.org/obo/UO_0000033",
+        "months": "http://purl.obolibrary.org/obo/UO_0000035",
+        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
+        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
+        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
+        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
+    }
+
+    def __init__(self, value, unit_text, unit_code=None):
         self.value = value
         self.unit_text = unit_text
-        self.unit_code = unit_code
+        self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
                 f'{self.value!r} {self.unit_text!r})')
     
     def to_jsonld(self):
-        return {'value': self.value,
-                'label': self.unit_text,
-                'unitCode': {'@id': self.unit_code}}
+        return {
+            "@type": "QuantitativeValue",
+            "value": self.value,
+            "label": self.unit_text,
+            "unitCode": {"@id": self.unit_code}
+        }
     
     @classmethod
     def from_jsonld(cls, data):

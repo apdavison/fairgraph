@@ -4,6 +4,7 @@ electrophysiology
 """
 
 from .base import KGobject
+from .commons import QuantitativeValue
 from .core import Subject, Person
 
 
@@ -175,11 +176,12 @@ class BrainSlicingActivity(KGobject):
     
     def __repr__(self):
         return (f'{self.__class__.__name__}('
-                f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r},'
-                f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r},'
-                f'{self.start_time} {self.id})')
+                f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
+                f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
+                f'{self.start_time}, {self.id})')
 
     @classmethod
+    @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:BrainSlicing' in D["@type"]
@@ -191,17 +193,24 @@ class BrainSlicingActivity(KGobject):
                 Person.from_kg_instance(client.instance_from_full_uri(person_uri["@id"]),
                                         client)
             )
-            # todo: get affiliations
-        return cls(subject=None,  # todo: lazy resolution
-                   slices=[], #D["slice"],
-                   brain_location=D["brainLocation"],
-                   slicing_plane=D["slicingPlane"],
-                   slicing_angle=D.get("slicingAngle", None),
-                   cutting_solution=D.get("solution", None),
-                   cutting_thickness=D["cuttingThickness"],
-                   start_time=D.get("startedAtTime", None),
-                   people=slicing_activity_people,
-                   id=D["@id"])
+        subject = Subject.from_kg_instance(client.instance_from_full_uri(slicing_activity.data["used"]["@id"]),
+                                           client)
+
+        obj = cls(subject=subject,
+                  slices=[],
+                  brain_location=D["brainLocation"],
+                  slicing_plane=D["slicingPlane"],
+                  slicing_angle=D.get("slicingAngle", None),
+                  cutting_solution=D.get("solution", None),
+                  cutting_thickness=QuantitativeValue.from_jsonld(D["cuttingThickness"]),
+                  start_time=D.get("startedAtTime", None),
+                  people=slicing_activity_people,
+                  id=D["@id"])
+        
+        obj.slices = [Slice.from_kg_instance(client.instance_from_full_uri(slice_uri["@id"]), client, brain_slicing_activity=obj)
+                      for slice_uri in slicing_activity.data["generated"]]
+        
+        return obj
 
     def exists(self, client):
         """Check if this object already exists in the KnowledgeGraph"""
@@ -248,9 +257,9 @@ class BrainSlicingActivity(KGobject):
         if self.slicing_angle:
             data["slicingAngle"]= self.slicing_angle
         if self.cutting_solution:
-            data["Solution"]= self.cutting_solution
+            data["solution"]= self.cutting_solution
         if self.cutting_thickness:
-            data["cuttingThickness"]= self.cutting_thickness
+            data["cuttingThickness"]= self.cutting_thickness.to_jsonld()
         if self.start_time:
             data["startedAtTime"]= self.start_time
         if self.people:
