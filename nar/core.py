@@ -5,7 +5,7 @@ core
 
 from .base import KGObject, KGProxy, cache
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Sex, Age
+from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
 
 class Subject(KGObject):
@@ -60,7 +60,7 @@ class Subject(KGObject):
         """docstring"""
         data = {
             "@context": Subject.context,
-            "@type": "nsg:Subject",
+            "@type": ["nsg:Subject", "prov:Entity"]
         }
         data["name"] = self.name
         data["providerId"] = self.name
@@ -215,3 +215,109 @@ class Person(KGObject):
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client)
+
+
+class Protocol(KGObject):
+    path = "neuralactivity/commons/protocol/v0.1.0"
+    context = {
+        "schema": "http://schema.org/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name"
+    }
+
+    def __init__(self, name, steps, materials, author, date_published, identifier, id=None):
+        self.name = name
+        self.steps = steps
+        self.materials = materials
+        self.author = author
+        self.date_published = date_published
+        self.identifier = identifier
+        self.id = id
+
+    def __repr__(self):
+        return (f'{self.__class__.__name__}('
+                f'{self.identifier!r}, {self.id})')
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        """docstring"""
+        D = instance.data
+        assert 'nsg:Protocol' in D["@type"]
+        return cls(D["name"], 
+                   D["nsg:steps"],
+                   [Material.from_jsonld() for material in D["nsg:materials"]],
+                   KGProxy(Person, D["schema:author"]),
+                   D["schema:datePublished"],
+                   KGProxy(Identifier, D["schema:identifier"]),
+                   D["@id"])
+
+    def save(self, client, exists_ok=True):
+        """docstring"""
+        data = {
+            "@context": Protocol.context,
+            "@type": ["nsg:Protocol", "prov:Entity"]
+        }
+        data["name"] = self.name
+        data["nsg:steps"] = self.steps
+        if self.materials:
+            data["nsg:materials"] = [material.to_jsonld() for material in self.materials]
+        if self.author:
+            if self.author.id is None:
+                self.author.save(client)
+            data["schema:author"] = {
+                "@type": "nsg:Person",
+                "@id": self.author.id
+            }
+        if self.date_published:
+            data["schema:datePublished"] = self.date_published
+        if self.identifier:
+            if self.identifier.id is None:
+                self.identifier.save(client)
+            data["schema:identifier"] = {
+                "@type": "schema:Identifier",
+                "@id": self.identifier.id
+            }
+        self._save(data, client, exists_ok)
+
+
+class Identifier(KGObject):
+    path = "nexus/schemaorgsh/identifier/v0.1.0/"
+
+
+class Material(object):
+    
+    def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
+        self.name = name
+        self.molar_weight = molar_weight
+        self.formula = formula
+        self.stock_keeping_unit = stock_keeping_unit
+        self.identifier = identifier
+        self.vendor = vendor
+
+    def to_jsonld(self):
+        return {
+            "nsg:reagentName": self.name,
+            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(), 
+            "nsg:reagentLinearFormula": self.formula, 
+            "schema:sku": self.stock_keeping_unit, 
+            "schema:identifier": {
+                #"@type": "",
+                "@id": self.identifier.id,
+            },
+            "nsg:reagentVendor": {
+                "@type": "nsg:Organization",
+                "@id": self.vendor.id
+            }
+        }
+    
+    @classmethod
+    def from_jsonld(cls, data):
+        if data is None:
+            return None
+        return cls(data["name"], 
+                   QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
+                   data["nsg:reagentLinearFormula"],
+                   data["schema:sku"],
+                   KGProxy(Identifier, data["schema:identifier"]["@id"]),
+                   KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))

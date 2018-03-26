@@ -62,12 +62,12 @@ def cache(f):
     def wrapper(cls, instance, client):
         if instance.data["@id"] in KGObject.cache:
             obj = KGObject.cache[instance.data["@id"]]
-            print(f"Found in cache: {obj.id}")
+            #print(f"Found in cache: {obj.id}")
             return obj
         else:
             obj = f(cls, instance, client)
             KGObject.cache[obj.id] = obj
-            print(f"Added to cache: {obj.id}")
+            #print(f"Added to cache: {obj.id}")
             return obj
     return wrapper
 
@@ -107,6 +107,11 @@ class KGQuery(object):
             filter=self.filter,
             context=self.context
         )
-        obj = self.cls.from_kg_instance(instances[0], client)
-        KGObject.cache[obj.id] = obj
-        return obj
+        objects = [self.cls.from_kg_instance(instance, client)
+                   for instance in instances]
+        for obj in objects:
+            KGObject.cache[obj.id] = obj
+        if len(instances) == 1:
+            return objects[0]
+        else:
+            return objects

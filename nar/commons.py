@@ -3,6 +3,7 @@
 """
 
 from typing import NamedTuple
+from .base import KGObject, KGProxy
 
 
 class Address(NamedTuple):
@@ -56,6 +57,21 @@ class Sex(OntologyTerm):
     iri_map = {
         "male": "schema:Male",
         "female": "schema:Female"
+    }
+
+
+class BrainRegion(OntologyTerm):
+    """docstring"""
+    iri_map = {
+        "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
+        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",
+        "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
+    }
+
+class CellType(OntologyTerm):
+    """docstring"""
+    iri_map = {
+        "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
     }
 
 
