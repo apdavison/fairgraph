@@ -26,16 +26,6 @@ class NARClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-    def list_patch_clamp_experiments(self):
-        """docstring"""
-        path = "neuralactivity/electrophysiology/stimulusexperiment/v0.1.0"
-        schema = self._nexus_client.schemas.read(*path.split("/"))
-        instances = self._nexus_client.instances.list_by_schema(*path.split("/"), size=100, resolved=True).results
-        # todo: detail with pagination (next...)
-        pces = [PatchClampExperiment.from_kg_instance(instance, self)
-                for instance in instances]
-        return pces, schema
-
     def list(self, cls, from_index=0, size=100):
         """docstring"""
         instances = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
@@ -48,6 +38,7 @@ class NARClient(object):
                 for instance in instances]
 
     def filter_query(self, path, filter, context):
+        # todo: add size and from_index arguments
         response = self._nexus_client.instances.list(
             subpath=path, 
             filter_query=quote_plus(json.dumps(filter)), 

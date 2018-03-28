@@ -123,6 +123,56 @@ class PatchedCell(KGObject):
                 f'{self.collection!r}, {self.id})')
 
     @classmethod
+    def list(cls, client, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        if len(filters) > 1:
+            raise Exception("At present only a single filter can be applied at once")
+        for name, value in filters.items():
+            if name == "species":
+                query = {
+                    'path': 'prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',   
+                    'op': 'eq',
+                    'value': value.iri  #Species.iri_map[value]
+                }
+                context = {
+                    'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                    'prov': 'http://www.w3.org/ns/prov#'
+                }
+                result = client.filter_query(PatchedSlice.path, query, context)
+                recorded_slices = [PatchedSlice.from_kg_instance(inst, client) for inst in result]
+                recorded_cells = []
+                for slice in recorded_slices:
+                    collection = slice.recorded_cells.resolve(client)
+                    for cell in collection.cells:
+                        cell = cell.resolve(client)
+                        recorded_cells.append(cell)
+                return recorded_cells
+            elif name == "brain_region":
+                query = {
+                    "path": "nsg:brainLocation / nsg:brainRegion",
+                    "op": "eq",
+                    "value": value.iri  #BrainRegion.iri_map["hippocampus CA1"]
+                }
+                context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
+                result = client.filter_query(cls.path, query, context)
+                recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
+                return recorded_cells
+            elif name == "cell_type":
+                query = {
+                    'path': 'nsg:eType',
+                    'op': 'eq',
+                    'value': value.iri  #CellType.iri_map["hippocampus CA1 pyramidal cell"]
+                }
+                context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
+                result = client.filter_query(cls.path, query, context)
+                recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
+                return recorded_cells
+            else:
+                raise Exception("The only supported filters are by species, brain region "
+                                f"or cell type. You specified {name}")
+        return client.list(cls)
+
+    @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
@@ -596,8 +646,9 @@ class PatchClampExperiment(KGObject):
         }
         context = {"prov": "http://www.w3.org/ns/prov#"}
 
-        return cls(name=D["schema:name"], 
-                   recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
+        return cls(name=D["name"], #name=D["schema:name"], 
+                   #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
+                   recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
                    stimulus=D["nsg:stimulus"],
                    traces=KGQuery(Trace, traces_filter, context),
                    id=D["@id"])

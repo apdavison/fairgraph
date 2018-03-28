@@ -8,9 +8,10 @@ from .errors import ResourceExistsError
 
 registry = {}
 
-
+# todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
 def register_class(target_class):
     registry[target_class.__name__] = target_class
+
 
 def lookup(class_name):
     return registry[class_name]
@@ -39,7 +40,7 @@ class KGObject(object, metaclass=Registry):
                                     client)
 
     @classmethod
-    def list(cls, client):
+    def list(cls, client, **filters):
         """List all objects of this type in the Knowledge Graph"""
         return client.list(cls)
 
