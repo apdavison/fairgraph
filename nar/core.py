@@ -11,6 +11,7 @@ from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 class Subject(KGObject):
     """docstring"""
     path = "neuralactivity/core/subject/v0.1.0"
+    type = ["nsg:Subject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -59,8 +60,8 @@ class Subject(KGObject):
     def save(self, client, exists_ok=True):
         """docstring"""
         data = {
-            "@context": Subject.context,
-            "@type": ["nsg:Subject", "prov:Entity"]
+            "@context": self.context,
+            "@type": self.type
         }
         data["name"] = self.name
         data["providerId"] = self.name
@@ -79,6 +80,7 @@ class Subject(KGObject):
 class Organization(KGObject):
     """docstring"""
     path = "neuralactivity/core/organization/v0.1.0"
+    type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -115,8 +117,8 @@ class Organization(KGObject):
     def save(self, client, exists_ok=True):
         """docstring"""
         data = {
-            "@context": Organization.context,
-            "@type": "nsg:Organization",
+            "@context": self.context,
+            "@type": self.type,
         }
         data["name"] = self.name
         data["address"] = {
@@ -128,7 +130,7 @@ class Organization(KGObject):
             if self.parent.id is None:
                 self.parent.save(client)
             data["parent"] = {
-                "@type": "nsg:Organization",
+                "@type": self.parent.type,
                 "@id": self.parent.id
             }
         self._save(data, client, exists_ok)
@@ -137,6 +139,7 @@ class Organization(KGObject):
 class Person(KGObject):
     """docstring"""
     path = "neuralactivity/core/person/v0.1.0"
+    type = "nsg:Person"
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -196,8 +199,8 @@ class Person(KGObject):
     def save(self, client, exists_ok=True):
         """docstring"""
         data = {
-            "@context": Person.context,
-            "@type": "nsg:Person",
+            "@context": self.context,
+            "@type": self.type,
         }
         data["familyName"] = self.family_name
         data["givenName"] = self.given_name
@@ -207,7 +210,7 @@ class Person(KGObject):
             if self.affiliation.id is None:
                 self.affiliation.save(client)
             data["affiliation"] = {
-                "@type": "nsg:Organization",
+                "@type": self.affiliation.type,
                 "@id": self.affiliation.id
             }
         self._save(data, client, exists_ok)
@@ -219,6 +222,7 @@ class Person(KGObject):
 
 class Protocol(KGObject):
     path = "neuralactivity/commons/protocol/v0.1.0"
+    type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -246,7 +250,7 @@ class Protocol(KGObject):
         assert 'nsg:Protocol' in D["@type"]
         return cls(D["name"], 
                    D["nsg:steps"],
-                   [Material.from_jsonld() for material in D["nsg:materials"]],
+                   [Material.from_jsonld(material) for material in D["nsg:materials"]],
                    KGProxy(Person, D["schema:author"]),
                    D["schema:datePublished"],
                    KGProxy(Identifier, D["schema:identifier"]),
@@ -255,8 +259,8 @@ class Protocol(KGObject):
     def save(self, client, exists_ok=True):
         """docstring"""
         data = {
-            "@context": Protocol.context,
-            "@type": ["nsg:Protocol", "prov:Entity"]
+            "@context": self.context,
+            "@type": self.type
         }
         data["name"] = self.name
         data["nsg:steps"] = self.steps
@@ -266,7 +270,7 @@ class Protocol(KGObject):
             if self.author.id is None:
                 self.author.save(client)
             data["schema:author"] = {
-                "@type": "nsg:Person",
+                "@type": self.author.type,
                 "@id": self.author.id
             }
         if self.date_published:
@@ -275,7 +279,7 @@ class Protocol(KGObject):
             if self.identifier.id is None:
                 self.identifier.save(client)
             data["schema:identifier"] = {
-                "@type": "schema:Identifier",
+                "@type": self.identifier.type,
                 "@id": self.identifier.id
             }
         self._save(data, client, exists_ok)
@@ -283,6 +287,7 @@ class Protocol(KGObject):
 
 class Identifier(KGObject):
     path = "nexus/schemaorgsh/identifier/v0.1.0/"
+    type = "schema:Identifier"
 
 
 class Material(object):
@@ -306,7 +311,7 @@ class Material(object):
                 "@id": self.identifier.id,
             },
             "nsg:reagentVendor": {
-                "@type": "nsg:Organization",
+                "@type": self.vendor.type,
                 "@id": self.vendor.id
             }
         }

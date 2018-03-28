@@ -6,7 +6,26 @@ from functools import wraps
 from .errors import ResourceExistsError
 
 
-class KGObject(object):
+registry = {}
+
+
+def register_class(target_class):
+    registry[target_class.__name__] = target_class
+
+def lookup(class_name):
+    return registry[class_name]
+
+
+class Registry(type):
+    """Metaclass for registering Knowledge Graph classes"""
+
+    def __new__(meta, name, bases, class_dict):
+        cls = type.__new__(meta, name, bases, class_dict)
+        register_class(cls)
+        return cls
+
+
+class KGObject(object, metaclass=Registry):
     """Base class for Knowledge Graph objects"""
     cache = {}
 
@@ -76,7 +95,10 @@ class KGProxy(object):
     """docstring"""
 
     def __init__(self, cls, uri):
-        self.cls = cls
+        if isinstance(cls, str):
+            self.cls = lookup(cls)
+        else:
+            self.cls = cls
         self.id = uri
     
     def resolve(self, client):
@@ -97,7 +119,10 @@ class KGQuery(object):
     """docstring"""
 
     def __init__(self, cls, filter, context):
-        self.cls = cls
+        if isinstance(cls, str):
+            self.cls = lookup(cls)
+        else:
+            self.cls = cls
         self.filter = filter
         self.context = context
 
