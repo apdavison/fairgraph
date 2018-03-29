@@ -63,8 +63,10 @@ class Trace(KGObject):
         return cls(D["name"], D["distribution"], 
                    KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
                    D["qualifiedGeneration"]["@id"],
-                   D["channel"], D["dataUnit"], 
-                   QuantitativeValue.from_jsonld(D["timeStep"]), 
+#                   D["channel"], D["dataUnit"], 
+#                   QuantitativeValue.from_jsonld(D["timeStep"]), 
+                   D["channel"], D["data_unit"], # tmp
+                   QuantitativeValue.from_jsonld(D["time_step"]), # tmp
                    D["@id"])
 
     def save(self, client, exists_ok=True):
@@ -86,10 +88,12 @@ class Trace(KGObject):
         if self.channel is not None:  # could be 0, which is a valid value, but falsy
             data["channel"] = self.channel
         if self.data_unit:
-            data["data_unit"] = self.data_unit
+            data["dataUnit"] = self.data_unit
         if self.time_step:
-            data["time_step"] = self.time_step  #.to_jsonld()
+            data["timeStep"] = self.time_step  #.to_jsonld()
         self._save(data, client, exists_ok)
+
+
 
 
 class PatchedCell(KGObject):
@@ -97,6 +101,7 @@ class PatchedCell(KGObject):
     path = "neuralactivity/experiment/patchedcell/v0.1.0"
     type = ["nsg:PatchedCell", "prov:Entity"]
     collection_class = "Collection"
+    experiment_class = "PatchClampExperiment"
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -110,11 +115,12 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
 
-    def __init__(self, name, brain_location, collection, cell_type, id=None):
+    def __init__(self, name, brain_location, collection, cell_type, experiments=None, id=None):
         self.name = name
         self.brain_location = brain_location
         self.collection = collection
         self.cell_type = cell_type
+        self.experiments = experiments or []
         self.id = id
     
     def __repr__(self):
@@ -132,7 +138,7 @@ class PatchedCell(KGObject):
                 query = {
                     'path': 'prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',   
                     'op': 'eq',
-                    'value': value.iri  #Species.iri_map[value]
+                    'value': value.iri
                 }
                 context = {
                     'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
@@ -151,7 +157,7 @@ class PatchedCell(KGObject):
                 query = {
                     "path": "nsg:brainLocation / nsg:brainRegion",
                     "op": "eq",
-                    "value": value.iri  #BrainRegion.iri_map["hippocampus CA1"]
+                    "value": value.iri
                 }
                 context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
                 result = client.filter_query(cls.path, query, context)
@@ -161,7 +167,7 @@ class PatchedCell(KGObject):
                 query = {
                     'path': 'nsg:eType',
                     'op': 'eq',
-                    'value': value.iri  #CellType.iri_map["hippocampus CA1 pyramidal cell"]
+                    'value': value.iri
                 }
                 context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
                 result = client.filter_query(cls.path, query, context)
@@ -180,17 +186,25 @@ class PatchedCell(KGObject):
             assert otype in D["@type"]
 
         # get the collection of which the cell is a part
+        prov_context={"prov": "http://www.w3.org/ns/prov#"}
         collection_filter = {
             "path": "prov:hadMember",
             "op": "in",
             "value": [instance.data["@id"]]
         }
-        context={"prov": "http://www.w3.org/ns/prov#"}
+        
+        # get any experiments performed on the cell
+        expt_filter = {
+            "path": "prov:used",
+            "op": "eq",
+            "value": [instance.data["@id"]]
+        }
 
         return cls(D["name"],
                    BrainRegion.from_jsonld(D["brainLocation"]["brainRegion"]),
-                   KGQuery(cls.collection_class, collection_filter, context),
+                   KGQuery(cls.collection_class, collection_filter, prov_context),
                    CellType.from_jsonld(D.get("eType", None)),
+                   KGQuery(cls.experiment_class, expt_filter, prov_context),
                    D["@id"])
 
     def save(self, client, exists_ok=True):
@@ -715,7 +729,7 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     path = "neuralactivity/experiment/intrasharprecordedcell/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
-
+    experiment_class = "IntraCellularSharpElectrodeExperiment"
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     path = "neuralactivity/experiment/intrasharpelectrode/v0.1.0"

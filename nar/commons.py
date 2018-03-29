@@ -107,7 +107,17 @@ class QuantitativeValue(object):
     def from_jsonld(cls, data):
         if data is None:
             return None
-        return cls(data["value"], data["label"], data["unitCode"]["@id"])
+        if "label" in data:
+            unit_text = data["label"]
+        elif "unitText" in data:
+            unit_text = data["unitText"]
+        else:
+            unit_text = "?"
+        if "unitCode" in data:
+            unit_code = data["unitCode"]["@id"]
+        else:
+            unit_code = None
+        return cls(data["value"], unit_text, unit_code)
 
 
 class Age(object):
