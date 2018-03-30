@@ -7,10 +7,14 @@ from .base import KGObject, KGProxy, cache
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
+NAMESPACE = "neuralactivity"
+#NAMESPACE = "neurosciencegraph"
+#NAMESPACE = "brainsimulation"
+
 
 class Subject(KGObject):
     """docstring"""
-    path = "neuralactivity/core/subject/v0.1.0"
+    path = NAMESPACE + "/core/subject/v0.1.0"
     type = ["nsg:Subject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -79,7 +83,7 @@ class Subject(KGObject):
 
 class Organization(KGObject):
     """docstring"""
-    path = "neuralactivity/core/organization/v0.1.0"
+    path = NAMESPACE + "/core/organization/v0.1.0"
     type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
@@ -138,7 +142,7 @@ class Organization(KGObject):
 
 class Person(KGObject):
     """docstring"""
-    path = "neuralactivity/core/person/v0.1.0"
+    path = NAMESPACE + "/core/person/v0.1.0"
     type = "nsg:Person"
     context = {
         "schema": "http://schema.org/",
@@ -221,7 +225,7 @@ class Person(KGObject):
 
 
 class Protocol(KGObject):
-    path = "neuralactivity/commons/protocol/v0.1.0"
+    path = NAMESPACE + "/commons/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",

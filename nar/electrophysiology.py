@@ -7,10 +7,14 @@ from .base import KGObject, KGProxy, KGQuery, cache, lookup
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
 
+NAMESPACE = "neuralactivity"
+#NAMESPACE = "neurosciencegraph"
+#NAMESPACE = "brainsimulation"
+
 
 class Trace(KGObject):
     """docstring"""
-    path = "neuralactivity/electrophysiology/trace/v0.1.0"
+    path = NAMESPACE + "/electrophysiology/trace/v0.1.0"
     type = ["prov:Entity", "nsg:Trace"]
     context = {
         "schema": "http://schema.org/",
@@ -98,7 +102,7 @@ class Trace(KGObject):
 
 class PatchedCell(KGObject):
     """docstring"""
-    path = "neuralactivity/experiment/patchedcell/v0.1.0"
+    path = NAMESPACE + "/experiment/patchedcell/v0.1.0"
     type = ["nsg:PatchedCell", "prov:Entity"]
     collection_class = "Collection"
     experiment_class = "PatchClampExperiment"
@@ -224,7 +228,7 @@ class PatchedCell(KGObject):
 
 class Slice(KGObject):  # should move to "core" module?
     """docstring"""
-    path = "neuralactivity/core/slice/v0.1.0"
+    path = NAMESPACE + "/core/slice/v0.1.0"
     type = ["nsg:Slice", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -286,7 +290,7 @@ class Slice(KGObject):  # should move to "core" module?
 
 class BrainSlicingActivity(KGObject):
     """docstring"""
-    path = "neuralactivity/experiment/brainslicing/v0.1.0"
+    path = NAMESPACE + "/experiment/brainslicing/v0.1.0"
     type = ["nsg:BrainSlicing", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -414,7 +418,7 @@ class BrainSlicingActivity(KGObject):
 
 class PatchedSlice(KGObject):
     """docstring"""
-    path = "neuralactivity/experiment/patchedslice/v0.1.0"
+    path = NAMESPACE + "/experiment/patchedslice/v0.1.0"
     type = ["nsg:PatchedSlice", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -481,7 +485,7 @@ class PatchedSlice(KGObject):
 
 class Collection(KGObject):  # move to core?
     """docstring"""
-    path = "neuralactivity/experiment/patchedcellcollection/v0.1.0"
+    path = NAMESPACE + "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
     context = {
         "schema": "http://schema.org/",
@@ -547,7 +551,7 @@ class Collection(KGObject):  # move to core?
 
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """docstring"""
-    path = "neuralactivity/experiment/wholecellpatchclamp/v0.1.0"
+    path = NAMESPACE + "/experiment/wholecellpatchclamp/v0.1.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
     generates_class = "PatchedSlice"
     context = {
@@ -621,7 +625,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 
 class PatchClampExperiment(KGObject):
     """docstring"""
-    path = "neuralactivity/electrophysiology/stimulusexperiment/v0.1.0"
+    path = NAMESPACE + "/electrophysiology/stimulusexperiment/v0.1.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -684,7 +688,7 @@ class PatchClampExperiment(KGObject):
 
 
 class QualifiedGeneration(KGObject):
-    path = "neuralactivity/electrophysiology/tracegeneration/v0.1.0"
+    path = NAMESPACE + "/electrophysiology/tracegeneration/v0.1.0"
     type = ["prov:Generation", "nsg:TraceGeneration"]
     context = {
         "schema": "http://schema.org/",
@@ -726,26 +730,26 @@ class QualifiedGeneration(KGObject):
 
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
-    path = "neuralactivity/experiment/intrasharprecordedcell/v0.1.0"
+    path = NAMESPACE + "/experiment/intrasharprecordedcell/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     experiment_class = "IntraCellularSharpElectrodeExperiment"
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
-    path = "neuralactivity/experiment/intrasharpelectrode/v0.1.0"
+    path = NAMESPACE + "/experiment/intrasharpelectrode/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
 
 
 class IntraCellularSharpElectrodeRecordedCellCollection(Collection):
-    path = "neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0"
+    path = NAMESPACE + "/experiment/intrasharprecordedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
     member_class = "IntraCellularSharpElectrodeRecordedCell"
     recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
 
 
 class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
-    path = "neuralactivity/experiment/intrasharprecordedslice/v0.1.0"
+    path = NAMESPACE + "/experiment/intrasharprecordedslice/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrodeRecordedSlice", "prov:Entity"]
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     recording_activity_class = "IntraCellularSharpElectrodeRecording"
@@ -753,6 +757,6 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
 
 class IntraCellularSharpElectrodeExperiment(KGObject):
     """docstring"""
-    path = "neuralactivity/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
+    path = NAMESPACE + "/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
