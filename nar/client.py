@@ -37,12 +37,14 @@ class NARClient(object):
         return [cls.from_kg_instance(instance, self) # todo: lazy resolution
                 for instance in instances]
 
-    def filter_query(self, path, filter, context):
+    def filter_query(self, path, filter, context, from_index=0, size=100):
         # todo: add size and from_index arguments
         response = self._nexus_client.instances.list(
             subpath=path, 
             filter_query=quote_plus(json.dumps(filter)), 
-            context=quote_plus(json.dumps(context)), 
+            context=quote_plus(json.dumps(context)),
+            from_index=from_index,
+            size=size,
             resolved=True)
         for instance in response.results:
             self.cache[instance.data["@id"]] = instance
