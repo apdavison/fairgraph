@@ -133,7 +133,7 @@ class PatchedCell(KGObject):
                 f'{self.collection!r}, {self.id})')
 
     @classmethod
-    def list(cls, client, **filters):
+    def list(cls, client, size=100, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if len(filters) > 1:
             raise Exception("At present only a single filter can be applied at once")
@@ -148,7 +148,7 @@ class PatchedCell(KGObject):
                     'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
                     'prov': 'http://www.w3.org/ns/prov#'
                 }
-                result = client.filter_query(PatchedSlice.path, query, context)
+                result = client.filter_query(PatchedSlice.path, query, context, size=size)
                 recorded_slices = [PatchedSlice.from_kg_instance(inst, client) for inst in result]
                 recorded_cells = []
                 for slice in recorded_slices:
@@ -164,7 +164,7 @@ class PatchedCell(KGObject):
                     "value": value.iri
                 }
                 context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
-                result = client.filter_query(cls.path, query, context)
+                result = client.filter_query(cls.path, query, context, size=size)
                 recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
                 return recorded_cells
             elif name == "cell_type":
@@ -174,13 +174,13 @@ class PatchedCell(KGObject):
                     'value': value.iri
                 }
                 context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
-                result = client.filter_query(cls.path, query, context)
+                result = client.filter_query(cls.path, query, context, size=size)
                 recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
                 return recorded_cells
             else:
                 raise Exception("The only supported filters are by species, brain region "
                                 f"or cell type. You specified {name}")
-        return client.list(cls)
+        return client.list(cls, size=size)
 
     @classmethod
     @cache

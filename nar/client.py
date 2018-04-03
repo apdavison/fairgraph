@@ -28,10 +28,18 @@ class NARClient(object):
 
     def list(self, cls, from_index=0, size=100):
         """docstring"""
-        instances = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
-                                                                from_index=from_index,
-                                                                size=size,
-                                                                resolved=True).results
+        instances = []
+        query = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
+                                                            from_index=from_index,
+                                                            size=size,
+                                                            resolved=True)
+        instances.extend(query.results)
+        next = query.get_next_link()
+        while len(instances) < size and next:
+            query = self._nexus_client.instances.list_by_full_path(next)
+            instances.extend(query.results)
+            next = query.get_next_link()
+            
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
         return [cls.from_kg_instance(instance, self) # todo: lazy resolution

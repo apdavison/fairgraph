@@ -40,9 +40,9 @@ class KGObject(object, metaclass=Registry):
                                     client)
 
     @classmethod
-    def list(cls, client, **filters):
+    def list(cls, client, size=100, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls)
+        return client.list(cls, size=size)
 
     def exists(self, client):
         """Check if this object already exists in the KnowledgeGraph"""
