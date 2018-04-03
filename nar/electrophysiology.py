@@ -43,7 +43,7 @@ class Trace(KGObject):
         }
     }
 
-    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit, time_step, id=None):
+    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit, time_step, id=None, instance=None):
         self.name = name
         self.data_location = data_location
         self.generated_by = generated_by
@@ -52,6 +52,7 @@ class Trace(KGObject):
         self.data_unit = data_unit
         self.time_step = time_step
         self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -71,14 +72,17 @@ class Trace(KGObject):
 #                   QuantitativeValue.from_jsonld(D["timeStep"]), 
                    D["channel"], D["data_unit"], # tmp
                    QuantitativeValue.from_jsonld(D["time_step"]), # tmp
-                   D["@id"])
+                   D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type,
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["distribution"] = self.data_location
         data["wasGeneratedBy"] = {
@@ -119,13 +123,14 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
 
-    def __init__(self, name, brain_location, collection, cell_type, experiments=None, id=None):
+    def __init__(self, name, brain_location, collection, cell_type, experiments=None, id=None, instance=None):
         self.name = name
         self.brain_location = brain_location
         self.collection = collection
         self.cell_type = cell_type
         self.experiments = experiments or []
         self.id = id
+        self.instance = instance
     
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -209,14 +214,17 @@ class PatchedCell(KGObject):
                    KGQuery(cls.collection_class, collection_filter, prov_context),
                    CellType.from_jsonld(D.get("eType", None)),
                    KGQuery(cls.experiment_class, expt_filter, prov_context),
-                   D["@id"])
+                   D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.__class__.type
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["brainLocation"] = {
             "brainRegion": self.brain_location.to_jsonld()
@@ -239,11 +247,12 @@ class Slice(KGObject):  # should move to "core" module?
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
 
-    def __init__(self, name, subject, brain_slicing_activity, id=None):
+    def __init__(self, name, subject, brain_slicing_activity, id=None, instance=None):
         self.name = name
         self.subject = subject
         self.brain_slicing_activity = brain_slicing_activity
         self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -265,15 +274,19 @@ class Slice(KGObject):  # should move to "core" module?
                                                  context = {
                                                      "prov": "http://www.w3.org/ns/prov#",
                                                  }),
-                  id=D["@id"])
+                  id=D["@id"],
+                  instance=instance)
         return obj
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type,
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["wasDerivedFrom"] = {
             "@type": self.subject.type,
@@ -313,7 +326,7 @@ class BrainSlicingActivity(KGObject):
     }
     
     def __init__(self, subject, slices, brain_location, slicing_plane, slicing_angle,
-                 cutting_solution, cutting_thickness, start_time, people, id=None):
+                 cutting_solution, cutting_thickness, start_time, people, id=None, instance=None):
         self.subject = subject
         self.slices = slices
         self.brain_location = brain_location
@@ -324,6 +337,7 @@ class BrainSlicingActivity(KGObject):
         self.start_time = start_time
         self.people = people
         self.id = id
+        self.instance = instance
     
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -347,7 +361,8 @@ class BrainSlicingActivity(KGObject):
                   start_time=D.get("startedAtTime", None),
                   people=[KGProxy(Person, person_uri["@id"]) 
                           for person_uri in D["wasAssociatedWith"]],
-                  id=D["@id"])
+                  id=D["@id"],
+                  instance=instance)
         return obj
 
     def exists(self, client):
@@ -368,10 +383,13 @@ class BrainSlicingActivity(KGObject):
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["used"] = {
             "@id": self.subject.id,
             "@type": self.subject.type
@@ -433,12 +451,13 @@ class PatchedSlice(KGObject):
     collection_class = "Collection"
     recording_activity_class = "PatchClampActivity"
 
-    def __init__(self, name, slice, recorded_cells, recording_activity, id=None):
+    def __init__(self, name, slice, recorded_cells, recording_activity, id=None, instance=None):
         self.name = name
         self.slice = slice
         self.recorded_cells = recorded_cells
         self.recording_activity = recording_activity
         self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -463,14 +482,18 @@ class PatchedSlice(KGObject):
                    slice=KGProxy(Slice, D["wasRevisionOf"]["@id"]),
                    recorded_cells=KGProxy(cls.collection_class, D["hasPart"]["@id"]),
                    recording_activity=KGQuery(cls.recording_activity_class, recording_activity_filter, context), 
-                   id=D["@id"])
+                   id=D["@id"],
+                   instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.__class__.type
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["wasRevisionOf"] = {
             "@type": self.slice.type,
@@ -498,11 +521,12 @@ class Collection(KGObject):  # move to core?
     member_class = "PatchedCell"
     recorded_from_class = "PatchedSlice"
 
-    def __init__(self, name, cells, slice, id=None):
+    def __init__(self, name, cells, slice, id=None, instance=None):
         self.name = name
         self.slice = slice
         self.cells = cells
         self.id = id
+        self.instance = instance
 
     @property
     def size(self):
@@ -533,14 +557,18 @@ class Collection(KGObject):  # move to core?
                    slice=KGQuery(cls.recorded_from_class, recorded_slice_filter, context), 
                    cells=[KGProxy(cls.member_class, member_uri["@id"])
                           for member_uri in D["hadMember"]], 
-                   id=D["@id"])
+                   id=D["@id"],
+                   instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.__class__.type,
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["hadMember"] = [{
             "@type": lookup(self.member_class).type,
@@ -564,13 +592,14 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
 
-    def __init__(self, name, slice, recorded_slice, protocol, people, id=None):
+    def __init__(self, name, slice, recorded_slice, protocol, people, id=None, instance=None):
         self.name = name
         self.slice = slice
         self.recorded_slice = recorded_slice
         self.protocol = protocol
         self.people = people
         self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -592,16 +621,20 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
                    protocol=D["protocol"], 
                    people=[KGProxy(Person, person_uri["@id"])
                            for person_uri in D["wasAssociatedWith"]], 
-                   id=D["@id"])
+                   id=D["@id"],
+                   instance=instance)
 
     # todo: custom exists(), based on slice not on name
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type,
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["used"] = {
             "@type": self.slice.type,
@@ -636,12 +669,13 @@ class PatchClampExperiment(KGObject):
     }
     recorded_cell_class = "PatchedCell"
     
-    def __init__(self, name, recorded_cell, stimulus, traces, id=None):
+    def __init__(self, name, recorded_cell, stimulus, traces, id=None, instance=None):
         self.name = name
         self.recorded_cell = recorded_cell
         self.stimulus = stimulus
         self.traces = traces
         self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('
@@ -669,14 +703,18 @@ class PatchClampExperiment(KGObject):
                    recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
                    stimulus=D["nsg:stimulus"],
                    traces=KGQuery(Trace, traces_filter, context),
-                   id=D["@id"])
+                   id=D["@id"],
+                   instance=instance)
     
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["prov:used"] = {
             "@type": self.recorded_cell.type,
@@ -704,20 +742,40 @@ class QualifiedGeneration(KGObject):
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
 
-    def __init__(self, name, stimulus_experiment, sweep, traces, holding_potential, id=None):
+    def __init__(self, name, stimulus_experiment, sweep, traces, holding_potential, id=None, instance=None):
         self.name = name
         self.stimulus_experiment = stimulus_experiment
         self.sweep = sweep
         self.traces = traces
         self.holding_potential = holding_potential
         self.id = id
+        self.instance = instance
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        """
+        docstring
+        """
+        D = instance.data
+        assert 'nsg:TraceGeneration' in D["@type"]
+        return cls(D["name"],
+                   KGProxy(PatchClampExperiment, D["stimulus_experiment"]["@id"]),
+                   D["sweep"],
+                   traces=[],
+                   holding_potential=D.get("targetHoldingPotential", None),
+                   id=D["@id"],
+                   instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
-        data = {
-            "@context": self.__class__.context,
-            "@type": self.type
-        }
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
         data["name"] = self.name
         data["sweep"] = self.sweep,
         data["activity"] = {

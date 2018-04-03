@@ -9,14 +9,14 @@ class MINDSObject(KGObject):
     """docstring"""
     context = "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
 
-    def __init__(self, id=None, rev=None, **properties):
+    def __init__(self, id=None, instance=None, **properties):
         for key, value in properties.items():
             if key not in self.property_names:
                 raise TypeError(f"{self.__class__.__name__} got an unexpected keyword argument {key}")
             else:
                 setattr(self, key, value)
         self.id = id
-        self.rev = rev
+        self.instance = instance
 
     def __repr__(self):
         return (f'{self.__class__.__name__}('

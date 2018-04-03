@@ -65,7 +65,8 @@ class KGObject(object, metaclass=Registry):
     def _save(self, data, client, exists_ok=True):
         """docstring"""
         if self.id:
-            raise NotImplementedError("Update not yet implemented")
+            # instance.data should be identical to data at this point
+            self.instance = client.update_instance(self.instance)
         else:
             if self.exists(client):
                 if exists_ok:
@@ -74,7 +75,15 @@ class KGObject(object, metaclass=Registry):
                     raise ResourceExistsError(f"Already exists in the Knowledge Graph: {self!r}")
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
+            self.instance = instance
             KGObject.cache[self.id] = self
+
+    @property
+    def rev(self):
+        if self.instance:
+            return self.instance.data.get("nxv:rev", None)
+        else:
+            return None
 
 
 def cache(f):
@@ -101,6 +110,10 @@ class KGProxy(object):
         else:
             self.cls = cls
         self.id = uri
+
+    @property
+    def type(self):
+        return self.cls.type
     
     def resolve(self, client):
         """docstring"""

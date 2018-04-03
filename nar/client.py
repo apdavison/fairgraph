@@ -72,3 +72,7 @@ class NARClient(object):
         instance = Instance(path, data, Instance.path)
         entity = self._nexus_client.instances.create(instance)
         return entity
+
+    def update_instance(self, instance):
+        instance = self._nexus_client.instances.update(instance)
+        return instance
