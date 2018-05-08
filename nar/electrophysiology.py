@@ -139,12 +139,21 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
 
-    def __init__(self, name, brain_location, collection, cell_type, experiments=None, id=None, instance=None):
+    def __init__(self, name, brain_location, collection, cell_type, experiments=None,
+                 pipette_id=None, seal_resistance=None, pipette_resistance=None,
+                 liquid_junction_potential=None, labeling_compound=None,
+                 reversal_potential_cl=None, id=None, instance=None):
         self.name = name
         self.brain_location = brain_location
         self.collection = collection
         self.cell_type = cell_type
         self.experiments = experiments or []
+        self.pipette_id = pipette_id
+        self.seal_resistance = seal_resistance
+        self.pipette_resistance = pipette_resistance
+        self.liquid_junction_potential = liquid_junction_potential
+        self.labeling_compound = labeling_compound
+        self.reversal_potential_cl = reversal_potential_cl
         self.id = id
         self.instance = instance
     
@@ -233,7 +242,13 @@ class PatchedCell(KGObject):
                    KGQuery(cls.collection_class, collection_filter, prov_context),
                    CellType.from_jsonld(D.get("eType", None)),
                    KGQuery(cls.experiment_class, expt_filter, prov_context),
-                   D["@id"], instance=instance)
+                   pipette_id=D.get("nsg:pipetteNumber", None),
+                   seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
+                   pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
+                   liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
+                   labeling_compound=D.get("nsg:labelingCompound", None),
+                   reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
+                   id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
@@ -250,6 +265,18 @@ class PatchedCell(KGObject):
         }
         if self.cell_type:
             data["eType"] = self.cell_type.to_jsonld()
+        if self.pipette_id:
+            data["nsg:pipetteNumber"] = self.pipette_id
+        if self.seal_resistance:
+            data["nsg:sealResistance"] = self.seal_resistance.to_jsonld()
+        if self.pipette_resistance:
+            data["nsg:pipetteResistance"] = self.pipette_resistance.to_jsonld()
+        if self.liquid_junction_potential:
+            data["nsg:liquidJunctionPotential"] = self.liquid_junction_potential.to_jsonld()
+        if self.labeling_compound:
+            data["nsg:labelingCompound"] = self.labeling_compound
+        if self.reversal_potential_cl:
+            data["nsg:chlorideReversalPotential"] = self.reversal_potential_cl.to_jsonld()
         self._save(data, client, exists_ok)
 
 
