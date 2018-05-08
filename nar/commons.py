@@ -4,7 +4,7 @@
 """
 
 import collections
-from typing import NamedTuple
+#from typing import NamedTuple
 from .base import KGObject, KGProxy
 
 
