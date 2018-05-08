@@ -152,9 +152,10 @@ class Organization(KGObject):
 class Person(KGObject):
     """docstring"""
     path = NAMESPACE + "/core/person/v0.1.0"
-    type = "nsg:Person"
+    type = ["nsg:Person", "prov:Agent"]
     context = {
         "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "familyName": "schema:familyName",
         "givenName": "schema:givenName",
@@ -241,12 +242,13 @@ class Person(KGObject):
 
 
 class Protocol(KGObject):
-    path = NAMESPACE + "/commons/protocol/v0.1.0"
+    path = NAMESPACE + "/core/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name"
+        "name": "schema:name",
+        "prov": "http://www.w3.org/ns/prov#"
     }
 
     def __init__(self, name, steps, materials, author, date_published, identifier, id=None, instance=None):
@@ -307,7 +309,6 @@ class Protocol(KGObject):
                 "@id": self.identifier.id
             }
         self._save(data, client, exists_ok)
-
 
 class Identifier(KGObject):
     path = "nexus/schemaorgsh/identifier/v0.1.0/"

@@ -4,7 +4,11 @@ define client
 
 import json
 import logging
-from urllib.parse import urlparse, quote_plus
+try:
+    from urllib.parse import urlparse, quote_plus
+except ImportError:  # Python 2
+    from urlparse import urlparse
+    from urllib import quote_plus
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
 from .core import Organization
@@ -13,6 +17,7 @@ from .electrophysiology import PatchClampExperiment
 
 CURL_LOGGER = logging.getLogger("curl")
 CURL_LOGGER.setLevel(logging.WARNING)
+logger = logging.getLogger("nar")
 
 
 class NARClient(object):
@@ -26,12 +31,13 @@ class NARClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-    def list(self, cls, from_index=0, size=100):
+    def list(self, cls, from_index=0, size=100, deprecated=False):
         """docstring"""
         instances = []
         query = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
                                                             from_index=from_index,
                                                             size=size,
+                                                            deprecated=deprecated,
                                                             resolved=True)
         instances.extend(query.results)
         next = query.get_next_link()

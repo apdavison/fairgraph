@@ -6,6 +6,8 @@ electrophysiology
 from .base import KGObject, KGProxy, KGQuery, cache, lookup
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
+from .minds import Dataset
+
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "neurosciencegraph"
@@ -30,6 +32,7 @@ class Trace(KGObject):
         "timeStep": "nsg:timeStep",
         "value": "schema:value",
         "unitText": "schema:unitText",
+        "unitCode": "schema:unitCode",
         "qualifiedGeneration": "prov:qualifiedGeneration",
         "wasGeneratedBy": "prov:wasGeneratedBy",
         "distribution": {
@@ -40,10 +43,13 @@ class Trace(KGObject):
             "@type": "@id"},
         "mediaType": {
             "@id": "schema:mediaType"
-        }
+        },
+        "minds": "http://hbp.eu/minds#",
+        "partOf": "nsg:partOf"  # todo: add to nsg
     }
 
-    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit, time_step, id=None, instance=None):
+    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
+                 time_step, part_of=None, id=None, instance=None):
         self.name = name
         self.data_location = data_location
         self.generated_by = generated_by
@@ -51,6 +57,7 @@ class Trace(KGObject):
         self.channel = channel
         self.data_unit = data_unit
         self.time_step = time_step
+        self.part_of = part_of
         self.id = id
         self.instance = instance
 
@@ -65,14 +72,17 @@ class Trace(KGObject):
         D = instance.data
         assert 'nsg:Trace' in D["@type"]
         #  # todo: handle qualifiedGeneration
+        if "partOf" in D:
+            part_of = KGProxy(Dataset, D["partOf"]["@id"])
+        else:
+            part_of = None
         return cls(D["name"], D["distribution"], 
                    KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   D["qualifiedGeneration"]["@id"],
-#                   D["channel"], D["dataUnit"], 
-#                   QuantitativeValue.from_jsonld(D["timeStep"]), 
-                   D["channel"], D["data_unit"], # tmp
-                   QuantitativeValue.from_jsonld(D["time_step"]), # tmp
-                   D["@id"], instance=instance)
+                   KGProxy(QualifiedGeneration, D["qualifiedGeneration"]["@id"]),
+                   D["channel"], D["dataUnit"], 
+                   QuantitativeValue.from_jsonld(D["timeStep"]), 
+                   part_of=part_of,
+                   id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
@@ -98,10 +108,13 @@ class Trace(KGObject):
         if self.data_unit:
             data["dataUnit"] = self.data_unit
         if self.time_step:
-            data["timeStep"] = self.time_step  #.to_jsonld()
+            data["timeStep"] = self.time_step.to_jsonld_alt()
+        if self.part_of:
+            data["partOf"] = {
+                "@type": self.part_of.type,
+                "@id": self.part_of.id
+            }
         self._save(data, client, exists_ok)
-
-
 
 
 class PatchedCell(KGObject):

@@ -97,12 +97,18 @@ class QuantitativeValue(object):
     
     def to_jsonld(self):
         return {
-            "@type": "QuantitativeValue",
+            "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
             "value": self.value,
             "label": self.unit_text,
             "unitCode": {"@id": self.unit_code}
         }
     
+    def to_jsonld_alt(self):
+        return {
+            "value": self.value,
+            "unitText": self.unit_text
+        }
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
