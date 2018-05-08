@@ -9,6 +9,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urlparse
     from urllib import quote_plus
+from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
 from .core import Organization
@@ -27,7 +28,7 @@ class NARClient(object):
         ep = urlparse(nexus_endpoint)
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
-                                         token=token)
+                                         auth_client=AccessTokenClient(token))
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
