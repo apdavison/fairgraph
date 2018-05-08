@@ -12,7 +12,7 @@ class MINDSObject(KGObject):
     def __init__(self, id=None, instance=None, **properties):
         for key, value in properties.items():
             if key not in self.property_names:
-                raise TypeError(f"{self.__class__.__name__} got an unexpected keyword argument {key}")
+                raise TypeError("{self.__class__.__name__} got an unexpected keyword argument {key}".format(self=self))
             else:
                 setattr(self, key, value)
         self.id = id
