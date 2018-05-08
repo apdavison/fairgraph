@@ -20,8 +20,10 @@ class OntologyTerm(object):
         self.iri = iri or self.iri_map[label]
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.label!r}, {self.iri!r})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.label!r}, {self.iri!r})')
+        return ('{self.__class__.__name__}('
+                '{self.label!r}, {self.iri!r})'.format(self=self))
     
     def to_jsonld(self):
         return {'@id': self.iri,
@@ -92,9 +94,11 @@ class QuantitativeValue(object):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.value!r} {self.unit_text!r})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.value!r} {self.unit_text!r})')
+        return ('{self.__class__.__name__}('
+                '{self.value!r} {self.unit_text!r})'.format(self=self))
+
     def to_jsonld(self):
         return {
             "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
@@ -133,9 +137,11 @@ class Age(object):
         self.period = period
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.value!r}, {self.period!r})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.value!r}, {self.period!r})')
+        return ('{self.__class__.__name__}('
+                '{self.value!r}, {self.period!r})'.format(self=self))
+
     def to_jsonld(self):
         return {'value': self.value.to_jsonld(),
                 'period': self.period}

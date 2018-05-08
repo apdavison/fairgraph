@@ -45,9 +45,12 @@ class Subject(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
-                f'{self.age!r}, {self.death_date!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
+        #        f'{self.age!r}, {self.death_date!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
+                '{self.age!r}, {self.death_date!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -108,8 +111,10 @@ class Organization(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.address!r}, {self.parent}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -172,8 +177,10 @@ class Person(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -262,8 +269,10 @@ class Protocol(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.identifier!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.identifier!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.identifier!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache

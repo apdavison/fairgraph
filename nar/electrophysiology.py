@@ -62,9 +62,12 @@ class Trace(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-                f'{self.channel!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
+        #        f'{self.channel!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
+                '{self.channel!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -146,9 +149,12 @@ class PatchedCell(KGObject):
         self.instance = instance
     
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-                f'{self.collection!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
+        #        f'{self.collection!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
+                '{self.collection!r}, {self.id})'.format(self=self))
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -268,8 +274,10 @@ class Slice(KGObject):  # should move to "core" module?
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -353,10 +361,14 @@ class BrainSlicingActivity(KGObject):
         self.instance = instance
     
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
-                f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
-                f'{self.start_time}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
+        #        f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
+        #        f'{self.start_time}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
+                '{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
+                '{self.start_time}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -473,8 +485,10 @@ class PatchedSlice(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.recording_activity!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.recording_activity!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.recording_activity!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -546,9 +560,11 @@ class Collection(KGObject):  # move to core?
         return len(self.cells)
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})'.format(self=self))
+
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
@@ -615,8 +631,10 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -691,8 +709,10 @@ class PatchClampExperiment(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache

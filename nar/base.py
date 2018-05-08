@@ -125,8 +125,10 @@ class KGProxy(object):
             return obj
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.cls!r}, {self.id!r})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.cls!r}, {self.id!r})')
+        return ('{self.__class__.__name__}('
+                '{self.cls!r}, {self.id!r})'.format(self=self))
 
 
 class KGQuery(object):
