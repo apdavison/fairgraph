@@ -203,7 +203,7 @@ class PatchedCell(KGObject):
                 return recorded_cells
             else:
                 raise Exception("The only supported filters are by species, brain region "
-                                f"or cell type. You specified {name}")
+                                "or cell type. You specified {name}".format(name=name))
         return client.list(cls, size=size)
 
     @classmethod

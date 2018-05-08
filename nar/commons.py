@@ -2,15 +2,17 @@
 
 """
 
+import collections
 from typing import NamedTuple
 from .base import KGObject, KGProxy
 
 
-class Address(NamedTuple):
-    locality: str
-    country: str
+#class Address(NamedTuple):
+#    locality: str
+#    country: str
 
-# for Python 2, could use Address = collections.namedtuple('Employee', ['locality', 'country'])
+Address = collections.namedtuple('Address', ['locality', 'country'])
+
 
 class OntologyTerm(object):
     """docstring"""
