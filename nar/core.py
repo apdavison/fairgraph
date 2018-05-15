@@ -319,6 +319,7 @@ class Protocol(KGObject):
             }
         self._save(data, client, exists_ok)
 
+
 class Identifier(KGObject):
     path = "nexus/schemaorgsh/identifier/v0.1.0/"
     type = "schema:Identifier"

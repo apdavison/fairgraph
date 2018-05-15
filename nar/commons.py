@@ -42,7 +42,8 @@ class OntologyTerm(object):
 class Species(OntologyTerm):
     """docstring"""
     iri_map = {
-        "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090"
+        "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+        "Rattus norvegicus": "http://purl.obolibrary.org/obo/NCBITaxon_10116"
     }
 
 
@@ -53,7 +54,8 @@ class Strain(OntologyTerm):
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508"
     }
 
 
@@ -77,6 +79,11 @@ class CellType(OntologyTerm):
     """docstring"""
     iri_map = {
         "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+        "hippocampus CA1 basket cell": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+        "hippocampus interneuron BP": "unknown",
+        "hippocampus CA1 bistratified cell": "unknown",
+        "hippocampus CA1 lacunosum moleculare neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+        "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
     }
 
 
@@ -84,6 +91,7 @@ class QuantitativeValue(object):
     """docstring"""
     unit_codes = {
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
+        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
@@ -92,6 +100,8 @@ class QuantitativeValue(object):
     }
 
     def __init__(self, value, unit_text, unit_code=None):
+        if not isinstance(value, (int, float)):
+            raise ValueError("Must be a number")
         self.value = value
         self.unit_text = unit_text
         self.unit_code = unit_code or self.unit_codes[unit_text]

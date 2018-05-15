@@ -873,7 +873,7 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     recording_activity_class = "IntraCellularSharpElectrodeRecording"
 
 
-class IntraCellularSharpElectrodeExperiment(KGObject):
+class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """docstring"""
     path = NAMESPACE + "/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
     type = ["nsg:StimulusExperiment", "prov:Activity"]

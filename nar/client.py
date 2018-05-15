@@ -81,5 +81,22 @@ class NARClient(object):
         return entity
 
     def update_instance(self, instance):
+        instance.data.pop("links")
+        instance.data.pop("nxv:rev")
+        instance.data.pop("nxv:deprecated")
         instance = self._nexus_client.instances.update(instance)
         return instance
+
+    def by_name(self, cls, name):
+        """Retrieve an object based on the value of schema:name"""
+        context = {"schema": "http://schema.org/"},
+        query_filter = {
+            "path": "schema:name",
+            "op": "eq",
+            "value": name
+        }
+        response = self.filter_query(cls.path, query_filter, context)
+        if response:
+            return cls.from_kg_instance(response[0], self)
+        else:
+            return None
