@@ -140,7 +140,7 @@ class QuantitativeValue(object):
             unit_code = data["unitCode"]["@id"]
         else:
             unit_code = None
-        return cls(data["value"], unit_text, unit_code)
+        return cls(float(data["value"]), unit_text, unit_code)
 
 
 class Age(object):
