@@ -6,6 +6,8 @@ electrophysiology
 from .base import KGObject, KGProxy, KGQuery, cache, lookup
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
+from .minds import Dataset
+
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "neurosciencegraph"
@@ -30,6 +32,7 @@ class Trace(KGObject):
         "timeStep": "nsg:timeStep",
         "value": "schema:value",
         "unitText": "schema:unitText",
+        "unitCode": "schema:unitCode",
         "qualifiedGeneration": "prov:qualifiedGeneration",
         "wasGeneratedBy": "prov:wasGeneratedBy",
         "distribution": {
@@ -40,10 +43,13 @@ class Trace(KGObject):
             "@type": "@id"},
         "mediaType": {
             "@id": "schema:mediaType"
-        }
+        },
+        "minds": "http://hbp.eu/minds#",
+        "partOf": "nsg:partOf"  # todo: add to nsg
     }
 
-    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit, time_step, id=None, instance=None):
+    def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
+                 time_step, part_of=None, id=None, instance=None):
         self.name = name
         self.data_location = data_location
         self.generated_by = generated_by
@@ -51,13 +57,17 @@ class Trace(KGObject):
         self.channel = channel
         self.data_unit = data_unit
         self.time_step = time_step
+        self.part_of = part_of
         self.id = id
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-                f'{self.channel!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
+        #        f'{self.channel!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
+                '{self.channel!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -65,14 +75,17 @@ class Trace(KGObject):
         D = instance.data
         assert 'nsg:Trace' in D["@type"]
         #  # todo: handle qualifiedGeneration
+        if "partOf" in D:
+            part_of = KGProxy(Dataset, D["partOf"]["@id"])
+        else:
+            part_of = None
         return cls(D["name"], D["distribution"], 
                    KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   D["qualifiedGeneration"]["@id"],
-#                   D["channel"], D["dataUnit"], 
-#                   QuantitativeValue.from_jsonld(D["timeStep"]), 
-                   D["channel"], D["data_unit"], # tmp
-                   QuantitativeValue.from_jsonld(D["time_step"]), # tmp
-                   D["@id"], instance=instance)
+                   KGProxy(QualifiedGeneration, D["qualifiedGeneration"]["@id"]),
+                   D["channel"], D["dataUnit"], 
+                   QuantitativeValue.from_jsonld(D["timeStep"]), 
+                   part_of=part_of,
+                   id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
@@ -98,10 +111,13 @@ class Trace(KGObject):
         if self.data_unit:
             data["dataUnit"] = self.data_unit
         if self.time_step:
-            data["timeStep"] = self.time_step  #.to_jsonld()
+            data["timeStep"] = self.time_step.to_jsonld_alt()
+        if self.part_of:
+            data["partOf"] = {
+                "@type": self.part_of.type,
+                "@id": self.part_of.id
+            }
         self._save(data, client, exists_ok)
-
-
 
 
 class PatchedCell(KGObject):
@@ -123,19 +139,31 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
 
-    def __init__(self, name, brain_location, collection, cell_type, experiments=None, id=None, instance=None):
+    def __init__(self, name, brain_location, collection, cell_type, experiments=None,
+                 pipette_id=None, seal_resistance=None, pipette_resistance=None,
+                 liquid_junction_potential=None, labeling_compound=None,
+                 reversal_potential_cl=None, id=None, instance=None):
         self.name = name
         self.brain_location = brain_location
         self.collection = collection
         self.cell_type = cell_type
         self.experiments = experiments or []
+        self.pipette_id = pipette_id
+        self.seal_resistance = seal_resistance
+        self.pipette_resistance = pipette_resistance
+        self.liquid_junction_potential = liquid_junction_potential
+        self.labeling_compound = labeling_compound
+        self.reversal_potential_cl = reversal_potential_cl
         self.id = id
         self.instance = instance
     
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-                f'{self.collection!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
+        #        f'{self.collection!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
+                '{self.collection!r}, {self.id})'.format(self=self))
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -184,7 +212,7 @@ class PatchedCell(KGObject):
                 return recorded_cells
             else:
                 raise Exception("The only supported filters are by species, brain region "
-                                f"or cell type. You specified {name}")
+                                "or cell type. You specified {name}".format(name=name))
         return client.list(cls, size=size)
 
     @classmethod
@@ -214,7 +242,13 @@ class PatchedCell(KGObject):
                    KGQuery(cls.collection_class, collection_filter, prov_context),
                    CellType.from_jsonld(D.get("eType", None)),
                    KGQuery(cls.experiment_class, expt_filter, prov_context),
-                   D["@id"], instance=instance)
+                   pipette_id=D.get("nsg:pipetteNumber", None),
+                   seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
+                   pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
+                   liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
+                   labeling_compound=D.get("nsg:labelingCompound", None),
+                   reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
+                   id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
         """docstring"""
@@ -231,6 +265,18 @@ class PatchedCell(KGObject):
         }
         if self.cell_type:
             data["eType"] = self.cell_type.to_jsonld()
+        if self.pipette_id:
+            data["nsg:pipetteNumber"] = self.pipette_id
+        if self.seal_resistance:
+            data["nsg:sealResistance"] = self.seal_resistance.to_jsonld()
+        if self.pipette_resistance:
+            data["nsg:pipetteResistance"] = self.pipette_resistance.to_jsonld()
+        if self.liquid_junction_potential:
+            data["nsg:liquidJunctionPotential"] = self.liquid_junction_potential.to_jsonld()
+        if self.labeling_compound:
+            data["nsg:labelingCompound"] = self.labeling_compound
+        if self.reversal_potential_cl:
+            data["nsg:chlorideReversalPotential"] = self.reversal_potential_cl.to_jsonld()
         self._save(data, client, exists_ok)
 
 
@@ -255,8 +301,10 @@ class Slice(KGObject):  # should move to "core" module?
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -340,10 +388,14 @@ class BrainSlicingActivity(KGObject):
         self.instance = instance
     
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
-                f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
-                f'{self.start_time}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
+        #        f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
+        #        f'{self.start_time}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
+                '{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
+                '{self.start_time}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -460,8 +512,10 @@ class PatchedSlice(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.recording_activity!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.recording_activity!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.recording_activity!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -533,9 +587,11 @@ class Collection(KGObject):  # move to core?
         return len(self.cells)
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})'.format(self=self))
+
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
@@ -602,8 +658,10 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -678,8 +736,10 @@ class PatchClampExperiment(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -813,7 +873,7 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     recording_activity_class = "IntraCellularSharpElectrodeRecording"
 
 
-class IntraCellularSharpElectrodeExperiment(KGObject):
+class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """docstring"""
     path = NAMESPACE + "/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
     type = ["nsg:StimulusExperiment", "prov:Activity"]

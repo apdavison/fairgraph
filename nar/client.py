@@ -4,7 +4,12 @@ define client
 
 import json
 import logging
-from urllib.parse import urlparse, quote_plus
+try:
+    from urllib.parse import urlparse, quote_plus
+except ImportError:  # Python 2
+    from urlparse import urlparse
+    from urllib import quote_plus
+from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
 from .core import Organization
@@ -13,6 +18,7 @@ from .electrophysiology import PatchClampExperiment
 
 CURL_LOGGER = logging.getLogger("curl")
 CURL_LOGGER.setLevel(logging.WARNING)
+logger = logging.getLogger("nar")
 
 
 class NARClient(object):
@@ -22,16 +28,17 @@ class NARClient(object):
         ep = urlparse(nexus_endpoint)
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
-                                         token=token)
+                                         auth_client=AccessTokenClient(token))
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-    def list(self, cls, from_index=0, size=100):
+    def list(self, cls, from_index=0, size=100, deprecated=False):
         """docstring"""
         instances = []
         query = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
                                                             from_index=from_index,
                                                             size=size,
+                                                            deprecated=deprecated,
                                                             resolved=True)
         instances.extend(query.results)
         next = query.get_next_link()
@@ -74,5 +81,22 @@ class NARClient(object):
         return entity
 
     def update_instance(self, instance):
+        instance.data.pop("links")
+        instance.data.pop("nxv:rev")
+        instance.data.pop("nxv:deprecated")
         instance = self._nexus_client.instances.update(instance)
         return instance
+
+    def by_name(self, cls, name):
+        """Retrieve an object based on the value of schema:name"""
+        context = {"schema": "http://schema.org/"},
+        query_filter = {
+            "path": "schema:name",
+            "op": "eq",
+            "value": name
+        }
+        response = self.filter_query(cls.path, query_filter, context)
+        if response:
+            return cls.from_kg_instance(response[0], self)
+        else:
+            return None

@@ -45,9 +45,12 @@ class Subject(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
-                f'{self.age!r}, {self.death_date!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
+        #        f'{self.age!r}, {self.death_date!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
+                '{self.age!r}, {self.death_date!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -108,8 +111,10 @@ class Organization(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.address!r}, {self.parent}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -152,9 +157,10 @@ class Organization(KGObject):
 class Person(KGObject):
     """docstring"""
     path = NAMESPACE + "/core/person/v0.1.0"
-    type = "nsg:Person"
+    type = ["nsg:Person", "prov:Agent"]
     context = {
         "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "familyName": "schema:familyName",
         "givenName": "schema:givenName",
@@ -171,8 +177,10 @@ class Person(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
@@ -241,12 +249,13 @@ class Person(KGObject):
 
 
 class Protocol(KGObject):
-    path = NAMESPACE + "/commons/protocol/v0.1.0"
+    path = NAMESPACE + "/core/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name"
+        "name": "schema:name",
+        "prov": "http://www.w3.org/ns/prov#"
     }
 
     def __init__(self, name, steps, materials, author, date_published, identifier, id=None, instance=None):
@@ -260,8 +269,10 @@ class Protocol(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.identifier!r}, {self.id})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.identifier!r}, {self.id})')
+        return ('{self.__class__.__name__}('
+                '{self.identifier!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache

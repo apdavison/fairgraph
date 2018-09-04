@@ -2,8 +2,14 @@
 
 """
 
+import sys
 from functools import wraps
+import logging
+from six import with_metaclass
 from .errors import ResourceExistsError
+
+
+logger = logging.getLogger("nar")
 
 
 registry = {}
@@ -26,7 +32,8 @@ class Registry(type):
         return cls
 
 
-class KGObject(object, metaclass=Registry):
+#class KGObject(object, metaclass=Registry):
+class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     cache = {}
 
@@ -67,12 +74,14 @@ class KGObject(object, metaclass=Registry):
         if self.id:
             # instance.data should be identical to data at this point
             self.instance = client.update_instance(self.instance)
+            logger.info("Updating {self.instance.id}".format(self=self))
         else:
             if self.exists(client):
                 if exists_ok:
+                    logger.info("Not updating {self.__class__.__name__}, already exists".format(self=self))
                     return
                 else:
-                    raise ResourceExistsError(f"Already exists in the Knowledge Graph: {self!r}")
+                    raise ResourceExistsError("Already exists in the Knowledge Graph: {self!r}".format(self=self))
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
@@ -125,8 +134,10 @@ class KGProxy(object):
             return obj
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.cls!r}, {self.id!r})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.cls!r}, {self.id!r})')
+        return ('{self.__class__.__name__}('
+                '{self.cls!r}, {self.id!r})'.format(self=self))
 
 
 class KGQuery(object):

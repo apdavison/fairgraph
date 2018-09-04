@@ -1,16 +1,19 @@
+# encoding: utf-8
 """
 
 """
 
-from typing import NamedTuple
+import collections
+#from typing import NamedTuple
 from .base import KGObject, KGProxy
 
 
-class Address(NamedTuple):
-    locality: str
-    country: str
+#class Address(NamedTuple):
+#    locality: str
+#    country: str
 
-# for Python 2, could use Address = collections.namedtuple('Employee', ['locality', 'country'])
+Address = collections.namedtuple('Address', ['locality', 'country'])
+
 
 class OntologyTerm(object):
     """docstring"""
@@ -20,8 +23,10 @@ class OntologyTerm(object):
         self.iri = iri or self.iri_map[label]
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.label!r}, {self.iri!r})')
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.label!r}, {self.iri!r})')
+        return ('{self.__class__.__name__}('
+                '{self.label!r}, {self.iri!r})'.format(self=self))
     
     def to_jsonld(self):
         return {'@id': self.iri,
@@ -37,7 +42,8 @@ class OntologyTerm(object):
 class Species(OntologyTerm):
     """docstring"""
     iri_map = {
-        "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090"
+        "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+        "Rattus norvegicus": "http://purl.obolibrary.org/obo/NCBITaxon_10116"
     }
 
 
@@ -48,7 +54,8 @@ class Strain(OntologyTerm):
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508"
     }
 
 
@@ -72,6 +79,11 @@ class CellType(OntologyTerm):
     """docstring"""
     iri_map = {
         "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+        "hippocampus CA1 basket cell": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+        "hippocampus interneuron BP": "unknown",
+        "hippocampus CA1 bistratified cell": "unknown",
+        "hippocampus CA1 lacunosum moleculare neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+        "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
     }
 
 
@@ -79,6 +91,7 @@ class QuantitativeValue(object):
     """docstring"""
     unit_codes = {
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
+        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
@@ -87,22 +100,32 @@ class QuantitativeValue(object):
     }
 
     def __init__(self, value, unit_text, unit_code=None):
+        if not isinstance(value, (int, float)):
+            raise ValueError("Must be a number")
         self.value = value
         self.unit_text = unit_text
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.value!r} {self.unit_text!r})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.value!r} {self.unit_text!r})')
+        return ('{self.__class__.__name__}('
+                '{self.value!r} {self.unit_text!r})'.format(self=self))
+
     def to_jsonld(self):
         return {
-            "@type": "QuantitativeValue",
+            "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
             "value": self.value,
             "label": self.unit_text,
             "unitCode": {"@id": self.unit_code}
         }
     
+    def to_jsonld_alt(self):
+        return {
+            "value": self.value,
+            "unitText": self.unit_text
+        }
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
@@ -117,7 +140,7 @@ class QuantitativeValue(object):
             unit_code = data["unitCode"]["@id"]
         else:
             unit_code = None
-        return cls(data["value"], unit_text, unit_code)
+        return cls(float(data["value"]), unit_text, unit_code)
 
 
 class Age(object):
@@ -127,9 +150,11 @@ class Age(object):
         self.period = period
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}('
-                f'{self.value!r}, {self.period!r})')
-    
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.value!r}, {self.period!r})')
+        return ('{self.__class__.__name__}('
+                '{self.value!r}, {self.period!r})'.format(self=self))
+
     def to_jsonld(self):
         return {'value': self.value.to_jsonld(),
                 'period': self.period}
