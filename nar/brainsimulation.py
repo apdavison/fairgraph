@@ -2,20 +2,18 @@
 brain simulation
 """
 
-from .base import KGObject, cache  # KGProxy, KGQuery, lookup
-# from .commons import QuantitativeValue, BrainRegion, CellType
-# from .core import Subject, Person
-# from .minds import Dataset
+from .base import KGObject, cache, KGProxy
+from .commons import BrainRegion, CellType, Species, AbstractionLevel
+from .core import Organization, Person
+import datetime
 
 
 NAMESPACE = "neuralactivity"
-# NAMESPACE = "neurosciencegraph"
-# NAMESPACE = "brainsimulation"
 
 
 class ModelProject(KGObject):
     """docstring"""
-    path = NAMESPACE + "neuralactivity/simulation/modelproject/v0.1.0"
+    path = NAMESPACE + "/simulation/modelproject/v0.1.0"
     type = ["prov:Entity", "nsg:ModelProject"]
 
     context = {
@@ -39,8 +37,9 @@ class ModelProject(KGObject):
         "dateCreated": "schema:dateCreated",
     }
 
-    def __init__(self, name, alias, author, owner, organization, pla_components, private, collab_id, brain_region,
-                 species, celltype, abstraction_level, description, date_created, model_of=None):
+    def __init__(self, name, owner, author, description, date_created, private, collab_id, alias=None,
+                 organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
+                 abstraction_level=None, model_of=None, id=None, instance=None):
         self.name = name
         self.alias = alias
         self.brain_region = brain_region
@@ -56,36 +55,30 @@ class ModelProject(KGObject):
         self.PLA_components = pla_components
         self.date_created = date_created
         self.model_of = model_of
+        self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.name!r}, {self.owner!r}, '
-                '{self.date_created!r})'.format(self=self))
+                '{self.date_created!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
-        pass
-        """
         D = instance.data
         assert 'nsg:ModelProject' in D["@type"]
-        #  # todo: handle qualifiedGeneration
-        if "modelOf" in D:
-            model_of = KGProxy(Dataset, D["modelOf"]["@id"])
-        else:
-            model_of = None
-        return cls(D["name"], D["distribution"],
-                   KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   KGProxy(QualifiedGeneration, D["qualifiedGeneration"]["@id"]),
-                   D["channel"], D["dataUnit"],
-                   QuantitativeValue.from_jsonld(D["timeStep"]),
-                   model_of=model_of,
+        return cls(name=D["name"], owner=KGProxy(Person, D["owner"]), author=KGProxy(Person, D["author"]),
+                   collab_id=D["collabID"], description=D["description"], private=D["private"],
+                   date_created=D["dateCreated"], organization=KGProxy(Organization, D.get("organization", None)),
+                   pla_components=D.get("PLAComponents", None), alias=D.get("alias", None),
+                   model_of=D.get("modelOf", None), brain_region=BrainRegion.from_jsonld(D.get("brainRegion", None)),
+                   species=Species.from_jsonld(D.get("species", None)),
+                   celltype=CellType.from_jsonld(D.get("celltype", None)),
+                   abstraction_level=AbstractionLevel.from_jsonld(D.get("abstractionLevel", None)),
                    id=D["@id"], instance=instance)
-        """
 
     def save(self, client, exists_ok=True):
-        pass
-        """
         if self.instance:
             data = self.instance.data
         else:
@@ -93,27 +86,47 @@ class ModelProject(KGObject):
                 "@context": self.context,
                 "@type": self.type
             }
-        data["name"] = self.name
-        data["distribution"] = self.data_location
-        data["wasGeneratedBy"] = {
-            "@type": self.generated_by.type,
-            "@id": self.generated_by.id
-        }
-        data["qualifiedGeneration"] = {
-            "@type": self.generation_metadata.type,
-            "@id": self.generation_metadata.id
-        }
-        if self.channel is not None:  # could be 0, which is a valid value, but falsy
-            data["channel"] = self.channel
-        if self.data_unit:
-            data["dataUnit"] = self.data_unit
-        if self.time_step:
-            data["timeStep"] = self.time_step.to_jsonld_alt()
-        if self.model_of:
-            data["partOf"] = {
-                "@type": self.model_of.type,
-                "@id": self.model_of.id
+        if self.author:
+            if self.author.id is None:
+                self.author.save(client)
+            data["author"] = {
+                "@type": self.author.type,
+                "@id": self.author.id
             }
+        if self.owner:
+            if self.owner.id is None:
+                self.owner.save(client)
+            data["owner"] = {
+                "@type": self.owner.type,
+                "@id": self.owner.id
+            }
+        data["name"] = self.name
+        data["collabID"] = self.collab_id
+        data["description"] = self.description
+        data["private"] = self.private
+        if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
+            data["dateCreated"] = self.date_created.strftime("%d/%m/%y, %I:%M")
+        else:
+            data["dateCreated"] = self.date_created
+        if self.organization is not None:
+            if self.organization.id is None:
+                self.organization.save(client)
+            data["organization"] = {
+                "@type": self.organization.type,
+                "@id": self.organization.id
+            }
+        if self.PLA_components is not None:
+            data["PLAComponents"] = self.PLA_components
+        if self.alias is not None:
+            data["alias"] = self.alias
+        if self.model_of is not None:
+            data["modelOf"] = self.model_of
+        if self.brain_region is not None:
+            data["brainRegion"] = self.brain_region.to_jsonld()
+        if self.species is not None:
+            data["species"] = self.species.to_jsonld()
+        if self.celltype is not None:
+            data["celltype"] = self.celltype.to_jsonld()
+        if self.abstraction_level is not None:
+            data["abstractionLevel"] = self.abstraction_level.to_jsonld()
         self._save(data, client, exists_ok)
-        """
-
