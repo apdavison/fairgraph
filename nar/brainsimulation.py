@@ -37,7 +37,7 @@ class ModelProject(KGObject):
         "dateCreated": "schema:dateCreated",
     }
 
-    def __init__(self, name, owner, author, description, date_created, private, collab_id, alias=None,
+    def __init__(self, name, owner, people, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
                  abstraction_level=None, model_of=None, id=None, instance=None):
         self.name = name
@@ -48,7 +48,7 @@ class ModelProject(KGObject):
         self.organization = organization
         self.abstraction_level = abstraction_level
         self.private = private
-        self.author = author
+        self.people = people
         self.owner = owner
         self.description = description
         self.collab_id = collab_id
@@ -68,14 +68,20 @@ class ModelProject(KGObject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:ModelProject' in D["@type"]
-        return cls(name=D["name"], owner=KGProxy(Person, D["owner"]), author=KGProxy(Person, D["author"]),
+        return cls(name=D["name"], owner=KGProxy(Person, D["owner"]),
+                   people=[KGProxy(Person, author_uri["@id"])
+                           for author_uri in D["author"]],
                    collab_id=D["collabID"], description=D["description"], private=D["private"],
-                   date_created=D["dateCreated"], organization=KGProxy(Organization, D.get("organization", None)),
-                   pla_components=D.get("PLAComponents", None), alias=D.get("alias", None),
-                   model_of=D.get("modelOf", None), brain_region=BrainRegion.from_jsonld(D.get("brainRegion", None)),
-                   species=Species.from_jsonld(D.get("species", None)),
-                   celltype=CellType.from_jsonld(D.get("celltype", None)),
-                   abstraction_level=AbstractionLevel.from_jsonld(D.get("abstractionLevel", None)),
+                   date_created=D["dateCreated"],
+                   organization=[KGProxy(Organization, org_uri["@id"])
+                                 for org_uri in D["organization"]],
+                   pla_components=D.get("PLAComponents", None),
+                   alias=D.get("alias", None),
+                   model_of=D.get("modelOf", None),
+                   brain_region=[BrainRegion.from_jsonld(br) for br in D["brainRegion"]],
+                   species=[Species.from_jsonld(s) for s in D["species"]],
+                   celltype=[CellType.from_jsonld(ct) for ct in D["celltype"]],
+                   abstraction_level=[AbstractionLevel.from_jsonld(al) for al in D["abstractionLevel"]],
                    id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):
@@ -86,13 +92,13 @@ class ModelProject(KGObject):
                 "@context": self.context,
                 "@type": self.type
             }
-        if self.author:
-            if self.author.id is None:
-                self.author.save(client)
-            data["author"] = {
-                "@type": self.author.type,
-                "@id": self.author.id
-            }
+        if self.people:
+            data["author"] = [
+                {
+                    "@type": person.type,
+                    "@id": person.id
+                } for person in self.people
+            ]
         if self.owner:
             if self.owner.id is None:
                 self.owner.save(client)
@@ -109,12 +115,12 @@ class ModelProject(KGObject):
         else:
             data["dateCreated"] = self.date_created
         if self.organization is not None:
-            if self.organization.id is None:
-                self.organization.save(client)
-            data["organization"] = {
-                "@type": self.organization.type,
-                "@id": self.organization.id
-            }
+            data["organization"] = [
+                {
+                    "@type": org.type,
+                    "@id": org.id,
+                } for org in self.organization
+             ]
         if self.PLA_components is not None:
             data["PLAComponents"] = self.PLA_components
         if self.alias is not None:
@@ -122,11 +128,31 @@ class ModelProject(KGObject):
         if self.model_of is not None:
             data["modelOf"] = self.model_of
         if self.brain_region is not None:
-            data["brainRegion"] = self.brain_region.to_jsonld()
+            data["brainRegion"] = [
+                {
+                    "@id": br.iri,
+                    "label": br.label,
+                } for br in self.brain_region
+             ]
         if self.species is not None:
-            data["species"] = self.species.to_jsonld()
+            data["species"] = [
+                {
+                    "@id": s.iri,
+                    "label": s.label,
+                } for s in self.species
+             ]
         if self.celltype is not None:
-            data["celltype"] = self.celltype.to_jsonld()
+            data["celltype"] = [
+                {
+                    "@id": ct.iri,
+                    "label": ct.label,
+                } for ct in self.celltype
+             ]
         if self.abstraction_level is not None:
-            data["abstractionLevel"] = self.abstraction_level.to_jsonld()
+            data["abstractionLevel"] = [
+                {
+                    "@id": al.iri,
+                    "label": al.label,
+                } for al in self.abstraction_level
+             ]
         self._save(data, client, exists_ok)
