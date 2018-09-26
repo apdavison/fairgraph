@@ -37,7 +37,7 @@ class ModelProject(KGObject):
         "dateCreated": "schema:dateCreated",
     }
 
-    def __init__(self, name, owner, people, description, date_created, private, collab_id, alias=None,
+    def __init__(self, name, owner, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
                  abstraction_level=None, model_of=None, id=None, instance=None):
         self.name = name
@@ -48,7 +48,7 @@ class ModelProject(KGObject):
         self.organization = organization
         self.abstraction_level = abstraction_level
         self.private = private
-        self.people = people
+        self.authors = authors
         self.owner = owner
         self.description = description
         self.collab_id = collab_id
@@ -69,7 +69,7 @@ class ModelProject(KGObject):
         D = instance.data
         assert 'nsg:ModelProject' in D["@type"]
         return cls(name=D["name"], owner=KGProxy(Person, D["owner"]),
-                   people=[KGProxy(Person, author_uri["@id"])
+                   authors=[KGProxy(Person, author_uri["@id"])
                            for author_uri in D["author"]],
                    collab_id=D["collabID"], description=D["description"], private=D["private"],
                    date_created=D["dateCreated"],
@@ -92,12 +92,12 @@ class ModelProject(KGObject):
                 "@context": self.context,
                 "@type": self.type
             }
-        if self.people:
+        if self.authors:
             data["author"] = [
                 {
                     "@type": person.type,
                     "@id": person.id
-                } for person in self.people
+                } for person in self.authors
             ]
         if self.owner:
             if self.owner.id is None:
