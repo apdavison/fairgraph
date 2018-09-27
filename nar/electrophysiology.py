@@ -79,11 +79,11 @@ class Trace(KGObject):
             part_of = KGProxy(Dataset, D["partOf"]["@id"])
         else:
             part_of = None
-        return cls(D["name"], D["distribution"], 
+        return cls(D["name"], D["distribution"],
                    KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
                    KGProxy(QualifiedGeneration, D["qualifiedGeneration"]["@id"]),
-                   D["channel"], D["dataUnit"], 
-                   QuantitativeValue.from_jsonld(D["timeStep"]), 
+                   D["channel"], D["dataUnit"],
+                   QuantitativeValue.from_jsonld(D["timeStep"]),
                    part_of=part_of,
                    id=D["@id"], instance=instance)
 
@@ -156,7 +156,7 @@ class PatchedCell(KGObject):
         self.reversal_potential_cl = reversal_potential_cl
         self.id = id
         self.instance = instance
-    
+
     def __repr__(self):
         #return (f'{self.__class__.__name__}('
         #        f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
@@ -173,7 +173,7 @@ class PatchedCell(KGObject):
         for name, value in filters.items():
             if name == "species":
                 query = {
-                    'path': 'prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',   
+                    'path': 'prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
                     'op': 'eq',
                     'value': value.iri
                 }
@@ -229,7 +229,7 @@ class PatchedCell(KGObject):
             "op": "in",
             "value": [instance.data["@id"]]
         }
-        
+
         # get any experiments performed on the cell
         expt_filter = {
             "path": "prov:used",
@@ -372,7 +372,7 @@ class BrainSlicingActivity(KGObject):
         "slicingAngle": "nsg:slicingAngle",
         "cuttingThickness": "nsg:cuttingThickness"
     }
-    
+
     def __init__(self, subject, slices, brain_location, slicing_plane, slicing_angle,
                  cutting_solution, cutting_thickness, start_time, people, id=None, instance=None):
         self.subject = subject
@@ -386,7 +386,7 @@ class BrainSlicingActivity(KGObject):
         self.people = people
         self.id = id
         self.instance = instance
-    
+
     def __repr__(self):
         #return (f'{self.__class__.__name__}('
         #        f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
@@ -403,7 +403,7 @@ class BrainSlicingActivity(KGObject):
         D = instance.data
         assert 'nsg:BrainSlicing' in D["@type"]
         obj = cls(subject=KGProxy(Subject, D["used"]["@id"]),
-                  slices=[KGProxy(Slice, slice_uri["@id"]) 
+                  slices=[KGProxy(Slice, slice_uri["@id"])
                           for slice_uri in D["generated"]],
                   brain_location=BrainRegion.from_jsonld(D["brainLocation"]["brainRegion"]),
                   slicing_plane=D["slicingPlane"],
@@ -411,7 +411,7 @@ class BrainSlicingActivity(KGObject):
                   cutting_solution=D.get("solution", None),
                   cutting_thickness=QuantitativeValue.from_jsonld(D["cuttingThickness"]),
                   start_time=D.get("startedAtTime", None),
-                  people=[KGProxy(Person, person_uri["@id"]) 
+                  people=[KGProxy(Person, person_uri["@id"])
                           for person_uri in D["wasAssociatedWith"]],
                   id=D["@id"],
                   instance=instance)
@@ -532,10 +532,10 @@ class PatchedSlice(KGObject):
         }
         context={"prov": "http://www.w3.org/ns/prov#"}
 
-        return cls(D["name"], 
+        return cls(D["name"],
                    slice=KGProxy(Slice, D["wasRevisionOf"]["@id"]),
                    recorded_cells=KGProxy(cls.collection_class, D["hasPart"]["@id"]),
-                   recording_activity=KGQuery(cls.recording_activity_class, recording_activity_filter, context), 
+                   recording_activity=KGQuery(cls.recording_activity_class, recording_activity_filter, context),
                    id=D["@id"],
                    instance=instance)
 
@@ -609,10 +609,10 @@ class Collection(KGObject):  # move to core?
         }
         context = {"nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
 
-        return cls(name=D["name"], 
-                   slice=KGQuery(cls.recorded_from_class, recorded_slice_filter, context), 
+        return cls(name=D["name"],
+                   slice=KGQuery(cls.recorded_from_class, recorded_slice_filter, context),
                    cells=[KGProxy(cls.member_class, member_uri["@id"])
-                          for member_uri in D["hadMember"]], 
+                          for member_uri in D["hadMember"]],
                    id=D["@id"],
                    instance=instance)
 
@@ -672,13 +672,13 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         D = instance.data
         for otype in cls.type:
             assert otype in D["@type"]
-                                            
-        return cls(name=D["name"], 
-                   slice=KGProxy(Slice, D["used"]["@id"]), 
+
+        return cls(name=D["name"],
+                   slice=KGProxy(Slice, D["used"]["@id"]),
                    recorded_slice=KGProxy(cls.generates_class, D["generated"]["@id"]),
-                   protocol=D["protocol"], 
+                   protocol=D["protocol"],
                    people=[KGProxy(Person, person_uri["@id"])
-                           for person_uri in D["wasAssociatedWith"]], 
+                           for person_uri in D["wasAssociatedWith"]],
                    id=D["@id"],
                    instance=instance)
 
@@ -723,10 +723,11 @@ class PatchClampExperiment(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
         "label": "rdfs:label"
     }
     recorded_cell_class = "PatchedCell"
-    
+
     def __init__(self, name, recorded_cell, stimulus, traces, id=None, instance=None):
         self.name = name
         self.recorded_cell = recorded_cell
@@ -749,7 +750,7 @@ class PatchClampExperiment(KGObject):
         """
         D = instance.data
         assert 'nsg:StimulusExperiment' in D["@type"]
-        
+
         # get the recorded traces
         traces_filter = {
             "path": "prov:wasGeneratedBy",
@@ -758,14 +759,14 @@ class PatchClampExperiment(KGObject):
         }
         context = {"prov": "http://www.w3.org/ns/prov#"}
 
-        return cls(name=D["name"], #name=D["schema:name"], 
+        return cls(name=D["name"], #name=D["schema:name"],
                    #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
                    recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
                    stimulus=D["nsg:stimulus"],
                    traces=KGQuery(Trace, traces_filter, context),
                    id=D["@id"],
                    instance=instance)
-    
+
     def save(self, client, exists_ok=True):
         """docstring"""
         if self.instance:
@@ -781,7 +782,7 @@ class PatchClampExperiment(KGObject):
             "@id": self.recorded_cell.id
         }
         data["nsg:stimulus"] = self.stimulus
-        # todo: save traces if they haven't been already    
+        # todo: save traces if they haven't been already
         self._save(data, client, exists_ok)
 
 

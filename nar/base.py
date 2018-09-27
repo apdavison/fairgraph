@@ -78,7 +78,7 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             if self.exists(client):
                 if exists_ok:
-                    logger.info("Not updating {self.__class__.__name__}, already exists".format(self=self))
+                    logger.info("Not updating {self.__class__.__name__}, already exists (id={self.id})".format(self=self))
                     return
                 else:
                     raise ResourceExistsError("Already exists in the Knowledge Graph: {self!r}".format(self=self))
@@ -123,7 +123,7 @@ class KGProxy(object):
     @property
     def type(self):
         return self.cls.type
-    
+
     def resolve(self, client):
         """docstring"""
         if self.id in KGObject.cache:
