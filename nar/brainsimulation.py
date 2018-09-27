@@ -115,12 +115,20 @@ class ModelProject(KGObject):
         else:
             data["dateCreated"] = self.date_created
         if self.organization is not None:
-            data["organization"] = [
-                {
-                    "@type": org.type,
-                    "@id": org.id,
-                } for org in self.organization
-             ]
+            if isinstance(self.organization, list):
+                data["organization"] = [
+                    {
+                        "@type": org.type,
+                        "@id": org.id,
+                    } for org in self.organization
+                 ]
+            else:
+                if self.organization.id is None:
+                    self.organization.save(client)
+                data["organization"] = {
+                    "@type": self.organization.type,
+                    "@id": self.organization.id
+                }
         if self.PLA_components is not None:
             data["PLAComponents"] = self.PLA_components
         if self.alias is not None:
@@ -128,31 +136,23 @@ class ModelProject(KGObject):
         if self.model_of is not None:
             data["modelOf"] = self.model_of
         if self.brain_region is not None:
-            data["brainRegion"] = [
-                {
-                    "@id": br.iri,
-                    "label": br.label,
-                } for br in self.brain_region
-             ]
+            if isinstance(self.brain_region, list):
+                data["brainRegion"] = [br.to_jsonld() for br in self.brain_region]
+            else:
+                data["brainRegion"] = self.brain_region.to_jsonld()
         if self.species is not None:
-            data["species"] = [
-                {
-                    "@id": s.iri,
-                    "label": s.label,
-                } for s in self.species
-             ]
+            if isinstance(self.species, list):
+                data["species"] = [s.to_jsonld() for s in self.species]
+            else:
+                data["species"] = self.species.to_jsonld()
         if self.celltype is not None:
-            data["celltype"] = [
-                {
-                    "@id": ct.iri,
-                    "label": ct.label,
-                } for ct in self.celltype
-             ]
+            if isinstance(self.celltype, list):
+                data["celltype"] = [ct.to_jsonld() for ct in self.celltype]
+            else:
+                data["celltype"] = self.celltype.to_jsonld()
         if self.abstraction_level is not None:
-            data["abstractionLevel"] = [
-                {
-                    "@id": al.iri,
-                    "label": al.label,
-                } for al in self.abstraction_level
-             ]
+            if isinstance(self.abstraction_level, list):
+                data["abstractionLevel"] = [al.to_jsonld() for al in self.abstraction_level]
+            else:
+                data["abstractionLevel"] = self.abstraction_level.to_jsonld()
         self._save(data, client, exists_ok)
