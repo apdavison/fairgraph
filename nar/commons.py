@@ -86,8 +86,7 @@ class BrainRegion(OntologyTerm):
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
         "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
-        "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "other": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
 
 
@@ -103,7 +102,7 @@ class CellType(OntologyTerm):
         "Purkinje cell": "http://purl.obolibrary.org/obo/CL_0000121",
         "medium spiny neuron": "http://purl.obolibrary.org/obo/CL_1001474",
         "interneuron": "http://purl.obolibrary.org/obo/CL_0000099",
-        "golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
+        "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
         "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
         "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
         "L2/3 chandelier cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
@@ -113,33 +112,31 @@ class CellType(OntologyTerm):
         "L2/3 pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "L6 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L4 martinotti cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "L4 Martinotti cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "cholinergic interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "L1 neurogliaform cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "L2 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "not applicable": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "other": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "not applicable": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
 
 
 class AbstractionLevel(OntologyTerm):
     """docstring"""
     iri_map = {
-        "Protein structure": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Systems biology": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_continuous": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_discrete": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_flux balance": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Spiking neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_biophysical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_point neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Rate neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Population modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_neural field": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "_neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Other - please specify": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "protein structure": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology: continuous": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology: discrete": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology: flux balance": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "spiking neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "spiking neurons: biophysical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "spiking neurons: point neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "rate neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "population modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
 
 
