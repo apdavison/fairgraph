@@ -14,7 +14,7 @@ class MINDSObject(KGObject):
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "prov": "http://www.w3.org/ns/prov#",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "minds": 'http://hbp.eu/minds#'
+            "minds": 'https://schema.hbp.eu/'
         }
     ]
 
@@ -43,6 +43,8 @@ class MINDSObject(KGObject):
         for key, value in D.items():
             if key.startswith('http://hbp.eu/minds'):
                 name = key.split("#")[1]
+            elif key.startswith('https://schema.hbp.eu/minds/'):
+                name = key.split('https://schema.hbp.eu/minds/')[1]
             elif key.startswith('http://schema.org/'):
                 name = key.split('http://schema.org/')[1]
             elif key in ("http://www.w3.org/ns/prov#qualifiedAssociation", "prov:qualifiedAssociation"):
@@ -56,6 +58,10 @@ class MINDSObject(KGObject):
                     if isinstance(value, list):
                         data[name] = [KGProxy(obj_types[name], item["@id"])
                                       for item in value]
+                    elif "@list" in value:
+                        assert len(value) == 1
+                        data[name] = [KGProxy(obj_types[name], item["@id"])
+                                      for item in value['@list']]
                     else:
                         data[name] = KGProxy(obj_types[name], value["@id"])
                 else:
@@ -81,7 +87,7 @@ class MINDSObject(KGObject):
                 elif property_name == "associated_with":
                     property_url = "http://www.w3.org/ns/prov#qualifiedAssociation"
                 else:
-                    property_url = "http://hbp.eu/minds#" + property_name
+                    property_url = "https://schema.hbp.eu/" + property_name
 
                 value = getattr(self, property_name)
                 if isinstance(value, (str, int, float)):  # todo: extend with other simple types
@@ -103,8 +109,8 @@ class MINDSObject(KGObject):
 
 class Dataset(MINDSObject):
     """docstring"""
-    path = "minds/core/dataset/v0.0.4"
-    #type = ["http://hbp.eu/minds#Dataset"]
+    path = "minds/core/dataset/v1.0.0"
+    #type = ["https://schema.hbp.eu/Dataset"]
     type = ["minds:Dataset"]
     property_names = ["activity", "component", "contributors", "created_at", "datalink", 
                       "embargo_status", "formats", "license", "owners", "parcellation",
@@ -114,8 +120,8 @@ class Dataset(MINDSObject):
 
 class Activity(MINDSObject):
     """docstring"""
-    path = "minds/core/dataset/v0.0.4"
-    #type = ["http://hbp.eu/minds#Activity"]
+    path = "minds/core/dataset/v1.0.0"
+    #type = ["https://schema.hbp.eu/Activity"]
     type = ["minds:Activity"]
     property_names = ["created_at", "ethics", "methods", "preparation", "protocols",
                       "description", "name", "associated_with"]
@@ -123,15 +129,15 @@ class Activity(MINDSObject):
 
 class Method(MINDSObject):
     """docstring"""
-    path = "minds/experiment/method/v0.0.4"
-    #type = ["http://hbp.eu/minds#ExperimentMethod"]
+    path = "minds/experiment/method/v1.0.0"
+    #type = ["https://schema.hbp.eu/ExperimentMethod"]
     type = ["minds:ExperimentMethod"]
     property_names = ["name", "associated_with"]
 
 
 class SpecimenGroup(MINDSObject):
     """docstring"""
-    path = "minds/core/specimengroup/v0.0.4"
+    path = "minds/core/specimengroup/v1.0.0"
     type = ["minds:SpecimenGroup"]
     property_names = ["created_at", "subjects", "name", "associated_with"]
 
@@ -140,8 +146,8 @@ class MINDSSubject(MINDSObject):
     """docstring"""
     # name qualified to avoid clash with nsg:Subject
     # pending addition of namespaces to registry
-    path = "minds/experiment/subject/v0.0.4"
-    #type = ["http://hbp.eu/minds#ExperimentSubject"]
+    path = "minds/experiment/subject/v1.0.0"
+    #type = ["https://schema.hbp.eu/ExperimentSubject"]
     type = ["minds:ExperimentSubject"]
     property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species", 
                      "strains", "name", "associated_with"]
@@ -149,23 +155,23 @@ class MINDSSubject(MINDSObject):
 
 class License(MINDSObject):
     """docstring"""
-    #path = "minds/core/licensetype/v0.0.4"
+    #path = "minds/core/licensetype/v1.0.0"
     type = ["minds:LicenseType"]
     property_names = ["name", "associated_with"]
 
 
 class EmbargoStatus(MINDSObject):
     """docstring"""
-    path = "minds/core/embargostatus/v0.0.4"
-    #type = ["http://hbp.eu/minds#EmbargoStatus"]
+    path = "minds/core/embargostatus/v1.0.0"
+    #type = ["https://schema.hbp.eu/EmbargoStatus"]
     type = ["minds:EmbargoStatus"]
     property_names = ["name", "associated_with"]
 
 
 class Sample(MINDSObject):
     """docstring"""
-    path = "minds/experiment/sample/v0.0.4"
-    #type = ["http://hbp.eu/minds#ExperimentSample"]
+    path = "minds/experiment/sample/v1.0.0"
+    #type = ["https://schema.hbp.eu/ExperimentSample"]
     type = ["minds:ExperimentSample"]
     property_names = ["name", "methods", "parcellation_atlas", "parcellation_region",
                       "associated_with"]
@@ -173,7 +179,7 @@ class Sample(MINDSObject):
 
 class Person(MINDSObject):
     """docstring"""
-    path = "minds/core/person/v0.0.4"
+    path = "minds/core/person/v1.0.0"
     type = ["minds:Person"]
     property_names = ["name"]
 

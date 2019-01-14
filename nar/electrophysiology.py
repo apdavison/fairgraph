@@ -44,7 +44,7 @@ class Trace(KGObject):
         "mediaType": {
             "@id": "schema:mediaType"
         },
-        "minds": "http://hbp.eu/minds#",
+        "minds": "https://schema.hbp.eu/",
         "partOf": "nsg:partOf"  # todo: add to nsg
     }
 
