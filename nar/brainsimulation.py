@@ -39,7 +39,7 @@ class ModelProject(KGObject):
 
     def __init__(self, name, owner, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
-                 abstraction_level=None, model_of=None, id=None, instance=None):
+                 abstraction_level=None, model_of=None, old_uuid=None, id=None, instance=None):
         self.name = name
         self.alias = alias
         self.brain_region = brain_region
@@ -55,6 +55,7 @@ class ModelProject(KGObject):
         self.PLA_components = pla_components
         self.date_created = date_created
         self.model_of = model_of
+        self.old_uuid = old_uuid
         self.id = id
         self.instance = instance
 
@@ -81,6 +82,7 @@ class ModelProject(KGObject):
                   species=build_kg_object(Species, D.get("species")),
                   celltype=build_kg_object(CellType, D.get("celltype")),
                   abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
+                  old_uuid=D.get("oldUUID", None),
                   id=D["@id"], instance=instance)
         if isinstance(D["author"], str):  # temporary, this shouldn't happen once migration complete
             obj.authors = D["author"]
@@ -102,12 +104,15 @@ class ModelProject(KGObject):
                 "@type": self.type
             }
         if self.authors:
-            data["author"] = [
-                {
-                    "@type": person.type,
-                    "@id": person.id
-                } for person in self.authors
-            ]
+            if isinstance(self.authors, str):  # temporary, should convert into Person
+                data["author"] = self.authors
+            else:
+                data["author"] = [
+                    {
+                        "@type": person.type,
+                        "@id": person.id
+                    } for person in self.authors
+                ]
         if self.owner:
             if self.owner.id is None:
                 self.owner.save(client)
@@ -164,4 +169,6 @@ class ModelProject(KGObject):
                 data["abstractionLevel"] = [al.to_jsonld() for al in self.abstraction_level]
             else:
                 data["abstractionLevel"] = self.abstraction_level.to_jsonld()
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
         self._save(data, client, exists_ok)
