@@ -87,6 +87,10 @@ class KGObject(with_metaclass(Registry, object)):
             self.instance = instance
             KGObject.cache[self.id] = self
 
+    @classmethod
+    def by_name(cls, name, client):
+        return client.by_name(cls, name)
+
     @property
     def rev(self):
         if self.instance:
@@ -108,6 +112,30 @@ def cache(f):
             #print(f"Added to cache: {obj.id}")
             return obj
     return wrapper
+
+
+class OntologyTerm(object):
+    """docstring"""
+
+    def __init__(self, label, iri=None):
+        self.label = label
+        self.iri = iri or self.iri_map[label]
+
+    def __repr__(self):
+        #return (f'{self.__class__.__name__}('
+        #        f'{self.label!r}, {self.iri!r})')
+        return ('{self.__class__.__name__}('
+                '{self.label!r}, {self.iri!r})'.format(self=self))
+    
+    def to_jsonld(self):
+        return {'@id': self.iri,
+                'label': self.label}
+    
+    @classmethod
+    def from_jsonld(cls, data):
+        if data is None:
+            return None
+        return cls(data["label"], data["@id"])
 
 
 class KGProxy(object):
@@ -139,6 +167,7 @@ class KGProxy(object):
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
 
+    
 
 class KGQuery(object):
     """docstring"""
@@ -165,3 +194,41 @@ class KGQuery(object):
             return objects[0]
         else:
             return objects
+
+
+def build_kg_object(cls, data):
+    """ 
+    Build a KGObject, a KGProxy, or a list of such, based on the data provided.
+
+    This takes care of the JSON-LD quirk that you get a list if there are multiple
+    objects, but you get the object directly if there is only one.
+
+    Returns `None` if data is None.
+    """
+
+    if data is None:
+        return None
+    
+    if not isinstance(data, list):
+        if not isinstance(data, dict):
+            raise ValueError("data must be a list or dict")
+        if "@list" in data:
+            assert len(data) == 1
+            data = data["@list"]
+        else:
+            data = [data]
+
+    objects = []
+    for item in data:
+        if issubclass(cls, OntologyTerm):
+            obj = cls.from_jsonld(item)
+        elif issubclass(cls, KGObject):
+            obj = KGProxy(cls, item["@id"])
+        else:
+            raise ValueError("cls must be a KGObject or OntologyTerm")
+        objects.append(obj)
+
+    if len(objects) == 1:
+        return objects[0]
+    else:
+        return objects

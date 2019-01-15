@@ -2,7 +2,7 @@
 brain simulation
 """
 
-from .base import KGObject, cache, KGProxy
+from .base import KGObject, cache, KGProxy, build_kg_object
 from .commons import BrainRegion, CellType, Species, AbstractionLevel
 from .core import Organization, Person
 import datetime
@@ -60,29 +60,38 @@ class ModelProject(KGObject):
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.owner!r}, '
-                '{self.date_created!r}, {self.id})'.format(self=self))
+                '{self.name!r}, {self.brain_region!r}, '
+                '{self.celltype!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:ModelProject' in D["@type"]
-        return cls(name=D["name"], owner=KGProxy(Person, D["owner"]),
-                   authors=[KGProxy(Person, author_uri["@id"])
-                           for author_uri in D["author"]],
-                   collab_id=D["collabID"], description=D["description"], private=D["private"],
-                   date_created=D["dateCreated"],
-                   organization=[KGProxy(Organization, org_uri["@id"])
-                                 for org_uri in D["organization"]],
-                   pla_components=D.get("PLAComponents", None),
-                   alias=D.get("alias", None),
-                   model_of=D.get("modelOf", None),
-                   brain_region=[BrainRegion.from_jsonld(br) for br in D["brainRegion"]],
-                   species=[Species.from_jsonld(s) for s in D["species"]],
-                   celltype=[CellType.from_jsonld(ct) for ct in D["celltype"]],
-                   abstraction_level=[AbstractionLevel.from_jsonld(al) for al in D["abstractionLevel"]],
-                   id=D["@id"], instance=instance)
+        obj = cls(name=D["name"], 
+                  owner=None,
+                  authors=[],
+                  collab_id=D["collabID"], description=D["description"], private=D["private"],
+                  date_created=D["dateCreated"],
+                  organization=build_kg_object(Organization, D.get("organization")),
+                  pla_components=D.get("PLAComponents", None),
+                  alias=D.get("alias", None),
+                  model_of=D.get("modelOf", None),
+                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
+                  species=build_kg_object(Species, D.get("species")),
+                  celltype=build_kg_object(CellType, D.get("celltype")),
+                  abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
+                  id=D["@id"], instance=instance)
+        if isinstance(D["author"], str):  # temporary, this shouldn't happen once migration complete
+            obj.authors = D["author"]
+        else:
+            obj.authors = build_kg_object(Person, D["author"])
+        if "owner" in D:
+            if isinstance(D["owner"], str):  # temporary, this shouldn't happen once migration complete
+                obj.owner = D["owner"]
+            else:
+                obj.owner = build_kg_object(Person, D["owner"])
+        return obj
 
     def save(self, client, exists_ok=True):
         if self.instance:

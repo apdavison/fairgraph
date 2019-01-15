@@ -182,6 +182,10 @@ class Person(KGObject):
         return ('{self.__class__.__name__}('
                 '{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})'.format(self=self))
 
+    @property
+    def full_name(self):
+        return '{self.given_name} {self.family_name}'.format(self=self)
+
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):

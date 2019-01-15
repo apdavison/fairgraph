@@ -5,7 +5,7 @@
 
 import collections
 #from typing import NamedTuple
-from .base import KGObject, KGProxy
+from .base import KGObject, KGProxy, OntologyTerm
 
 
 #class Address(NamedTuple):
@@ -13,30 +13,6 @@ from .base import KGObject, KGProxy
 #    country: str
 
 Address = collections.namedtuple('Address', ['locality', 'country'])
-
-
-class OntologyTerm(object):
-    """docstring"""
-
-    def __init__(self, label, iri=None):
-        self.label = label
-        self.iri = iri or self.iri_map[label]
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.label!r}, {self.iri!r})')
-        return ('{self.__class__.__name__}('
-                '{self.label!r}, {self.iri!r})'.format(self=self))
-    
-    def to_jsonld(self):
-        return {'@id': self.iri,
-                'label': self.label}
-    
-    @classmethod
-    def from_jsonld(cls, data):
-        if data is None:
-            return None
-        return cls(data["label"], data["@id"])
 
 
 class Species(OntologyTerm):
