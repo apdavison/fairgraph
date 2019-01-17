@@ -87,6 +87,10 @@ class KGObject(with_metaclass(Registry, object)):
             self.instance = instance
             KGObject.cache[self.id] = self
 
+    @classmethod
+    def by_name(cls, name, client):
+        return client.by_name(cls, name)
+
     @property
     def rev(self):
         if self.instance:
