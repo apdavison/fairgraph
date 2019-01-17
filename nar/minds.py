@@ -2,7 +2,8 @@
 
 """
 
-from nar.base import KGObject, KGProxy, KGQuery, cache
+from nar.base import KGObject, KGProxy, KGQuery, cache, as_list
+from nar.data import FileAssociation, CSCSFile
 
 
 class MINDSObject(KGObject):
@@ -17,21 +18,6 @@ class MINDSObject(KGObject):
             "minds": 'https://schema.hbp.eu/'
         }
     ]
-
-    def __init__(self, id=None, instance=None, **properties):
-        for key, value in properties.items():
-            if key not in self.property_names:
-                raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
-            else:
-                setattr(self, key, value)
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r} {self.id!r})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
     @cache
@@ -176,6 +162,19 @@ class Sample(MINDSObject):
     property_names = ["name", "methods", "parcellation_atlas", "parcellation_region",
                       "associated_with"]
 
+    def get_files(self, client):
+        query = {
+            "path": "linkinginstance:to",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "minds": "https://schema.hbp.eu/minds/",
+            "linkinginstance": "https://schema.hbp.eu/linkinginstance/",
+        }
+        links = KGQuery(FileAssociation, query, context).resolve(client)
+        return [CSCSFile.from_uri(link.from_["@id"], client) for link in as_list(links)]
+
 
 class Person(MINDSObject):
     """docstring"""
@@ -220,3 +219,6 @@ obj_types = {
     "owners": Person,
     "component": PLAComponent
 }
+
+
+
