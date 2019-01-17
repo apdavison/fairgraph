@@ -2,7 +2,7 @@
 
 """
 
-from nar.base import KGObject, KGProxy, cache
+from nar.base import KGObject, KGProxy, KGQuery, cache
 
 
 class MINDSObject(KGObject):
@@ -184,6 +184,29 @@ class Person(MINDSObject):
     property_names = ["name"]
 
 
+class PLAComponent(MINDSObject):
+    """docstring"""
+    path = "minds/core/placomponent/v1.0.0"
+    type = ["minds:PLAComponent"]
+    property_names = ["name", "description"]
+
+    @property
+    def datasets(self):
+        query = {
+            "path": "minds:component",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "minds": "https://schema.hbp.eu/minds/"
+        }
+        return KGQuery(Dataset, query, context)
+
+
+# Alias some classes to reflect names used in KG Search
+Project = PLAComponent
+
+
 # todo: integrate this into the registry
 obj_types = {
     "dataset": Dataset,
@@ -194,5 +217,6 @@ obj_types = {
     "license": License,
     "embargo_status": EmbargoStatus,
     "samples": Sample,
-    "owners": Person
+    "owners": Person,
+    "component": PLAComponent
 }
