@@ -6,7 +6,10 @@ try:
     from urllib.request import urlretrieve
 except ImportError:  # Python 2
     from urllib import urlretrieve
-from pathlib import Path
+try:
+    from pathlib import Path
+except ImportError:
+    from pathlib2 import Path
 from nar.base import KGObject, KGProxy, KGQuery, cache
 
 
