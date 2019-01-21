@@ -2,7 +2,8 @@
 
 """
 
-
+from urllib.request import urlretrieve
+from pathlib import Path
 from nar.base import KGObject, KGProxy, KGQuery, cache
 
 
@@ -63,6 +64,16 @@ class CSCSFile(DataObject):
     type = ["cscs:File"]
     property_names = ["name", "absolute_path", "byte_size", "content_type",
                       "last_modified", "relative_path"]
+
+    def download(self, base_dir=".", preserve_relative_path=True):
+        local_filename = Path(base_dir)
+        if preserve_relative_path:
+            local_filename = local_filename / self.relative_path
+        else:
+            local_filename = local_filename / self.name
+        local_filename.parent.mkdir(parents=True, exist_ok=True)
+        local_filename, headers = urlretrieve(self.absolute_path, local_filename)
+        return local_filename
 
 
 # todo: integrate this into the registry

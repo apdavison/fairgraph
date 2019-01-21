@@ -67,7 +67,6 @@ class MINDSObject(KGObject):
             }
         for property_name in self.property_names:
             if hasattr(self, property_name):
-                
                 if property_name in ("name", "description"):
                     property_url = "http://schema.org/" + property_name
                 elif property_name == "associated_with":
@@ -159,7 +158,7 @@ class Sample(MINDSObject):
     path = "minds/experiment/sample/v1.0.0"
     #type = ["https://schema.hbp.eu/ExperimentSample"]
     type = ["minds:ExperimentSample"]
-    property_names = ["name", "methods", "parcellation_atlas", "parcellation_region",
+    property_names = ["name", "methods", "parcellationAtlas", "parcellationRegion",
                       "associated_with"]
 
     def get_files(self, client):
@@ -202,6 +201,30 @@ class PLAComponent(MINDSObject):
         return KGQuery(Dataset, query, context)
 
 
+class AgeCategory(MINDSObject):
+    path = "minds/core/agecategory/v1.0.0"
+    type = ["minds:Agecategory"]
+    property_names = ["name"]
+
+
+class Sex(MINDSObject):
+    path = "minds/core/sex/v1.0.0"
+    type = ["minds:Sex"]
+    property_names = ["name"]
+
+
+class Species(MINDSObject):
+    path = "minds/core/species/v1.0.0"
+    type = ["minds:Species"]
+    property_names = ["name"]
+
+
+class ParcellationRegion(MINDSObject):
+    path = "minds/core/parcellationregion/v1.0.0"
+    type = ["minds:Parcellationregion"]
+    property_names = ["name"]
+
+
 # Alias some classes to reflect names used in KG Search
 Project = PLAComponent
 
@@ -217,8 +240,10 @@ obj_types = {
     "embargo_status": EmbargoStatus,
     "samples": Sample,
     "owners": Person,
-    "component": PLAComponent
+    "contributors": Person,
+    "component": PLAComponent,
+    "age_category": AgeCategory,
+    "sex": Sex,
+    "species": Species,
+    "parcellationRegion": ParcellationRegion
 }
-
-
-
