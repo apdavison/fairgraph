@@ -13,7 +13,7 @@ setup(
     version='0.1.0',
     description='Python API for the Human Brain Project Neural Activity Resource',
     long_description=long_description,
-    url='https://github.com/apdavison/neural-activity-resource',
+    url='https://github.com/HumanBrainProject/neural-activity-resource',
     author='Andrew P. Davison',
     author_email='andrew.davison@unic.cnrs-gif.fr',
     classifiers=[

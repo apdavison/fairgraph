@@ -2,7 +2,10 @@
 
 """
 
-from urllib.request import urlretrieve
+try:
+    from urllib.request import urlretrieve
+except ImportError:  # Python 2
+    from urllib import urlretrieve
 from pathlib import Path
 from nar.base import KGObject, KGProxy, KGQuery, cache
 
