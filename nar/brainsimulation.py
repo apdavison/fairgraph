@@ -8,7 +8,8 @@ from .core import Organization, Person
 import datetime
 
 
-NAMESPACE = "neuralactivity"
+#NAMESPACE = "neuralactivity"
+NAMESPACE = "brainsimulation"
 
 
 class ModelProject(KGObject):
@@ -172,3 +173,167 @@ class ModelProject(KGObject):
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
         self._save(data, client, exists_ok)
+
+
+
+class ModelInstance(KGObject):
+    """docstring"""
+    path = NAMESPACE + "/simulation/modelinstance/v0.1.2"
+    type = ["prov:Entity", "nsg:ModelInstance"]
+    # ScientificModelInstance
+    #   - model, version, description, parameters, source, timestamp, code_format, hash, morphology
+    # modelinstance/v0.1.2
+    #   - fields of Entity + modelOf, brainRegion, species
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.brain_region!r}, '
+                '{self.model_of!r}, {self.id})'.format(self=self))
+
+
+class MEModel(ModelInstance):
+    """docstring"""
+    path = NAMESPACE + "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
+    type = ["prov:Entity", "nsg:MEModel"]
+    # fields:
+    #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
+    
+    def __init__(self, name, brain_region, species, model_of, e_model, 
+                 morphology, main_script, release, id=None, instance=None):
+        self.name = name
+        self.brain_region = brain_region
+        self.species = species
+        self.model_of = model_of
+        self.e_model = e_model
+        self.morphology = morphology
+        self.main_script = main_script
+        self.release = release
+        self.id = id
+        self.instance = instance
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:MEModel' in D["@type"]
+        obj = cls(name=D["name"], 
+                  #model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of = D.get("modelOf", None),
+                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
+                  species=build_kg_object(Species, D.get("species")),
+                  e_model=build_kg_object(EModel, D["eModel"]),
+                  morphology=build_kg_object(Morphology, D["morphology"]),
+                  main_script=build_kg_object(ModelScript, D["mainModelScript"]),
+                  release=None,  # to fix once we define MEModelRelease class
+                  id=D["@id"], instance=instance)
+        return obj
+
+
+class Morphology(KGObject):
+    path = NAMESPACE + "/simulation/morphology/v0.1.1"
+    type = ["prov:Entity", "nsg:Morphology"]
+
+    #name, distribution
+    def __init__(self, name, cell_type=None, distribution=None, id=None, instance=None):
+        self.name = name
+        self.cell_type = cell_type
+        self.distribution = distribution
+        self.id = id
+        self.instance = instance
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:Morphology' in D["@type"]
+        obj = cls(name=D["name"], 
+                  cell_type=D.get("modelOf", None),
+                  distribution=D.get("distribution", None),
+                  id=D["@id"], instance=instance)
+        return obj
+
+
+class ModelScript(KGObject):
+    path = NAMESPACE + "/simulation/emodelscript/v0.1.0"
+    type = ["prov:Entity", "nsg:EModelScript"]
+
+    def __init__(self, name, distribution, id=None, instance=None):
+        self.name = name
+        self.distribution = distribution
+        self.id = id
+        self.instance = instance
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:EModelScript' in D["@type"]
+        obj = cls(name=D["name"], 
+                  distribution=D.get("distribution", None),
+                  id=D["@id"], instance=instance)
+        return obj
+
+
+class EModel(ModelInstance):
+    path = NAMESPACE + "/simulation/emodel/v0.1.1"
+    type = ["prov:Entity", "nsg:EModel"]
+
+    # model_script, name, species, subCellularMechanism
+    def __init__(self, name, brain_region, species, model_of, 
+                 main_script, release, id=None, instance=None):
+        self.name = name
+        self.brain_region = brain_region
+        self.species = species
+        self.model_of = model_of
+        self.main_script = main_script
+        self.release = release
+        self.id = id
+        self.instance = instance
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:EModel' in D["@type"]
+        obj = cls(name=D["name"], 
+                  #model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of=D.get("modelOf", None),
+                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
+                  species=build_kg_object(Species, D.get("species")),
+                  main_script=build_kg_object(ModelScript, D["modelScript"]),
+                  release=None,  # to fix once we define MEModelRelease class
+                  id=D["@id"], instance=instance)
+        return obj
+
+
+class ValidationProject(KGObject):  # or ValidationProtocol
+    """docstring"""
+    path = NAMESPACE + "/simulation/validationproject/v0.1.0"
+    type = ["prov:Entity", "nsg:ModelValidationProject"]
+    #- ValidationTestDefinition 
+    pass
+
+
+class ValidationInstance(KGObject):  # or ValidationProtocol or ValidationProtocolImplementation
+    """docstring"""
+    path = NAMESPACE + "/simulation/validationinstance/v0.1.0"
+    type = ["prov:Entity", "nsg:ModelValidationProtocol"]
+            # - ValidationTestCode (simulation/validationinstance)
+    pass
+
+
+class ValidationResult(KGObject):
+    """docstring"""
+    path = NAMESPACE + "/simulation/validationresult/v0.1.1"
+    type = ["prov:Entity", "nsg:ModelValidationResult"]
+            #- ValidationTestResult (simulation/validationresult - exists)
+    pass
+
+
+class ValidationActivity(KGObject):
+    """docstring"""
+    path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
+    type = ["prov:Activity", "nsg:ModelValidation"]
+            #- ValidationActivity (simulation/modelvalidation - exists)
+    pass
+    # 
