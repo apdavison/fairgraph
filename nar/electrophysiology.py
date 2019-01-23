@@ -122,7 +122,7 @@ class Trace(KGObject):
 
 class PatchedCell(KGObject):
     """docstring"""
-    path = NAMESPACE + "/experiment/patchedcell/v0.1.0"
+    path = NAMESPACE + "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
     collection_class = "Collection"
     experiment_class = "PatchClampExperiment"
@@ -260,9 +260,14 @@ class PatchedCell(KGObject):
                 "@type": self.type
             }
         data["name"] = self.name
-        data["brainLocation"] = {
-            "brainRegion": self.brain_location.to_jsonld()
-        }
+        if isinstance(self.brain_location, list):
+            data["brainLocation"] = {
+                "brainRegion": [br.to_jsonld() for br in self.brain_location]
+            }
+        else:
+            data["brainLocation"] = {
+                "brainRegion": self.brain_location.to_jsonld()
+            }
         if self.cell_type:
             data["eType"] = self.cell_type.to_jsonld()
         if self.pipette_id:
@@ -446,9 +451,14 @@ class BrainSlicingActivity(KGObject):
             "@id": self.subject.id,
             "@type": self.subject.type
         }
-        data["brainLocation"]= {
-            "brainRegion": self.brain_location.to_jsonld()
-        }
+        if isinstance(self.brain_location, list):
+            data["brainLocation"] = {
+                "brainRegion": [br.to_jsonld() for br in self.brain_location]
+            }
+        else:
+            data["brainLocation"] = {
+                "brainRegion": self.brain_location.to_jsonld()
+            }
         if self.slices:
             data["generated"]  = [
                 {

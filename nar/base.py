@@ -37,6 +37,19 @@ class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     cache = {}
 
+    def __init__(self, id=None, instance=None, **properties):
+        for key, value in properties.items():
+            if key not in self.property_names:
+                raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+            else:
+                setattr(self, key, value)
+        self.id = id
+        self.instance = instance
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r} {self.id!r})'.format(self=self))
+
     @classmethod
     def from_kg_instance(self, instance, client):
         raise NotImplementedError("To be implemented by child class")
@@ -167,7 +180,6 @@ class KGProxy(object):
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
 
-    
 
 class KGQuery(object):
     """docstring"""
@@ -232,3 +244,11 @@ def build_kg_object(cls, data):
         return objects[0]
     else:
         return objects
+
+
+def as_list(obj):
+    try:
+        L = list(obj)
+    except TypeError:
+        L = [obj]
+    return L

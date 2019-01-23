@@ -2,7 +2,8 @@
 
 """
 
-from nar.base import KGObject, KGProxy, cache
+from nar.base import KGObject, KGProxy, KGQuery, cache, as_list
+from nar.data import FileAssociation, CSCSFile
 
 
 class MINDSObject(KGObject):
@@ -17,21 +18,6 @@ class MINDSObject(KGObject):
             "minds": 'https://schema.hbp.eu/'
         }
     ]
-
-    def __init__(self, id=None, instance=None, **properties):
-        for key, value in properties.items():
-            if key not in self.property_names:
-                raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
-            else:
-                setattr(self, key, value)
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r} {self.id!r})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
     @cache
@@ -81,7 +67,6 @@ class MINDSObject(KGObject):
             }
         for property_name in self.property_names:
             if hasattr(self, property_name):
-                
                 if property_name in ("name", "description"):
                     property_url = "http://schema.org/" + property_name
                 elif property_name == "associated_with":
@@ -173,8 +158,21 @@ class Sample(MINDSObject):
     path = "minds/experiment/sample/v1.0.0"
     #type = ["https://schema.hbp.eu/ExperimentSample"]
     type = ["minds:ExperimentSample"]
-    property_names = ["name", "methods", "parcellation_atlas", "parcellation_region",
+    property_names = ["name", "methods", "parcellationAtlas", "parcellationRegion",
                       "associated_with"]
+
+    def get_files(self, client):
+        query = {
+            "path": "linkinginstance:to",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "minds": "https://schema.hbp.eu/minds/",
+            "linkinginstance": "https://schema.hbp.eu/linkinginstance/",
+        }
+        links = KGQuery(FileAssociation, query, context).resolve(client)
+        return [CSCSFile.from_uri(link.from_["@id"], client) for link in as_list(links)]
 
 
 class Person(MINDSObject):
@@ -182,6 +180,53 @@ class Person(MINDSObject):
     path = "minds/core/person/v1.0.0"
     type = ["minds:Person"]
     property_names = ["name"]
+
+
+class PLAComponent(MINDSObject):
+    """docstring"""
+    path = "minds/core/placomponent/v1.0.0"
+    type = ["minds:PLAComponent"]
+    property_names = ["name", "description"]
+
+    @property
+    def datasets(self):
+        query = {
+            "path": "minds:component",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "minds": "https://schema.hbp.eu/minds/"
+        }
+        return KGQuery(Dataset, query, context)
+
+
+class AgeCategory(MINDSObject):
+    path = "minds/core/agecategory/v1.0.0"
+    type = ["minds:Agecategory"]
+    property_names = ["name"]
+
+
+class Sex(MINDSObject):
+    path = "minds/core/sex/v1.0.0"
+    type = ["minds:Sex"]
+    property_names = ["name"]
+
+
+class Species(MINDSObject):
+    path = "minds/core/species/v1.0.0"
+    type = ["minds:Species"]
+    property_names = ["name"]
+
+
+class ParcellationRegion(MINDSObject):
+    path = "minds/core/parcellationregion/v1.0.0"
+    type = ["minds:Parcellationregion"]
+    property_names = ["name"]
+
+
+# Alias some classes to reflect names used in KG Search
+Project = PLAComponent
 
 
 # todo: integrate this into the registry
@@ -194,5 +239,11 @@ obj_types = {
     "license": License,
     "embargo_status": EmbargoStatus,
     "samples": Sample,
-    "owners": Person
+    "owners": Person,
+    "contributors": Person,
+    "component": PLAComponent,
+    "age_category": AgeCategory,
+    "sex": Sex,
+    "species": Species,
+    "parcellationRegion": ParcellationRegion
 }

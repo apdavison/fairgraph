@@ -35,7 +35,14 @@ class Strain(OntologyTerm):
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508"
+        #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
+        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
+        #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
+        "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+        "129/Sv": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        # 129/Sv is ambiguous
+        # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
+        # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
     }
 
 
@@ -62,7 +69,16 @@ class BrainRegion(OntologyTerm):
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
         "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
-        "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+        "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  
+        # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
+        "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "8th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "lobule 5 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004079",
+        "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
+        "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
+        "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
     }
 
 
