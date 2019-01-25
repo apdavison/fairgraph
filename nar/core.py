@@ -199,31 +199,23 @@ class Person(KGObject):
         return cls(D["familyName"], D["givenName"], D.get("email", None),
                    affiliation, D["@id"], instance=instance)
 
-    def exists(self, client):
-        """Check if this Person already exists in the KnowledgeGraph"""
-        if self.id:
-            return True
-        else:
-            context = {"schema": "http://schema.org/"},
-            query_filter = {
-                "op": "and",
-                "value": [
-                    {
-                        "path": "schema:familyName",
-                        "op": "eq",
-                        "value": self.family_name
-                    },
-                    {
-                        "path": "schema:givenName",
-                        "op": "eq",
-                        "value": self.given_name
-                    }
-                ]
-            }
-            response = client.filter_query(self.path, query_filter, context)
-            if response:
-                self.id = response[0].data["@id"]
-            return bool(response)
+    @property
+    def _existence_query(self):
+        return {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:familyName",
+                    "op": "eq",
+                    "value": self.family_name
+                },
+                {
+                    "path": "schema:givenName",
+                    "op": "eq",
+                    "value": self.given_name
+                }
+            ]
+        }
 
     def save(self, client, exists_ok=True):
         """docstring"""

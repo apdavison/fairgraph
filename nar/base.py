@@ -4,6 +4,7 @@
 
 import sys
 from functools import wraps
+from collections import defaultdict
 import logging
 from six import with_metaclass
 from .errors import ResourceExistsError
@@ -23,6 +24,22 @@ def lookup(class_name):
     return registry[class_name]
 
 
+def generate_cache_key(qd):
+    """From a query dict, generate an object suitable as a key for caching"""
+    cache_key = []
+    for key in sorted(qd):
+        value = qd[key]
+        if isinstance(value, (list, tuple)):
+            sub_key = []
+            for sub_value in value:
+                sub_key.append(generate_cache_key(sub_value))
+            cache_key.append(tuple(sub_key))
+        else:
+            assert isinstance(value, (str, int, float))
+            cache_key.append((key, value))
+    return tuple(cache_key)
+
+
 class Registry(type):
     """Metaclass for registering Knowledge Graph classes"""
 
@@ -36,6 +53,7 @@ class Registry(type):
 class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     cache = {}
+    save_cache = defaultdict(dict)
 
     def __init__(self, id=None, instance=None, **properties):
         for key, value in properties.items():
@@ -64,23 +82,40 @@ class KGObject(with_metaclass(Registry, object)):
         """List all objects of this type in the Knowledge Graph"""
         return client.list(cls, size=size)
 
-    def exists(self, client):
-        """Check if this object already exists in the KnowledgeGraph"""
+    @property
+    def _existence_query(self):
         # Note that this default implementation should in
         # many cases be over-ridden.
+        # It assumes that "name" is unique within instances of a given type,
+        # which may often not be the case.
+        return {
+            "path": "schema:name",
+            "op": "eq",
+            "value": self.name
+        }
+
+    def exists(self, client):
+        """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
         else:
-            context = {"schema": "http://schema.org/"},
-            query_filter = {
-                "path": "schema:name",
-                "op": "eq",
-                "value": self.name
-            }
-            response = client.filter_query(self.path, query_filter, context)
-            if response:
-                self.id = response[0].data["@id"]
-            return bool(response)
+            context = {"schema": "http://schema.org/",
+                       "prov": "http://www.w3.org/ns/prov#"},
+            query_filter = self._existence_query
+            query_cache_key = generate_cache_key(query_filter)
+            if query_cache_key in self.save_cache[self.__class__]:
+                # Because the KnowledgeGraph is only eventually consistent, an instance
+                # that has just been written to Nexus may not appear in the query.
+                # Therefore we cache the query when creating an instance and 
+                # where exists() returns True
+                self.id = self.save_cache[self.__class__][query_cache_key]
+                return True
+            else:
+                response = client.filter_query(self.path, query_filter, context)
+                if response:
+                    self.id = response[0].data["@id"]
+                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
+                return bool(response)
 
     def _save(self, data, client, exists_ok=True):
         """docstring"""
@@ -99,6 +134,7 @@ class KGObject(with_metaclass(Registry, object)):
             self.id = instance.data["@id"]
             self.instance = instance
             KGObject.cache[self.id] = self
+            KGObject.save_cache[self.__class__][generate_cache_key(self._existence_query)] = self.id
 
     @classmethod
     def by_name(cls, name, client):

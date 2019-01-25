@@ -422,21 +422,13 @@ class BrainSlicingActivity(KGObject):
                   instance=instance)
         return obj
 
-    def exists(self, client):
-        """Check if this object already exists in the KnowledgeGraph"""
-        if self.id:
-            return True
-        else:
-            context = {"prov": "http://www.w3.org/ns/prov#"},
-            query_filter = {  # can only slice a brain once...
-                "path": "prov:used",
-                "op": "eq",
-                "value": self.subject.id
-            }
-            response = client.filter_query(self.path, query_filter, context)
-            if response:
-                self.id = response[0].data["@id"]
-            return bool(response)
+    @property
+    def _existence_query(self):
+        return {  # can only slice a brain once...
+            "path": "prov:used",
+            "op": "eq",
+            "value": self.subject.id
+        }
 
     def save(self, client, exists_ok=True):
         """docstring"""
