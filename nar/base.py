@@ -244,6 +244,58 @@ class KGQuery(object):
             return objects
 
 
+class Distribution(object):
+    
+    def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
+                 original_file_name=None):
+        self.location = location
+        self.size = size
+        self.digest = digest
+        self.digest_method = digest_method
+        self.content_type = content_type
+        self.original_file_name = original_file_name
+
+    @classmethod
+    def from_jsonld(cls, data):
+        if data is None:
+            return None
+        if "contentSize" in data:
+            size = data["contentSize"]["value"]
+            if data["contentSize"]["unit"] != "byte":
+                raise NotImplementedError()
+        else:
+            size = None
+        if "digest" in data:
+            digest = data["digest"]["value"]
+            digest_method = data["digest"]["algorithm"]
+        else:
+            digest = None
+            digest_method = None
+        return cls(data["downloadURL"], size, digest, digest_method, data.get("mediaType"),
+                   data.get("originalFileName"))
+
+    def to_jsonld(self):
+        data = {
+            "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+            "downloadURL": self.location
+        }
+        if self.size:
+            data["contentSize"] = {
+                "unit": "byte",
+                "value": self.size
+            }
+        if self.digest:
+            data["digest"]= {
+                "algorithm": self.digest_method,  # e.g. "SHA-256"
+                "value": self.digest
+            },
+        if self.content_type:
+            data["mediaType"] = self.content_type
+        if self.original_file_name:  # not sure if this is part of the schema, or just an annotation
+            data["originalFileName"] = self.original_file_name
+        return data
+
+
 def build_kg_object(cls, data):
     """ 
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
@@ -272,8 +324,10 @@ def build_kg_object(cls, data):
             obj = cls.from_jsonld(item)
         elif issubclass(cls, KGObject):
             obj = KGProxy(cls, item["@id"])
+        elif cls is Distribution:
+            obj = cls.from_jsonld(item)
         else:
-            raise ValueError("cls must be a KGObject or OntologyTerm")
+            raise ValueError("cls must be a KGObject, OntologyTerm or Distribution")
         objects.append(obj)
 
     if len(objects) == 1:
