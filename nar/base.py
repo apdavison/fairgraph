@@ -106,7 +106,7 @@ class KGObject(with_metaclass(Registry, object)):
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
                 # that has just been written to Nexus may not appear in the query.
-                # Therefore we cache the query when creating an instance and 
+                # Therefore we cache the query when creating an instance and
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
@@ -175,11 +175,11 @@ class OntologyTerm(object):
         #        f'{self.label!r}, {self.iri!r})')
         return ('{self.__class__.__name__}('
                 '{self.label!r}, {self.iri!r})'.format(self=self))
-    
+
     def to_jsonld(self):
         return {'@id': self.iri,
                 'label': self.label}
-    
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
@@ -245,7 +245,7 @@ class KGQuery(object):
 
 
 class Distribution(object):
-    
+
     def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
                  original_file_name=None):
         self.location = location
@@ -276,7 +276,7 @@ class Distribution(object):
 
     def to_jsonld(self):
         data = {
-            "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+            "@context": "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",  # todo: needs to adapt to Nexus instance
             "downloadURL": self.location
         }
         if self.size:
@@ -297,7 +297,7 @@ class Distribution(object):
 
 
 def build_kg_object(cls, data):
-    """ 
+    """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
 
     This takes care of the JSON-LD quirk that you get a list if there are multiple
@@ -308,7 +308,7 @@ def build_kg_object(cls, data):
 
     if data is None:
         return None
-    
+
     if not isinstance(data, list):
         if not isinstance(data, dict):
             raise ValueError("data must be a list or dict")

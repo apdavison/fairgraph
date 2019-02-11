@@ -3,6 +3,7 @@ core
 
 """
 
+import logging
 from .base import KGObject, KGProxy, cache
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
@@ -10,6 +11,8 @@ from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "neurosciencegraph"
 #NAMESPACE = "brainsimulation"
+
+logger = logging.getLogger("nar")
 
 
 class Subject(KGObject):

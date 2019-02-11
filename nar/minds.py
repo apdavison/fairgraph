@@ -97,7 +97,7 @@ class Dataset(MINDSObject):
     path = "minds/core/dataset/v1.0.0"
     #type = ["https://schema.hbp.eu/Dataset"]
     type = ["minds:Dataset"]
-    property_names = ["activity", "component", "contributors", "created_at", "datalink", 
+    property_names = ["activity", "component", "contributors", "created_at", "datalink",
                       "embargo_status", "formats", "license", "owners", "parcellation",
                       "publications", "release_date", "specimen_group",
                       "description", "name", "associated_with"]
@@ -134,7 +134,7 @@ class MINDSSubject(MINDSObject):
     path = "minds/experiment/subject/v1.0.0"
     #type = ["https://schema.hbp.eu/ExperimentSubject"]
     type = ["minds:ExperimentSubject"]
-    property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species", 
+    property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species",
                      "strains", "name", "associated_with"]
 
 

@@ -32,6 +32,7 @@ class NARClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
+
     def list(self, cls, from_index=0, size=100, deprecated=False):
         """docstring"""
         instances = []
@@ -46,7 +47,7 @@ class NARClient(object):
             query = self._nexus_client.instances.list_by_full_path(next)
             instances.extend(query.results)
             next = query.get_next_link()
-            
+
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
         return [cls.from_kg_instance(instance, self) # todo: lazy resolution
@@ -55,8 +56,8 @@ class NARClient(object):
     def filter_query(self, path, filter, context, from_index=0, size=100):
         # todo: add size and from_index arguments
         response = self._nexus_client.instances.list(
-            subpath=path, 
-            filter_query=quote_plus(json.dumps(filter)), 
+            subpath=path,
+            filter_query=quote_plus(json.dumps(filter)),
             context=quote_plus(json.dumps(context)),
             from_index=from_index,
             size=size,
@@ -69,7 +70,7 @@ class NARClient(object):
         if uri in self.cache:
             return self.cache[uri]
         else:
-            instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path), 
+            instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             self.cache[instance.data["@id"]] = instance
@@ -89,7 +90,7 @@ class NARClient(object):
 
     def by_name(self, cls, name):
         """Retrieve an object based on the value of schema:name"""
-        context = {"schema": "http://schema.org/"},
+        context = {"schema": "http://schema.org/"}
         query_filter = {
             "path": "schema:name",
             "op": "eq",

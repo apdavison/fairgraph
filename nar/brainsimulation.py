@@ -15,6 +15,7 @@ NAMESPACE = "neuralactivity"
 class ModelProject(KGObject):
     """docstring"""
     path = NAMESPACE + "/simulation/modelproject/v0.1.0"
+    #path = NAMESPACE + "/simulation/modelproject/v0.1.1"
     type = ["prov:Entity", "nsg:ModelProject"]
 
     context = {
@@ -70,7 +71,7 @@ class ModelProject(KGObject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:ModelProject' in D["@type"]
-        obj = cls(name=D["name"], 
+        obj = cls(name=D["name"],
                   owners=None,
                   authors=[],
                   collab_id=D["collabID"], description=D["description"], private=D["private"],
@@ -215,13 +216,18 @@ class MEModel(ModelInstance):
     """docstring"""
     path = NAMESPACE + "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
     type = ["prov:Entity", "nsg:MEModel"]
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
-    
-    def __init__(self, name, brain_region, species, model_of, e_model, 
-                 morphology, main_script, release, version, timestamp, 
-                 part_of, id=None, instance=None):
+
+    def __init__(self, name, brain_region, species, model_of, e_model,
+                 morphology, main_script, release, version, timestamp, project,
+                 part_of=None, description=None, id=None, instance=None):
         self.name = name
+        self.description = description
         self.brain_region = brain_region
         self.species = species
         self.model_of = model_of
@@ -231,6 +237,7 @@ class MEModel(ModelInstance):
         self.release = release
         self.version = version
         self.timestamp = timestamp
+        self.project = project
         self.part_of = part_of
         self.id = id
         self.instance = instance
@@ -240,7 +247,7 @@ class MEModel(ModelInstance):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:MEModel' in D["@type"]
-        obj = cls(name=D["name"], 
+        obj = cls(name=D["name"],
                   #model_of=build_kg_object(D.get("modelOf", None)),
                   model_of = D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
@@ -251,7 +258,9 @@ class MEModel(ModelInstance):
                   release=D.get("release"),  # to fix once we define MEModelRelease class
                   version=D.get("version"),
                   timestamp=D.get("generatedAtTime"),  # todo: convert to datetime object
-                  part_of=build_kg_object(D.get("isPartOf")),
+                  project=build_kg_object(ModelProject, D.get("isPartOf")),
+                  #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
+                  description=D.get("description"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -266,14 +275,13 @@ class MEModel(ModelInstance):
             }
         data["name"] = self.name
         if self.model_of:
-            data["modelOf"] = {
-                "@type": self.model_of.type,
-                "@id": self.model_of.id
-            }
+            data["modelOf"] = self.model_of.to_jsonld()
         if self.brain_region:
             data["brainRegion"] = self.brain_region.to_jsonld()
         if self.species:
             data["species"] = self.species.to_jsonld()
+        if self.description:
+            data["description"] = self.description
         data["eModel"] = {
             "@id": self.e_model.id,
             "@type": self.e_model.type
@@ -290,12 +298,17 @@ class MEModel(ModelInstance):
         if self.version:
             data["version"] = self.version
         if self.timestamp:
-            data["generatedAtTime"] = self.timestamp  # to update once using datetime
+            data["generatedAtTime"] = self.timestamp.isoformat()
         if self.part_of:
-            data["isPartOf"] = {    
+            data["isPartOf"] = {
                 "@id": self.part_of.id,
                 "@type": self.part_of.type
             }
+        #if self.project:
+        data["project"] = {
+            "@id": self.project.id,
+            "@type": self.project.type
+        }
         if self.release:
             data["release"] = self.release
         self._save(data, client, exists_ok)
@@ -303,6 +316,10 @@ class MEModel(ModelInstance):
 class Morphology(KGObject):
     path = NAMESPACE + "/simulation/morphology/v0.1.1"
     type = ["prov:Entity", "nsg:Morphology"]
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ]
 
     #name, distribution
     def __init__(self, name, cell_type=None, morphology_file=None, distribution=None, id=None, instance=None):
@@ -321,7 +338,7 @@ class Morphology(KGObject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:Morphology' in D["@type"]
-        obj = cls(name=D["name"], 
+        obj = cls(name=D["name"],
                   cell_type=D.get("modelOf", None),
                   distribution=build_kg_object(Distribution, D.get("distribution")),
                   id=D["@id"], instance=instance)
@@ -338,10 +355,10 @@ class Morphology(KGObject):
             }
         data["name"] = self.name
         if self.cell_type:
-            data["modelOf"] = self.modelOf.to_jsonld()
+            data["modelOf"] = self.cell_type.to_jsonld()
         if isinstance(self.distribution, list):
             data["distribution"] = [item.to_jsonld() for item in self.distribution]
-        else:
+        elif self.distribution is not None:
             data["distribution"] = self.distribution.to_jsonld()
         self._save(data, client, exists_ok)
 
@@ -349,9 +366,9 @@ class Morphology(KGObject):
 class ModelScript(KGObject):
     path = NAMESPACE + "/simulation/emodelscript/v0.1.0"
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
-    context =  [  # do we need to use "nexus-int" here if we're connecting to it?
-        "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    context =  [  # todo: root should be set by client to nexus or nexus-int or whatever as required
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
     ]
 
     def __init__(self, name, code_location=None, code_format=None, distribution=None, id=None, instance=None):
@@ -364,7 +381,8 @@ class ModelScript(KGObject):
             raise ValueError("Cannot provide both code_location and distribution")
         if code_location:
             self.distribution = Distribution(location=code_location)
-        assert isinstance(self.distribution, Distribution)
+        if distribution is not None:
+            assert isinstance(self.distribution, Distribution)
 
     @property
     def code_location(self):
@@ -375,7 +393,7 @@ class ModelScript(KGObject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:EModelScript' in D["@type"]  # generalise
-        obj = cls(name=D["name"], 
+        obj = cls(name=D["name"],
                   distribution=build_kg_object(Distribution, D.get("distribution")),
                   id=D["@id"], instance=instance)
         return obj
@@ -392,7 +410,7 @@ class ModelScript(KGObject):
         data["name"] = self.name
         if isinstance(self.distribution, list):
             data["distribution"] = [item.to_jsonld() for item in self.distribution]
-        else:
+        elif self.distribution is not None:
             data["distribution"] = self.distribution.to_jsonld()
         self._save(data, client, exists_ok)
 
@@ -401,13 +419,13 @@ class EModel(ModelInstance):
     path = NAMESPACE + "/simulation/emodel/v0.1.1"
     type = ["prov:Entity", "nsg:EModel"]
     context = [
-        "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
     ]
 
 
     # model_script, name, species, subCellularMechanism
-    def __init__(self, name, brain_region, species, model_of, 
+    def __init__(self, name, brain_region, species, model_of,
                  main_script, release, id=None, instance=None):
         self.name = name
         self.brain_region = brain_region
@@ -423,7 +441,7 @@ class EModel(ModelInstance):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:EModel' in D["@type"]
-        obj = cls(name=D["name"], 
+        obj = cls(name=D["name"],
                   #model_of=build_kg_object(D.get("modelOf", None)),
                   model_of=D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
@@ -467,7 +485,7 @@ class ValidationProject(KGObject):  # or ValidationProtocol
     """docstring"""
     path = NAMESPACE + "/simulation/validationproject/v0.1.0"
     type = ["prov:Entity", "nsg:ModelValidationProject"]
-    #- ValidationTestDefinition 
+    #- ValidationTestDefinition
     pass
 
 
@@ -493,4 +511,4 @@ class ValidationActivity(KGObject):
     type = ["prov:Activity", "nsg:ModelValidation"]
             #- ValidationActivity (simulation/modelvalidation - exists)
     pass
-    # 
+    #
