@@ -13,15 +13,24 @@ from .errors import ResourceExistsError
 logger = logging.getLogger("nar")
 
 
-registry = {}
+registry = {
+    'names': {},
+    'types': {}
+}
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
 def register_class(target_class):
-    registry[target_class.__name__] = target_class
+    registry['names'][target_class.__name__] = target_class
+    if hasattr(target_class, 'type'):
+        registry['types'][tuple(target_class.type)] = target_class
 
 
 def lookup(class_name):
-    return registry[class_name]
+    return registry['names'][class_name]
+
+
+def lookup_type(class_type):
+    return registry['types'][tuple(class_type)]
 
 
 def generate_cache_key(qd):
@@ -76,6 +85,14 @@ class KGObject(with_metaclass(Registry, object)):
     def from_uri(cls, uri, client):
         return cls.from_kg_instance(client.instance_from_full_uri(uri),
                                     client)
+
+    @classmethod
+    def from_uuid(cls, uuid, client):
+        instance = client.instance_from_uuid(cls.path, uuid)
+        if instance is None:
+            return None
+        else:
+            return cls.from_kg_instance(instance, client)
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -320,6 +337,9 @@ def build_kg_object(cls, data):
 
     objects = []
     for item in data:
+        if cls is None:
+            cls = lookup_type(item["@type"])
+
         if issubclass(cls, OntologyTerm):
             obj = cls.from_jsonld(item)
         elif issubclass(cls, KGObject):
@@ -337,6 +357,8 @@ def build_kg_object(cls, data):
 
 
 def as_list(obj):
+    if obj is None:
+        return []
     try:
         L = list(obj)
     except TypeError:
