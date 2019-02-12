@@ -37,11 +37,12 @@ class ModelProject(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "schema": "http://schema.org/",
         "dateCreated": "schema:dateCreated",
+        "instances": "dcterms:hasPart"
     }
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
-                 abstraction_level=None, model_of=None, old_uuid=None, id=None, instance=None):
+                 abstraction_level=None, model_of=None, old_uuid=None, instances=None, id=None, instance=None):
         self.name = name
         self.alias = alias
         self.brain_region = brain_region
@@ -58,6 +59,7 @@ class ModelProject(KGObject):
         self.date_created = date_created
         self.model_of = model_of
         self.old_uuid = old_uuid
+        self.instances = instances
         self.id = id
         self.instance = instance
 
@@ -85,6 +87,7 @@ class ModelProject(KGObject):
                   celltype=build_kg_object(CellType, D.get("celltype")),
                   abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
                   old_uuid=D.get("oldUUID", None),
+                  instances=build_kg_object(None, D.get("dcterms:hasPart")),
                   id=D["@id"], instance=instance)
         if isinstance(D["author"], str):  # temporary, this shouldn't happen once migration complete
             obj.authors = D["author"]
@@ -115,7 +118,7 @@ class ModelProject(KGObject):
                     {
                         "@type": person.type,
                         "@id": person.id
-                    } for person in self.authors
+                    } for person in as_list(self.authors)
                 ]
         if self.owners:
             owners = as_list(self.owners)
@@ -185,13 +188,20 @@ class ModelProject(KGObject):
                 data["abstractionLevel"] = self.abstraction_level.to_jsonld()
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
+        if self.instances is not None:
+            data["dcterms:hasPart"] = [
+                {
+                    "@type": obj.type,
+                    "@id": obj.id
+                } for obj in self.instances
+            ]
         self._save(data, client, exists_ok)
 
 
 
 class ModelInstance(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/modelinstance/v0.1.1"   # 0.1.2 is the latest, but only 0.1.1 in nexus currently
+    path = NAMESPACE + "/simulation/modelinstance/v0.1.2"
     type = ["prov:Entity", "nsg:ModelInstance"]
     # ScientificModelInstance
     #   - model -> linked ModelProject using partOf
@@ -205,11 +215,88 @@ class ModelInstance(KGObject):
     #   - morphology - not needed for all models, use MEModel where we have a morphology
     # modelinstance/v0.1.2
     #   - fields of Entity + modelOf, brainRegion, species
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ]
+    # fields:
+    #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
+
+    def __init__(self, name, brain_region, species, model_of,
+                 main_script, release, version, timestamp,
+                 part_of=None, description=None, id=None, instance=None):
+        self.name = name
+        self.description = description
+        self.brain_region = brain_region
+        self.species = species
+        self.model_of = model_of
+        self.main_script = main_script
+        self.release = release
+        self.version = version
+        self.timestamp = timestamp
+        self.part_of = part_of
+        self.id = id
+        self.instance = instance
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.name!r}, {self.brain_region!r}, '
                 '{self.model_of!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:ModelInstance' in D["@type"]
+        obj = cls(name=D["name"],
+                  #model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of = D.get("modelOf", None),
+                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
+                  species=build_kg_object(Species, D.get("species")),
+                  main_script=build_kg_object(ModelScript, D["mainModelScript"]),
+                  release=D.get("release"),  # to fix once we define MEModelRelease class
+                  version=D.get("version"),
+                  timestamp=D.get("generatedAtTime"),  # todo: convert to datetime object
+                  #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
+                  description=D.get("description"),
+                  id=D["@id"], instance=instance)
+        return obj
+
+    def save(self, client, exists_ok=True):
+        """docstring"""
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        data["name"] = self.name
+        if self.model_of:
+            data["modelOf"] = self.model_of.to_jsonld()
+        if self.brain_region:
+            data["brainRegion"] = self.brain_region.to_jsonld()
+        if self.species:
+            data["species"] = self.species.to_jsonld()
+        if self.description:
+            data["description"] = self.description
+        if self.main_script:
+            data["mainModelScript"] = {
+                "@id": self.main_script.id,
+                "@type": self.main_script.type
+            }
+        if self.version:
+            data["version"] = self.version
+        if self.timestamp:
+            data["generatedAtTime"] = self.timestamp.isoformat()
+        if self.part_of:
+            data["isPartOf"] = {
+                "@id": self.part_of.id,
+                "@type": self.part_of.type
+            }
+        if self.release:
+            data["release"] = self.release
+        self._save(data, client, exists_ok)
 
 
 class MEModel(ModelInstance):
@@ -386,7 +473,10 @@ class ModelScript(KGObject):
 
     @property
     def code_location(self):
-        return self.distribution.location
+        if self.distribution:
+            return self.distribution.location
+        else:
+            return None
 
     @classmethod
     @cache
