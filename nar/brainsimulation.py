@@ -224,7 +224,8 @@ class ModelInstance(KGObject):
 
     def __init__(self, name, brain_region, species, model_of,
                  main_script, release, version, timestamp,
-                 part_of=None, description=None, id=None, instance=None):
+                 part_of=None, description=None, parameters=None,
+                 id=None, instance=None):
         self.name = name
         self.description = description
         self.brain_region = brain_region
@@ -235,6 +236,7 @@ class ModelInstance(KGObject):
         self.version = version
         self.timestamp = timestamp
         self.part_of = part_of
+        self.parameters = parameters
         self.id = id
         self.instance = instance
 
@@ -259,6 +261,7 @@ class ModelInstance(KGObject):
                   timestamp=D.get("generatedAtTime"),  # todo: convert to datetime object
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
+                  parameters=D.get("nsg:parameters"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -296,6 +299,8 @@ class ModelInstance(KGObject):
             }
         if self.release:
             data["release"] = self.release
+        if self.parameters:
+            data["nsg:parameters"] = self.parameters
         self._save(data, client, exists_ok)
 
 
@@ -312,7 +317,7 @@ class MEModel(ModelInstance):
 
     def __init__(self, name, brain_region, species, model_of, e_model,
                  morphology, main_script, release, version, timestamp, project,
-                 part_of=None, description=None, id=None, instance=None):
+                 part_of=None, description=None, parameters=None, id=None, instance=None):
         self.name = name
         self.description = description
         self.brain_region = brain_region
@@ -326,6 +331,7 @@ class MEModel(ModelInstance):
         self.timestamp = timestamp
         self.project = project
         self.part_of = part_of
+        self.parameters = parameters
         self.id = id
         self.instance = instance
 
@@ -348,6 +354,7 @@ class MEModel(ModelInstance):
                   project=build_kg_object(ModelProject, D.get("isPartOf")),
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
+                  parameters=D.get("nsg:parameters"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -398,7 +405,10 @@ class MEModel(ModelInstance):
         }
         if self.release:
             data["release"] = self.release
+        if self.parameters:
+            data["nsg:parameters"] = parameters
         self._save(data, client, exists_ok)
+
 
 class Morphology(KGObject):
     path = NAMESPACE + "/simulation/morphology/v0.1.1"
