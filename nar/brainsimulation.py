@@ -2,6 +2,7 @@
 brain simulation
 """
 
+
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list
 from .commons import BrainRegion, CellType, Species, AbstractionLevel
 from .core import Organization, Person
@@ -406,7 +407,7 @@ class MEModel(ModelInstance):
         if self.release:
             data["release"] = self.release
         if self.parameters:
-            data["nsg:parameters"] = parameters
+            data["nsg:parameters"] = self.parameters
         self._save(data, client, exists_ok)
 
 

@@ -88,9 +88,9 @@ class NARClient(object):
         return entity
 
     def update_instance(self, instance):
-        instance.data.pop("links")
-        instance.data.pop("nxv:rev")
-        instance.data.pop("nxv:deprecated")
+        instance.data.pop("links", None)
+        instance.data.pop("nxv:rev", None)
+        instance.data.pop("nxv:deprecated", None)
         instance = self._nexus_client.instances.update(instance)
         return instance
 

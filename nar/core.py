@@ -3,6 +3,7 @@ core
 
 """
 
+from __future__ import unicode_literals
 import logging
 from .base import KGObject, KGProxy, cache
 from .errors import ResourceExistsError
@@ -61,9 +62,9 @@ class Subject(KGObject):
         """docstring"""
         D = instance.data
         assert 'nsg:Subject' in D["@type"]
-        return cls(D["name"], 
-                   Species.from_jsonld(D["species"]), 
-                   Strain.from_jsonld(D.get("strain", None)), 
+        return cls(D["name"],
+                   Species.from_jsonld(D["species"]),
+                   Strain.from_jsonld(D.get("strain", None)),
                    Sex.from_jsonld(D["sex"]),
                    Age.from_jsonld(D["age"]),
                    D.get("deathDate", None), D["@id"],
@@ -241,7 +242,7 @@ class Person(KGObject):
                 "@id": self.affiliation.id
             }
         self._save(data, client, exists_ok)
-        
+
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client)
@@ -279,7 +280,7 @@ class Protocol(KGObject):
         """docstring"""
         D = instance.data
         assert 'nsg:Protocol' in D["@type"]
-        return cls(D["name"], 
+        return cls(D["name"],
                    D["nsg:steps"],
                    [Material.from_jsonld(material) for material in D["nsg:materials"]],
                    KGProxy(Person, D["schema:author"]),
@@ -325,7 +326,7 @@ class Identifier(KGObject):
 
 
 class Material(object):
-    
+
     def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
         self.name = name
         self.molar_weight = molar_weight
@@ -337,9 +338,9 @@ class Material(object):
     def to_jsonld(self):
         return {
             "nsg:reagentName": self.name,
-            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(), 
-            "nsg:reagentLinearFormula": self.formula, 
-            "schema:sku": self.stock_keeping_unit, 
+            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
+            "nsg:reagentLinearFormula": self.formula,
+            "schema:sku": self.stock_keeping_unit,
             "schema:identifier": {
                 #"@type": "",
                 "@id": self.identifier.id,
@@ -349,12 +350,12 @@ class Material(object):
                 "@id": self.vendor.id
             }
         }
-    
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
             return None
-        return cls(data["name"], 
+        return cls(data["name"],
                    QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
                    data["nsg:reagentLinearFormula"],
                    data["schema:sku"],
