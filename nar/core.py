@@ -107,7 +107,7 @@ class Organization(KGObject):
         "addressCountry": "schema:addressCountry",
     }
 
-    def __init__(self, name, address, parent, id=None, instance=None):
+    def __init__(self, name, address=None, parent=None, id=None, instance=None):
         self.name = name
         self.address = address
         self.parent = parent
@@ -143,11 +143,12 @@ class Organization(KGObject):
                 "@type": self.type
             }
         data["name"] = self.name
-        data["address"] = {
-            "@type": "schema:PostalAddress",
-            "addressLocality": self.address.locality,
-            "addressCountry": self.address.country
-        }
+        if self.address:
+            data["address"] = {
+                "@type": "schema:PostalAddress",
+                "addressLocality": self.address.locality,
+                "addressCountry": self.address.country
+            }
         if self.parent:
             if self.parent.id is None:
                 self.parent.save(client)
@@ -172,7 +173,7 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
 
-    def __init__(self, family_name, given_name, email, affiliation, id=None, instance=None):
+    def __init__(self, family_name, given_name, email, affiliation=None, id=None, instance=None):
         self.family_name = family_name
         self.given_name = given_name
         self.email = email

@@ -94,6 +94,10 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             return cls.from_kg_instance(instance, client)
 
+    @property
+    def uuid(self):
+        return self.id.split("/")[-1]
+
     @classmethod
     def list(cls, client, size=100, **filters):
         """List all objects of this type in the Knowledge Graph"""
