@@ -43,7 +43,8 @@ class ModelProject(KGObject):
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
-                 abstraction_level=None, model_of=None, old_uuid=None, instances=None, id=None, instance=None):
+                 abstraction_level=None, model_of=None, old_uuid=None, instances=None, images=None,
+                 id=None, instance=None):
         self.name = name
         self.alias = alias
         self.brain_region = brain_region
@@ -60,6 +61,7 @@ class ModelProject(KGObject):
         self.date_created = date_created
         self.model_of = model_of
         self.old_uuid = old_uuid
+        self.images = images
         self.instances = instances
         self.id = id
         self.instance = instance
@@ -89,6 +91,7 @@ class ModelProject(KGObject):
                   abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
                   old_uuid=D.get("oldUUID", None),
                   instances=build_kg_object(None, D.get("dcterms:hasPart")),
+                  images=D.get("images"),
                   id=D["@id"], instance=instance)
         if isinstance(D["author"], str):  # temporary, this shouldn't happen once migration complete
             obj.authors = D["author"]
@@ -196,7 +199,21 @@ class ModelProject(KGObject):
                     "@id": obj.id
                 } for obj in self.instances
             ]
+        if self.images is not None:
+            data["images"] = self.images
         self._save(data, client, exists_ok)
+
+    @classmethod
+    def from_alias(cls, alias, client):
+        context = {
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
+        }
+        query = {
+            "path": "nsg:alias",
+            "op": "eq",
+            "value": alias
+        }
+        return KGQuery(cls, query, context).resolve(client)
 
 
 
@@ -466,13 +483,18 @@ class ModelScript(KGObject):
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
     context =  [  # todo: root should be set by client to nexus or nexus-int or whatever as required
         "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {
+            "license": "schema:license"
+        }
     ]
 
-    def __init__(self, name, code_location=None, code_format=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, code_location=None, code_format=None, license=None,
+                 distribution=None, id=None, instance=None):
         self.name = name
         self.distribution = distribution
         self.code_format = code_format
+        self.license = license
         self.id = id
         self.instance = instance
         if code_location and distribution:
@@ -496,6 +518,8 @@ class ModelScript(KGObject):
         assert 'nsg:EModelScript' in D["@type"]  # generalise
         obj = cls(name=D["name"],
                   distribution=build_kg_object(Distribution, D.get("distribution")),
+                  license=D.get("license"),
+                  code_format=D.get("code_format"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -513,6 +537,8 @@ class ModelScript(KGObject):
             data["distribution"] = [item.to_jsonld() for item in self.distribution]
         elif self.distribution is not None:
             data["distribution"] = self.distribution.to_jsonld()
+        data["license"] = self.license
+        data["code_format"] = self.code_format
         self._save(data, client, exists_ok)
 
 

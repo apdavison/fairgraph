@@ -21,6 +21,7 @@ class Species(OntologyTerm):
         "Rodentia": "http://purl.obolibrary.org/obo/NCBITaxon_9989",
         "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
         "Rattus norvegicus": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+        "Rattus rattus": "http://purl.obolibrary.org/obo/NCBITaxon_10117",
         "Callithrix jacchus": "http://purl.obolibrary.org/obo/NCBITaxon_9483",
         "Homo sapiens": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
         "Macaca mulatta": "http://purl.obolibrary.org/obo/NCBITaxon_9544",
@@ -34,7 +35,7 @@ class Strain(OntologyTerm):
         "Tg2576": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6J": "https://www.jax.org/strain/000664",  # RRID:IMSR_JAX:000664
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
@@ -44,6 +45,7 @@ class Strain(OntologyTerm):
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
     }
+# use RRIDs
 
 
 class Sex(OntologyTerm):
@@ -58,19 +60,21 @@ class BrainRegion(OntologyTerm):
     """docstring"""
     iri_map = {
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
-        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",
+        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
+        "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
         "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
         "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
         "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
         "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
         "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
         "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
-        "cortex": "http://purl.obolibrary.org/obo/UBERON_0001851",
+        "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
+        "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
         "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
         "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  
+        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
         # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
         "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
         "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
@@ -79,6 +83,7 @@ class BrainRegion(OntologyTerm):
         "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
         "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
+        #"primary auditory cortex":
     }
 
 
@@ -120,18 +125,34 @@ class AbstractionLevel(OntologyTerm):
     """docstring"""
     iri_map = {
         "protein structure": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: continuous": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: discrete": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: flux balance": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons: biophysical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons: point neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "rate neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
+        "systems biology: continuous": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
+        "systems biology: discrete": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000063",
+        "systems biology: flux balance": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000624",
+        "spiking neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
+        "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
+        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
+        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
         "population modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+    }
+
+
+class ModelScope(OntologyTerm):
+    """docstring"""
+    iri_map = {
+        "subcellular": "TODO",
+        "subcellular: spine": "http://uri.neuinfo.org/nif/nifstd/sao1145756102",
+        "subcellular: ion channel": "http://uri.neuinfo.org/nif/nifstd/nifext_2508",
+        "subcellular: signalling": "http://uri.interlex.org/base/ilx_0503639",  # "biochemical processes", not ideal
+        "subcellular: molecular": "TODO",
+        "single cell": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+        "network": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010",
+        "network: microcircuit":  "http://purl.obolibrary.org/obo/UBERON_0014778",  # "cell group", not ideal
+        "network: brain region": "http://purl.obolibrary.org/obo/UBERON_0002616",
+        "network: whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955"
     }
 
 
@@ -167,7 +188,7 @@ class QuantitativeValue(object):
             "label": self.unit_text,
             "unitCode": {"@id": self.unit_code}
         }
-    
+
     def to_jsonld_alt(self):
         return {
             "value": self.value,
@@ -206,7 +227,7 @@ class Age(object):
     def to_jsonld(self):
         return {'value': self.value.to_jsonld(),
                 'period': self.period}
-    
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
