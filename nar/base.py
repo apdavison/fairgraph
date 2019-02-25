@@ -157,6 +157,10 @@ class KGObject(with_metaclass(Registry, object)):
             KGObject.cache[self.id] = self
             KGObject.save_cache[self.__class__][generate_cache_key(self._existence_query)] = self.id
 
+    def delete(self, client):
+        """Deprecate"""
+        client.delete_instance(self.instance)
+
     @classmethod
     def by_name(cls, name, client):
         return client.by_name(cls, name)
@@ -167,6 +171,12 @@ class KGObject(with_metaclass(Registry, object)):
             return self.instance.data.get("nxv:rev", None)
         else:
             return None
+
+    def resolve(self, client):
+        """To avoid having to check if a child attribute is a proxy or a real object,
+        a real object resolves to itself.
+        """
+        return self
 
 
 def cache(f):
@@ -189,7 +199,7 @@ class OntologyTerm(object):
 
     def __init__(self, label, iri=None):
         self.label = label
-        self.iri = iri or self.iri_map[label]
+        self.iri = iri or self.iri_map.get(label)
 
     def __repr__(self):
         #return (f'{self.__class__.__name__}('

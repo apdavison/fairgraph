@@ -94,6 +94,9 @@ class NARClient(object):
         instance = self._nexus_client.instances.update(instance)
         return instance
 
+    def delete_instance(self, instance):
+        self._nexus_client.instances.delete(instance)
+
     def by_name(self, cls, name):
         """Retrieve an object based on the value of schema:name"""
         context = {"schema": "http://schema.org/"}
