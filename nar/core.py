@@ -130,7 +130,10 @@ class Organization(KGObject):
             parent = KGProxy(cls, D["parentOrganization"]["@id"])
         else:
             parent = None
-        address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
+        if "address" in D:
+            address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
+        else:
+            address = None
         return cls(D["name"], address, parent, id=D["@id"], instance=instance)
 
     def save(self, client, exists_ok=True):

@@ -83,7 +83,7 @@ class BrainRegion(OntologyTerm):
         "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
         "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
-        #"primary auditory cortex":
+        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751"
     }
 
 

@@ -2,12 +2,13 @@
 brain simulation
 """
 
-
-from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list
-from .commons import BrainRegion, CellType, Species, AbstractionLevel
+import logging
+from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
+from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
 from .core import Organization, Person
 import datetime
 
+logger = logging.getLogger("nar")
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "brainsimulation"
@@ -38,6 +39,7 @@ class ModelProject(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "schema": "http://schema.org/",
         "dateCreated": "schema:dateCreated",
+        "dcterms": "http://purl.org/dc/terms/",
         "instances": "dcterms:hasPart"
     }
 
@@ -73,8 +75,9 @@ class ModelProject(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, use_cache=True):
         D = instance.data
+        logger.debug("???? " + str(D))
         assert 'nsg:ModelProject' in D["@type"]
         obj = cls(name=D["name"],
                   owners=None,
@@ -84,7 +87,7 @@ class ModelProject(KGObject):
                   organization=build_kg_object(Organization, D.get("organization")),
                   pla_components=D.get("PLAComponents", None),
                   alias=D.get("alias", None),
-                  model_of=D.get("modelOf", None),
+                  model_of=build_kg_object(ModelScope, D.get("modelOf")),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
                   celltype=build_kg_object(CellType, D.get("celltype")),
@@ -169,7 +172,7 @@ class ModelProject(KGObject):
         if self.alias is not None:
             data["alias"] = self.alias
         if self.model_of is not None:
-            data["modelOf"] = self.model_of
+            data["modelOf"] = self.model_of.to_jsonld()
         if self.brain_region is not None:
             if isinstance(self.brain_region, list):
                 data["brainRegion"] = [br.to_jsonld() for br in self.brain_region]
@@ -197,7 +200,7 @@ class ModelProject(KGObject):
                 {
                     "@type": obj.type,
                     "@id": obj.id
-                } for obj in self.instances
+                } for obj in as_list(self.instances)
             ]
         if self.images is not None:
             data["images"] = self.images
@@ -276,7 +279,8 @@ class ModelInstance(KGObject):
                   main_script=build_kg_object(ModelScript, D["mainModelScript"]),
                   release=D.get("release"),  # to fix once we define MEModelRelease class
                   version=D.get("version"),
-                  timestamp=D.get("generatedAtTime"),  # todo: convert to datetime object
+                  timestamp=datetime.datetime.strptime(D.get("generatedAtTime"),
+                                                       "%Y-%m-%dT%H:%M:%S.%f") if "generatedAtTime" in D else None,
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
                   parameters=D.get("nsg:parameters"),
@@ -321,6 +325,18 @@ class ModelInstance(KGObject):
             data["nsg:parameters"] = self.parameters
         self._save(data, client, exists_ok)
 
+    @property
+    def project(self):
+        query = {
+            "path": "dcterms:hasPart",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "dcterms": "http://purl.org/dc/terms/"
+        }
+        return KGQuery(ModelProject, query, context)
+
 
 class MEModel(ModelInstance):
     """docstring"""
@@ -347,7 +363,7 @@ class MEModel(ModelInstance):
         self.release = release
         self.version = version
         self.timestamp = timestamp
-        self.project = project
+        #self.project = project  # conflict with project property in parent class. To fix.
         self.part_of = part_of
         self.parameters = parameters
         self.id = id
@@ -416,11 +432,11 @@ class MEModel(ModelInstance):
                 "@id": self.part_of.id,
                 "@type": self.part_of.type
             }
-        #if self.project:
-        data["project"] = {
-            "@id": self.project.id,
-            "@type": self.project.type
-        }
+        if self.project:
+            data["project"] = {
+                "@id": self.project.id,
+                "@type": self.project.type
+            }
         if self.release:
             data["release"] = self.release
         if self.parameters:
