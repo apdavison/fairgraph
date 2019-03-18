@@ -66,14 +66,16 @@ class NARClient(object):
             self.cache[instance.data["@id"]] = instance
         return response.results
 
-    def instance_from_full_uri(self, uri):
-        if uri in self.cache:
+    def instance_from_full_uri(self, uri, use_cache=True):
+        if use_cache and uri in self.cache:
+            logger.debug("Retrieving instance from cache")
             return self.cache[uri]
         else:
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             self.cache[instance.data["@id"]] = instance
+            logger.debug("Retrieved instance from KG " + str(instance.data))
             return instance
 
     def instance_from_uuid(self, path, uuid):

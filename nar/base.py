@@ -78,16 +78,20 @@ class KGObject(with_metaclass(Registry, object)):
                 '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
-    def from_kg_instance(self, instance, client):
+    def from_kg_instance(self, instance, client, use_cache=True):
         raise NotImplementedError("To be implemented by child class")
 
     @classmethod
-    def from_uri(cls, uri, client):
-        return cls.from_kg_instance(client.instance_from_full_uri(uri),
-                                    client)
+    def from_uri(cls, uri, client, use_cache=True):
+        return cls.from_kg_instance(client.instance_from_full_uri(uri, use_cache=use_cache),
+                                    client,
+                                    use_cache=use_cache)
 
     @classmethod
     def from_uuid(cls, uuid, client):
+        if len(uuid) == 0:
+            raise ValueError("Empty UUID")
+        # todo: better checking of UUID format
         instance = client.instance_from_uuid(cls.path, uuid)
         if instance is None:
             return None
@@ -181,8 +185,8 @@ class KGObject(with_metaclass(Registry, object)):
 
 def cache(f):
     @wraps(f)
-    def wrapper(cls, instance, client):
-        if instance.data["@id"] in KGObject.cache:
+    def wrapper(cls, instance, client, use_cache=True):
+        if use_cache and instance.data["@id"] in KGObject.cache:
             obj = KGObject.cache[instance.data["@id"]]
             #print(f"Found in cache: {obj.id}")
             return obj
@@ -197,9 +201,12 @@ def cache(f):
 class OntologyTerm(object):
     """docstring"""
 
-    def __init__(self, label, iri=None):
+    def __init__(self, label, iri=None, strict=False):
         self.label = label
         self.iri = iri or self.iri_map.get(label)
+        if strict:
+            if self.iri is None:
+                raise ValueError("No IRI found for label {}".format(label))
 
     def __repr__(self):
         #return (f'{self.__class__.__name__}('
@@ -246,6 +253,11 @@ class KGProxy(object):
         #        f'{self.cls!r}, {self.id!r})')
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
+
+    def delete(self, client):
+        """Delete the instance which this proxy represents"""
+        obj = self.resolve(client)
+        obj.delete(client)
 
 
 class KGQuery(object):
