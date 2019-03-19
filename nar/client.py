@@ -54,17 +54,24 @@ class NARClient(object):
                 for instance in instances]
 
     def filter_query(self, path, filter, context, from_index=0, size=100):
-        # todo: add size and from_index arguments
-        response = self._nexus_client.instances.list(
+        instances = []
+        query = self._nexus_client.instances.list(
             subpath=path,
             filter_query=quote_plus(json.dumps(filter)),
             context=quote_plus(json.dumps(context)),
             from_index=from_index,
             size=size,
             resolved=True)
-        for instance in response.results:
+        instances.extend(query.results)
+        next = query.get_next_link()
+        while len(instances) < size and next:
+            query = self._nexus_client.instances.list_by_full_path(next)
+            instances.extend(query.results)
+            next = query.get_next_link()
+
+        for instance in instances:
             self.cache[instance.data["@id"]] = instance
-        return response.results
+        return instances
 
     def instance_from_full_uri(self, uri, use_cache=True):
         if use_cache and uri in self.cache:

@@ -275,7 +275,8 @@ class KGQuery(object):
         instances = client.filter_query(
             path=self.cls.path,
             filter=self.filter,
-            context=self.context
+            context=self.context,
+            size=10000
         )
         objects = [self.cls.from_kg_instance(instance, client)
                    for instance in instances]
