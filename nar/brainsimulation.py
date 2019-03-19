@@ -272,7 +272,7 @@ class ModelInstance(KGObject):
         D = instance.data
         assert 'nsg:ModelInstance' in D["@type"]
         obj = cls(name=D["name"],
-                  model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of=build_kg_object(None, D.get("modelOf")),
                   #model_of = D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
@@ -375,7 +375,7 @@ class MEModel(ModelInstance):
         D = instance.data
         assert 'nsg:MEModel' in D["@type"]
         obj = cls(name=D["name"],
-                  model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of=build_kg_object(None, D.get("modelOf")),
                   #model_of = D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
@@ -432,11 +432,11 @@ class MEModel(ModelInstance):
                 "@id": self.part_of.id,
                 "@type": self.part_of.type
             }
-        if self.project:
-            data["project"] = {
-                "@id": self.project.id,
-                "@type": self.project.type
-            }
+        # if self.project:
+        #     data["project"] = {
+        #         "@id": self.project.id,
+        #         "@type": self.project.type
+        #     }
         if self.release:
             data["release"] = self.release
         if self.parameters:
