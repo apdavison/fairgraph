@@ -365,7 +365,10 @@ def build_kg_object(cls, data):
     objects = []
     for item in data:
         if cls is None:
-            cls = lookup_type(item["@type"])
+            if "@type" in item:
+                cls = lookup_type(item["@type"])
+            else:
+                raise ValueError("Cannot determine type. Item was: {}".format(item))
 
         if issubclass(cls, OntologyTerm):
             obj = cls.from_jsonld(item)
