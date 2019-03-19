@@ -3,10 +3,11 @@ brain simulation
 """
 
 import logging
+import datetime
+from dateutil import parser as date_parser
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
 from .core import Organization, Person
-import datetime
 
 logger = logging.getLogger("nar")
 
@@ -279,8 +280,8 @@ class ModelInstance(KGObject):
                   main_script=build_kg_object(ModelScript, D["mainModelScript"]),
                   release=D.get("release"),  # to fix once we define MEModelRelease class
                   version=D.get("version"),
-                  timestamp=datetime.datetime.strptime(D.get("generatedAtTime"),
-                                                       "%Y-%m-%dT%H:%M:%S.%f") if "generatedAtTime" in D else None,
+                  timestamp=date_parser.parse(D.get("generatedAtTime"))
+                            if "generatedAtTime" in D else None,
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
                   parameters=D.get("nsg:parameters"),
