@@ -367,6 +367,10 @@ def build_kg_object(cls, data):
         if cls is None:
             if "@type" in item:
                 cls = lookup_type(item["@type"])
+            elif "label" in item:
+                # we could possibly do a reverse lookup using iri_map of all the OntologyTerm
+                # subclasses but for now just returning the base class
+                cls = OntologyTerm
             else:
                 raise ValueError("Cannot determine type. Item was: {}".format(item))
 
