@@ -44,7 +44,8 @@ def generate_cache_key(qd):
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
         else:
-            assert isinstance(value, (str, int, float))
+            if not isinstance(value, (str, int, float)):
+                raise TypeError("Expected a string, integer or float for key '{}', not a {}".format(key, type(value)))
             cache_key.append((key, value))
     return tuple(cache_key)
 
