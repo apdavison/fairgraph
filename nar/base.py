@@ -39,6 +39,8 @@ def lookup_type(class_type):
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
+    if not isinstance(qd, dict):
+        raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
     cache_key = []
     for key in sorted(qd):
         value = qd[key]
