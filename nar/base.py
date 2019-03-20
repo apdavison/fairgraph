@@ -162,6 +162,7 @@ class KGObject(with_metaclass(Registry, object)):
                     return
                 else:
                     raise ResourceExistsError("Already exists in the Knowledge Graph: {self!r}".format(self=self))
+            logger.debug("Creating instance with data {}".format(data))
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
