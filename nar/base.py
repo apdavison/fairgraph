@@ -6,6 +6,7 @@ import sys
 from functools import wraps
 from collections import defaultdict
 import logging
+from uuid import UUID
 from six import with_metaclass
 try:
     basestring
@@ -98,7 +99,7 @@ class KGObject(with_metaclass(Registry, object)):
     def from_uuid(cls, uuid, client):
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
-        # todo: better checking of UUID format
+        val = UUID(uuid, version=4)  # check validity of uuid
         instance = client.instance_from_uuid(cls.path, uuid)
         if instance is None:
             return None
