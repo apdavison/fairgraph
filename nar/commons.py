@@ -102,21 +102,18 @@ class CellType(OntologyTerm):
         "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
         "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
         "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
-        "L2/3 chandelier cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2/3 Chandelier cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
         "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiny stellate neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L5 tufted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2/3 pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2/3 Pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
+        "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
+        "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
         "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L6 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L6 Inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L4 Martinotti cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373",
+        "L4 Martinotti cell": "http://uri.neuinfo.org/nif/nifstd/nifext_55",
         "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "cholinergic interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L1 neurogliaform cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "cholinergic interneuron": "http://uri.interlex.org/base/ilx_0490357",
+        "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
+        "L2 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0383207",
         "not applicable": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
 
@@ -138,6 +135,45 @@ class AbstractionLevel(OntologyTerm):
         "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
+
+
+# CNO model types
+# 'cellular model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008"
+#     'artificial neuron model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000012"
+#     'point process model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000013"
+#     'rate-based neuron model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144"
+#     'spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014"
+#         'biophysical spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017"
+#             'detailed model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000020"
+#             'reduced model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000019"
+#         'threshold-based spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018"
+#             'one variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000022"
+#             'pulse-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000021"
+#             'spike response model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000025"
+#             'three variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000024"
+#             'two variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000023"
+# 'network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010"
+#     'artificial neural network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000029"
+#     'rate model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000028"
+#     'spiking network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000030"
+# 'plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000011"
+#     'cellular plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000033"
+#     'developmental plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000161"
+#     'synaptic plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000034"
+#         'homeostatic plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000187"
+#         'long term plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000183"
+#             'biophysical model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000186"
+#             'phenomenological plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000007"
+#                 'rate-based plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000184"
+#                 'spike timing dependent plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000185"
+#         'short term plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000182"
+#             'short term depression model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000201"
+#             'short term facilitation model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000035"
+# 'synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000009"
+#     'chemical synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000031"
+#         'conductance-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000027"
+#         'current-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000026"
+#     'electrical synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000026"
 
 
 class ModelScope(OntologyTerm):
