@@ -7,7 +7,7 @@ import datetime
 from dateutil import parser as date_parser
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
-from .core import Organization, Person
+from .core import Organization, Person, Age
 
 logger = logging.getLogger("nar")
 
@@ -15,7 +15,22 @@ NAMESPACE = "neuralactivity"
 #NAMESPACE = "brainsimulation"
 
 
-class ModelProject(KGObject):
+class HasAliasMixin(object):
+
+    @classmethod
+    def from_alias(cls, alias, client):
+        context = {
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
+        }
+        query = {
+            "path": "nsg:alias",
+            "op": "eq",
+            "value": alias
+        }
+        return KGQuery(cls, query, context).resolve(client)
+
+
+class ModelProject(KGObject, HasAliasMixin):
     """docstring"""
     path = NAMESPACE + "/simulation/modelproject/v0.1.0"
     #path = NAMESPACE + "/simulation/modelproject/v0.1.1"
@@ -112,6 +127,11 @@ class ModelProject(KGObject):
     def save(self, client, exists_ok=True):
         if self.instance:
             data = self.instance.data
+            # the following 4 lines are a temporary hack, due to dcterms being missing in the standard context
+            if isinstance(data["@context"], list):
+                data["@context"].append(self.context)
+            else:
+                data["@context"].update(self.context)
         else:
             data = {
                 "@context": self.context,
@@ -206,19 +226,6 @@ class ModelProject(KGObject):
         if self.images is not None:
             data["images"] = self.images
         self._save(data, client, exists_ok)
-
-    @classmethod
-    def from_alias(cls, alias, client):
-        context = {
-            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
-        }
-        query = {
-            "path": "nsg:alias",
-            "op": "eq",
-            "value": alias
-        }
-        return KGQuery(cls, query, context).resolve(client)
-
 
 
 class ModelInstance(KGObject):
@@ -625,12 +632,187 @@ class EModel(ModelInstance):
         self._save(data, client, exists_ok)
 
 
-class ValidationProject(KGObject):  # or ValidationProtocol
+class AnalysisResult(KGObject):
+    path = NAMESPACE + "/simulation/analysisresult/v1.0.0"
+    type = ["prov:Entity", "nsg:AnalysisResult"]
+    context =  [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ]
+
+    def __init__(self, name, distribution=None, id=None, instance=None):
+        self.name = name
+        self.distribution = distribution
+        self.id = id
+        self.instance = instance
+        if distribution is not None:
+            assert isinstance(self.distribution, Distribution)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:AnalysisResult' in D["@type"]
+        obj = cls(name=D["name"],
+                  distribution=build_kg_object(Distribution, D.get("distribution")),
+                  id=D["@id"], instance=instance)
+        return obj
+
+    def save(self, client, exists_ok=True):
+        """docstring"""
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        data["name"] = self.name
+        if isinstance(self.distribution, list):
+            data["distribution"] = [item.to_jsonld() for item in self.distribution]
+        elif self.distribution is not None:
+            data["distribution"] = self.distribution.to_jsonld()
+        self._save(data, client, exists_ok)
+
+
+class ValidationTestDefinition(KGObject, HasAliasMixin):
     """docstring"""
-    path = NAMESPACE + "/simulation/validationproject/v0.1.0"
-    type = ["prov:Entity", "nsg:ModelValidationProject"]
-    #- ValidationTestDefinition
-    pass
+    path = NAMESPACE + "/simulation/validationtestdefinition/v0.1.0"
+    #path = NAMESPACE + "/simulation/validationtestdefinition/v0.1.2"
+    type = ["prov:Entity", "nsg:ValidationTestDefinition"]
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {
+            "name": "schema:name",
+            "alias": "nsg:alias",
+            "author": "schema:author",
+            "brainRegion": "nsg:brainRegion",
+            "species": "nsg:species",
+            "celltype": "nsg:celltype",
+            "abstractionLevel": "nsg:abstractionLevel",
+            "description": "schema:description",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "schema": "http://schema.org/",
+            "dateCreated": "schema:dateCreated",
+            "testType": "nsg:testType",
+            "referenceData": "nsg:referenceData",
+            "dataType": "nsg:dataType",
+            "recordingModality": "nsg:recordingModality",
+            "status": "nsg:status",
+            "scoreType": "nsg:scoreType"
+        }
+    ]
+
+    def __init__(self, name, authors, description, date_created, alias=None,
+                 brain_region=None, species=None, celltype=None, test_type=None,
+                 age=None, reference_data=None, data_type=None, recording_modality=None,
+                 score_type=None, status=None, old_uuid=None,
+                 id=None, instance=None):
+        self.name = name
+        self.alias = alias
+        self.brain_region = brain_region
+        self.species = species
+        self.celltype = celltype
+        self.authors = authors  # rename 'contributors', for consistency with MINDS?
+        self.description = description
+        self.date_created = date_created
+        self.test_type = test_type
+        self.age = age
+        self.reference_data = reference_data
+        self.data_type = data_type
+        self.recording_modality = recording_modality
+        self.score_type=score_type
+        self.status = status
+        self.old_uuid = old_uuid
+        self.id = id
+        self.instance = instance
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.brain_region!r}, '
+                '{self.celltype!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        D = instance.data
+        assert 'nsg:validationTestDefinition' in D["@type"]
+        obj = cls(name=D["name"],
+                  authors=build_kg_object(Person, D["author"]),
+                  description=D.get("description", ""),
+                  date_created=D["dateCreated"],
+                  alias=D.get("alias", None),
+                  test_type=D.get("testType"),
+                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
+                  species=build_kg_object(Species, D.get("species")),
+                  celltype=build_kg_object(CellType, D.get("celltype")),
+                  age=Age.from_jsonld(D["age"]),
+                  reference_data=build_kg_object(None, D.get("referenceData")),
+                  data_type=D.get("dataType"),
+                  recording_modality=D.get("recordingModality"),
+                  score_type=D.get("scoreType"),
+                  status=D.get("status"),
+                  old_uuid=D.get("oldUUID"),
+                  id=D["@id"], instance=instance)
+
+    def save(self, client, exists_ok=True):
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        if self.authors:
+            data["author"] = [
+                {
+                    "@type": person.type,
+                    "@id": person.id
+                } for person in as_list(self.authors)
+            ]
+        data["name"] = self.name
+        data["description"] = self.description
+        if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
+            data["dateCreated"] = self.date_created.strftime("%d/%m/%y, %I:%M")
+        else:
+            data["dateCreated"] = self.date_created
+        if self.alias is not None:
+            data["alias"] = self.alias
+        if self.test_type is not None:
+            data["testType"] = self.test_type
+        if self.brain_region is not None:
+            if isinstance(self.brain_region, list):
+                data["brainRegion"] = [br.to_jsonld() for br in self.brain_region]
+            else:
+                data["brainRegion"] = self.brain_region.to_jsonld()
+        if self.species is not None:
+            if isinstance(self.species, list):
+                data["species"] = [s.to_jsonld() for s in self.species]
+            else:
+                data["species"] = self.species.to_jsonld()
+        if self.celltype is not None:
+            if isinstance(self.celltype, list):
+                data["celltype"] = [ct.to_jsonld() for ct in self.celltype]
+            else:
+                data["celltype"] = self.celltype.to_jsonld()
+        if self.age is not None:
+            data["age"] = self.age.to_jsonld()
+        if self.reference_data is not None:
+            data["referenceData"] = {
+                "@type": self.reference_data.type,
+                "@id": self.reference_data.id
+            }
+        if self.data_type is not None:
+            data["dataType"] = self.data_type
+        if self.recording_modality is not None:
+            data["recordingModality"] = self.recording_modality
+        if self.status is not None:
+            data["status"] = self.status
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
+        self._save(data, client, exists_ok)
 
 
 class ValidationInstance(KGObject):  # or ValidationProtocol or ValidationProtocolImplementation
