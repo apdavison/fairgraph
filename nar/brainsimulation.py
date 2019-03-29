@@ -170,7 +170,7 @@ class ModelProject(KGObject, HasAliasMixin):
         data["description"] = self.description
         data["private"] = self.private
         if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
-            data["dateCreated"] = self.date_created.strftime("%d/%m/%y, %I:%M")
+            data["dateCreated"] = self.date_created.isoformat()
         else:
             data["dateCreated"] = self.date_created
         if self.organization is not None:
@@ -738,7 +738,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     @cache
     def from_kg_instance(cls, instance, client, use_cache=True):
         D = instance.data
-        assert 'nsg:validationTestDefinition' in D["@type"]
+        assert 'nsg:ValidationTestDefinition' in D["@type"]
         obj = cls(name=D["name"],
                   authors=build_kg_object(Person, D["author"]),
                   description=D.get("description", ""),
@@ -748,7 +748,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
                   celltype=build_kg_object(CellType, D.get("celltype")),
-                  age=Age.from_jsonld(D["age"]),
+                  age=Age.from_jsonld(D.get("age")),
                   reference_data=build_kg_object(None, D.get("referenceData")),
                   data_type=D.get("dataType"),
                   recording_modality=D.get("recordingModality"),
@@ -756,6 +756,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
                   status=D.get("status"),
                   old_uuid=D.get("oldUUID"),
                   id=D["@id"], instance=instance)
+        return obj
 
     def save(self, client, exists_ok=True):
         if self.instance:
@@ -775,7 +776,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         data["name"] = self.name
         data["description"] = self.description
         if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
-            data["dateCreated"] = self.date_created.strftime("%d/%m/%y, %I:%M")
+            data["dateCreated"] = self.date_created.isoformat()
         else:
             data["dateCreated"] = self.date_created
         if self.alias is not None:
@@ -815,12 +816,98 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         self._save(data, client, exists_ok)
 
 
-class ValidationInstance(KGObject):  # or ValidationProtocol or ValidationProtocolImplementation
+class ValidationScript(KGObject):  # or ValidationImplementation
     """docstring"""
-    path = NAMESPACE + "/simulation/validationinstance/v0.1.0"
-    type = ["prov:Entity", "nsg:ModelValidationProtocol"]
-            # - ValidationTestCode (simulation/validationinstance)
-    pass
+    path = NAMESPACE + "/simulation/validationscript/v0.1.0"
+    type = ["prov:Entity", "nsg:ModelValidationScript"]
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {
+            "name": "schema:name",
+            "description": "schema:description",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "schema": "http://schema.org/",
+            "dateCreated": "schema:dateCreated",
+            "repository": "schema:codeRepository",
+            "version": "schema:version",
+            "parameters": "nsg:parameters",
+            "path": "nsg:path",
+            "implements": "nsg:implements"
+        }
+    ]
+
+    def __init__(self, name, date_created,
+                 repository=None, version=None,
+                 description=None, parameters=None,
+                 test_class=None, test_definition=None,
+                 old_uuid=None, id=None, instance=None):
+        self.name = name
+        self.description = description
+        self.date_created = date_created
+        self.repository = repository
+        self.version = version
+        self.parameters = parameters
+        self.test_class = test_class
+        self.test_definition = test_definition
+        self.old_uuid = old_uuid
+        self.id = id
+        self.instance = instance
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.repository!r}, '
+                '{self.version!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        D = instance.data
+        assert 'nsg:ModelValidationScript' in D["@type"]
+        obj = cls(name=D["name"],
+                  description=D.get("description", ""),
+                  date_created=D["dateCreated"],
+                  repository=D.get("repository"),
+                  version=D.get("version"),
+                  parameters=D.get("parameters"),
+                  test_class=D.get("path"),
+                  test_definition=build_kg_object(ValidationTestDefinition, D.get("implements")),
+                  old_uuid=D.get("oldUUID"),
+                  id=D["@id"], instance=instance)
+        return obj
+
+    def save(self, client, exists_ok=True):
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        data["name"] = self.name
+        if self.description is not None:
+            data["description"] = self.description
+        if isinstance(self.date_created, (datetime.date, datetime.datetime)):
+            data["dateCreated"] = self.date_created.isoformat()
+        else:
+            raise ValueError("date_created must be a date or datetime object")
+        if self.repository is not None:
+            data["repository"] = {"@id": self.repository}
+        if self.version is not None:
+            data["version"] = self.version
+        if self.parameters is not None:
+            data["parameters"] = self.parameters
+        if self.test_class is not None:
+            data["path"] = self.test_class
+        if self.test_definition is not None:
+            data["implements"] = {
+                "@type": self.test_definition.type,
+                "@id": self.test_definition.id
+            }
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
+        self._save(data, client, exists_ok)
 
 
 class ValidationResult(KGObject):
