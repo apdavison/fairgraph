@@ -56,7 +56,8 @@ class ModelProject(KGObject, HasAliasMixin):
         "schema": "http://schema.org/",
         "dateCreated": "schema:dateCreated",
         "dcterms": "http://purl.org/dc/terms/",
-        "instances": "dcterms:hasPart"
+        "instances": "dcterms:hasPart",
+        "oldUUID": "nsg:providerId"
     }
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
@@ -246,7 +247,8 @@ class ModelInstance(KGObject):
     #   - fields of Entity + modelOf, brainRegion, species
     context = [
         "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {"oldUUID": "nsg:providerId"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -254,7 +256,7 @@ class ModelInstance(KGObject):
     def __init__(self, name, brain_region, species, model_of,
                  main_script, release, version, timestamp,
                  part_of=None, description=None, parameters=None,
-                 id=None, instance=None):
+                 old_uuid=None, id=None, instance=None):
         self.name = name
         self.description = description
         self.brain_region = brain_region
@@ -266,6 +268,7 @@ class ModelInstance(KGObject):
         self.timestamp = timestamp
         self.part_of = part_of
         self.parameters = parameters
+        self.old_uuid = old_uuid
         self.id = id
         self.instance = instance
 
@@ -292,6 +295,7 @@ class ModelInstance(KGObject):
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
                   parameters=D.get("nsg:parameters"),
+                  old_uuid=D.get("oldUUID"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -331,6 +335,8 @@ class ModelInstance(KGObject):
             data["release"] = self.release
         if self.parameters:
             data["nsg:parameters"] = self.parameters
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
         self._save(data, client, exists_ok)
 
     @property
@@ -349,17 +355,19 @@ class ModelInstance(KGObject):
 class MEModel(ModelInstance):
     """docstring"""
     path = NAMESPACE + "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
-    type = ["prov:Entity", "nsg:MEModel"]
+    type = ["prov:Entity", "nsg:MEModel", "nsg:ModelInstance"]
     context = [
         "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {"oldUUID": "nsg:providerId"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
 
     def __init__(self, name, brain_region, species, model_of, e_model,
                  morphology, main_script, release, version, timestamp, project,
-                 part_of=None, description=None, parameters=None, id=None, instance=None):
+                 part_of=None, description=None, parameters=None,
+                 old_uuid=None, id=None, instance=None):
         self.name = name
         self.description = description
         self.brain_region = brain_region
@@ -374,6 +382,7 @@ class MEModel(ModelInstance):
         #self.project = project  # conflict with project property in parent class. To fix.
         self.part_of = part_of
         self.parameters = parameters
+        self.old_uuid = old_uuid
         self.id = id
         self.instance = instance
 
@@ -392,11 +401,13 @@ class MEModel(ModelInstance):
                   main_script=build_kg_object(ModelScript, D["mainModelScript"]),
                   release=D.get("release"),  # to fix once we define MEModelRelease class
                   version=D.get("version"),
-                  timestamp=D.get("generatedAtTime"),  # todo: convert to datetime object
+                  timestamp=date_parser.parse(D.get("generatedAtTime"))
+                            if "generatedAtTime" in D else None,
                   project=build_kg_object(ModelProject, D.get("isPartOf")),
                   #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
                   description=D.get("description"),
                   parameters=D.get("nsg:parameters"),
+                  old_uuid=D.get("oldUUID"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -449,6 +460,8 @@ class MEModel(ModelInstance):
             data["release"] = self.release
         if self.parameters:
             data["nsg:parameters"] = self.parameters
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
         self._save(data, client, exists_ok)
 
 
@@ -634,15 +647,16 @@ class EModel(ModelInstance):
 
 class AnalysisResult(KGObject):
     path = NAMESPACE + "/simulation/analysisresult/v1.0.0"
-    type = ["prov:Entity", "nsg:AnalysisResult"]
+    type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
     context =  [
         "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
         "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
     ]
 
-    def __init__(self, name, distribution=None, id=None, instance=None):
+    def __init__(self, name, distribution=None, timestamp=None, id=None, instance=None):
         self.name = name
         self.distribution = distribution
+        self.timestamp = timestamp
         self.id = id
         self.instance = instance
         if distribution is not None:
@@ -655,6 +669,8 @@ class AnalysisResult(KGObject):
         assert 'nsg:AnalysisResult' in D["@type"]
         obj = cls(name=D["name"],
                   distribution=build_kg_object(Distribution, D.get("distribution")),
+                  timestamp=date_parser.parse(D.get("generatedAtTime"))
+                            if "generatedAtTime" in D else None,
                   id=D["@id"], instance=instance)
         return obj
 
@@ -668,6 +684,8 @@ class AnalysisResult(KGObject):
                 "@type": self.type
             }
         data["name"] = self.name
+        if self.timestamp:
+            data["generatedAtTime"] = self.timestamp.isoformat()
         if isinstance(self.distribution, list):
             data["distribution"] = [item.to_jsonld() for item in self.distribution]
         elif self.distribution is not None:
@@ -701,7 +719,8 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
             "dataType": "nsg:dataType",
             "recordingModality": "nsg:recordingModality",
             "status": "nsg:status",
-            "scoreType": "nsg:scoreType"
+            "scoreType": "nsg:scoreType",
+            "oldUUID": "nsg:providerId"
         }
     ]
 
@@ -834,7 +853,8 @@ class ValidationScript(KGObject):  # or ValidationImplementation
             "version": "schema:version",
             "parameters": "nsg:parameters",
             "path": "nsg:path",
-            "implements": "nsg:implements"
+            "implements": "nsg:implements",
+            "oldUUID": "nsg:providerId"
         }
     ]
 
@@ -913,15 +933,195 @@ class ValidationScript(KGObject):  # or ValidationImplementation
 class ValidationResult(KGObject):
     """docstring"""
     path = NAMESPACE + "/simulation/validationresult/v0.1.1"
-    type = ["prov:Entity", "nsg:ModelValidationResult"]
+    type = ["prov:Entity", "nsg:ValidationResult"]
             #- ValidationTestResult (simulation/validationresult - exists)
-    pass
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {
+            "name": "schema:name",
+            "description": "schema:description",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "schema": "http://schema.org/",
+            "dateCreated": "schema:dateCreated",
+            "score": "nsg:score",
+            "normalizedScore": "nsg:normalizedScore",
+            "passed": "nsg:passedValidation",
+            "wasGeneratedBy": "prov:wasGeneratedBy",
+            "hadMember": "prov:hadMember",
+            "collabID": "nsg:collabID",
+            "oldUUID": "nsg:providerId"
+        }
+    ]
+
+    def __init__(self, name, generated_by=None, description=None,
+                 score=None, normalized_score=None, passed=None,
+                 timestamp=None, additional_data=None, old_uuid=None,
+                 collab_id=None, id=None, instance=None):
+        self.name = name
+        self.generated_by = generated_by
+        self.description = description
+        self.score = score
+        self.normalized_score = normalized_score
+        self.passed = passed
+        self.timestamp = timestamp
+        self.additional_data = additional_data
+        self.old_uuid = old_uuid
+        self.collab_id = collab_id
+        self.id = id
+        self.instance = instance
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.generated_by!r}, '
+                '{self.score!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        D = instance.data
+        assert 'nsg:ValidationResult' in D["@type"]
+        obj = cls(name=D["name"],
+                  generated_by=build_kg_object(ValidationActivity, D.get("wasGeneratedBy")),
+                  description=D.get("description", ""),
+                  timestamp=D["dateCreated"],
+                  score=D.get("score"),
+                  normalized_score=D.get("normalizedScore"),
+                  passed=D.get("passedValidation"),
+                  additional_data=build_kg_object(None, D.get("hadMember")),
+                  old_uuid=D.get("oldUUID"),
+                  id=D["@id"], instance=instance)
+        return obj
+
+    def save(self, client, exists_ok=True):
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        data["name"] = self.name
+        if self.description is not None:
+            data["description"] = self.description
+        if isinstance(self.timestamp, (datetime.date, datetime.datetime)):
+            data["dateCreated"] = self.timestamp.isoformat()
+        else:
+            raise ValueError("timestamp must be a date or datetime object")
+        if self.score is not None:
+            data["score"] = self.score
+        if self.normalized_score is not None:
+            data["normalizedScore"] = self.normalized_score
+        if self.passed is not None:
+            data["passedValidation"] = self.passed
+        if self.generated_by is not None:
+            data["wasGeneratedBy"] = {
+                "@type": self.generated_by.type,
+                "@id": self.generated_by.id
+            }
+        if self.additional_data is not None:
+            data["hadMember"] = [{
+                "@type": obj.type,
+                "@id": obj.id
+            } for obj in as_list(self.additional_data)]
+        if self.old_uuid:
+            data["oldUUID"] = self.old_uuid
+        self._save(data, client, exists_ok)
 
 
 class ValidationActivity(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
+    #path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
+    path = NAMESPACE + "/simulation/modelvalidation/v0.4.0"  # debug
     type = ["prov:Activity", "nsg:ModelValidation"]
-            #- ValidationActivity (simulation/modelvalidation - exists)
-    pass
-    #
+    context = [
+        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        {
+            "name": "schema:name",
+            "description": "schema:description",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "schema": "http://schema.org/",
+            "generated": "prov:generated",
+            "used": "prov:used",
+            "startedAtTime": "prov:startedAtTime",
+            "wasAssociatedWith": "prov:wasAssociatedWith",
+            "referenceData": "nsg:referenceData"
+        }
+    ]
+
+    def __init__(self, model_instance, test_script, reference_data, timestamp,
+                 result=None, started_by=None, id=None, instance=None):
+        self.model_instance = model_instance
+        self.test_script = test_script
+        self.reference_data = reference_data
+        self.timestamp = timestamp
+        self.result = result
+        self.started_by = started_by
+        self.id = id
+        self.instance = instance
+
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.model_instance!r}, '
+                '{self.test_script!r} {self.reference_data!r}, '
+                '{self.id})'.format(self=self))
+
+    @property
+    def _existence_query(self):
+        # to fix: need an _and_ on model_instance, test_script, reference_data and timestamp
+        return {
+            "path": "prov:startedAtTime",
+            "op": "eq",
+            "value": self.timestamp.isoformat()
+        }
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:ModelValidation' in D["@type"]
+        model_instance = [item for item in D.get("used") if item["@type"] == "nsg:ModelInstance"][0]
+        reference_data = [item for item in D.get("used") if item["@type"] == "nsg:Collection"][0]
+        test_script = [item for item in D.get("used") if item["@type"] == "nsg:ModelValidationScript"][0]
+        obj = cls(model_instance=build_kg_object(None, model_instance["@id"]),
+                  test_script=build_kg_object(ValidationScript, test_script),
+                  reference_data=build_kg_object(None, reference_data),
+                  timestamp=D.get("startedAtTime", None),
+                  result=build_kg_object(ValidationResult, D.get("result")),
+                  started_by=build_kg_object(Person, D.get("wasAssociatedWith")),
+                  id=D["@id"],
+                  instance=instance)
+        return obj
+
+    def save(self, client, exists_ok=True):
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        if isinstance(self.timestamp, (datetime.date, datetime.datetime)):
+            data["startedAtTime"] = self.timestamp.isoformat()
+        else:
+            raise ValueError("timestamp must be a date or datetime object")
+        data["used"] = [
+            {"@id": self.model_instance.id, "@type": self.model_instance.type},
+            {"@id": self.test_script.id, "@type": self.test_script.type},
+            {"@id": self.reference_data.id, "@type": self.reference_data.type}
+        ]
+        if self.started_by is not None:
+            data["wasAssociatedWith"] = [{
+                "@type": agent.type,
+                "@id": agent.id
+            } for agent in self.started_by]
+        if self.result is not None:
+            data["generated"] = {
+                "@type": self.result.type,
+                "@id": self.result.id
+            }
+        self._save(data, client, exists_ok)

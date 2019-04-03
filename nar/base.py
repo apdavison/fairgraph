@@ -153,7 +153,15 @@ class KGObject(with_metaclass(Registry, object)):
     def _save(self, data, client, exists_ok=True):
         """docstring"""
         if self.id:
+            if self.instance is None:
+                # this can occur if updating a previously-saved object that has been constructed
+                # (e.g. in a script), rather than retrieved from Nexus
+                # since we don't know its current revision, we have to retrieve it
+                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+                self.instance.data.update(data)
             # instance.data should be identical to data at this point
+            self.instance.data["@context"] = self.context
+            self.instance.data["@type"] = self.type
             self.instance = client.update_instance(self.instance)
             logger.info("Updating {self.instance.id}".format(self=self))
         else:

@@ -90,7 +90,6 @@ class NARClient(object):
         instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
         return instance
 
-
     def create_new_instance(self, path, data):
         instance = Instance(path, data, Instance.path)
         entity = self._nexus_client.instances.create(instance)

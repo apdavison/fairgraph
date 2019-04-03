@@ -562,7 +562,7 @@ class PatchedSlice(KGObject):
         self._save(data, client, exists_ok)
 
 
-class Collection(KGObject):  # move to core?
+class PatchedCellCollection(KGObject):  # move to core?
     """docstring"""
     path = NAMESPACE + "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
@@ -862,7 +862,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
 
 
-class IntraCellularSharpElectrodeRecordedCellCollection(Collection):
+class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     path = NAMESPACE + "/experiment/intrasharprecordedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
     member_class = "IntraCellularSharpElectrodeRecordedCell"

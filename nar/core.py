@@ -5,7 +5,7 @@ core
 
 from __future__ import unicode_literals
 import logging
-from .base import KGObject, KGProxy, cache
+from .base import KGObject, KGProxy, cache, as_list
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
@@ -365,3 +365,64 @@ class Material(object):
                    data["schema:sku"],
                    KGProxy(Identifier, data["schema:identifier"]["@id"]),
                    KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
+
+
+class Collection(KGObject):
+    """docstring"""
+    path = NAMESPACE + "/core/collection/v0.1.0"
+    type = ["nsg:Collection", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "size": "schema:size",
+        "hadMember": "prov:hadMember"
+    }
+
+    def __init__(self, name, members, id=None, instance=None):
+        self.name = name
+        self.members = members
+        self.id = id
+        self.instance = instance
+
+    @property
+    def size(self):
+        return len(as_list(self.members))
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        """
+        docstring
+        """
+        D = instance.data
+        for otype in cls.type:
+            assert otype in D["@type"]
+
+        return cls(name=D["name"],
+                   members=[KGProxy(None, member_uri["@id"])
+                            for member_uri in D["hadMember"]],
+                   id=D["@id"],
+                   instance=instance)
+
+    def save(self, client, exists_ok=True):
+        """docstring"""
+        if self.instance:
+            data = self.instance.data
+        else:
+            data = {
+                "@context": self.context,
+                "@type": self.type
+            }
+        data["name"] = self.name
+        data["size"] = len(as_list(self.members))
+        data["hadMember"] = [{
+            "@type": member.type,
+            "@id": member.id
+        } for member in as_list(self.members)]
+        self._save(data, client, exists_ok)
