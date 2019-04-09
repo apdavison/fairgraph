@@ -742,7 +742,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         self.reference_data = reference_data
         self.data_type = data_type
         self.recording_modality = recording_modality
-        self.score_type=score_type
+        self.score_type = score_type
         self.status = status
         self.old_uuid = old_uuid
         self.id = id
@@ -833,6 +833,18 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
         self._save(data, client, exists_ok)
+
+    @property
+    def scripts(self):
+        query = {
+            "path": "nsg:implements",
+            "op": "eq",
+            "value": self.id
+        }
+        context = {
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
+        }
+        return KGQuery(ValidationScript, query, context)
 
 
 class ValidationScript(KGObject):  # or ValidationImplementation
@@ -934,7 +946,6 @@ class ValidationResult(KGObject):
     """docstring"""
     path = NAMESPACE + "/simulation/validationresult/v0.1.1"
     type = ["prov:Entity", "nsg:ValidationResult"]
-            #- ValidationTestResult (simulation/validationresult - exists)
     context = [
         "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
         "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
@@ -1084,10 +1095,10 @@ class ValidationActivity(KGObject):
     def from_kg_instance(cls, instance, client):
         D = instance.data
         assert 'nsg:ModelValidation' in D["@type"]
-        model_instance = [item for item in D.get("used") if item["@type"] == "nsg:ModelInstance"][0]
-        reference_data = [item for item in D.get("used") if item["@type"] == "nsg:Collection"][0]
-        test_script = [item for item in D.get("used") if item["@type"] == "nsg:ModelValidationScript"][0]
-        obj = cls(model_instance=build_kg_object(None, model_instance["@id"]),
+        model_instance = [item for item in D.get("used") if "nsg:ModelInstance" in item["@type"]][0]
+        reference_data = [item for item in D.get("used") if "nsg:Collection" in item["@type"]][0]
+        test_script = [item for item in D.get("used") if "nsg:ModelValidationScript" in item["@type"]][0]
+        obj = cls(model_instance=build_kg_object(None, model_instance),
                   test_script=build_kg_object(ValidationScript, test_script),
                   reference_data=build_kg_object(None, reference_data),
                   timestamp=D.get("startedAtTime", None),

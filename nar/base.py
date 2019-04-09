@@ -111,6 +111,10 @@ class KGObject(with_metaclass(Registry, object)):
         return self.id.split("/")[-1]
 
     @classmethod
+    def uri_from_uuid(cls, uuid, client):
+        return "{}/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
+
+    @classmethod
     def list(cls, client, size=100, **filters):
         """List all objects of this type in the Knowledge Graph"""
         return client.list(cls, size=size)

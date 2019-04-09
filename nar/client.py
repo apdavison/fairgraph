@@ -26,6 +26,7 @@ class NARClient(object):
 
     def __init__(self, token, nexus_endpoint="https://nexus.humanbrainproject.org/v0"):
         ep = urlparse(nexus_endpoint)
+        self.nexus_endpoint = nexus_endpoint
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
                                          auth_client=AccessTokenClient(token))
@@ -41,6 +42,7 @@ class NARClient(object):
                                                             size=size,
                                                             deprecated=deprecated,
                                                             resolved=True)
+        # todo: add support for "sort" field
         instances.extend(query.results)
         next = query.get_next_link()
         while len(instances) < size and next:
@@ -62,6 +64,7 @@ class NARClient(object):
             from_index=from_index,
             size=size,
             resolved=True)
+        # todo: add support for "sort" field
         instances.extend(query.results)
         next = query.get_next_link()
         while len(instances) < size and next:
