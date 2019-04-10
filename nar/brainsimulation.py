@@ -786,6 +786,9 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
                 "@type": self.type
             }
         if self.authors:
+            for author in as_list(self.authors):
+                if not author.id:
+                    author.save(client)
             data["author"] = [
                 {
                     "@type": person.type,
@@ -820,10 +823,10 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         if self.age is not None:
             data["age"] = self.age.to_jsonld()
         if self.reference_data is not None:
-            data["referenceData"] = {
-                "@type": self.reference_data.type,
-                "@id": self.reference_data.id
-            }
+            data["referenceData"] = [{
+                "@type": item.type,
+                "@id": item.id
+            } for item in as_list(self.reference_data)]
         if self.data_type is not None:
             data["dataType"] = self.data_type
         if self.recording_modality is not None:
