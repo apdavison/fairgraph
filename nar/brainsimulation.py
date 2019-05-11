@@ -62,6 +62,14 @@ class ModelProject(KGObject, HasAliasMixin):
         "oldUUID": "nsg:providerId"
     }
 
+    attribute_map = {
+        "model_of": (ModelScope, context["modelOf"]),
+        "brain_region": (BrainRegion, context["brainRegion"]),
+        "species": (Species, context["species"]),
+        "celltype": (CellType, context["celltype"]),
+        "abstraction_level": (AbstractionLevel, context["abstractionLevel"]),
+    }
+
     def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
                  abstraction_level=None, model_of=None, old_uuid=None, instances=None, images=None,
@@ -228,6 +236,37 @@ class ModelProject(KGObject, HasAliasMixin):
         if self.images is not None:
             data["images"] = self.images
         self._save(data, client, exists_ok)
+
+    @classmethod
+    def list(cls, client, size=100, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        if len(filters) > 1:
+            raise Exception("At present only a single filter can be applied at once")
+        context = {
+           'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
+        }
+        filter_queries = []
+        for name, value in filters.items():
+            if name in cls.attribute_map:
+                concept_class, concept_uri = cls.attribute_map[name]
+                filter_queries.append({
+                    'path': concept_uri,
+                    'op': 'eq',
+                    'value': concept_class(value).iri
+                })
+            else:
+                raise Exception("The only supported filters are by model scope"
+                                "You specified {name}".format(name=name))
+        if len(filter_queries) == 0:
+            return client.list(cls, size=size)
+        elif len(filter_queries) == 1:
+            filter_query = filter_queries[0]
+        else:
+            filter_query = {
+                "op": "and",
+                "value": filter_queries
+            }
+        return KGQuery(cls, filter_query, context).resolve(client, size=size)
 
 
 class ModelInstance(KGObject):
