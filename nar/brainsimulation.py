@@ -238,10 +238,8 @@ class ModelProject(KGObject, HasAliasMixin):
         self._save(data, client, exists_ok)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=10000, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        if len(filters) > 1:
-            raise Exception("At present only a single filter can be applied at once")
         context = {
            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
         }
