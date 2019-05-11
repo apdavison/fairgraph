@@ -292,12 +292,12 @@ class KGQuery(object):
         self.filter = filter
         self.context = context
 
-    def resolve(self, client):
+    def resolve(self, client, size=10000):
         instances = client.filter_query(
             path=self.cls.path,
             filter=self.filter,
             context=self.context,
-            size=10000
+            size=size
         )
         objects = [self.cls.from_kg_instance(instance, client)
                    for instance in instances]
