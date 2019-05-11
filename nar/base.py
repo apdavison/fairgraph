@@ -313,6 +313,9 @@ class Distribution(object):
 
     def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
                  original_file_name=None):
+        if not isinstance(location, basestring):
+            # todo: add check that location is a URI
+            raise ValueError("location must be a URI")
         self.location = location
         self.size = size
         self.digest = digest

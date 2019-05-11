@@ -38,6 +38,7 @@ class ModelProject(KGObject, HasAliasMixin):
 
     context = {
         "name": "schema:name",
+        "label": "rdfs:label",
         "alias": "nsg:alias",
         "author": "schema:author",
         "owner": "nsg:owner",
@@ -54,6 +55,7 @@ class ModelProject(KGObject, HasAliasMixin):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
         "schema": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "dateCreated": "schema:dateCreated",
         "dcterms": "http://purl.org/dc/terms/",
         "instances": "dcterms:hasPart",
@@ -94,7 +96,6 @@ class ModelProject(KGObject, HasAliasMixin):
     @cache
     def from_kg_instance(cls, instance, client, use_cache=True):
         D = instance.data
-        logger.debug("???? " + str(D))
         assert 'nsg:ModelProject' in D["@type"]
         obj = cls(name=D["name"],
                   owners=None,
@@ -231,7 +232,8 @@ class ModelProject(KGObject, HasAliasMixin):
 
 class ModelInstance(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/modelinstance/v0.1.2"
+    #path = NAMESPACE + "/simulation/modelinstance/v0.1.2"
+    path = NAMESPACE + "/simulation/modelinstance/v0.1.1"
     type = ["prov:Entity", "nsg:ModelInstance"]
     # ScientificModelInstance
     #   - model -> linked ModelProject using partOf
@@ -478,10 +480,13 @@ class Morphology(KGObject):
         self.name = name
         self.cell_type = cell_type
         self.distribution = distribution
-        if morphology_file and distribution:
-            raise ValueError("Cannot provide both morphology_file and distribution")
         if morphology_file:
-            self.distribution = Distribution(location=morphology_file)
+            if distribution:
+                raise ValueError("Cannot provide both morphology_file and distribution")
+            if isinstance(morphology_file, list):
+                self.distribution = [Distribution(location=mf) for mf in morphology_file]
+            else:
+                self.distribution = Distribution(location=morphology_file)
         self.id = id
         self.instance = instance
 
