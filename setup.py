@@ -13,6 +13,7 @@ setup(
     version='0.2.0',
     description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/HumanBrainProject/fairgraph',
     author='Andrew P. Davison',
     author_email='andrew.davison@unic.cnrs-gif.fr',
