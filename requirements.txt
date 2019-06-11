@@ -1,2 +1,3 @@
 pyxus
 pathlib2
+python-dateutil

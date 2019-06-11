@@ -9,13 +9,14 @@ from nar.data import FileAssociation, CSCSFile
 class MINDSObject(KGObject):
     """docstring"""
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "schema": "http://schema.org/",
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "prov": "http://www.w3.org/ns/prov#",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "minds": 'https://schema.hbp.eu/'
+            "minds": 'https://schema.hbp.eu/',
+            "uniminds": 'https://schema.hbp.eu/uniminds/',
         }
     ]
 
@@ -31,6 +32,8 @@ class MINDSObject(KGObject):
                 name = key.split("#")[1]
             elif key.startswith('https://schema.hbp.eu/minds/'):
                 name = key.split('https://schema.hbp.eu/minds/')[1]
+            elif key.startswith('https://schema.hbp.eu/uniminds/'):
+                name = key.split('https://schema.hbp.eu/uniminds/')[1]
             elif key.startswith('http://schema.org/'):
                 name = key.split('http://schema.org/')[1]
             elif key in ("http://www.w3.org/ns/prov#qualifiedAssociation", "prov:qualifiedAssociation"):
@@ -56,40 +59,43 @@ class MINDSObject(KGObject):
         data["instance"] = instance
         return cls(**data)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         for property_name in self.property_names:
             if hasattr(self, property_name):
-                if property_name in ("name", "description"):
+                if property_name in ("name", "description", "identifier", "familyName",
+                                     "givenName", "email", "version", "license", "url"):
                     property_url = "http://schema.org/" + property_name
                 elif property_name == "associated_with":
                     property_url = "http://www.w3.org/ns/prov#qualifiedAssociation"
                 else:
-                    property_url = "https://schema.hbp.eu/" + property_name
+                    property_url = "https://schema.hbp.eu/uniminds/" + property_name
 
                 value = getattr(self, property_name)
-                if isinstance(value, (str, int, float)):  # todo: extend with other simple types
+                if isinstance(value, (str, int, float, dict)):  # todo: extend with other simple types
                     data[property_url] = value
                 elif isinstance(value, (KGObject, KGProxy)):
                     data[property_url] = {
                         "@id": value.id,
                         "@type": value.type
                     }
-                elif isinstance(value, (list, tuple)) and len(value) > 0 and isinstance(value[0], KGObject):
-                    data[property_url] = [{
-                        "@id": item.id,
-                        "@type": item.type
-                    } for item in value]
+                elif isinstance(value, (list, tuple)):
+                    if len(value) > 0:
+                        if isinstance(value[0], KGObject):
+                            data[property_url] = [{
+                                "@id": item.id,
+                                "@type": item.type
+                            } for item in value]
+                        elif "@id" in value[0]:
+                            data[property_url] = value
+                        else:
+                            raise ValueError(str(value))
+                elif value is None:
+                    pass
                 else:
                     raise NotImplementedError("Can't handle {}".format(type(value)))
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Dataset(MINDSObject):
@@ -97,7 +103,7 @@ class Dataset(MINDSObject):
     path = "minds/core/dataset/v1.0.0"
     #type = ["https://schema.hbp.eu/Dataset"]
     type = ["minds:Dataset"]
-    property_names = ["activity", "component", "contributors", "created_at", "datalink", 
+    property_names = ["activity", "component", "contributors", "created_at", "datalink",
                       "embargo_status", "formats", "license", "owners", "parcellation",
                       "publications", "release_date", "specimen_group",
                       "description", "name", "associated_with"]
@@ -134,7 +140,7 @@ class MINDSSubject(MINDSObject):
     path = "minds/experiment/subject/v1.0.0"
     #type = ["https://schema.hbp.eu/ExperimentSubject"]
     type = ["minds:ExperimentSubject"]
-    property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species", 
+    property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species",
                      "strains", "name", "associated_with"]
 
 

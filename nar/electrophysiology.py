@@ -87,15 +87,9 @@ class Trace(KGObject):
                    part_of=part_of,
                    id=D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["distribution"] = self.data_location
         data["wasGeneratedBy"] = {
@@ -117,7 +111,7 @@ class Trace(KGObject):
                 "@type": self.part_of.type,
                 "@id": self.part_of.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
 
 class PatchedCell(KGObject):
@@ -250,15 +244,9 @@ class PatchedCell(KGObject):
                    reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
                    id=D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if isinstance(self.brain_location, list):
             data["brainLocation"] = {
@@ -282,7 +270,7 @@ class PatchedCell(KGObject):
             data["nsg:labelingCompound"] = self.labeling_compound
         if self.reversal_potential_cl:
             data["nsg:chlorideReversalPotential"] = self.reversal_potential_cl.to_jsonld()
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Slice(KGObject):  # should move to "core" module?
@@ -331,21 +319,15 @@ class Slice(KGObject):  # should move to "core" module?
                   instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["wasDerivedFrom"] = {
             "@type": self.subject.type,
             "@id": self.subject.id
         }
-        self._save(data, client, exists_ok)
+        return data
 
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
@@ -422,31 +404,17 @@ class BrainSlicingActivity(KGObject):
                   instance=instance)
         return obj
 
-    def exists(self, client):
-        """Check if this object already exists in the KnowledgeGraph"""
-        if self.id:
-            return True
-        else:
-            context = {"prov": "http://www.w3.org/ns/prov#"},
-            query_filter = {  # can only slice a brain once...
-                "path": "prov:used",
-                "op": "eq",
-                "value": self.subject.id
-            }
-            response = client.filter_query(self.path, query_filter, context)
-            if response:
-                self.id = response[0].data["@id"]
-            return bool(response)
+    @property
+    def _existence_query(self):
+        return {  # can only slice a brain once...
+            "path": "prov:used",
+            "op": "eq",
+            "value": self.subject.id
+        }
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["used"] = {
             "@id": self.subject.id,
             "@type": self.subject.type
@@ -483,7 +451,7 @@ class BrainSlicingActivity(KGObject):
                     "@id": person.id,
                 } for person in self.people
             ]
-        self._save(data, client, exists_ok)
+        return data
 
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
@@ -549,15 +517,9 @@ class PatchedSlice(KGObject):
                    id=D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["wasRevisionOf"] = {
             "@type": self.slice.type,
@@ -567,10 +529,10 @@ class PatchedSlice(KGObject):
             "@type": self.recorded_cells.type,
             "@id": self.recorded_cells.id
         }
-        self._save(data, client, exists_ok)
+        return data
 
 
-class Collection(KGObject):  # move to core?
+class PatchedCellCollection(KGObject):  # move to core?
     """docstring"""
     path = NAMESPACE + "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
@@ -626,21 +588,15 @@ class Collection(KGObject):  # move to core?
                    id=D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["hadMember"] = [{
             "@type": lookup(self.member_class).type,
             "@id": cell.id
         } for cell in self.cells]
-        self._save(data, client, exists_ok)
+        return data
 
 
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
@@ -694,15 +650,9 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 
     # todo: custom exists(), based on slice not on name
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["used"] = {
             "@type": self.slice.type,
@@ -721,7 +671,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
                     "@id": person.id
                 } for person in self.people
             ]
-        self._save(data, client, exists_ok)
+        return data
 
 
 class PatchClampExperiment(KGObject):
@@ -777,15 +727,9 @@ class PatchClampExperiment(KGObject):
                    id=D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["prov:used"] = {
             "@type": self.recorded_cell.type,
@@ -793,7 +737,7 @@ class PatchClampExperiment(KGObject):
         }
         data["nsg:stimulus"] = self.stimulus
         # todo: save traces if they haven't been already
-        self._save(data, client, exists_ok)
+        return data
 
 
 class QualifiedGeneration(KGObject):
@@ -838,15 +782,9 @@ class QualifiedGeneration(KGObject):
                    id=D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["sweep"] = self.sweep,
         data["activity"] = {
@@ -855,7 +793,7 @@ class QualifiedGeneration(KGObject):
         }
         if self.holding_potential:
             data["targetHoldingPotential"] = self.holding_potential.to_jsonld()
-        self._save(data, client, exists_ok)
+        return data
 
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
@@ -870,7 +808,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
 
 
-class IntraCellularSharpElectrodeRecordedCellCollection(Collection):
+class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     path = NAMESPACE + "/experiment/intrasharprecordedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
     member_class = "IntraCellularSharpElectrodeRecordedCell"

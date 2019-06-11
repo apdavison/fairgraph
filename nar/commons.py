@@ -5,7 +5,7 @@
 
 import collections
 #from typing import NamedTuple
-from .base import KGObject, KGProxy
+from .base import KGObject, KGProxy, OntologyTerm
 
 
 #class Address(NamedTuple):
@@ -15,36 +15,13 @@ from .base import KGObject, KGProxy
 Address = collections.namedtuple('Address', ['locality', 'country'])
 
 
-class OntologyTerm(object):
-    """docstring"""
-
-    def __init__(self, label, iri=None):
-        self.label = label
-        self.iri = iri or self.iri_map[label]
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.label!r}, {self.iri!r})')
-        return ('{self.__class__.__name__}('
-                '{self.label!r}, {self.iri!r})'.format(self=self))
-    
-    def to_jsonld(self):
-        return {'@id': self.iri,
-                'label': self.label}
-    
-    @classmethod
-    def from_jsonld(cls, data):
-        if data is None:
-            return None
-        return cls(data["label"], data["@id"])
-
-
 class Species(OntologyTerm):
     """docstring"""
     iri_map = {
         "Rodentia": "http://purl.obolibrary.org/obo/NCBITaxon_9989",
         "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
         "Rattus norvegicus": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+        "Rattus rattus": "http://purl.obolibrary.org/obo/NCBITaxon_10117",
         "Callithrix jacchus": "http://purl.obolibrary.org/obo/NCBITaxon_9483",
         "Homo sapiens": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
         "Macaca mulatta": "http://purl.obolibrary.org/obo/NCBITaxon_9544",
@@ -58,7 +35,7 @@ class Strain(OntologyTerm):
         "Tg2576": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6J": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "C57BL/6J": "https://www.jax.org/strain/000664",  # RRID:IMSR_JAX:000664
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
@@ -68,6 +45,7 @@ class Strain(OntologyTerm):
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
     }
+# use RRIDs
 
 
 class Sex(OntologyTerm):
@@ -82,19 +60,21 @@ class BrainRegion(OntologyTerm):
     """docstring"""
     iri_map = {
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
-        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",
+        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
+        "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
         "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
         "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
         "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
         "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
         "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
         "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
-        "cortex": "http://purl.obolibrary.org/obo/UBERON_0001851",
+        "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
+        "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
         "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
         "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  
+        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
         # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
         "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
         "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
@@ -103,6 +83,7 @@ class BrainRegion(OntologyTerm):
         "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
         "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
+        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751"
     }
 
 
@@ -121,18 +102,19 @@ class CellType(OntologyTerm):
         "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
         "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
         "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
-        "L2/3 chandelier cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "cerebellar granule cell": "http://purl.obolibrary.org/obo/CL_0001031",
+        "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
         "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiny stellate neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L5 tufted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2/3 pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
+        "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
+        "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
         "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L6 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L4 Martinotti cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373",
+        "L4 Martinotti cell": "http://uri.neuinfo.org/nif/nifstd/nifext_55",
         "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "cholinergic interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L1 neurogliaform cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "L2 inverted pyramidal cell": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "cholinergic interneuron": "http://uri.interlex.org/base/ilx_0490357",
+        "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
+        "L2 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0383207",
         "not applicable": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
     }
 
@@ -141,18 +123,73 @@ class AbstractionLevel(OntologyTerm):
     """docstring"""
     iri_map = {
         "protein structure": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: continuous": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: discrete": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "systems biology: flux balance": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons: biophysical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "spiking neurons: point neuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "rate neurons": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "systems biology": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
+        "systems biology: continuous": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
+        "systems biology: discrete": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000063",
+        "systems biology: flux balance": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000624",
+        "spiking neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
+        "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
+        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
+        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
         "population modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+    }
+
+
+# CNO model types
+# 'cellular model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008"
+#     'artificial neuron model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000012"
+#     'point process model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000013"
+#     'rate-based neuron model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144"
+#     'spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014"
+#         'biophysical spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017"
+#             'detailed model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000020"
+#             'reduced model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000019"
+#         'threshold-based spiking model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018"
+#             'one variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000022"
+#             'pulse-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000021"
+#             'spike response model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000025"
+#             'three variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000024"
+#             'two variable model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000023"
+# 'network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010"
+#     'artificial neural network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000029"
+#     'rate model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000028"
+#     'spiking network model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000030"
+# 'plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000011"
+#     'cellular plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000033"
+#     'developmental plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000161"
+#     'synaptic plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000034"
+#         'homeostatic plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000187"
+#         'long term plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000183"
+#             'biophysical model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000186"
+#             'phenomenological plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000007"
+#                 'rate-based plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000184"
+#                 'spike timing dependent plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000185"
+#         'short term plasticity model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000182"
+#             'short term depression model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000201"
+#             'short term facilitation model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000035"
+# 'synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000009"
+#     'chemical synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000031"
+#         'conductance-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000027"
+#         'current-based model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000026"
+#     'electrical synapse model' "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000026"
+
+
+class ModelScope(OntologyTerm):
+    """docstring"""
+    iri_map = {
+        "subcellular": "TODO",
+        "subcellular: spine": "http://uri.neuinfo.org/nif/nifstd/sao1145756102",
+        "subcellular: ion channel": "http://uri.neuinfo.org/nif/nifstd/nifext_2508",
+        "subcellular: signalling": "http://uri.interlex.org/base/ilx_0503639",  # "biochemical processes", not ideal
+        "subcellular: molecular": "TODO",
+        "single cell": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+        "network": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010",
+        "network: microcircuit":  "http://purl.obolibrary.org/obo/UBERON_0014778",  # "cell group", not ideal
+        "network: brain region": "http://purl.obolibrary.org/obo/UBERON_0002616",
+        "network: whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955"
     }
 
 
@@ -188,7 +225,7 @@ class QuantitativeValue(object):
             "label": self.unit_text,
             "unitCode": {"@id": self.unit_code}
         }
-    
+
     def to_jsonld_alt(self):
         return {
             "value": self.value,
@@ -227,7 +264,7 @@ class Age(object):
     def to_jsonld(self):
         return {'value': self.value.to_jsonld(),
                 'period': self.period}
-    
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:

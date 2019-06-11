@@ -3,13 +3,17 @@ core
 
 """
 
-from .base import KGObject, KGProxy, cache
+from __future__ import unicode_literals
+import logging
+from .base import KGObject, KGProxy, cache, as_list
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "neurosciencegraph"
 #NAMESPACE = "brainsimulation"
+
+logger = logging.getLogger("nar")
 
 
 class Subject(KGObject):
@@ -58,23 +62,17 @@ class Subject(KGObject):
         """docstring"""
         D = instance.data
         assert 'nsg:Subject' in D["@type"]
-        return cls(D["name"], 
-                   Species.from_jsonld(D["species"]), 
-                   Strain.from_jsonld(D.get("strain", None)), 
+        return cls(D["name"],
+                   Species.from_jsonld(D["species"]),
+                   Strain.from_jsonld(D.get("strain", None)),
                    Sex.from_jsonld(D["sex"]),
                    Age.from_jsonld(D["age"]),
                    D.get("deathDate", None), D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["providerId"] = self.name
         data["species"] = self.species.to_jsonld()
@@ -86,7 +84,7 @@ class Subject(KGObject):
             data["sex"] = self.sex.to_jsonld()
         if self.death_date:
             data["deathDate"] = self.death_date
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Organization(KGObject):
@@ -103,7 +101,7 @@ class Organization(KGObject):
         "addressCountry": "schema:addressCountry",
     }
 
-    def __init__(self, name, address, parent, id=None, instance=None):
+    def __init__(self, name, address=None, parent=None, id=None, instance=None):
         self.name = name
         self.address = address
         self.parent = parent
@@ -126,24 +124,22 @@ class Organization(KGObject):
             parent = KGProxy(cls, D["parentOrganization"]["@id"])
         else:
             parent = None
-        address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
+        if "address" in D:
+            address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
+        else:
+            address = None
         return cls(D["name"], address, parent, id=D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
-        data["address"] = {
-            "@type": "schema:PostalAddress",
-            "addressLocality": self.address.locality,
-            "addressCountry": self.address.country
-        }
+        if self.address:
+            data["address"] = {
+                "@type": "schema:PostalAddress",
+                "addressLocality": self.address.locality,
+                "addressCountry": self.address.country
+            }
         if self.parent:
             if self.parent.id is None:
                 self.parent.save(client)
@@ -151,7 +147,7 @@ class Organization(KGObject):
                 "@type": self.parent.type,
                 "@id": self.parent.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Person(KGObject):
@@ -168,7 +164,7 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
 
-    def __init__(self, family_name, given_name, email, affiliation, id=None, instance=None):
+    def __init__(self, family_name, given_name, email, affiliation=None, id=None, instance=None):
         self.family_name = family_name
         self.given_name = given_name
         self.email = email
@@ -181,6 +177,10 @@ class Person(KGObject):
         #        f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
         return ('{self.__class__.__name__}('
                 '{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})'.format(self=self))
+
+    @property
+    def full_name(self):
+        return '{self.given_name} {self.family_name}'.format(self=self)
 
     @classmethod
     @cache
@@ -195,41 +195,27 @@ class Person(KGObject):
         return cls(D["familyName"], D["givenName"], D.get("email", None),
                    affiliation, D["@id"], instance=instance)
 
-    def exists(self, client):
-        """Check if this Person already exists in the KnowledgeGraph"""
-        if self.id:
-            return True
-        else:
-            context = {"schema": "http://schema.org/"},
-            query_filter = {
-                "op": "and",
-                "value": [
-                    {
-                        "path": "schema:familyName",
-                        "op": "eq",
-                        "value": self.family_name
-                    },
-                    {
-                        "path": "schema:givenName",
-                        "op": "eq",
-                        "value": self.given_name
-                    }
-                ]
-            }
-            response = client.filter_query(self.path, query_filter, context)
-            if response:
-                self.id = response[0].data["@id"]
-            return bool(response)
+    @property
+    def _existence_query(self):
+        return {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:familyName",
+                    "op": "eq",
+                    "value": self.family_name
+                },
+                {
+                    "path": "schema:givenName",
+                    "op": "eq",
+                    "value": self.given_name
+                }
+            ]
+        }
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["familyName"] = self.family_name
         data["givenName"] = self.given_name
         if self.email:
@@ -241,8 +227,8 @@ class Person(KGObject):
                 "@type": self.affiliation.type,
                 "@id": self.affiliation.id
             }
-        self._save(data, client, exists_ok)
-        
+        return data
+
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client)
@@ -280,7 +266,7 @@ class Protocol(KGObject):
         """docstring"""
         D = instance.data
         assert 'nsg:Protocol' in D["@type"]
-        return cls(D["name"], 
+        return cls(D["name"],
                    D["nsg:steps"],
                    [Material.from_jsonld(material) for material in D["nsg:materials"]],
                    KGProxy(Person, D["schema:author"]),
@@ -288,15 +274,9 @@ class Protocol(KGObject):
                    KGProxy(Identifier, D["schema:identifier"]),
                    D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["nsg:steps"] = self.steps
         if self.materials:
@@ -317,7 +297,7 @@ class Protocol(KGObject):
                 "@type": self.identifier.type,
                 "@id": self.identifier.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Identifier(KGObject):
@@ -326,7 +306,7 @@ class Identifier(KGObject):
 
 
 class Material(object):
-    
+
     def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
         self.name = name
         self.molar_weight = molar_weight
@@ -338,9 +318,9 @@ class Material(object):
     def to_jsonld(self):
         return {
             "nsg:reagentName": self.name,
-            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(), 
-            "nsg:reagentLinearFormula": self.formula, 
-            "schema:sku": self.stock_keeping_unit, 
+            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
+            "nsg:reagentLinearFormula": self.formula,
+            "schema:sku": self.stock_keeping_unit,
             "schema:identifier": {
                 #"@type": "",
                 "@id": self.identifier.id,
@@ -350,14 +330,69 @@ class Material(object):
                 "@id": self.vendor.id
             }
         }
-    
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
             return None
-        return cls(data["name"], 
+        return cls(data["name"],
                    QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
                    data["nsg:reagentLinearFormula"],
                    data["schema:sku"],
                    KGProxy(Identifier, data["schema:identifier"]["@id"]),
                    KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
+
+
+class Collection(KGObject):
+    """docstring"""
+    path = NAMESPACE + "/core/collection/v0.1.0"
+    type = ["nsg:Collection", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "size": "schema:size",
+        "hadMember": "prov:hadMember"
+    }
+
+    def __init__(self, name, members, id=None, instance=None):
+        self.name = name
+        self.members = members
+        self.id = id
+        self.instance = instance
+
+    @property
+    def size(self):
+        return len(as_list(self.members))
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        """
+        docstring
+        """
+        D = instance.data
+        for otype in cls.type:
+            assert otype in D["@type"]
+
+        return cls(name=D["name"],
+                   members=[KGProxy(None, member_uri["@id"])
+                            for member_uri in D["hadMember"]],
+                   id=D["@id"],
+                   instance=instance)
+
+    def _build_data(self, client):
+        """docstring"""
+        data = {}
+        data["name"] = self.name
+        data["size"] = len(as_list(self.members))
+        data["hadMember"] = [{
+            "@type": member.type,
+            "@id": member.id
+        } for member in as_list(self.members)]
+        return data

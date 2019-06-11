@@ -26,11 +26,13 @@ class NARClient(object):
 
     def __init__(self, token, nexus_endpoint="https://nexus.humanbrainproject.org/v0"):
         ep = urlparse(nexus_endpoint)
+        self.nexus_endpoint = nexus_endpoint
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
                                          auth_client=AccessTokenClient(token))
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
+
 
     def list(self, cls, from_index=0, size=100, deprecated=False):
         """docstring"""
@@ -40,40 +42,56 @@ class NARClient(object):
                                                             size=size,
                                                             deprecated=deprecated,
                                                             resolved=True)
+        # todo: add support for "sort" field
         instances.extend(query.results)
         next = query.get_next_link()
         while len(instances) < size and next:
             query = self._nexus_client.instances.list_by_full_path(next)
             instances.extend(query.results)
             next = query.get_next_link()
-            
+
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
         return [cls.from_kg_instance(instance, self) # todo: lazy resolution
                 for instance in instances]
 
     def filter_query(self, path, filter, context, from_index=0, size=100):
-        # todo: add size and from_index arguments
-        response = self._nexus_client.instances.list(
-            subpath=path, 
-            filter_query=quote_plus(json.dumps(filter)), 
+        instances = []
+        query = self._nexus_client.instances.list(
+            subpath=path,
+            filter_query=quote_plus(json.dumps(filter)),
             context=quote_plus(json.dumps(context)),
             from_index=from_index,
             size=size,
             resolved=True)
-        for instance in response.results:
-            self.cache[instance.data["@id"]] = instance
-        return response.results
+        # todo: add support for "sort" field
+        instances.extend(query.results)
+        next = query.get_next_link()
+        while len(instances) < size and next:
+            query = self._nexus_client.instances.list_by_full_path(next)
+            instances.extend(query.results)
+            next = query.get_next_link()
 
-    def instance_from_full_uri(self, uri):
-        if uri in self.cache:
+        for instance in instances:
+            self.cache[instance.data["@id"]] = instance
+        return instances
+
+    def instance_from_full_uri(self, uri, use_cache=True):
+        if use_cache and uri in self.cache:
+            logger.debug("Retrieving instance from cache")
             return self.cache[uri]
         else:
-            instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path), 
+            instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             self.cache[instance.data["@id"]] = instance
+            logger.debug("Retrieved instance from KG " + str(instance.data))
             return instance
+
+    def instance_from_uuid(self, path, uuid):
+        # todo: caching
+        instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
+        return instance
 
     def create_new_instance(self, path, data):
         instance = Instance(path, data, Instance.path)
@@ -81,15 +99,18 @@ class NARClient(object):
         return entity
 
     def update_instance(self, instance):
-        instance.data.pop("links")
-        instance.data.pop("nxv:rev")
-        instance.data.pop("nxv:deprecated")
+        instance.data.pop("links", None)
+        instance.data.pop("nxv:rev", None)
+        instance.data.pop("nxv:deprecated", None)
         instance = self._nexus_client.instances.update(instance)
         return instance
 
+    def delete_instance(self, instance):
+        self._nexus_client.instances.delete(instance)
+
     def by_name(self, cls, name):
         """Retrieve an object based on the value of schema:name"""
-        context = {"schema": "http://schema.org/"},
+        context = {"schema": "http://schema.org/"}
         query_filter = {
             "path": "schema:name",
             "op": "eq",
