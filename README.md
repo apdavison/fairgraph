@@ -1,10 +1,10 @@
-# nartools: a Python API for the Human Brain Project Neural Activity Resource.
+# fairgraph: a Python API for the Human Brain Project Knowledge Graph.
 
 Authors: Andrew Davison and Onur Ates, CNRS
 
 Copyright CNRS 2019
 
-**nartools** is an experimental Python library for working with metadata
+**fairgraph** is an experimental Python library for working with metadata
 in the HBP Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
 The API is not stable, and is subject to change.
@@ -15,8 +15,8 @@ The API is not stable, and is subject to change.
 git clone https://github.com/HumanBrainProject/pyxus.git pyxus_src
 pip install -r pyxus_src/pyxus/requirements.txt
 pip install pyxus_src/pyxus
-git clone https://github.com/HumanBrainProject/neural-activity-resource.git
-pip install -U ./neural-activity-resource/client
+git clone https://github.com/HumanBrainProject/fairgraph.git
+pip install -U ./fairgraph
 ```
 
 ## Basic setup
@@ -134,7 +134,7 @@ for dataset in activity_datasets:
 ## Storing and editing metadata
 
 For those users who have the necessary permissions to store and edit metadata in the Knowledge Graph,
-**nartools* objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
+**fairgraph* objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
 
 ```
 from nar.core import Person, Organization
@@ -153,6 +153,6 @@ mgm.save(client)
 
 ## Getting help
 
-In case of questions about **nartools**, please e-mail support@humanbrainproject.eu.
+In case of questions about **fairgraph**, please e-mail support@humanbrainproject.eu.
 If you find a bug or would like to suggest an enhancement or new feature,
-please open a ticket in the [issue tracker](https://github.com/HumanBrainProject/neural-activity-resource/issues).
+please open a ticket in the [issue tracker](https://github.com/HumanBrainProject/fairgraph/issues).

@@ -9,11 +9,11 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='neural-activity-resource',
-    version='0.1.0',
-    description='Python API for the Human Brain Project Neural Activity Resource',
+    name='fairgraph',
+    version='0.2.0',
+    description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
-    url='https://github.com/HumanBrainProject/neural-activity-resource',
+    url='https://github.com/HumanBrainProject/fairgraph',
     author='Andrew P. Davison',
     author_email='andrew.davison@unic.cnrs-gif.fr',
     classifiers=[
