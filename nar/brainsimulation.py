@@ -59,7 +59,8 @@ class ModelProject(KGObject, HasAliasMixin):
         "dateCreated": "schema:dateCreated",
         "dcterms": "http://purl.org/dc/terms/",
         "instances": "dcterms:hasPart",
-        "oldUUID": "nsg:providerId"
+        "oldUUID": "nsg:providerId",
+        "partOf": "nsg:partOf"
     }
 
     attribute_map = {
@@ -72,7 +73,7 @@ class ModelProject(KGObject, HasAliasMixin):
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
                  organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
-                 abstraction_level=None, model_of=None, old_uuid=None, instances=None, images=None,
+                 abstraction_level=None, model_of=None, old_uuid=None, parents=None, instances=None, images=None,
                  id=None, instance=None):
         self.name = name
         self.alias = alias
@@ -91,6 +92,7 @@ class ModelProject(KGObject, HasAliasMixin):
         self.model_of = model_of
         self.old_uuid = old_uuid
         self.images = images
+        self.parents = parents
         self.instances = instances
         self.id = id
         self.instance = instance
@@ -119,6 +121,7 @@ class ModelProject(KGObject, HasAliasMixin):
                   celltype=build_kg_object(CellType, D.get("celltype")),
                   abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
                   old_uuid=D.get("oldUUID", None),
+                  parents=build_kg_object(ModelProject, D.get("partOf")),
                   instances=build_kg_object(None, D.get("dcterms:hasPart")),
                   images=D.get("images"),
                   id=D["@id"], instance=instance)
@@ -134,19 +137,20 @@ class ModelProject(KGObject, HasAliasMixin):
                 obj.owners = build_kg_object(Person, D["owner"])
         return obj
 
-    def save(self, client, exists_ok=True):
-        if self.instance:
-            data = self.instance.data
-            # the following 4 lines are a temporary hack, due to dcterms being missing in the standard context
-            if isinstance(data["@context"], list):
-                data["@context"].append(self.context)
-            else:
-                data["@context"].update(self.context)
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+    def _build_data(self, client):
+        # if self.instance:
+        #     data = self.instance.data
+        #     # the following 4 lines are a temporary hack, due to dcterms being missing in the standard context
+        #     if isinstance(data["@context"], list):
+        #         data["@context"].append(self.get_context(client))
+        #     else:
+        #         data["@context"].update(self.get_context(client))
+        # else:
+        #     data = {
+        #         "@context": self.get_context(client),
+        #         "@type": self.type
+        #     }
+        data = {}
         if self.authors:
             if isinstance(self.authors, str):  # temporary, should convert into Person
                 raise Exception()
@@ -226,6 +230,11 @@ class ModelProject(KGObject, HasAliasMixin):
                 data["abstractionLevel"] = self.abstraction_level.to_jsonld()
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
+        if self.parents:
+            data["partOf"] = [{
+                "@type": parent.type,
+                "@id": parent.id
+            } for parent in as_list(self.parents)]
         if self.instances is not None:
             data["dcterms:hasPart"] = [
                 {
@@ -235,7 +244,7 @@ class ModelProject(KGObject, HasAliasMixin):
             ]
         if self.images is not None:
             data["images"] = self.images
-        self._save(data, client, exists_ok)
+        return data
 
     @classmethod
     def list(cls, client, size=10000, **filters):
@@ -253,8 +262,8 @@ class ModelProject(KGObject, HasAliasMixin):
                     'value': concept_class(value).iri
                 })
             else:
-                raise Exception("The only supported filters are by model scope"
-                                "You specified {name}".format(name=name))
+                raise Exception("The only supported filters are by {supported_filters}"
+                                "You specified {name}".format(supported_filters=", ".join(cls.attribute_map), name=name))
         if len(filter_queries) == 0:
             return client.list(cls, size=size)
         elif len(filter_queries) == 1:
@@ -265,6 +274,11 @@ class ModelProject(KGObject, HasAliasMixin):
                 "value": filter_queries
             }
         return KGQuery(cls, filter_query, context).resolve(client, size=size)
+
+    def authors_str(self, client):
+        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client)) for obj in self.authors)
+
+    #def sub_projects(self):
 
 
 class ModelInstance(KGObject):
@@ -285,8 +299,8 @@ class ModelInstance(KGObject):
     # modelinstance/v0.1.2
     #   - fields of Entity + modelOf, brainRegion, species
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {"oldUUID": "nsg:providerId"}
     ]
     # fields:
@@ -338,15 +352,9 @@ class ModelInstance(KGObject):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.model_of:
             data["modelOf"] = self.model_of.to_jsonld()
@@ -376,7 +384,7 @@ class ModelInstance(KGObject):
             data["nsg:parameters"] = self.parameters
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
-        self._save(data, client, exists_ok)
+        return data
 
     @property
     def project(self):
@@ -396,8 +404,8 @@ class MEModel(ModelInstance):
     path = NAMESPACE + "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
     type = ["prov:Entity", "nsg:MEModel", "nsg:ModelInstance"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {"oldUUID": "nsg:providerId"}
     ]
     # fields:
@@ -450,15 +458,9 @@ class MEModel(ModelInstance):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.model_of:
             data["modelOf"] = self.model_of.to_jsonld()
@@ -501,15 +503,15 @@ class MEModel(ModelInstance):
             data["nsg:parameters"] = self.parameters
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Morphology(KGObject):
     path = NAMESPACE + "/simulation/morphology/v0.1.1"
     type = ["prov:Entity", "nsg:Morphology"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
 
     #name, distribution
@@ -538,31 +540,25 @@ class Morphology(KGObject):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.cell_type:
             data["modelOf"] = self.cell_type.to_jsonld()
         if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld() for item in self.distribution]
+            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
         elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld()
-        self._save(data, client, exists_ok)
+            data["distribution"] = self.distribution.to_jsonld(client)
+        return data
 
 
 class ModelScript(KGObject):
     path = NAMESPACE + "/simulation/emodelscript/v0.1.0"
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
     context =  [  # todo: root should be set by client to nexus or nexus-int or whatever as required
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "license": "schema:license"
         }
@@ -602,31 +598,25 @@ class ModelScript(KGObject):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld() for item in self.distribution]
+            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
         elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld()
+            data["distribution"] = self.distribution.to_jsonld(client)
         data["license"] = self.license
         data["code_format"] = self.code_format
-        self._save(data, client, exists_ok)
+        return data
 
 
 class EModel(ModelInstance):
     path = NAMESPACE + "/simulation/emodel/v0.1.1"
     type = ["prov:Entity", "nsg:EModel"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
 
 
@@ -658,15 +648,9 @@ class EModel(ModelInstance):
         return obj
 
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.model_of:
             data["modelOf"] = {
@@ -684,15 +668,15 @@ class EModel(ModelInstance):
             }
         if self.release:
             data["release"] = self.release
-        self._save(data, client, exists_ok)
+        return data
 
 
 class AnalysisResult(KGObject):
     path = NAMESPACE + "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
     context =  [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
 
     def __init__(self, name, distribution=None, timestamp=None, id=None, instance=None):
@@ -716,23 +700,17 @@ class AnalysisResult(KGObject):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.timestamp:
             data["generatedAtTime"] = self.timestamp.isoformat()
         if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld() for item in self.distribution]
+            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
         elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld()
-        self._save(data, client, exists_ok)
+            data["distribution"] = self.distribution.to_jsonld(client)
+        return data
 
 
 class ValidationTestDefinition(KGObject, HasAliasMixin):
@@ -741,8 +719,8 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     #path = NAMESPACE + "/simulation/validationtestdefinition/v0.1.2"
     type = ["prov:Entity", "nsg:ValidationTestDefinition"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "name": "schema:name",
             "alias": "nsg:alias",
@@ -819,14 +797,8 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+    def _build_data(self, client):
+        data = {}
         if self.authors:
             for author in as_list(self.authors):
                 if not author.id:
@@ -877,7 +849,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
             data["status"] = self.status
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
-        self._save(data, client, exists_ok)
+        return data
 
     @property
     def scripts(self):
@@ -897,8 +869,8 @@ class ValidationScript(KGObject):  # or ValidationImplementation
     path = NAMESPACE + "/simulation/validationscript/v0.1.0"
     type = ["prov:Entity", "nsg:ModelValidationScript"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "name": "schema:name",
             "description": "schema:description",
@@ -954,14 +926,8 @@ class ValidationScript(KGObject):  # or ValidationImplementation
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+    def _build_data(self, client):
+        data = {}
         data["name"] = self.name
         if self.description is not None:
             data["description"] = self.description
@@ -984,7 +950,7 @@ class ValidationScript(KGObject):  # or ValidationImplementation
             }
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
-        self._save(data, client, exists_ok)
+        return data
 
 
 class ValidationResult(KGObject):
@@ -992,8 +958,8 @@ class ValidationResult(KGObject):
     path = NAMESPACE + "/simulation/validationresult/v0.1.1"
     type = ["prov:Entity", "nsg:ValidationResult"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "name": "schema:name",
             "description": "schema:description",
@@ -1050,14 +1016,8 @@ class ValidationResult(KGObject):
                   id=D["@id"], instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+    def _build_data(self, client):
+        data = {}
         data["name"] = self.name
         if self.description is not None:
             data["description"] = self.description
@@ -1083,7 +1043,7 @@ class ValidationResult(KGObject):
             } for obj in as_list(self.additional_data)]
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
-        self._save(data, client, exists_ok)
+        return data
 
 
 class ValidationActivity(KGObject):
@@ -1092,8 +1052,8 @@ class ValidationActivity(KGObject):
     path = NAMESPACE + "/simulation/modelvalidation/v0.4.0"  # debug
     type = ["prov:Activity", "nsg:ModelValidation"]
     context = [
-        "https://nexus-int.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
-        "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "name": "schema:name",
             "description": "schema:description",
@@ -1153,14 +1113,8 @@ class ValidationActivity(KGObject):
                   instance=instance)
         return obj
 
-    def save(self, client, exists_ok=True):
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+    def _build_data(self, client):
+        data = {}
         if isinstance(self.timestamp, (datetime.date, datetime.datetime)):
             data["startedAtTime"] = self.timestamp.isoformat()
         else:
@@ -1180,4 +1134,4 @@ class ValidationActivity(KGObject):
                 "@type": self.result.type,
                 "@id": self.result.id
             }
-        self._save(data, client, exists_ok)
+        return data

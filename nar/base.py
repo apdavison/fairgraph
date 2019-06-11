@@ -154,28 +154,81 @@ class KGObject(with_metaclass(Registry, object)):
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
                 return bool(response)
 
-    def _save(self, data, client, exists_ok=True):
+    def get_context(self, client):
+        context_urls = set()
+        if isinstance(self.context, dict):
+            context_dict = self.context
+        elif isinstance(self.context, (list, tuple)):
+            context_dict = {}
+            for item in self.context:
+                if isinstance(item, dict):
+                    context_dict.update(item)
+                else:
+                    assert isinstance(item, basestring)
+                    if "{{base}}" in item:
+                        context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
+                    else:
+                        assert item.startswith("http")
+                        context_urls.add(item)
+        else:
+            raise ValueError("Unexpected value for context")
+
+        if self.instance:
+            instance_context = self.instance.data["@context"]
+            if isinstance(instance_context, dict):
+                context_dict.update(instance_context)
+            elif isinstance(instance_context, basestring):
+                context_urls.add(instance_context)
+            else:
+                assert isinstance(instance_context, (list, tuple))
+                for item in instance_context:
+                    if isinstance(item, dict):
+                        context_dict.update(item)
+                    else:
+                        assert isinstance(item, basestring) and item.startswith("http")
+                        context_urls.add(item)
+
+        context = list(context_urls) + [context_dict]
+        if len(context) == 1:
+            context = context[0]
+        return context
+
+    def _update_needed(self, data):
+        for key, value in data.items():
+            if key not in self.instance.data:
+                return True
+            elif self.instance.data[key] != value:
+                return True
+        return False
+
+    def _build_data(self, client):
+        raise NotImplementedError("to be implemented by child classes")
+
+    def save(self, client):
         """docstring"""
-        if self.id:
+        data = self._build_data(client)
+
+        if self.id or self.exists(client):
+            # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
                 self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+
+        if self.instance:
+            if self._update_needed(data):
+                logger.info("Updating {self!r}".format(self=self))
                 self.instance.data.update(data)
-            # instance.data should be identical to data at this point
-            self.instance.data["@context"] = self.context
-            self.instance.data["@type"] = self.type
-            self.instance = client.update_instance(self.instance)
-            logger.info("Updating {self.instance.id}".format(self=self))
+                self.instance.data["@context"] = self.get_context(client)
+                assert self.instance.data["@type"] == self.type
+                self.instance = client.update_instance(self.instance)
+            else:
+                logger.info("Not updating {self!r}, unchanged".format(self=self))
         else:
-            if self.exists(client):
-                if exists_ok:
-                    logger.info("Not updating {self.__class__.__name__}, already exists (id={self.id})".format(self=self))
-                    return
-                else:
-                    raise ResourceExistsError("Already exists in the Knowledge Graph: {self!r}".format(self=self))
-            logger.debug("Creating instance with data {}".format(data))
+            logger.info("Creating instance with data {}".format(data))
+            data["@context"] = self.get_context(client)
+            data["@type"] = self.type
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
@@ -342,9 +395,9 @@ class Distribution(object):
         return cls(data["downloadURL"], size, digest, digest_method, data.get("mediaType"),
                    data.get("originalFileName"))
 
-    def to_jsonld(self):
+    def to_jsonld(self, client):
         data = {
-            "@context": "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",  # todo: needs to adapt to Nexus instance
+            "@context": "{{base}}/contexts/nexus/core/distribution/v0.1.0".replace("{{base}}", client.nexus_endpoint),
             "downloadURL": self.location
         }
         if self.size:

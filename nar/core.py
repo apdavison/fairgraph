@@ -70,15 +70,9 @@ class Subject(KGObject):
                    D.get("deathDate", None), D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["providerId"] = self.name
         data["species"] = self.species.to_jsonld()
@@ -90,7 +84,7 @@ class Subject(KGObject):
             data["sex"] = self.sex.to_jsonld()
         if self.death_date:
             data["deathDate"] = self.death_date
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Organization(KGObject):
@@ -136,15 +130,9 @@ class Organization(KGObject):
             address = None
         return cls(D["name"], address, parent, id=D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         if self.address:
             data["address"] = {
@@ -159,7 +147,7 @@ class Organization(KGObject):
                 "@type": self.parent.type,
                 "@id": self.parent.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Person(KGObject):
@@ -225,15 +213,9 @@ class Person(KGObject):
             ]
         }
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["familyName"] = self.family_name
         data["givenName"] = self.given_name
         if self.email:
@@ -245,7 +227,7 @@ class Person(KGObject):
                 "@type": self.affiliation.type,
                 "@id": self.affiliation.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
@@ -292,15 +274,9 @@ class Protocol(KGObject):
                    KGProxy(Identifier, D["schema:identifier"]),
                    D["@id"], instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["nsg:steps"] = self.steps
         if self.materials:
@@ -321,7 +297,7 @@ class Protocol(KGObject):
                 "@type": self.identifier.type,
                 "@id": self.identifier.id
             }
-        self._save(data, client, exists_ok)
+        return data
 
 
 class Identifier(KGObject):
@@ -410,19 +386,13 @@ class Collection(KGObject):
                    id=D["@id"],
                    instance=instance)
 
-    def save(self, client, exists_ok=True):
+    def _build_data(self, client):
         """docstring"""
-        if self.instance:
-            data = self.instance.data
-        else:
-            data = {
-                "@context": self.context,
-                "@type": self.type
-            }
+        data = {}
         data["name"] = self.name
         data["size"] = len(as_list(self.members))
         data["hadMember"] = [{
             "@type": member.type,
             "@id": member.id
         } for member in as_list(self.members)]
-        self._save(data, client, exists_ok)
+        return data

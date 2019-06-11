@@ -102,6 +102,7 @@ class CellType(OntologyTerm):
         "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
         "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
         "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
+        "cerebellar granule cell": "http://purl.obolibrary.org/obo/CL_0001031",
         "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
         "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
         "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
