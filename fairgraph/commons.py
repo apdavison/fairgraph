@@ -193,6 +193,13 @@ class ModelScope(OntologyTerm):
     }
 
 
+class License(OntologyTerm):
+    iri_map = {
+        "GNU General Public License 2 or later": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
+        "CeCILL v2": "http://www.cecill.info/licences/Licence_CeCILL_V2-en.html"
+    }
+
+
 class QuantitativeValue(object):
     """docstring"""
     unit_codes = {

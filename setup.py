@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='fairgraph',
-    version='0.3.0',
+    version='0.3.1.dev',
     description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,6 +26,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7'
     ],
     keywords='nar hbp metadata electrophysiology nexus shacl',
     packages=find_packages(),

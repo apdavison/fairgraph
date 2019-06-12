@@ -288,6 +288,11 @@ class OntologyTerm(object):
         return ('{self.__class__.__name__}('
                 '{self.label!r}, {self.iri!r})'.format(self=self))
 
+    def __eq__(self, other):
+        return (self.__class__ == other.__class__
+                and self.label == other.label
+                and self.iri == other.iri)
+
     def to_jsonld(self):
         return {'@id': self.iri,
                 'label': self.label}

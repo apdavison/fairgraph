@@ -47,3 +47,4 @@ def test_PatchClampExperiment():
     fairgraph.client.NexusClient = MockNexusClient
     client = fairgraph.client.KGClient("thisismytoken")
     experiments = PatchClampExperiment.list(client)
+    assert True
