@@ -9,7 +9,7 @@ from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_li
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
 from .core import Organization, Person, Age
 
-logger = logging.getLogger("nar")
+logger = logging.getLogger("fairgraph")
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "brainsimulation"

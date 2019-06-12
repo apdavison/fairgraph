@@ -15,7 +15,7 @@ except NameError:
 from .errors import ResourceExistsError
 
 
-logger = logging.getLogger("nar")
+logger = logging.getLogger("fairgraph")
 
 
 registry = {

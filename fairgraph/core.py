@@ -13,7 +13,7 @@ NAMESPACE = "neuralactivity"
 #NAMESPACE = "neurosciencegraph"
 #NAMESPACE = "brainsimulation"
 
-logger = logging.getLogger("nar")
+logger = logging.getLogger("fairgraph")
 
 
 class Subject(KGObject):

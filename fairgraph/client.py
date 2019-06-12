@@ -18,10 +18,10 @@ from .electrophysiology import PatchClampExperiment
 
 CURL_LOGGER = logging.getLogger("curl")
 CURL_LOGGER.setLevel(logging.WARNING)
-logger = logging.getLogger("nar")
+logger = logging.getLogger("fairgraph")
 
 
-class NARClient(object):
+class KGClient(object):
     """docstring"""
 
     def __init__(self, token, nexus_endpoint="https://nexus.humanbrainproject.org/v0"):

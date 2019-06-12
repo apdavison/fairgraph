@@ -20,7 +20,7 @@ limitations under the License.
 """
 
 import re
-from .client import NARClient
+from .client import KGClient
 
 
 def KnowledgeGraphEntity(schema):
@@ -38,8 +38,6 @@ def KnowledgeGraphEntity(schema):
             break
     name = re.sub(".*?:", "", principal_shape["targetClass"])
     # ...unfinished
-    
+
     bases = (object,)
     return type(name, bases, namespace)
-
-

@@ -118,7 +118,7 @@ class PatchedCell(KGObject):
     """docstring"""
     path = NAMESPACE + "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
-    collection_class = "Collection"
+    collection_class = "PatchedCellCollection"
     experiment_class = "PatchClampExperiment"
     context = {
         "schema": "http://schema.org/",
@@ -478,7 +478,7 @@ class PatchedSlice(KGObject):
         "hasPart": "nsg:hasPart",
         "wasRevisionOf": "prov:wasRevisionOf"
     }
-    collection_class = "Collection"
+    collection_class = "PatchedCellCollection"
     recording_activity_class = "PatchClampActivity"
 
     def __init__(self, name, slice, recorded_cells, recording_activity, id=None, instance=None):
@@ -532,7 +532,7 @@ class PatchedSlice(KGObject):
         return data
 
 
-class PatchedCellCollection(KGObject):  # move to core?
+class PatchedCellCollection(KGObject):
     """docstring"""
     path = NAMESPACE + "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection"]

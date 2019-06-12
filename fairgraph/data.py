@@ -10,7 +10,7 @@ try:
     from pathlib import Path
 except ImportError:
     from pathlib2 import Path
-from nar.base import KGObject, KGProxy, KGQuery, cache
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache
 
 
 class DataObject(KGObject):
@@ -59,7 +59,7 @@ class FileAssociation(DataObject):
     @property
     def from_(self):
         """Return the 'from' property of the file association
-        
+
         (note trailing underscore since 'from' is a reserved word in Python
         """
         return getattr(self, "from")

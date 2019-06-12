@@ -48,9 +48,9 @@ token = os.environ['HBP_token']
 Once you have a token:
 
 ```
-from nar import NARClient
+from fairgraph import KGClient
 
-client = NARClient(token)
+client = KGClient(token)
 ```
 
 ## Retrieving metadata from the Knowledge Graph
@@ -60,8 +60,8 @@ currently `commons`, `core`, `brainsimulation`, `electrophysiology` and `minds`.
 For example:
 
 ```
-from nar.commons import BrainRegion
-from nar.electrophysiology import PatchedCell
+from fairgraph.commons import BrainRegion
+from fairgraph.electrophysiology import PatchedCell
 ```
 
 Using these classes, it is possible to list all metadata matching a particular criterion, e.g.
@@ -110,8 +110,8 @@ While certain filters and queries are built in (such as the filter by brain regi
 more complex queries are possible using the [Nexus query API](https://bbp-nexus.epfl.ch/staging/docs/kg/api-reference/operating-on-resources.html#search-and-filtering)
 
 ```
-from nar.base import KGQuery
-from nar.minds import Dataset
+from fairgraph.base import KGQuery
+from fairgraph.minds import Dataset
 
 query = {
     "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
@@ -137,8 +137,8 @@ For those users who have the necessary permissions to store and edit metadata in
 **fairgraph* objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
 
 ```
-from nar.core import Person, Organization
-from nar.commons import Address
+from fairgraph.core import Person, Organization
+from fairgraph.commons import Address
 
 mgm = Organization("Metro-Goldwyn-Mayer")
 mgm.save(client)

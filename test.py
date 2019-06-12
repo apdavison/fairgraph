@@ -3,11 +3,11 @@
 """
 
 from pyxus.client import NexusClient, NexusConfig
-from pyxus.resources.repository import (DomainRepository, ContextRepository, 
+from pyxus.resources.repository import (DomainRepository, ContextRepository,
                                         OrganizationRepository,
                                         InstanceRepository, SchemaRepository)
-import nar.client
-from nar.electrophysiology import PatchClampExperiment
+import fairgraph.client
+from fairgraph.electrophysiology import PatchClampExperiment
 
 
 #class MockQueryResult(object):
@@ -44,6 +44,6 @@ class MockNexusClient(NexusClient):
 
 
 def test_PatchClampExperiment():
-    nar.client.NexusClient = MockNexusClient
-    client = nar.client.NARClient("thisismytoken")
+    fairgraph.client.NexusClient = MockNexusClient
+    client = fairgraph.client.KGClient("thisismytoken")
     experiments = PatchClampExperiment.list(client)

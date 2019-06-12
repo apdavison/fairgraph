@@ -2,8 +2,8 @@
 
 """
 
-from nar.base import KGObject, KGProxy, KGQuery, cache, as_list
-from nar.data import FileAssociation, CSCSFile
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list
+from fairgraph.data import FileAssociation, CSCSFile
 
 
 class MINDSObject(KGObject):
