@@ -1,3 +1,4 @@
+# encoding: utf-8
 """
 Tests of the "software" module
 """
