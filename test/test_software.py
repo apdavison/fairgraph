@@ -70,8 +70,8 @@ class TestSoftware(object):
             ],
             'schema:image': {'@id': input_data["image"]},
             'schema:distribution': {
-                'schema:downloadURL': input_data["download_url"],
-                'schema:accessURL': input_data["access_url"]
+                'schema:downloadURL': {"@id": input_data["download_url"]},
+                'schema:accessURL': {"@id": input_data["access_url"]}
             },
             'schema:operatingSystem': [
                 {'@id': os.iri, 'label': os.label}

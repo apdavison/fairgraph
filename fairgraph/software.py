@@ -172,12 +172,12 @@ class Software(KGObject):
             data["schema:image"] = {"@id": self.image}
         if self.download_url:
             data["schema:distribution"] = {
-                "schema:downloadURL": self.download_url
+                "schema:downloadURL": {"@id": self.download_url}
             }
         if self.access_url:
             if "schema:distribution" not in data:
                 data["schema:distribution"] = {}
-            data["schema:distribution"]["schema:accessURL"] = self.access_url
+            data["schema:distribution"]["schema:accessURL"] = {"@id": self.access_url}
         if self.categories:
             data["schema:applicationCategory"] = [cat.to_jsonld() for cat in as_list(self.categories)]
         if self.subcategories:
