@@ -179,15 +179,9 @@ class Software(KGObject):
                 data["schema:distribution"] = {}
             data["schema:distribution"]["accessURL"] = self.access_url
         if self.categories:
-            data["schema:applicationCategory"] = [{
-                    "@id": cat.id,
-                    "@type": cat.type
-                } for cat in as_list(self.categories)]
+            data["schema:applicationCategory"] = [cat.to_jsonld() for cat in as_list(self.categories)]
         if self.subcategories:
-            data["schema:applicationSubCategory"] = [{
-                    "@id": cat.id,
-                    "@type": cat.type
-                } for cat in as_list(self.subcategories)]
+            data["schema:applicationSubCategory"] = [cat.to_jsonld() for cat in as_list(self.subcategories)]
         if self.operating_system:
             data["schema:operatingSystem"] = [os.to_jsonld()
                                               for os in as_list(self.operating_system)]
