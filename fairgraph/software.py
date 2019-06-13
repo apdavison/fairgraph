@@ -118,8 +118,8 @@ class Software(KGObject):
                   contributors=build_kg_object(Person, D.get("prov:wasAttributedTo")),
                   #project=D.get(""),  # todo: add link to SoftwareProject to schema?
                   image=D["schema:image"]["@id"] if "schema:image" in D else None,
-                  download_url=D["schema:distribution"].get("downloadURL") if "schema:distribution" in D else None,
-                  access_url=D["schema:distribution"].get("accessURL") if "schema:distribution" in D else None,
+                  download_url=D["schema:distribution"].get("schema:downloadURL") if "schema:distribution" in D else None,
+                  access_url=D["schema:distribution"].get("schema:accessURL") if "schema:distribution" in D else None,
                   categories=build_kg_object(SoftwareCategory, D.get("schema:applicationCategory")),
                   subcategories=build_kg_object(SoftwareCategory, D.get("schema:applicationSubCategory")),
                   operating_system=build_kg_object(OperatingSystem, D.get("schema:operatingSystem")),
@@ -172,12 +172,12 @@ class Software(KGObject):
             data["schema:image"] = {"@id": self.image}
         if self.download_url:
             data["schema:distribution"] = {
-                "downloadURL": self.download_url
+                "schema:downloadURL": self.download_url
             }
         if self.access_url:
             if "schema:distribution" not in data:
                 data["schema:distribution"] = {}
-            data["schema:distribution"]["accessURL"] = self.access_url
+            data["schema:distribution"]["schema:accessURL"] = self.access_url
         if self.categories:
             data["schema:applicationCategory"] = [cat.to_jsonld() for cat in as_list(self.categories)]
         if self.subcategories:
