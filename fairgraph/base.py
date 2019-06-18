@@ -27,7 +27,10 @@ registry = {
 def register_class(target_class):
     registry['names'][target_class.__name__] = target_class
     if hasattr(target_class, 'type'):
-        registry['types'][tuple(target_class.type)] = target_class
+        if isinstance(target_class.type, basestring):
+            registry['types'][target_class.type] = target_class
+        else:
+            registry['types'][tuple(target_class.type)] = target_class
 
 
 def lookup(class_name):
@@ -447,21 +450,25 @@ def build_kg_object(cls, data):
     objects = []
     for item in data:
         if cls is None:
+            # note that if cls is None, then the class can be different for each list item
+            # therefore we need to use a new variable kg_cls inside the loop
             if "@type" in item:
-                cls = lookup_type(item["@type"])
+                kg_cls = lookup_type(item["@type"])
             elif "label" in item:
                 # we could possibly do a reverse lookup using iri_map of all the OntologyTerm
                 # subclasses but for now just returning the base class
-                cls = OntologyTerm
+                kg_cls = OntologyTerm
             else:
                 raise ValueError("Cannot determine type. Item was: {}".format(item))
+        else:
+            kg_cls = cls
 
-        if issubclass(cls, OntologyTerm):
-            obj = cls.from_jsonld(item)
-        elif issubclass(cls, KGObject):
-            obj = KGProxy(cls, item["@id"])
-        elif cls is Distribution:
-            obj = cls.from_jsonld(item)
+        if issubclass(kg_cls, OntologyTerm):
+            obj = kg_cls.from_jsonld(item)
+        elif issubclass(kg_cls, KGObject):
+            obj = KGProxy(kg_cls, item["@id"])
+        elif kg_cls is Distribution:
+            obj = kg_cls.from_jsonld(item)
         else:
             raise ValueError("cls must be a KGObject, OntologyTerm or Distribution")
         objects.append(obj)

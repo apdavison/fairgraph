@@ -522,12 +522,23 @@ class Morphology(KGObject):
         if morphology_file:
             if distribution:
                 raise ValueError("Cannot provide both morphology_file and distribution")
-            if isinstance(morphology_file, list):
-                self.distribution = [Distribution(location=mf) for mf in morphology_file]
-            else:
-                self.distribution = Distribution(location=morphology_file)
+            self.morphology_file = morphology_file
         self.id = id
         self.instance = instance
+
+    @property
+    def morphology_file(self):
+        if isinstance(self.distribution, list):
+            return [d.location for d in self.distribution]
+        else:
+            return self.distribution.location
+
+    @morphology_file.setter
+    def morphology_file(self, value):
+        if isinstance(value, list):
+            self.distribution = [Distribution(location=mf) for mf in value]
+        else:
+            self.distribution = Distribution(location=value)
 
     @classmethod
     @cache
