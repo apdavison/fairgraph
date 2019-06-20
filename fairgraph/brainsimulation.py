@@ -852,6 +852,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
                 "@type": item.type,
                 "@id": item.id
             } for item in as_list(self.reference_data)]
+        # todo: if we're auto-saving authors, should do the same for reference data
         if self.data_type is not None:
             data["dataType"] = self.data_type
         if self.recording_modality is not None:
@@ -928,7 +929,7 @@ class ValidationScript(KGObject):  # or ValidationImplementation
         obj = cls(name=D["name"],
                   description=D.get("description", ""),
                   date_created=D["dateCreated"],
-                  repository=D.get("repository"),
+                  repository=D.get("repository")["@id"] if "repository" in D else None,
                   version=D.get("version"),
                   parameters=D.get("parameters"),
                   test_class=D.get("path"),
@@ -966,7 +967,8 @@ class ValidationScript(KGObject):  # or ValidationImplementation
 
 class ValidationResult(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/validationresult/v0.1.1"
+    path = NAMESPACE + "/simulation/validationresult/v0.1.0"
+    #path = NAMESPACE + "/simulation/validationresult/v0.1.1"
     type = ["prov:Entity", "nsg:ValidationResult"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -1059,8 +1061,7 @@ class ValidationResult(KGObject):
 
 class ValidationActivity(KGObject):
     """docstring"""
-    #path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
-    path = NAMESPACE + "/simulation/modelvalidation/v0.4.0"  # debug
+    path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
     type = ["prov:Activity", "nsg:ModelValidation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",

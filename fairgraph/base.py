@@ -93,17 +93,20 @@ class KGObject(with_metaclass(Registry, object)):
         raise NotImplementedError("To be implemented by child class")
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True):
-        return cls.from_kg_instance(client.instance_from_full_uri(uri, use_cache=use_cache),
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False):
+        return cls.from_kg_instance(client.instance_from_full_uri(uri,
+                                                                  use_cache=use_cache,
+                                                                  deprecated=deprecated),
                                     client,
                                     use_cache=use_cache)
 
     @classmethod
-    def from_uuid(cls, uuid, client):
+    def from_uuid(cls, uuid, client, deprecated=False):
+        logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
         val = UUID(uuid, version=4)  # check validity of uuid
-        instance = client.instance_from_uuid(cls.path, uuid)
+        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated)
         if instance is None:
             return None
         else:
@@ -115,7 +118,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def uri_from_uuid(cls, uuid, client):
-        return "{}/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
+        return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -336,6 +339,10 @@ class KGProxy(object):
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
 
+    @property
+    def uuid(self):
+        return self.id.split("/")[-1]
+
     def delete(self, client):
         """Delete the instance which this proxy represents"""
         obj = self.resolve(client)
@@ -352,6 +359,10 @@ class KGQuery(object):
             self.cls = cls
         self.filter = filter
         self.context = context
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.cls!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000):
         instances = client.filter_query(
@@ -482,6 +493,8 @@ def build_kg_object(cls, data):
 def as_list(obj):
     if obj is None:
         return []
+    elif isinstance(obj, (dict, basestring)):
+        return [obj]
     try:
         L = list(obj)
     except TypeError:
