@@ -946,7 +946,7 @@ class ValidationScript(KGObject):  # or ValidationImplementation
         if isinstance(self.date_created, (datetime.date, datetime.datetime)):
             data["dateCreated"] = self.date_created.isoformat()
         else:
-            raise ValueError("date_created must be a date or datetime object")
+            raise ValueError("date_created must be a date or datetime object, not '{}'".format(self.date_created))
         if self.repository is not None:
             data["repository"] = {"@id": self.repository}
         if self.version is not None:

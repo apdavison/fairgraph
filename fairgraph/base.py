@@ -105,7 +105,10 @@ class KGObject(with_metaclass(Registry, object)):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
-        val = UUID(uuid, version=4)  # check validity of uuid
+        try:
+            val = UUID(uuid, version=4)  # check validity of uuid
+        except ValueError as err:
+            raise ValueError("{} - {}".format(err, uuid))
         instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated)
         if instance is None:
             return None
