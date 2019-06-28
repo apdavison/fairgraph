@@ -251,8 +251,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client):
-        return client.by_name(cls, name)
+    def by_name(cls, name, client, all=False):
+        return client.by_name(cls, name, all=all)
 
     @property
     def rev(self):
