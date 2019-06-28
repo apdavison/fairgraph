@@ -19,7 +19,8 @@ from .core import Organization, Person, Age
 logger = logging.getLogger("fairgraph")
 mimetypes.init()
 
-NAMESPACE = "neuralactivity"
+#NAMESPACE = "neuralactivity"
+NAMESPACE = "modelvalidation"
 #NAMESPACE = "brainsimulation"
 
 ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
