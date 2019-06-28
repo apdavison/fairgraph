@@ -120,7 +120,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name):
+    def by_name(self, cls, name, all=False):
         """Retrieve an object based on the value of schema:name"""
         context = {"schema": "http://schema.org/"}
         query_filter = {
@@ -130,6 +130,10 @@ class KGClient(object):
         }
         response = self.filter_query(cls.path, query_filter, context)
         if response:
-            return cls.from_kg_instance(response[0], self)
+            if all:
+                return [cls.from_kg_instance(resp, self)
+                        for resp in response]
+            else:  # return only the first result
+                return cls.from_kg_instance(response[0], self)
         else:
             return None
