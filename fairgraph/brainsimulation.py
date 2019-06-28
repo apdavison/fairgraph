@@ -762,7 +762,7 @@ class AnalysisResult(KGObject):
                 {
                     "path": "prov:generatedAtTime",
                     "op": "eq",
-                    "value": self.self.timestamp.isoformat()
+                    "value": self.timestamp.isoformat()
                 }
             ]
         }
