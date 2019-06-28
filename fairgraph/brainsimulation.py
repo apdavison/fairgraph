@@ -756,7 +756,7 @@ class AnalysisResult(KGObject):
             raise Exception("File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
         # todo, use the Nexus HTTP client directly for the following
         headers = client._nexus_client._http_client.auth_client.get_headers()
-        content_type, encoding = mimetypes.guess(file_path, strict=False)
+        content_type, encoding = mimetypes.guess_type(file_path, strict=False)
         response = requests.put("{}/attachment?rev={}".format(self.id, self.rev or 1),
                                 headers=headers,
                                 files={
