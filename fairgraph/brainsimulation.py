@@ -2,17 +2,27 @@
 brain simulation
 """
 
+try:
+    basestring
+except NameError:
+    basestring = str
+import os.path
 import logging
 import datetime
+import mimetypes
 from dateutil import parser as date_parser
+import requests
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
 from .core import Organization, Person, Age
 
 logger = logging.getLogger("fairgraph")
+mimetypes.init()
 
 NAMESPACE = "neuralactivity"
 #NAMESPACE = "brainsimulation"
+
+ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 
 
 class HasAliasMixin(object):
@@ -690,14 +700,22 @@ class AnalysisResult(KGObject):
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
 
-    def __init__(self, name, distribution=None, timestamp=None, id=None, instance=None):
+    def __init__(self, name, result_file=None, timestamp=None, id=None, instance=None):
         self.name = name
-        self.distribution = distribution
-        self.timestamp = timestamp
+        self.result_file = result_file
+        self.timestamp = timestamp or datetime.datetime.now()
+        self._file_to_upload = None
         self.id = id
         self.instance = instance
-        if distribution is not None:
-            assert isinstance(self.distribution, Distribution)
+        if isinstance(result_file, basestring):
+            if result_file.startswith("http"):
+                self.result_file = Distribution(location=result_file)
+            elif os.path.isfile(result_file):
+                self._file_to_upload = result_file
+                self.result_file = None
+        elif result_file is not None:
+            for rf in as_list(self.result_file):
+                assert isinstance(rf, Distribution)
 
     @classmethod
     @cache
@@ -705,7 +723,7 @@ class AnalysisResult(KGObject):
         D = instance.data
         assert 'nsg:AnalysisResult' in D["@type"]
         obj = cls(name=D["name"],
-                  distribution=build_kg_object(Distribution, D.get("distribution")),
+                  result_file=build_kg_object(Distribution, D.get("distribution")),
                   timestamp=date_parser.parse(D.get("generatedAtTime"))
                             if "generatedAtTime" in D else None,
                   id=D["@id"], instance=instance)
@@ -717,11 +735,45 @@ class AnalysisResult(KGObject):
         data["name"] = self.name
         if self.timestamp:
             data["generatedAtTime"] = self.timestamp.isoformat()
-        if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
-        elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld(client)
+        if isinstance(self.result_file, list):
+            data["distribution"] = [item.to_jsonld(client) for item in self.result_file]
+        elif self.result_file is not None:
+            if isinstance(self.result_file, Distribution):
+                data["distribution"] = self.result_file.to_jsonld(client)
+            else:
+                data["distribution"] = [rf.to_jsonld(client) for rf in self.result_file]
         return data
+
+    def save(self, client):
+        super(AnalysisResult, self).save(client)
+        if self._file_to_upload:
+            self.upload_attachment(self._file_to_upload, client)
+
+    def upload_attachment(self, file_path, client):
+        assert os.path.isfile(file_path)
+        statinfo = os.stat(file_path)
+        if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:
+            raise Exception("File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
+        # todo, use the Nexus HTTP client directly for the following
+        headers = client._nexus_client._http_client.auth_client.get_headers()
+        content_type, encoding = mimetypes.guess(file_path, strict=False)
+        response = requests.put("{}/attachment?rev={}".format(self.id, self.rev or 1),
+                                headers=headers,
+                                files={
+                                    "file": (os.path.basename(file_path),
+                                             open(file_path, "rb"),
+                                             content_type)
+                                })
+        if response.status_code < 300:
+            logger.info("Added attachment {} to {}".format(file_path, self.id))
+            self._file_to_upload = None
+            self.result_file = Distribution.from_jsonld(response.json()["distribution"][0])
+        else:
+            raise Exception(str(response.content))
+
+    def download(self, local_directory, client):
+        for rf in as_list(self.result_file):
+            rf.download(local_directory, client)
 
 
 class ValidationTestDefinition(KGObject, HasAliasMixin):

@@ -2,6 +2,7 @@
 
 """
 
+import os
 import sys
 from functools import wraps
 from collections import defaultdict
@@ -12,6 +13,7 @@ try:
     basestring
 except NameError:
     basestring = str
+import requests
 from .errors import ResourceExistsError
 
 
@@ -398,6 +400,10 @@ class Distribution(object):
         self.content_type = content_type
         self.original_file_name = original_file_name
 
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.location!r})'.format(self=self))
+
     @classmethod
     def from_jsonld(cls, data):
         if data is None:
@@ -437,6 +443,18 @@ class Distribution(object):
         if self.original_file_name:  # not sure if this is part of the schema, or just an annotation
             data["originalFileName"] = self.original_file_name
         return data
+
+    def download(self, local_directory, client):
+        if not os.path.isdir(local_directory):
+            os.makedirs(local_directory, exist_ok=True)
+        headers = client._nexus_client._http_client.auth_client.get_headers()
+        response = requests.get(self.location, headers=headers)
+        if response.status_code == 200:
+            local_file_name = self.original_file_name or self.location.split("/")[-1]
+            with open(os.path.join(local_directory, local_file_name), "wb") as fp:
+                fp.write(response.content)
+        else:
+            raise IOError(str(response.content))
 
 
 def build_kg_object(cls, data):
