@@ -717,6 +717,11 @@ class AnalysisResult(KGObject):
             for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
 
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.name!r}, {self.timestamp!r}, '
+                '{self.result_file!r}, {self.id})'.format(self=self))
+
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
@@ -743,6 +748,24 @@ class AnalysisResult(KGObject):
             else:
                 data["distribution"] = [rf.to_jsonld(client) for rf in self.result_file]
         return data
+
+    @property
+    def _existence_query(self):
+        return {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:name",
+                    "op": "eq",
+                    "value": self.name
+                },
+                {
+                    "path": "prov:generatedAtTime",
+                    "op": "eq",
+                    "value": self.self.timestamp.isoformat()
+                }
+            ]
+        }
 
     def save(self, client):
         super(AnalysisResult, self).save(client)
