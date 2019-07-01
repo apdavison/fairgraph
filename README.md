@@ -99,6 +99,7 @@ You can also access any associated data:
 ```
 import requests
 import numpy as np
+from io import BytesIO
 
 download_url = trace.data_location['downloadURL']
 data = np.genfromtxt(BytesIO(requests.get(download_url).content))
