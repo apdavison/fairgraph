@@ -541,6 +541,8 @@ class Morphology(KGObject):
     def morphology_file(self):
         if isinstance(self.distribution, list):
             return [d.location for d in self.distribution]
+        elif self.distribution is None:
+            return None
         else:
             return self.distribution.location
 
