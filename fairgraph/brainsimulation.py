@@ -683,7 +683,7 @@ class EModel(ModelInstance):
         D = instance.data
         assert 'nsg:EModel' in D["@type"]
         obj = cls(name=D["name"],
-                  model_of=build_kg_object(D.get("modelOf", None)),
+                  model_of=build_kg_object(None, D.get("modelOf", None)),
                   #model_of=D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
