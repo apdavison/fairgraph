@@ -548,6 +548,8 @@ class Morphology(KGObject):
     def __init__(self, name, cell_type=None, morphology_file=None, distribution=None, id=None, instance=None):
         self.name = name
         self.cell_type = cell_type
+        if not isinstance(cell_type, CellType):
+            raise ValueError("cell type should be a CellType instance, not {}".format(type(cell_type)))
         self.distribution = distribution
         if morphology_file:
             if distribution:
@@ -578,7 +580,7 @@ class Morphology(KGObject):
         D = instance.data
         assert 'nsg:Morphology' in D["@type"]
         obj = cls(name=D["name"],
-                  cell_type=D.get("modelOf", None),
+                  cell_type=build_kg_object(CellType, D.get("modelOf")),
                   distribution=build_kg_object(Distribution, D.get("distribution")),
                   id=D["@id"], instance=instance)
         return obj
