@@ -257,6 +257,25 @@ class ModelProject(KGObject, HasAliasMixin):
             data["images"] = self.images
         return data
 
+    @property
+    def _existence_query(self):
+        # allow multiple projects with the same name
+        return {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:name",
+                    "op": "eq",
+                    "value": self.name
+                },
+                {
+                    "path": "schema:dateCreated",
+                    "op": "eq",
+                    "value": self.date_created.isoformat()
+                }
+            ]
+        }
+
     @classmethod
     def list(cls, client, size=10000, **filters):
         """List all objects of this type in the Knowledge Graph"""
