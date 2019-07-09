@@ -548,7 +548,7 @@ class Morphology(KGObject):
     def __init__(self, name, cell_type=None, morphology_file=None, distribution=None, id=None, instance=None):
         self.name = name
         self.cell_type = cell_type
-        if not isinstance(cell_type, CellType):
+        if cell_type is not None and not isinstance(cell_type, CellType):
             raise ValueError("cell type should be a CellType instance, not {}".format(type(cell_type)))
         self.distribution = distribution
         if morphology_file:
