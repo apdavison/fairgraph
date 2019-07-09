@@ -96,11 +96,11 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def from_uri(cls, uri, client, use_cache=True, deprecated=False):
-        return cls.from_kg_instance(client.instance_from_full_uri(uri,
-                                                                  use_cache=use_cache,
-                                                                  deprecated=deprecated),
-                                    client,
-                                    use_cache=use_cache)
+        instance = client.instance_from_full_uri(uri, use_cache=use_cache, deprecated=deprecated)
+        if instance is None:
+            return None
+        else:
+            return cls.from_kg_instance(instance, client, use_cache=use_cache)
 
     @classmethod
     def from_uuid(cls, uuid, client, deprecated=False):
