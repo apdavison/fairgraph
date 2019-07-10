@@ -687,7 +687,7 @@ class EModel(ModelInstance):
                   #model_of=D.get("modelOf", None),
                   brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
                   species=build_kg_object(Species, D.get("species")),
-                  main_script=build_kg_object(ModelScript, D["modelScript"]),
+                  main_script=build_kg_object(ModelScript, D.get("modelScript")),
                   release=D.get("release"),  # to fix once we define MEModelRelease class
                   id=D["@id"], instance=instance)
         return obj
