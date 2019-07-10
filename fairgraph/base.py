@@ -351,6 +351,7 @@ class KGProxy(object):
     def delete(self, client):
         """Delete the instance which this proxy represents"""
         obj = self.resolve(client)
+        if obj:
         obj.delete(client)
 
 
