@@ -133,6 +133,7 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
 
+
     def __init__(self, name, brain_location, collection, cell_type, experiments=None,
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
@@ -162,52 +163,44 @@ class PatchedCell(KGObject):
     @classmethod
     def list(cls, client, size=100, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        if len(filters) > 1:
-            raise Exception("At present only a single filter can be applied at once")
+        context = {
+            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+            'prov': 'http://www.w3.org/ns/prov#'
+        }
+        filter_queries = []
         for name, value in filters.items():
             if name == "species":
-                query = {
-                    'path': 'prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
+                filter_queries.append({
+                    #        collection      / patchedslice / slice              / subject             / species
+                    'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
                     'op': 'eq',
                     'value': value.iri
-                }
-                context = {
-                    'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
-                    'prov': 'http://www.w3.org/ns/prov#'
-                }
-                result = client.filter_query(PatchedSlice.path, query, context, size=size)
-                recorded_slices = [PatchedSlice.from_kg_instance(inst, client) for inst in result]
-                recorded_cells = []
-                for slice in recorded_slices:
-                    collection = slice.recorded_cells.resolve(client)
-                    for cell in collection.cells:
-                        cell = cell.resolve(client)
-                        recorded_cells.append(cell)
-                return recorded_cells
+                })
             elif name == "brain_region":
-                query = {
+                filter_queries.append({
                     "path": "nsg:brainLocation / nsg:brainRegion",
                     "op": "eq",
                     "value": value.iri
-                }
-                context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
-                result = client.filter_query(cls.path, query, context, size=size)
-                recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
-                return recorded_cells
+                })
             elif name == "cell_type":
-                query = {
+                filter_queries.append({
                     'path': 'nsg:eType',
                     'op': 'eq',
                     'value': value.iri
-                }
-                context = {'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'}
-                result = client.filter_query(cls.path, query, context, size=size)
-                recorded_cells = [cls.from_kg_instance(inst, client) for inst in result]
-                return recorded_cells
+                })
             else:
                 raise Exception("The only supported filters are by species, brain region "
                                 "or cell type. You specified {name}".format(name=name))
-        return client.list(cls, size=size)
+        if len(filter_queries) == 0:
+            return client.list(cls, size=size)
+        elif len(filter_queries) == 1:
+            filter_query = filter_queries[0]
+        else:
+            filter_query = {
+                "op": "and",
+                "value": filter_queries
+            }
+        return KGQuery(cls, filter_query, context).resolve(client, size=size)
 
     @classmethod
     @cache
