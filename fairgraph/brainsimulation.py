@@ -1125,6 +1125,7 @@ class ValidationResult(KGObject):
                   passed=D.get("passedValidation"),
                   additional_data=build_kg_object(None, D.get("hadMember")),
                   old_uuid=D.get("oldUUID"),
+                  collab_id=D.get("collabID"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -1155,6 +1156,8 @@ class ValidationResult(KGObject):
             } for obj in as_list(self.additional_data)]
         if self.old_uuid:
             data["oldUUID"] = self.old_uuid
+        if self.collab_id:
+            data["collabID"] = self.collab_id
         return data
 
 
