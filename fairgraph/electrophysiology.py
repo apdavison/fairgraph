@@ -635,7 +635,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         return cls(name=D["name"],
                    slice=KGProxy(Slice, D["used"]["@id"]),
                    recorded_slice=KGProxy(cls.generates_class, D["generated"]["@id"]),
-                   protocol=D["protocol"],
+                   protocol=D.get("protocol"),
                    people=[KGProxy(Person, person_uri["@id"])
                            for person_uri in D["wasAssociatedWith"]],
                    id=D["@id"],
