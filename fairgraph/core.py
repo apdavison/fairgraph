@@ -18,7 +18,8 @@ logger = logging.getLogger("fairgraph")
 
 class Subject(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/subject/v0.1.2"
+    namespace = NAMESPACE
+    _path = "/core/subject/v0.1.2"
     type = ["nsg:Subject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -91,7 +92,8 @@ class Subject(KGObject):
 
 class Organization(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/organization/v0.1.0"
+    namespace = NAMESPACE
+    _path =  "/core/organization/v0.1.0"
     type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
@@ -154,7 +156,8 @@ class Organization(KGObject):
 
 class Person(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/person/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/core/person/v0.1.0"
     type = ["nsg:Person", "prov:Agent"]
     context = {
         "schema": "http://schema.org/",
@@ -271,7 +274,8 @@ class Person(KGObject):
 
 
 class Protocol(KGObject):
-    path = NAMESPACE + "/core/protocol/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/core/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -337,7 +341,8 @@ class Protocol(KGObject):
 
 
 class Identifier(KGObject):
-    path = "nexus/schemaorgsh/identifier/v0.1.0/"
+    namespace = "nexus"
+    _path = "/schemaorgsh/identifier/v0.1.0/"
     type = "schema:Identifier"
 
 
@@ -381,7 +386,8 @@ class Material(object):
 
 class Collection(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/collection/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/core/collection/v0.1.0"
     type = ["nsg:Collection", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",

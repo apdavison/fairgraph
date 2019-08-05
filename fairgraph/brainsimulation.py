@@ -43,7 +43,8 @@ class HasAliasMixin(object):
 
 class ModelProject(KGObject, HasAliasMixin):
     """docstring"""
-    path = NAMESPACE + "/simulation/modelproject/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/simulation/modelproject/v0.1.0"
     #path = NAMESPACE + "/simulation/modelproject/v0.1.1"
     type = ["prov:Entity", "nsg:ModelProject"]
 
@@ -314,7 +315,8 @@ class ModelProject(KGObject, HasAliasMixin):
 class ModelInstance(KGObject):
     """docstring"""
     #path = NAMESPACE + "/simulation/modelinstance/v0.1.2"
-    path = NAMESPACE + "/simulation/modelinstance/v0.1.1"
+    namespace = NAMESPACE
+    _path = "/simulation/modelinstance/v0.1.1"
     type = ["prov:Entity", "nsg:ModelInstance"]
     # ScientificModelInstance
     #   - model -> linked ModelProject using partOf
@@ -431,7 +433,8 @@ class ModelInstance(KGObject):
 
 class MEModel(ModelInstance):
     """docstring"""
-    path = NAMESPACE + "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
+    namespace = NAMESPACE
+    _path = "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
     type = ["prov:Entity", "nsg:MEModel", "nsg:ModelInstance"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -537,7 +540,8 @@ class MEModel(ModelInstance):
 
 
 class Morphology(KGObject):
-    path = NAMESPACE + "/simulation/morphology/v0.1.1"
+    namespace = NAMESPACE
+    _path = "/simulation/morphology/v0.1.1"
     type = ["prov:Entity", "nsg:Morphology"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -599,7 +603,8 @@ class Morphology(KGObject):
 
 
 class ModelScript(KGObject):
-    path = NAMESPACE + "/simulation/emodelscript/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/simulation/emodelscript/v0.1.0"
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
     context =  [  # todo: root should be set by client to nexus or nexus-int or whatever as required
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -657,7 +662,8 @@ class ModelScript(KGObject):
 
 
 class EModel(ModelInstance):
-    path = NAMESPACE + "/simulation/emodel/v0.1.1"
+    namespace = NAMESPACE
+    _path = "/simulation/emodel/v0.1.1"
     type = ["prov:Entity", "nsg:EModel"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -717,7 +723,8 @@ class EModel(ModelInstance):
 
 
 class AnalysisResult(KGObject):
-    path = NAMESPACE + "/simulation/analysisresult/v1.0.0"
+    namespace = NAMESPACE
+    _path = "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -825,7 +832,8 @@ class AnalysisResult(KGObject):
 
 class ValidationTestDefinition(KGObject, HasAliasMixin):
     """docstring"""
-    path = NAMESPACE + "/simulation/validationtestdefinition/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/simulation/validationtestdefinition/v0.1.0"
     #path = NAMESPACE + "/simulation/validationtestdefinition/v0.1.2"
     type = ["prov:Entity", "nsg:ValidationTestDefinition"]
     context = [
@@ -977,7 +985,8 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
 
 class ValidationScript(KGObject):  # or ValidationImplementation
     """docstring"""
-    path = NAMESPACE + "/simulation/validationscript/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/simulation/validationscript/v0.1.0"
     type = ["prov:Entity", "nsg:ModelValidationScript"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -1066,7 +1075,8 @@ class ValidationScript(KGObject):  # or ValidationImplementation
 
 class ValidationResult(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/validationresult/v0.1.0"
+    namespace = NAMESPACE
+    _path = "/simulation/validationresult/v0.1.0"
     #path = NAMESPACE + "/simulation/validationresult/v0.1.1"
     type = ["prov:Entity", "nsg:ValidationResult"]
     context = [
@@ -1163,7 +1173,8 @@ class ValidationResult(KGObject):
 
 class ValidationActivity(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/modelvalidation/v0.2.0"
+    namespace = NAMESPACE
+    _path = "/simulation/modelvalidation/v0.2.0"
     type = ["prov:Activity", "nsg:ModelValidation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",

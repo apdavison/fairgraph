@@ -70,6 +70,10 @@ class Registry(type):
         register_class(cls)
         return cls
 
+    @property
+    def path(cls):
+        return cls.namespace + cls._path
+
 
 #class KGObject(object, metaclass=Registry):
 class KGObject(with_metaclass(Registry, object)):
@@ -159,7 +163,7 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             else:
-                response = client.filter_query(self.path, query_filter, context)
+                response = client.filter_query(self.__class__.path, query_filter, context)
                 if response:
                     self.id = response[0].data["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id

@@ -45,7 +45,8 @@ class ProgrammingLanguage(OntologyTerm):
 
 
 class Software(KGObject):
-    path = NAMESPACE + "/software/software/v0.1.1"
+    namespace = NAMESPACE
+    _path = "/software/software/v0.1.1"
     type = ["prov:Entity", "nsg:Software"]
 
     context = {
