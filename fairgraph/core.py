@@ -5,7 +5,7 @@ core
 
 from __future__ import unicode_literals
 import logging
-from .base import KGObject, KGProxy, cache, as_list
+from .base import KGObject, KGProxy, KGQuery, cache, as_list
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
@@ -181,6 +181,40 @@ class Person(KGObject):
     @property
     def full_name(self):
         return '{self.given_name} {self.family_name}'.format(self=self)
+
+    @classmethod
+    def list(cls, client, size=100, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        context = {
+            "schema": "http://schema.org/"
+        }
+        filter_queries = []
+        for name, value in filters.items():
+            if name in ("first_name", "given_name"):
+                filter_queries.append({
+                    'path': 'schema:givenName',
+                    'op': 'eq',
+                    'value': value
+                })
+            elif name in ("family_name", "last_name", "surname"):
+                filter_queries.append({
+                    "path": "schema:familyName",
+                    "op": "eq",
+                    "value": value
+                })
+            else:
+                raise Exception("The only supported filters are by first (given) name or "
+                                "or last (family) name. You specified {name}".format(name=name))
+        if len(filter_queries) == 0:
+            return client.list(cls, size=size)
+        elif len(filter_queries) == 1:
+            filter_query = filter_queries[0]
+        else:
+            filter_query = {
+                "op": "and",
+                "value": filter_queries
+            }
+        return KGQuery(cls, filter_query, context).resolve(client, size=size)
 
     @classmethod
     @cache

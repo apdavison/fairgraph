@@ -188,9 +188,23 @@ class PatchedCell(KGObject):
                     'op': 'eq',
                     'value': value.iri
                 })
+            elif name == "experimenter":
+                filter_queries.append({
+                    #        collection      / patchedslice / patchclampactivity / person
+                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
+                    'op': 'eq',
+                    'value': value.id
+                })
+            elif name == "lab":
+                filter_queries.append({
+                    #        collection      / patchedslice / patchclampactivity / person              / organization
+                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                    'op': 'eq',
+                    'value': value.id
+                })
             else:
-                raise Exception("The only supported filters are by species, brain region "
-                                "or cell type. You specified {name}".format(name=name))
+                raise Exception("The only supported filters are by species, brain region, cell type "
+                                "experimenter or lab. You specified {name}".format(name=name))
         if len(filter_queries) == 0:
             return client.list(cls, size=size)
         elif len(filter_queries) == 1:
