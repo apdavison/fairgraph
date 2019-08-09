@@ -1,0 +1,361 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 30,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00015_Sub2_Samp1",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/786bf34d-80ed-403a-b29d-6a56fa009f72",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00011_Sub2_Samp2",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0f0f06f4-d739-4bf5-97fa-d9223bac9f85",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0f0f06f4-d739-4bf5-97fa-d9223bac9f85",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00011_Sub2_Samp3",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0f0f06f4-d739-4bf5-97fa-d9223bac9f85/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0f0f06f4-d739-4bf5-97fa-d9223bac9f85/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0f0f06f4-d739-4bf5-97fa-d9223bac9f85"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0ff5253a-4d44-4013-97f6-41b341635f3b",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0ff5253a-4d44-4013-97f6-41b341635f3b",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00011_Sub2_Samp4",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0ff5253a-4d44-4013-97f6-41b341635f3b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0ff5253a-4d44-4013-97f6-41b341635f3b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0ff5253a-4d44-4013-97f6-41b341635f3b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/11e75280-75d7-4c28-98b0-02111379d5ee",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/11e75280-75d7-4c28-98b0-02111379d5ee",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00014_Sub2_Samp2",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/bf304374-735e-4e38-979d-8da07ebcd8a9",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/11e75280-75d7-4c28-98b0-02111379d5ee/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/11e75280-75d7-4c28-98b0-02111379d5ee/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/11e75280-75d7-4c28-98b0-02111379d5ee"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00011_Sub1_Samp4",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "sub1epsp.samp1",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/0f6670d2-4b0d-4bd1-9327-7f748d45a9cd",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/32d11d26-cb2c-49fa-8f9a-9502ddc3481e",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/32d11d26-cb2c-49fa-8f9a-9502ddc3481e",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00012_Sub2_Samp1",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/de836379-de9e-403b-ad54-ac4d0af42c12",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/32d11d26-cb2c-49fa-8f9a-9502ddc3481e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/32d11d26-cb2c-49fa-8f9a-9502ddc3481e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/32d11d26-cb2c-49fa-8f9a-9502ddc3481e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/335f7472-ac5f-40bb-8960-28199e7c6283",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/335f7472-ac5f-40bb-8960-28199e7c6283",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00014_Sub2_Samp3",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/bf304374-735e-4e38-979d-8da07ebcd8a9",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/335f7472-ac5f-40bb-8960-28199e7c6283/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/335f7472-ac5f-40bb-8960-28199e7c6283/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/335f7472-ac5f-40bb-8960-28199e7c6283"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67",
+            "source": {
+                "@context": {
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "schema": "http://schema.org/",
+                    "wasDerivedFrom": "prov:wasDerivedFrom"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67",
+                "@type": [
+                    "nsg:Slice",
+                    "prov:Entity"
+                ],
+                "name": "hbp00013_Sub3_Samp1",
+                "wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/1b55fe54-8827-4e2f-b979-76467836ea6c",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/slice/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "next": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/?&size=10&deprecated=False&fields=all&from=10",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/?from=0&size=10&deprecated=False&fields=all&deprecated=False&&&"
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "@context": [
+        {
+            "brainLocation": "nsg:brainLocation",
+            "brainRegion": "nsg:brainRegion",
+            "eType": "nsg:eType",
+            "label": "rdfs:label",
+            "labelingCompound": "nsg:labelingCompound",
+            "name": "schema:name",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "schema": "http://schema.org/"
+        },
+        "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ],
+    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2",
+    "@type": [
+        "nsg:PatchedCell",
+        "prov:Entity"
+    ],
+    "brainLocation": {
+        "brainRegion": [
+            {
+                "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
+                "label": "lobule 5 of the cerebellar vermis"
+            },
+            {
+                "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
+                "label": "lobule 6 of the cerebellar vermis"
+            },
+            {
+                "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
+                "label": "lobule 7 of the cerebellar vermis"
+            },
+            {
+                "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
+                "label": "lobule 8 of the cerebellar vermis"
+            }
+        ]
+    },
+    "name": "sub2epsp.samp1",
+    "nxv:rev": 1,
+    "nxv:deprecated": false,
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2/incoming",
+        "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2/outgoing",
+        "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
+    }
+}

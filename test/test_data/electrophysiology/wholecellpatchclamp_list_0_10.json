@@ -1,0 +1,522 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 30,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/01371c20-e8aa-49ac-af53-8b4bdcad74cd",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/01371c20-e8aa-49ac-af53-8b4bdcad74cd",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/be22e230-fc99-4fa9-b147-97461f21f4d7",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00014_Sub2_Samp4",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/db6156b6-d46e-430c-b6ae-e7b2254e6c10",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/01371c20-e8aa-49ac-af53-8b4bdcad74cd/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/01371c20-e8aa-49ac-af53-8b4bdcad74cd/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/01371c20-e8aa-49ac-af53-8b4bdcad74cd"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0ba31a2a-2155-4b07-8faa-85793dd2033f",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0ba31a2a-2155-4b07-8faa-85793dd2033f",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/8674db32-d195-4bc8-a5bb-4a74f9e2930a",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00014_Sub1_Samp2",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/52f420d1-aa29-4a07-ab76-31a6e1850461",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0ba31a2a-2155-4b07-8faa-85793dd2033f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0ba31a2a-2155-4b07-8faa-85793dd2033f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0ba31a2a-2155-4b07-8faa-85793dd2033f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0df9fedd-8eee-4050-8c15-ab6400cae6f1",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0df9fedd-8eee-4050-8c15-ab6400cae6f1",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/5813de54-0543-4c4a-8aff-53401a246532",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00015_Sub3_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7125b8fa-3ca9-4654-bd4c-f15133b16d23",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0df9fedd-8eee-4050-8c15-ab6400cae6f1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0df9fedd-8eee-4050-8c15-ab6400cae6f1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/0df9fedd-8eee-4050-8c15-ab6400cae6f1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/12a6cbe5-b231-4953-8ffa-c19594feb9c2",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/12a6cbe5-b231-4953-8ffa-c19594feb9c2",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/1ad86ebd-338c-4414-8a4e-76b44288d104",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00012_Sub1_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/fd5b0ccd-f184-4bbd-9674-51bc2e1a24e6",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/12a6cbe5-b231-4953-8ffa-c19594feb9c2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/12a6cbe5-b231-4953-8ffa-c19594feb9c2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/12a6cbe5-b231-4953-8ffa-c19594feb9c2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1e771d55-bce5-44ed-b7d4-c0cbbeb62ade",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1e771d55-bce5-44ed-b7d4-c0cbbeb62ade",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/90285ad1-2a08-48c3-8562-16e982d3fef2",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "sub1epsp.samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1dfb5d1a-bbb5-40aa-9def-1f0ace1fce4b",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1e771d55-bce5-44ed-b7d4-c0cbbeb62ade/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1e771d55-bce5-44ed-b7d4-c0cbbeb62ade/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1e771d55-bce5-44ed-b7d4-c0cbbeb62ade"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1f760a11-2f64-44ef-9f3b-3073bd38b98f",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1f760a11-2f64-44ef-9f3b-3073bd38b98f",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/1328bdbf-2b0c-41d3-bc2e-56b84ae0d770",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00014_Sub1_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/53fc045e-885a-46d2-996f-85af3a2fa913",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1f760a11-2f64-44ef-9f3b-3073bd38b98f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1f760a11-2f64-44ef-9f3b-3073bd38b98f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/1f760a11-2f64-44ef-9f3b-3073bd38b98f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/ba3d7979-c6ea-471c-a112-ab830a6a2d6a",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00011_Sub1_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/657be907-99ed-4cfa-84fa-13e6b3e53887",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/24cc83ca-e20d-4703-bd6e-e3dbe18b8f5d",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/24cc83ca-e20d-4703-bd6e-e3dbe18b8f5d",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/56d6068d-f661-4bbd-900b-72048c916da2",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00015_Sub2_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/24cc83ca-e20d-4703-bd6e-e3dbe18b8f5d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/24cc83ca-e20d-4703-bd6e-e3dbe18b8f5d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/24cc83ca-e20d-4703-bd6e-e3dbe18b8f5d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/256b177c-e39d-41aa-b91a-41a717fafb4f",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/256b177c-e39d-41aa-b91a-41a717fafb4f",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/1f82c918-6cc2-4135-a41a-561e4d934bd9",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00014_Sub2_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/775bd6ca-f40d-4b31-a89f-4988d6b4ff07",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/256b177c-e39d-41aa-b91a-41a717fafb4f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/256b177c-e39d-41aa-b91a-41a717fafb4f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/256b177c-e39d-41aa-b91a-41a717fafb4f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/307f837e-c837-4611-a6a1-e314f55662d1",
+            "source": {
+                "@context": {
+                    "generated": "prov:generated",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "used": "prov:used",
+                    "wasAssociatedWith": "prov:wasAssociatedWith"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/307f837e-c837-4611-a6a1-e314f55662d1",
+                "@type": [
+                    "nsg:WholeCellPatchClamp",
+                    "prov:Activity"
+                ],
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/bae13390-be03-42f7-9720-f53caa141b6f",
+                    "@type": [
+                        "nsg:PatchedSlice",
+                        "prov:Entity"
+                    ]
+                },
+                "name": "hbp00015_Sub1_Samp1",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/9b9f22da-606a-40b2-ae6b-c321862a854d",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/307f837e-c837-4611-a6a1-e314f55662d1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/307f837e-c837-4611-a6a1-e314f55662d1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/307f837e-c837-4611-a6a1-e314f55662d1"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "next": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/?&size=10&deprecated=False&fields=all&from=10",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/?from=0&size=10&deprecated=False&fields=all&deprecated=False&&&"
+    }
+}

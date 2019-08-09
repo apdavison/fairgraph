@@ -26,6 +26,8 @@ class Subject(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "name": "schema:name",
         "value": "schema:value",
+        "minValue": "schema:minValue",
+        "maxValue": "schema:maxValue",
         "unitCode": "schema:unitCode",
         "label": "rdfs:label",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
