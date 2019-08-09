@@ -1,3 +1,4 @@
+# encoding: utf-8
 """
 Tests of fairgraph.electrophysiology module, using a mock Http client
 which returns data loaded from the files in the test_data directory.
@@ -170,9 +171,9 @@ class TestPatchedCell(object):
 
     def test_round_trip(self):
         cell1 = PatchedCell("example001",
-                            brain_location=BrainRegion("auditory cortex"),
+                            brain_location=BrainRegion("primary auditory cortex"),
                             collection=None,
-                            cell_type=CellType("pyramidal neuron"),
+                            cell_type=CellType("pyramidal cell"),
                             experiments=None,
                             pipette_id=31,
                             seal_resistance=QuantitativeValue(1.2, "GΩ"),
