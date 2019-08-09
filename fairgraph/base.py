@@ -6,6 +6,7 @@ import os
 import sys
 from functools import wraps
 from collections import defaultdict
+from collections.abc import Iterable
 import logging
 from uuid import UUID
 from six import with_metaclass
@@ -75,6 +76,50 @@ class Registry(type):
         if cls.namespace is None:
             raise ValueError("namespace not set")
         return cls.namespace + cls._path
+
+
+class Field(object):  # playing with an idea, work in progress, not yet used
+    """Representation of a metadata field"""
+
+    def __init__(self, name, types, path, required=False, default=None, multiple=False):
+        self.name = name
+        self.types = types  # later, may need to use lookup() to turn strings into classes
+        self.path = path
+        self.required = required
+        self.default = default
+        self.multiple = multiple
+
+    def check_value(self, value):
+        if self.required or value is not None:
+            if self.multiple and isinstance(value, Iterable):
+                for item in value:
+                    if not isinstance(item, self.types):
+                        raise ValueError("Field '{}' should be of type {}, not {}".format(
+                                         self.name, self.types, type(item)))
+            elif not isinstance(value, self.types):
+                raise ValueError("Field '{}' should be of type {}, not {}".format(
+                                 self.name, self.types, type(value)))
+
+    def intrinsic(self):
+        """
+        Return True If the field contains data that is directly stored in the instance,
+        False if the field contains data that is obtained through a query
+        """
+        return not self.path.startswith("^")
+
+    def serialize(self, value):
+        def serialize_single(value):
+            if isinstance(value, (str, int, float)):
+                return value
+            elif hasattr(value, "to_jsonld"):
+                return value.to_jsonld()
+        if isinstance(value, (list, tuple)):
+            if self.multiple:
+                return [serialize_single(item) for item in value]
+            else:
+                return value
+        else:
+            return serialize_single(value)
 
 
 #class KGObject(object, metaclass=Registry):

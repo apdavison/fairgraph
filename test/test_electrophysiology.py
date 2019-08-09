@@ -101,8 +101,8 @@ class TestPatchedCell(object):
                             cell_type=CellType("pyramidal cell"),
                             experiments=None,
                             pipette_id=31,
-                            seal_resistance=QuantitativeValue(1.2, "GΩ"),
-                            pipette_resistance=QuantitativeValue(1.5, "MΩ"),
+                            seal_resistance=QuantitativeValue(1.2, "GΩ"),
+                            pipette_resistance=QuantitativeValue(1.5, "MΩ"),
                             liquid_junction_potential=QuantitativeValue(5.0, "mV"),
                             labeling_compound="0.1% biocytin ",
                             reversal_potential_cl=QuantitativeValue(-65, "mV"))
@@ -115,6 +115,26 @@ class TestPatchedCell(object):
                       "liquid_junction_potential", "labeling_compound",
                       "reversal_potential_cl"):
             assert getattr(cell1, field) == getattr(cell2, field)
+
+    def test_repr(self):
+        cell = PatchedCell("example001",
+                           brain_location=BrainRegion("primary auditory cortex"),
+                           collection=None,
+                           cell_type=CellType("pyramidal cell"),
+                           experiments=None,
+                           pipette_id=31,
+                           seal_resistance=QuantitativeValue(1.2, "GΩ"),
+                           pipette_resistance=QuantitativeValue(1.5, "MΩ"),
+                           liquid_junction_potential=None,
+                           labeling_compound="0.1% biocytin ",
+                           reversal_potential_cl=None)
+        expected_repr = ("PatchedCell(name='example001', "
+                         "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
+                         "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
+                         "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
+                         "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
+                         "labeling_compound='0.1% biocytin ', id=None)")
+        assert repr(cell) == expected_repr
 
 
 class TestTrace(object):

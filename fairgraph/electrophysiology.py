@@ -4,7 +4,7 @@ electrophysiology
 """
 
 import sys, inspect
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object
+from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
 from .minds import Dataset
@@ -208,33 +208,37 @@ class PatchedCell(KGObject):
         "eType": "nsg:eType",
         "labelingCompound": "nsg:labelingCompound"
     }
-
+    fields = (
+        Field("name", str, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("collection", "PatchedCellCollection", "^prov:hadMember"),
+        Field("cell_type", "CellType", "eType", required=True),
+        Field("experiments", "PatchClampExperiment", "^prov:used", multiple=True),
+        Field("pipette_id", (str, int), "nsg:pipetteNumber"),
+        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
+        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
+        Field("labeling_compound", str, "nsg:labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+    )
 
     def __init__(self, name, brain_location, collection, cell_type, experiments=None,
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
-        self.name = name
-        self.brain_location = brain_location
-        self.collection = collection
-        self.cell_type = cell_type
-        self.experiments = experiments or []
-        self.pipette_id = pipette_id
-        self.seal_resistance = seal_resistance
-        self.pipette_resistance = pipette_resistance
-        self.liquid_junction_potential = liquid_junction_potential
-        self.labeling_compound = labeling_compound
-        self.reversal_potential_cl = reversal_potential_cl
+        for field in self.fields:
+            value = locals()[field.name]
+            #field.check_value(value)
+            setattr(self, field.name, value)
         self.id = id
         self.instance = instance
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-        #        f'{self.collection!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-                '{self.collection!r}, {self.id})'.format(self=self))
+        template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
+                          for field in self.fields if getattr(self, field.name) is not None)
+        template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
+        return template.format(self=self)
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -330,29 +334,12 @@ class PatchedCell(KGObject):
     def _build_data(self, client):
         """docstring"""
         data = {}
-        data["name"] = self.name
-        if isinstance(self.brain_location, list):
-            data["brainLocation"] = {
-                "brainRegion": [br.to_jsonld() for br in self.brain_location]
-            }
-        else:
-            data["brainLocation"] = {
-                "brainRegion": self.brain_location.to_jsonld()
-            }
-        if self.cell_type:
-            data["eType"] = self.cell_type.to_jsonld()
-        if self.pipette_id:
-            data["nsg:pipetteNumber"] = self.pipette_id
-        if self.seal_resistance:
-            data["nsg:sealResistance"] = self.seal_resistance.to_jsonld()
-        if self.pipette_resistance:
-            data["nsg:pipetteResistance"] = self.pipette_resistance.to_jsonld()
-        if self.liquid_junction_potential:
-            data["nsg:liquidJunctionPotential"] = self.liquid_junction_potential.to_jsonld()
-        if self.labeling_compound:
-            data["nsg:labelingCompound"] = self.labeling_compound
-        if self.reversal_potential_cl:
-            data["nsg:chlorideReversalPotential"] = self.reversal_potential_cl.to_jsonld()
+        for field in self.fields:
+            if field.intrinsic:
+                value = getattr(self, field.name)
+                if field.required or value is not None:
+                    data[field.path] = field.serialize(value)
+        data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
 
