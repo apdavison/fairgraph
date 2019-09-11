@@ -18,7 +18,7 @@ logger = logging.getLogger("fairgraph")
 
 class Subject(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/subject/v0.1.0"
+    path = NAMESPACE + "/core/subject/v0.1.2"
     type = ["nsg:Subject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
