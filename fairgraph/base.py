@@ -72,6 +72,8 @@ class Registry(type):
 
     @property
     def path(cls):
+        if cls.namespace is None:
+            raise ValueError("namespace not set")
         return cls.namespace + cls._path
 
 

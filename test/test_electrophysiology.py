@@ -6,14 +6,15 @@ which returns data loaded from the files in the test_data directory.
 
 from fairgraph.base import KGQuery, KGProxy, as_list, Distribution
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
-from fairgraph.electrophysiology import (BrainSlicingActivity,
-                                         MultiChannelMultiTrialRecording,
-                                         PatchClampActivity,
-                                         PatchClampExperiment, PatchedCell,
-                                         PatchedCellCollection, PatchedSlice,
-                                         QualifiedMultiTraceGeneration,
-                                         QualifiedTraceGeneration, Slice,
-                                         Trace)
+from fairgraph.core import use_namespace as use_core_namespace
+from fairgraph.electrophysiology import (
+    Trace, MultiChannelMultiTrialRecording, PatchedCell, Slice, BrainSlicingActivity,
+    PatchedSlice, PatchedCellCollection, PatchClampActivity, PatchClampExperiment,
+    QualifiedTraceGeneration, QualifiedMultiTraceGeneration,
+    IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
+    IntraCellularSharpElectrodeRecordedCellCollection,
+    IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
+    list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.minds import Dataset
 
 from .utils import kg_client, MockKGObject, test_data_lookup
@@ -34,6 +35,9 @@ test_data_lookup.update({
     "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/electrophysiology/multitracegeneration_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/electrophysiology/patchedcell_example.json",
 })
+
+use_core_namespace("neuralactivity")
+use_electrophysiology_namespace("neuralactivity")
 
 
 class TestPatchedCell(object):
@@ -185,3 +189,17 @@ def test__QualifiedTraceGeneration(kg_client):
 def test__QualifiedMultiTraceGeneration(kg_client):
     tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
     assert len(tracegens) == 4
+
+
+class TestModuleFunctions(object):
+
+    def test_list_kg_classes(self):
+        expected_classes = set((
+            Trace, MultiChannelMultiTrialRecording, PatchedCell, Slice, BrainSlicingActivity,
+            PatchedSlice, PatchedCellCollection, PatchClampActivity, PatchClampExperiment,
+            QualifiedTraceGeneration, QualifiedMultiTraceGeneration,
+            IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
+            IntraCellularSharpElectrodeRecordedCellCollection,
+            IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording
+        ))
+        assert set(list_kg_classes()) == expected_classes
