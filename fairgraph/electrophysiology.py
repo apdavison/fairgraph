@@ -118,7 +118,8 @@ class Trace(KGObject):
 
 class MultiChannelMultiTrialRecording(Trace):
     """docstring"""
-    path = NAMESPACE + "/electrophysiology/multitrace/v0.1.0"  # for nexus
+    namespace = NAMESPACE
+    _path =  "/electrophysiology/multitrace/v0.1.0"  # for nexus
     #path = NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
 
@@ -829,7 +830,7 @@ class PatchClampExperiment(KGObject):
         return data
 
 
-class QualifiedGeneration(KGObject):
+class QualifiedTraceGeneration(KGObject):
     namespace = NAMESPACE
     _path = "/electrophysiology/tracegeneration/v0.1.0"
     type = ["prov:Generation", "nsg:TraceGeneration"]
@@ -887,7 +888,8 @@ class QualifiedGeneration(KGObject):
 
 
 class QualifiedMultiTraceGeneration(KGObject):
-    path = NAMESPACE + "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
+    namespace = NAMESPACE
+    _path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
     #path = NAMESPACE + "/electrophysiology/multitracegeneration/v0.2.0"  # for nexus-int
     type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
