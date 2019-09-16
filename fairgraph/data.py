@@ -52,7 +52,8 @@ class DataObject(KGObject):
 
 
 class FileAssociation(DataObject):
-    path = "cscs/core/fileassociation/v1.0.0"
+    namespace = "cscs"
+    _path = "/core/fileassociation/v1.0.0"
     type = ["cscs:Fileassociation", "https://schema.hbp.eu/LinkingInstance"]
     property_names = ["name", "from", "to"]
 
@@ -66,7 +67,8 @@ class FileAssociation(DataObject):
 
 
 class CSCSFile(DataObject):
-    path = "cscs/core/file/v1.0.0"
+    namespace = "cscs"
+    _path = "/core/file/v1.0.0"
     type = ["cscs:File"]
     property_names = ["name", "absolute_path", "byte_size", "content_type",
                       "last_modified", "relative_path"]

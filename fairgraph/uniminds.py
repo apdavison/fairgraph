@@ -2,7 +2,7 @@
 
 from .minds import MINDSObject
 
-
+DEFAULT_NAMESPACE = "uniminds"
 
 # options
 "https://kg.humanbrainproject.org/query/uniminds/options/abstractionlevel/v1.0.0/abstractionLevel/instances"
@@ -10,7 +10,8 @@ from .minds import MINDSObject
 
 class ModelRelease(MINDSObject):
     """docstring"""
-    path = "uniminds/core/modelinstance/v1.0.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/modelinstance/v1.0.0"
     type = ["uniminds:Modelinstance"]
     property_names = ["identifier", "name", "description", "version",
                       "abstractionLevel", "brainStructure", "cellularTarget",
@@ -24,7 +25,8 @@ class ModelRelease(MINDSObject):
 
 class FileBundle(MINDSObject):
     """docstring"""
-    path = "uniminds/core/filebundle/v1.0.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/filebundle/v1.0.0"
     type = ["uniminds:FileBundle"]
     property_names = ["identifier", "name", "description", "url", "usageNotes", "modelInstance"]
 
@@ -35,7 +37,8 @@ class FileBundle(MINDSObject):
 
 class Person(MINDSObject):
     """docstring"""
-    path = "uniminds/core/person/v1.0.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/person/v1.0.0"
     type = ["uniminds:Person"]
     property_names = ["name", "familyName", "givenName", "email", "identifier"] # "orcid"
 

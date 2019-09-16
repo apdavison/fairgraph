@@ -4,21 +4,24 @@ core
 """
 
 from __future__ import unicode_literals
+import sys, inspect
 import logging
 from .base import KGObject, KGProxy, KGQuery, cache, as_list
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
-NAMESPACE = "neuralactivity"
-#NAMESPACE = "neurosciencegraph"
-#NAMESPACE = "brainsimulation"
+DEFAULT_NAMESPACE = None
+# core is used everywhere, so it makes no sense to set a default namespace
+# the namespace to be used in a given context should be set using "use_namespace()"
+
 
 logger = logging.getLogger("fairgraph")
 
 
 class Subject(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/subject/v0.1.2"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/subject/v0.1.2"
     type = ["nsg:Subject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -91,7 +94,8 @@ class Subject(KGObject):
 
 class Organization(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/organization/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path =  "/core/organization/v0.1.0"
     type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
@@ -154,7 +158,8 @@ class Organization(KGObject):
 
 class Person(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/person/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/person/v0.1.0"
     type = ["nsg:Person", "prov:Agent"]
     context = {
         "schema": "http://schema.org/",
@@ -271,7 +276,8 @@ class Person(KGObject):
 
 
 class Protocol(KGObject):
-    path = NAMESPACE + "/core/protocol/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -337,7 +343,8 @@ class Protocol(KGObject):
 
 
 class Identifier(KGObject):
-    path = "nexus/schemaorgsh/identifier/v0.1.0/"
+    namespace = "nexus"
+    _path = "/schemaorgsh/identifier/v0.1.0/"
     type = "schema:Identifier"
 
 
@@ -381,7 +388,8 @@ class Material(object):
 
 class Collection(KGObject):
     """docstring"""
-    path = NAMESPACE + "/core/collection/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/collection/v0.1.0"
     type = ["nsg:Collection", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -432,3 +440,15 @@ class Collection(KGObject):
             "@id": member.id
         } for member in as_list(self.members)]
         return data
+
+
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+
+
+def use_namespace(namespace):
+    """Set the namespace for all classes in this module."""
+    for cls in list_kg_classes():
+        cls.namespace = namespace

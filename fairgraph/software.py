@@ -11,7 +11,7 @@ from .commons import License
 
 logger = logging.getLogger("fairgraph")
 
-NAMESPACE = "softwarecatalog"
+DEFAULT_NAMESPACE = "softwarecatalog"
 
 
 class SoftwareCategory(OntologyTerm):
@@ -45,7 +45,8 @@ class ProgrammingLanguage(OntologyTerm):
 
 
 class Software(KGObject):
-    path = NAMESPACE + "/software/software/v0.1.1"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/software/software/v0.1.1"
     type = ["prov:Entity", "nsg:Software"]
 
     context = {
@@ -227,3 +228,15 @@ class Software(KGObject):
         if self.help:
             data["schema:softwareHelp"] = {"@id": self.help}
         return data
+
+
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+
+
+def use_namespace(namespace):
+    """Set the namespace for all classes in this module."""
+    for cls in list_kg_classes():
+        cls.namespace = namespace
