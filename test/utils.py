@@ -7,7 +7,11 @@ including a mock Http client which returns data loaded from the files in the tes
 import json
 import os
 from copy import deepcopy
-from urllib.parse import parse_qs, urlparse
+try:
+    from urllib.parse import parse_qs, urlparse
+except ImportError:
+    from urlparse import parse_qs, urlparse  # py2
+
 import uuid
 
 import pytest
@@ -42,7 +46,8 @@ test_data_lookup = {}
 class MockHttpClient(HttpClient):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        #super().__init__(*args, **kwargs)  # for when we drop Python 2 support
+        super(MockHttpClient, self).__init__(*args, **kwargs)
         self.cache = {}
         self.request_count = 0
 
