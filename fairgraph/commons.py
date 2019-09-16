@@ -331,9 +331,15 @@ class QuantitativeValueRange(object):
 
 
 class Age(object):
+    allowed_periods = [
+        "Pre-natal",
+        "Post-natal"
+      ]
 
     def __init__(self, value, period):
         self.value = value
+        if period not in Age.allowed_periods:
+            raise ValueError("period must be one of {}".format(allowed_periods))
         self.period = period
 
     def __repr__(self):
@@ -341,6 +347,12 @@ class Age(object):
         #        f'{self.value!r}, {self.period!r})')
         return ('{self.__class__.__name__}('
                 '{self.value!r}, {self.period!r})'.format(self=self))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.value == other.value and self.period == other.period
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def to_jsonld(self):
         return {'value': self.value.to_jsonld(),

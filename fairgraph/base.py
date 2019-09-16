@@ -344,6 +344,12 @@ class KGProxy(object):
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.cls == other.cls and self.id == other.id
+
+    def __ne__(self, other):
+        return not isinstance(other, self.__class__) or self.cls != other.cls or self.id != other.id
+
     @property
     def uuid(self):
         return self.id.split("/")[-1]
@@ -438,7 +444,7 @@ class Distribution(object):
             data["digest"]= {
                 "algorithm": self.digest_method,  # e.g. "SHA-256"
                 "value": self.digest
-            },
+            }
         if self.content_type:
             data["mediaType"] = self.content_type
         if self.original_file_name:  # not sure if this is part of the schema, or just an annotation

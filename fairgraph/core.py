@@ -145,7 +145,7 @@ class Organization(KGObject):
         if self.parent:
             if self.parent.id is None:
                 self.parent.save(client)
-            data["parent"] = {
+            data["parentOrganization"] = {
                 "@type": self.parent.type,
                 "@id": self.parent.id
             }
@@ -205,8 +205,8 @@ class Person(KGObject):
                     "value": value
                 })
             else:
-                raise Exception("The only supported filters are by first (given) name or "
-                                "or last (family) name. You specified {name}".format(name=name))
+                raise ValueError("The only supported filters are by first (given) name or "
+                                 "or last (family) name. You specified {name}".format(name=name))
         if len(filter_queries) == 0:
             return client.list(cls, size=size)
         elif len(filter_queries) == 1:
