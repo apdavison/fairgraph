@@ -4,6 +4,11 @@ electrophysiology
 """
 
 import sys, inspect
+try:
+    basestring
+except NameError:
+    basestring = str
+
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
@@ -49,19 +54,21 @@ class Trace(KGObject):
         "partOf": "nsg:partOf"  # todo: add to nsg
     }
     fields = (
-        Field("name", str, "name", required=True),
+        Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
         Field("generated_by", "PatchClampExperiment", "wasGeneratedBy", required=True),
         Field("generation_metadata", "QualifiedTraceGeneration", "qualifiedGeneration", required=True),
         Field("channel", int, "channel", required=True),
-        Field("data_unit", str, "dataUnit", required=True),  # add type for units, to allow checking?
+        Field("data_unit", basestring, "dataUnit", required=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("part_of", Dataset, "partOf")
     )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
                  time_step, part_of=None, id=None, instance=None):
-        KGObject.__init__(**locals())
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     @cache
@@ -171,17 +178,17 @@ class PatchedCell(KGObject):
         "labelingCompound": "nsg:labelingCompound"
     }
     fields = (
-        Field("name", str, "name", required=True),
+        Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "PatchedCellCollection", "^prov:hadMember"),
         Field("cell_type", CellType, "eType", required=False),
         Field("experiments", "PatchClampExperiment", "^prov:used", multiple=True),
-        Field("pipette_id", (str, int), "nsg:pipetteNumber"),
+        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
         Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
         Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
-        Field("labeling_compound", str, "nsg:labelingCompound"),
+        Field("labeling_compound", basestring, "nsg:labelingCompound"),
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
     )
 
@@ -189,7 +196,9 @@ class PatchedCell(KGObject):
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
-        KGObject.__init__(**locals())
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     def list(cls, client, size=100, **filters):

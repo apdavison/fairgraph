@@ -6,7 +6,10 @@ import os
 import sys
 from functools import wraps
 from collections import defaultdict
-from collections.abc import Iterable
+try:
+    from collections.abc import Iterable
+except ImportError:  # Python 2
+    from collections import Iterable
 import logging
 from uuid import UUID
 from six import with_metaclass
