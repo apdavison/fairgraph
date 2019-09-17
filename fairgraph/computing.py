@@ -1,12 +1,13 @@
 
-
+import sys, inspect
 from .base import KGObject, cache, build_kg_object, Distribution, as_list
 
-NAMESPACE = "neuromorphic"
+DEFAULT_NAMESPACE = "neuromorphic"
 
 
 class HardwareSystem(KGObject):
-    path = NAMESPACE + "/computing/hardware/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/computing/hardware/v0.1.0"
     type = ["prov:Entity", "nsg:HardwareSystem"]  # maybe rename "ComputingHardwareSystem"
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -56,7 +57,8 @@ class HardwareSystem(KGObject):
 
 
 class ComputingEnvironment(KGObject):
-    path = NAMESPACE + "/computing/environment/v0.1.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/computing/environment/v0.1.0"
     type = ["prov:Entity", "nsg:ComputingEnvironment"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -122,3 +124,15 @@ class ComputingEnvironment(KGObject):
         if self.libraries:
             data["softwareRequirements"] = self.libraries
         return data
+
+
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+
+
+def use_namespace(namespace):
+    """Set the namespace for all classes in this module."""
+    for cls in list_kg_classes():
+        cls.namespace = namespace

@@ -267,6 +267,12 @@ class StimulusType(OntologyTerm):
     }
 
 
+model_format_to_content_type = {
+    "Python": "text/x-python",
+    "PyNN": "text/x-python"
+}
+
+
 class QuantitativeValue(StructuredMetadata):
     """docstring"""
     unit_codes = {
@@ -275,11 +281,11 @@ class QuantitativeValue(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-        "MΩ": "https://en.wiktionary.org/wiki/megaohm",
+        "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
-        "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
+        "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
         "µA": "http://purl.obolibrary.org/obo/UO_0000038",
         "nA": "https://en.wiktionary.org/wiki/nanoamp"
@@ -336,7 +342,7 @@ class QuantitativeValue(StructuredMetadata):
         else:
             unit_code = None
         if "value" in data:
-            return cls(float(data["value"]), unit_text, unit_code)
+        return cls(float(data["value"]), unit_text, unit_code)
         elif "minValue" in data:
             return QuantitativeValueRange(float(data["minValue"]), float(data["maxValue"]),
                                           unit_text, unit_code)
@@ -350,7 +356,7 @@ class QuantitativeValueRange(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
     }
 
@@ -408,7 +414,7 @@ class Age(StructuredMetadata):
     allowed_periods = [
         "Pre-natal",
         "Post-natal"
-    ]
+      ]
     context = {
         "value": "http://schema.org/value",
         "period": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"

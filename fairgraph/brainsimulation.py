@@ -23,6 +23,8 @@ try:
 except NameError:
     basestring = str
 import os.path
+import sys
+import inspect
 import logging
 from datetime import datetime, date
 import mimetypes
@@ -32,7 +34,7 @@ import inspect
 from dateutil import parser as date_parser
 import requests
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field, IRI
-from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
+from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm, model_format_to_content_type
 from .core import Organization, Person, Age, Collection
 from .computing import ComputingEnvironment
 from .utility import compact_uri, standard_context
@@ -324,14 +326,24 @@ class ModelScript(KGObject):
         Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, code_location=None, code_format=None, license=None,
+    def __init__(self, name, code_location=None, code_content="", code_format=None, license=None,
                  distribution=None, id=None, instance=None):
         super(ModelScript, self).__init__(name=name, code_format=code_format, license=license,
                                           distribution=distribution, id=id, instance=instance)
+        self.code_content = code_content
+        self._code_to_attach = False
         if code_location and distribution:
             raise ValueError("Cannot provide both code_location and distribution")
         if code_location:
             self.distribution = Distribution(location=code_location)
+        if distribution is not None:
+            assert isinstance(self.distribution, Distribution)
+            if code_content:
+                raise ValueError("Cannot provide both code_location/distribution and code_content")
+        elif code_content:
+            if len(code_content) > ATTACHMENT_SIZE_LIMIT:
+                raise Exception("Code is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
+            self._code_to_attach = True
 
     @property
     def code_location(self):
@@ -339,6 +351,57 @@ class ModelScript(KGObject):
             return self.distribution.location
         else:
             return None
+
+    def read_content(self, client):
+        # todo: allow content to be edited?
+        return self.distribution.read_content(client)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client):
+        D = instance.data
+        assert 'nsg:EModelScript' in D["@type"]  # generalise
+        obj = cls(name=D["name"],
+                  distribution=build_kg_object(Distribution, D.get("distribution")),
+                  license=D.get("license"),
+                  code_format=D.get("code_format"),
+                  id=D["@id"], instance=instance)
+        return obj
+
+    def _build_data(self, client):
+        """docstring"""
+        data = {}
+        data["name"] = self.name
+        if isinstance(self.distribution, list):
+            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
+        elif self.distribution is not None:
+            data["distribution"] = self.distribution.to_jsonld(client)
+        data["license"] = self.license
+        data["code_format"] = self.code_format
+        return data
+
+    def attach_code(self, client):
+
+        # todo, use the Nexus HTTP client directly for the following
+        headers = client._nexus_client._http_client.auth_client.get_headers()
+        content_type = model_format_to_content_type.get(self.code_format, "text")
+        response = requests.put("{}/attachment?rev={}".format(self.id, self.rev or 1),
+                                headers=headers,
+                                files={
+                                    "file": ("attached_code",
+                                             self.code_content,
+                                             content_type)
+                                })
+        if response.status_code < 300:
+            logger.info("Attaching code to {}".format(self.id))
+            self.distribution = Distribution.from_jsonld(response.json()["distribution"][0])
+        else:
+            raise Exception(str(response.content))
+
+    def save(self, client):
+        super(ModelScript, self).save(client)
+        if self._code_to_attach:
+            self.attach_code(client)
 
 
 class EModel(ModelInstance):
@@ -789,7 +852,8 @@ class ValidationActivity(KGObject):
 
 
 class SimulationConfiguration(KGObject):
-    path = NAMESPACE + "/simulation/configuration/v1.0.0"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/configuration/v1.0.0"
     type = ["prov:Entity", "nsg:Configuration"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -864,7 +928,8 @@ class SimulationConfiguration(KGObject):
 
 class Simulation(KGObject):
     """docstring"""
-    path = NAMESPACE + "/simulation/simulation/v0.2.3"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/simulation/v0.2.3"
     type = ["prov:Activity", "nsg:Simulation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -982,8 +1047,6 @@ class Simulation(KGObject):
         if self.job_id is not None:
             data["providerId"] = self.job_id
         return data
-
-
 
 
 def list_kg_classes():
