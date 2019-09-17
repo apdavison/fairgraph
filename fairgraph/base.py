@@ -83,22 +83,44 @@ class Field(object):  # playing with an idea, work in progress, not yet used
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False):
         self.name = name
-        self.types = types  # later, may need to use lookup() to turn strings into classes
+        if isinstance(types, (type, str)):
+            self._types = (types,)
+        else:
+            self._types = tuple(types)
+        self._resolved_types = False
+        # later, may need to use lookup() to turn strings into classes
         self.path = path
         self.required = required
         self.default = default
         self.multiple = multiple
 
+    def __repr__(self):
+        return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
+            self.name, self._types, self.path, self.required, self.multiple)
+
+    @property
+    def types(self):
+        if not self._resolved_types:
+            self._types = tuple(
+                [lookup(obj) if isinstance(obj, str) else obj
+                 for obj in self._types]
+            )
+            self._resolved_types = True
+        return self._types
+
     def check_value(self, value):
+        def check_single(item):
+            if not isinstance(item, self.types):
+                if not (isinstance(item, (KGProxy, KGQuery)) and item.cls in self.types):
+                    if not isinstance(item, MockKGObject):  # this check could be stricter
+                        raise ValueError("Field '{}' should be of type {}, not {}".format(
+                                         self.name, self.types, type(item)))
         if self.required or value is not None:
             if self.multiple and isinstance(value, Iterable):
                 for item in value:
-                    if not isinstance(item, self.types):
-                        raise ValueError("Field '{}' should be of type {}, not {}".format(
-                                         self.name, self.types, type(item)))
-            elif not isinstance(value, self.types):
-                raise ValueError("Field '{}' should be of type {}, not {}".format(
-                                 self.name, self.types, type(value)))
+                    check_single(item)
+            else:
+                check_single(value)
 
     def intrinsic(self):
         """
@@ -107,12 +129,17 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         """
         return not self.path.startswith("^")
 
-    def serialize(self, value):
+    def serialize(self, value, client):
         def serialize_single(value):
             if isinstance(value, (str, int, float)):
                 return value
             elif hasattr(value, "to_jsonld"):
-                return value.to_jsonld()
+                return value.to_jsonld(client)
+            elif isinstance(value, (KGObject, KGProxy)):
+                return {
+                    "@id": value.id,
+                    "@type": value.type
+                }
         if isinstance(value, (list, tuple)):
             if self.multiple:
                 return [serialize_single(item) for item in value]
@@ -121,29 +148,64 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         else:
             return serialize_single(value)
 
+    def deserialize(self, data, client):
+        if len(self.types) > 1:
+            raise NotImplementedError("todo")
+        #import pdb; pdb.set_trace()
+        if not self.intrinsic:
+            raise NotImplementedError("todo")
+        if issubclass(self.types[0], (KGObject, StructuredMetadata)):
+            return build_kg_object(self.types[0], data)
+        else:
+            return data
+
 
 #class KGObject(object, metaclass=Registry):
 class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
-    cache = {}
+    object_cache = {}
     save_cache = defaultdict(dict)
+    fields = []
 
     def __init__(self, id=None, instance=None, **properties):
-        for key, value in properties.items():
-            if key not in self.property_names:
-                raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
-            else:
-                setattr(self, key, value)
+        for field in self.fields:
+            try:
+                value = properties[field.name]
+            except KeyError:
+                if field.required:
+                    raise ValueError("Field '{}' is required.".format(field.name))
+            field.check_value(value)
+            setattr(self, field.name, value)
+
+        # for key, value in properties.items():
+        #     if key not in self.property_names:
+        #         raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+
         self.id = id
         self.instance = instance
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
+        if self.fields:
+            template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
+                                for field in self.fields if getattr(self, field.name) is not None)
+            template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
+            return template.format(self=self)
+        else:  # temporary, while converting all classes to use fields
+            return ('{self.__class__.__name__}('
+                    '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
-    def from_kg_instance(self, instance, client, use_cache=True):
-        raise NotImplementedError("To be implemented by child class")
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        if cls.fields:
+            D = instance.data
+            for otype in cls.type:
+                assert otype in D["@type"]
+            args = {}
+            for field in cls.fields:
+                args[field.name] = field.deserialize(D.get(field.path), client)
+            return cls(id=D["@id"], instance=instance, **args)
+        else:
+            raise NotImplementedError("To be implemented by child class")
 
     @classmethod
     def from_uri(cls, uri, client, use_cache=True, deprecated=False):
@@ -264,7 +326,17 @@ class KGObject(with_metaclass(Registry, object)):
         return False
 
     def _build_data(self, client):
-        raise NotImplementedError("to be implemented by child classes")
+        if self.fields:
+            data = {}
+            for field in self.fields:
+                if field.intrinsic:
+                    value = getattr(self, field.name)
+                    print(field.name, value)
+                    if field.required or value is not None:
+                        data[field.path] = field.serialize(value, client)
+            return data
+        else:
+            raise NotImplementedError("to be implemented by child classes")
 
     def save(self, client):
         """docstring"""
@@ -294,7 +366,7 @@ class KGObject(with_metaclass(Registry, object)):
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
-            KGObject.cache[self.id] = self
+            KGObject.object_cache[self.id] = self
             KGObject.save_cache[self.__class__][generate_cache_key(self._existence_query)] = self.id
 
     def delete(self, client):
@@ -319,22 +391,39 @@ class KGObject(with_metaclass(Registry, object)):
         return self
 
 
+class MockKGObject(KGObject):
+    """Mock version of KGObject, useful for testing."""
+
+    def __init__(self, id, type):
+        self.id = id
+        self.type = type
+
+    def __repr__(self):
+        return 'MockKGObject({}, {})'.format(self.type, self.id)
+
+
 def cache(f):
     @wraps(f)
     def wrapper(cls, instance, client, use_cache=True):
-        if use_cache and instance.data["@id"] in KGObject.cache:
-            obj = KGObject.cache[instance.data["@id"]]
+        if use_cache and instance.data["@id"] in KGObject.object_cache:
+            obj = KGObject.object_cache[instance.data["@id"]]
             #print(f"Found in cache: {obj.id}")
             return obj
         else:
             obj = f(cls, instance, client)
-            KGObject.cache[obj.id] = obj
+            KGObject.object_cache[obj.id] = obj
             #print(f"Added to cache: {obj.id}")
             return obj
     return wrapper
 
 
-class OntologyTerm(object):
+
+class StructuredMetadata(object):
+    """Abstract base class"""
+    pass
+
+
+class OntologyTerm(StructuredMetadata):
     """docstring"""
 
     def __init__(self, label, iri=None, strict=False):
@@ -355,7 +444,7 @@ class OntologyTerm(object):
                 and self.label == other.label
                 and self.iri == other.iri)
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         return {'@id': self.iri,
                 'label': self.label}
 
@@ -382,11 +471,11 @@ class KGProxy(object):
 
     def resolve(self, client):
         """docstring"""
-        if self.id in KGObject.cache:
-            return KGObject.cache[self.id]
+        if self.id in KGObject.object_cache:
+            return KGObject.object_cache[self.id]
         else:
             obj = self.cls.from_uri(self.id, client)
-            KGObject.cache[self.id] = obj
+            KGObject.object_cache[self.id] = obj
             return obj
 
     def __repr__(self):
@@ -437,14 +526,14 @@ class KGQuery(object):
         objects = [self.cls.from_kg_instance(instance, client)
                    for instance in instances]
         for obj in objects:
-            KGObject.cache[obj.id] = obj
+            KGObject.object_cache[obj.id] = obj
         if len(instances) == 1:
             return objects[0]
         else:
             return objects
 
 
-class Distribution(object):
+class Distribution(StructuredMetadata):
 
     def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
                  original_file_name=None):
@@ -461,6 +550,17 @@ class Distribution(object):
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.location!r})'.format(self=self))
+
+    def __eq__(self, other):
+        if isinstance(other, Distribution):
+            return all(getattr(self, field) == getattr(other, field)
+                       for field in ("location", "size", "digest", "digest_method",
+                                     "content_type", "original_file_name"))
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     @classmethod
     def from_jsonld(cls, data):
@@ -553,14 +653,12 @@ def build_kg_object(cls, data):
         else:
             kg_cls = cls
 
-        if issubclass(kg_cls, OntologyTerm):
+        if issubclass(kg_cls, StructuredMetadata):
             obj = kg_cls.from_jsonld(item)
         elif issubclass(kg_cls, KGObject):
             obj = KGProxy(kg_cls, item["@id"])
-        elif kg_cls is Distribution:
-            obj = kg_cls.from_jsonld(item)
         else:
-            raise ValueError("cls must be a KGObject, OntologyTerm or Distribution")
+            raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
         objects.append(obj)
 
     if len(objects) == 1:

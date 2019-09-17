@@ -4,7 +4,7 @@ electrophysiology
 """
 
 import sys, inspect
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field
+from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
 from .minds import Dataset
@@ -48,70 +48,32 @@ class Trace(KGObject):
         "minds": "https://schema.hbp.eu/",
         "partOf": "nsg:partOf"  # todo: add to nsg
     }
+    fields = (
+        Field("name", str, "name", required=True),
+        Field("data_location", Distribution, "distribution", required=True),
+        Field("generated_by", "PatchClampExperiment", "wasGeneratedBy", required=True),
+        Field("generation_metadata", "QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("channel", int, "channel", required=True),
+        Field("data_unit", str, "dataUnit", required=True),  # add type for units, to allow checking?
+        Field("time_step", QuantitativeValue, "timeStep", required=True),
+        Field("part_of", Dataset, "partOf")
+    )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
                  time_step, part_of=None, id=None, instance=None):
-        self.name = name
-        self.data_location = data_location
-        self.generated_by = generated_by
-        self.generation_metadata = generation_metadata
-        self.channel = channel
-        self.data_unit = data_unit
-        self.time_step = time_step
-        self.part_of = part_of
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-        #        f'{self.channel!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-                '{self.channel!r}, {self.id})'.format(self=self))
+        KGObject.__init__(**locals())
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:Trace' in D["@type"]
-        #  # todo: handle qualifiedGeneration
-        if "partOf" in D:
-            part_of = KGProxy(Dataset, D["partOf"]["@id"])
-        else:
-            part_of = None
-        return cls(D["name"], D["distribution"],
-                   KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   KGProxy(QualifiedTraceGeneration, D["qualifiedGeneration"]["@id"]),
-                   D["channel"], D["dataUnit"],
-                   QuantitativeValue.from_jsonld(D["timeStep"]),
-                   part_of=part_of,
-                   id=D["@id"], instance=instance)
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        return super(Trace, cls).from_kg_instance(instance, client, use_cache=use_cache)
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["distribution"] = self.data_location
-        data["wasGeneratedBy"] = {
-            "@type": self.generated_by.type,
-            "@id": self.generated_by.id
-        }
-        data["qualifiedGeneration"] = {
-            "@type": self.generation_metadata.type,
-            "@id": self.generation_metadata.id
-        }
-        if self.channel is not None:  # could be 0, which is a valid value, but falsy
-            data["channel"] = self.channel
-        if self.data_unit:
-            data["dataUnit"] = self.data_unit
+        data = super(Trace, self)._build_data(client)
         if self.time_step:
+            # not sure why we're using the _alt version here
             data["timeStep"] = self.time_step.to_jsonld_alt()
-        if self.part_of:
-            data["partOf"] = {
-                "@type": self.part_of.type,
-                "@id": self.part_of.id
-            }
         return data
 
 
@@ -212,7 +174,7 @@ class PatchedCell(KGObject):
         Field("name", str, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "PatchedCellCollection", "^prov:hadMember"),
-        Field("cell_type", "CellType", "eType", required=True),
+        Field("cell_type", CellType, "eType", required=False),
         Field("experiments", "PatchClampExperiment", "^prov:used", multiple=True),
         Field("pipette_id", (str, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
@@ -227,18 +189,7 @@ class PatchedCell(KGObject):
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
-        for field in self.fields:
-            value = locals()[field.name]
-            #field.check_value(value)
-            setattr(self, field.name, value)
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
-                          for field in self.fields if getattr(self, field.name) is not None)
-        template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
-        return template.format(self=self)
+        KGObject.__init__(**locals())
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -333,12 +284,7 @@ class PatchedCell(KGObject):
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        for field in self.fields:
-            if field.intrinsic:
-                value = getattr(self, field.name)
-                if field.required or value is not None:
-                    data[field.path] = field.serialize(value)
+        data = super(PatchedCell, self)._build_data(client)
         data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 

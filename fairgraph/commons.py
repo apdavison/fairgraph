@@ -5,7 +5,7 @@
 
 import collections
 #from typing import NamedTuple
-from .base import KGObject, KGProxy, OntologyTerm
+from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata
 
 
 #class Address(NamedTuple):
@@ -13,6 +13,7 @@ from .base import KGObject, KGProxy, OntologyTerm
 #    country: str
 
 Address = collections.namedtuple('Address', ['locality', 'country'])
+# should probably subclass StructuredMetadata
 
 
 class Species(OntologyTerm):
@@ -201,7 +202,7 @@ class License(OntologyTerm):
     }
 
 
-class QuantitativeValue(object):
+class QuantitativeValue(StructuredMetadata):
     """docstring"""
     unit_codes = {
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
@@ -238,7 +239,7 @@ class QuantitativeValue(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         return {
             "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
             "value": self.value,
@@ -269,7 +270,7 @@ class QuantitativeValue(object):
         return cls(float(data["value"]), unit_text, unit_code)
 
 
-class QuantitativeValueRange(object):
+class QuantitativeValueRange(StructuredMetadata):
     """docstring"""
     unit_codes = {
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
@@ -297,7 +298,7 @@ class QuantitativeValueRange(object):
         return ('{self.__class__.__name__}('
                 '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         return {
             "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
             "minValue": self.min,
@@ -330,7 +331,7 @@ class QuantitativeValueRange(object):
         return cls(float(data["minValue"]), data["maxValue"], unit_text, unit_code)
 
 
-class Age(object):
+class Age(StructuredMetadata):
     allowed_periods = [
         "Pre-natal",
         "Post-natal"
@@ -354,7 +355,7 @@ class Age(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         return {'value': self.value.to_jsonld(),
                 'period': self.period}
 

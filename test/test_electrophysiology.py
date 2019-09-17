@@ -94,7 +94,7 @@ class TestPatchedCell(object):
         assert kg_client._nexus_client._http_client.request_count == 2
         assert cell1.id == cell2.id == cell3.id == uri
 
-    def test_round_trip(self):
+    def test_round_trip(self, kg_client):
         cell1 = PatchedCell("example001",
                             brain_location=BrainRegion("primary auditory cortex"),
                             collection=None,
@@ -143,7 +143,7 @@ class TestTrace(object):
         traces = Trace.list(kg_client, size=10)
         assert len(traces) == 10
 
-    def test_round_trip(self):
+    def test_round_trip(self, kg_client):
         trace1 = Trace("example001",
                        data_location=Distribution("http://example.com/example.csv",
                                                   content_type="text/tab-separated-values"),
