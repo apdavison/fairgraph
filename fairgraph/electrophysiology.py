@@ -258,38 +258,58 @@ class PatchedCell(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        # leaving the following, commented-out code until I check
+        # that using "eq" rather than "in" for the collection filter
+        # doesn't break anything.
+
+        # D = instance.data
+        # for otype in cls.type:
+        #     assert otype in D["@type"]
+
+        # # get the collection of which the cell is a part
+        # prov_context = {"prov": "http://www.w3.org/ns/prov#"}
+        # collection_filter = {
+        #     "path": "prov:hadMember",
+        #     "op": "in",
+        #     "value": [instance.data["@id"]]
+        # }
+
+        # # get any experiments performed on the cell
+        # expt_filter = {
+        #     "path": "prov:used",
+        #     "op": "eq",
+        #     "value": [instance.data["@id"]]
+        # }
+
+        # obj1 = cls(D["name"],
+        #            build_kg_object(BrainRegion, D["brainLocation"]["brainRegion"]),
+        #            KGQuery(cls.collection_class, collection_filter, prov_context),
+        #            CellType.from_jsonld(D.get("eType", None)),
+        #            KGQuery(cls.experiment_class, expt_filter, prov_context),
+        #            pipette_id=D.get("nsg:pipetteNumber", None),
+        #            seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
+        #            pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
+        #            liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
+        #            labeling_compound=D.get("nsg:labelingCompound", None),
+        #            reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
+        #            id=D["@id"], instance=instance)
+
         D = instance.data
         for otype in cls.type:
             assert otype in D["@type"]
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D["brainLocation"]["brainRegion"]
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj2 = cls(id=D["@id"], instance=instance, **args)
 
-        # get the collection of which the cell is a part
-        prov_context={"prov": "http://www.w3.org/ns/prov#"}
-        collection_filter = {
-            "path": "prov:hadMember",
-            "op": "in",
-            "value": [instance.data["@id"]]
-        }
-
-        # get any experiments performed on the cell
-        expt_filter = {
-            "path": "prov:used",
-            "op": "eq",
-            "value": [instance.data["@id"]]
-        }
-
-        return cls(D["name"],
-                   build_kg_object(BrainRegion, D["brainLocation"]["brainRegion"]),
-                   KGQuery(cls.collection_class, collection_filter, prov_context),
-                   CellType.from_jsonld(D.get("eType", None)),
-                   KGQuery(cls.experiment_class, expt_filter, prov_context),
-                   pipette_id=D.get("nsg:pipetteNumber", None),
-                   seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
-                   pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
-                   liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
-                   labeling_compound=D.get("nsg:labelingCompound", None),
-                   reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
-                   id=D["@id"], instance=instance)
+        return obj2
 
     def _build_data(self, client):
         """docstring"""

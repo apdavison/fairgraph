@@ -125,6 +125,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
             else:
                 check_single(value)
 
+    @property
     def intrinsic(self):
         """
         Return True If the field contains data that is directly stored in the instance,
@@ -152,12 +153,25 @@ class Field(object):  # playing with an idea, work in progress, not yet used
             return serialize_single(value)
 
     def deserialize(self, data, client):
-        if len(self.types) > 1:
-            raise NotImplementedError("todo")
-        #import pdb; pdb.set_trace()
         if not self.intrinsic:
-            raise NotImplementedError("todo")
+            if len(self.types) > 1:
+                raise NotImplementedError("todo")
+            query_filter = {
+                "path": self.path[1:],  # remove initial ^
+                "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
+                "value": data
+            }
+            # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
+            # query_context = {context_key: TODO: lookup contexts}
+            query_context = {
+                "prov": "http://www.w3.org/ns/prov#",
+                "schema": "http://schema.org/",
+                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            }
+            return KGQuery(self.types[0], query_filter, query_context)
         if issubclass(self.types[0], (KGObject, StructuredMetadata)):
+            if len(self.types) > 1:
+                raise NotImplementedError("todo")
             return build_kg_object(self.types[0], data)
         else:
             return data
@@ -205,7 +219,11 @@ class KGObject(with_metaclass(Registry, object)):
                 assert otype in D["@type"]
             args = {}
             for field in cls.fields:
-                args[field.name] = field.deserialize(D.get(field.path), client)
+                if field.intrinsic:
+                    data_item = D.get(field.path)
+                else:
+                    data_item = D["@id"]
+                args[field.name] = field.deserialize(data_item, client)
             return cls(id=D["@id"], instance=instance, **args)
         else:
             raise NotImplementedError("To be implemented by child class")
