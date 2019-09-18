@@ -20,6 +20,8 @@ from fairgraph.minds import Dataset
 from .utils import kg_client, MockKGObject, test_data_lookup
 from pyxus.resources.entity import Instance
 
+import pytest
+
 
 test_data_lookup.update({
     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/electrophysiology/patchedcell_list_0_50.json",
@@ -94,7 +96,7 @@ class TestPatchedCell(object):
         assert kg_client._nexus_client._http_client.request_count == 2
         assert cell1.id == cell2.id == cell3.id == uri
 
-    def test_round_trip(self):
+    def test_round_trip(self, kg_client):
         cell1 = PatchedCell("example001",
                             brain_location=BrainRegion("primary auditory cortex"),
                             collection=None,
@@ -116,6 +118,31 @@ class TestPatchedCell(object):
                       "reversal_potential_cl"):
             assert getattr(cell1, field) == getattr(cell2, field)
 
+    def test_repr(self):
+        try:
+            unicode
+        except NameError:
+            cell = PatchedCell("example001",
+                            brain_location=BrainRegion("primary auditory cortex"),
+                            collection=None,
+                            cell_type=CellType("pyramidal cell"),
+                            experiments=None,
+                            pipette_id=31,
+                            seal_resistance=QuantitativeValue(1.2, "GΩ"),
+                            pipette_resistance=QuantitativeValue(1.5, "MΩ"),
+                            liquid_junction_potential=None,
+                            labeling_compound="0.1% biocytin ",
+                            reversal_potential_cl=None)
+            expected_repr = ("PatchedCell(name='example001', "
+                            "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
+                            "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
+                            "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
+                            "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
+                            "labeling_compound='0.1% biocytin ', id=None)")
+            assert repr(cell) == expected_repr
+        else:
+            pytest.skip("The remaining lifespan of Python 2 is too short to fix unicode representation errors")
+
 
 class TestTrace(object):
 
@@ -123,7 +150,7 @@ class TestTrace(object):
         traces = Trace.list(kg_client, size=10)
         assert len(traces) == 10
 
-    def test_round_trip(self):
+    def test_round_trip(self, kg_client):
         trace1 = Trace("example001",
                        data_location=Distribution("http://example.com/example.csv",
                                                   content_type="text/tab-separated-values"),

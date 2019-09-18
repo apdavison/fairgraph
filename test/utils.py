@@ -23,7 +23,7 @@ from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         OrganizationRepository,
                                         SchemaRepository)
 import fairgraph.client
-from fairgraph.base import as_list
+from fairgraph.base import as_list, KGObject, MockKGObject
 
 
 # test_data_lookup = {
@@ -113,13 +113,6 @@ class MockNexusClient(NexusClient):
         self.organizations = OrganizationRepository(self._http_client)
         self.instances = InstanceRepository(self._http_client)
         self.schemas = SchemaRepository(self._http_client)
-
-
-class MockKGObject(object):
-
-    def __init__(self, id, type):
-        self.id = id
-        self.type = type
 
 
 @pytest.fixture

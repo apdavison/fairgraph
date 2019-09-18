@@ -4,7 +4,12 @@ electrophysiology
 """
 
 import sys, inspect
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object
+try:
+    basestring
+except NameError:
+    basestring = str
+
+from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, CellType
 from .core import Subject, Person
 from .minds import Dataset
@@ -48,70 +53,34 @@ class Trace(KGObject):
         "minds": "https://schema.hbp.eu/",
         "partOf": "nsg:partOf"  # todo: add to nsg
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("data_location", Distribution, "distribution", required=True),
+        Field("generated_by", "PatchClampExperiment", "wasGeneratedBy", required=True),
+        Field("generation_metadata", "QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("channel", int, "channel", required=True),
+        Field("data_unit", basestring, "dataUnit", required=True),  # add type for units, to allow checking?
+        Field("time_step", QuantitativeValue, "timeStep", required=True),
+        Field("part_of", Dataset, "partOf")
+    )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
                  time_step, part_of=None, id=None, instance=None):
-        self.name = name
-        self.data_location = data_location
-        self.generated_by = generated_by
-        self.generation_metadata = generation_metadata
-        self.channel = channel
-        self.data_unit = data_unit
-        self.time_step = time_step
-        self.part_of = part_of
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-        #        f'{self.channel!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-                '{self.channel!r}, {self.id})'.format(self=self))
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:Trace' in D["@type"]
-        #  # todo: handle qualifiedGeneration
-        if "partOf" in D:
-            part_of = KGProxy(Dataset, D["partOf"]["@id"])
-        else:
-            part_of = None
-        return cls(D["name"], D["distribution"],
-                   KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   KGProxy(QualifiedTraceGeneration, D["qualifiedGeneration"]["@id"]),
-                   D["channel"], D["dataUnit"],
-                   QuantitativeValue.from_jsonld(D["timeStep"]),
-                   part_of=part_of,
-                   id=D["@id"], instance=instance)
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        return super(Trace, cls).from_kg_instance(instance, client, use_cache=use_cache)
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["distribution"] = self.data_location
-        data["wasGeneratedBy"] = {
-            "@type": self.generated_by.type,
-            "@id": self.generated_by.id
-        }
-        data["qualifiedGeneration"] = {
-            "@type": self.generation_metadata.type,
-            "@id": self.generation_metadata.id
-        }
-        if self.channel is not None:  # could be 0, which is a valid value, but falsy
-            data["channel"] = self.channel
-        if self.data_unit:
-            data["dataUnit"] = self.data_unit
+        data = super(Trace, self)._build_data(client)
         if self.time_step:
+            # not sure why we're using the _alt version here
             data["timeStep"] = self.time_step.to_jsonld_alt()
-        if self.part_of:
-            data["partOf"] = {
-                "@type": self.part_of.type,
-                "@id": self.part_of.id
-            }
         return data
 
 
@@ -208,33 +177,28 @@ class PatchedCell(KGObject):
         "eType": "nsg:eType",
         "labelingCompound": "nsg:labelingCompound"
     }
-
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("collection", "PatchedCellCollection", "^prov:hadMember"),
+        Field("cell_type", CellType, "eType", required=False),
+        Field("experiments", "PatchClampExperiment", "^prov:used", multiple=True),
+        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
+        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
+        Field("labeling_compound", basestring, "nsg:labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+    )
 
     def __init__(self, name, brain_location, collection, cell_type, experiments=None,
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
-        self.name = name
-        self.brain_location = brain_location
-        self.collection = collection
-        self.cell_type = cell_type
-        self.experiments = experiments or []
-        self.pipette_id = pipette_id
-        self.seal_resistance = seal_resistance
-        self.pipette_resistance = pipette_resistance
-        self.liquid_junction_potential = liquid_junction_potential
-        self.labeling_compound = labeling_compound
-        self.reversal_potential_cl = reversal_potential_cl
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-        #        f'{self.collection!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.cell_type!r}, {self.brain_location!r}, '
-                '{self.collection!r}, {self.id})'.format(self=self))
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     def list(cls, client, size=100, **filters):
@@ -294,65 +258,63 @@ class PatchedCell(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, use_cache=True):
+        # leaving the following, commented-out code until I check
+        # that using "eq" rather than "in" for the collection filter
+        # doesn't break anything.
+
+        # D = instance.data
+        # for otype in cls.type:
+        #     assert otype in D["@type"]
+
+        # # get the collection of which the cell is a part
+        # prov_context = {"prov": "http://www.w3.org/ns/prov#"}
+        # collection_filter = {
+        #     "path": "prov:hadMember",
+        #     "op": "in",
+        #     "value": [instance.data["@id"]]
+        # }
+
+        # # get any experiments performed on the cell
+        # expt_filter = {
+        #     "path": "prov:used",
+        #     "op": "eq",
+        #     "value": [instance.data["@id"]]
+        # }
+
+        # obj1 = cls(D["name"],
+        #            build_kg_object(BrainRegion, D["brainLocation"]["brainRegion"]),
+        #            KGQuery(cls.collection_class, collection_filter, prov_context),
+        #            CellType.from_jsonld(D.get("eType", None)),
+        #            KGQuery(cls.experiment_class, expt_filter, prov_context),
+        #            pipette_id=D.get("nsg:pipetteNumber", None),
+        #            seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
+        #            pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
+        #            liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
+        #            labeling_compound=D.get("nsg:labelingCompound", None),
+        #            reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
+        #            id=D["@id"], instance=instance)
+
         D = instance.data
         for otype in cls.type:
             assert otype in D["@type"]
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D["brainLocation"]["brainRegion"]
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj2 = cls(id=D["@id"], instance=instance, **args)
 
-        # get the collection of which the cell is a part
-        prov_context={"prov": "http://www.w3.org/ns/prov#"}
-        collection_filter = {
-            "path": "prov:hadMember",
-            "op": "in",
-            "value": [instance.data["@id"]]
-        }
-
-        # get any experiments performed on the cell
-        expt_filter = {
-            "path": "prov:used",
-            "op": "eq",
-            "value": [instance.data["@id"]]
-        }
-
-        return cls(D["name"],
-                   build_kg_object(BrainRegion, D["brainLocation"]["brainRegion"]),
-                   KGQuery(cls.collection_class, collection_filter, prov_context),
-                   CellType.from_jsonld(D.get("eType", None)),
-                   KGQuery(cls.experiment_class, expt_filter, prov_context),
-                   pipette_id=D.get("nsg:pipetteNumber", None),
-                   seal_resistance=QuantitativeValue.from_jsonld(D.get("nsg:sealResistance", None)),
-                   pipette_resistance=QuantitativeValue.from_jsonld(D.get("nsg:pipetteResistance", None)),
-                   liquid_junction_potential=QuantitativeValue.from_jsonld(D.get("nsg:liquidJunctionPotential", None)),
-                   labeling_compound=D.get("nsg:labelingCompound", None),
-                   reversal_potential_cl=QuantitativeValue.from_jsonld(D.get("nsg:chlorideReversalPotential", None)),
-                   id=D["@id"], instance=instance)
+        return obj2
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        data["name"] = self.name
-        if isinstance(self.brain_location, list):
-            data["brainLocation"] = {
-                "brainRegion": [br.to_jsonld() for br in self.brain_location]
-            }
-        else:
-            data["brainLocation"] = {
-                "brainRegion": self.brain_location.to_jsonld()
-            }
-        if self.cell_type:
-            data["eType"] = self.cell_type.to_jsonld()
-        if self.pipette_id:
-            data["nsg:pipetteNumber"] = self.pipette_id
-        if self.seal_resistance:
-            data["nsg:sealResistance"] = self.seal_resistance.to_jsonld()
-        if self.pipette_resistance:
-            data["nsg:pipetteResistance"] = self.pipette_resistance.to_jsonld()
-        if self.liquid_junction_potential:
-            data["nsg:liquidJunctionPotential"] = self.liquid_junction_potential.to_jsonld()
-        if self.labeling_compound:
-            data["nsg:labelingCompound"] = self.labeling_compound
-        if self.reversal_potential_cl:
-            data["nsg:chlorideReversalPotential"] = self.reversal_potential_cl.to_jsonld()
+        data = super(PatchedCell, self)._build_data(client)
+        data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
 

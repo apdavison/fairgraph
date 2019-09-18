@@ -358,7 +358,7 @@ class Material(object):
         self.identifier = identifier
         self.vendor = vendor
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         return {
             "nsg:reagentName": self.name,
             "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
