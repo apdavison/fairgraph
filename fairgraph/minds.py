@@ -2,6 +2,7 @@
 
 """
 
+from tabulate import tabulate
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list
 from fairgraph.data import FileAssociation, CSCSFile
 
@@ -45,7 +46,9 @@ class MINDSObject(KGObject):
                 name = None
             if name in cls.property_names:
                 if name in obj_types:
-                    if isinstance(value, list):
+                    if  value is None:
+                        data[name] = value
+                    elif isinstance(value, list):
                         data[name] = [KGProxy(obj_types[name], item["@id"])
                                       for item in value]
                     elif "@list" in value:
@@ -98,16 +101,35 @@ class MINDSObject(KGObject):
                     raise NotImplementedError("Can't handle {}".format(type(value)))
         return data
 
+    def show(self, max_width=None):
+        #max_name_length = max(len(name) for name in self.property_names)
+        #fmt =  "{:%d}   {}" % max_name_length
+        #for property_name in sorted(self.property_names):
+        #    print(fmt.format(property_name, getattr(self, property_name, None)))
+        data = [("id", self.id)] + [(property_name, getattr(self, property_name, None))
+                                    for property_name in self.property_names]
+        if max_width:
+            value_column_width = max_width - max(len(item[0]) for item in data)
+            def fit_column(value):
+                strv = str(value)
+                if len(strv) > value_column_width:
+                    strv = strv[:value_column_width - 4] + " ..."
+                return strv
+            data = [(k, fit_column(v)) for k, v in data]
+        print(tabulate(data))
+
 
 class Dataset(MINDSObject):
     """docstring"""
     _path = "/core/dataset/v1.0.0"
     #type = ["https://schema.hbp.eu/Dataset"]
     type = ["minds:Dataset"]
+    query_id = "fgDataset"
     property_names = ["activity", "component", "contributors", "created_at", "datalink",
                       "embargo_status", "formats", "license", "owners", "parcellation",
                       "publications", "release_date", "specimen_group",
-                      "description", "name", "associated_with"]
+                      "description", "name", "associated_with", "datasetDOI", "license_info",
+                      "parcellationRegion", "reference_space", "identifier"]
 
 
 class Activity(MINDSObject):

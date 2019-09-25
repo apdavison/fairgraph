@@ -185,18 +185,20 @@ class KGObject(with_metaclass(Registry, object)):
     fields = []
 
     def __init__(self, id=None, instance=None, **properties):
-        for field in self.fields:
-            try:
-                value = properties[field.name]
-            except KeyError:
-                if field.required:
-                    raise ValueError("Field '{}' is required.".format(field.name))
-            field.check_value(value)
-            setattr(self, field.name, value)
-
-        # for key, value in properties.items():
-        #     if key not in self.property_names:
-        #         raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+        if self.fields:
+            for field in self.fields:
+                try:
+                    value = properties[field.name]
+                except KeyError:
+                    if field.required:
+                        raise ValueError("Field '{}' is required.".format(field.name))
+                field.check_value(value)
+                setattr(self, field.name, value)
+        else:
+            for key, value in properties.items():
+                if key not in self.property_names:
+                    raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+                setattr(self, key, value)
 
         self.id = id
         self.instance = instance
@@ -229,8 +231,8 @@ class KGObject(with_metaclass(Registry, object)):
             raise NotImplementedError("To be implemented by child class")
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False):
-        instance = client.instance_from_full_uri(uri, use_cache=use_cache, deprecated=deprecated)
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus'):
+        instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache, deprecated=deprecated, api=api)
         if instance is None:
             return None
         else:
@@ -260,9 +262,9 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, size=size)
+        return client.list(cls, size=size, api=api)
 
     @property
     def _existence_query(self):
@@ -369,7 +371,7 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+                self.instance = client.instance_from_full_uri(self.id, use_cache=False)  # api argument?
 
         if self.instance:
             if self._update_needed(data):
@@ -395,8 +397,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, all=False):
-        return client.by_name(cls, name, all=all)
+    def by_name(cls, name, client, match="equals", all=False, api="nexus"):
+        return client.by_name(cls, name, match=match, all=all, api=api)
 
     @property
     def rev(self):
