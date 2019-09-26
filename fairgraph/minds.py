@@ -276,3 +276,51 @@ obj_types = {
     "species": Species,
     "parcellationRegion": ParcellationRegion
 }
+
+query = {
+    "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
+    "op": "in",
+    "value": ["Electrophysiology recording",
+              "Voltage clamp recording",
+              "Single electrode recording",
+              "functional magnetic resonance imaging"]
+}
+query = {
+    "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
+    "op": "in",
+    "value": ["Electrophysiology recording",
+              "Voltage clamp recording",
+              "Single electrode recording",
+              "functional magnetic resonance imaging"]
+}
+context = {
+            "schema": "http://schema.org/",
+            "minds": "https://schema.hbp.eu/minds/"
+}
+
+
+
+if __name__=='__main__':
+
+    import os
+    from fairgraph import minds, KGClient
+    token = os.environ['HBP_token']
+    client = KGClient(token)
+
+    from queries.minds.Dataset import name_or_id_in_
+    # activity_datasets = KGQuery(Dataset,
+    #                             name_or_id_in_['fields'][2],
+    #                             name_or_id_in_['@context']).resolve(client)
+
+    activity_datasets = client.filter_query(path=Dataset.path,
+                                            filter=query,
+                                            context=name_or_id_in_['@context'],
+                                            size=20)
+    print(len(activity_datasets))
+    
+    # from fairgraph.base import KGQuery
+    # activity_datasets = KGQuery(Dataset, query, {}).resolve(client)
+    # print(activity_datasets)
+    
+    # print(len(minds.Dataset.list(client, api="query", size=1000)))
+    # print(len(minds.Dataset.list(client, api="nexus", size=1000)))
