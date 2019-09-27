@@ -4,8 +4,8 @@ We use the features of the [HBP Knowledge Graph editor](https://kg.humanbrainpro
 
 Vocabulary:
 
-- "Namespaces" refer to the different root schema considered: "Minds", "Uniminds", "Neuralactivity", ... 
-- "Classes" refer to the different entries of a given namespace: e.g. for the minds schema: "Dataset", "Person", ...
+- "Namespaces" refer to the different root schema considered: "Minds", "Uniminds", "Neuralactivity", ... They are associated to a given "Version".
+- "Classes" refer to the different schemas of a given namespace: e.g. for the minds schema: "Dataset", "Person", ...
  - "Attributes" are the properties of the entries of a given class. E.g. a Dataset has the attributes: "name", "contributors", "identifier", ...
  
 All those objects need to be included into "faigraph". We detail here the procedure 
@@ -42,14 +42,39 @@ Here is a few combinations:
 
 Uniminds-Dataset
 
-## 3) Run the script to convert the KGE queries into "fairgraph-compatible" queries
+## 3) Configure the 
+
+Open the [config.py](./config.py) file and write down all the Namespaces (with their version) and Classes that you have saved as a query in the KGE editor.
+
+here is an example:
+```
+KG_OBJECTS = [
+    {
+        'namespace':'Minds',
+        'version':'v1.0.0',
+        'classes':[
+            'Activity',
+            'Dataset',
+        ],
+        'custom_queries':{}
+    },
+    {
+        'namespace':'Uniminds',
+        'version':'v1.0.0',
+        'classes':['Dataset'],
+        'custom_queries':{}
+    },
+]
+```
+
+## 4) Run the script to convert the KGE queries into "fairgraph-compatible" queries
 
 The fairgraph-compatible query should now appear in:
 https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Minds-Dataset
 
 
-## 4) Add a set of custom queries for each class
+## 5) Add a set of custom queries for each class
 
 
 
-## 5) Try it out
+## 6) Try it out
