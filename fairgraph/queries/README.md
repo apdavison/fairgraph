@@ -38,11 +38,14 @@ https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Minds-Datase
 
 ## 2) Repeat for all Namespaces and Classes of interest
 
-Here is a few combinations:
+Here are a few example combinations:
 
-Uniminds-Dataset
+1. Minds-Activity
+2. Uniminds-Project
+3. Uniminds-Person
+4. ...
 
-## 3) Configure the 
+## 3) Configure the KG Objects handled by fairgraph
 
 Open the [config.py](./config.py) file and write down all the Namespaces (with their version) and Classes that you have saved as a query in the KGE editor.
 
@@ -55,26 +58,68 @@ KG_OBJECTS = [
         'classes':[
             'Activity',
             'Dataset',
-        ],
-        'custom_queries':{}
-    },
-    {
-        'namespace':'Uniminds',
-        'version':'v1.0.0',
-        'classes':['Dataset'],
-        'custom_queries':{}
-    },
+        ]
+ 	},
 ]
 ```
 
-## 4) Run the script to convert the KGE queries into "fairgraph-compatible" queries
+
+## 4) Add a set of queries
+
+Adding a set of common queries (queries that are unspecific to a namespace and a class, i.e. where the attributes are shared among all objects). For example the "name" and "id " are always present. 
+
+```
+# this query will be applid to all classes of all namepsaces:
+COMMON_QUERIES = [
+    {'query_name': 'name_contains_id_equals',
+     'quantities':['name', '@id'],
+     'operators':['contains', 'equals'],
+     'parameters':['name', 'id']}
+    {'query_name': 'name_contains',
+     'quantities':['name'],
+     'operators':['contains'],
+     'parameters':['name']}
+]
+```
+
+Now you can also set explicitely a set of custom queries that will be "Namespace" and "class"-dependent (because it focuses on class-specific attributes). 
+
+```
+CUSTOM_QUERIES = {
+    'Minds-Dataset':[
+        {'query_name': contributors_contains', # explicit name of the query
+         'quantities':['contributors], # quantities that will have the filter
+         'operators':['contains'], # operator for the filter
+         'parameters':['contributors]}, # parameter (usually same than quantity)
+        {'query_name': 'name_contains_id_equals',
+         'quantities':['name', '@id'],
+         'operators':['contains', 'equals'],
+         'parameters':['name', 'id']},
+    ]
+    'Uniminds-Project':[
+        {'query_name': contributors_contains', # explicit name of the query
+         'quantities':['contributors], # quantities that will have the filter
+         'operators':['contains'], # operator for the filter
+         'parameters':['contributors]}, # parameter (usually same than quantity)
+    ]
+}
+```
+
+## 5) Run the script to convert the KGE queries into "fairgraph-compatible" queries
+
+Provided you have write access in you HBP account and the appropriate token (see ![fairgraph manual](../README.md)), Using the `requests` library and pro
+
+run it with:
+
+```
+python process_config_file.py 
+```
 
 The fairgraph-compatible query should now appear in:
+
 https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Minds-Dataset
 
-
-## 5) Add a set of custom queries for each class
-
+https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity
 
 
-## 6) Try it out
+## 6) Check that the fairgraph import works
