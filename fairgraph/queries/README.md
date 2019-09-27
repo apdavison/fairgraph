@@ -8,7 +8,7 @@ Vocabulary:
 - "Classes" refer to the different schemas of a given namespace: e.g. for the minds schema: "Dataset", "Person", ...
  - "Attributes" are the properties of the entries of a given class. E.g. a Dataset has the attributes: "name", "contributors", "identifier", ...
  
-All those objects need to be included into "faigraph". We detail here the procedure 
+All those objects need to be included into "faigraph". We detail here the procedure to do this.
 
  
 ## 1) Build a general query with the KG editor for a given Namespace and a given Class of interest
@@ -58,11 +58,19 @@ KG_OBJECTS = [
         'classes':[
             'Activity',
             'Dataset',
-        ]
- 	},
+            'Person',
+        ],
+    },
+    {
+        'namespace':'Uniminds',
+        'version':'v1.0.0',
+        'classes':[
+            'Project',
+            'Person',
+        ],
+    },
 ]
 ```
-
 
 ## 4) Add a set of queries
 
@@ -107,19 +115,29 @@ CUSTOM_QUERIES = {
 
 ## 5) Run the script to convert the KGE queries into "fairgraph-compatible" queries
 
-Provided you have write access in you HBP account and the appropriate token (see ![fairgraph manual](../README.md)), Using the `requests` library and pro
-
-run it with:
+Provided you have write access in you HBP account and the appropriate token (see ![fairgraph manual](../README.md)), you can now run the script that reformats the queries and upload them in the KG query storage.
 
 ```
 python process_config_file.py 
 ```
 
-The fairgraph-compatible query should now appear in:
+The list of uploaded url queries should appear.
 
-https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Minds-Dataset
+For the above [config.py](./config.py) the list is:
 
-https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity
+https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity 
+https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals 
+https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset 
+https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_name_contains_id_equals 
+https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_contributors_contains 
+https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_id_equals 
+https://kg.humanbrainproject.org/query/minds/core/person/v1.0.0/fg-Person 
+https://kg.humanbrainproject.org/query/minds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
+https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project 
+https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_name_contains_id_equals 
+https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_contributors_equals 
+https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person 
+https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
 
 
 ## 6) Check that the fairgraph import works

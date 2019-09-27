@@ -28,23 +28,24 @@ COMMON_QUERIES = [
      'parameters':['name', 'id']}
 ]
 
+
 # then a set of custom queries
 CUSTOM_QUERIES = {
     'Minds-Dataset':[
-        {'query_name': 'name_contains', # explicit name of the query
-         'quantities':['name'], # quantities that will have the filter
+        {'query_name': 'contributors_contains', # explicit name of the query
+         'quantities':['contributors'], # quantities that will have the filter
          'operators':['contains'], # operator for the filter
-         'parameters':['name']}, # parameter (usually same than quantity)
-        {'query_name': 'name_contains_id_equals',
-         'quantities':['name', '@id'],
-         'operators':['contains', 'equals'],
-         'parameters':['name', 'id']},
+         'parameters':['contributors']}, # parameter (usually same than quantity)
+        {'query_name': 'id_equals',
+         'quantities':['@id'],
+         'operators':['equals'],
+         'parameters':['id']},
     ],
     'Uniminds-Project':[
-        {'query_name': 'name_contains', # explicit name of the query
-         'quantities':['name'], # quantities that will have the filter
-         'operators':['contains'], # operator for the filter
-         'parameters':['name']}, # parameter (usually same than quantity)
+        {'query_name': 'contributors_equals', # explicit name of the query
+         'quantities':['contributors'], # quantities that will have the filter
+         'operators':['equals'], # operator for the filter
+         'parameters':['contributors']}, # parameter (usually same than quantity)
     ]
 }
 
@@ -52,8 +53,8 @@ QUERIES = {}
 for kgo in KG_OBJECTS:
     for cls in kgo['classes']:
         key = '%s-%s' % (kgo['namespace'], cls)
-        QUERIES[key] = COMMON_QUERIES
+        QUERIES[key] = COMMON_QUERIES.copy()
         if key in CUSTOM_QUERIES:
-            QUERIES[key] += CUSTOM_QUERIES[key]
-            
+            for query in CUSTOM_QUERIES[key]:
+                QUERIES[key].append(query)
 
