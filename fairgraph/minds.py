@@ -134,12 +134,16 @@ class Dataset(MINDSObject):
 
 class Activity(MINDSObject):
     """docstring"""
-    _path = "/core/dataset/v1.0.0"
+    _path = "/core/activity/v1.0.0"
     #type = ["https://schema.hbp.eu/Activity"]
     type = ["minds:Activity"]
-    property_names = ["created_at", "ethics", "methods", "preparation", "protocols",
-                      "description", "name", "associated_with"]
+    query_id = "fgActivity"
+    property_names = ['alternatives', 'created_at', 'createdAt', 'createdBy', 'description',
+                      'identifier', 'immediateIndex', 'lastModificationUserId', 'modifiedAt',
+                      'name', 'qualifiedAssociation', 'relativeUrl']
 
+
+# Attributes valid for Activity - minds/core/activity/v1.0.0
 
 class Method(MINDSObject):
     """docstring"""
@@ -278,20 +282,9 @@ obj_types = {
 }
 
 query = {
-    "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
+    "path": "minds:person / schema:name",
     "op": "in",
-    "value": ["Electrophysiology recording",
-              "Voltage clamp recording",
-              "Single electrode recording",
-              "functional magnetic resonance imaging"]
-}
-query = {
-    "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
-    "op": "in",
-    "value": ["Electrophysiology recording",
-              "Voltage clamp recording",
-              "Single electrode recording",
-              "functional magnetic resonance imaging"]
+    "value": ["Zerlaut, Yann"]
 }
 context = {
             "schema": "http://schema.org/",
@@ -307,20 +300,29 @@ if __name__=='__main__':
     token = os.environ['HBP_token']
     client = KGClient(token)
 
-    from queries.minds.Dataset import name_or_id_in_
+    # from queries.minds.Dataset import name_or_id_in_
+    # activity_datasets = KGQuery(Dataset,
+    #                             query,
+    #                             context).resolve(client)
     # activity_datasets = KGQuery(Dataset,
     #                             name_or_id_in_['fields'][2],
     #                             name_or_id_in_['@context']).resolve(client)
 
-    activity_datasets = client.filter_query(path=Dataset.path,
-                                            filter=query,
-                                            context=name_or_id_in_['@context'],
-                                            size=20)
-    print(len(activity_datasets))
+    # activity_datasets = client.filter_query(path=Dataset.path,
+    #                                         filter=query,
+    #                                         context=name_or_id_in_['@context'],
+    #                                         size=20)
+    # print(len(activity_datasets))
     
     # from fairgraph.base import KGQuery
     # activity_datasets = KGQuery(Dataset, query, {}).resolve(client)
     # print(activity_datasets)
     
-    # print(len(minds.Dataset.list(client, api="query", size=1000)))
-    # print(len(minds.Dataset.list(client, api="nexus", size=1000)))
+    # KG_datasets = minds.Dataset.list(client, api="query", size=1000)
+    # Nexus_datasets = minds.Dataset.list(client, api="nexus", size=1000)
+    # print(KG_datasets[0].contributors)
+
+    KG_datasets = minds.Activity.list(client, api="query", size=1000)
+    Nexus_datasets = minds.Activity.list(client, api="nexus", size=1000)
+    print(KG_datasets[0].qualifiedAssociation)
+    
