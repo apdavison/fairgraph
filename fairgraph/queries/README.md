@@ -153,5 +153,20 @@ https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person
 https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
 
 
+```
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_name_contains_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_contributors_contains 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/person/v1.0.0/fg-Person 
+Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project 
+Successfully stored the query at https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_name_contains_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_contributors_equals 
+Successfully stored the query at https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person 
+Successfully stored the query at https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
+```
 
 ## 6) Check that the fairgraph import works
