@@ -142,3 +142,8 @@ https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_nam
 
 
 ## 6) Check that the fairgraph import works
+
+[...]
+
+maybe build the properties of the classes wrt the "field" entries of the KGE generated queries
+
