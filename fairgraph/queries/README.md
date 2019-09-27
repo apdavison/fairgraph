@@ -125,6 +125,7 @@ The list of uploaded url queries should appear.
 
 For the above [config.py](./config.py) the list is:
 
+```
 https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity 
 https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals 
 https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset 
@@ -138,6 +139,6 @@ https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_n
 https://kg.humanbrainproject.org/query/uniminds/core/project/v1.0.0/fg-Project_contributors_equals 
 https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person 
 https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals 
-
+```
 
 ## 6) Check that the fairgraph import works
