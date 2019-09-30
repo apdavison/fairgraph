@@ -68,32 +68,12 @@ class Person(MINDSObject):
 class UniMINDSOption():
     pass
 
-#     Abstraction level
-# Age category
-# Brain structure
-# Cellular target
-# Country
-# DOI
-# Disability/disease
-# Embargo status
-# Ethics authority
-# Experimental preparation
-# File bundle group
-# Genotype
-# Handedness
-# License
-# MIME type
-# Method category
-# Model format
-# Model scope
-# Organ
-# Organization
-# Pathology
-# Publication id type
-# PublicationId
-# Sex
-# Species
-# Strain
-# Study target source
-# Study target type
-# Tissue sample piece
+
+if __name__=='__main__':
+
+    import os
+    from fairgraph import minds, KGClient
+    token = os.environ['HBP_token']
+    client = KGClient(token)
+    for cls in minds.list_kg_classes():
+        print(cls.__name__)

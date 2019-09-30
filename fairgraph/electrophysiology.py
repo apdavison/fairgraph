@@ -17,7 +17,6 @@ from .minds import Dataset
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
-
 class Trace(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE

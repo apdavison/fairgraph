@@ -13,6 +13,7 @@ KG_OBJECTS = [
         'namespace':'Uniminds',
         'version':'v1.0.0',
         'classes':[
+            'Dataset',
             'Project',
             'Person',
         ],

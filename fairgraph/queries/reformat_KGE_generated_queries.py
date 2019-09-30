@@ -6,15 +6,14 @@ import requests, os, json, pprint
 access_token = os.environ['HBP_token']
 import numpy as np
 
-def query_url(namespace, version, cls,
+def query_url(namespace, cls_version,
               extension=''):
     """
     """
-    url = 'https://kg.humanbrainproject.org/query/%s/core/%s/%s/fg-%s' %\
-          (namespace.lower(), cls.lower(), version, cls)
+    url = 'https://kg.humanbrainproject.org/query/%s/%s/fg' %\
+          (namespace.lower(), cls_version)
     return url+extension
 
-    
 def add_filter_to_query(query_dict,
                         quantities=['name'],
                         operators=['contains'] ,
@@ -30,20 +29,20 @@ def add_filter_to_query(query_dict,
     return new_query_dict
         
 
-def clean_up_KGE_query_for_fairgraph(namespace, version, cls):
+def clean_up_KGE_query_for_fairgraph(namespace, cls, cls_version):
     """
     Requirements:
     for all the NAMESPACES, you have generated a query using the builder in the Knowledge graph Editor
     https://kg.humanbrainproject.org/editor/query-builder
 
-    For each namespace (e.g. "Dataset"), you have saved the query in the KGE with the "fg" prefix and "-KGE" suffix
+    For each namespace (e.g. "Dataset"), you have saved the query in the KGE with the "fg-KGE" suffix
     i.e. for the "Dataset" namespace, the query can be found at:
-    https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fgDataset-KGE
+    https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-KGE
 
     Then the script will generate the new fairgraph-compatible query 
     """
 
-    r=requests.get(query_url(namespace, version, cls)+'-KGE',
+    r=requests.get(query_url(namespace, cls_version)+'-KGE',
           headers={'Content-Type':'application/json',
                    'Authorization': 'Bearer {}'.format(access_token)})
     new_query_dict = {}
@@ -72,7 +71,7 @@ def clean_up_KGE_query_for_fairgraph(namespace, version, cls):
             else:
                 new_query_dict[key] = value
     else:
-        print('Problem with url: %s' % query_url(namespace, version, cls)+'-KGE')
+        print('Problem with url: %s' % query_url(namespace, cls_version)+'-KGE')
         
     return new_query_dict
             
@@ -96,16 +95,15 @@ def upload_faigraph_compatible_query(new_query_dict, namespace, version, cls,
             
 
 if __name__=='__main__':
+    
     # new_query = clean_up_KGE_query_for_fairgraph('Minds', 'v1.0.0', 'Activity')
     # upload_faigraph_compatible_query(new_query, 'Minds', 'v1.0.0', 'Activity')
     # print(add_filter_to_query(new_query))
 
-    # new_query_dict = clean_up_KGE_queries_for_fairgraph(NAMESPACES)    
     # json_text = pprint.pprint(d)
     # exec('d = %s' % str(r.content))
     # pprint.pprint(KGE_dict)
     print('----------------------------------')
     # pprint.pprint(new_query_dict)
-
 
 

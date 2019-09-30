@@ -452,3 +452,6 @@ def use_namespace(namespace):
     """Set the namespace for all classes in this module."""
     for cls in list_kg_classes():
         cls.namespace = namespace
+
+
+    
