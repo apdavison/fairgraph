@@ -14,9 +14,10 @@ def query_url(namespace, cls_version,
           (namespace.lower(), cls_version)
     return url+extension
 
+
 def add_filter_to_query(query_dict,
                         quantities=['name'],
-                        operators=['contains'] ,
+                        operators=['contains'],
                         parameters=['name']):
     """
     add a filter for the query
@@ -27,83 +28,64 @@ def add_filter_to_query(query_dict,
         if len(i0)>0:
             new_query_dict['fields'][i]['filter'] = {'op':operators[i0[0]], 'parameter':parameters[i0[0]]}
     return new_query_dict
-        
 
-def clean_up_KGE_query_for_fairgraph(namespace, cls, cls_version):
-    """
-    Requirements:
-    for all the NAMESPACES, you have generated a query using the builder in the Knowledge graph Editor
-    https://kg.humanbrainproject.org/editor/query-builder
 
-    For each namespace (e.g. "Dataset"), you have saved the query in the KGE with the "fg-KGE" suffix
-    i.e. for the "Dataset" namespace, the query can be found at:
-    https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-KGE
 
-    Then the script will generate the new fairgraph-compatible query 
-    """
-
-    r=requests.get(query_url(namespace, cls_version)+'-KGE',
-          headers={'Content-Type':'application/json',
-                   'Authorization': 'Bearer {}'.format(access_token)})
-    new_query_dict = {}
-    if r.ok:
-        open('temp.json', 'wb').write(r.content)
-        with open('temp.json', 'r') as f:
-            KGE_dict = json.load(f)
-
-        for key, value in KGE_dict.items():
-            if type(value)==dict:
-                # new_query_dict[key] = {}
-                # for key2, value2 in value.items():
-                #     if key2!='fieldname':
-                #         new_query_dict[key][key2] = value2
-                new_query_dict[key] = value # no need to delete the fieldname entry here
-            elif type(value)==list:
-                new_query_dict[key] = []
-                for value2 in value:
-                    new_query_dict[key].append({})
-                    for key3, value3 in value2.items():
-                        if key3!='fieldname':
-                            new_query_dict[key][-1][key3] = value3
-                        else:
-                            new_query_dict[key][-1]['field'] = value3.split('query:')[1]
-                            
-            else:
-                new_query_dict[key] = value
-    else:
-        print('Problem with url: %s' % query_url(namespace, cls_version)+'-KGE')
-        
-    return new_query_dict
-            
-
-def upload_faigraph_compatible_query(new_query_dict, namespace, version, cls,
-                                     extension=''):
+def upload_faigraph_query(query_string, namespace, cls_version,
+                          extension=''):
 
     with open('temp.json', 'w') as f:
-        json.dump(new_query_dict, f)
+        json.dump(query_string, f)
 
-    r=requests.put(query_url(namespace, version, cls, extension),
-                   data = open('temp.json', 'rb'),
+    r=requests.put(query_url(namespace, cls_version, extension),
+                   data = open('temp.json', 'r'),
                    headers={'Content-Type':'application/json',
                             'Authorization': 'Bearer {}'.format(access_token)})
-
+    
     if r.ok:
-        print('Successfully stored the query at %s ' % query_url(namespace, version, cls, extension))
+        print('Successfully stored the query at %s ' % query_url(namespace, cls_version, extension))
     else:
-        print('Problem with "put" protocol on url: %s ' % query_url(namespace, version, cls, extension))
+        print('Problem with "put" protocol on url: %s ' % query_url(namespace, cls_version, extension))
         print('---> Check your HBP token validity and/or your HBP credential permissions')
-            
+
+
+def format_query(namespace, cls,
+                 queryID='fg'):
+
+    FIELDS_STRING = ''
+    for f in cls.fields:
+
+        FIELDS_STRING += "{'field':%s," % f.name
+        FIELDS_STRING += "'relative_path':%s}," % f.path
+    return """
+{'@context': {'@vocab': 'https://schema.hbp.eu/graphQuery/',
+ 'fieldname': {'@id': 'fieldname', '@type': '@id'},
+ 'merge': {'@id': 'merge', '@type': '@id'},
+ 'relative_path': {'@id': 'relative_path', '@type': '@id'}},
+ 'fields': [%s],
+ 'http://schema.org/identifier': 'minds%s/%s',
+ 'https://schema.hbp.eu/graphQuery/root_schema': {'@id': 'https://nexus.humanbrainproject.org/v0/schemas/minds%s'}}
+""" % (FIELDS_STRING, cls._path, queryID, cls._path)
 
 if __name__=='__main__':
-    
-    # new_query = clean_up_KGE_query_for_fairgraph('Minds', 'v1.0.0', 'Activity')
+
+    from fairgraph import minds, uniminds
+    n = 0
+    for namespace, Namespace in zip([minds, uniminds], ['Minds', 'Uniminds']):
+        for cls in namespace.list_kg_classes():
+            if cls.__name__!='MINDSObject' and n<3:
+                key = '%s-%s' % (Namespace, cls.__name__)
+                neutral_query = format_query(namespace, cls)
+                upload_faigraph_query(neutral_query, Namespace, cls._path[1:])
+                n+=1
+        
     # upload_faigraph_compatible_query(new_query, 'Minds', 'v1.0.0', 'Activity')
     # print(add_filter_to_query(new_query))
-
+    
     # json_text = pprint.pprint(d)
     # exec('d = %s' % str(r.content))
     # pprint.pprint(KGE_dict)
-    print('----------------------------------')
+    # print('----------------------------------')
     # pprint.pprint(new_query_dict)
 
 

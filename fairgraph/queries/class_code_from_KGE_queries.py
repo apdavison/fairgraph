@@ -79,7 +79,6 @@ UNIMINDS_CLASSES = [
     {'Tissuesample':'core/tissuesample/v1.0.0'}]
 
 
-
 def typename_dict(field):
     # if field=='name':
     #     return 'basestring'
@@ -101,6 +100,50 @@ def required_dict(field):
     else:
         return 'False'
     
+def transform_KGE_query_to_dict(namespace, cls, cls_version):
+    """
+    Requirements:
+    for all the NAMESPACES, you have generated a query using the builder in the Knowledge graph Editor
+    https://kg.humanbrainproject.org/editor/query-builder
+
+    For each namespace (e.g. "Dataset"), you have saved the query in the KGE with the "fg-KGE" suffix
+    i.e. for the "Dataset" namespace, the query can be found at:
+    https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-KGE
+    """
+
+    r=requests.get(query_url(namespace, cls_version)+'-KGE',
+          headers={'Content-Type':'application/json',
+                   'Authorization': 'Bearer {}'.format(access_token)})
+    new_query_dict = {}
+    if r.ok:
+        open('temp.json', 'wb').write(r.content)
+        with open('temp.json', 'r') as f:
+            KGE_dict = json.load(f)
+
+        for key, value in KGE_dict.items():
+            if type(value)==dict:
+                # new_query_dict[key] = {}
+                # for key2, value2 in value.items():
+                #     if key2!='fieldname':
+                #         new_query_dict[key][key2] = value2
+                new_query_dict[key] = value # no need to delete the fieldname entry here
+            elif type(value)==list:
+                new_query_dict[key] = []
+                for value2 in value:
+                    new_query_dict[key].append({})
+                    for key3, value3 in value2.items():
+                        if key3!='fieldname':
+                            new_query_dict[key][-1][key3] = value3
+                        else:
+                            new_query_dict[key][-1]['field'] = value3.split('query:')[1]
+                            
+            else:
+                new_query_dict[key] = value
+    else:
+        print('Problem with url: %s' % query_url(namespace, cls_version)+'-KGE')
+        
+    return new_query_dict
+
 def extract_fields_from_query(query_dict):
     FIELD = 'fields = (\\\n'
     for i, field in enumerate(query_dict['fields']):
@@ -117,7 +160,6 @@ def extract_fields_from_query(query_dict):
     FIELD += ')'
     return FIELD
 
-
 def generate_code_for_class_def(nmspc, cls, cls_version, FIELD):
     return '''
 
@@ -132,26 +174,26 @@ class %s(MINDSObject):
         return ('{self.__class__.__name__}('
                 '{self.name!r} {self.id!r})'.format(self=self))
     %s
-    ''' % (nmspc.lower(), cls, cls_version, cls, FIELD)
+    ''' % (cls, cls_version, nmspc.lower(), cls, FIELD)
     
 
-
-if sys.argv[-1]=='Minds':
-    for mc in MINDS_CLASSES:
-        cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
-        query = clean_up_KGE_query_for_fairgraph(sys.argv[-1], cls, cls_version)
-        FIELDS = extract_fields_from_query(query)
-        code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
-        print(code)
-elif sys.argv[-1]=='Uniminds':
-    for mc in UNIMINDS_CLASSES:
-        cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
-        query = clean_up_KGE_query_for_fairgraph(sys.argv[-1], cls, cls_version)
-        FIELDS = extract_fields_from_query(query)
-        code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
-        print(code)
-else:
-    print("""
-    Please provide the namespace as an argument, either "Minds" of "Uniminds"
-    e.g. run "python generate_fields_from_KGE_queries.py Minds"
-    """)
+if __name__=='__main__':
+    if sys.argv[-1]=='Minds':
+        for mc in MINDS_CLASSES:
+            cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
+            query = transform_KGE_query_to_dict(sys.argv[-1], cls, cls_version)
+            FIELDS = extract_fields_from_query(query)
+            code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
+            print(code)
+    elif sys.argv[-1]=='Uniminds':
+        for mc in UNIMINDS_CLASSES:
+            cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
+            query = transform_KGE_query_to_dict(sys.argv[-1], cls, cls_version)
+            FIELDS = extract_fields_from_query(query)
+            code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
+            print(code)
+    else:
+        print("""
+        Please provide the namespace as an argument, either "Minds" of "Uniminds"
+        e.g. run "python generate_fields_from_KGE_queries.py Minds"
+        """)

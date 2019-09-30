@@ -75,7 +75,6 @@ KG_OBJECTS = [
 ## 4) Add a set of queries
 
 Adding a set of common queries (queries that are unspecific to a namespace and a class, i.e. where the attributes are shared among all objects). For example the "name" and "id " are always present. 
-
 ```
 # this query will be applid to all classes of all namepsaces:
 COMMON_QUERIES = [
@@ -91,7 +90,6 @@ COMMON_QUERIES = [
 ```
 
 Now you can also set explicitely a set of custom queries that will be "Namespace" and "class"-dependent (because it focuses on class-specific attributes). 
-
 ```
 CUSTOM_QUERIES = {
     'Minds-Dataset':[
@@ -125,11 +123,12 @@ The list of uploaded url queries should appear.
 
 For the above [config.py](./config.py) the list is:
 
-https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity 
+https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity
 
-https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals 
+https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals
 
 ...
+
 https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_contributors_contains 
 
 https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_id_equals 
