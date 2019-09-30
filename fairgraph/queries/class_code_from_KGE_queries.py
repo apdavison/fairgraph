@@ -1,9 +1,7 @@
 import sys
+from build_KG_queries import *
 
-from reformat_KGE_generated_queries import *
-# load the config file
-from config import KG_OBJECTS, QUERIES
-
+# THe classes below were manually copy-pasted from the KG-Editor interface
 MINDS_CLASSES = [
     {'Activity':'core/activity/v1.0.0'},
     {'Agecategory':'core/agecategory/v1.0.0'},
@@ -119,7 +117,8 @@ def extract_fields_from_query(query_dict):
     FIELD += ')'
     return FIELD
 
-def generate_code_for_class_def(cls, cls_version, FIELD):
+
+def generate_code_for_class_def(nmspc, cls, cls_version, FIELD):
     return '''
 
 class %s(MINDSObject):
@@ -127,26 +126,32 @@ class %s(MINDSObject):
     docstring
     """
     _path = "/%s"
-    type = ["minds:%s"]
+    type = ["%s:%s"]
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.name!r} {self.id!r})'.format(self=self))
     %s
-    ''' % (cls, cls_version, cls, FIELD)
+    ''' % (nmspc.lower(), cls, cls_version, cls, FIELD)
     
 
 
 if sys.argv[-1]=='Minds':
     for mc in MINDS_CLASSES:
         cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
-        query = clean_up_KGE_query_for_fairgraph('Minds', cls, cls_version)
+        query = clean_up_KGE_query_for_fairgraph(sys.argv[-1], cls, cls_version)
         FIELDS = extract_fields_from_query(query)
-        code = generate_code_for_class_def(cls, cls_version, FIELDS)
+        code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
         print(code)
-
+elif sys.argv[-1]=='Uniminds':
+    for mc in UNIMINDS_CLASSES:
+        cls, cls_version = list(mc.keys())[0], list(mc.values())[0]
+        query = clean_up_KGE_query_for_fairgraph(sys.argv[-1], cls, cls_version)
+        FIELDS = extract_fields_from_query(query)
+        code = generate_code_for_class_def(sys.argv[-1], cls, cls_version, FIELDS)
+        print(code)
 else:
     print("""
-    Please provide the two arguments: "namespace" & "class"
-    e.g. run "python generate_fields_from_KGE_queries.py Minds Activity"
+    Please provide the namespace as an argument, either "Minds" of "Uniminds"
+    e.g. run "python generate_fields_from_KGE_queries.py Minds"
     """)
