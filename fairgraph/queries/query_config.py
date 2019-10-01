@@ -1,11 +1,23 @@
 from fairgraph import minds, uniminds
 
+
+def from_fairgraph_key_to_KG_attribute(key):
+    """
+    function to handle the potential differences between fairgraph and the KG in terms of attribute names
+    """
+    if key=='id':
+        return '@id'
+    else:
+        return key
+
+# here everything should be written in terms of 'fairgraph' definition (e.g. 'id' instead of '@id')
+    
+    
 # this query will be applied to all classes of all namepsaces:
 COMMON_QUERIES = [
     {'query_name': 'name_contains_id_equals',
-     'quantities':['name', '@id'],
-     'operators':['contains', 'equals'],
-     'parameters':['name', 'id']}
+     'quantities':['name', 'id'],
+     'operators':['contains', 'equals']}
 ]
 
 
@@ -14,18 +26,15 @@ CUSTOM_QUERIES = {
     'Minds-Dataset':[
         {'query_name': 'contributors_contains', # explicit name of the query
          'quantities':['contributors'], # quantities that will have the filter
-         'operators':['contains'], # operator for the filter
-         'parameters':['contributors']}, # parameter (usually same than quantity)
+         'operators':['contains']}, # parameter (usually same than quantity)
         {'query_name': 'id_equals',
-         'quantities':['@id'],
-         'operators':['equals'],
-         'parameters':['id']},
+         'quantities':['id'],
+         'operators':['equals']},
     ],
     'Uniminds-Project':[
         {'query_name': 'contributors_equals', # explicit name of the query
          'quantities':['contributors'], # quantities that will have the filter
-         'operators':['equals'], # operator for the filter
-         'parameters':['contributors']}, # parameter (usually same than quantity)
+         'operators':['equals']}, # parameter (usually same than quantity)
     ]
 }
 
