@@ -24,7 +24,11 @@ def add_filter_to_query(attribute_name, query):
     i0 = np.argwhere(np.array(query['quantities'],dtype=str)==attribute_name).flatten()
     if len(i0)>0:
         quant = from_fairgraph_key_to_KG_attribute(query['quantities'][i0[0]])
-        return "'filter':{'op':'%s', 'parameter':'%s'}," % (query['operators'][i0[0]], quant)
+        if quant=='@id':
+            param = 'id'
+        else:
+            param = quant
+        return "'filter':{'op':'%s', 'parameter':'%s'}," % (query['operators'][i0[0]], param)
     else:
         return ''
 
@@ -56,8 +60,6 @@ def upload_faigraph_query(query_string, namespace, cls_version,
                           extension=''):
 
     with open('temp.json', 'w') as f:
-        # json.dump(query_string, f)
-        # f.write(QUERY)
         f.write(query_string)
 
     r=requests.put(query_url(namespace, cls_version, extension),
@@ -68,11 +70,12 @@ def upload_faigraph_query(query_string, namespace, cls_version,
     if r.ok:
         print('Successfully stored the query at %s ' % query_url(namespace, cls_version, extension))
     else:
+        print(r)
         print('Problem with "put" protocol on url: %s ' % query_url(namespace, cls_version, extension))
         print('---> Check your HBP token validity and/or your HBP credential permissions')
 
 if __name__=='__main__':
-    LIMITING_N = 100000 # set to a lower value for troubleshooting (e.g. 3)
+    LIMITING_N = 1000000 # set to a lower value for troubleshooting (e.g. 3)
     from fairgraph import minds, uniminds
     n = 0
     for namespace, Namespace in zip([minds, uniminds], ['Minds', 'Uniminds']):
