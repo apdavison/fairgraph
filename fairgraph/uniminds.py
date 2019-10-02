@@ -1102,5 +1102,5 @@ if __name__=='__main__':
     client = KGClient(token)
     for cls in uniminds.list_kg_classes():
         print(cls.__name__)
-        for f in cls.fields:
-            print('    - %s' % f.name)
+        # for f in cls.fields:
+        #     print('    - %s' % f.name)

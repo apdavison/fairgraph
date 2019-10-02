@@ -20,7 +20,6 @@ COMMON_QUERIES = [
      'operators':['contains', 'equals']}
 ]
 
-
 # then a set of custom queries
 CUSTOM_QUERIES = {
     'Minds-Dataset':[
