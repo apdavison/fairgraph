@@ -10,6 +10,7 @@ import os.path
 import logging
 import datetime
 import mimetypes
+from itertools import chain
 from dateutil import parser as date_parser
 import requests
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
@@ -290,9 +291,19 @@ class ModelProject(KGObject, HasAliasMixin):
                     'op': 'eq',
                     'value': concept_class(value).iri
                 })
+            elif name in ("author", "owner"):
+                if not isinstance(value, Person):
+                    raise TypeError("{} must be a Person object".format(name))
+                filter_queries.append({
+                    "path": cls.context[name],
+                    "op": "eq",
+                    "value": value.id
+                })
             else:
-                raise Exception("The only supported filters are by {supported_filters}"
-                                "You specified {name}".format(supported_filters=", ".join(cls.attribute_map), name=name))
+                raise Exception("The only supported filters are by '{supported_filters}'. "
+                                "You specified '{name}'".format(
+                                    supported_filters="', '".join(chain(cls.attribute_map, ["author", "owner"])),
+                                    name=name))
         if len(filter_queries) == 0:
             return client.list(cls, size=size)
         elif len(filter_queries) == 1:
