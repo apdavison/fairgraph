@@ -262,7 +262,7 @@ def transform_KGE_query_to_dict(namespace, cls, cls_version):
     return new_query_dict
 
 
-def included_field(field):
+def included_field(field, url):
     """
     we hide the following fields within faigraph
     """
@@ -273,6 +273,8 @@ def included_field(field):
                  'v1.0.0',
                  'bookmarkInstanceLink', 'wasRevisionOf',
                  'created_at', 'created_by', 'instance', 'wasDerivedFrom']:
+        return False
+    elif len(url.split('neuroglancer'))>1:
         return False
     else:
         return True
@@ -290,7 +292,7 @@ def extract_fields_from_query(query_dict, namespace):
             relative_path = field['relative_path']
         except KeyError:
             relative_path = ''
-        if included_field(field['field']):
+        if included_field(field['field'], reformat_path(relative_path)):
             if (i>0) and (FIELD[-1]==')'):
                 FIELD += ',\n'
             FIELD += '      Field("%s", %s, "%s", required=%s)' % (field_setting(field['field'], output='property'),

@@ -11,7 +11,6 @@ from tabulate import tabulate
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
 
-
 class MINDSObject(KGObject):
     """
     ...
@@ -217,7 +216,6 @@ class Dataset(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
       Field("name", basestring, "http://schema.org/name", required=True),
       Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("reference", basestring, "https://schema.hbp.eu/neuroglancer/reference", required=False),
       Field("release_date", basestring, "https://schema.hbp.eu/minds/release_date", required=False),
       Field("activity", KGObject, "https://schema.hbp.eu/minds/activity", required=False),
       Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False),
@@ -234,7 +232,6 @@ class Dataset(MINDSObject):
       Field("parcellation_region", KGObject, "https://schema.hbp.eu/minds/parcellationRegion", required=False),
       Field("part_of", basestring, "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf", required=False),
       Field("publications", list, "https://schema.hbp.eu/minds/publications", required=False),
-      Field("reference", basestring, "https://schema.hbp.eu/neuroglancer/reference", required=False),
       Field("reference_space", basestring, "https://schema.hbp.eu/minds/reference_space", required=False),
       Field("specimen_group", basestring, "https://schema.hbp.eu/minds/specimen_group", required=False))
     
