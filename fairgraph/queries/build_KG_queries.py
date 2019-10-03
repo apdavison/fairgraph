@@ -3,10 +3,10 @@ needs a temporary file "temp.json",
 maybe should be put in a system temporarry directory with tempfile (but adds a dependency)
 """
 import requests, os, json, pprint
-access_token = os.environ['HBP_token']
 import numpy as np
 from query_config import QUERIES, from_fairgraph_key_to_KG_attribute
 
+access_token = os.environ['HBP_token']
 
 def query_url(namespace, cls_version,
               extension=''):

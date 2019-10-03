@@ -40,6 +40,7 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['Hbpcomponent', 'HbpComponent', 'hbp_component'],
                                 ['hbpComponent', 'HbpComponent', 'hbp_component'],
                                 ['associatedTask', 'AssociatedTask', 'associated_task'],
+                                ['alternateOf', 'AlternateOf', 'alternate_of'],
                                 ['Fundinginformation', 'FundingInformation', 'funding_information'],
                                 ['Filebundlegroup', 'FileBundleGroup', 'file_bundle_group'],
                                 ['Filebundle', 'FileBundle', 'file_bundle'],
@@ -47,12 +48,14 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['Experimentalpreparation', 'ExperimentalPreparation', 'experimental_preparation'],
                                 ['experimentalPreparation', 'ExperimentalPreparation', 'experimental_preparation'],
                                 ['Ethicsauthority', 'EthicsAuthority', 'ethics_authority'],
+                                ['ethicsAuthority', 'EthicsAuthority', 'ethics_authority'],
                                 ['Ethicsapproval', 'EthicsApproval', 'ethics_approval'],
                                 ['ethicsApproval', 'EthicsApproval', 'ethics_approval'],
                                 ['Cellulartarget', 'CellularTarget', 'cellular_target'],
                                 ['Brainstructure', 'BrainStructure', 'brain_structure'],
                                 ['Agecategory', 'AgeCategory', 'age_category'],
                                 ['ageCategory', 'AgeCategory', 'age_category'],
+                                ['age_category', 'AgeCategory', 'age_category'],
                                 ['abstractionLevel', 'AbstractionLevel', 'abstraction_level'],
                                 ['mainContact', 'MainContact', 'main_contact'],
                                 ['causeOfDeath', 'CauseOfDeath', 'cause_of_death'],
@@ -63,6 +66,7 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['containerUrlAsZIP', 'ContainerUrlAsZIP', 'container_url_as_ZIP'],
                                 ['ageRangeMax', 'AgeRangeMax', 'age_rang_max'],
                                 ['ageRangeMin', 'AgeRangeMin', 'age_rang_min'],
+                                ['datasetDOI', 'DatasetDOI', 'dataset_doi'],
                                 ['brainstructure', 'BrainStructure', 'brain_structure'],
                                 ['brainStructure', 'BrainStructure', 'brain_structure'],
                                 ['cellularTarget', 'CellularTarget', 'cellular_target'],
@@ -151,22 +155,27 @@ UNIMINDS_CLASSES = np.array([['Abstractionlevel','options/abstractionlevel/v1.0.
                              ['Tissuesample','core/tissuesample/v1.0.0']])
 
 
-minds_classes = [m.lower() for m in MINDS_CLASSES[:,0]] # same but in lower case
-uniminds_classes = [m.lower() for m in UNIMINDS_CLASSES[:,0]]
+minds_classes = np.array([m.lower() for m in MINDS_CLASSES[:,0]]) # same but in lower case
+uniminds_classes = np.array([m.lower() for m in UNIMINDS_CLASSES[:,0]])
+property_names = entries_replacement[:,2]
+entries_low = np.array([m.lower() for m in entries_replacement[:,0]])
+
 def typename_setting(field, namespace):
     """
 
     """
+    if namespace=='Minds':
+        class_entries = minds_classes
+    elif namespace=='Uniminds':
+        class_entries = uniminds_classes
+        
     if field=='alternatives':
         return 'KGObject'
-    elif field=='qualifiedAssociation' and namespace=='Minds':
-        return 'minds.Person'
-    elif field=='qualifiedAssociation' and namespace=='Uniminds':
-        return 'uniminds.Person'
-    elif (field.lower() in minds_classes) and namespace=='Minds':
-        return 'minds.'+field.lower().capitalize()
-    elif (field.lower() in uniminds_classes) and namespace=='Uniminds':
-        return 'uniminds.'+field.lower().capitalize()
+    elif field=='qualifiedAssociation':
+        return namespace.lower()+'.Person'
+    elif (field.lower() in entries_low) and (field.lower() in class_entries):
+        i0 = np.argwhere(entries_low==field.lower()).flatten()
+        return namespace.lower()+'.'+entries_replacement[i0[0],1]
     else:
         return 'basestring'
 
@@ -289,15 +298,14 @@ class %s(MINDSObject):
     """
     _path = "/%s"
     type = ["%s:%s"]
-
     %s
-    ''' % (field_setting(cls, output='class'), cls_version, nmspc.lower(), cls, FIELD)
+    ''' % (field_setting(cls, output='class'), cls_version, nmspc.lower(), field_setting(cls, output='class'), FIELD)
     
 
 if __name__=='__main__':
     
     if sys.argv[-1]=='Minds':
-        for mc in MINDS_CLASSES:
+        for mc in MINDS_CLASSES[:2]:
             cls, cls_version = mc[0], mc[1]
             query = transform_KGE_query_to_dict('Minds', cls, cls_version)
             FIELDS = extract_fields_from_query(query, 'Minds')
@@ -317,7 +325,7 @@ if __name__=='__main__':
         Please provide the namespace as an argument, either "Minds" of "Uniminds"
         e.g. run "python generate_fields_from_KGE_queries.py Minds"
         """)
-        print(field_setting('Agecategory', output='property'))
         # query = transform_KGE_query_to_dict('Minds', 'Activity', 'core/activity/v1.0.0')
         # import pprint
         # pprint.pprint(query)
+        print(typename_setting('age_category', 'Minds'))

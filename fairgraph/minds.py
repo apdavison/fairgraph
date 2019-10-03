@@ -10,7 +10,7 @@ import sys, inspect
 from tabulate import tabulate
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
-
+from fairgraph import minds
 
 class MINDSObject(KGObject):
     """
