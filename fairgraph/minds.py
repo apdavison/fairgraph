@@ -10,7 +10,7 @@ import sys, inspect
 from tabulate import tabulate
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
-from fairgraph import minds
+
 
 class MINDSObject(KGObject):
     """
@@ -139,52 +139,32 @@ class Activity(MINDSObject):
     """
     _path = "/core/activity/v1.0.0"
     type = ["minds:Activity"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("created_at", basestring, "https://schema.hbp.eu/minds/created_at", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("activity", KGObject, "https://schema.hbp.eu/minds/activity", required=False),
+      Field("ethics_approval", basestring, "https://schema.hbp.eu/minds/ethicsApproval", required=False),
+      Field("ethics_authority", basestring, "https://schema.hbp.eu/minds/ethicsAuthority", required=False),
+      Field("methods", list, "https://schema.hbp.eu/minds/methods", required=False),
+      Field("preparation", KGObject, "https://schema.hbp.eu/minds/preparation", required=False),
+      Field("protocols", list, "https://schema.hbp.eu/minds/protocols", required=False))
     
 
 
-class Agecategory(MINDSObject):
+class AgeCategory(MINDSObject):
     """
     docstring
     """
     _path = "/core/agecategory/v1.0.0"
-    type = ["minds:Agecategory"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    type = ["minds:AgeCategory"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("age_category", basestring, "https://schema.hbp.eu/minds/age_category", required=False))
     
 
 
@@ -194,24 +174,13 @@ class Approval(MINDSObject):
     """
     _path = "/ethics/approval/v1.0.0"
     type = ["minds:Approval"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("ethics_approval", basestring, "https://schema.hbp.eu/minds/ethicsApproval", required=False),
+      Field("generatedby", basestring, "https://schema.hbp.eu/minds/generatedBy", required=False))
     
 
 
@@ -221,23 +190,13 @@ class Authority(MINDSObject):
     """
     _path = "/ethics/authority/v1.0.0"
     type = ["minds:Authority"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("ethics_authority", basestring, "https://schema.hbp.eu/minds/ethicsAuthority", required=False),
+      Field("generatedby", basestring, "https://schema.hbp.eu/minds/generatedBy", required=False))
     
 
 
@@ -247,59 +206,52 @@ class Dataset(MINDSObject):
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("activity", basestring, "https://schema.hbp.eu/minds/activity", required=False),
-      Field("containerUrlAsZIP", basestring, "https://schema.hbp.eu/minds/containerUrlAsZIP", required=False),
+    fields = (
+      Field("activity", KGObject, "https://schema.hbp.eu/minds/activity", required=False),
+      Field("container_url_as_ZIP", basestring, "https://schema.hbp.eu/minds/containerUrlAsZIP", required=False),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False),
-      Field("created_at", basestring, "https://schema.hbp.eu/minds/created_at", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
       Field("datalink", basestring, "http://schema.org/datalink", required=False),
-      Field("datasetDOI", basestring, "https://schema.hbp.eu/minds/datasetDOI", required=False),
+      Field("dataset_doi", basestring, "https://schema.hbp.eu/minds/datasetDOI", required=False),
       Field("description", basestring, "http://schema.org/description", required=False),
       Field("external_datalink", basestring, "https://schema.hbp.eu/minds/external_datalink", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
       Field("reference", basestring, "https://schema.hbp.eu/neuroglancer/reference", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
       Field("release_date", basestring, "https://schema.hbp.eu/minds/release_date", required=False),
-      Field("type", basestring, "", required=False))
+      Field("activity", KGObject, "https://schema.hbp.eu/minds/activity", required=False),
+      Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False),
+      Field("contributors", basestring, "https://schema.hbp.eu/minds/contributors", required=False),
+      Field("dataset", KGObject, "https://schema.hbp.eu/seeg/dataset", required=False),
+      Field("doireference", basestring, "https://schema.hbp.eu/minds/doireference", required=False),
+      Field("embargo_status", basestring, "https://schema.hbp.eu/minds/embargo_status", required=False),
+      Field("formats", list, "https://schema.hbp.eu/minds/formats", required=False),
+      Field("license", basestring, "https://schema.hbp.eu/minds/license", required=False),
+      Field("license_info", basestring, "https://schema.hbp.eu/minds/license_info", required=False),
+      Field("modality", KGObject, "https://schema.hbp.eu/minds/modality", required=False),
+      Field("owners", basestring, "https://schema.hbp.eu/minds/owners", required=False),
+      Field("parcellation_atlas", KGObject, "https://schema.hbp.eu/minds/parcellationAtlas", required=False),
+      Field("parcellation_region", KGObject, "https://schema.hbp.eu/minds/parcellationRegion", required=False),
+      Field("part_of", basestring, "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf", required=False),
+      Field("publications", list, "https://schema.hbp.eu/minds/publications", required=False),
+      Field("reference", basestring, "https://schema.hbp.eu/neuroglancer/reference", required=False),
+      Field("reference_space", basestring, "https://schema.hbp.eu/minds/reference_space", required=False),
+      Field("specimen_group", basestring, "https://schema.hbp.eu/minds/specimen_group", required=False))
     
 
 
-class Embargostatus(MINDSObject):
+class EmbargoStatus(MINDSObject):
     """
     docstring
     """
     _path = "/core/embargostatus/v1.0.0"
-    type = ["minds:Embargostatus"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    type = ["minds:EmbargoStatus"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("embargo_status", basestring, "https://schema.hbp.eu/minds/embargo_status", required=False))
     
 
 
@@ -309,51 +261,30 @@ class File(MINDSObject):
     """
     _path = "/core/file/v0.0.4"
     type = ["minds:File"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
+    fields = (
       Field("absolute_path", basestring, "http://hbp.eu/minds#absolute_path", required=False),
       Field("byte_size", basestring, "http://hbp.eu/minds#byte_size", required=False),
       Field("content_type", basestring, "http://hbp.eu/minds#content_type", required=False),
       Field("hash", basestring, "http://hbp.eu/minds#hash", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
       Field("last_modified", basestring, "http://hbp.eu/minds#last_modified", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
       Field("relative_path", basestring, "http://hbp.eu/minds#relative_path", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("file", KGObject, "http://hbp.eu/minds#file", required=False))
     
 
 
-class Fileassociation(MINDSObject):
+class FileAssociation(MINDSObject):
     """
     docstring
     """
     _path = "/core/fileassociation/v1.0.0"
-    type = ["minds:Fileassociation"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
+    type = ["minds:FileAssociation"]
+    fields = (
       Field("from", basestring, "https://schema.hbp.eu/linkinginstance/from", required=False),
-      Field("hashcode", basestring, "https://schema.hbp.eu/internal/hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("to", basestring, "https://schema.hbp.eu/linkinginstance/to", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("to", basestring, "https://schema.hbp.eu/linkinginstance/to", required=False))
     
 
 
@@ -363,47 +294,27 @@ class Format(MINDSObject):
     """
     _path = "/core/format/v1.0.0"
     type = ["minds:Format"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("formats", list, "https://schema.hbp.eu/minds/formats", required=False))
     
 
 
-class Licensetype(MINDSObject):
+class LicenseType(MINDSObject):
     """
     docstring
     """
     _path = "/core/licensetype/v1.0.0"
-    type = ["minds:Licensetype"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    type = ["minds:LicenseType"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("license", basestring, "https://schema.hbp.eu/minds/license", required=False))
     
 
 
@@ -413,24 +324,11 @@ class Method(MINDSObject):
     """
     _path = "/core/method/v1.0.0"
     type = ["minds:Method"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False))
     
 
 
@@ -440,22 +338,11 @@ class Modality(MINDSObject):
     """
     _path = "/core/modality/v1.0.0"
     type = ["minds:Modality"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("modality", KGObject, "https://schema.hbp.eu/minds/modality", required=False))
     
 
 
@@ -465,52 +352,30 @@ class Parcellationatlas(MINDSObject):
     """
     _path = "/core/parcellationatlas/v1.0.0"
     type = ["minds:Parcellationatlas"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("parcellation_atlas", KGObject, "https://schema.hbp.eu/minds/parcellationAtlas", required=False))
     
 
 
-class Parcellationregion(MINDSObject):
+class ParcellationRegion(MINDSObject):
     """
     docstring
     """
     _path = "/core/parcellationregion/v1.0.0"
-    type = ["minds:Parcellationregion"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
+    type = ["minds:ParcellationRegion"]
+    fields = (
       Field("alias", basestring, "https://schema.hbp.eu/minds/alias", required=False),
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False),
-      Field("url", basestring, "https://schema.hbp.eu/viewer/url", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("url", basestring, "https://schema.hbp.eu/viewer/url", required=False),
+      Field("parcellation_region", KGObject, "https://schema.hbp.eu/minds/parcellationRegion", required=False),
+      Field("species", KGObject, "https://schema.hbp.eu/minds/species", required=False))
     
 
 
@@ -520,53 +385,31 @@ class Person(MINDSObject):
     """
     _path = "/core/person/v1.0.0"
     type = ["minds:Person"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("shortName", basestring, "https://schema.hbp.eu/minds/shortName", required=False),
-      Field("type", basestring, "", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("shortname", basestring, "https://schema.hbp.eu/minds/shortName", required=False),
+      Field("authors", basestring, "https://schema.hbp.eu/minds/authors", required=False),
+      Field("contributors", basestring, "https://schema.hbp.eu/minds/contributors", required=False),
+      Field("owners", basestring, "https://schema.hbp.eu/minds/owners", required=False))
     
 
 
-class Placomponent(MINDSObject):
+class PLAComponent(MINDSObject):
     """
     docstring
     """
     _path = "/core/placomponent/v1.0.0"
-    type = ["minds:Placomponent"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
+    type = ["minds:PLAComponent"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("description", basestring, "http://schema.org/description", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False))
     
 
 
@@ -576,21 +419,12 @@ class Preparation(MINDSObject):
     """
     _path = "/core/preparation/v1.0.0"
     type = ["minds:Preparation"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("preparation", KGObject, "https://schema.hbp.eu/minds/preparation", required=False))
     
 
 
@@ -600,24 +434,12 @@ class Protocol(MINDSObject):
     """
     _path = "/experiment/protocol/v1.0.0"
     type = ["minds:Protocol"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("protocols", list, "https://schema.hbp.eu/minds/protocols", required=False))
     
 
 
@@ -627,52 +449,30 @@ class Publication(MINDSObject):
     """
     _path = "/core/publication/v1.0.0"
     type = ["minds:Publication"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("cite", basestring, "https://schema.hbp.eu/minds/cite", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
       Field("doi", basestring, "https://schema.hbp.eu/minds/doi", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("authors", basestring, "https://schema.hbp.eu/minds/authors", required=False),
+      Field("publications", list, "https://schema.hbp.eu/minds/publications", required=False))
     
 
 
-class Referencespace(MINDSObject):
+class ReferenceSpace(MINDSObject):
     """
     docstring
     """
     _path = "/core/referencespace/v1.0.0"
-    type = ["minds:Referencespace"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    type = ["minds:ReferenceSpace"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("reference_space", basestring, "https://schema.hbp.eu/minds/reference_space", required=False))
     
 
 
@@ -682,19 +482,10 @@ class Role(MINDSObject):
     """
     _path = "/prov/role/v1.0.0"
     type = ["minds:Role"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("had_role", basestring, "http://www.w3.org/ns/prov#hadRole", required=False))
     
 
 
@@ -704,27 +495,19 @@ class Sample(MINDSObject):
     """
     _path = "/experiment/sample/v1.0.0"
     type = ["minds:Sample"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False),
-      Field("weightPostFixation", basestring, "https://schema.hbp.eu/minds/weightPostFixation", required=False),
-      Field("weightPreFixation", basestring, "https://schema.hbp.eu/minds/weightPreFixation", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("weight_post_fixation", basestring, "https://schema.hbp.eu/minds/weightPostFixation", required=False),
+      Field("weight_pre_fixation", basestring, "https://schema.hbp.eu/minds/weightPreFixation", required=False),
+      Field("methods", list, "https://schema.hbp.eu/minds/methods", required=False),
+      Field("parcellation_atlas", KGObject, "https://schema.hbp.eu/minds/parcellationAtlas", required=False),
+      Field("parcellation_region", KGObject, "https://schema.hbp.eu/minds/parcellationRegion", required=False),
+      Field("reference", basestring, "https://schema.hbp.eu/brainviewer/reference", required=False),
+      Field("samples", list, "https://schema.hbp.eu/minds/samples", required=False))
     
 
 
@@ -734,47 +517,27 @@ class Sex(MINDSObject):
     """
     _path = "/core/sex/v1.0.0"
     type = ["minds:Sex"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("sex", KGObject, "https://schema.hbp.eu/minds/sex", required=False))
     
 
 
-class Softwareagent(MINDSObject):
+class SoftwareAgent(MINDSObject):
     """
     docstring
     """
     _path = "/core/softwareagent/v1.0.0"
-    type = ["minds:Softwareagent"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
+    type = ["minds:SoftwareAgent"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("description", basestring, "http://schema.org/description", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("agent", basestring, "http://www.w3.org/ns/prov#agent", required=False))
     
 
 
@@ -784,48 +547,29 @@ class Species(MINDSObject):
     """
     _path = "/core/species/v1.0.0"
     type = ["minds:Species"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("alternate_of", basestring, "http://www.w3.org/ns/prov#alternateOf", required=False),
+      Field("species", KGObject, "https://schema.hbp.eu/minds/species", required=False))
     
 
 
-class Specimengroup(MINDSObject):
+class SpecimenGroup(MINDSObject):
     """
     docstring
     """
     _path = "/core/specimengroup/v1.0.0"
-    type = ["minds:Specimengroup"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("created_at", basestring, "https://schema.hbp.eu/minds/created_at", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
+    type = ["minds:SpecimenGroup"]
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
+      Field("specimen_group", basestring, "https://schema.hbp.eu/minds/specimen_group", required=False),
+      Field("subjects", list, "https://schema.hbp.eu/minds/subjects", required=False))
     
 
 
@@ -835,30 +579,22 @@ class Subject(MINDSObject):
     """
     _path = "/experiment/subject/v1.0.0"
     type = ["minds:Subject"]
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r} {self.id!r})'.format(self=self))
-    fields = (\
-      Field("alternatives", basestring, "https://schema.hbp.eu/inference/alternatives", required=False),
-      Field("causeOfDeath", basestring, "https://schema.hbp.eu/minds/causeOfDeath", required=False),
-      Field("createdAt", basestring, "https://schema.hbp.eu/provenance/createdAt", required=False),
-      Field("createdBy", basestring, "https://schema.hbp.eu/provenance/createdBy", required=False),
+    fields = (
+      Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
+      Field("cause_of_death", basestring, "https://schema.hbp.eu/minds/causeOfDeath", required=False),
       Field("genotype", basestring, "https://schema.hbp.eu/minds/genotype", required=False),
-      Field("hashcode", basestring, "http://hbp.eu/internal#hashcode", required=False),
-      Field("id", basestring, "@id", required=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("immediateIndex", basestring, "https://schema.hbp.eu/provenance/immediateIndex", required=False),
-      Field("lastModificationUserId", basestring, "https://schema.hbp.eu/provenance/lastModificationUserId", required=False),
-      Field("modifiedAt", basestring, "https://schema.hbp.eu/provenance/modifiedAt", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("qualifiedAssociation", basestring, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("relativeUrl", basestring, "https://schema.hbp.eu/relativeUrl", required=False),
+      Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
       Field("strain", basestring, "https://schema.hbp.eu/minds/strain", required=False),
       Field("strains", basestring, "https://schema.hbp.eu/minds/strains", required=False),
       Field("weight", basestring, "https://schema.hbp.eu/minds/weight", required=False),
       Field("age", basestring, "https://schema.hbp.eu/minds/age", required=False),
-      Field("type", basestring, "@type", required=False))
+      Field("age_category", basestring, "https://schema.hbp.eu/minds/age_category", required=False),
+      Field("samples", list, "https://schema.hbp.eu/minds/samples", required=False),
+      Field("sex", KGObject, "https://schema.hbp.eu/minds/sex", required=False),
+      Field("species", KGObject, "https://schema.hbp.eu/minds/species", required=False),
+      Field("subjects", list, "https://schema.hbp.eu/minds/subjects", required=False))
 ################################################################    
 ### end of script-generated code
 ################################################################    
@@ -870,7 +606,7 @@ def list_kg_classes():
 
 
 # Alias some classes to reflect names used in KG Search
-Project = Placomponent
+Project = PLAComponent
 
 if __name__=='__main__':
 

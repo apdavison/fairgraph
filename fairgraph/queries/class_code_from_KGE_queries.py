@@ -13,6 +13,7 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['Licensetype', 'LicenseType', 'license_type'],
                                 ['Fileassociation', 'FileAssociation', 'file_association'],
                                 ['Embargostatus', 'EmbargoStatus', 'embargo_status'],
+                                ['embargoStatus', 'EmbargoStatus', 'embargo_status'],
                                 ['Tissuesample', 'TissueSample', 'tissue_sample'],
                                 ['Subjectgroup', 'SubjectGroup', 'subject_group'],
                                 ['Studytargettype', 'StudyTargetType', 'study_target_type'],
@@ -32,6 +33,7 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['usageNotes', 'UsageNotes', 'usage_notes'],
                                 ['mimeType', 'MimeType', 'mime_type'],
                                 ['givenName', 'GivenName', 'given_name'],
+                                ['hadRole', 'HadRole', 'had_role'],
                                 ['Modelscope', 'ModelScope', 'model_scope'],
                                 ['Modelinstance', 'ModelInstance', 'model_instance'],
                                 ['Modelformat', 'ModelFormat', 'model_format'],
@@ -75,6 +77,8 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['studyTargetType', 'StudyTargetType', 'study_target_type'],
                                 ['studyTargetSource', 'StudyTargetSource', 'study_target_source'],
                                 ['partOf', 'PartOf', 'part_of'],
+                                ['createdAs', 'CreatedAs', 'created_as'],
+                                ['countryOfOrigin', 'CountryOfOrigin', 'country_of_origin'],
                                 ['@id', 'id', 'id'],
                                 ['@type', 'type', 'type']])
 
@@ -169,13 +173,21 @@ def typename_setting(field, namespace):
     elif namespace=='Uniminds':
         class_entries = uniminds_classes
         
-    if field=='alternatives':
+    if (field=='alternatives'):
+        return 'list'
+    elif (field[-1]=='s') and (field.lower()[:-1] in class_entries): # check if plural
+        return 'list'
+    elif (field=='qualifiedAssociation') or (field=='main_contact') or (field=='custodian'):
+        # return namespace.lower()+'.Person'
         return 'KGObject'
-    elif field=='qualifiedAssociation':
-        return namespace.lower()+'.Person'
     elif (field.lower() in entries_low) and (field.lower() in class_entries):
-        i0 = np.argwhere(entries_low==field.lower()).flatten()
-        return namespace.lower()+'.'+entries_replacement[i0[0],1]
+        # i0 = np.argwhere(entries_low==field.lower()).flatten()
+        # return namespace.lower()+'.'+entries_replacement[i0[0],1]
+        return 'KGObject'
+    elif (field.lower() in class_entries):
+        # i0 = np.argwhere(class_entries==field.lower()).flatten()
+        # return namespace.lower()+'.'+class_entries[i0[0]].capitalize()
+        return 'KGObject'
     else:
         return 'basestring'
 
@@ -305,7 +317,7 @@ class %s(MINDSObject):
 if __name__=='__main__':
     
     if sys.argv[-1]=='Minds':
-        for mc in MINDS_CLASSES[:2]:
+        for mc in MINDS_CLASSES:
             cls, cls_version = mc[0], mc[1]
             query = transform_KGE_query_to_dict('Minds', cls, cls_version)
             FIELDS = extract_fields_from_query(query, 'Minds')
