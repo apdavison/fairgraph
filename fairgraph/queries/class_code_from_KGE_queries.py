@@ -179,26 +179,30 @@ def typename_setting(field, namespace):
         class_entries = uniminds_classes
 
     if (field=='alternatives'):
-        return 'list'
+        return 'list', 'multiple=False'
     elif field in ['release_date', 'intendedReleaseDate']:
-        return 'datetime'
+        return 'datetime', 'multiple=False'
     elif len(field.lower().split('weight'))>1:
-        return 'QuantitativeValue'
-    elif (field[-1]=='s') and (field.lower()[:-1] in class_entries): # check if plural
-        return 'list'
+        return 'QuantitativeValue', 'multiple=False'
     elif (field=='qualifiedAssociation') or (field=='main_contact') or (field=='custodian'):
-        # return namespace.lower()+'.Person'
-        return 'KGObject'
+        return '\"Person\"', 'multiple=False'
     elif (field.lower() in entries_low) and (field.lower() in class_entries):
-        # i0 = np.argwhere(entries_low==field.lower()).flatten()
-        # return namespace.lower()+'.'+entries_replacement[i0[0],1]
-        return 'KGObject'
+        i0 = np.argwhere(entries_low==field.lower()).flatten()
+        return '\"'+entries_replacement[i0[0],1]+'\"', 'multiple=False'
     elif (field.lower() in class_entries):
-        # i0 = np.argwhere(class_entries==field.lower()).flatten()
-        # return namespace.lower()+'.'+class_entries[i0[0]].capitalize()
-        return 'KGObject'
+        i0 = np.argwhere(class_entries==field.lower()).flatten()
+        return '\"'+class_entries[i0[0]].capitalize()+'\"', 'multiple=False'
+    elif (field[-1]=='s') and (field.lower()[:-1] in class_entries): # check if plural
+        singular = field.lower()[:-1]
+        if (singular in entries_low) and (singular in class_entries):
+            i0 = np.argwhere(entries_low==singular).flatten()
+            return '\"'+entries_replacement[i0[0],1]+'\"', 'multiple=True'
+        elif (singular in class_entries):
+            i0 = np.argwhere(class_entries==singular).flatten()
+            return '\"'+class_entries[i0[0]].capitalize()+'\"', 'multiple=True'
+
     else:
-        return 'basestring'
+        return 'basestring', 'multiple=False'
 
 def field_setting(field,
                   output='property'):
@@ -304,10 +308,11 @@ def extract_fields_from_query(query_dict, namespace):
         if included_field(field['field'], reformat_path(relative_path)):
             if (i>0) and (FIELD[-1]==')'):
                 FIELD += ',\n'
-            FIELD += '      Field("%s", %s, "%s", required=%s)' % (field_setting(field['field'], output='property'),
-                                                                   typename_setting(field['field'], namespace),
-                                                                   reformat_path(relative_path),
-                                                                   required_setting(field['field']))
+            FIELD += '      Field("%s", %s, "%s", required=%s, %s)' % (field_setting(field['field'], output='property'),
+                                                                       typename_setting(field['field'], namespace)[0],
+                                                                       reformat_path(relative_path),
+                                                                       required_setting(field['field']),
+                                                                       typename_setting(field['field'], namespace)[1])
     FIELD += ')'
     return FIELD
 
