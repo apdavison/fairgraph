@@ -179,7 +179,7 @@ def typename_setting(field, namespace):
         class_entries = uniminds_classes
 
     if (field=='alternatives'):
-        return 'list', 'multiple=False'
+        return 'KGObject', 'multiple=True'
     elif field in ['release_date', 'intendedReleaseDate']:
         return 'datetime', 'multiple=False'
     elif len(field.lower().split('weight'))>1:

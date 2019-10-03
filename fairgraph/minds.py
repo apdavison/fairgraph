@@ -192,7 +192,7 @@ class EthicsAuthority(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
       Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
-      Field("ethics_authority", EthicsAuthority, "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=False),
+      Field("ethics_authority", "EthicsAuthority", "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=False),
       Field("generated_by", KGObject, "https://schema.hbp.eu/minds/generatedBy", required=False, multiple=False))
     
 
