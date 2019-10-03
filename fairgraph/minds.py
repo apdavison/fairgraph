@@ -284,7 +284,7 @@ class FileAssociation(MINDSObject):
     
 
 
-class Format(MINDSObject):
+class ModelFormat(MINDSObject):
     """
     docstring
     """
@@ -295,11 +295,11 @@ class Format(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
       Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
-      Field("formats", "Format", "https://schema.hbp.eu/minds/formats", required=False, multiple=True))
+      Field("formats", "ModelFormat", "https://schema.hbp.eu/minds/formats", required=False, multiple=True))
     
 
 
-class LicenseType(MINDSObject):
+class License(MINDSObject):
     """
     docstring
     """
@@ -310,7 +310,7 @@ class LicenseType(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
       Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
-      Field("license", basestring, "https://schema.hbp.eu/minds/license", required=False, multiple=False))
+      Field("license", "License", "https://schema.hbp.eu/minds/license", required=False, multiple=False))
     
 
 
