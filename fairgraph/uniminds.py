@@ -1,3 +1,4 @@
+from datetime import datetime
 try:
     from .minds import *
 except ModuleNotFoundError:
@@ -86,7 +87,7 @@ class Dataset(MINDSObject):
       Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("description", basestring, "http://schema.org/description", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
-      Field("intendedreleasedate", basestring, "https://schema.hbp.eu/uniminds/intendedReleaseDate", required=False),
+      Field("intended_release_date", datetime, "https://schema.hbp.eu/uniminds/intendedReleaseDate", required=False),
       Field("name", basestring, "http://schema.org/name", required=True),
       Field("brain_structure", KGObject, "https://schema.hbp.eu/uniminds/brainStructure", required=False),
       Field("cellular_target", KGObject, "https://schema.hbp.eu/uniminds/cellularTarget", required=False),
@@ -713,7 +714,7 @@ class TissueSample(MINDSObject):
       Field("alternatives", list, "https://schema.hbp.eu/inference/alternatives", required=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
       Field("name", basestring, "http://schema.org/name", required=True),
-      Field("subject", KGObject, "https://schema.hbp.eu/uniminds/subject", required=False))#
+      Field("subject", KGObject, "https://schema.hbp.eu/uniminds/subject", required=False))
 ###############################################################    
 ### end of script-generated code
 ################################################################    

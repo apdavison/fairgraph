@@ -5,6 +5,7 @@ from build_KG_queries import *
 entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_group'],
                                 ['Softwareagent', 'SoftwareAgent', 'software_agent'],
                                 ['Referencespace', 'ReferenceSpace', 'reference_space'],
+                                ['intendedReleaseDate', 'IntendedReleaseDate', 'intended_release_date'],
                                 ['Placomponent', 'PLAComponent', 'pla_component'],
                                 ['Parcellationregion', 'ParcellationRegion', 'parcellation_region'],
                                 ['ParcellationRegion', 'ParcellationRegion', 'parcellation_region'],
@@ -172,9 +173,11 @@ def typename_setting(field, namespace):
         class_entries = minds_classes
     elif namespace=='Uniminds':
         class_entries = uniminds_classes
-        
+
     if (field=='alternatives'):
         return 'list'
+    elif field in ['release_date', 'intendedReleaseDate']:
+        return 'datetime'
     elif (field[-1]=='s') and (field.lower()[:-1] in class_entries): # check if plural
         return 'list'
     elif (field=='qualifiedAssociation') or (field=='main_contact') or (field=='custodian'):

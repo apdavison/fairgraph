@@ -7,6 +7,7 @@ except NameError:
     basestring = str
 
 import sys, inspect
+from datetime import datetime
 from tabulate import tabulate
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
@@ -216,7 +217,7 @@ class Dataset(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=True),
       Field("name", basestring, "http://schema.org/name", required=True),
       Field("associated_with", KGObject, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False),
-      Field("release_date", basestring, "https://schema.hbp.eu/minds/release_date", required=False),
+      Field("release_date", datetime, "https://schema.hbp.eu/minds/release_date", required=False),
       Field("activity", KGObject, "https://schema.hbp.eu/minds/activity", required=False),
       Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False),
       Field("contributors", basestring, "https://schema.hbp.eu/minds/contributors", required=False),
