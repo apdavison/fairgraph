@@ -1,6 +1,3 @@
-"""
-
-"""
 try:
     basestring
 except NameError:

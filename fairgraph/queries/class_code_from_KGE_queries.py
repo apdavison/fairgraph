@@ -1,5 +1,6 @@
 import sys
-from build_KG_queries import *
+import numpy as np
+from build_KG_queries import query_url
 
 # --------------------------------  KG key,      Fairgraph class,  Fairgraph attribute
 entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_group'],
