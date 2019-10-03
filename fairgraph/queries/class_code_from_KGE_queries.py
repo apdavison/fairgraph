@@ -1,6 +1,9 @@
 import sys
+import requests, os, json, pprint
 import numpy as np
 from build_KG_queries import query_url
+
+access_token = os.environ['HBP_token']
 
 # --------------------------------  KG key,      Fairgraph class,  Fairgraph attribute
 entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_group'],
@@ -179,6 +182,8 @@ def typename_setting(field, namespace):
         return 'list'
     elif field in ['release_date', 'intendedReleaseDate']:
         return 'datetime'
+    elif len(field.lower().split('weight'))>1:
+        return 'QuantitativeValue'
     elif (field[-1]=='s') and (field.lower()[:-1] in class_entries): # check if plural
         return 'list'
     elif (field=='qualifiedAssociation') or (field=='main_contact') or (field=='custodian'):
