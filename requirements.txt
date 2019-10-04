@@ -4,3 +4,4 @@ pathlib2
 python-dateutil
 six
 tabulate
+requests

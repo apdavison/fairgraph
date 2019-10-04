@@ -1,15 +1,26 @@
-"""
-
-"""
-
+import sys, inspect
+from datetime import datetime
 from tabulate import tabulate
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list
+
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
+from fairgraph.commons import QuantitativeValue
+
+try:
+    basestring
+except NameError:
+    basestring = str
 
 
 class MINDSObject(KGObject):
-    """docstring"""
+    """
+    ...
+
+    N.B. all MINDS objects have the same "fg" query ID, because the query url includes the namepsace/version/class path,
+    e.g. for the Activity class, the url is : https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg
+    """
     namespace = "minds"
+    query_id = "fg" # same for all objects
     context = [
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
@@ -119,160 +130,483 @@ class MINDSObject(KGObject):
         print(tabulate(data))
 
 
-class Dataset(MINDSObject):
-    """docstring"""
-    _path = "/core/dataset/v1.0.0"
-    #type = ["https://schema.hbp.eu/Dataset"]
-    type = ["minds:Dataset"]
-    query_id = "fgDataset"
-    property_names = ["activity", "component", "contributors", "created_at", "datalink",
-                      "embargo_status", "formats", "license", "owners", "parcellation",
-                      "publications", "release_date", "specimen_group",
-                      "description", "name", "associated_with", "datasetDOI", "license_info",
-                      "parcellationRegion", "reference_space", "identifier"]
-
-
 class Activity(MINDSObject):
-    """docstring"""
-    _path = "/core/dataset/v1.0.0"
-    #type = ["https://schema.hbp.eu/Activity"]
+    """
+    docstring
+    """
+    _path = "/core/activity/v1.0.0"
     type = ["minds:Activity"]
-    property_names = ["created_at", "ethics", "methods", "preparation", "protocols",
-                      "description", "name", "associated_with"]
-
-
-class Method(MINDSObject):
-    """docstring"""
-    _path = "/experiment/method/v1.0.0"
-    #type = ["https://schema.hbp.eu/ExperimentMethod"]
-    type = ["minds:ExperimentMethod"]
-    property_names = ["name", "associated_with"]
-
-
-class SpecimenGroup(MINDSObject):
-    """docstring"""
-    _path = "/core/specimengroup/v1.0.0"
-    type = ["minds:SpecimenGroup"]
-    property_names = ["created_at", "subjects", "name", "associated_with"]
-
-
-class MINDSSubject(MINDSObject):
-    """docstring"""
-    # name qualified to avoid clash with nsg:Subject
-    # pending addition of namespaces to registry
-    _path = "/experiment/subject/v1.0.0"
-    #type = ["https://schema.hbp.eu/ExperimentSubject"]
-    type = ["minds:ExperimentSubject"]
-    property_names = ["age", "age_category", "causeOfDeath", "samples", "sex", "species",
-                     "strains", "name", "associated_with"]
-
-
-class License(MINDSObject):
-    """docstring"""
-    #path = "minds/core/licensetype/v1.0.0"
-    type = ["minds:LicenseType"]
-    property_names = ["name", "associated_with"]
-
-
-class EmbargoStatus(MINDSObject):
-    """docstring"""
-    _path = "/core/embargostatus/v1.0.0"
-    #type = ["https://schema.hbp.eu/EmbargoStatus"]
-    type = ["minds:EmbargoStatus"]
-    property_names = ["name", "associated_with"]
-
-
-class Sample(MINDSObject):
-    """docstring"""
-    _path = "/experiment/sample/v1.0.0"
-    #type = ["https://schema.hbp.eu/ExperimentSample"]
-    type = ["minds:ExperimentSample"]
-    property_names = ["name", "methods", "parcellationAtlas", "parcellationRegion",
-                      "associated_with"]
-
-    def get_files(self, client):
-        query = {
-            "path": "linkinginstance:to",
-            "op": "eq",
-            "value": self.id
-        }
-        context = {
-            "minds": "https://schema.hbp.eu/minds/",
-            "linkinginstance": "https://schema.hbp.eu/linkinginstance/",
-        }
-        links = KGQuery(FileAssociation, query, context).resolve(client)
-        return [CSCSFile.from_uri(link.from_["@id"], client) for link in as_list(links)]
-
-
-class Person(MINDSObject):
-    """docstring"""
-    _path = "/core/person/v1.0.0"
-    type = ["minds:Person"]
-    property_names = ["name"]
-
-
-class PLAComponent(MINDSObject):
-    """docstring"""
-    _path = "/core/placomponent/v1.0.0"
-    type = ["minds:PLAComponent"]
-    property_names = ["name", "description"]
-
-    @property
-    def datasets(self):
-        query = {
-            "path": "minds:component",
-            "op": "eq",
-            "value": self.id
-        }
-        context = {
-            "minds": "https://schema.hbp.eu/minds/"
-        }
-        return KGQuery(Dataset, query, context)
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("activity", "Activity", "https://schema.hbp.eu/minds/activity", required=False, multiple=False),
+      Field("ethics_approval", basestring, "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=False),
+      Field("ethics_authority", basestring, "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=False),
+      Field("methods", "Method", "https://schema.hbp.eu/minds/methods", required=False, multiple=True),
+      Field("preparation", "Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=False),
+      Field("protocols", "Protocol", "https://schema.hbp.eu/minds/protocols", required=False, multiple=True))
+    
 
 
 class AgeCategory(MINDSObject):
+    """
+    docstring
+    """
     _path = "/core/agecategory/v1.0.0"
-    type = ["minds:Agecategory"]
-    property_names = ["name"]
+    type = ["minds:AgeCategory"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("age_category", "AgeCategory", "https://schema.hbp.eu/minds/age_category", required=False, multiple=False))
+    
 
 
-class Sex(MINDSObject):
-    _path = "/core/sex/v1.0.0"
-    type = ["minds:Sex"]
-    property_names = ["name"]
+class EthicsApproval(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/ethics/approval/v1.0.0"
+    type = ["minds:EthicsApproval"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("ethics_approval", "EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=False),
+      Field("generated_by", KGObject, "https://schema.hbp.eu/minds/generatedBy", required=False, multiple=False))
+    
 
 
-class Species(MINDSObject):
-    _path = "/core/species/v1.0.0"
-    type = ["minds:Species"]
-    property_names = ["name"]
+class EthicsAuthority(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/ethics/authority/v1.0.0"
+    type = ["minds:EthicsAuthority"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("ethics_authority", "EthicsAuthority", "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=False),
+      Field("generated_by", KGObject, "https://schema.hbp.eu/minds/generatedBy", required=False, multiple=False))
+    
+
+
+class Dataset(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/dataset/v1.0.0"
+    type = ["minds:Dataset"]
+    fields = (
+      Field("activity", "Activity", "https://schema.hbp.eu/minds/activity", required=False, multiple=False),
+      # to be merged in a method:
+      Field("container_url_as_ZIP", basestring, "https://schema.hbp.eu/minds/containerUrlAsZIP", required=False, multiple=False),
+      Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),
+      Field("datalink", basestring, "http://schema.org/datalink", required=False, multiple=False),
+        
+      Field("dataset_doi", basestring, "https://schema.hbp.eu/minds/datasetDOI", required=False, multiple=False),
+      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
+      Field("external_datalink", basestring, "https://schema.hbp.eu/minds/external_datalink", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("release_date", datetime, "https://schema.hbp.eu/minds/release_date", required=False, multiple=False),
+      Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False, multiple=False),
+      Field("contributors", "Person", "https://schema.hbp.eu/minds/contributors", required=False, multiple=True),
+      Field("dataset", "Dataset", "https://schema.hbp.eu/seeg/dataset", required=False, multiple=False),
+      Field("doireference", basestring, "https://schema.hbp.eu/minds/doireference", required=False, multiple=False),
+      Field("embargo_status", "EmbargoStatus", "https://schema.hbp.eu/minds/embargo_status", required=False, multiple=False),
+      Field("formats", "Format", "https://schema.hbp.eu/minds/formats", required=False, multiple=True),
+      Field("license", basestring, "https://schema.hbp.eu/minds/license", required=False, multiple=False),
+      Field("license_info", basestring, "https://schema.hbp.eu/minds/license_info", required=False, multiple=False),
+      Field("modality", "Modality", "https://schema.hbp.eu/minds/modality", required=False, multiple=False),
+      Field("owners", "Person", "https://schema.hbp.eu/minds/owners", required=False, multiple=True),
+      Field("parcellation_atlas", "ParcellationAtlas", "https://schema.hbp.eu/minds/parcellationAtlas", required=False, multiple=False),
+      Field("parcellation_region", "ParcellationRegion", "https://schema.hbp.eu/minds/parcellationRegion", required=False, multiple=False),
+      Field("part_of", basestring, "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf", required=False, multiple=False),
+      Field("publications", "Publication", "https://schema.hbp.eu/minds/publications", required=False, multiple=True),
+      Field("reference_space", "ReferenceSpace", "https://schema.hbp.eu/minds/reference_space", required=False, multiple=False),
+      Field("specimen_group", "SpecimenGroup", "https://schema.hbp.eu/minds/specimen_group", required=False, multiple=False))
+    
+
+
+class EmbargoStatus(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/embargostatus/v1.0.0"
+    type = ["minds:EmbargoStatus"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("embargo_status", "EmbargoStatus", "https://schema.hbp.eu/minds/embargo_status", required=False, multiple=False))
+    
+
+
+class File(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/file/v0.0.4"
+    type = ["minds:File"]
+    fields = (
+      Field("absolute_path", basestring, "http://hbp.eu/minds#absolute_path", required=False, multiple=False),
+      Field("byte_size", basestring, "http://hbp.eu/minds#byte_size", required=False, multiple=False),
+      Field("content_type", basestring, "http://hbp.eu/minds#content_type", required=False, multiple=False),
+      Field("hash", basestring, "http://hbp.eu/minds#hash", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("last_modified", datetime, "http://hbp.eu/minds#last_modified", required=False, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("relative_path", basestring, "http://hbp.eu/minds#relative_path", required=False, multiple=False),
+      Field("file", "File", "http://hbp.eu/minds#file", required=False, multiple=False))
+    
+
+
+class FileAssociation(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/fileassociation/v1.0.0"
+    type = ["minds:FileAssociation"]
+    fields = (
+      Field("from", basestring, "https://schema.hbp.eu/linkinginstance/from", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("to", basestring, "https://schema.hbp.eu/linkinginstance/to", required=False, multiple=False))
+    
+
+
+class ModelFormat(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/format/v1.0.0"
+    type = ["minds:Format"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("formats", "ModelFormat", "https://schema.hbp.eu/minds/formats", required=False, multiple=True))
+    
+
+
+class License(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/licensetype/v1.0.0"
+    type = ["minds:LicenseType"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("license", "License", "https://schema.hbp.eu/minds/license", required=False, multiple=False))
+    
+
+
+class Method(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/method/v1.0.0"
+    type = ["minds:Method"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
+    
+
+
+class Modality(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/modality/v1.0.0"
+    type = ["minds:Modality"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("modality", "Modality", "https://schema.hbp.eu/minds/modality", required=False, multiple=False))
+    
+
+
+class Parcellationatlas(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/parcellationatlas/v1.0.0"
+    type = ["minds:Parcellationatlas"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("parcellation_atlas", "ParcellationAtlas", "https://schema.hbp.eu/minds/parcellationAtlas", required=False, multiple=False))
+    
 
 
 class ParcellationRegion(MINDSObject):
+    """
+    docstring
+    """
     _path = "/core/parcellationregion/v1.0.0"
-    type = ["minds:Parcellationregion"]
-    property_names = ["name"]
+    type = ["minds:ParcellationRegion"]
+    fields = (
+      Field("alias", basestring, "https://schema.hbp.eu/minds/alias", required=False, multiple=False),
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("url", basestring, "https://schema.hbp.eu/viewer/url", required=False, multiple=False),
+      Field("parcellation_region", "ParcellationRegion", "https://schema.hbp.eu/minds/parcellationRegion", required=False, multiple=False),
+      Field("species", "Species", "https://schema.hbp.eu/minds/species", required=False, multiple=False))
+    
+
+
+class Person(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/person/v1.0.0"
+    type = ["minds:Person"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("shortname", basestring, "https://schema.hbp.eu/minds/shortName", required=False, multiple=False),
+      Field("authors", "Person", "https://schema.hbp.eu/minds/authors", required=False, multiple=True),
+      Field("contributors", "Person", "https://schema.hbp.eu/minds/contributors", required=False, multiple=True),
+      Field("owners", "Person", "https://schema.hbp.eu/minds/owners", required=False, multiple=True))
+    
+
+
+class PLAComponent(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/placomponent/v1.0.0"
+    type = ["minds:PLAComponent"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("component", basestring, "https://schema.hbp.eu/minds/component", required=False, multiple=False))
+    
+
+
+class Preparation(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/preparation/v1.0.0"
+    type = ["minds:Preparation"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("preparation", "Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=False))
+    
+
+
+class Protocol(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/experiment/protocol/v1.0.0"
+    type = ["minds:Protocol"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("protocols", "Protocol", "https://schema.hbp.eu/minds/protocols", required=False, multiple=True))
+    
+
+
+class Publication(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/publication/v1.0.0"
+    type = ["minds:Publication"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("cite", basestring, "https://schema.hbp.eu/minds/cite", required=False, multiple=False),
+      Field("doi", basestring, "https://schema.hbp.eu/minds/doi", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("authors", "Person", "https://schema.hbp.eu/minds/authors", required=False, multiple=True),
+      Field("publications", "Publication", "https://schema.hbp.eu/minds/publications", required=False, multiple=True))
+    
+
+
+class ReferenceSpace(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/referencespace/v1.0.0"
+    type = ["minds:ReferenceSpace"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("reference_space", "ReferenceSpace", "https://schema.hbp.eu/minds/reference_space", required=False, multiple=False))
+    
+
+
+class Role(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/prov/role/v1.0.0"
+    type = ["minds:Role"]
+    fields = (
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("had_role", "Role", "http://www.w3.org/ns/prov#hadRole", required=False, multiple=False))
+    
+
+
+class Sample(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/experiment/sample/v1.0.0"
+    type = ["minds:Sample"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("weight_post_fixation", QuantitativeValue, "https://schema.hbp.eu/minds/weightPostFixation", required=False, multiple=False),
+      Field("weight_pre_fixation", QuantitativeValue, "https://schema.hbp.eu/minds/weightPreFixation", required=False, multiple=False),
+      Field("methods", "Method", "https://schema.hbp.eu/minds/methods", required=False, multiple=True),
+      Field("parcellation_atlas", "ParcellationAtlas", "https://schema.hbp.eu/minds/parcellationAtlas", required=False, multiple=False),
+      Field("parcellation_region", "ParcellationRegion", "https://schema.hbp.eu/minds/parcellationRegion", required=False, multiple=False),
+      Field("reference", basestring, "https://schema.hbp.eu/brainviewer/reference", required=False, multiple=False),
+      Field("samples", "Sample", "https://schema.hbp.eu/minds/samples", required=False, multiple=True))
+    
+
+
+class Sex(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/sex/v1.0.0"
+    type = ["minds:Sex"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("sex", "Sex", "https://schema.hbp.eu/minds/sex", required=False, multiple=False))
+    
+
+
+class SoftwareAgent(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/softwareagent/v1.0.0"
+    type = ["minds:SoftwareAgent"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("agent", basestring, "http://www.w3.org/ns/prov#agent", required=False, multiple=False))
+    
+
+
+class Species(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/species/v1.0.0"
+    type = ["minds:Species"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("alternate_of", basestring, "http://www.w3.org/ns/prov#alternateOf", required=False, multiple=False),
+      Field("species", "Species", "https://schema.hbp.eu/minds/species", required=False, multiple=False))
+    
+
+
+class SpecimenGroup(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/core/specimengroup/v1.0.0"
+    type = ["minds:SpecimenGroup"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("specimen_group", "SpecimenGroup", "https://schema.hbp.eu/minds/specimen_group", required=False, multiple=False),
+      Field("subjects", "Subject", "https://schema.hbp.eu/minds/subjects", required=False, multiple=True))
+    
+
+
+class Subject(MINDSObject):
+    """
+    docstring
+    """
+    _path = "/experiment/subject/v1.0.0"
+    type = ["minds:Subject"]
+    fields = (
+      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      Field("cause_of_death", basestring, "https://schema.hbp.eu/minds/causeOfDeath", required=False, multiple=False),
+      Field("genotype", basestring, "https://schema.hbp.eu/minds/genotype", required=False, multiple=False),
+      Field("identifier", basestring, "http://schema.org/identifier", required=True, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
+      Field("associated_with", "Person", "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
+      Field("strain", basestring, "https://schema.hbp.eu/minds/strain", required=False, multiple=False),
+      Field("strains", basestring, "https://schema.hbp.eu/minds/strains", required=False, multiple=True),
+      Field("weight", QuantitativeValue, "https://schema.hbp.eu/minds/weight", required=False, multiple=False),
+      Field("age", QuantitativeValue, "https://schema.hbp.eu/minds/age", required=False, multiple=False),
+      Field("age_category", "AgeCategory", "https://schema.hbp.eu/minds/age_category", required=False, multiple=False),
+      Field("samples", "Sample", "https://schema.hbp.eu/minds/samples", required=False, multiple=True),
+      Field("sex", "Sex", "https://schema.hbp.eu/minds/sex", required=False, multiple=False),
+      Field("species", "Species", "https://schema.hbp.eu/minds/species", required=False, multiple=False),
+      Field("subjects", "Subject", "https://schema.hbp.eu/minds/subjects", required=False, multiple=True))
+    
+
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
 
 
 # Alias some classes to reflect names used in KG Search
 Project = PLAComponent
 
+if __name__=='__main__':
 
-# todo: integrate this into the registry
-obj_types = {
-    "dataset": Dataset,
-    "activity": Activity,
-    "methods": Method,
-    "specimen_group": SpecimenGroup,
-    "subjects": MINDSSubject,
-    "license": License,
-    "embargo_status": EmbargoStatus,
-    "samples": Sample,
-    "owners": Person,
-    "contributors": Person,
-    "component": PLAComponent,
-    "age_category": AgeCategory,
-    "sex": Sex,
-    "species": Species,
-    "parcellationRegion": ParcellationRegion
-}
+    import os
+    from fairgraph import minds, KGClient
+    token = os.environ['HBP_token']
+    client = KGClient(token)
+    for cls in minds.list_kg_classes():
+        print(cls.__name__)
