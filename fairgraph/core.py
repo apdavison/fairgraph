@@ -6,6 +6,7 @@ core
 from __future__ import unicode_literals
 import sys, inspect
 import logging
+from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
@@ -72,7 +73,8 @@ class Subject(KGObject):
                    Strain.from_jsonld(D.get("strain", None)),
                    Sex.from_jsonld(D["sex"]),
                    Age.from_jsonld(D["age"]),
-                   D.get("deathDate", None), D["@id"],
+                   date_parser.parse(D["deathDate"]) if "deathDate" in D else None,
+                   D["@id"],
                    instance=instance)
 
     def _build_data(self, client):
@@ -452,6 +454,3 @@ def use_namespace(namespace):
     """Set the namespace for all classes in this module."""
     for cls in list_kg_classes():
         cls.namespace = namespace
-
-
-    

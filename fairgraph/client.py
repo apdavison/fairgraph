@@ -47,11 +47,11 @@ class KGClient(object):
             organization, domain, schema, version = cls.path.split("/")
             subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
             if filter:
-                filter_query=quote_plus(json.dumps(filter))
+                filter = quote_plus(json.dumps(filter))
             if context:
                 context=quote_plus(json.dumps(context))
             query = self._nexus_client.instances.list(subpath=subpath,
-                                                      filter_query=filter_query,
+                                                      filter_query=filter,
                                                       context=context,
                                                       from_index=from_index,
                                                       size=size,

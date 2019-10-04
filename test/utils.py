@@ -75,6 +75,9 @@ class MockHttpClient(HttpClient):
                 elif filtr.get("path") in ("schema:givenName", "schema:familyName"):
                     results = [item for item in data["results"]
                                if item["source"][filtr["path"].split(":")[1]] == filtr["value"]]
+                elif filtr.get("path") == "prov:used / rdf:type":
+                    results = [item for item in data["results"]
+                               if filtr["value"] in data["results"][0]["source"]["prov:used"]["@type"]]
                 elif "op" in filtr:
                     # James Bond does not exist
                     if filtr["value"][0]["value"] in ("James", "Bond"):
