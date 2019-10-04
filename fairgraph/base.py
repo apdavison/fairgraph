@@ -492,12 +492,12 @@ class KGProxy(object):
     def type(self):
         return self.cls.type
 
-    def resolve(self, client):
+    def resolve(self, client, api="nexus"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
         else:
-            obj = self.cls.from_uri(self.id, client)
+            obj = self.cls.from_uri(self.id, client, api=api)
             KGObject.object_cache[self.id] = obj
             return obj
 

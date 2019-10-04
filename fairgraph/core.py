@@ -88,7 +88,7 @@ class Subject(KGObject):
         if self.sex:
             data["sex"] = self.sex.to_jsonld()
         if self.death_date:
-            data["deathDate"] = self.death_date
+            data["deathDate"] = self.death_date.isoformat()
         return data
 
 

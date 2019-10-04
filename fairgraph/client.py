@@ -39,15 +39,25 @@ class KGClient(object):
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
 
-    def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released"):
+    def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
+             filter=None, context=None):
         """docstring"""
         if api == "nexus":
             instances = []
-            query = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
-                                                                from_index=from_index,
-                                                                size=size,
-                                                                deprecated=deprecated,
-                                                                resolved=True)
+            organization, domain, schema, version = cls.path.split("/")
+            subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
+            if filter:
+                filter_query=quote_plus(json.dumps(filter))
+            if context:
+                context=quote_plus(json.dumps(context))
+            query = self._nexus_client.instances.list(subpath=subpath,
+                                                      filter_query=filter_query,
+                                                      context=context,
+                                                      from_index=from_index,
+                                                      size=size,
+                                                      deprecated=deprecated,
+                                                      resolved=True)
+
             # todo: add support for "sort" field
             instances.extend(query.results)
             next = query.get_next_link()
