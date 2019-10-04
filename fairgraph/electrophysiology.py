@@ -790,6 +790,21 @@ class PatchClampExperiment(KGObject):
         # todo: save traces if they haven't been already
         return data
 
+    @classmethod
+    def list(cls, client, size=100, api='nexus', **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add an additional filter, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+        context = {
+            "nsg": cls.context["nsg"],
+            "prov": cls.context["prov"],
+            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        }
+        # todo: what about filtering if api="query"
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
+
 
 class QualifiedTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
@@ -939,9 +954,26 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
 class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
+    _path = "/electrophysiology/stimulusexperiment/v0.2.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
+
+    @classmethod
+    def list(cls, client, size=100, api='nexus', **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add an additional filter, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        filter = {'path': 'prov:used / rdf:type',
+                  'op': 'eq',
+                  'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
+        context = {
+            "nsg": cls.context["nsg"],
+            "prov": cls.context["prov"],
+            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        }
+        # todo: what about filtering if api="query"
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
 
 
 def list_kg_classes():
