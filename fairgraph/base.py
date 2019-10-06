@@ -6,12 +6,14 @@ import os
 import sys
 from functools import wraps
 from collections import defaultdict
+from datetime import datetime
 try:
     from collections.abc import Iterable
 except ImportError:  # Python 2
     from collections import Iterable
 import logging
 from uuid import UUID
+from dateutil import parser as date_parser
 from six import with_metaclass
 try:
     basestring
@@ -45,6 +47,13 @@ def lookup(class_name):
 
 def lookup_type(class_type):
     return registry['types'][tuple(class_type)]
+
+
+def lookup_by_iri(iri):
+    for cls in registry["names"].values():
+        if hasattr(cls, "iri_map") and iri in cls.iri_map.values():
+            return cls
+    raise ValueError("Can't resolve iri '{}'".format(iri))
 
 
 def generate_cache_key(qd):
@@ -114,7 +123,8 @@ class Field(object):  # playing with an idea, work in progress, not yet used
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery)) and item.cls in self.types):
+                if not (isinstance(item, (KGProxy, KGQuery))
+                        and any(issubclass(item.cls, _type) for _type  in self.types)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         raise ValueError("Field '{}' should be of type {}, not {}".format(
                                          self.name, self.types, type(item)))
@@ -144,6 +154,10 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                     "@id": value.id,
                     "@type": value.type
                 }
+            elif isinstance(value, datetime):
+                return value.isoformat()
+            else:
+                raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
             if self.multiple:
                 return [serialize_single(item) for item in value]
@@ -170,9 +184,11 @@ class Field(object):  # playing with an idea, work in progress, not yet used
             }
             return KGQuery(self.types[0], query_filter, query_context)
         if issubclass(self.types[0], (KGObject, StructuredMetadata)):
-            if len(self.types) > 1:
-                raise NotImplementedError("todo")
+            if len(self.types) > 1 or self.types[0] == KGObject:
+                return build_kg_object(None, data)
             return build_kg_object(self.types[0], data)
+        elif self.types[0] == datetime:
+            return  date_parser.parse(data)
         else:
             return data
 
@@ -441,7 +457,7 @@ def cache(f):
 
 
 
-class StructuredMetadata(object):
+class StructuredMetadata(with_metaclass(Registry, object)):
     """Abstract base class"""
     pass
 
@@ -668,9 +684,7 @@ def build_kg_object(cls, data):
             if "@type" in item:
                 kg_cls = lookup_type(item["@type"])
             elif "label" in item:
-                # we could possibly do a reverse lookup using iri_map of all the OntologyTerm
-                # subclasses but for now just returning the base class
-                kg_cls = OntologyTerm
+                kg_cls = lookup_by_iri(item["@id"])
             else:
                 raise ValueError("Cannot determine type. Item was: {}".format(item))
         else:

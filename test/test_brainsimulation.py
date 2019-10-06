@@ -6,10 +6,12 @@ which returns data loaded from the files in the test_data directory.
 
 from fairgraph.base import KGQuery, KGProxy, as_list, Distribution
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
-from fairgraph.brainsimulation import ModelScript
+from fairgraph.brainsimulation import ModelScript, ModelProject, ModelInstance
+from fairgraph.core import use_namespace as use_core_namespace
 
-from .utils import kg_client, MockKGObject, test_data_lookup
-from pyxus.resources.entity import Instance
+from .utils import kg_client, MockKGObject, test_data_lookup, generate_random_object, BaseTestKG
+
+use_core_namespace("modelvalidation")
 
 
 class TestModelScript(object):
@@ -27,3 +29,11 @@ class TestModelScript(object):
             {'license': 'schema:license'}
         ], key=lambda obj: str(obj))
         assert context == expected_context
+
+
+class TestModelProject(BaseTestKG):
+    class_under_test = ModelProject
+
+
+class TestModelInstance(BaseTestKG):
+    class_under_test = ModelInstance

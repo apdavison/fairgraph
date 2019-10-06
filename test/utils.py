@@ -6,9 +6,12 @@ including a mock Http client which returns data loaded from the files in the tes
 
 import json
 import os
+import random
+from datetime import datetime
 from copy import deepcopy
 try:
     from urllib.parse import parse_qs, urlparse
+    basestring = str
 except ImportError:
     from urlparse import parse_qs, urlparse  # py2
 
@@ -18,28 +21,16 @@ import pytest
 from openid_http_client.http_client import HttpClient
 
 from pyxus.client import NexusClient, NexusConfig
+from pyxus.resources.entity import Instance
 from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         InstanceRepository,
                                         OrganizationRepository,
                                         SchemaRepository)
 import fairgraph.client
-from fairgraph.base import as_list, KGObject, MockKGObject
+from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy
+from fairgraph.commons import QuantitativeValue, OntologyTerm
 
 
-# test_data_lookup = {
-#     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/electrophysiology/patchedcell_list_0_50.json",
-#     "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/electrophysiology/trace_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/electrophysiology/multitrace_list_0_10.json",
-#     "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/electrophysiology/slice_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/": "test/test_data/electrophysiology/brainslicing_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/electrophysiology/patchedslice_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/": "test/test_data/electrophysiology/patchedcellcollection_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/electrophysiology/wholecellpatchclamp_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/electrophysiology/stimulusexperiment_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/": "test/test_data/electrophysiology/tracegeneration_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/electrophysiology/multitracegeneration_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/electrophysiology/patchedcell_example.json",
-# }
 test_data_lookup = {}
 
 
@@ -125,3 +116,99 @@ def kg_client():
     #token = os.environ["HBP_token"]
     #client = fairgraph.client.KGClient(token)
     return client
+
+
+lorem_ipsum = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
+
+lli = len(lorem_ipsum)
+
+
+def _random_text():
+    start = random.randint(0, lli//2)
+    end = random.randint(lli//2, lli)
+    return lorem_ipsum[start:end]
+
+
+def random_uuid():
+    return uuid.uuid4()
+
+
+def generate_random_object(cls, all_fields=True):
+    attrs = {}
+    for field in cls.fields:
+        if all_fields or field.required:
+            obj_type = field.types[0]  # todo: pick randomly if len(field.types) > 1
+            if not field.intrinsic:
+                value = None
+            elif obj_type == basestring:
+                value = _random_text()
+            elif obj_type == int:
+                value = random.randint(1, 10)
+            elif issubclass(obj_type, KGObject):
+                if obj_type == KGObject:
+                    # specific type is not determined
+                    # arbitrarily, let's choose minds.Dataset
+                    value = MockKGObject(id=random_uuid(), type=["minds:Dataset"])
+                else:
+                    value = MockKGObject(id=random_uuid(), type=getattr(obj_type, "type", None))
+            elif obj_type == QuantitativeValue:
+                # todo: subclass QV so we can specify the required dimensionality in `fields`
+                value = QuantitativeValue(random.uniform(-10, 10),
+                                        random.choice(list(QuantitativeValue.unit_codes)))
+            elif issubclass(obj_type, OntologyTerm):
+                value = obj_type(random.choice(list(obj_type.iri_map)))
+            elif obj_type == datetime:
+                value = datetime.now()
+            elif obj_type == bool:
+                value = random.choice([True, False])
+            else:
+                raise NotImplementedError(str(obj_type))
+            attrs[field.name] = value
+    return cls(**attrs)
+
+
+class BaseTestKG(object):
+
+    def test_round_trip_random(self, kg_client):
+        cls = self.class_under_test
+        if cls.fields:
+            obj1 = generate_random_object(cls)
+            instance = Instance(cls.path, obj1._build_data(kg_client), Instance.path)
+            instance.data["@id"] = random_uuid()
+            instance.data["@type"] = cls.type
+            obj2 = cls.from_kg_instance(instance, kg_client)
+            for field in cls.fields:
+                if field.intrinsic:
+                    val1 = getattr(obj1, field.name)
+                    val2 = getattr(obj2, field.name)
+                    if issubclass(field.types[0], KGObject):
+                        assert isinstance(val1, MockKGObject)
+                        assert isinstance(val2, KGProxy)
+                        assert val1.type == val2.cls.type
+                    else:
+                        assert val1 == val2
+                # todo: test non-intrinsic fields
+
+    def test_round_trip_minimal_random(self, kg_client):
+        cls = self.class_under_test
+        if cls.fields:
+            obj1 = generate_random_object(cls, all_fields=False)
+            instance = Instance(cls.path, obj1._build_data(kg_client), Instance.path)
+            instance.data["@id"] = random_uuid()
+            instance.data["@type"] = cls.type
+            obj2 = cls.from_kg_instance(instance, kg_client)
+            for field in cls.fields:
+                if field.intrinsic and field.required:
+                    val1 = getattr(obj1, field.name)
+                    val2 = getattr(obj2, field.name)
+                    if issubclass(field.types[0], KGObject):
+                        assert isinstance(val1, MockKGObject)
+                        assert isinstance(val2, KGProxy)
+                        assert val1.type == val2.cls.type
+                    else:
+                        assert val1 == val2
+                # todo: test non-intrinsic fields

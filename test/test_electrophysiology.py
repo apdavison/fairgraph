@@ -17,7 +17,7 @@ from fairgraph.electrophysiology import (
     list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.minds import Dataset
 
-from .utils import kg_client, MockKGObject, test_data_lookup
+from .utils import kg_client, MockKGObject, test_data_lookup, BaseTestKG
 from pyxus.resources.entity import Instance
 
 import pytest
@@ -42,7 +42,10 @@ use_core_namespace("neuralactivity")
 use_electrophysiology_namespace("neuralactivity")
 
 
-class TestPatchedCell(object):
+
+
+class TestPatchedCell(BaseTestKG):
+    class_under_test = PatchedCell
 
     def test_list(self, kg_client):
         cells = PatchedCell.list(kg_client, size=50)
@@ -117,6 +120,7 @@ class TestPatchedCell(object):
                       "liquid_junction_potential", "labeling_compound",
                       "reversal_potential_cl"):
             assert getattr(cell1, field) == getattr(cell2, field)
+
 
     def test_repr(self):
         try:

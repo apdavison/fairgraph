@@ -34,15 +34,15 @@ class Species(OntologyTerm):
 class Strain(OntologyTerm):
     """docstring"""
     iri_map = {
-        "Tg2576": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
+        "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
+        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
         "C57BL/6J": "https://www.jax.org/strain/000664",  # RRID:IMSR_JAX:000664
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
         "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
-        "129/Sv": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "129/Sv": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345673",
         # 129/Sv is ambiguous
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
@@ -75,7 +75,7 @@ class BrainRegion(OntologyTerm):
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
         "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
-        "thalamocortical": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "thalamocortical": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
         "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
         # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
         "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
@@ -106,25 +106,25 @@ class CellType(OntologyTerm):
         "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
         "cerebellar granule cell": "http://purl.obolibrary.org/obo/CL_0001031",
         "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
-        "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345670",
         "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
         "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
         "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
-        "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345671",
         "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373",
         "L4 Martinotti cell": "http://uri.neuinfo.org/nif/nifstd/nifext_55",
-        "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345672",
         "cholinergic interneuron": "http://uri.interlex.org/base/ilx_0490357",
         "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
         "L2 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0383207",
-        "not applicable": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+        "not applicable": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345673"
     }
 
 
 class AbstractionLevel(OntologyTerm):
     """docstring"""
     iri_map = {
-        "protein structure": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+        "protein structure": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345670",
         "systems biology": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
         "systems biology: continuous": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
         "systems biology: discrete": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000063",
@@ -133,10 +133,10 @@ class AbstractionLevel(OntologyTerm):
         "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
         "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
         "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
-        "population modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567"
+        "population modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345671",
+        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
+        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
+        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674"
     }
 
 

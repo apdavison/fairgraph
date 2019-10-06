@@ -12,8 +12,8 @@ import datetime
 import mimetypes
 from dateutil import parser as date_parser
 import requests
-from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery
-from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope
+from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field
+from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
 from .core import Organization, Person, Age
 
 logger = logging.getLogger("fairgraph")
@@ -70,9 +70,9 @@ class ModelProject(KGObject, HasAliasMixin):
         "dcterms": "http://purl.org/dc/terms/",
         "instances": "dcterms:hasPart",
         "oldUUID": "nsg:providerId",
-        "partOf": "nsg:partOf"
+        "partOf": "nsg:partOf",
+        "hasPart": "dcterms:hasPart"
     }
-
     attribute_map = {
         "model_of": (ModelScope, context["modelOf"]),
         "brain_region": (BrainRegion, context["brainRegion"]),
@@ -80,181 +80,37 @@ class ModelProject(KGObject, HasAliasMixin):
         "celltype": (CellType, context["celltype"]),
         "abstraction_level": (AbstractionLevel, context["abstractionLevel"]),
     }
+    # should be able to replace `attribute_map` by extending `fields`
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("owners", Person, "owner", required=True, multiple=True),
+        Field("authors", Person, "author", required=True, multiple=True),
+        Field("description", basestring, "description", required=True),
+        Field("date_created", datetime.datetime, "dateCreated", required=True),
+        Field("private", bool, "private", required=True),
+        Field("collab_id", int, "collabId", required=True),
+        Field("alias", basestring, "alias"),
+        Field("organization", Organization, "organization", multiple=True),
+        Field("pla_components", basestring, "PLAComponents", multiple=True),
+        Field("brain_region", BrainRegion, "brainRegion", multiple=True),
+        Field("species", Species, "species"),
+        Field("celltype", CellType, "celltype"),
+        Field("abstraction_level", AbstractionLevel, "abstractionLevel"),
+        Field("model_of", ModelScope, "modelOf"),
+        Field("old_uuid", basestring, "oldUUID"),
+        Field("parents", "ModelProject", "partOf", multiple=True),
+        Field("instances", "ModelInstance", "dcterms:hasPart", multiple=True),
+        Field("images", basestring, "images", multiple=True)  # type should be Distribution?
+    )
 
-    def __init__(self, name, owners, authors, description, date_created, private, collab_id, alias=None,
-                 organization=None, pla_components=None, brain_region=None, species=None, celltype=None,
-                 abstraction_level=None, model_of=None, old_uuid=None, parents=None, instances=None, images=None,
+    def __init__(self, name, owners, authors, description, date_created, private, collab_id,
+                 alias=None, organization=None, pla_components=None, brain_region=None,
+                 species=None, celltype=None, abstraction_level=None, model_of=None,
+                 old_uuid=None, parents=None, instances=None, images=None,
                  id=None, instance=None):
-        self.name = name
-        self.alias = alias
-        self.brain_region = brain_region
-        self.species = species
-        self.celltype = celltype
-        self.organization = organization
-        self.abstraction_level = abstraction_level
-        self.private = private
-        self.authors = authors  # rename 'contributors', for consistency with MINDS?
-        self.owners = owners
-        self.description = description
-        self.collab_id = collab_id
-        self.PLA_components = pla_components
-        self.date_created = date_created
-        self.model_of = model_of
-        self.old_uuid = old_uuid
-        self.images = images
-        self.parents = parents
-        self.instances = instances
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.brain_region!r}, '
-                '{self.celltype!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
-        D = instance.data
-        assert 'nsg:ModelProject' in D["@type"]
-        obj = cls(name=D["name"],
-                  owners=None,
-                  authors=[],
-                  collab_id=D["collabID"], description=D["description"], private=D["private"],
-                  date_created=D["dateCreated"],
-                  organization=build_kg_object(Organization, D.get("organization")),
-                  pla_components=D.get("PLAComponents", None),
-                  alias=D.get("alias", None),
-                  model_of=build_kg_object(ModelScope, D.get("modelOf")),
-                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
-                  species=build_kg_object(Species, D.get("species")),
-                  celltype=build_kg_object(CellType, D.get("celltype")),
-                  abstraction_level=build_kg_object(AbstractionLevel, D.get("abstractionLevel")),
-                  old_uuid=D.get("oldUUID", None),
-                  parents=build_kg_object(ModelProject, D.get("partOf")),
-                  instances=build_kg_object(None, D.get("dcterms:hasPart")),
-                  images=D.get("images"),
-                  id=D["@id"], instance=instance)
-        if isinstance(D["author"], str):  # temporary, this shouldn't happen once migration complete
-            obj.authors = D["author"]
-        else:
-            obj.authors = build_kg_object(Person, D["author"])
-        if "owner" in D:
-            if isinstance(D["owner"], str):  # temporary, this shouldn't happen once migration complete
-                raise Exception()
-                obj.owner = D["owner"]
-            else:
-                obj.owners = build_kg_object(Person, D["owner"])
-        return obj
-
-    def _build_data(self, client):
-        # if self.instance:
-        #     data = self.instance.data
-        #     # the following 4 lines are a temporary hack, due to dcterms being missing in the standard context
-        #     if isinstance(data["@context"], list):
-        #         data["@context"].append(self.get_context(client))
-        #     else:
-        #         data["@context"].update(self.get_context(client))
-        # else:
-        #     data = {
-        #         "@context": self.get_context(client),
-        #         "@type": self.type
-        #     }
-        data = {}
-        if self.authors:
-            if isinstance(self.authors, str):  # temporary, should convert into Person
-                raise Exception()
-                #data["author"] = self.authors
-            else:
-                data["author"] = [
-                    {
-                        "@type": person.type,
-                        "@id": person.id
-                    } for person in as_list(self.authors)
-                ]
-        if self.owners:
-            owners = as_list(self.owners)
-            for owner in owners:
-                if owner.id is None:
-                    owner.save(client)
-            if len(owners) == 1:
-                data["owner"] = {
-                    "@type": owners[0].type,
-                    "@id": owners[0].id
-                }
-            else:
-                data["owner"] = [
-                    {
-                        "@type": owner.type,
-                        "@id": owner.id
-                    } for owner in owners
-                ]
-        data["name"] = self.name
-        data["collabID"] = self.collab_id
-        data["description"] = self.description
-        data["private"] = self.private
-        if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
-            data["dateCreated"] = self.date_created.isoformat()
-        else:
-            data["dateCreated"] = self.date_created
-        if self.organization is not None:
-            if isinstance(self.organization, list):
-                data["organization"] = [
-                    {
-                        "@type": org.type,
-                        "@id": org.id,
-                    } for org in self.organization
-                 ]
-            else:
-                if self.organization.id is None:
-                    self.organization.save(client)
-                data["organization"] = {
-                    "@type": self.organization.type,
-                    "@id": self.organization.id
-                }
-        if self.PLA_components is not None:
-            data["PLAComponents"] = self.PLA_components
-        if self.alias is not None:
-            data["alias"] = self.alias
-        if self.model_of is not None:
-            data["modelOf"] = self.model_of.to_jsonld()
-        if self.brain_region is not None:
-            if isinstance(self.brain_region, list):
-                data["brainRegion"] = [br.to_jsonld() for br in self.brain_region]
-            else:
-                data["brainRegion"] = self.brain_region.to_jsonld()
-        if self.species is not None:
-            if isinstance(self.species, list):
-                data["species"] = [s.to_jsonld() for s in self.species]
-            else:
-                data["species"] = self.species.to_jsonld()
-        if self.celltype is not None:
-            if isinstance(self.celltype, list):
-                data["celltype"] = [ct.to_jsonld() for ct in self.celltype]
-            else:
-                data["celltype"] = self.celltype.to_jsonld()
-        if self.abstraction_level is not None:
-            if isinstance(self.abstraction_level, list):
-                data["abstractionLevel"] = [al.to_jsonld() for al in self.abstraction_level]
-            else:
-                data["abstractionLevel"] = self.abstraction_level.to_jsonld()
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        if self.parents:
-            data["partOf"] = [{
-                "@type": parent.type,
-                "@id": parent.id
-            } for parent in as_list(self.parents)]
-        if self.instances is not None:
-            data["dcterms:hasPart"] = [
-                {
-                    "@type": obj.type,
-                    "@id": obj.id
-                } for obj in as_list(self.instances)
-            ]
-        if self.images is not None:
-            data["images"] = self.images
-        return data
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def _existence_query(self):
@@ -292,7 +148,9 @@ class ModelProject(KGObject, HasAliasMixin):
                 })
             else:
                 raise Exception("The only supported filters are by {supported_filters}"
-                                "You specified {name}".format(supported_filters=", ".join(cls.attribute_map), name=name))
+                                "You specified {name}".format(
+                                    supported_filters=", ".join(cls.attribute_map),
+                                    name=name))
         if len(filter_queries) == 0:
             return client.list(cls, size=size)
         elif len(filter_queries) == 1:
@@ -305,7 +163,8 @@ class ModelProject(KGObject, HasAliasMixin):
         return KGQuery(cls, filter_query, context).resolve(client, size=size)
 
     def authors_str(self, client):
-        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client)) for obj in self.authors)
+        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client))
+                         for obj in self.authors)
 
     #def sub_projects(self):
 
@@ -335,86 +194,28 @@ class ModelInstance(KGObject):
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_region", BrainRegion, "brainRegion", required=True),
+        Field("species", Species, "species", required=True),
+        Field("model_of", (CellType, BrainRegion), "modelOf", required=True),
+        Field("main_script", "ModelScript", "mainModelScript", required=True),
+        Field("release", basestring, "release", required=True),
+        Field("version",  basestring, "version", required=True),
+        Field("timestamp", datetime.datetime, "generatedAtTime", required=True),
+        Field("part_of", KGObject, "isPartOf"),
+        Field("description", basestring, "description"),
+        Field("parameters", basestring, "parameters"),
+        Field("old_uuid", basestring, "oldUUID")
+    )
 
     def __init__(self, name, brain_region, species, model_of,
                  main_script, release, version, timestamp,
                  part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
-        self.name = name
-        self.description = description
-        self.brain_region = brain_region
-        self.species = species
-        self.model_of = model_of
-        self.main_script = main_script
-        self.release = release
-        self.version = version
-        self.timestamp = timestamp
-        self.part_of = part_of
-        self.parameters = parameters
-        self.old_uuid = old_uuid
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.brain_region!r}, '
-                '{self.model_of!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:ModelInstance' in D["@type"]
-        obj = cls(name=D["name"],
-                  model_of=build_kg_object(None, D.get("modelOf")),
-                  #model_of = D.get("modelOf", None),
-                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
-                  species=build_kg_object(Species, D.get("species")),
-                  main_script=build_kg_object(ModelScript, D["mainModelScript"]),
-                  release=D.get("release"),  # to fix once we define MEModelRelease class
-                  version=D.get("version"),
-                  timestamp=date_parser.parse(D.get("generatedAtTime"))
-                            if "generatedAtTime" in D else None,
-                  #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
-                  description=D.get("description"),
-                  parameters=D.get("nsg:parameters"),
-                  old_uuid=D.get("oldUUID"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.model_of:
-            data["modelOf"] = self.model_of.to_jsonld()
-        if self.brain_region:
-            data["brainRegion"] = self.brain_region.to_jsonld()
-        if self.species:
-            data["species"] = self.species.to_jsonld()
-        if self.description:
-            data["description"] = self.description
-        if self.main_script:
-            data["mainModelScript"] = {
-                "@id": self.main_script.id,
-                "@type": self.main_script.type
-            }
-        if self.version:
-            data["version"] = self.version
-        if self.timestamp:
-            data["generatedAtTime"] = self.timestamp.isoformat()
-        if self.part_of:
-            data["isPartOf"] = {
-                "@id": self.part_of.id,
-                "@type": self.part_of.type
-            }
-        if self.release:
-            data["release"] = self.release
-        if self.parameters:
-            data["nsg:parameters"] = self.parameters
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        return data
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def project(self):
@@ -1093,14 +894,15 @@ class ValidationResult(KGObject):
             "wasGeneratedBy": "prov:wasGeneratedBy",
             "hadMember": "prov:hadMember",
             "collabID": "nsg:collabID",
-            "oldUUID": "nsg:providerId"
+            "oldUUID": "nsg:providerId",
+            "hash": "nsg:digest"
         }
     ]
 
     def __init__(self, name, generated_by=None, description=None,
                  score=None, normalized_score=None, passed=None,
                  timestamp=None, additional_data=None, old_uuid=None,
-                 collab_id=None, id=None, instance=None):
+                 collab_id=None, hash=None, id=None, instance=None):
         self.name = name
         self.generated_by = generated_by
         self.description = description
@@ -1111,6 +913,7 @@ class ValidationResult(KGObject):
         self.additional_data = additional_data
         self.old_uuid = old_uuid
         self.collab_id = collab_id
+        self.hash = hash
         self.id = id
         self.instance = instance
 
@@ -1134,6 +937,7 @@ class ValidationResult(KGObject):
                   additional_data=build_kg_object(None, D.get("hadMember")),
                   old_uuid=D.get("oldUUID"),
                   collab_id=D.get("collabID"),
+                  hash=D.get("hash"),
                   id=D["@id"], instance=instance)
         return obj
 
@@ -1166,13 +970,15 @@ class ValidationResult(KGObject):
             data["oldUUID"] = self.old_uuid
         if self.collab_id:
             data["collabID"] = self.collab_id
+        if self.hash is not None:
+            data["hash"] = self.hash
         return data
 
 
 class ValidationActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/modelvalidation/v0.2.0"
+    _path = "/simulation/modelvalidation/v0.2.0"  # only present in nexus-int
     type = ["prov:Activity", "nsg:ModelValidation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -1186,19 +992,22 @@ class ValidationActivity(KGObject):
             "generated": "prov:generated",
             "used": "prov:used",
             "startedAtTime": "prov:startedAtTime",
+            "endedAtTime": "prov:endedAtTime",
             "wasAssociatedWith": "prov:wasAssociatedWith",
             "referenceData": "nsg:referenceData"
         }
     ]
 
     def __init__(self, model_instance, test_script, reference_data, timestamp,
-                 result=None, started_by=None, id=None, instance=None):
+                 result=None, started_by=None, end_timestamp=None, id=None, instance=None):
         self.model_instance = model_instance
         self.test_script = test_script
         self.reference_data = reference_data
         self.timestamp = timestamp
         self.result = result
         self.started_by = started_by
+        self.end_timestamp = end_timestamp
+
         self.id = id
         self.instance = instance
 
@@ -1218,6 +1027,13 @@ class ValidationActivity(KGObject):
             "value": self.timestamp.isoformat()
         }
 
+    @property
+    def duration(self):
+        if self.end_timestamp:
+            return self.end_timestamp - self.start_timestamp
+        else:
+            return 0.0
+
     @classmethod
     @cache
     def from_kg_instance(cls, instance, client):
@@ -1229,9 +1045,10 @@ class ValidationActivity(KGObject):
         obj = cls(model_instance=build_kg_object(None, model_instance),
                   test_script=build_kg_object(ValidationScript, test_script),
                   reference_data=build_kg_object(None, reference_data),
-                  timestamp=D.get("startedAtTime", None),
+                  timestamp=date_parser.parse(D.get("startedAtTime")),
                   result=build_kg_object(ValidationResult, D.get("result")),
                   started_by=build_kg_object(Person, D.get("wasAssociatedWith")),
+                  end_timestamp=date_parser.parse(D.get("endedAtTime")) if "endedAtTime" in D else None,
                   id=D["@id"],
                   instance=instance)
         return obj
@@ -1242,6 +1059,11 @@ class ValidationActivity(KGObject):
             data["startedAtTime"] = self.timestamp.isoformat()
         else:
             raise ValueError("timestamp must be a date or datetime object")
+        if self.end_timestamp is not None:
+            if isinstance(self.end_timestamp, (datetime.date, datetime.datetime)):
+                data["endedAtTime"] = self.end_timestamp.isoformat()
+            else:
+                raise ValueError("end_timestamp must be a date or datetime object")
         data["used"] = [
             {"@id": self.model_instance.id, "@type": self.model_instance.type},
             {"@id": self.test_script.id, "@type": self.test_script.type},

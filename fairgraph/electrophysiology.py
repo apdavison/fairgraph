@@ -191,7 +191,7 @@ class PatchedCell(KGObject):
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
     )
 
-    def __init__(self, name, brain_location, collection, cell_type, experiments=None,
+    def __init__(self, name, brain_location, collection=None, cell_type=None, experiments=None,
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
