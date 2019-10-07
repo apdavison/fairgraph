@@ -70,7 +70,7 @@ class Subject(KGObject):
         return cls(D["name"],
                    Species.from_jsonld(D["species"]),
                    Strain.from_jsonld(D.get("strain", None)),
-                   Sex.from_jsonld(D["sex"]),
+                   Sex.from_jsonld(D.get("sex")),
                    Age.from_jsonld(D["age"]),
                    D.get("deathDate", None), D["@id"],
                    instance=instance)
