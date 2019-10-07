@@ -8,9 +8,9 @@ from functools import wraps
 from collections import defaultdict
 from datetime import datetime, date
 try:
-    from collections.abc import Iterable
+    from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
-    from collections import Iterable
+    from collections import Iterable, Mapping
 import logging
 from uuid import UUID
 from dateutil import parser as date_parser
@@ -130,7 +130,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                         raise ValueError("Field '{}' should be of type {}, not {}".format(
                                          self.name, self.types, type(item)))
         if self.required or value is not None:
-            if self.multiple and isinstance(value, Iterable):
+            if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
                 for item in value:
                     check_single(item)
             else:
@@ -146,7 +146,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
 
     def serialize(self, value, client):
         def serialize_single(value):
-            if isinstance(value, (basestring, int, float)):
+            if isinstance(value, (basestring, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)

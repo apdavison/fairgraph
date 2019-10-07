@@ -88,7 +88,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("description", basestring, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", int, "collabId", required=True),
+        Field("collab_id", int, "collabId"),
         Field("alias", basestring, "alias"),
         Field("organization", Organization, "organization", multiple=True),
         Field("pla_components", basestring, "PLAComponents", multiple=True),
@@ -100,10 +100,10 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("old_uuid", basestring, "oldUUID"),
         Field("parents", "brainsimulation.ModelProject", "partOf", multiple=True),
         Field("instances", "brainsimulation.ModelInstance", "dcterms:hasPart", multiple=True),
-        Field("images", basestring, "images", multiple=True)  # type should be Distribution?
+        Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
 
-    def __init__(self, name, owners, authors, description, date_created, private, collab_id,
+    def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
                  species=None, celltype=None, abstraction_level=None, model_of=None,
                  old_uuid=None, parents=None, instances=None, images=None,

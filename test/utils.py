@@ -177,6 +177,10 @@ def generate_random_object(cls, all_fields=True):
                 value = "http://example.com/åêïøù"
             elif obj_type == Address:
                 value = Address("Paris", "France")
+            elif obj_type == dict:
+                value = {
+                    "a": 1, "b": 2
+                }
             else:
                 raise NotImplementedError(str(obj_type))
             attrs[field.name] = value
