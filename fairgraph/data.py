@@ -4,58 +4,31 @@
 
 try:
     from urllib.request import urlretrieve
+    basestring = str
 except ImportError:  # Python 2
     from urllib import urlretrieve
 try:
     from pathlib import Path
 except ImportError:
     from pathlib2 import Path
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache
+from datetime import datetime
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache, Field
 
 
 class DataObject(KGObject):
     """docstring"""
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """docstring"""
-        D = instance.data
-        data = {}
-        for key, value in D.items():
-            if key.startswith('https://schema.hbp.eu/cscs/'):
-                name = key.split('https://schema.hbp.eu/cscs/')[1]
-            elif key.startswith('https://schema.hbp.eu/linkinginstance/'):
-                name = key.split('https://schema.hbp.eu/linkinginstance/')[1]
-            elif key.startswith('http://schema.org/'):
-                name = key.split('http://schema.org/')[1]
-            elif ":" in key:
-                name = key.split(":")[1]
-            else:
-                name = None
-            if name in cls.property_names:
-                if name in obj_types:
-                    if isinstance(value, list):
-                        data[name] = [KGProxy(obj_types[name], item["@id"])
-                                      for item in value]
-                    elif "@list" in value:
-                        assert len(value) == 1
-                        data[name] = [KGProxy(obj_types[name], item["@id"])
-                                      for item in value['@list']]
-                    else:
-                        data[name] = KGProxy(obj_types[name], value["@id"])
-                else:
-                    data[name] = value
-        data["id"] = D["@id"]
-        data["instance"] = instance
-        return cls(**data)
+    pass
 
 
 class FileAssociation(DataObject):
     namespace = "cscs"
     _path = "/core/fileassociation/v1.0.0"
     type = ["cscs:Fileassociation", "https://schema.hbp.eu/LinkingInstance"]
-    property_names = ["name", "from", "to"]
+    fields = (
+        Field("name", basestring, "http://schema.org/name"),
+        Field("from", KGObject, "'https://schema.hbp.eu/linkinginstance/from"),
+        Field("to", KGObject, "'https://schema.hbp.eu/linkinginstance/to")
+    )
 
     @property
     def from_(self):
@@ -69,9 +42,22 @@ class FileAssociation(DataObject):
 class CSCSFile(DataObject):
     namespace = "cscs"
     _path = "/core/file/v1.0.0"
-    type = ["cscs:File"]
-    property_names = ["name", "absolute_path", "byte_size", "content_type",
-                      "last_modified", "relative_path"]
+    type = ["hbp:File"]
+    context = [
+        {
+            "hbp": "https://schema.hbp.eu/cscs/",
+            "schema": "http://schema.org/"
+        },
+        "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
+    ]
+    fields = (
+        Field("name", basestring, "schema:name"),
+        Field("absolute_path", basestring, "hbp:absolute_path"),
+        Field("byte_size", int, "hbp:byte_size"),
+        Field("content_type", basestring, "hbp:content_type"),
+        Field("last_modified", datetime, "hbp:last_modified"),
+        Field("relative_path", basestring, "hbp:relative_path")
+    )
 
     def download(self, base_dir=".", preserve_relative_path=True):
         local_filename = Path(base_dir)
@@ -82,10 +68,3 @@ class CSCSFile(DataObject):
         local_filename.parent.mkdir(parents=True, exist_ok=True)
         local_filename, headers = urlretrieve(self.absolute_path, local_filename)
         return local_filename
-
-
-# todo: integrate this into the registry
-obj_types = {
-
-
-}

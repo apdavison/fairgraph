@@ -9,7 +9,7 @@ from fairgraph.base import KGQuery, KGProxy, as_list
 from fairgraph.commons import QuantitativeValue, Species, Strain, Sex, Age, Address
 from fairgraph.core import Subject, Organization, Person
 
-from .utils import kg_client, MockKGObject, test_data_lookup
+from .utils import kg_client, MockKGObject, test_data_lookup, BaseTestKG
 from pyxus.resources.entity import Instance
 
 import pytest
@@ -20,10 +20,11 @@ test_data_lookup.update({
 })
 
 
-class TestSubject(object):
+class TestSubject(BaseTestKG):
+    class_under_test = Subject
 
-    def test_list(self, kg_client):
-        pass
+    #def test_list(self, kg_client):
+    #    pass
 
     def test_round_trip(self, kg_client):
         obj1 = Subject(name="Mickey", species=Species("Mus musculus"),
@@ -38,7 +39,8 @@ class TestSubject(object):
             assert getattr(obj1, field) == getattr(obj2, field)
 
 
-class TestOrganization(object):
+class TestOrganization(BaseTestKG):
+    class_under_test = Organization
 
     def test_list(self, kg_client):
         pass
@@ -54,8 +56,27 @@ class TestOrganization(object):
         for field in ("name", "address", "parent"):
             assert getattr(obj1, field) == getattr(obj2, field)
 
+    def test_build_data(self, kg_client):
+        obj1 = Organization(name="NeuroPSI",
+                            address=Address(locality="Saclay", country="France"),
+                            parent=KGProxy(Organization, "fake_uuid_00481be7a1"))
+        expected = {
+            "name": "NeuroPSI",
+            "address": {
+                "@type": "schema:PostalAddress",
+                "addressLocality": "Saclay",
+                "addressCountry": "France"
+            },
+            "parentOrganization": {
+                "@type": "nsg:Organization",
+                "@id": "fake_uuid_00481be7a1"
+            }
+        }
+        assert obj1._build_data(kg_client) == expected
 
-class TestPerson(object):
+
+class TestPerson(BaseTestKG):
+    class_under_test = Person
 
     def test_list(self, kg_client):
         people = Person.list(kg_client, size=10)

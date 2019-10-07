@@ -7,7 +7,7 @@ including a mock Http client which returns data loaded from the files in the tes
 import json
 import os
 import random
-from datetime import datetime
+from datetime import datetime, date
 from copy import deepcopy
 try:
     from urllib.parse import parse_qs, urlparse
@@ -27,8 +27,8 @@ from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         OrganizationRepository,
                                         SchemaRepository)
 import fairgraph.client
-from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy
-from fairgraph.commons import QuantitativeValue, OntologyTerm
+from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
+from fairgraph.commons import QuantitativeValue, OntologyTerm, Age, Address
 
 
 test_data_lookup = {}
@@ -148,6 +148,8 @@ def generate_random_object(cls, all_fields=True):
                 value = _random_text()
             elif obj_type == int:
                 value = random.randint(1, 10)
+            elif obj_type == float:
+                value = random.uniform(0, 1000)
             elif issubclass(obj_type, KGObject):
                 if obj_type == KGObject:
                     # specific type is not determined
@@ -163,12 +165,31 @@ def generate_random_object(cls, all_fields=True):
                 value = obj_type(random.choice(list(obj_type.iri_map)))
             elif obj_type == datetime:
                 value = datetime.now()
+            elif obj_type == date:
+                value = date.today()
             elif obj_type == bool:
                 value = random.choice([True, False])
+            elif obj_type == Distribution:
+                value = Distribution("http://example.com/myfile.txt")
+            elif obj_type == Age:
+                value = Age(QuantitativeValue(random.randint(7, 150), "days"), "Post-natal")
+            elif obj_type == IRI:
+                value = "http://example.com/åêïøù"
+            elif obj_type == Address:
+                value = Address("Paris", "France")
             else:
                 raise NotImplementedError(str(obj_type))
             attrs[field.name] = value
     return cls(**attrs)
+
+
+def dates_equal(d1, d2):
+    """Allow comparing dates with datetimes"""
+    if isinstance(d1, date):
+        d1 = datetime(d1.year, d1.month, d1.day)
+    if isinstance(d2, date):
+        d2 = datetime(d2.year, d2.month, d2.day)
+    return d1 == d2
 
 
 class BaseTestKG(object):
@@ -189,6 +210,8 @@ class BaseTestKG(object):
                         assert isinstance(val1, MockKGObject)
                         assert isinstance(val2, KGProxy)
                         assert val1.type == val2.cls.type
+                    elif date in field.types:
+                        assert dates_equal(val1, val2)
                     else:
                         assert val1 == val2
                 # todo: test non-intrinsic fields
@@ -209,6 +232,8 @@ class BaseTestKG(object):
                         assert isinstance(val1, MockKGObject)
                         assert isinstance(val2, KGProxy)
                         assert val1.type == val2.cls.type
+                    elif date in field.types:
+                        assert dates_equal(val1, val2)
                     else:
                         assert val1 == val2
                 # todo: test non-intrinsic fields

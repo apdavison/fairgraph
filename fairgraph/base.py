@@ -6,7 +6,7 @@ import os
 import sys
 from functools import wraps
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, date
 try:
     from collections.abc import Iterable
 except ImportError:  # Python 2
@@ -33,7 +33,8 @@ registry = {
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
 def register_class(target_class):
-    registry['names'][target_class.__name__] = target_class
+    name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
+    registry['names'][name] = target_class
     if hasattr(target_class, 'type'):
         if isinstance(target_class.type, basestring):
             registry['types'][target_class.type] = target_class
@@ -95,7 +96,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False):
         self.name = name
-        if isinstance(types, (type, str)):
+        if isinstance(types, (type, basestring)):
             self._types = (types,)
         else:
             self._types = tuple(types)
@@ -114,7 +115,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
     def types(self):
         if not self._resolved_types:
             self._types = tuple(
-                [lookup(obj) if isinstance(obj, str) else obj
+                [lookup(obj) if isinstance(obj, basestring) else obj
                  for obj in self._types]
             )
             self._resolved_types = True
@@ -145,7 +146,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
 
     def serialize(self, value, client):
         def serialize_single(value):
-            if isinstance(value, (str, int, float)):
+            if isinstance(value, (basestring, int, float)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
@@ -154,7 +155,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                     "@id": value.id,
                     "@type": value.type
                 }
-            elif isinstance(value, datetime):
+            elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             else:
                 raise ValueError("don't know how to serialize this value")
@@ -167,9 +168,12 @@ class Field(object):  # playing with an idea, work in progress, not yet used
             return serialize_single(value)
 
     def deserialize(self, data, client):
+        if data is None:
+            return data
         if not self.intrinsic:
             if len(self.types) > 1:
                 raise NotImplementedError("todo")
+
             query_filter = {
                 "path": self.path[1:],  # remove initial ^
                 "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
@@ -183,12 +187,16 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                 "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
             }
             return KGQuery(self.types[0], query_filter, query_context)
-        if issubclass(self.types[0], (KGObject, StructuredMetadata)):
+        if Distribution in self.types:
+            return build_kg_object(Distribution, data)
+        elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
             if len(self.types) > 1 or self.types[0] == KGObject:
                 return build_kg_object(None, data)
             return build_kg_object(self.types[0], data)
-        elif self.types[0] == datetime:
-            return  date_parser.parse(data)
+        elif self.types[0] in (datetime, date):
+            return date_parser.parse(data)
+        elif self.types[0] == IRI:
+            return data["@id"]
         else:
             return data
 
@@ -201,20 +209,21 @@ class KGObject(with_metaclass(Registry, object)):
     fields = []
 
     def __init__(self, id=None, instance=None, **properties):
-        if self.fields:
-            for field in self.fields:
-                try:
-                    value = properties[field.name]
-                except KeyError:
-                    if field.required:
-                        raise ValueError("Field '{}' is required.".format(field.name))
-                field.check_value(value)
-                setattr(self, field.name, value)
-        else:
-            for key, value in properties.items():
-                if key not in self.property_names:
-                    raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
-                setattr(self, key, value)
+        for field in self.fields:
+            try:
+                value = properties[field.name]
+            except KeyError:
+                if field.required:
+                    raise ValueError("Field '{}' is required.".format(field.name))
+                value = None
+            if value is None:
+                value = field.default
+                if callable(value):
+                    value = value()
+            elif IRI in field.types:
+                value = IRI(value)
+            field.check_value(value)
+            setattr(self, field.name, value)
 
         self.id = id
         self.instance = instance
@@ -239,6 +248,7 @@ class KGObject(with_metaclass(Registry, object)):
             for field in cls.fields:
                 if field.intrinsic:
                     data_item = D.get(field.path)
+                    # todo: handle over-loaded fields, e.g. "used" in ValidationActivity
                 else:
                     data_item = D["@id"]
                 args[field.name] = field.deserialize(data_item, client)
@@ -372,7 +382,14 @@ class KGObject(with_metaclass(Registry, object)):
                     value = getattr(self, field.name)
                     print(field.name, value)
                     if field.required or value is not None:
-                        data[field.path] = field.serialize(value, client)
+                        serialized = field.serialize(value, client)
+                        if field.path in data:
+                            if isinstance(data[field.path], list):
+                                data[field.path].append(serialized)
+                            else:
+                                data[field.path] = [data[field.path], serialized]
+                        else:
+                            data[field.path] = serialized
             return data
         else:
             raise NotImplementedError("to be implemented by child classes")
@@ -570,6 +587,20 @@ class KGQuery(object):
             return objects[0]
         else:
             return objects
+
+
+class IRI(object):
+
+    def __init__(self, value):
+        if not value.startswith("http"):
+            raise ValueError("Invalid IRI")
+        self.value = value
+
+    def __eq__(self, other):
+        return self.__class__ == other.__class__ and self.value == other.value
+
+    def to_jsonld(self, client):
+        return {"@id": self.value}
 
 
 class Distribution(StructuredMetadata):

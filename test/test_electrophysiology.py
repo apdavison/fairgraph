@@ -148,7 +148,8 @@ class TestPatchedCell(BaseTestKG):
             pytest.skip("The remaining lifespan of Python 2 is too short to fix unicode representation errors")
 
 
-class TestTrace(object):
+class TestTrace(BaseTestKG):
+    class_under_test = Trace
 
     def test_list(self, kg_client):
         traces = Trace.list(kg_client, size=10)
@@ -178,48 +179,96 @@ class TestTrace(object):
             assert obj1.type == obj2.type
 
 
-def test_MultiChannelMultiTrialRecording(kg_client):
-    traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
-    assert len(traces) == 4
+class TestMultiChannelMultiTrialRecording(BaseTestKG):
+    class_under_test = MultiChannelMultiTrialRecording
 
-def test__Slice(kg_client):
-    slices = Slice.list(kg_client, size=10)
-    assert len(slices) == 10
+    def test_list(self, kg_client):
+        traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
+        assert len(traces) == 4
 
 
-class TestBrainSlicingActivity(object):
+class TestSlice(BaseTestKG):
+    class_under_test = Slice
+
+    def test_list(self, kg_client):
+        slices = Slice.list(kg_client, size=10)
+        assert len(slices) == 10
+
+
+class TestBrainSlicingActivity(BaseTestKG):
+    class_under_test = BrainSlicingActivity
 
     def test_list(self, kg_client):
         activities = BrainSlicingActivity.list(kg_client, size=10)
         assert len(activities) == 10
 
-    def test_round_trip(self):
-        pass  # todo
+
+class TestPatchedSlice(BaseTestKG):
+    class_under_test = PatchedSlice
+
+    def test_list(self, kg_client):
+        slices = PatchedSlice.list(kg_client, size=10)
+        assert len(slices) == 10
 
 
-def test__PatchedSlice(kg_client):
-    slices = PatchedSlice.list(kg_client, size=10)
-    assert len(slices) == 10
+class TestPatchedCellCollection(BaseTestKG):
+    class_under_test = PatchedCellCollection
 
-def test__PatchedCellCollection(kg_client):
-    collections = PatchedCellCollection.list(kg_client, size=10)
-    assert len(collections) == 10
+    def test_list(self, kg_client):
+        collections = PatchedCellCollection.list(kg_client, size=10)
+        assert len(collections) == 10
 
-def test__PatchClampActivity(kg_client):
-    activities = PatchClampActivity.list(kg_client, size=10)
-    assert len(activities) == 10
 
-def test__PatchClampExperiment(kg_client):
-    experiments = PatchClampExperiment.list(kg_client, size=10)
-    assert len(experiments) == 10
+class TestPatchClampActivity(BaseTestKG):
+    class_under_test = PatchClampActivity
 
-def test__QualifiedTraceGeneration(kg_client):
-    tracegens = QualifiedTraceGeneration.list(kg_client, size=10)
-    assert len(tracegens) == 10
+    def test_list(self, kg_client):
+        activities = PatchClampActivity.list(kg_client, size=10)
+        assert len(activities) == 10
 
-def test__QualifiedMultiTraceGeneration(kg_client):
-    tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
-    assert len(tracegens) == 4
+
+class TestPatchClampExperiment(BaseTestKG):
+    class_under_test = PatchClampExperiment
+
+    def test_list(self, kg_client):
+        experiments = PatchClampExperiment.list(kg_client, size=10)
+        assert len(experiments) == 10
+
+
+class TestQualifiedTraceGeneration(BaseTestKG):
+    class_under_test = QualifiedTraceGeneration
+
+    def test_list(self, kg_client):
+        tracegens = QualifiedTraceGeneration.list(kg_client, size=10)
+        assert len(tracegens) == 10
+
+
+class TestQualifiedMultiTraceGeneration(BaseTestKG):
+    class_under_test = QualifiedMultiTraceGeneration
+
+    def test_list(self, kg_client):
+        tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
+        assert len(tracegens) == 4
+
+
+class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedCell
+
+
+class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecording
+
+
+class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedCellCollection
+
+
+class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedSlice
+
+
+class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeExperiment
 
 
 class TestModuleFunctions(object):

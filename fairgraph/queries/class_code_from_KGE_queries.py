@@ -44,8 +44,8 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['Modelformat', 'ModelFormat', 'model_format'],
                                 ['Mimetype', 'MimeType', 'mime_type'],
                                 ['Methodcategory', 'MethodCategory', 'method_category'],
-                                ['Hbpcomponent', 'HbpComponent', 'hbp_component'],
-                                ['hbpComponent', 'HbpComponent', 'hbp_component'],
+                                ['Hbpcomponent', 'HBPComponent', 'hbp_component'],
+                                ['hbpComponent', 'HBPComponent', 'hbp_component'],
                                 ['associatedTask', 'AssociatedTask', 'associated_task'],
                                 ['alternateOf', 'AlternateOf', 'alternate_of'],
                                 ['Fundinginformation', 'FundingInformation', 'funding_information'],
@@ -87,7 +87,7 @@ entries_replacement = np.array([['Specimengroup', 'SpecimenGroup', 'specimen_gro
                                 ['@id', 'id', 'id'],
                                 ['@type', 'type', 'type']])
 
- 
+
 # The classes below were manually copy-pasted from the KG-Editor interface
 MINDS_CLASSES = np.array([['Activity','core/activity/v1.0.0'],
                           ['Agecategory','core/agecategory/v1.0.0'],
@@ -223,13 +223,13 @@ def field_setting(field,
             return field.lower()
         else:
             return field.capitalize()
-    
+
 def required_setting(field):
     if field in ['name', 'identifier', '@id', 'id']:
         return 'True'
     else:
         return 'False'
-    
+
 def transform_KGE_query_to_dict(namespace, cls, cls_version):
     """
     Requirements:
@@ -266,12 +266,12 @@ def transform_KGE_query_to_dict(namespace, cls, cls_version):
                             new_query_dict[key][-1][key3] = value3
                         else:
                             new_query_dict[key][-1]['field'] = value3.split('query:')[1]
-                            
+
             else:
                 new_query_dict[key] = value
     else:
         print('Problem with url: %s' % query_url(namespace, cls_version)+'-KGE')
-        
+
     return new_query_dict
 
 
@@ -297,7 +297,7 @@ def reformat_path(path):
         return path['@id']
     else:
         return path
-    
+
 def extract_fields_from_query(query_dict, namespace):
     FIELD = 'fields = (\n'
     for i, field in enumerate(query_dict['fields']):
@@ -328,10 +328,10 @@ class %s(MINDSObject):
     type = ["%s:%s"]
     %s
     ''' % (field_setting(cls, output='class'), cls_version, nmspc.lower(), field_setting(cls, output='class'), FIELD)
-    
+
 
 if __name__=='__main__':
-    
+
     if sys.argv[-1]=='Minds':
         for mc in MINDS_CLASSES:
             cls, cls_version = mc[0], mc[1]
@@ -339,7 +339,7 @@ if __name__=='__main__':
             FIELDS = extract_fields_from_query(query, 'Minds')
             code = generate_code_for_class_def('Minds', cls, cls_version, FIELDS)
             print(code)
-            
+
     elif sys.argv[-1]=='Uniminds':
         for mc in UNIMINDS_CLASSES:
             cls, cls_version = mc[0], mc[1]
@@ -347,7 +347,7 @@ if __name__=='__main__':
             FIELDS = extract_fields_from_query(query, 'Uniminds')
             code = generate_code_for_class_def('Uniminds', cls, cls_version, FIELDS)
             print(code)
-            
+
     else:
         print("""
         Please provide the namespace as an argument, either "Minds" of "Uniminds"

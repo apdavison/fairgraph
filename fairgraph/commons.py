@@ -4,16 +4,39 @@
 """
 
 import collections
-#from typing import NamedTuple
 from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata
 
 
-#class Address(NamedTuple):
-#    locality: str
-#    country: str
+class Address(StructuredMetadata):
 
-Address = collections.namedtuple('Address', ['locality', 'country'])
-# should probably subclass StructuredMetadata
+    def __init__(self, locality, country):
+        self.locality = locality
+        self.country = country
+
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.locality!r}, {self.country!r})'.format(self=self))
+
+    def __eq__(self, other):
+        return (isinstance(other, self.__class__)
+                and self.locality == other.locality
+                and self.country == other.country)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def to_jsonld(self, client=None):
+        return {
+            "@type": "schema:PostalAddress",
+            "addressLocality": self.locality,
+            "addressCountry": self.country
+        }
+
+    @classmethod
+    def from_jsonld(cls, data):
+        if data is None:
+            return None
+        return cls(data["addressLocality"], data["addressCountry"])
 
 
 class Species(OntologyTerm):
@@ -199,6 +222,12 @@ class License(OntologyTerm):
     iri_map = {
         "GNU General Public License 2 or later": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
         "CeCILL v2": "http://www.cecill.info/licences/Licence_CeCILL_V2-en.html"
+    }
+
+
+class StimulusType(OntologyTerm):
+    iri_map = {
+        "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000"
     }
 
 

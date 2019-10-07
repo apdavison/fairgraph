@@ -8,13 +8,13 @@ except NameError:
     basestring = str
 import os.path
 import logging
-import datetime
+from datetime import datetime, date
 import mimetypes
 from dateutil import parser as date_parser
 import requests
-from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field
+from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field, IRI
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
-from .core import Organization, Person, Age
+from .core import Organization, Person, Age, Collection
 
 logger = logging.getLogger("fairgraph")
 mimetypes.init()
@@ -86,7 +86,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("owners", Person, "owner", required=True, multiple=True),
         Field("authors", Person, "author", required=True, multiple=True),
         Field("description", basestring, "description", required=True),
-        Field("date_created", datetime.datetime, "dateCreated", required=True),
+        Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
         Field("collab_id", int, "collabId", required=True),
         Field("alias", basestring, "alias"),
@@ -98,8 +98,8 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("abstraction_level", AbstractionLevel, "abstractionLevel"),
         Field("model_of", ModelScope, "modelOf"),
         Field("old_uuid", basestring, "oldUUID"),
-        Field("parents", "ModelProject", "partOf", multiple=True),
-        Field("instances", "ModelInstance", "dcterms:hasPart", multiple=True),
+        Field("parents", "brainsimulation.ModelProject", "partOf", multiple=True),
+        Field("instances", "brainsimulation.ModelInstance", "dcterms:hasPart", multiple=True),
         Field("images", basestring, "images", multiple=True)  # type should be Distribution?
     )
 
@@ -199,10 +199,10 @@ class ModelInstance(KGObject):
         Field("brain_region", BrainRegion, "brainRegion", required=True),
         Field("species", Species, "species", required=True),
         Field("model_of", (CellType, BrainRegion), "modelOf", required=True),
-        Field("main_script", "ModelScript", "mainModelScript", required=True),
+        Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
         Field("release", basestring, "release", required=True),
         Field("version",  basestring, "version", required=True),
-        Field("timestamp", datetime.datetime, "generatedAtTime", required=True),
+        Field("timestamp", datetime, "generatedAtTime", required=True),
         Field("part_of", KGObject, "isPartOf"),
         Field("description", basestring, "description"),
         Field("parameters", basestring, "parameters"),
@@ -242,100 +242,19 @@ class MEModel(ModelInstance):
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
+    fields = list(ModelInstance.fields) + [
+        Field("morphology", "brainsimulation.Morphology", "morphology", required=True),
+        Field("e_model",  "brainsimulation.EModel", "eModel", required=True),
+        #Field("project", ModelProject, "isPartOf", required=True)  # conflicts with project property in parent class. To fix.
+    ]
 
     def __init__(self, name, brain_region, species, model_of, e_model,
-                 morphology, main_script, release, version, timestamp, project,
+                 morphology, main_script, release, version, timestamp, #project,
                  part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
-        self.name = name
-        self.description = description
-        self.brain_region = brain_region
-        self.species = species
-        self.model_of = model_of
-        self.e_model = e_model
-        self.morphology = morphology
-        self.main_script = main_script
-        self.release = release
-        self.version = version
-        self.timestamp = timestamp
-        #self.project = project  # conflict with project property in parent class. To fix.
-        self.part_of = part_of
-        self.parameters = parameters
-        self.old_uuid = old_uuid
-        self.id = id
-        self.instance = instance
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:MEModel' in D["@type"]
-        obj = cls(name=D["name"],
-                  model_of=build_kg_object(None, D.get("modelOf")),
-                  #model_of = D.get("modelOf", None),
-                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
-                  species=build_kg_object(Species, D.get("species")),
-                  e_model=build_kg_object(EModel, D["eModel"]),
-                  morphology=build_kg_object(Morphology, D["morphology"]),
-                  main_script=build_kg_object(ModelScript, D["mainModelScript"]),
-                  release=D.get("release"),  # to fix once we define MEModelRelease class
-                  version=D.get("version"),
-                  timestamp=date_parser.parse(D.get("generatedAtTime"))
-                            if "generatedAtTime" in D else None,
-                  project=build_kg_object(ModelProject, D.get("isPartOf")),
-                  #part_of=build_kg_object(ModelRelease, D.get("isPartOf")),
-                  description=D.get("description"),
-                  parameters=D.get("nsg:parameters"),
-                  old_uuid=D.get("oldUUID"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.model_of:
-            data["modelOf"] = self.model_of.to_jsonld()
-        if self.brain_region:
-            data["brainRegion"] = self.brain_region.to_jsonld()
-        if self.species:
-            data["species"] = self.species.to_jsonld()
-        if self.description:
-            data["description"] = self.description
-        data["eModel"] = {
-            "@id": self.e_model.id,
-            "@type": self.e_model.type
-        }
-        data["morphology"] = {
-            "@id": self.morphology.id,
-            "@type": self.morphology.type
-        }
-        if self.main_script:
-            data["mainModelScript"] = {
-                "@id": self.main_script.id,
-                "@type": self.main_script.type
-            }
-        if self.version:
-            data["version"] = self.version
-        if self.timestamp:
-            data["generatedAtTime"] = self.timestamp.isoformat()
-        if self.part_of:
-            data["isPartOf"] = {
-                "@id": self.part_of.id,
-                "@type": self.part_of.type
-            }
-        # if self.project:
-        #     data["project"] = {
-        #         "@id": self.project.id,
-        #         "@type": self.project.type
-        #     }
-        if self.release:
-            data["release"] = self.release
-        if self.parameters:
-            data["nsg:parameters"] = self.parameters
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        return data
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class Morphology(KGObject):
@@ -346,20 +265,20 @@ class Morphology(KGObject):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("cell_type", CellType, "modelOf"),
+        Field("distribution", Distribution, "distribution")
+    )
 
-    #name, distribution
-    def __init__(self, name, cell_type=None, morphology_file=None, distribution=None, id=None, instance=None):
-        self.name = name
-        self.cell_type = cell_type
-        if cell_type is not None and not isinstance(cell_type, CellType):
-            raise ValueError("cell type should be a CellType instance, not {}".format(type(cell_type)))
-        self.distribution = distribution
+    def __init__(self, name, cell_type=None, morphology_file=None, distribution=None,
+                 id=None, instance=None):
+        super(Morphology, self).__init__(name=name, cell_type=cell_type,
+                                         distribution=distribution, id=id, instance=instance)
         if morphology_file:
             if distribution:
                 raise ValueError("Cannot provide both morphology_file and distribution")
             self.morphology_file = morphology_file
-        self.id = id
-        self.instance = instance
 
     @property
     def morphology_file(self):
@@ -377,29 +296,6 @@ class Morphology(KGObject):
         else:
             self.distribution = Distribution(location=value)
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:Morphology' in D["@type"]
-        obj = cls(name=D["name"],
-                  cell_type=build_kg_object(CellType, D.get("modelOf")),
-                  distribution=build_kg_object(Distribution, D.get("distribution")),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.cell_type:
-            data["modelOf"] = self.cell_type.to_jsonld()
-        if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
-        elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld(client)
-        return data
-
 
 class ModelScript(KGObject):
     namespace = DEFAULT_NAMESPACE
@@ -412,21 +308,21 @@ class ModelScript(KGObject):
             "license": "schema:license"
         }
     ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("code_format", basestring, "code_format"),
+        Field("license", basestring, "license"),
+        Field("distribution", Distribution,  "distribution")
+    )
 
     def __init__(self, name, code_location=None, code_format=None, license=None,
                  distribution=None, id=None, instance=None):
-        self.name = name
-        self.distribution = distribution
-        self.code_format = code_format
-        self.license = license
-        self.id = id
-        self.instance = instance
+        super(ModelScript, self).__init__(name=name, code_format=code_format, license=license,
+                                          distribution=distribution, id=id, instance=instance)
         if code_location and distribution:
             raise ValueError("Cannot provide both code_location and distribution")
         if code_location:
             self.distribution = Distribution(location=code_location)
-        if distribution is not None:
-            assert isinstance(self.distribution, Distribution)
 
     @property
     def code_location(self):
@@ -434,30 +330,6 @@ class ModelScript(KGObject):
             return self.distribution.location
         else:
             return None
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:EModelScript' in D["@type"]  # generalise
-        obj = cls(name=D["name"],
-                  distribution=build_kg_object(Distribution, D.get("distribution")),
-                  license=D.get("license"),
-                  code_format=D.get("code_format"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if isinstance(self.distribution, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.distribution]
-        elif self.distribution is not None:
-            data["distribution"] = self.distribution.to_jsonld(client)
-        data["license"] = self.license
-        data["code_format"] = self.code_format
-        return data
 
 
 class EModel(ModelInstance):
@@ -470,57 +342,6 @@ class EModel(ModelInstance):
     ]
 
 
-    # model_script, name, species, subCellularMechanism
-    def __init__(self, name, brain_region, species, model_of,
-                 main_script, release, id=None, instance=None):
-        self.name = name
-        self.brain_region = brain_region
-        self.species = species
-        self.model_of = model_of
-        self.main_script = main_script
-        self.release = release
-        self.id = id
-        self.instance = instance
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:EModel' in D["@type"]
-        obj = cls(name=D["name"],
-                  model_of=build_kg_object(None, D.get("modelOf", None)),
-                  #model_of=D.get("modelOf", None),
-                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
-                  species=build_kg_object(Species, D.get("species")),
-                  main_script=build_kg_object(ModelScript, D.get("modelScript")),
-                  release=D.get("release"),  # to fix once we define MEModelRelease class
-                  id=D["@id"], instance=instance)
-        return obj
-
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.model_of:
-            data["modelOf"] = {
-                "@type": self.model_of.type,
-                "@id": self.model_of.id
-            }
-        if self.brain_region:
-            data["brainRegion"] = self.brain_region.to_jsonld()
-        if self.species:
-            data["species"] = self.species.to_jsonld()
-        if self.main_script:
-            data["modelScript"] = {
-                "@id": self.main_script.id,
-                "@type": self.main_script.type
-            }
-        if self.release:
-            data["release"] = self.release
-        return data
-
-
 class AnalysisResult(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisresult/v1.0.0"
@@ -529,14 +350,18 @@ class AnalysisResult(KGObject):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("result_file", (Distribution, basestring), "distribution"),
+        Field("timestamp", datetime, "generatedAtTime", default=datetime.now)
+    )
 
     def __init__(self, name, result_file=None, timestamp=None, id=None, instance=None):
-        self.name = name
-        self.result_file = result_file
-        self.timestamp = timestamp or datetime.datetime.now()
+        super(AnalysisResult, self).__init__(
+            name=name, result_file=result_file, timestamp=timestamp,
+            id=id, instance=instance
+        )
         self._file_to_upload = None
-        self.id = id
-        self.instance = instance
         if isinstance(result_file, basestring):
             if result_file.startswith("http"):
                 self.result_file = Distribution(location=result_file)
@@ -546,38 +371,6 @@ class AnalysisResult(KGObject):
         elif result_file is not None:
             for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.timestamp!r}, '
-                '{self.result_file!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:AnalysisResult' in D["@type"]
-        obj = cls(name=D["name"],
-                  result_file=build_kg_object(Distribution, D.get("distribution")),
-                  timestamp=date_parser.parse(D.get("generatedAtTime"))
-                            if "generatedAtTime" in D else None,
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.timestamp:
-            data["generatedAtTime"] = self.timestamp.isoformat()
-        if isinstance(self.result_file, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.result_file]
-        elif self.result_file is not None:
-            if isinstance(self.result_file, Distribution):
-                data["distribution"] = self.result_file.to_jsonld(client)
-            else:
-                data["distribution"] = [rf.to_jsonld(client) for rf in self.result_file]
-        return data
 
     @property
     def _existence_query(self):
@@ -660,114 +453,24 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
             "oldUUID": "nsg:providerId"
         }
     ]
-
-    def __init__(self, name, authors, description, date_created, alias=None,
-                 brain_region=None, species=None, celltype=None, test_type=None,
-                 age=None, reference_data=None, data_type=None, recording_modality=None,
-                 score_type=None, status=None, old_uuid=None,
-                 id=None, instance=None):
-        self.name = name
-        self.alias = alias
-        self.brain_region = brain_region
-        self.species = species
-        self.celltype = celltype
-        self.authors = authors  # rename 'contributors', for consistency with MINDS?
-        self.description = description
-        self.date_created = date_created
-        self.test_type = test_type
-        self.age = age
-        self.reference_data = reference_data
-        self.data_type = data_type
-        self.recording_modality = recording_modality
-        self.score_type = score_type
-        self.status = status
-        self.old_uuid = old_uuid
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.brain_region!r}, '
-                '{self.celltype!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
-        D = instance.data
-        assert 'nsg:ValidationTestDefinition' in D["@type"]
-        obj = cls(name=D["name"],
-                  authors=build_kg_object(Person, D["author"]),
-                  description=D.get("description", ""),
-                  date_created=D["dateCreated"],
-                  alias=D.get("alias", None),
-                  test_type=D.get("testType"),
-                  brain_region=build_kg_object(BrainRegion, D.get("brainRegion")),
-                  species=build_kg_object(Species, D.get("species")),
-                  celltype=build_kg_object(CellType, D.get("celltype")),
-                  age=Age.from_jsonld(D.get("age")),
-                  reference_data=build_kg_object(None, D.get("referenceData")),
-                  data_type=D.get("dataType"),
-                  recording_modality=D.get("recordingModality"),
-                  score_type=D.get("scoreType"),
-                  status=D.get("status"),
-                  old_uuid=D.get("oldUUID"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        data = {}
-        if self.authors:
-            for author in as_list(self.authors):
-                if not author.id:
-                    author.save(client)
-            data["author"] = [
-                {
-                    "@type": person.type,
-                    "@id": person.id
-                } for person in as_list(self.authors)
-            ]
-        data["name"] = self.name
-        data["description"] = self.description
-        if type(self.date_created) is datetime.date or type(self.date_created) is datetime.datetime:
-            data["dateCreated"] = self.date_created.isoformat()
-        else:
-            data["dateCreated"] = self.date_created
-        if self.alias is not None:
-            data["alias"] = self.alias
-        if self.test_type is not None:
-            data["testType"] = self.test_type
-        if self.brain_region is not None:
-            if isinstance(self.brain_region, list):
-                data["brainRegion"] = [br.to_jsonld() for br in self.brain_region]
-            else:
-                data["brainRegion"] = self.brain_region.to_jsonld()
-        if self.species is not None:
-            if isinstance(self.species, list):
-                data["species"] = [s.to_jsonld() for s in self.species]
-            else:
-                data["species"] = self.species.to_jsonld()
-        if self.celltype is not None:
-            if isinstance(self.celltype, list):
-                data["celltype"] = [ct.to_jsonld() for ct in self.celltype]
-            else:
-                data["celltype"] = self.celltype.to_jsonld()
-        if self.age is not None:
-            data["age"] = self.age.to_jsonld()
-        if self.reference_data is not None:
-            data["referenceData"] = [{
-                "@type": item.type,
-                "@id": item.id
-            } for item in as_list(self.reference_data)]
-        # todo: if we're auto-saving authors, should do the same for reference data
-        if self.data_type is not None:
-            data["dataType"] = self.data_type
-        if self.recording_modality is not None:
-            data["recordingModality"] = self.recording_modality
-        if self.status is not None:
-            data["status"] = self.status
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        return data
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("authors", Person, "author", multiple=True, required=True),
+        Field("description", basestring, "description", required=True),
+        Field("date_created", (date, datetime), "dateCreated", required=True),
+        Field("alias", basestring, "alias"),
+        Field("brain_region", BrainRegion, "brainRegion", multiple=True),
+        Field("species", Species, "species"),
+        Field("celltype", CellType, "celltype", multiple=True),
+        Field("test_type", basestring, "testType"),
+        Field("age", Age, "age"),
+        Field("reference_data", KGObject, "referenceData"),
+        Field("data_type", basestring, "dataType"),
+        Field("recording_modality", basestring, "recordingModality"),
+        Field("score_type", basestring, "scoreType"),
+        Field("status", basestring, "status"),
+        Field("old_uuid", basestring, "oldUUID")
+    )
 
     @property
     def scripts(self):
@@ -805,71 +508,16 @@ class ValidationScript(KGObject):  # or ValidationImplementation
             "oldUUID": "nsg:providerId"
         }
     ]
-
-    def __init__(self, name, date_created,
-                 repository=None, version=None,
-                 description=None, parameters=None,
-                 test_class=None, test_definition=None,
-                 old_uuid=None, id=None, instance=None):
-        self.name = name
-        self.description = description
-        self.date_created = date_created
-        self.repository = repository
-        self.version = version
-        self.parameters = parameters
-        self.test_class = test_class
-        self.test_definition = test_definition
-        self.old_uuid = old_uuid
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.repository!r}, '
-                '{self.version!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
-        D = instance.data
-        assert 'nsg:ModelValidationScript' in D["@type"]
-        obj = cls(name=D["name"],
-                  description=D.get("description", ""),
-                  date_created=D["dateCreated"],
-                  repository=D.get("repository")["@id"] if "repository" in D else None,
-                  version=D.get("version"),
-                  parameters=D.get("parameters"),
-                  test_class=D.get("path"),
-                  test_definition=build_kg_object(ValidationTestDefinition, D.get("implements")),
-                  old_uuid=D.get("oldUUID"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        data = {}
-        data["name"] = self.name
-        if self.description is not None:
-            data["description"] = self.description
-        if isinstance(self.date_created, (datetime.date, datetime.datetime)):
-            data["dateCreated"] = self.date_created.isoformat()
-        else:
-            raise ValueError("date_created must be a date or datetime object, not '{}'".format(self.date_created))
-        if self.repository is not None:
-            data["repository"] = {"@id": self.repository}
-        if self.version is not None:
-            data["version"] = self.version
-        if self.parameters is not None:
-            data["parameters"] = self.parameters
-        if self.test_class is not None:
-            data["path"] = self.test_class
-        if self.test_definition is not None:
-            data["implements"] = {
-                "@type": self.test_definition.type,
-                "@id": self.test_definition.id
-            }
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        return data
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("date_created", (date, datetime), "dateCreated", required=True),
+        Field("repository", IRI, "repository"),
+        Field("version", basestring, "version"),
+        Field("description", basestring, "description"),
+        Field("parameters", basestring, "parameters"),
+        Field("test_definition", ValidationTestDefinition, "implements"),
+        Field("old_uuid", basestring, "oldUUID")
+    )
 
 
 class ValidationResult(KGObject):
@@ -898,81 +546,19 @@ class ValidationResult(KGObject):
             "hash": "nsg:digest"
         }
     ]
-
-    def __init__(self, name, generated_by=None, description=None,
-                 score=None, normalized_score=None, passed=None,
-                 timestamp=None, additional_data=None, old_uuid=None,
-                 collab_id=None, hash=None, id=None, instance=None):
-        self.name = name
-        self.generated_by = generated_by
-        self.description = description
-        self.score = score
-        self.normalized_score = normalized_score
-        self.passed = passed
-        self.timestamp = timestamp
-        self.additional_data = additional_data
-        self.old_uuid = old_uuid
-        self.collab_id = collab_id
-        self.hash = hash
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.generated_by!r}, '
-                '{self.score!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
-        D = instance.data
-        assert 'nsg:ValidationResult' in D["@type"]
-        obj = cls(name=D["name"],
-                  generated_by=build_kg_object(ValidationActivity, D.get("wasGeneratedBy")),
-                  description=D.get("description", ""),
-                  timestamp=D["dateCreated"],
-                  score=D.get("score"),
-                  normalized_score=D.get("normalizedScore"),
-                  passed=D.get("passedValidation"),
-                  additional_data=build_kg_object(None, D.get("hadMember")),
-                  old_uuid=D.get("oldUUID"),
-                  collab_id=D.get("collabID"),
-                  hash=D.get("hash"),
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        data = {}
-        data["name"] = self.name
-        if self.description is not None:
-            data["description"] = self.description
-        if isinstance(self.timestamp, (datetime.date, datetime.datetime)):
-            data["dateCreated"] = self.timestamp.isoformat()
-        else:
-            raise ValueError("timestamp must be a date or datetime object")
-        if self.score is not None:
-            data["score"] = self.score
-        if self.normalized_score is not None:
-            data["normalizedScore"] = self.normalized_score
-        if self.passed is not None:
-            data["passedValidation"] = self.passed
-        if self.generated_by is not None:
-            data["wasGeneratedBy"] = {
-                "@type": self.generated_by.type,
-                "@id": self.generated_by.id
-            }
-        if self.additional_data is not None:
-            data["hadMember"] = [{
-                "@type": obj.type,
-                "@id": obj.id
-            } for obj in as_list(self.additional_data)]
-        if self.old_uuid:
-            data["oldUUID"] = self.old_uuid
-        if self.collab_id:
-            data["collabID"] = self.collab_id
-        if self.hash is not None:
-            data["hash"] = self.hash
-        return data
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("generated_by", "brainsimulation.ValidationActivity", "wasGeneratedBy"),
+        Field("description", basestring, "description"),
+        Field("score", float, "score"),
+        Field("normalized_score", float, "normalizedScore"),
+        Field("passed", bool, "passedValidation"),
+        Field("timestamp", (date, datetime), "dateCreated"),
+        Field("additional_data", KGObject, "hadMember", multiple=True),
+        Field("old_uuid", basestring, "oldUUID"),
+        Field("collab_id", basestring, "collabID"),
+        Field("hash", basestring, "hash")
+    )
 
 
 class ValidationActivity(KGObject):
@@ -997,26 +583,15 @@ class ValidationActivity(KGObject):
             "referenceData": "nsg:referenceData"
         }
     ]
-
-    def __init__(self, model_instance, test_script, reference_data, timestamp,
-                 result=None, started_by=None, end_timestamp=None, id=None, instance=None):
-        self.model_instance = model_instance
-        self.test_script = test_script
-        self.reference_data = reference_data
-        self.timestamp = timestamp
-        self.result = result
-        self.started_by = started_by
-        self.end_timestamp = end_timestamp
-
-        self.id = id
-        self.instance = instance
-
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.model_instance!r}, '
-                '{self.test_script!r} {self.reference_data!r}, '
-                '{self.id})'.format(self=self))
+    fields = (
+        Field("model_instance", (ModelInstance, MEModel), "used", required=True),
+        Field("test_script", ValidationScript, "used", required=True),
+        Field("reference_data", Collection, "used", required=True),
+        Field("timestamp", datetime,  "startedAtTime", required=True),
+        Field("result", ValidationResult, "generated"),
+        Field("started_by", Person, "wasAssociatedWith"),
+        Field("end_timestamp",  datetime, "endedAtTime")
+    )
 
     @property
     def _existence_query(self):
@@ -1046,40 +621,12 @@ class ValidationActivity(KGObject):
                   test_script=build_kg_object(ValidationScript, test_script),
                   reference_data=build_kg_object(None, reference_data),
                   timestamp=date_parser.parse(D.get("startedAtTime")),
-                  result=build_kg_object(ValidationResult, D.get("result")),
+                  result=build_kg_object(ValidationResult, D.get("generated")),
                   started_by=build_kg_object(Person, D.get("wasAssociatedWith")),
                   end_timestamp=date_parser.parse(D.get("endedAtTime")) if "endedAtTime" in D else None,
                   id=D["@id"],
                   instance=instance)
         return obj
-
-    def _build_data(self, client):
-        data = {}
-        if isinstance(self.timestamp, (datetime.date, datetime.datetime)):
-            data["startedAtTime"] = self.timestamp.isoformat()
-        else:
-            raise ValueError("timestamp must be a date or datetime object")
-        if self.end_timestamp is not None:
-            if isinstance(self.end_timestamp, (datetime.date, datetime.datetime)):
-                data["endedAtTime"] = self.end_timestamp.isoformat()
-            else:
-                raise ValueError("end_timestamp must be a date or datetime object")
-        data["used"] = [
-            {"@id": self.model_instance.id, "@type": self.model_instance.type},
-            {"@id": self.test_script.id, "@type": self.test_script.type},
-            {"@id": self.reference_data.id, "@type": self.reference_data.type}
-        ]
-        if self.started_by is not None:
-            data["wasAssociatedWith"] = [{
-                "@type": agent.type,
-                "@id": agent.id
-            } for agent in self.started_by]
-        if self.result is not None:
-            data["generated"] = {
-                "@type": self.result.type,
-                "@id": self.result.id
-            }
-        return data
 
 
 def list_kg_classes():
