@@ -363,4 +363,9 @@ class Age(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
-        return cls(QuantitativeValue.from_jsonld(data["value"]), data["period"])
+        if "value" in data:
+            return cls(QuantitativeValue.from_jsonld(data["value"]), data["period"])
+        elif "minValue" in data:
+            return cls(QuantitativeValueRange.from_jsonld(data["value"]), data["period"])
+        else:
+            raise ValueError("Invalid data for creating an Age object")
