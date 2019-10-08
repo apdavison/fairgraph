@@ -99,7 +99,8 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("model_of", ModelScope, "modelOf"),
         Field("old_uuid", basestring, "oldUUID"),
         Field("parents", "brainsimulation.ModelProject", "partOf", multiple=True),
-        Field("instances", "brainsimulation.ModelInstance", "dcterms:hasPart", multiple=True),
+        Field("instances", ("brainsimulation.ModelInstance", "brainsimulation.MEModel"),
+              "dcterms:hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
 
@@ -200,7 +201,7 @@ class ModelInstance(KGObject):
         Field("species", Species, "species", required=True),
         Field("model_of", (CellType, BrainRegion), "modelOf", required=True),
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
-        Field("release", basestring, "release", required=True),
+        Field("release", basestring, "release", required=False),
         Field("version",  basestring, "version", required=True),
         Field("timestamp", datetime, "generatedAtTime", required=True),
         Field("part_of", KGObject, "isPartOf"),
@@ -210,7 +211,7 @@ class ModelInstance(KGObject):
     )
 
     def __init__(self, name, brain_region, species, model_of,
-                 main_script, release, version, timestamp,
+                 main_script, version, timestamp, release=None,
                  part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
         args = locals()
@@ -249,8 +250,8 @@ class MEModel(ModelInstance):
     ]
 
     def __init__(self, name, brain_region, species, model_of, e_model,
-                 morphology, main_script, release, version, timestamp, #project,
-                 part_of=None, description=None, parameters=None,
+                 morphology, main_script, version, timestamp, #project,
+                 release=None, part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
         args = locals()
         args.pop("self")

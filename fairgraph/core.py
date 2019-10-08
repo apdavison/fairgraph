@@ -52,12 +52,12 @@ class Subject(KGObject):
         Field("name", basestring, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
-        Field("sex", Sex, "sex", required=True),
+        Field("sex", Sex, "sex"),
         Field("age", Age, "age", required=True),
         Field("death_date", date, "deathDate")
     )
 
-    def __init__(self, name, species, sex, age, strain=None, death_date=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, strain=None, death_date=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
