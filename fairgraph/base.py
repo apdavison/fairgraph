@@ -7,6 +7,7 @@ import sys
 from functools import wraps
 from collections import defaultdict
 from datetime import datetime, date
+import warnings
 try:
     from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
@@ -94,7 +95,7 @@ class Registry(type):
 class Field(object):  # playing with an idea, work in progress, not yet used
     """Representation of a metadata field"""
 
-    def __init__(self, name, types, path, required=False, default=None, multiple=False):
+    def __init__(self, name, types, path, required=False, default=None, multiple=False, strict=True):
         self.name = name
         if isinstance(types, (type, basestring)):
             self._types = (types,)
@@ -106,6 +107,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         self.required = required
         self.default = default
         self.multiple = multiple
+        self.strict_mode = strict
 
     def __repr__(self):
         return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
@@ -127,8 +129,12 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                 if not (isinstance(item, (KGProxy, KGQuery))
                         and any(issubclass(item.cls, _type) for _type  in self.types)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
-                        raise ValueError("Field '{}' should be of type {}, not {}".format(
-                                         self.name, self.types, type(item)))
+                        errmsg = "Field '{}' should be of type {}, not {}".format(
+                                 self.name, self.types, type(item))
+                        if self.strict_mode:
+                            raise ValueError(errmsg)
+                        else:
+                            warnings.warn(errmsg)
         if self.required or value is not None:
             if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
                 for item in value:
@@ -170,35 +176,42 @@ class Field(object):  # playing with an idea, work in progress, not yet used
     def deserialize(self, data, client):
         if data is None:
             return data
-        if not self.intrinsic:
-            if len(self.types) > 1:
-                raise NotImplementedError("todo")
+        try:
+            if not self.intrinsic:
+                if len(self.types) > 1:
+                    raise NotImplementedError("todo")
 
-            query_filter = {
-                "path": self.path[1:],  # remove initial ^
-                "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
-                "value": data
-            }
-            # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
-            # query_context = {context_key: TODO: lookup contexts}
-            query_context = {
-                "prov": "http://www.w3.org/ns/prov#",
-                "schema": "http://schema.org/",
-                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            }
-            return KGQuery(self.types[0], query_filter, query_context)
-        if Distribution in self.types:
-            return build_kg_object(Distribution, data)
-        elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
-            if len(self.types) > 1 or self.types[0] == KGObject:
-                return build_kg_object(None, data)
-            return build_kg_object(self.types[0], data)
-        elif self.types[0] in (datetime, date):
-            return date_parser.parse(data)
-        elif self.types[0] == IRI:
-            return data["@id"]
-        else:
-            return data
+                query_filter = {
+                    "path": self.path[1:],  # remove initial ^
+                    "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
+                    "value": data
+                }
+                # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
+                # query_context = {context_key: TODO: lookup contexts}
+                query_context = {
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                }
+                return KGQuery(self.types[0], query_filter, query_context)
+            if Distribution in self.types:
+                return build_kg_object(Distribution, data)
+            elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
+                if len(self.types) > 1 or self.types[0] == KGObject:
+                    return build_kg_object(None, data)
+                return build_kg_object(self.types[0], data)
+            elif self.types[0] in (datetime, date):
+                return date_parser.parse(data)
+            elif self.types[0] == IRI:
+                return data["@id"]
+            else:
+                return data
+        except Exception as err:
+            if self.strict_mode:
+                raise
+            else:
+                warnings.warn(str(err))
+                return None
 
 
 #class KGObject(object, metaclass=Registry):
@@ -242,8 +255,10 @@ class KGObject(with_metaclass(Registry, object)):
     def from_kg_instance(cls, instance, client, use_cache=True):
         if cls.fields:
             D = instance.data
-            for otype in cls.type:
-                assert otype in D["@type"]
+            for otype in cls.type:  # todo: resolve shortened identifiers using context
+                #assert otype in D["@type"]
+                if otype not in D["@type"]:
+                    print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
             args = {}
             for field in cls.fields:
                 if field.intrinsic:
@@ -445,6 +460,20 @@ class KGObject(with_metaclass(Registry, object)):
         a real object resolves to itself.
         """
         return self
+
+    @classmethod
+    def set_strict_mode(cls, value, field_name=None):
+        if value not in (True, False):
+            raise ValueError("value should be either True or False")
+        if field_name:
+            for field in cls.fields:
+                if field.name == field_name:
+                    field.strict_mode = value
+                    return
+            raise ValueError("No such field: {}".format(field_name))
+        else:
+            for field in cls.fields:
+                field.strict_mode = value
 
 
 class MockKGObject(KGObject):
