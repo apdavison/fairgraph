@@ -15,7 +15,7 @@ from fairgraph.base import as_list
 import pytest
 
 
-token  = os.environ["HBP_AUTH_TOKEN"]
+token = os.environ.get("HBP_AUTH_TOKEN", None)
 if token:
     client = KGClient(token, nexus_endpoint="https://nexus.humanbrainproject.org/v0")
 
@@ -30,7 +30,7 @@ def test_all():
     ## Get a list of possible filter terms
 
     for cls in (Species, CellType, BrainRegion, AbstractionLevel, ModelScope):
-        print("\nPossible values of {}:\n  - ".format(cls.__name__), end="")
+        print("\nPossible values of {}:\n  - ".format(cls.__name__))
         print("\n  - ".join(cls.iri_map.keys()))
 
     ## Find models of hippocampus pyramidal neurons
