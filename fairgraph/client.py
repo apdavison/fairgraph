@@ -2,6 +2,7 @@
 define client
 """
 
+import os
 import json
 import logging
 try:
@@ -13,8 +14,8 @@ from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
-from .core import Organization
-from .electrophysiology import PatchClampExperiment
+
+from .errors import AuthenticationError
 
 
 CURL_LOGGER = logging.getLogger("curl")
@@ -25,9 +26,14 @@ logger = logging.getLogger("fairgraph")
 class KGClient(object):
     """docstring"""
 
-    def __init__(self, token,
+    def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.org/query"):
+        if token is None:
+            try:
+                token = os.environ["HBP_AUTH_TOKEN"]
+            except KeyError:
+                raise AuthenticationError("No token provided.")
         ep = urlparse(nexus_endpoint)
         self.nexus_endpoint = nexus_endpoint
         auth_client = AccessTokenClient(token)
