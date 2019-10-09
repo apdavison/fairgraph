@@ -615,6 +615,19 @@ class PatchClampExperiment(KGObject):
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
 
+    @property
+    def dataset(self):
+        context = {
+            "nsg": self.context["nsg"],
+            "prov": self.context["prov"]
+        }
+        filter = {
+            "path": "^nsg:partOf / prov:wasGeneratedBy",
+            "op": "eq",
+            "value": self.id
+        }
+        return KGQuery(Dataset, filter, context)
+
 
 class QualifiedTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
