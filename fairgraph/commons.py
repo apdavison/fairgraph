@@ -98,6 +98,7 @@ class CellType(OntologyTerm):
         "hippocampus CA1 bistratified cell": "unknown",
         "hippocampus CA1 lacunosum moleculare neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
         "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
+        "hippocampus CA3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao383526650",
         "Purkinje cell": "http://purl.obolibrary.org/obo/CL_0000121",
         "medium spiny neuron": "http://purl.obolibrary.org/obo/CL_1001474",
         "interneuron": "http://purl.obolibrary.org/obo/CL_0000099",
