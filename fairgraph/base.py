@@ -127,7 +127,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         def check_single(item):
             if not isinstance(item, self.types):
                 if not (isinstance(item, (KGProxy, KGQuery))
-                        and any(issubclass(item.cls, _type) for _type  in self.types)):
+                        and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         errmsg = "Field '{}' should be of type {}, not {}".format(
                                  self.name, self.types, type(item))
@@ -178,9 +178,6 @@ class Field(object):  # playing with an idea, work in progress, not yet used
             return data
         try:
             if not self.intrinsic:
-                if len(self.types) > 1:
-                    raise NotImplementedError("todo")
-
                 query_filter = {
                     "path": self.path[1:],  # remove initial ^
                     "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
@@ -193,7 +190,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                     "schema": "http://schema.org/",
                     "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
                 }
-                return KGQuery(self.types[0], query_filter, query_context)
+                return KGQuery(self.types, query_filter, query_context)
             if Distribution in self.types:
                 return build_kg_object(Distribution, data)
             elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
@@ -554,6 +551,11 @@ class KGProxy(object):
     def type(self):
         return self.cls.type
 
+    @property
+    def classes(self):
+        # For consistency with KGQuery interface
+        return [self.cls]
+
     def resolve(self, client, api="nexus"):
         """docstring"""
         if self.id in KGObject.object_cache:
@@ -589,30 +591,34 @@ class KGProxy(object):
 class KGQuery(object):
     """docstring"""
 
-    def __init__(self, cls, filter, context):
-        if isinstance(cls, basestring):
-            self.cls = lookup(cls)
-        else:
-            self.cls = cls
+    def __init__(self, classes, filter, context):
+        self.classes = []
+        for cls in as_list(classes):
+            if isinstance(cls, basestring):
+                self.classes.append(lookup(cls))
+            else:
+                self.classes.append(cls)
         self.filter = filter
         self.context = context
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.cls!r}, {self.filter!r})'.format(self=self))
+                '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000):
-        instances = client.filter_query(
-            path=self.cls.path,
-            filter=self.filter,
-            context=self.context,
-            size=size
-        )
-        objects = [self.cls.from_kg_instance(instance, client)
-                   for instance in instances]
+        objects = []
+        for cls in self.classes:
+            instances = client.filter_query(
+                path=cls.path,
+                filter=self.filter,
+                context=self.context,
+                size=size
+            )
+            objects.extend(cls.from_kg_instance(instance, client)
+                           for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
-        if len(instances) == 1:
+        if len(objects) == 1:
             return objects[0]
         else:
             return objects
