@@ -547,7 +547,7 @@ class PatchClampExperiment(KGObject):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True)
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
     def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):

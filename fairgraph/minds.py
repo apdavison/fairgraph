@@ -133,7 +133,7 @@ class Dataset(MINDSObject):
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
     fields = (
-      Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=False),
+      Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=True),
       # to be merged in a method:
       Field("container_url_as_ZIP", basestring, "https://schema.hbp.eu/minds/containerUrlAsZIP", required=False, multiple=False),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),
@@ -146,7 +146,7 @@ class Dataset(MINDSObject):
       Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
       Field("release_date", datetime, "https://schema.hbp.eu/minds/release_date", required=False, multiple=False, strict=False),
-      Field("component", "minds.PLAComponent", "https://schema.hbp.eu/minds/component", required=False, multiple=False),
+      Field("component", "minds.PLAComponent", "https://schema.hbp.eu/minds/component", required=False, multiple=True),
       Field("contributors", Person, "https://schema.hbp.eu/minds/contributors", required=False, multiple=True),
       Field("doireference", basestring, "https://schema.hbp.eu/minds/doireference", required=False, multiple=False),
       Field("embargo_status", "minds.EmbargoStatus", "https://schema.hbp.eu/minds/embargo_status", required=False, multiple=False),
@@ -159,8 +159,8 @@ class Dataset(MINDSObject):
       Field("parcellation_region", "minds.ParcellationRegion", "https://schema.hbp.eu/minds/parcellationRegion", required=False, multiple=True),
       Field("part_of", basestring, "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf", required=False, multiple=False),
       Field("publications", "minds.Publication", "https://schema.hbp.eu/minds/publications", required=False, multiple=True),
-      Field("reference_space", "minds.ReferenceSpace", "https://schema.hbp.eu/minds/reference_space", required=False, multiple=False),
-      Field("specimen_group", "minds.SpecimenGroup", "https://schema.hbp.eu/minds/specimen_group", required=False, multiple=False))
+      Field("reference_space", "minds.ReferenceSpace", "https://schema.hbp.eu/minds/reference_space", required=False, multiple=True),
+      Field("specimen_group", "minds.SpecimenGroup", "https://schema.hbp.eu/minds/specimen_group", required=False, multiple=True))
 
 
 class EmbargoStatus(MINDSObject):
