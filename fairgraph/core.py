@@ -141,11 +141,11 @@ class Person(KGObject):
     fields = (
         Field("family_name",  basestring, "familyName", required=True),
         Field("given_name",  basestring, "givenName",  required=True),
-        Field("email", basestring, "email", required=True),
+        Field("email", basestring, "email"),
         Field("affiliation", Organization, "affiliation")
     )
 
-    def __init__(self, family_name, given_name, email, affiliation=None, id=None, instance=None):
+    def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
