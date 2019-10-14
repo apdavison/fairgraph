@@ -1,10 +1,5 @@
 import sys, inspect
 from datetime import datetime
-try:
-  from tabulate import tabulate
-  have_tabulate = True
-except ImportError:
-  have_tabulate = False
 
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
@@ -36,21 +31,6 @@ class MINDSObject(KGObject):
             "uniminds": 'https://schema.hbp.eu/uniminds/',
         }
     ]
-
-    def show(self, max_width=None):
-        if not have_tabulate:
-            raise Exception("You need to install the tabulate module to use the `show()` method")
-        data = [("id", self.id)] + [(field.name, getattr(self, field.name, None))
-                                    for field in self.fields]
-        if max_width:
-            value_column_width = max_width - max(len(item[0]) for item in data)
-            def fit_column(value):
-                strv = str(value)
-                if len(strv) > value_column_width:
-                    strv = strv[:value_column_width - 4] + " ..."
-                return strv
-            data = [(k, fit_column(v)) for k, v in data]
-        print(tabulate(data))
 
 
 class Person(MINDSObject):
