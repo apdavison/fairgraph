@@ -185,18 +185,21 @@ class KGObject(with_metaclass(Registry, object)):
     fields = []
 
     def __init__(self, id=None, instance=None, **properties):
-        for field in self.fields:
-            try:
-                value = properties[field.name]
-            except KeyError:
-                if field.required:
-                    raise ValueError("Field '{}' is required.".format(field.name))
-            field.check_value(value)
-            setattr(self, field.name, value)
-
-        # for key, value in properties.items():
-        #     if key not in self.property_names:
-        #         raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+        if self.fields:
+            for field in self.fields:
+                try:
+                    value = properties[field.name]
+                except KeyError:
+                    if field.required:
+                        raise ValueError("Field '{}' is required.".format(field.name))
+                field.check_value(value)
+                setattr(self, field.name, value)
+        else:
+            for key, value in properties.items():
+                if key not in self.property_names:
+                    raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+                else:
+                    setattr(self, key, value)
 
         self.id = id
         self.instance = instance
