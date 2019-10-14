@@ -103,7 +103,7 @@ class Software(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         D = instance.data
         assert 'nsg:Software' in D["@type"]
         obj = cls(name=D["schema:name"],

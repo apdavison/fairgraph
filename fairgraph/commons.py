@@ -36,7 +36,11 @@ class Address(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
-        return cls(data["addressLocality"], data["addressCountry"])
+        if "addressLocality" in data:  # hack: need to fix URI handling properly
+            return cls(data["addressLocality"], data["addressCountry"])
+        else:
+            return cls(data["http://schema.org/addressLocality"],
+                       data["http://schema.org/addressCountry"])
 
 
 class Species(OntologyTerm):

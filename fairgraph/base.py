@@ -26,7 +26,9 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
+from pyxus.resources.entity import Instance
 from .errors import ResourceExistsError
+from .utility import compact_uri, standard_context, namespace_from_id
 
 
 logger = logging.getLogger("fairgraph")
@@ -52,7 +54,7 @@ def lookup(class_name):
     return registry['names'][class_name]
 
 
-def lookup_type(class_type):
+def lookup_type(class_type, client=None):
     return registry['types'][tuple(class_type)]
 
 
@@ -178,7 +180,8 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         else:
             return serialize_single(value)
 
-    def deserialize(self, data, client):
+    def deserialize(self, data, client, resolved=False):
+
         if data is None:
             return data
         try:
@@ -200,12 +203,17 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                 return build_kg_object(Distribution, data)
             elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
                 if len(self.types) > 1 or self.types[0] == KGObject:
-                    return build_kg_object(None, data)
-                return build_kg_object(self.types[0], data)
+                    return build_kg_object(None, data, resolved=resolved, client=client)
+                return build_kg_object(self.types[0], data, resolved=resolved, client=client)
             elif self.types[0] in (datetime, date):
                 return date_parser.parse(data)
             elif self.types[0] == IRI:
                 return data["@id"]
+            elif self.types[0] == int:
+                if isinstance(data, Iterable):
+                    return [int(item) for item in data]
+                else:
+                    return int(data)
             else:
                 return data
         except Exception as err:
@@ -237,6 +245,8 @@ class KGObject(with_metaclass(Registry, object)):
                     value = value()
             elif IRI in field.types:
                 value = IRI(value)
+            elif isinstance(value, Iterable) and len(value) == 0:  # empty list
+                value = None
             field.check_value(value)
             setattr(self, field.name, value)
 
@@ -254,13 +264,17 @@ class KGObject(with_metaclass(Registry, object)):
                     '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         if cls.fields:
             D = instance.data
-            for otype in cls.type:  # todo: resolve shortened identifiers using context
-                #assert otype in D["@type"]
+            if resolved:
+                D = cls._fix_keys(D)
+            for otype in cls.type:
                 if otype not in D["@type"]:
-                    print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
+                    # todo: profile - move compaction outside loop?
+                    compacted_types = compact_uri(D["@type"], standard_context)
+                    if otype not in compacted_types:
+                        print("Warning: type mismatch {} - {}".format(otype, compacted_types))
             args = {}
             for field in cls.fields:
                 if field.intrinsic:
@@ -268,10 +282,31 @@ class KGObject(with_metaclass(Registry, object)):
                     # todo: handle over-loaded fields, e.g. "used" in ValidationActivity
                 else:
                     data_item = D["@id"]
-                args[field.name] = field.deserialize(data_item, client)
+                args[field.name] = field.deserialize(data_item, client, resolved=resolved)
             return cls(id=D["@id"], instance=instance, **args)
         else:
             raise NotImplementedError("To be implemented by child class")
+
+    @classmethod
+    def _fix_keys(cls, data):
+        """
+        The KG Query API does not allow the same field name to be used twice in a document.
+
+        This is a problem when resolving linked nodes which use the same field names
+        as the 'parent'. As a workaround, we prefix the field names in the linked node
+        with the class name.
+
+        This method removes this prefix.
+
+        This feels like a kludge, and I'd be happy to find a better solution.
+        """
+        prefix = cls.__name__ + "__"
+        for key in data:
+            if key.startswith(prefix):
+                fixed_key = key.replace(prefix, "")
+                data[fixed_key] = data.pop(key)
+        return data
+
 
     @classmethod
     def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus'):
@@ -305,9 +340,9 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, size=size, api=api)
+        return client.list(cls, size=size, api=api, scope=scope, resolved=resolved)
 
     @property
     def _existence_query(self):
@@ -397,7 +432,6 @@ class KGObject(with_metaclass(Registry, object)):
             for field in self.fields:
                 if field.intrinsic:
                     value = getattr(self, field.name)
-                    print(field.name, value)
                     if field.required or value is not None:
                         serialized = field.serialize(value, client)
                         if field.path in data:
@@ -506,13 +540,13 @@ class MockKGObject(KGObject):
 
 def cache(f):
     @wraps(f)
-    def wrapper(cls, instance, client, use_cache=True):
+    def wrapper(cls, instance, client, use_cache=True, resolved=False):
         if use_cache and instance.data["@id"] in KGObject.object_cache:
             obj = KGObject.object_cache[instance.data["@id"]]
             #print(f"Found in cache: {obj.id}")
             return obj
         else:
-            obj = f(cls, instance, client)
+            obj = f(cls, instance, client, resolved=resolved)
             KGObject.object_cache[obj.id] = obj
             #print(f"Added to cache: {obj.id}")
             return obj
@@ -662,6 +696,8 @@ class Distribution(StructuredMetadata):
 
     def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
                  original_file_name=None):
+        if "@id" in location:
+            location = location["@id"]
         if not isinstance(location, basestring):
             # todo: add check that location is a URI
             raise ValueError("location must be a URI")
@@ -703,7 +739,11 @@ class Distribution(StructuredMetadata):
         else:
             digest = None
             digest_method = None
-        return cls(data["downloadURL"], size, digest, digest_method, data.get("mediaType"),
+        if "downloadURL" in data:
+            download_url = data["downloadURL"]
+        else:
+            download_url = data["http://schema.org/downloadURL"]
+        return cls(download_url, size, digest, digest_method, data.get("mediaType"),
                    data.get("originalFileName"))
 
     def to_jsonld(self, client):
@@ -740,7 +780,7 @@ class Distribution(StructuredMetadata):
             raise IOError(str(response.content))
 
 
-def build_kg_object(cls, data):
+def build_kg_object(cls, data, resolved=False, client=None):
     """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
 
@@ -749,7 +789,6 @@ def build_kg_object(cls, data):
 
     Returns `None` if data is None.
     """
-
     if data is None:
         return None
 
@@ -768,7 +807,10 @@ def build_kg_object(cls, data):
             # note that if cls is None, then the class can be different for each list item
             # therefore we need to use a new variable kg_cls inside the loop
             if "@type" in item:
-                kg_cls = lookup_type(item["@type"])
+                try:
+                    kg_cls = lookup_type(item["@type"])
+                except KeyError:
+                    kg_cls = lookup_type(compact_uri(item["@type"], standard_context))
             elif "label" in item:
                 kg_cls = lookup_by_iri(item["@id"])
             else:
@@ -779,7 +821,19 @@ def build_kg_object(cls, data):
         if issubclass(kg_cls, StructuredMetadata):
             obj = kg_cls.from_jsonld(item)
         elif issubclass(kg_cls, KGObject):
-            obj = KGProxy(kg_cls, item["@id"])
+            # here is where we check the "resolved" keyword,
+            # and return an actual object if we have the data
+            # or resolve the proxy if we don't
+            if resolved:
+                if kg_cls.namespace is None:
+                    kg_cls.namespace = namespace_from_id(item["@id"])
+                #try:
+                instance = Instance(kg_cls.path, item, Instance.path)
+                obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+                #except ValueError:
+                #    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+            else:
+                obj = KGProxy(kg_cls, item["@id"])
         else:
             raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
         objects.append(obj)

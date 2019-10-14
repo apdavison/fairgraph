@@ -46,7 +46,6 @@ class ModelProject(KGObject, HasAliasMixin):
     _path = "/simulation/modelproject/v0.1.0"
     #path = DEFAULT_NAMESPACE + "/simulation/modelproject/v0.1.1"
     type = ["prov:Entity", "nsg:ModelProject"]
-
     context = {
         "name": "schema:name",
         "label": "rdfs:label",
@@ -89,7 +88,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("description", basestring, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", int, "collabId"),
+        Field("collab_id", int, "collabID"),
         Field("alias", basestring, "alias"),
         Field("organization", Organization, "organization", multiple=True),
         Field("pla_components", basestring, "PLAComponents", multiple=True),
@@ -100,10 +99,15 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("model_of", ModelScope, "modelOf"),
         Field("old_uuid", basestring, "oldUUID"),
         Field("parents", "brainsimulation.ModelProject", "partOf", multiple=True),
+        #Field("instances", ("brainsimulation.ModelInstance", "brainsimulation.MEModel"),
+        #      "dcterms:hasPart", multiple=True),
+        # todo: kg query returns "hasPart", while nexus instances mostly use "dcterms:hasPart"
+        #       suggest changing all instances to store "hasPart", with corrected context if needed
         Field("instances", ("brainsimulation.ModelInstance", "brainsimulation.MEModel"),
-              "dcterms:hasPart", multiple=True),
+              "hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
+    query_id = "fgResolved"
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
@@ -134,43 +138,48 @@ class ModelProject(KGObject, HasAliasMixin):
         }
 
     @classmethod
-    def list(cls, client, size=10000, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        context = {
-           'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
-        }
-        filter_queries = []
-        for name, value in filters.items():
-            if name in cls.attribute_map:
-                concept_class, concept_uri = cls.attribute_map[name]
-                filter_queries.append({
-                    'path': concept_uri,
-                    'op': 'eq',
-                    'value': concept_class(value).iri
-                })
-            elif name in ("author", "owner"):
-                if not isinstance(value, Person):
-                    raise TypeError("{} must be a Person object".format(name))
-                filter_queries.append({
-                    "path": cls.context[name],
-                    "op": "eq",
-                    "value": value.id
-                })
-            else:
-                raise Exception("The only supported filters are by '{supported_filters}'. "
-                                "You specified '{name}'".format(
-                                    supported_filters="', '".join(chain(cls.attribute_map, ["author", "owner"])),
-                                    name=name))
-        if len(filter_queries) == 0:
-            return client.list(cls, size=size)
-        elif len(filter_queries) == 1:
-            filter_query = filter_queries[0]
-        else:
-            filter_query = {
-                "op": "and",
-                "value": filter_queries
+        if api == 'nexus':
+            context = {
+            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
             }
-        return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_queries = []
+            for name, value in filters.items():
+                if name in cls.attribute_map:
+                    concept_class, concept_uri = cls.attribute_map[name]
+                    filter_queries.append({
+                        'path': concept_uri,
+                        'op': 'eq',
+                        'value': concept_class(value).iri
+                    })
+                elif name in ("author", "owner"):
+                    if not isinstance(value, Person):
+                        raise TypeError("{} must be a Person object".format(name))
+                    filter_queries.append({
+                        "path": cls.context[name],
+                        "op": "eq",
+                        "value": value.id
+                    })
+                else:
+                    raise Exception("The only supported filters are by '{supported_filters}'. "
+                                    "You specified '{name}'".format(
+                                        supported_filters="', '".join(chain(cls.attribute_map, ["author", "owner"])),
+                                        name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            # todo: handle resolved=True for nexus queries (i.e. do all the downstream resolutions  )
+        else:
+            return client.list(cls, size=size, api=api, scope=scope, resolved=resolved)
+
 
     def authors_str(self, client):
         return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client))
@@ -206,9 +215,9 @@ class ModelInstance(KGObject):
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("brain_region", BrainRegion, "brainRegion", required=True),
-        Field("species", Species, "species", required=True),
-        Field("model_of", (CellType, BrainRegion), "modelOf", required=True),
+        Field("brain_region", BrainRegion, "brainRegion", required=False),
+        Field("species", Species, "species", required=False),
+        Field("model_of", (CellType, BrainRegion), "modelOf", required=False),  # should be True, but causes problems for a couple of cases at the moment
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
         Field("release", basestring, "release", required=False),
         Field("version",  basestring, "version", required=True),
@@ -219,8 +228,8 @@ class ModelInstance(KGObject):
         Field("old_uuid", basestring, "oldUUID")
     )
 
-    def __init__(self, name, brain_region, species, model_of,
-                 main_script, version, timestamp, release=None,
+    def __init__(self, name, main_script, version, timestamp,
+                 brain_region=None, species=None, model_of=None, release=None,
                  part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
         args = locals()
@@ -258,8 +267,8 @@ class MEModel(ModelInstance):
         #Field("project", ModelProject, "isPartOf", required=True)  # conflicts with project property in parent class. To fix.
     ]
 
-    def __init__(self, name, brain_region, species, model_of, e_model,
-                 morphology, main_script, version, timestamp, #project,
+    def __init__(self, name, e_model, morphology, main_script, version, timestamp, #project,
+                 brain_region=None, species=None, model_of=None,
                  release=None, part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
         args = locals()
@@ -350,7 +359,28 @@ class EModel(ModelInstance):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_region", BrainRegion, "brainRegion", required=False),
+        Field("species", Species, "species", required=False),
+        Field("model_of", (CellType, BrainRegion), "modelOf", required=False),
+        Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=False),
+        Field("release", basestring, "release", required=False),
+        Field("version",  basestring, "version", required=False),
+        Field("timestamp", datetime, "generatedAtTime", required=False),
+        Field("part_of", KGObject, "isPartOf"),
+        Field("description", basestring, "description"),
+        Field("parameters", basestring, "parameters"),
+        Field("old_uuid", basestring, "oldUUID")
+    )
 
+    def __init__(self, name, main_script=None, version=None, timestamp=None, #project,
+                 brain_region=None, species=None, model_of=None,
+                 release=None, part_of=None, description=None, parameters=None,
+                 old_uuid=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 class AnalysisResult(KGObject):
     namespace = DEFAULT_NAMESPACE
@@ -621,7 +651,7 @@ class ValidationActivity(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
         assert 'nsg:ModelValidation' in D["@type"]
         model_instance = [item for item in D.get("used") if "nsg:ModelInstance" in item["@type"]][0]

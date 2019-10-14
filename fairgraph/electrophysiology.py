@@ -72,7 +72,7 @@ class Trace(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         return super(Trace, cls).from_kg_instance(instance, client, use_cache=use_cache)
 
     def _build_data(self, client):
@@ -208,7 +208,7 @@ class PatchedCell(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         # leaving the following, commented-out code until I check
         # that using "eq" rather than "in" for the collection filter
         # doesn't break anything.
@@ -339,7 +339,7 @@ class BrainSlicingActivity(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
         for otype in cls.type:
             assert otype in D["@type"]
@@ -557,7 +557,7 @@ class PatchClampExperiment(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         """
         docstring
         """

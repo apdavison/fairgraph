@@ -269,7 +269,7 @@ class Protocol(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         """docstring"""
         D = instance.data
         assert 'nsg:Protocol' in D["@type"]
@@ -381,7 +381,7 @@ class Collection(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         """
         docstring
         """

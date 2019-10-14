@@ -46,7 +46,7 @@ class KGClient(object):
 
 
     def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
-             filter=None, context=None):
+             resolved=False, filter=None, context=None):
         """docstring"""
         if api == "nexus":
             instances = []
@@ -74,7 +74,7 @@ class KGClient(object):
 
             for instance in instances:
                 self.cache[instance.data["@id"]] = instance
-            return [cls.from_kg_instance(instance, self) # todo: lazy resolution
+            return [cls.from_kg_instance(instance, self, resolved=resolved) # todo: lazy resolution
                     for instance in instances]
         elif api == "query":
             if hasattr(cls, "query_id"):
@@ -91,7 +91,6 @@ class KGClient(object):
                     Instance(cls.path, data, Instance.path)
                     for data in response["results"]
                 ]
-                print("start = {}, size = {}".format(start, size))
                 start += response["size"]
                 while start < min(response["total"], size):
                     response = self._kg_query_client.get(
@@ -104,10 +103,9 @@ class KGClient(object):
                         Instance(cls.path, data, Instance.path)
                         for data in response["results"]
                     ])
-                    print("start = {}, size = {}".format(start, size))
                     start += response["size"]
                 # todo: caching
-                return [cls.from_kg_instance(instance, self)
+                return [cls.from_kg_instance(instance, self, resolved=resolved)
                         for instance in instances]
             else:
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
