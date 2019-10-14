@@ -33,6 +33,7 @@ class Trace(KGObject):
         "providerId": "nsg:providerId",
         "description": "schema:description",
         "channel": "nsg:channel",
+        "channelName": "nsg:channelName",
         "projectName": "nsg:projectName",
         "dataUnit": "nsg:dataUnit",
         "timeStep": "nsg:timeStep",
