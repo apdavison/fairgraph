@@ -128,7 +128,7 @@ class KGClient(object):
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             self.cache[instance.data["@id"]] = instance
-            logger.debug("Retrieved instance from KG " + str(instance.data))
+            logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
             if instance and deprecated is False and instance.data["nxv:deprecated"]:
                 instance = None
         elif api == "query":
@@ -138,19 +138,26 @@ class KGClient(object):
                                                                           cls.query_id,
                                                                           uri))
                 instance = Instance(cls.path, response["results"][0], Instance.path)
+                self.cache[instance.data["@id"]] = instance
+                logger.debug("Retrieved instance from KG Query" + str(instance.data))
             else:
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
 
-    def instance_from_uuid(self, path, uuid, deprecated=False):
+    def instance_from_uuid(self, path, uuid, cls=None, deprecated=False, api="nexus"):
         # todo: caching
-        instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
-        if instance and deprecated is False and instance.data["nxv:deprecated"]:
-            return None
+        if api == "nexus":
+            instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
+            if instance and deprecated is False and instance.data["nxv:deprecated"]:
+                instance = None
+        elif api == "query":
+            uri = path + "/" + uuid
+            instance = self.instance_from_full_uri(uri, cls=cls, deprecated=deprecated, api=api)
         else:
-            return instance
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return instance
 
     def create_new_instance(self, path, data):
         instance = Instance(path, data, Instance.path)

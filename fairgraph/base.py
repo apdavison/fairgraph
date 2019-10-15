@@ -317,7 +317,7 @@ class KGObject(with_metaclass(Registry, object)):
             return cls.from_kg_instance(instance, client, use_cache=use_cache)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False):
+    def from_uuid(cls, uuid, client, deprecated=False, api='nexus'):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -325,7 +325,7 @@ class KGObject(with_metaclass(Registry, object)):
             val = UUID(uuid, version=4)  # check validity of uuid
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
-        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated)
+        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated, api=api)
         if instance is None:
             return None
         else:
@@ -356,13 +356,11 @@ class KGObject(with_metaclass(Registry, object)):
             "value": self.name
         }
 
-    def exists(self, client):
+    def exists(self, client, api='nexus'):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
         else:
-            context = {"schema": "http://schema.org/",
-                       "prov": "http://www.w3.org/ns/prov#"},
             query_filter = self._existence_query
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
@@ -372,12 +370,16 @@ class KGObject(with_metaclass(Registry, object)):
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
-            else:
+            elif api == "nexus":
+                context = {"schema": "http://schema.org/",
+                           "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
                 if response:
                     self.id = response[0].data["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
                 return bool(response)
+            else:
+                raise NotImplementedError()
 
     def get_context(self, client):
         context_urls = set()
@@ -659,17 +661,27 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000):
+    def resolve(self, client, size=10000, api="nexus"):
         objects = []
         for cls in self.classes:
-            instances = client.query_nexus(
-                path=cls.path,
-                filter=self.filter,
-                context=self.context,
-                size=size
-            )
+            if api == "nexus":
+                instances = client.query_nexus(
+                    path=cls.path,
+                    filter=self.filter,
+                    context=self.context,
+                    size=size
+                )
+            elif api == "query":
+                instances = client.query_kgquery(
+                    path=cls.path,
+                    query_id=cls.query_id,
+                    filter=self.filter,
+                    size=size,
+                    scope="inferred")  # tofix
+            else:
+                raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
-                           for instance in instances)
+                        for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
         if len(objects) == 1:
