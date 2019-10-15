@@ -373,7 +373,7 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             else:
-                response = client.filter_query(self.__class__.path, query_filter, context)
+                response = client.query_nexus(self.__class__.path, query_filter, context)
                 if response:
                     self.id = response[0].data["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
@@ -662,7 +662,7 @@ class KGQuery(object):
     def resolve(self, client, size=10000):
         objects = []
         for cls in self.classes:
-            instances = client.filter_query(
+            instances = client.query_nexus(
                 path=cls.path,
                 filter=self.filter,
                 context=self.context,

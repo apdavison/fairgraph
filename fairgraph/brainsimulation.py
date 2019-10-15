@@ -178,7 +178,13 @@ class ModelProject(KGObject, HasAliasMixin):
             return KGQuery(cls, filter_query, context).resolve(client, size=size)
             # todo: handle resolved=True for nexus queries (i.e. do all the downstream resolutions  )
         else:
-            return client.list(cls, size=size, api=api, scope=scope, resolved=resolved)
+            # todo: handle author, owner
+            filter_queries = {}
+            for name, value in filters.items():
+                if name in cls.attribute_map:
+                    concept_class, concept_uri = cls.attribute_map[name]
+                    filter_queries[name] = concept_class.iri_map[value]
+            return client.list(cls, size=size, api=api, scope=scope, filter=filter_queries, resolved=resolved)
 
 
     def authors_str(self, client):

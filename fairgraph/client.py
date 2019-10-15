@@ -44,80 +44,36 @@ class KGClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-
     def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
              resolved=False, filter=None, context=None):
         """docstring"""
         if api == "nexus":
-            instances = []
             organization, domain, schema, version = cls.path.split("/")
             subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
-            if filter:
-                filter = quote_plus(json.dumps(filter))
-            if context:
-                context=quote_plus(json.dumps(context))
-            query = self._nexus_client.instances.list(subpath=subpath,
-                                                      filter_query=filter,
-                                                      context=context,
-                                                      from_index=from_index,
-                                                      size=size,
-                                                      deprecated=deprecated,
-                                                      resolved=True)
-
-            # todo: add support for "sort" field
-            instances.extend(query.results)
-            next = query.get_next_link()
-            while len(instances) < size and next:
-                query = self._nexus_client.instances.list_by_full_path(next)
-                instances.extend(query.results)
-                next = query.get_next_link()
-
-            for instance in instances:
-                self.cache[instance.data["@id"]] = instance
-            return [cls.from_kg_instance(instance, self, resolved=resolved) # todo: lazy resolution
-                    for instance in instances]
+            instances = self.query_nexus(subpath, filter, context, from_index, size, deprecated)
         elif api == "query":
             if hasattr(cls, "query_id"):
-                if scope not in ("released", "inferred"):  # todo - use a more user-friendly term for 'inferred' and map appropriately
-                    raise ValueError("'scope' must be either 'released' or 'inferred'")
-                start = from_index
-                response = self._kg_query_client.get(
-                    "{}/{}/instances?start={}&size={}&databaseScope={}".format(cls.path,
-                                                                               cls.query_id,
-                                                                               start,
-                                                                               size,
-                                                                               scope.upper()))
-                instances = [
-                    Instance(cls.path, data, Instance.path)
-                    for data in response["results"]
-                ]
-                start += response["size"]
-                while start < min(response["total"], size):
-                    response = self._kg_query_client.get(
-                        "{}/{}/instances?start={}&size={}&databaseScope={}".format(cls.path,
-                                                                                   cls.query_id,
-                                                                                   start,
-                                                                                   size,
-                                                                                   scope.upper()))
-                    instances.extend([
-                        Instance(cls.path, data, Instance.path)
-                        for data in response["results"]
-                    ])
-                    start += response["size"]
-                # todo: caching
+                instances = self.query_kgquery(cls.path, cls.query_id, filter, from_index, size, scope)
                 return [cls.from_kg_instance(instance, self, resolved=resolved)
                         for instance in instances]
             else:
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
+        return [cls.from_kg_instance(instance, self, resolved=resolved)
+                for instance in instances]
 
-    def filter_query(self, path, filter, context, from_index=0, size=100, deprecated=False):
+    def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
+        # Nexus API
+        if filter:
+            filter = quote_plus(json.dumps(filter))
+        if context:
+            context=quote_plus(json.dumps(context))
         instances = []
         query = self._nexus_client.instances.list(
             subpath=path,
-            filter_query=quote_plus(json.dumps(filter)),
-            context=quote_plus(json.dumps(context)),
+            filter_query=filter,
+            context=context,
             from_index=from_index,
             size=size,
             deprecated=deprecated,
@@ -129,6 +85,33 @@ class KGClient(object):
             query = self._nexus_client.instances.list_by_full_path(next)
             instances.extend(query.results)
             next = query.get_next_link()
+
+        for instance in instances:
+            self.cache[instance.data["@id"]] = instance
+        return instances
+
+    def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
+        template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
+                        path, query_id, size, scope.upper())
+        if filter:
+            template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
+        if scope not in ("released", "inferred"):
+                # todo - use a more user-friendly term for 'inferred' and map appropriately
+                raise ValueError("'scope' must be either 'released' or 'inferred'")
+        start = from_index
+        response = self._kg_query_client.get(template.format(start))
+        instances = [
+            Instance(path, data, Instance.path)
+            for data in response["results"]
+        ]
+        start += response["size"]
+        while start < min(response["total"], size):
+            response = self._kg_query_client.get(template.format(start))
+            instances.extend([
+                Instance(path, data, Instance.path)
+                for data in response["results"]
+            ])
+            start += response["size"]
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
@@ -208,7 +191,7 @@ class KGClient(object):
                 "op": op,
                 "value": name
             }
-            instances = self.filter_query(cls.path, query_filter, context)
+            instances = self.query_nexus(cls.path, query_filter, context)
         else:
             assert api == "query"
             if hasattr(cls, "query_id"):

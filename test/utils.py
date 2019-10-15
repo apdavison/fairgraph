@@ -28,7 +28,7 @@ from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         SchemaRepository)
 import fairgraph.client
 from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
-from fairgraph.commons import QuantitativeValue, OntologyTerm, Age, Address
+from fairgraph.commons import QuantitativeValue, OntologyTerm, Age, Address, Species
 
 
 test_data_lookup = {}
@@ -57,7 +57,9 @@ class MockHttpClient(HttpClient):
                 with open(test_data_path, "r") as fp:
                     data = json.load(fp)
                 self.cache[test_data_path] = data
-            if "filter" in parts.query:
+            #if "query" in parts.path:
+            #        raise Exception()  # for debugging
+            if "filter" in parts.query:  # api="nexus"
                 query = parse_qs(parts.query)
                 filtr = eval(query['filter'][0])
                 if filtr.get("path") == "nsg:brainLocation / nsg:brainRegion":
@@ -69,6 +71,9 @@ class MockHttpClient(HttpClient):
                 elif filtr.get("path") == "prov:used / rdf:type":
                     results = [item for item in data["results"]
                                if filtr["value"] in data["results"][0]["source"]["prov:used"]["@type"]]
+                elif filtr.get("path") == "nsg:species":
+                    results = [item for item in data["results"]
+                               if item["source"].get("species", {"@id": None})["@id"] == filtr["value"]]
                 elif "op" in filtr:
                     # James Bond does not exist
                     if filtr["value"][0]["value"] in ("James", "Bond"):
@@ -78,6 +83,13 @@ class MockHttpClient(HttpClient):
                                    if item["source"]["familyName"] == "Johnson"]
                 else:
                     raise NotImplementedError("todo")
+                data = deepcopy(data)  # don't want to mess with the cache
+                data["results"] = results
+            elif "species" in parts.query:   # api="query"
+                query = parse_qs(parts.query)
+                value = query["species"][0]
+                results = [item for item in data["results"]
+                           if item.get("species", [{"@id": None}])[0]["@id"] == value]
                 data = deepcopy(data)  # don't want to mess with the cache
                 data["results"] = results
             return data
@@ -112,6 +124,7 @@ class MockNexusClient(NexusClient):
 @pytest.fixture
 def kg_client():
     fairgraph.client.NexusClient = MockNexusClient
+    fairgraph.client.HttpClient = MockHttpClient
     client = fairgraph.client.KGClient("thisismytoken")
     #token = os.environ["HBP_token"]
     #client = fairgraph.client.KGClient(token)

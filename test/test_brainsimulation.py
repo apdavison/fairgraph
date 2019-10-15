@@ -20,6 +20,12 @@ from .utils import (kg_client, MockKGObject, test_data_lookup, generate_random_o
 use_core_namespace("modelvalidation")
 
 
+test_data_lookup.update({
+    "/v0/data/modelvalidation/simulation/modelproject/v0.1.0/": "test/test_data/nexus/brainsimulation/modelproject_list_0_10.json",
+    "/query/modelvalidation/simulation/modelproject/v0.1.0/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
+})
+
+
 class TestModelScript(BaseTestKG):
     class_under_test = ModelScript
 
@@ -40,6 +46,22 @@ class TestModelScript(BaseTestKG):
 
 class TestModelProject(BaseTestKG):
     class_under_test = ModelProject
+
+    def test_list(self, kg_client):
+        models = ModelProject.list(kg_client, size=10)
+        assert len(models) == 10
+
+    def test_list_kgquery(self, kg_client):
+        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10)
+        assert len(models) == 10
+
+    def test_list_with_filter(self, kg_client):
+        models = ModelProject.list(kg_client, size=10, species="Rattus norvegicus")
+        assert len(models) == 5
+
+    def test_list_kgquery_with_filter(self, kg_client):
+        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, species="Rattus norvegicus")
+        assert len(models) == 2
 
 
 class TestModelInstance(BaseTestKG):

@@ -603,7 +603,7 @@ class PatchClampExperiment(KGObject):
     @classmethod
     def list(cls, client, size=100, api='nexus', **filters):
         """List all objects of this type in the Knowledge Graph"""
-        # we need to add an additional filter, as PatchClampExperiment and
+        # we need to add the additional filter below, as PatchClampExperiment and
         # IntraCellularSharpElectrodeExperiment share the same path
         # and JSON-LD type ("nsg:StimulusExperiment")
         filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}

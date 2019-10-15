@@ -16,7 +16,7 @@ import pytest
 
 
 test_data_lookup.update({
-    "/v0/data/neuralactivity/core/person/v0.1.0/": "test/test_data/core/person_list_0_10.json",
+    "/v0/data/neuralactivity/core/person/v0.1.0/": "test/test_data/nexus/core/person_list_0_10.json",
 })
 
 
