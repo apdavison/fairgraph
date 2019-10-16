@@ -19,7 +19,6 @@ class MINDSObject(KGObject):
     e.g. for the Activity class, the url is : https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg
     """
     namespace = "minds"
-    query_id = "fg" # same for all objects
     context = [
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {

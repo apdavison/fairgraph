@@ -4,7 +4,11 @@
 """
 
 import collections
-from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata
+try:
+    basestring
+except NameError:
+    basestring = str
+from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
 
 
 class Address(StructuredMetadata):
@@ -373,7 +377,15 @@ class Age(StructuredMetadata):
     allowed_periods = [
         "Pre-natal",
         "Post-natal"
-      ]
+    ]
+    context = {
+        "value": "http://schema.org/value",
+        "period": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
+    }
+    fields = (
+        Field("value", basestring, "value", required=True),
+        Field("period", KGObject, "period",  required=True, multiple=True)
+    )
 
     def __init__(self, value, period):
         self.value = value

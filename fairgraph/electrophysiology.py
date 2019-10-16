@@ -14,6 +14,7 @@ from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Fi
 from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType
 from .core import Subject, Person
 from .minds import Dataset
+from .utility import compact_uri, standard_context
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
@@ -151,60 +152,65 @@ class PatchedCell(KGObject):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        context = {
-            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
-            'prov': 'http://www.w3.org/ns/prov#'
-        }
-        filter_queries = []
-        for name, value in filters.items():
-            if name == "species":
-                filter_queries.append({
-                    #        collection      / patchedslice / slice              / subject             / species
-                    'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
-                    'op': 'eq',
-                    'value': value.iri
-                })
-            elif name == "brain_region":
-                filter_queries.append({
-                    "path": "nsg:brainLocation / nsg:brainRegion",
-                    "op": "eq",
-                    "value": value.iri
-                })
-            elif name == "cell_type":
-                filter_queries.append({
-                    'path': 'nsg:eType',
-                    'op': 'eq',
-                    'value': value.iri
-                })
-            elif name == "experimenter":
-                filter_queries.append({
-                    #        collection      / patchedslice / patchclampactivity / person
-                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
-                    'op': 'eq',
-                    'value': value.id
-                })
-            elif name == "lab":
-                filter_queries.append({
-                    #        collection      / patchedslice / patchclampactivity / person              / organization
-                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
-                    'op': 'eq',
-                    'value': value.id
-                })
-            else:
-                raise Exception("The only supported filters are by species, brain region, cell type "
-                                "experimenter or lab. You specified {name}".format(name=name))
-        if len(filter_queries) == 0:
-            return client.list(cls, size=size)
-        elif len(filter_queries) == 1:
-            filter_query = filter_queries[0]
-        else:
-            filter_query = {
-                "op": "and",
-                "value": filter_queries
+        if api == "nexus":
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
             }
-        return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_queries = []
+            for name, value in filters.items():
+                if name == "species":
+                    filter_queries.append({
+                        #        collection      / patchedslice / slice              / subject             / species
+                        'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name == "brain_region":
+                    filter_queries.append({
+                        "path": "nsg:brainLocation / nsg:brainRegion",
+                        "op": "eq",
+                        "value": value.iri
+                    })
+                elif name == "cell_type":
+                    filter_queries.append({
+                        'path': 'nsg:eType',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name == "experimenter":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                elif name == "lab":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person              / organization
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                else:
+                    raise Exception("The only supported filters are by species, brain region, cell type "
+                                    "experimenter or lab. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+        elif api == "query":
+            return super(PatchedCell, cls).list(client, size, api, scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
     @classmethod
     @cache
@@ -247,7 +253,11 @@ class PatchedCell(KGObject):
 
         D = instance.data
         for otype in cls.type:
-            assert otype in D["@type"]
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
@@ -517,7 +527,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         Field("slice", Slice, "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated", required=True),
         Field("protocol", basestring, "protocol"),
-        Field("people", Person, "wasAssociatedWith")
+        Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
     def __init__(self, name, slice, recorded_slice, protocol=None, people=None,
@@ -581,7 +591,11 @@ class PatchClampExperiment(KGObject):
     #                instance=instance)
         D = instance.data
         for otype in cls.type:
-            assert otype in D["@type"]
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
         for field in cls.fields:
             if field.name == "stimulus":

@@ -155,38 +155,43 @@ class Person(KGObject):
         return '{self.given_name} {self.family_name}'.format(self=self)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        context = {
-            "schema": "http://schema.org/"
-        }
-        filter_queries = []
-        for name, value in filters.items():
-            if name in ("first_name", "given_name"):
-                filter_queries.append({
-                    'path': 'schema:givenName',
-                    'op': 'eq',
-                    'value': value
-                })
-            elif name in ("family_name", "last_name", "surname"):
-                filter_queries.append({
-                    "path": "schema:familyName",
-                    "op": "eq",
-                    "value": value
-                })
-            else:
-                raise ValueError("The only supported filters are by first (given) name or "
-                                 "or last (family) name. You specified {name}".format(name=name))
-        if len(filter_queries) == 0:
-            return client.list(cls, size=size)
-        elif len(filter_queries) == 1:
-            filter_query = filter_queries[0]
-        else:
-            filter_query = {
-                "op": "and",
-                "value": filter_queries
+        if api == 'nexus':
+            context = {
+                "schema": "http://schema.org/"
             }
-        return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_queries = []
+            for name, value in filters.items():
+                if name in ("first_name", "given_name"):
+                    filter_queries.append({
+                        'path': 'schema:givenName',
+                        'op': 'eq',
+                        'value': value
+                    })
+                elif name in ("family_name", "last_name", "surname"):
+                    filter_queries.append({
+                        "path": "schema:familyName",
+                        "op": "eq",
+                        "value": value
+                    })
+                else:
+                    raise ValueError("The only supported filters are by first (given) name or "
+                                    "or last (family) name. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+        elif api == "query":
+            return super(Person, cls).list(client, size, api, scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
     # @classmethod
     # @cache
@@ -364,36 +369,40 @@ class Collection(KGObject):
         "size": "schema:size",
         "hadMember": "prov:hadMember"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("members", KGObject, "hadMember",  required=True, multiple=True)
+    )
+
 
     def __init__(self, name, members, id=None, instance=None):
-        self.name = name
-        self.members = members
-        self.id = id
-        self.instance = instance
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def size(self):
         return len(as_list(self.members))
 
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
+    # def __repr__(self):
+    #     return ('{self.__class__.__name__}('
+    #             '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        """
-        docstring
-        """
-        D = instance.data
-        for otype in cls.type:
-            assert otype in D["@type"]
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client, resolved=False):
+    #     """
+    #     docstring
+    #     """
+    #     D = instance.data
+    #     for otype in cls.type:
+    #         assert otype in D["@type"]
 
-        return cls(name=D["name"],
-                   members=[KGProxy(None, member_uri["@id"])
-                            for member_uri in D["hadMember"]],
-                   id=D["@id"],
-                   instance=instance)
+    #     return cls(name=D["name"],
+    #                members=[KGProxy(None, member_uri["@id"])
+    #                         for member_uri in D["hadMember"]],
+    #                id=D["@id"],
+    #                instance=instance)
 
     def _build_data(self, client):
         """docstring"""

@@ -28,7 +28,7 @@ except ImportError:
     have_tabulate = False
 from pyxus.resources.entity import Instance
 from .errors import ResourceExistsError
-from .utility import compact_uri, standard_context, namespace_from_id
+from .utility import compact_uri, expand_uri, standard_context, namespace_from_id, as_list
 
 
 logger = logging.getLogger("fairgraph")
@@ -229,6 +229,8 @@ class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     object_cache = {}
     save_cache = defaultdict(dict)
+    query_id = "fg"
+    query_id_resolved = "fgResolved"
     fields = []
 
     def __init__(self, id=None, instance=None, **properties):
@@ -309,15 +311,16 @@ class KGObject(with_metaclass(Registry, object)):
 
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus'):
-        instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache, deprecated=deprecated, api=api)
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+        instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
+                                                 deprecated=deprecated, api=api, resolved=resolved)
         if instance is None:
             return None
         else:
-            return cls.from_kg_instance(instance, client, use_cache=use_cache)
+            return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False, api='nexus'):
+    def from_uuid(cls, uuid, client, deprecated=False, api='nexus', resolved=False):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -325,11 +328,12 @@ class KGObject(with_metaclass(Registry, object)):
             val = UUID(uuid, version=4)  # check validity of uuid
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
-        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated, api=api)
+        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated, api=api,
+                                             resolved=resolved)
         if instance is None:
             return None
         else:
-            return cls.from_kg_instance(instance, client)
+            return cls.from_kg_instance(instance, client, resolved=resolved)
 
     @property
     def uuid(self):
@@ -483,8 +487,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, match="equals", all=False, api="nexus"):
-        return client.by_name(cls, name, match=match, all=all, api=api)
+    def by_name(cls, name, client, match="equals", all=False, api="nexus", resolved=False):
+        return client.by_name(cls, name, match=match, all=all, api=api, resolved=resolved)
 
     @property
     def rev(self):
@@ -527,6 +531,160 @@ class KGObject(with_metaclass(Registry, object)):
                 return strv
             data = [(k, fit_column(v)) for k, v in data]
         print(tabulate(data))
+
+    @classmethod
+    def generate_query(cls, query_id, client, resolved=False):
+        query = {
+            "https://schema.hbp.eu/graphQuery/root_schema": {
+                "@id": "{}/schemas/{}".format(client.nexus_endpoint, cls.path)
+            },
+            "http://schema.org/identifier": "{}/{}".format(cls.path, query_id),
+            "fields": [
+                {
+                    "relative_path": "@id",
+                    "filter": {
+                        "op": "equals",
+                        "parameter": "id"
+                    }
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "@context": {
+                "fieldname": {
+                    "@type": "@id",
+                    "@id": "fieldname"
+                },
+                "schema": "http://schema.org/",
+                "@vocab": "https://schema.hbp.eu/graphQuery/",
+                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                "merge": {
+                    "@type": "@id",
+                    "@id": "merge"
+                },
+                "query": "https://schema.hbp.eu/myQuery/",
+                "dcterms": "http://purl.org/dc/terms/",  # don't think we need this
+                "relative_path": {
+                    "@type": "@id",
+                    "@id": "relative_path"
+                }
+            }
+        }
+        field_names_used = []
+        for field in cls.fields:
+            if field.intrinsic and cls not in field.types:  # avoid recursion to same type:
+                field_definition = {
+                    "fieldname": field.path,
+                    "relative_path": expand_uri(field.path, cls.context, client)[0],
+                }
+                field_names_used.append(field.path)
+                if field.name == "name":
+                    field_definition["sort"] = True
+                if field.required:
+                    field_definition["required"] = True
+                if any(issubclass(_type, KGObject) for _type in field.types):
+                    if field.multiple:
+                        field_definition["ensure_order"] = True
+                    field_definition["fields"] = [
+                        {"relative_path": "@id", "required": True},
+                        {"relative_path": "@type", "required": True}
+                    ]
+                    if resolved:
+                        subfields = {}
+                        for child_cls in field.types:
+                            for subfield in child_cls.fields:
+                                if subfield.intrinsic and child_cls not in subfield.types:
+                                    subfield_defn = {
+                                        "fieldname": subfield.path,
+                                        "relative_path": expand_uri(subfield.path, child_cls.context, client)[0],
+                                    }
+                                    if any(issubclass(_type, KGObject) for _type in subfield.types):
+                                        if subfield.path in field_names_used:
+                                            subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)  ### will this break stuff?
+                                        subfield_defn["fields"] = [{"relative_path": "@id"},
+                                                                {"relative_path": "@type"}]
+                                        for subsubfield in subfield.types[0].fields:
+                                            if subsubfield.intrinsic:
+                                                # we are currently going as far as three levels of nesting
+                                                # if we need to go further, probably best to rewrite to use recursion
+                                                subsubfield_defn = {
+                                                    "fieldname": subsubfield.path,
+                                                    "relative_path": expand_uri(subsubfield.path, standard_context, client)[0],
+                                                }
+                                                if issubclass(subsubfield.types[0], OntologyTerm):
+                                                    subsubfield_defn["fieldname"] = "{}__{}".format(
+                                                        subsubfield.types[0].__name__, subsubfield.path)
+                                                    subsubfield_defn["fields"] = [
+                                                        {"relative_path": "@id", "required": True},
+                                                        {
+                                                            "fieldname": "label",
+                                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                                        }
+                                                    ]
+                                                elif issubclass(subsubfield.types[0], StructuredMetadata) and hasattr(subsubfield.types[0], "fields"):
+                                                    subsubfield_defn["fields"] = [
+                                                        {
+                                                            "fieldname": subsubsubfield.name,
+                                                            "relative_path": expand_uri(subsubsubfield.path, subsubfield.types[0].context)[0]
+                                                        }
+                                                        for subsubsubfield in subsubfield.types[0].fields
+                                                    ]
+                                                subfield_defn["fields"].append(subsubfield_defn)
+                                    elif issubclass(subfield.types[0], OntologyTerm) and subfield.path in field_names_used:
+                                        # duplicate and add prefix if necessary
+                                        subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)
+                                        subfield_defn["fields"] = [
+                                            {"relative_path": "@id", "required": True},
+                                            {
+                                                "fieldname": "label",
+                                                "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                            }
+                                        ]
+                                    elif issubclass(subfield.types[0], StructuredMetadata) and hasattr(subfield.types[0], "fields"):
+                                        subfield_defn["fields"] = [
+                                            {
+                                                "fieldname": subsubfield.name,
+                                                "relative_path": expand_uri(subsubfield.path, subfield.types[0].context)[0]
+                                            }
+                                            for subsubfield in subfield.types[0].fields
+                                        ]
+                                    subfields[subfield_defn["fieldname"]] = subfield_defn
+                        field_definition["fields"].extend(subfields.values())
+                elif any(issubclass(_type, OntologyTerm) for _type in field.types):
+                    field_definition["fields"] = [
+                        {"relative_path": "@id"},
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ]
+                elif issubclass(field.types[0], StructuredMetadata) and hasattr(field.types[0], "fields"):
+                    field_definition["fields"] = [
+                        {
+                            "fieldname": subfield.name,
+                            "relative_path": expand_uri(subfield.path, field.types[0].context)[0]
+                        }
+                        for subfield in field.types[0].fields
+                    ]
+                if datetime not in field.types:
+                    if field.types[0] in (int, float, bool):
+                        op = "equals"
+                    else:
+                        op = "contains"
+                    field_definition["filter"] = {  # don't filter on datetime,  ...
+                        "op": op,
+                        "parameter": field.name
+                    }
+                query["fields"].append(field_definition)
+        return query
+
+    @classmethod
+    def store_queries(cls, client):
+        for query_id, resolved in (("fg", False), ("fgResolved", True)):
+            query_definition = cls.generate_query(query_id, client, resolved=resolved)
+            path = "{}/{}".format(cls.path, query_id)
+            client.store_query(path, query_definition)
 
 
 class MockKGObject(KGObject):
@@ -839,11 +997,12 @@ def build_kg_object(cls, data, resolved=False, client=None):
             if resolved:
                 if kg_cls.namespace is None:
                     kg_cls.namespace = namespace_from_id(item["@id"])
-                #try:
-                instance = Instance(kg_cls.path, item, Instance.path)
-                obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
-                #except ValueError:
-                #    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                try:
+                    instance = Instance(kg_cls.path, item, Instance.path)
+                    obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+                except (ValueError, KeyError):
+                    # to add: emit a warning
+                    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
             else:
                 obj = KGProxy(kg_cls, item["@id"])
         else:
@@ -854,15 +1013,3 @@ def build_kg_object(cls, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
-
-
-def as_list(obj):
-    if obj is None:
-        return []
-    elif isinstance(obj, (dict, basestring)):
-        return [obj]
-    try:
-        L = list(obj)
-    except TypeError:
-        L = [obj]
-    return L

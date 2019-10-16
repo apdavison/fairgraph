@@ -52,8 +52,12 @@ class KGClient(object):
             subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
             instances = self.query_nexus(subpath, filter, context, from_index, size, deprecated)
         elif api == "query":
-            if hasattr(cls, "query_id"):
-                instances = self.query_kgquery(cls.path, cls.query_id, filter, from_index, size, scope)
+            if hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
+                instances = self.query_kgquery(cls.path, query_id, filter, from_index, size, scope)
                 return [cls.from_kg_instance(instance, self, resolved=resolved)
                         for instance in instances]
             else:
@@ -117,7 +121,8 @@ class KGClient(object):
             self.cache[instance.data["@id"]] = instance
         return instances
 
-    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus"):
+    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
+                               resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         if use_cache and uri in self.cache:
@@ -132,10 +137,14 @@ class KGClient(object):
             if instance and deprecated is False and instance.data["nxv:deprecated"]:
                 instance = None
         elif api == "query":
-            if cls and hasattr(cls, "query_id"):
+            if cls and hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
                 response = self._kg_query_client.get(
                     "{}/{}/instances?databaseScope=INFERRED&id={}".format(cls.path,
-                                                                          cls.query_id,
+                                                                          query_id,
                                                                           uri))
                 instance = Instance(cls.path, response["results"][0], Instance.path)
                 self.cache[instance.data["@id"]] = instance
@@ -146,7 +155,8 @@ class KGClient(object):
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
 
-    def instance_from_uuid(self, path, uuid, cls=None, deprecated=False, api="nexus"):
+    def instance_from_uuid(self, path, uuid, cls=None, deprecated=False, api="nexus",
+                           resolved=False):
         # todo: caching
         if api == "nexus":
             instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
@@ -154,7 +164,8 @@ class KGClient(object):
                 instance = None
         elif api == "query":
             uri = path + "/" + uuid
-            instance = self.instance_from_full_uri(uri, cls=cls, deprecated=deprecated, api=api)
+            instance = self.instance_from_full_uri(uri, cls=cls, deprecated=deprecated, api=api,
+                                                   resolved=resolved)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
@@ -177,7 +188,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="nexus"):
+    def by_name(self, cls, name, match="equals", all=False, api="nexus", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):
@@ -201,10 +212,14 @@ class KGClient(object):
             instances = self.query_nexus(cls.path, query_filter, context)
         else:
             assert api == "query"
-            if hasattr(cls, "query_id"):
+            if hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
                 response = self._kg_query_client.get(
                     "{}/{}{}/instances?databaseScope=INFERRED&name={}".format(cls.path,
-                                                                              cls.query_id,
+                                                                              query_id,
                                                                               match == "contains" and "_name_contains" or "",  # workaround
                                                                               name))
                 instances = [Instance(cls.path, result, Instance.path)
@@ -219,3 +234,8 @@ class KGClient(object):
                 return cls.from_kg_instance(instances[0], self)
         else:
             return None
+
+    def store_query(self, path, query_definition):
+        self._kg_query_client.raw = True  # endpoint returns plain text, not JSON
+        response = self._kg_query_client.put(path, data=query_definition)
+        self._kg_query_client.raw = False

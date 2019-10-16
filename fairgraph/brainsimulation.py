@@ -11,11 +11,15 @@ import logging
 from datetime import datetime, date
 import mimetypes
 from itertools import chain
+import sys
+import inspect
 from dateutil import parser as date_parser
 import requests
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field, IRI
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
 from .core import Organization, Person, Age, Collection
+from .utility import compact_uri, standard_context
+
 
 logger = logging.getLogger("fairgraph")
 mimetypes.init()
@@ -107,7 +111,6 @@ class ModelProject(KGObject, HasAliasMixin):
               "hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
-    query_id = "fgResolved"
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
@@ -227,14 +230,14 @@ class ModelInstance(KGObject):
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
         Field("release", basestring, "release", required=False),
         Field("version",  basestring, "version", required=True),
-        Field("timestamp", datetime, "generatedAtTime", required=True),
+        Field("timestamp", datetime, "generatedAtTime", required=False),
         Field("part_of", KGObject, "isPartOf"),
         Field("description", basestring, "description"),
         Field("parameters", basestring, "parameters"),
         Field("old_uuid", basestring, "oldUUID")
     )
 
-    def __init__(self, name, main_script, version, timestamp,
+    def __init__(self, name, main_script, version, timestamp=None,
                  brain_region=None, species=None, model_of=None, release=None,
                  part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
@@ -623,6 +626,9 @@ class ValidationActivity(KGObject):
             "schema": "http://schema.org/",
             "generated": "prov:generated",
             "used": "prov:used",
+            "modelUsed": "prov:used",
+            "testUsed": "prov:used",
+            "dataUsed": "prov:used",
             "startedAtTime": "prov:startedAtTime",
             "endedAtTime": "prov:endedAtTime",
             "wasAssociatedWith": "prov:wasAssociatedWith",
@@ -630,9 +636,9 @@ class ValidationActivity(KGObject):
         }
     ]
     fields = (
-        Field("model_instance", (ModelInstance, MEModel), "used", required=True),
-        Field("test_script", ValidationScript, "used", required=True),
-        Field("reference_data", Collection, "used", required=True),
+        Field("model_instance", (ModelInstance, MEModel), "modelUsed", required=True),
+        Field("test_script", ValidationScript, "testUsed", required=True),
+        Field("reference_data", Collection, "dataUsed", required=True),
         Field("timestamp", datetime,  "startedAtTime", required=True),
         Field("result", ValidationResult, "generated"),
         Field("started_by", Person, "wasAssociatedWith"),
@@ -659,17 +665,40 @@ class ValidationActivity(KGObject):
     @cache
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
-        assert 'nsg:ModelValidation' in D["@type"]
-        model_instance = [item for item in D.get("used") if "nsg:ModelInstance" in item["@type"]][0]
-        reference_data = [item for item in D.get("used") if "nsg:Collection" in item["@type"]][0]
-        test_script = [item for item in D.get("used") if "nsg:ModelValidationScript" in item["@type"]][0]
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        def filter_by_kg_type(items, type_name):
+            filtered_items = []
+            for item in items:
+                if type_name in item["@type"] or type_name in compact_uri(item["@type"], standard_context):
+                    filtered_items.append(item)
+            return filtered_items
+        try:
+            model_instance = filter_by_kg_type(D["modelUsed"], "nsg:ModelInstance")[0]
+        except KeyError:
+            model_instance = filter_by_kg_type(D["used"], "nsg:ModelInstance")[0]
+        try:
+            reference_data = filter_by_kg_type(D["dataUsed"], "nsg:Collection")[0]
+        except KeyError:
+            reference_data = filter_by_kg_type(D["used"], "nsg:Collection")[0]
+        try:
+            test_script = filter_by_kg_type(D["testUsed"], "nsg:ModelValidationScript")[0]
+        except KeyError:
+            test_script = filter_by_kg_type(D["used"], "nsg:ModelValidationScript")[0]
+        end_timestamp = D.get("endedAtTime")
+        if end_timestamp:
+            end_timestamp = date_parser.parse(end_timestamp)
         obj = cls(model_instance=build_kg_object(None, model_instance),
                   test_script=build_kg_object(ValidationScript, test_script),
                   reference_data=build_kg_object(None, reference_data),
                   timestamp=date_parser.parse(D.get("startedAtTime")),
                   result=build_kg_object(ValidationResult, D.get("generated")),
                   started_by=build_kg_object(Person, D.get("wasAssociatedWith")),
-                  end_timestamp=date_parser.parse(D.get("endedAtTime")) if "endedAtTime" in D else None,
+                  end_timestamp=end_timestamp,
                   id=D["@id"],
                   instance=instance)
         return obj
