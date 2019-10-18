@@ -112,7 +112,7 @@ class TestPatchedCell(BaseTestKG):
                             labeling_compound="0.1% biocytin ",
                             reversal_potential_cl=QuantitativeValue(-65, "mV"))
         instance = Instance(PatchedCell.path, cell1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_93f9cd9a9b"
+        instance.data["@id"] = "http://fake_uuid_93f9cd9a9b"
         instance.data["@type"] = PatchedCell.type
         cell2 = PatchedCell.from_kg_instance(instance, kg_client)
         for field in ("name", "brain_location", "cell_type",
@@ -159,14 +159,14 @@ class TestTrace(BaseTestKG):
         trace1 = Trace("example001",
                        data_location=Distribution("http://example.com/example.csv",
                                                   content_type="text/tab-separated-values"),
-                       generated_by=MockKGObject(id="abc123", type=PatchClampExperiment.type),
-                       generation_metadata=MockKGObject(id="def456", type=QualifiedTraceGeneration.type),
+                       generated_by=MockKGObject(id="http://fake_uuid_abc123", type=PatchClampExperiment.type),
+                       generation_metadata=MockKGObject(id="http://fake_uuid_def456", type=QualifiedTraceGeneration.type),
                        channel=42,
                        data_unit="mV",
                        time_step=QuantitativeValue(0.1, "ms"),
-                       part_of=MockKGObject(id="ghi789", type=Dataset.type))
+                       part_of=MockKGObject(id="http://fake_uuid_ghi789", type=Dataset.type))
         instance = Instance(Trace.path, trace1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_6a5d6ecf87"
+        instance.data["@id"] = "http://fake_uuid_6a5d6ecf87"
         instance.data["@type"] = Trace.type
         trace2 = Trace.from_kg_instance(instance, kg_client)
         for field in ("name", "data_location", "channel", "data_unit", "time_step"):

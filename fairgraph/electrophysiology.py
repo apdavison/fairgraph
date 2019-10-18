@@ -380,7 +380,8 @@ class BrainSlicingActivity(KGObject):
     def _build_data(self, client):
         """docstring"""
         data = super(BrainSlicingActivity, self)._build_data(client)
-        data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
+        if "brainRegion" in data:
+            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
     def resolve(self, client):

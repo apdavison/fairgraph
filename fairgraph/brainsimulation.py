@@ -276,7 +276,7 @@ class MEModel(ModelInstance):
         #Field("project", ModelProject, "isPartOf", required=True)  # conflicts with project property in parent class. To fix.
     ]
 
-    def __init__(self, name, e_model, morphology, main_script, version, timestamp, #project,
+    def __init__(self, name, e_model, morphology, main_script, version, timestamp=None, #project,
                  brain_region=None, species=None, model_of=None,
                  release=None, part_of=None, description=None, parameters=None,
                  old_uuid=None, id=None, instance=None):
@@ -673,7 +673,7 @@ class ValidationActivity(KGObject):
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         def filter_by_kg_type(items, type_name):
             filtered_items = []
-            for item in items:
+            for item in as_list(items):
                 if type_name in item["@type"] or type_name in compact_uri(item["@type"], standard_context):
                     filtered_items.append(item)
             return filtered_items

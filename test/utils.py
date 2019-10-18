@@ -147,7 +147,7 @@ def _random_text():
 
 
 def random_uuid():
-    return uuid.uuid4()
+    return "http://stuff/{}".format(uuid.uuid4())
 
 
 def generate_random_object(cls, all_fields=True):

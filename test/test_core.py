@@ -32,7 +32,7 @@ class TestSubject(BaseTestKG):
                        age=Age(QuantitativeValue(20, "days"), "Post-natal"),
                        death_date=datetime(1960, 1, 1))
         instance = Instance(Subject.path, obj1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_9ab2227fe1"
+        instance.data["@id"] = "http://fake_uuid_9ab2227fe1"
         instance.data["@type"] = Subject.type
         obj2 = Subject.from_kg_instance(instance, kg_client)
         for field in ("name", "species", "strain", "sex", "age", "death_date"):
@@ -48,9 +48,9 @@ class TestOrganization(BaseTestKG):
     def test_round_trip(self, kg_client):
         obj1 = Organization(name="NeuroPSI",
                             address=Address(locality="Saclay", country="France"),
-                            parent=KGProxy(Organization, "fake_uuid_00481be7a1"))
+                            parent=KGProxy(Organization, "http://fake_uuid_00481be7a1"))
         instance = Instance(Organization.path, obj1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_7bb3c1e78b"
+        instance.data["@id"] = "http://fake_uuid_7bb3c1e78b"
         instance.data["@type"] = Organization.type
         obj2 = Organization.from_kg_instance(instance, kg_client)
         for field in ("name", "address", "parent"):
@@ -59,7 +59,7 @@ class TestOrganization(BaseTestKG):
     def test_build_data(self, kg_client):
         obj1 = Organization(name="NeuroPSI",
                             address=Address(locality="Saclay", country="France"),
-                            parent=KGProxy(Organization, "fake_uuid_00481be7a1"))
+                            parent=KGProxy(Organization, "http://fake_uuid_00481be7a1"))
         expected = {
             "name": "NeuroPSI",
             "address": {
@@ -69,7 +69,7 @@ class TestOrganization(BaseTestKG):
             },
             "parentOrganization": {
                 "@type": "nsg:Organization",
-                "@id": "fake_uuid_00481be7a1"
+                "@id": "http://fake_uuid_00481be7a1"
             }
         }
         assert obj1._build_data(kg_client) == expected
@@ -92,9 +92,9 @@ class TestPerson(BaseTestKG):
 
     def test_round_trip(self, kg_client):
         p1 = Person("Hamilton", "Margaret", "margaret.hamilton@nasa.gov",
-                    KGProxy(Organization, "fake_uuid_855fead8"))
+                    KGProxy(Organization, "http://fake_uuid_855fead8"))
         instance = Instance(Person.path, p1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_8ab3dc739b"
+        instance.data["@id"] = "http://fake_uuid_8ab3dc739b"
         instance.data["@type"] = Person.type
         p2 = Person.from_kg_instance(instance, kg_client)
         for field in ("family_name", "given_name", "email", "affiliation", "full_name"):
@@ -102,8 +102,8 @@ class TestPerson(BaseTestKG):
 
     def test_exists(self, kg_client):
         p1 = Person("Hamilton", "Margaret", "margaret.hamilton@nasa.gov",
-                    KGProxy(Organization, "fake_uuid_855fead8"),
-                    id="fake_uuid_8ab3dc739b")
+                    KGProxy(Organization, "http://fake_uuid_855fead8"),
+                    id="http://fake_uuid_8ab3dc739b")
         assert p1.exists(kg_client)
         p2 = Person("James", "Bond", "fictional@example.com")
         p2_exists = p2.exists(kg_client)
@@ -114,8 +114,8 @@ class TestPerson(BaseTestKG):
 
     def test_get_context(self, kg_client):
         p1 = Person("Hamilton", "Margaret", "margaret.hamilton@nasa.gov",
-                    KGProxy(Organization, "fake_uuid_855fead8"),
-                    id="fake_uuid_8ab3dc739b")
+                    KGProxy(Organization, "http://fake_uuid_855fead8"),
+                    id="http://fake_uuid_8ab3dc739b")
         context = p1.get_context(kg_client)
         assert context == Person.context
 

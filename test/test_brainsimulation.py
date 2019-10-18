@@ -33,7 +33,7 @@ class TestModelScript(BaseTestKG):
         obj = ModelScript("test_code",
                           code_location="https://github.com/SomeOrg/ProjName",
                           code_format="Python", license="BSD",
-                          id="fake_uuid_381aa74bc9")
+                          id="http://fake_uuid_381aa74bc9")
         context = sorted(obj.get_context(kg_client),
                          key=lambda obj: str(obj))
         expected_context = sorted([
@@ -52,7 +52,7 @@ class TestModelProject(BaseTestKG):
         assert len(models) == 10
 
     def test_list_kgquery(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10)
+        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True)
         assert len(models) == 10
 
     def test_list_with_filter(self, kg_client):
@@ -60,7 +60,7 @@ class TestModelProject(BaseTestKG):
         assert len(models) == 5
 
     def test_list_kgquery_with_filter(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, species="Rattus norvegicus")
+        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True, species="Rattus norvegicus")
         assert len(models) == 2
 
 
