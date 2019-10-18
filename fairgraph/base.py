@@ -528,34 +528,37 @@ class KGProxy(object):
 class KGQuery(object):
     """docstring"""
 
-    def __init__(self, cls, filter, context):
-        if isinstance(cls, basestring):
-            self.cls = lookup(cls)
-        else:
-            self.cls = cls
+    def __init__(self, classes, filter, context):
+        self.classes = []
+        for cls in as_list(classes):
+            if isinstance(cls, basestring):
+                self.classes.append(lookup(cls))
+            else:
+                self.classes.append(cls)
         self.filter = filter
         self.context = context
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.cls!r}, {self.filter!r})'.format(self=self))
+                '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000):
-        instances = client.filter_query(
-            path=self.cls.path,
-            filter=self.filter,
-            context=self.context,
-            size=size
-        )
-        objects = [self.cls.from_kg_instance(instance, client)
-                   for instance in instances]
+        objects = []
+        for cls in self.classes:
+            instances = client.filter_query(
+                path=cls.path,
+                filter=self.filter,
+                context=self.context,
+                size=size
+            )
+            objects.extend(cls.from_kg_instance(instance, client)
+                           for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
-        if len(instances) == 1:
+        if len(objects) == 1:
             return objects[0]
         else:
             return objects
-
 
 class Distribution(StructuredMetadata):
 
