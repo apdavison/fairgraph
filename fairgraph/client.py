@@ -132,8 +132,11 @@ class KGClient(object):
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
-            self.cache[instance.data["@id"]] = instance
-            logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
+            if instance and instance.data and "@id" in instance.data:
+                self.cache[instance.data["@id"]] = instance
+                logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
+            else:
+                instance = None
             if instance and deprecated is False and instance.data["nxv:deprecated"]:
                 instance = None
         elif api == "query":

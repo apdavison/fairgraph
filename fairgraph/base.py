@@ -247,7 +247,7 @@ class KGObject(with_metaclass(Registry, object)):
                     value = value()
             elif IRI in field.types:
                 value = IRI(value)
-            elif isinstance(value, Iterable) and len(value) == 0:  # empty list
+            elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
                 value = None
             field.check_value(value)
             setattr(self, field.name, value)
@@ -271,12 +271,15 @@ class KGObject(with_metaclass(Registry, object)):
             D = instance.data
             if resolved:
                 D = cls._fix_keys(D)
-            for otype in cls.type:
-                if otype not in D["@type"]:
-                    # todo: profile - move compaction outside loop?
-                    compacted_types = compact_uri(D["@type"], standard_context)
-                    if otype not in compacted_types:
-                        print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+            if "@type" in D and D["@type"]:
+                for otype in cls.type:
+                    if otype not in D["@type"]:
+                        # todo: profile - move compaction outside loop?
+                        compacted_types = compact_uri(D["@type"], standard_context)
+                        if otype not in compacted_types:
+                            print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+            else:
+                print("Warning: type information not available")
             args = {}
             for field in cls.fields:
                 if field.intrinsic:
@@ -581,14 +584,12 @@ class KGObject(with_metaclass(Registry, object)):
                 field_names_used.append(field.path)
                 if field.name == "name":
                     field_definition["sort"] = True
-                if field.required:
-                    field_definition["required"] = True
                 if any(issubclass(_type, KGObject) for _type in field.types):
                     if field.multiple:
                         field_definition["ensure_order"] = True
                     field_definition["fields"] = [
-                        {"relative_path": "@id", "required": True},
-                        {"relative_path": "@type", "required": True}
+                        {"relative_path": "@id"},
+                        {"relative_path": "@type"}
                     ]
                     if resolved:
                         subfields = {}
@@ -603,7 +604,7 @@ class KGObject(with_metaclass(Registry, object)):
                                         if subfield.path in field_names_used:
                                             subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)  ### will this break stuff?
                                         subfield_defn["fields"] = [{"relative_path": "@id"},
-                                                                {"relative_path": "@type"}]
+                                                                   {"relative_path": "@type"}]
                                         for subsubfield in subfield.types[0].fields:
                                             if subsubfield.intrinsic:
                                                 # we are currently going as far as three levels of nesting
@@ -616,7 +617,7 @@ class KGObject(with_metaclass(Registry, object)):
                                                     subsubfield_defn["fieldname"] = "{}__{}".format(
                                                         subsubfield.types[0].__name__, subsubfield.path)
                                                     subsubfield_defn["fields"] = [
-                                                        {"relative_path": "@id", "required": True},
+                                                        {"relative_path": "@id"},
                                                         {
                                                             "fieldname": "label",
                                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
@@ -635,7 +636,7 @@ class KGObject(with_metaclass(Registry, object)):
                                         # duplicate and add prefix if necessary
                                         subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)
                                         subfield_defn["fields"] = [
-                                            {"relative_path": "@id", "required": True},
+                                            {"relative_path": "@id"},
                                             {
                                                 "fieldname": "label",
                                                 "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
@@ -681,7 +682,8 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def store_queries(cls, client):
-        for query_id, resolved in (("fg", False), ("fgResolved", True)):
+        #for query_id, resolved in (("fg", False), ("fgResolved", True)):
+        for query_id, resolved in (("fgResolved", True),):
             query_definition = cls.generate_query(query_id, client, resolved=resolved)
             path = "{}/{}".format(cls.path, query_id)
             client.store_query(path, query_definition)
@@ -983,6 +985,7 @@ def build_kg_object(cls, data, resolved=False, client=None):
                     kg_cls = lookup_type(compact_uri(item["@type"], standard_context))
             elif "label" in item:
                 kg_cls = lookup_by_iri(item["@id"])
+            # todo: add lookup by @id
             else:
                 raise ValueError("Cannot determine type. Item was: {}".format(item))
         else:
@@ -991,23 +994,28 @@ def build_kg_object(cls, data, resolved=False, client=None):
         if issubclass(kg_cls, StructuredMetadata):
             obj = kg_cls.from_jsonld(item)
         elif issubclass(kg_cls, KGObject):
-            # here is where we check the "resolved" keyword,
-            # and return an actual object if we have the data
-            # or resolve the proxy if we don't
-            if resolved:
-                if kg_cls.namespace is None:
-                    kg_cls.namespace = namespace_from_id(item["@id"])
-                try:
-                    instance = Instance(kg_cls.path, item, Instance.path)
-                    obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
-                except (ValueError, KeyError):
-                    # to add: emit a warning
-                    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+            if "@id" in item and item["@id"].startswith("http"):
+                # here is where we check the "resolved" keyword,
+                # and return an actual object if we have the data
+                # or resolve the proxy if we don't
+                if resolved:
+                    if kg_cls.namespace is None:
+                        kg_cls.namespace = namespace_from_id(item["@id"])
+                    try:
+                        instance = Instance(kg_cls.path, item, Instance.path)
+                        obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+                    except (ValueError, KeyError):
+                        # to add: emit a warning
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                else:
+                    obj = KGProxy(kg_cls, item["@id"])
             else:
-                obj = KGProxy(kg_cls, item["@id"])
+                # todo: add a logger.warning that we have dud data
+                obj = None
         else:
             raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
-        objects.append(obj)
+        if obj is not None:
+            objects.append(obj)
 
     if len(objects) == 1:
         return objects[0]

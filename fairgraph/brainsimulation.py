@@ -505,7 +505,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("authors", Person, "author", multiple=True, required=True),
-        Field("description", basestring, "description", required=True),
+        Field("description", basestring, "description", required=False),
         Field("date_created", (date, datetime), "dateCreated", required=True),
         Field("alias", basestring, "alias"),
         Field("brain_region", BrainRegion, "brainRegion", multiple=True),
@@ -605,7 +605,7 @@ class ValidationResult(KGObject):
         Field("timestamp", (date, datetime), "dateCreated"),
         Field("additional_data", KGObject, "hadMember", multiple=True),
         Field("old_uuid", basestring, "oldUUID"),
-        Field("collab_id", basestring, "collabID"),
+        Field("collab_id", (int, basestring), "collabID"),
         Field("hash", basestring, "hash")
     )
 

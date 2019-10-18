@@ -331,7 +331,7 @@ class BrainSlicingActivity(KGObject):
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("slices", Slice, "generated", multiple=True, required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("slicing_plane", basestring, "slicingPlane", required=False),
         Field("slicing_angle", float, "slicingAngle", required=False),
         Field("cutting_solution", basestring, "solution", required=False),
@@ -340,7 +340,7 @@ class BrainSlicingActivity(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
 
-    def __init__(self, subject, slices, brain_location, slicing_plane=None, slicing_angle=None,
+    def __init__(self, subject, slices, brain_location=None, slicing_plane=None, slicing_angle=None,
                  cutting_solution=None, cutting_thickness=None, start_time=None, people=None,
                  id=None, instance=None):
         args = locals()
@@ -352,11 +352,15 @@ class BrainSlicingActivity(KGObject):
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
         for otype in cls.type:
-            assert otype in D["@type"]
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
-                data_item = D["brainLocation"]["brainRegion"]
+                data_item = D.get("brainLocation", {}).get("brainRegion")
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
@@ -615,18 +619,23 @@ class PatchClampExperiment(KGObject):
         return data
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         # we need to add the additional filter below, as PatchClampExperiment and
         # IntraCellularSharpElectrodeExperiment share the same path
         # and JSON-LD type ("nsg:StimulusExperiment")
-        filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
-        context = {
-            "nsg": cls.context["nsg"],
-            "prov": cls.context["prov"],
-            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-        }
-        # todo: what about filtering if api="query"
+        if api == "nexus":
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+        elif api == "query":
+            # todo: what about filtering if api="query"
+            raise NotImplementedError("not yet implemented")
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
         return client.list(cls, size=size, api=api, filter=filter, context=context)
 
     @property
