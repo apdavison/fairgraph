@@ -187,6 +187,8 @@ class ModelProject(KGObject, HasAliasMixin):
                 if name in cls.attribute_map:
                     concept_class, concept_uri = cls.attribute_map[name]
                     filter_queries[name] = concept_class.iri_map[value]
+                else:
+                    filter_queries[name] = value
             return client.list(cls, size=size, api=api, scope=scope, filter=filter_queries, resolved=resolved)
 
 
