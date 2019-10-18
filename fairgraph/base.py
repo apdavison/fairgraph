@@ -338,12 +338,8 @@ class KGObject(with_metaclass(Registry, object)):
             val = UUID(uuid, version=4)  # check validity of uuid
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
-        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated, api=api,
-                                             resolved=resolved)
-        if instance is None:
-            return None
-        else:
-            return cls.from_kg_instance(instance, client, resolved=resolved)
+        uri = cls.uri_from_uuid(uuid, client)
+        return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
 
     @property
     def uuid(self):

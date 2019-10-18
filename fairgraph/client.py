@@ -158,21 +158,6 @@ class KGClient(object):
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
 
-    def instance_from_uuid(self, path, uuid, cls=None, deprecated=False, api="nexus",
-                           resolved=False):
-        # todo: caching
-        if api == "nexus":
-            instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
-            if instance and deprecated is False and instance.data["nxv:deprecated"]:
-                instance = None
-        elif api == "query":
-            uri = path + "/" + uuid
-            instance = self.instance_from_full_uri(uri, cls=cls, deprecated=deprecated, api=api,
-                                                   resolved=resolved)
-        else:
-            raise ValueError("'api' must be either 'nexus' or 'query'")
-        return instance
-
     def create_new_instance(self, path, data):
         instance = Instance(path, data, Instance.path)
         entity = self._nexus_client.instances.create(instance)
@@ -231,10 +216,10 @@ class KGClient(object):
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         if instances:
             if all:
-                return [cls.from_kg_instance(inst, self)
+                return [cls.from_kg_instance(inst, self, resolved=resolved)
                         for inst in instances]
             else:  # return only the first result
-                return cls.from_kg_instance(instances[0], self)
+                return cls.from_kg_instance(instances[0], self, resolved=resolved)
         else:
             return None
 
