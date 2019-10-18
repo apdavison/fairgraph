@@ -52,7 +52,7 @@ class AgeCategory(UnimindsObject):
     docstring
     """
     _path = "/options/agecategory/v1.0.0"
-    type = ["uniminds:AgeCategory"]
+    type = ["uniminds:Agecategory"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -64,7 +64,7 @@ class BrainStructure(UnimindsObject):
     docstring
     """
     _path = "/options/brainstructure/v1.0.0"
-    type = ["uniminds:BrainStructure"]
+    type = ["uniminds:Brainstructure"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -76,7 +76,7 @@ class CellularTarget(UnimindsObject):
     docstring
     """
     _path = "/options/cellulartarget/v1.0.0"
-    type = ["uniminds:CellularTarget"]
+    type = ["uniminds:Cellulartarget"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -158,7 +158,7 @@ class EmbargoStatus(UnimindsObject):
     docstring
     """
     _path = "/options/embargostatus/v1.0.0"
-    type = ["uniminds:EmbargoStatus"]
+    type = ["uniminds:Embargostatus"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -170,7 +170,7 @@ class EthicsApproval(UnimindsObject):
     docstring
     """
     _path = "/core/ethicsapproval/v1.0.0"
-    type = ["uniminds:EthicsApproval"]
+    type = ["uniminds:Ethicsapproval"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("hbpethicsapproval", basestring, "https://schema.hbp.eu/uniminds/hbpEthicsApproval", required=False, multiple=False),
@@ -186,7 +186,7 @@ class EthicsAuthority(UnimindsObject):
     docstring
     """
     _path = "/options/ethicsauthority/v1.0.0"
-    type = ["uniminds:EthicsAuthority"]
+    type = ["uniminds:Ethicsauthority"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -198,7 +198,7 @@ class ExperimentalPreparation(UnimindsObject):
     docstring
     """
     _path = "/options/experimentalpreparation/v1.0.0"
-    type = ["uniminds:ExperimentalPreparation"]
+    type = ["uniminds:Experimentalpreparation"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -226,7 +226,7 @@ class FileAssociation(UnimindsObject):
     docstring
     """
     _path = "/core/fileassociation/v1.0.0"
-    type = ["uniminds:FileAssociation"]
+    type = ["uniminds:Fileassociation"]
     fields = (
       Field("from", File, "https://schema.hbp.eu/linkinginstance/from", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -240,7 +240,7 @@ class FileBundle(UnimindsObject):
     docstring
     """
     _path = "/core/filebundle/v1.0.0"
-    type = ["uniminds:FileBundle"]
+    type = ["uniminds:Filebundle"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
@@ -258,7 +258,7 @@ class FileBundleGroup(UnimindsObject):
     docstring
     """
     _path = "/options/filebundlegroup/v1.0.0"
-    type = ["uniminds:FileBundleGroup"]
+    type = ["uniminds:Filebundlegroup"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -271,7 +271,7 @@ class FundingInformation(UnimindsObject):
     docstring
     """
     _path = "/core/fundinginformation/v1.0.0"
-    type = ["uniminds:FundingInformation"]
+    type = ["uniminds:Fundinginformation"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("grant_id", basestring, "https://schema.hbp.eu/uniminds/grantId", required=False, multiple=False),
@@ -308,7 +308,7 @@ class HBPComponent(UnimindsObject):
     docstring
     """
     _path = "/core/hbpcomponent/v1.0.0"
-    type = ["uniminds:HBPComponent"]
+    type = ["uniminds:Hbpcomponent"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("associated_task", basestring, "https://schema.hbp.eu/uniminds/associatedTask", required=False, multiple=False),
@@ -357,7 +357,7 @@ class MethodCategory(UnimindsObject):
     docstring
     """
     _path = "/options/methodcategory/v1.0.0"
-    type = ["uniminds:MethodCategory"]
+    type = ["uniminds:Methodcategory"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -369,7 +369,7 @@ class MimeType(UnimindsObject):
     docstring
     """
     _path = "/options/mimetype/v1.0.0"
-    type = ["uniminds:MimeType"]
+    type = ["uniminds:Mimetype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -381,7 +381,7 @@ class ModelFormat(UnimindsObject):
     docstring
     """
     _path = "/options/modelformat/v1.0.0"
-    type = ["uniminds:ModelFormat"]
+    type = ["uniminds:Modelformat"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -393,7 +393,7 @@ class ModelInstance(UnimindsObject):
     docstring
     """
     _path = "/core/modelinstance/v1.0.0"
-    type = ["uniminds:ModelInstance"]
+    type = ["uniminds:Modelinstance"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
@@ -418,7 +418,7 @@ class ModelScope(UnimindsObject):
     docstring
     """
     _path = "/options/modelscope/v1.0.0"
-    type = ["uniminds:ModelScope"]
+    type = ["uniminds:Modelscope"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -475,7 +475,7 @@ class PublicationId(UnimindsObject):
     docstring
     """
     _path = "/options/publicationid/v1.0.0"
-    type = ["uniminds:PublicationId"]
+    type = ["uniminds:Publicationid"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -489,7 +489,7 @@ class PublicationIdType(UnimindsObject):
     docstring
     """
     _path = "/options/publicationidtype/v1.0.0"
-    type = ["uniminds:PublicationIdType"]
+    type = ["uniminds:Publicationidtype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -537,7 +537,7 @@ class StudyTarget(UnimindsObject):
     docstring
     """
     _path = "/core/studytarget/v1.0.0"
-    type = ["uniminds:StudyTarget"]
+    type = ["uniminds:Studytarget"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("fullname", basestring, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
@@ -553,7 +553,7 @@ class StudyTargetSource(UnimindsObject):
     docstring
     """
     _path = "/options/studytargetsource/v1.0.0"
-    type = ["uniminds:StudyTargetSource"]
+    type = ["uniminds:Studytargetsource"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -566,7 +566,7 @@ class StudyTargetType(UnimindsObject):
     docstring
     """
     _path = "/options/studytargettype/v1.0.0"
-    type = ["uniminds:StudyTargetType"]
+    type = ["uniminds:Studytargettype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -606,7 +606,7 @@ class SubjectGroup(UnimindsObject):
     docstring
     """
     _path = "/core/subjectgroup/v1.0.0"
-    type = ["uniminds:SubjectGroup"]
+    type = ["uniminds:Subjectgroup"]
     fields = (
       Field("age_range_max", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMax", required=False, multiple=False),
       Field("age_range_min", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMin", required=False, multiple=False),
@@ -636,7 +636,7 @@ class TissueSample(UnimindsObject):
     docstring
     """
     _path = "/core/tissuesample/v1.0.0"
-    type = ["uniminds:TissueSample"]
+    type = ["uniminds:Tissuesample"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),

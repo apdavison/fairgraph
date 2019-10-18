@@ -22,6 +22,7 @@ standard_context = {
     "prov": "http://www.w3.org/ns/prov#",
     "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
     "minds": "https://schema.hbp.eu/minds/",
+    "uniminds": "https://schema.hbp.eu/uniminds/",
     "name": "schema:name",
     "description": "schema:description",
     "brainRegion": "nsg:brainRegion",
