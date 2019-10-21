@@ -6,19 +6,29 @@ import os
 import sys
 from functools import wraps
 from collections import defaultdict
+from datetime import datetime, date
+import warnings
 try:
-    from collections.abc import Iterable
+    from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
-    from collections import Iterable
+    from collections import Iterable, Mapping
 import logging
 from uuid import UUID
+from dateutil import parser as date_parser
 from six import with_metaclass
 try:
     basestring
 except NameError:
     basestring = str
 import requests
+try:
+    from tabulate import tabulate
+    have_tabulate = True
+except ImportError:
+    have_tabulate = False
+from pyxus.resources.entity import Instance
 from .errors import ResourceExistsError
+from .utility import compact_uri, expand_uri, standard_context, namespace_from_id, as_list
 
 
 logger = logging.getLogger("fairgraph")
@@ -31,7 +41,8 @@ registry = {
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
 def register_class(target_class):
-    registry['names'][target_class.__name__] = target_class
+    name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
+    registry['names'][name] = target_class
     if hasattr(target_class, 'type'):
         if isinstance(target_class.type, basestring):
             registry['types'][target_class.type] = target_class
@@ -43,8 +54,15 @@ def lookup(class_name):
     return registry['names'][class_name]
 
 
-def lookup_type(class_type):
+def lookup_type(class_type, client=None):
     return registry['types'][tuple(class_type)]
+
+
+def lookup_by_iri(iri):
+    for cls in registry["names"].values():
+        if hasattr(cls, "iri_map") and iri in cls.iri_map.values():
+            return cls
+    raise ValueError("Can't resolve iri '{}'".format(iri))
 
 
 def generate_cache_key(qd):
@@ -84,9 +102,9 @@ class Registry(type):
 class Field(object):  # playing with an idea, work in progress, not yet used
     """Representation of a metadata field"""
 
-    def __init__(self, name, types, path, required=False, default=None, multiple=False):
+    def __init__(self, name, types, path, required=False, default=None, multiple=False, strict=True):
         self.name = name
-        if isinstance(types, (type, str)):
+        if isinstance(types, (type, basestring)):
             self._types = (types,)
         else:
             self._types = tuple(types)
@@ -96,6 +114,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         self.required = required
         self.default = default
         self.multiple = multiple
+        self.strict_mode = strict
 
     def __repr__(self):
         return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
@@ -105,7 +124,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
     def types(self):
         if not self._resolved_types:
             self._types = tuple(
-                [lookup(obj) if isinstance(obj, str) else obj
+                [lookup(obj) if isinstance(obj, basestring) else obj
                  for obj in self._types]
             )
             self._resolved_types = True
@@ -114,12 +133,17 @@ class Field(object):  # playing with an idea, work in progress, not yet used
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery)) and item.cls in self.types):
+                if not (isinstance(item, (KGProxy, KGQuery))
+                        and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
-                        raise ValueError("Field '{}' should be of type {}, not {}".format(
-                                         self.name, self.types, type(item)))
+                        errmsg = "Field '{}' should be of type {}, not {}".format(
+                                 self.name, self.types, type(item))
+                        if self.strict_mode:
+                            raise ValueError(errmsg)
+                        else:
+                            warnings.warn(errmsg)
         if self.required or value is not None:
-            if self.multiple and isinstance(value, Iterable):
+            if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
                 for item in value:
                     check_single(item)
             else:
@@ -135,7 +159,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
 
     def serialize(self, value, client):
         def serialize_single(value):
-            if isinstance(value, (str, int, float)):
+            if isinstance(value, (basestring, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
@@ -144,6 +168,10 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                     "@id": value.id,
                     "@type": value.type
                 }
+            elif isinstance(value, (datetime, date)):
+                return value.isoformat()
+            else:
+                raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
             if self.multiple:
                 return [serialize_single(item) for item in value]
@@ -152,29 +180,48 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         else:
             return serialize_single(value)
 
-    def deserialize(self, data, client):
-        if not self.intrinsic:
-            if len(self.types) > 1:
-                raise NotImplementedError("todo")
-            query_filter = {
-                "path": self.path[1:],  # remove initial ^
-                "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
-                "value": data
-            }
-            # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
-            # query_context = {context_key: TODO: lookup contexts}
-            query_context = {
-                "prov": "http://www.w3.org/ns/prov#",
-                "schema": "http://schema.org/",
-                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            }
-            return KGQuery(self.types[0], query_filter, query_context)
-        if issubclass(self.types[0], (KGObject, StructuredMetadata)):
-            if len(self.types) > 1:
-                raise NotImplementedError("todo")
-            return build_kg_object(self.types[0], data)
-        else:
+    def deserialize(self, data, client, resolved=False):
+
+        if data is None:
             return data
+        try:
+            if not self.intrinsic:
+                query_filter = {
+                    "path": self.path[1:],  # remove initial ^
+                    "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
+                    "value": data
+                }
+                # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
+                # query_context = {context_key: TODO: lookup contexts}
+                query_context = {
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                }
+                return KGQuery(self.types, query_filter, query_context)
+            if Distribution in self.types:
+                return build_kg_object(Distribution, data)
+            elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
+                if len(self.types) > 1 or self.types[0] == KGObject:
+                    return build_kg_object(None, data, resolved=resolved, client=client)
+                return build_kg_object(self.types[0], data, resolved=resolved, client=client)
+            elif self.types[0] in (datetime, date):
+                return date_parser.parse(data)
+            elif self.types[0] == IRI:
+                return data["@id"]
+            elif self.types[0] == int:
+                if isinstance(data, Iterable):
+                    return [int(item) for item in data]
+                else:
+                    return int(data)
+            else:
+                return data
+        except Exception as err:
+            if self.strict_mode:
+                raise
+            else:
+                warnings.warn(str(err))
+                return None
 
 
 #class KGObject(object, metaclass=Registry):
@@ -182,6 +229,8 @@ class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     object_cache = {}
     save_cache = defaultdict(dict)
+    query_id = "fg"
+    query_id_resolved = "fgResolved"
     fields = []
 
     def __init__(self, id=None, instance=None, **properties):
@@ -192,6 +241,15 @@ class KGObject(with_metaclass(Registry, object)):
                 except KeyError:
                     if field.required:
                         raise ValueError("Field '{}' is required.".format(field.name))
+                    value = None
+                if value is None:
+                    value = field.default
+                    if callable(value):
+                        value = value()
+                elif IRI in field.types:
+                    value = IRI(value)
+                elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
+                    value = None
                 field.check_value(value)
                 setattr(self, field.name, value)
         else:
@@ -215,32 +273,64 @@ class KGObject(with_metaclass(Registry, object)):
                     '{self.name!r} {self.id!r})'.format(self=self))
 
     @classmethod
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         if cls.fields:
             D = instance.data
-            for otype in cls.type:
-                assert otype in D["@type"]
+            if resolved:
+                D = cls._fix_keys(D)
+            if "@type" in D and D["@type"]:
+                for otype in cls.type:
+                    if otype not in D["@type"]:
+                        # todo: profile - move compaction outside loop?
+                        compacted_types = compact_uri(D["@type"], standard_context)
+                        if otype not in compacted_types:
+                            print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+            else:
+                print("Warning: type information not available")
             args = {}
             for field in cls.fields:
                 if field.intrinsic:
                     data_item = D.get(field.path)
+                    # todo: handle over-loaded fields, e.g. "used" in ValidationActivity
                 else:
                     data_item = D["@id"]
-                args[field.name] = field.deserialize(data_item, client)
+                args[field.name] = field.deserialize(data_item, client, resolved=resolved)
             return cls(id=D["@id"], instance=instance, **args)
         else:
             raise NotImplementedError("To be implemented by child class")
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False):
-        instance = client.instance_from_full_uri(uri, use_cache=use_cache, deprecated=deprecated)
+    def _fix_keys(cls, data):
+        """
+        The KG Query API does not allow the same field name to be used twice in a document.
+
+        This is a problem when resolving linked nodes which use the same field names
+        as the 'parent'. As a workaround, we prefix the field names in the linked node
+        with the class name.
+
+        This method removes this prefix.
+
+        This feels like a kludge, and I'd be happy to find a better solution.
+        """
+        prefix = cls.__name__ + "__"
+        for key in data:
+            if key.startswith(prefix):
+                fixed_key = key.replace(prefix, "")
+                data[fixed_key] = data.pop(key)
+        return data
+
+
+    @classmethod
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+        instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
+                                                 deprecated=deprecated, api=api, resolved=resolved)
         if instance is None:
             return None
         else:
-            return cls.from_kg_instance(instance, client, use_cache=use_cache)
+            return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False):
+    def from_uuid(cls, uuid, client, deprecated=False, api='nexus', resolved=False):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -248,11 +338,8 @@ class KGObject(with_metaclass(Registry, object)):
             val = UUID(uuid, version=4)  # check validity of uuid
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
-        instance = client.instance_from_uuid(cls.path, uuid, deprecated=deprecated)
-        if instance is None:
-            return None
-        else:
-            return cls.from_kg_instance(instance, client)
+        uri = cls.uri_from_uuid(uuid, client)
+        return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
 
     @property
     def uuid(self):
@@ -263,9 +350,9 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, size=size)
+        return client.list(cls, size=size, api=api, scope=scope, resolved=resolved)
 
     @property
     def _existence_query(self):
@@ -279,13 +366,11 @@ class KGObject(with_metaclass(Registry, object)):
             "value": self.name
         }
 
-    def exists(self, client):
+    def exists(self, client, api='nexus'):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
         else:
-            context = {"schema": "http://schema.org/",
-                       "prov": "http://www.w3.org/ns/prov#"},
             query_filter = self._existence_query
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
@@ -295,12 +380,16 @@ class KGObject(with_metaclass(Registry, object)):
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
-            else:
-                response = client.filter_query(self.__class__.path, query_filter, context)
+            elif api == "nexus":
+                context = {"schema": "http://schema.org/",
+                           "prov": "http://www.w3.org/ns/prov#"}
+                response = client.query_nexus(self.__class__.path, query_filter, context)
                 if response:
                     self.id = response[0].data["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
                 return bool(response)
+            else:
+                raise NotImplementedError()
 
     def get_context(self, client):
         context_urls = set()
@@ -355,9 +444,15 @@ class KGObject(with_metaclass(Registry, object)):
             for field in self.fields:
                 if field.intrinsic:
                     value = getattr(self, field.name)
-                    print(field.name, value)
                     if field.required or value is not None:
-                        data[field.path] = field.serialize(value, client)
+                        serialized = field.serialize(value, client)
+                        if field.path in data:
+                            if isinstance(data[field.path], list):
+                                data[field.path].append(serialized)
+                            else:
+                                data[field.path] = [data[field.path], serialized]
+                        else:
+                            data[field.path] = serialized
             return data
         else:
             raise NotImplementedError("to be implemented by child classes")
@@ -372,7 +467,7 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+                self.instance = client.instance_from_full_uri(self.id, use_cache=False)  # api argument?
 
         if self.instance:
             if self._update_needed(data):
@@ -398,8 +493,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, all=False):
-        return client.by_name(cls, name, all=all)
+    def by_name(cls, name, client, match="equals", all=False, api="nexus", resolved=False):
+        return client.by_name(cls, name, match=match, all=all, api=api, resolved=resolved)
 
     @property
     def rev(self):
@@ -413,6 +508,188 @@ class KGObject(with_metaclass(Registry, object)):
         a real object resolves to itself.
         """
         return self
+
+    @classmethod
+    def set_strict_mode(cls, value, field_name=None):
+        if value not in (True, False):
+            raise ValueError("value should be either True or False")
+        if field_name:
+            for field in cls.fields:
+                if field.name == field_name:
+                    field.strict_mode = value
+                    return
+            raise ValueError("No such field: {}".format(field_name))
+        else:
+            for field in cls.fields:
+                field.strict_mode = value
+
+    def show(self, max_width=None):
+        if not have_tabulate:
+            raise Exception("You need to install the tabulate module to use the `show()` method")
+        data = [("id", self.id)] + [(field.name, getattr(self, field.name, None))
+                                    for field in self.fields]
+        if max_width:
+            value_column_width = max_width - max(len(item[0]) for item in data)
+            def fit_column(value):
+                strv = str(value)
+                if len(strv) > value_column_width:
+                    strv = strv[:value_column_width - 4] + " ..."
+                return strv
+            data = [(k, fit_column(v)) for k, v in data]
+        print(tabulate(data))
+
+    @classmethod
+    def generate_query(cls, query_id, client, resolved=False):
+        query = {
+            "https://schema.hbp.eu/graphQuery/root_schema": {
+                "@id": "{}/schemas/{}".format(client.nexus_endpoint, cls.path)
+            },
+            "http://schema.org/identifier": "{}/{}".format(cls.path, query_id),
+            "fields": [
+                {
+                    "relative_path": "@id",
+                    "filter": {
+                        "op": "equals",
+                        "parameter": "id"
+                    }
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "@context": {
+                "fieldname": {
+                    "@type": "@id",
+                    "@id": "fieldname"
+                },
+                "schema": "http://schema.org/",
+                "@vocab": "https://schema.hbp.eu/graphQuery/",
+                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                "merge": {
+                    "@type": "@id",
+                    "@id": "merge"
+                },
+                "query": "https://schema.hbp.eu/myQuery/",
+                "dcterms": "http://purl.org/dc/terms/",  # don't think we need this
+                "relative_path": {
+                    "@type": "@id",
+                    "@id": "relative_path"
+                }
+            }
+        }
+        field_names_used = []
+        for field in cls.fields:
+            if field.intrinsic and cls not in field.types:  # avoid recursion to same type:
+                field_definition = {
+                    "fieldname": field.path,
+                    "relative_path": expand_uri(field.path, cls.context, client)[0],
+                }
+                field_names_used.append(field.path)
+                if field.name == "name":
+                    field_definition["sort"] = True
+                if any(issubclass(_type, KGObject) for _type in field.types):
+                    if field.multiple:
+                        field_definition["ensure_order"] = True
+                    field_definition["fields"] = [
+                        {"relative_path": "@id"},
+                        {"relative_path": "@type"}
+                    ]
+                    if resolved:
+                        subfields = {}
+                        for child_cls in field.types:
+                            for subfield in child_cls.fields:
+                                if subfield.intrinsic and child_cls not in subfield.types:
+                                    subfield_defn = {
+                                        "fieldname": subfield.path,
+                                        "relative_path": expand_uri(subfield.path, child_cls.context, client)[0],
+                                    }
+                                    if any(issubclass(_type, KGObject) for _type in subfield.types):
+                                        if subfield.path in field_names_used:
+                                            subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)  ### will this break stuff?
+                                        subfield_defn["fields"] = [{"relative_path": "@id"},
+                                                                   {"relative_path": "@type"}]
+                                        for subsubfield in subfield.types[0].fields:
+                                            if subsubfield.intrinsic:
+                                                # we are currently going as far as three levels of nesting
+                                                # if we need to go further, probably best to rewrite to use recursion
+                                                subsubfield_defn = {
+                                                    "fieldname": subsubfield.path,
+                                                    "relative_path": expand_uri(subsubfield.path, standard_context, client)[0],
+                                                }
+                                                if issubclass(subsubfield.types[0], OntologyTerm):
+                                                    subsubfield_defn["fieldname"] = "{}__{}".format(
+                                                        subsubfield.types[0].__name__, subsubfield.path)
+                                                    subsubfield_defn["fields"] = [
+                                                        {"relative_path": "@id"},
+                                                        {
+                                                            "fieldname": "label",
+                                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                                        }
+                                                    ]
+                                                elif issubclass(subsubfield.types[0], StructuredMetadata) and hasattr(subsubfield.types[0], "fields"):
+                                                    subsubfield_defn["fields"] = [
+                                                        {
+                                                            "fieldname": subsubsubfield.name,
+                                                            "relative_path": expand_uri(subsubsubfield.path, subsubfield.types[0].context)[0]
+                                                        }
+                                                        for subsubsubfield in subsubfield.types[0].fields
+                                                    ]
+                                                subfield_defn["fields"].append(subsubfield_defn)
+                                    elif issubclass(subfield.types[0], OntologyTerm) and subfield.path in field_names_used:
+                                        # duplicate and add prefix if necessary
+                                        subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)
+                                        subfield_defn["fields"] = [
+                                            {"relative_path": "@id"},
+                                            {
+                                                "fieldname": "label",
+                                                "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                            }
+                                        ]
+                                    elif issubclass(subfield.types[0], StructuredMetadata) and hasattr(subfield.types[0], "fields"):
+                                        subfield_defn["fields"] = [
+                                            {
+                                                "fieldname": subsubfield.name,
+                                                "relative_path": expand_uri(subsubfield.path, subfield.types[0].context)[0]
+                                            }
+                                            for subsubfield in subfield.types[0].fields
+                                        ]
+                                    subfields[subfield_defn["fieldname"]] = subfield_defn
+                        field_definition["fields"].extend(subfields.values())
+                elif any(issubclass(_type, OntologyTerm) for _type in field.types):
+                    field_definition["fields"] = [
+                        {"relative_path": "@id"},
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ]
+                elif issubclass(field.types[0], StructuredMetadata) and hasattr(field.types[0], "fields"):
+                    field_definition["fields"] = [
+                        {
+                            "fieldname": subfield.name,
+                            "relative_path": expand_uri(subfield.path, field.types[0].context)[0]
+                        }
+                        for subfield in field.types[0].fields
+                    ]
+                if datetime not in field.types:
+                    if field.types[0] in (int, float, bool):
+                        op = "equals"
+                    else:
+                        op = "contains"
+                    field_definition["filter"] = {  # don't filter on datetime,  ...
+                        "op": op,
+                        "parameter": field.name
+                    }
+                query["fields"].append(field_definition)
+        return query
+
+    @classmethod
+    def store_queries(cls, client):
+        #for query_id, resolved in (("fg", False), ("fgResolved", True)):
+        for query_id, resolved in (("fgResolved", True),):
+            query_definition = cls.generate_query(query_id, client, resolved=resolved)
+            path = "{}/{}".format(cls.path, query_id)
+            client.store_query(path, query_definition)
 
 
 class MockKGObject(KGObject):
@@ -428,13 +705,13 @@ class MockKGObject(KGObject):
 
 def cache(f):
     @wraps(f)
-    def wrapper(cls, instance, client, use_cache=True):
+    def wrapper(cls, instance, client, use_cache=True, resolved=False):
         if use_cache and instance.data["@id"] in KGObject.object_cache:
             obj = KGObject.object_cache[instance.data["@id"]]
             #print(f"Found in cache: {obj.id}")
             return obj
         else:
-            obj = f(cls, instance, client)
+            obj = f(cls, instance, client, resolved=resolved)
             KGObject.object_cache[obj.id] = obj
             #print(f"Added to cache: {obj.id}")
             return obj
@@ -442,7 +719,7 @@ def cache(f):
 
 
 
-class StructuredMetadata(object):
+class StructuredMetadata(with_metaclass(Registry, object)):
     """Abstract base class"""
     pass
 
@@ -493,12 +770,17 @@ class KGProxy(object):
     def type(self):
         return self.cls.type
 
-    def resolve(self, client):
+    @property
+    def classes(self):
+        # For consistency with KGQuery interface
+        return [self.cls]
+
+    def resolve(self, client, api="nexus"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
         else:
-            obj = self.cls.from_uri(self.id, client)
+            obj = self.cls.from_uri(self.id, client, api=api)
             KGObject.object_cache[self.id] = obj
             return obj
 
@@ -542,17 +824,27 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000):
+    def resolve(self, client, size=10000, api="nexus"):
         objects = []
         for cls in self.classes:
-            instances = client.filter_query(
-                path=cls.path,
-                filter=self.filter,
-                context=self.context,
-                size=size
-            )
+            if api == "nexus":
+                instances = client.query_nexus(
+                    path=cls.path,
+                    filter=self.filter,
+                    context=self.context,
+                    size=size
+                )
+            elif api == "query":
+                instances = client.query_kgquery(
+                    path=cls.path,
+                    query_id=cls.query_id,
+                    filter=self.filter,
+                    size=size,
+                    scope="inferred")  # tofix
+            else:
+                raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
-                           for instance in instances)
+                        for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
         if len(objects) == 1:
@@ -560,10 +852,27 @@ class KGQuery(object):
         else:
             return objects
 
+
+class IRI(object):
+
+    def __init__(self, value):
+        if not value.startswith("http"):
+            raise ValueError("Invalid IRI")
+        self.value = value
+
+    def __eq__(self, other):
+        return self.__class__ == other.__class__ and self.value == other.value
+
+    def to_jsonld(self, client):
+        return {"@id": self.value}
+
+
 class Distribution(StructuredMetadata):
 
     def __init__(self, location, size=None, digest=None, digest_method=None, content_type=None,
                  original_file_name=None):
+        if "@id" in location:
+            location = location["@id"]
         if not isinstance(location, basestring):
             # todo: add check that location is a URI
             raise ValueError("location must be a URI")
@@ -605,7 +914,11 @@ class Distribution(StructuredMetadata):
         else:
             digest = None
             digest_method = None
-        return cls(data["downloadURL"], size, digest, digest_method, data.get("mediaType"),
+        if "downloadURL" in data:
+            download_url = data["downloadURL"]
+        else:
+            download_url = data["http://schema.org/downloadURL"]
+        return cls(download_url, size, digest, digest_method, data.get("mediaType"),
                    data.get("originalFileName"))
 
     def to_jsonld(self, client):
@@ -642,7 +955,7 @@ class Distribution(StructuredMetadata):
             raise IOError(str(response.content))
 
 
-def build_kg_object(cls, data):
+def build_kg_object(cls, data, resolved=False, client=None):
     """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
 
@@ -651,7 +964,6 @@ def build_kg_object(cls, data):
 
     Returns `None` if data is None.
     """
-
     if data is None:
         return None
 
@@ -670,11 +982,13 @@ def build_kg_object(cls, data):
             # note that if cls is None, then the class can be different for each list item
             # therefore we need to use a new variable kg_cls inside the loop
             if "@type" in item:
-                kg_cls = lookup_type(item["@type"])
+                try:
+                    kg_cls = lookup_type(item["@type"])
+                except KeyError:
+                    kg_cls = lookup_type(compact_uri(item["@type"], standard_context))
             elif "label" in item:
-                # we could possibly do a reverse lookup using iri_map of all the OntologyTerm
-                # subclasses but for now just returning the base class
-                kg_cls = OntologyTerm
+                kg_cls = lookup_by_iri(item["@id"])
+            # todo: add lookup by @id
             else:
                 raise ValueError("Cannot determine type. Item was: {}".format(item))
         else:
@@ -683,24 +997,30 @@ def build_kg_object(cls, data):
         if issubclass(kg_cls, StructuredMetadata):
             obj = kg_cls.from_jsonld(item)
         elif issubclass(kg_cls, KGObject):
-            obj = KGProxy(kg_cls, item["@id"])
+            if "@id" in item and item["@id"].startswith("http"):
+                # here is where we check the "resolved" keyword,
+                # and return an actual object if we have the data
+                # or resolve the proxy if we don't
+                if resolved:
+                    if kg_cls.namespace is None:
+                        kg_cls.namespace = namespace_from_id(item["@id"])
+                    try:
+                        instance = Instance(kg_cls.path, item, Instance.path)
+                        obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+                    except (ValueError, KeyError):
+                        # to add: emit a warning
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                else:
+                    obj = KGProxy(kg_cls, item["@id"])
+            else:
+                # todo: add a logger.warning that we have dud data
+                obj = None
         else:
             raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
-        objects.append(obj)
+        if obj is not None:
+            objects.append(obj)
 
     if len(objects) == 1:
         return objects[0]
     else:
         return objects
-
-
-def as_list(obj):
-    if obj is None:
-        return []
-    elif isinstance(obj, (dict, basestring)):
-        return [obj]
-    try:
-        L = list(obj)
-    except TypeError:
-        L = [obj]
-    return L

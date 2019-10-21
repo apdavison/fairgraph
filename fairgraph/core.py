@@ -6,7 +6,13 @@ core
 from __future__ import unicode_literals
 import sys, inspect
 import logging
-from .base import KGObject, KGProxy, KGQuery, cache, as_list
+try:
+    basestring
+except NameError:
+    basestring = str
+from datetime import date, datetime
+from dateutil import parser as date_parser
+from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
 
@@ -42,54 +48,19 @@ class Subject(KGObject):
         "deathDate": "schema:deathDate",
         "providerId": "nsg:providerId"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("species", Species, "species", required=True),
+        Field("strain", Strain, "strain"),
+        Field("sex", Sex, "sex"),
+        Field("age", Age, "age", required=True),
+        Field("death_date", date, "deathDate")
+    )
 
-    def __init__(self, name, species, strain, sex, age, death_date, id=None, instance=None):
-        self.name = name
-        self.species = species
-        self.strain = strain
-        self.sex = sex
-        self.age = age
-        self.death_date = death_date
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
-        #        f'{self.age!r}, {self.death_date!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.species!r}, {self.strain!r}, {self.sex!r}, '
-                '{self.age!r}, {self.death_date!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """docstring"""
-        D = instance.data
-        assert 'nsg:Subject' in D["@type"]
-        return cls(D["name"],
-                   Species.from_jsonld(D["species"]),
-                   Strain.from_jsonld(D.get("strain", None)),
-                   Sex.from_jsonld(D.get("sex")),
-                   Age.from_jsonld(D["age"]),
-                   D.get("deathDate", None), D["@id"],
-                   instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["providerId"] = self.name
-        data["species"] = self.species.to_jsonld()
-        if self.strain:
-            data["strain"] = self.strain.to_jsonld()
-        if self.age:
-            data["age"] = self.age.to_jsonld()
-        if self.sex:
-            data["sex"] = self.sex.to_jsonld()
-        if self.death_date:
-            data["deathDate"] = self.death_date
-        return data
+    def __init__(self, name, species, age, sex=None, strain=None, death_date=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class Organization(KGObject):
@@ -106,54 +77,51 @@ class Organization(KGObject):
         "addressLocality": "schema:addressLocality",
         "addressCountry": "schema:addressCountry",
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("address", Address, "address"),
+        Field("parent", "core.Organization", "parentOrganization")
+    )
 
     def __init__(self, name, address=None, parent=None, id=None, instance=None):
-        self.name = name
-        self.address = address
-        self.parent = parent
-        self.id = id
-        self.instance = instance
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.address!r}, {self.parent}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.address!r}, {self.parent}, {self.id})'.format(self=self))
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client):
+    #     """docstring"""
+    #     D = instance.data
+    #     assert 'nsg:Organization' in D["@type"]
+    #     if "parentOrganization" in D:
+    #         parent = KGProxy(cls, D["parentOrganization"]["@id"])
+    #     else:
+    #         parent = None
+    #     if "address" in D:
+    #         address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
+    #     else:
+    #         address = None
+    #     return cls(D["name"], address, parent, id=D["@id"], instance=instance)
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """docstring"""
-        D = instance.data
-        assert 'nsg:Organization' in D["@type"]
-        if "parentOrganization" in D:
-            parent = KGProxy(cls, D["parentOrganization"]["@id"])
-        else:
-            parent = None
-        if "address" in D:
-            address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
-        else:
-            address = None
-        return cls(D["name"], address, parent, id=D["@id"], instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.address:
-            data["address"] = {
-                "@type": "schema:PostalAddress",
-                "addressLocality": self.address.locality,
-                "addressCountry": self.address.country
-            }
-        if self.parent:
-            if self.parent.id is None:
-                self.parent.save(client)
-            data["parentOrganization"] = {
-                "@type": self.parent.type,
-                "@id": self.parent.id
-            }
-        return data
+    # def _build_data(self, client):
+    #     """docstring"""
+    #     data = {}
+    #     data["name"] = self.name
+    #     if self.address:
+    #         data["address"] = {
+    #             "@type": "schema:PostalAddress",
+    #             "addressLocality": self.address.locality,
+    #             "addressCountry": self.address.country
+    #         }
+    #     if self.parent:
+    #         if self.parent.id is None:
+    #             self.parent.save(client)
+    #         data["parentOrganization"] = {
+    #             "@type": self.parent.type,
+    #             "@id": self.parent.id
+    #         }
+    #     return data
 
 
 class Person(KGObject):
@@ -170,71 +138,73 @@ class Person(KGObject):
         "email": "schema:email",
         "affiliation": "schema:affiliation"
     }
+    fields = (
+        Field("family_name",  basestring, "familyName", required=True),
+        Field("given_name",  basestring, "givenName",  required=True),
+        Field("email", basestring, "email"),
+        Field("affiliation", Organization, "affiliation")
+    )
 
-    def __init__(self, family_name, given_name, email, affiliation=None, id=None, instance=None):
-        self.family_name = family_name
-        self.given_name = given_name
-        self.email = email
-        self.affiliation = affiliation
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.family_name!r}, {self.given_name!r}, {self.email}, {self.id})'.format(self=self))
+    def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def full_name(self):
         return '{self.given_name} {self.family_name}'.format(self=self)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        context = {
-            "schema": "http://schema.org/"
-        }
-        filter_queries = []
-        for name, value in filters.items():
-            if name in ("first_name", "given_name"):
-                filter_queries.append({
-                    'path': 'schema:givenName',
-                    'op': 'eq',
-                    'value': value
-                })
-            elif name in ("family_name", "last_name", "surname"):
-                filter_queries.append({
-                    "path": "schema:familyName",
-                    "op": "eq",
-                    "value": value
-                })
-            else:
-                raise ValueError("The only supported filters are by first (given) name or "
-                                 "or last (family) name. You specified {name}".format(name=name))
-        if len(filter_queries) == 0:
-            return client.list(cls, size=size)
-        elif len(filter_queries) == 1:
-            filter_query = filter_queries[0]
-        else:
-            filter_query = {
-                "op": "and",
-                "value": filter_queries
+        if api == 'nexus':
+            context = {
+                "schema": "http://schema.org/"
             }
-        return KGQuery(cls, filter_query, context).resolve(client, size=size)
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """docstring"""
-        D = instance.data
-        assert 'nsg:Person' in D["@type"]
-        if "affiliation" in D:
-            affiliation = KGProxy(Organization, D["affiliation"]["@id"])
+            filter_queries = []
+            for name, value in filters.items():
+                if name in ("first_name", "given_name"):
+                    filter_queries.append({
+                        'path': 'schema:givenName',
+                        'op': 'eq',
+                        'value': value
+                    })
+                elif name in ("family_name", "last_name", "surname"):
+                    filter_queries.append({
+                        "path": "schema:familyName",
+                        "op": "eq",
+                        "value": value
+                    })
+                else:
+                    raise ValueError("The only supported filters are by first (given) name or "
+                                    "or last (family) name. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+        elif api == "query":
+            return super(Person, cls).list(client, size, api, scope, resolved, **filters)
         else:
-            affiliation = None
-        return cls(D["familyName"], D["givenName"], D.get("email", None),
-                   affiliation, D["@id"], instance=instance)
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client):
+    #     """docstring"""
+    #     D = instance.data
+    #     assert 'nsg:Person' in D["@type"]
+    #     if "affiliation" in D:
+    #         affiliation = KGProxy(Organization, D["affiliation"]["@id"])
+    #     else:
+    #         affiliation = None
+    #     return cls(D["familyName"], D["givenName"], D.get("email", None),
+    #                affiliation, D["@id"], instance=instance)
 
     @property
     def _existence_query(self):
@@ -254,21 +224,21 @@ class Person(KGObject):
             ]
         }
 
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["familyName"] = self.family_name
-        data["givenName"] = self.given_name
-        if self.email:
-            data["email"] = self.email
-        if self.affiliation:
-            if self.affiliation.id is None:
-                self.affiliation.save(client)
-            data["affiliation"] = {
-                "@type": self.affiliation.type,
-                "@id": self.affiliation.id
-            }
-        return data
+    # def _build_data(self, client):
+    #     """docstring"""
+    #     data = {}
+    #     data["familyName"] = self.family_name
+    #     data["givenName"] = self.given_name
+    #     if self.email:
+    #         data["email"] = self.email
+    #     if self.affiliation:
+    #         if self.affiliation.id is None:
+    #             self.affiliation.save(client)
+    #         data["affiliation"] = {
+    #             "@type": self.affiliation.type,
+    #             "@id": self.affiliation.id
+    #         }
+    #     return data
 
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
@@ -304,7 +274,7 @@ class Protocol(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         """docstring"""
         D = instance.data
         assert 'nsg:Protocol' in D["@type"]
@@ -399,36 +369,40 @@ class Collection(KGObject):
         "size": "schema:size",
         "hadMember": "prov:hadMember"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("members", KGObject, "hadMember",  required=True, multiple=True)
+    )
+
 
     def __init__(self, name, members, id=None, instance=None):
-        self.name = name
-        self.members = members
-        self.id = id
-        self.instance = instance
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def size(self):
         return len(as_list(self.members))
 
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
+    # def __repr__(self):
+    #     return ('{self.__class__.__name__}('
+    #             '{self.name!r}, {self.size!r}, {self.id})'.format(self=self))
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """
-        docstring
-        """
-        D = instance.data
-        for otype in cls.type:
-            assert otype in D["@type"]
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client, resolved=False):
+    #     """
+    #     docstring
+    #     """
+    #     D = instance.data
+    #     for otype in cls.type:
+    #         assert otype in D["@type"]
 
-        return cls(name=D["name"],
-                   members=[KGProxy(None, member_uri["@id"])
-                            for member_uri in D["hadMember"]],
-                   id=D["@id"],
-                   instance=instance)
+    #     return cls(name=D["name"],
+    #                members=[KGProxy(None, member_uri["@id"])
+    #                         for member_uri in D["hadMember"]],
+    #                id=D["@id"],
+    #                instance=instance)
 
     def _build_data(self, client):
         """docstring"""
