@@ -1,4 +1,4 @@
-from .utils import BaseTestKG, kg_client
+from .utils import BaseTestKG, kg_client, test_data_lookup
 
 from fairgraph.uniminds import (
     AbstractionLevel,
@@ -44,6 +44,8 @@ from fairgraph.uniminds import (
     SubjectGroup,
     TissueSample
 )
+
+test_data_lookup.update({})
 
 
 class TestAbstractionLevel(BaseTestKG):

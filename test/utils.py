@@ -18,6 +18,7 @@ except ImportError:
 import uuid
 
 import pytest
+from jsondiff import diff as jsondiff
 from openid_http_client.http_client import HttpClient
 
 from pyxus.client import NexusClient, NexusConfig
@@ -254,3 +255,19 @@ class BaseTestKG(object):
                     else:
                         assert val1 == val2
                 # todo: test non-intrinsic fields
+
+    def test_generate_query(self, kg_client):
+        cls = self.class_under_test
+        generated = cls.generate_query("fgResolved", kg_client, resolved=True)
+        #key = "{}_{}_resolved_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        test_data = "test/test_data/kgquery/{}/{}_resolved_query.json".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        with open(test_data) as fp:
+            expected = json.load(fp)
+        assert not jsondiff(generated, expected)
+
+        generated = cls.generate_query("fg", kg_client, resolved=False)
+        #key = "{}_{}_simple_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        test_data = test_data.replace("resolved", "simple")
+        with open(test_data) as fp:
+            expected = json.load(fp)
+        assert not jsondiff(generated, expected)

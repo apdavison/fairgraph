@@ -8,7 +8,7 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-  - pip install pytest-cov matplotlib pandas numpy
+  - pip install pytest-cov matplotlib pandas numpy jsondiff
   - python setup.py install
 # command to run tests
 script:

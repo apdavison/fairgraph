@@ -1,0 +1,140 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0"
+    },
+    "http://schema.org/identifier": "neuralactivity/experiment/brainslicing/v0.1.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "used",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "subject"
+            }
+        },
+        {
+            "fieldname": "generated",
+            "relative_path": "http://www.w3.org/ns/prov#generated",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "slices"
+            }
+        },
+        {
+            "fieldname": "brainRegion",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "fieldname": "label",
+                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_location"
+            }
+        },
+        {
+            "fieldname": "slicingPlane",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingPlane",
+            "filter": {
+                "op": "contains",
+                "parameter": "slicing_plane"
+            }
+        },
+        {
+            "fieldname": "slicingAngle",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingAngle",
+            "filter": {
+                "op": "equals",
+                "parameter": "slicing_angle"
+            }
+        },
+        {
+            "fieldname": "solution",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution",
+            "filter": {
+                "op": "contains",
+                "parameter": "cutting_solution"
+            }
+        },
+        {
+            "fieldname": "cuttingThickness",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/cuttingThickness",
+            "filter": {
+                "op": "contains",
+                "parameter": "cutting_thickness"
+            }
+        },
+        {
+            "fieldname": "startedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+        },
+        {
+            "fieldname": "wasAssociatedWith",
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "people"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

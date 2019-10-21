@@ -1,4 +1,4 @@
-from .utils import BaseTestKG, kg_client
+from .utils import BaseTestKG, kg_client, test_data_lookup
 
 from fairgraph.minds import (
     Activity,
@@ -30,6 +30,9 @@ from fairgraph.minds import (
     Species,
     SpecimenGroup,
     Subject)
+
+
+test_data_lookup.update({})
 
 
 class TestActivity(BaseTestKG):
@@ -66,10 +69,6 @@ class TestFileAssociation(BaseTestKG):
 
 class TestLicense(BaseTestKG):
     class_under_test = License
-
-
-class TestMINDSObject(BaseTestKG):
-    class_under_test = MINDSObject
 
 
 class TestMethod(BaseTestKG):
