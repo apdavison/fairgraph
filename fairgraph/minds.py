@@ -475,4 +475,3 @@ if __name__=='__main__':
     client = KGClient(token)
     for cls in minds.list_kg_classes():
         print(cls.__name__)
-
