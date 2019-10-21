@@ -149,7 +149,7 @@ class EmbargoStatus(MINDSObject):
     docstring
     """
     _path = "/core/embargostatus/v1.0.0"
-    type = ["minds:EmbargoStatus"]
+    type = ["minds:Embargostatus"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -179,7 +179,7 @@ class FileAssociation(MINDSObject):
     docstring
     """
     _path = "/core/fileassociation/v1.0.0"
-    type = ["minds:FileAssociation"]
+    type = ["minds:Fileassociation"]
     fields = (
       Field("from", File, "https://schema.hbp.eu/linkinginstance/from", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -206,7 +206,7 @@ class License(MINDSObject):
     docstring
     """
     _path = "/core/licensetype/v1.0.0"
-    type = ["minds:LicenseType"]
+    type = ["minds:Licensetype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -335,7 +335,7 @@ class ReferenceSpace(MINDSObject):
     docstring
     """
     _path = "/core/referencespace/v1.0.0"
-    type = ["minds:ReferenceSpace"]
+    type = ["minds:Referencespace"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
