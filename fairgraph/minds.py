@@ -39,7 +39,7 @@ class Person(MINDSObject):
     _path = "/core/person/v1.0.0"
     type = ["minds:Person"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       Field("shortname", basestring, "https://schema.hbp.eu/minds/shortName", required=False, multiple=False))
@@ -52,7 +52,7 @@ class Activity(MINDSObject):
     _path = "/core/activity/v1.0.0"
     type = ["minds:Activity"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -71,7 +71,7 @@ class AgeCategory(MINDSObject):
     _path = "/core/agecategory/v1.0.0"
     type = ["minds:Agecategory"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -85,7 +85,7 @@ class EthicsApproval(MINDSObject):
     _path = "/ethics/approval/v1.0.0"
     type = ["minds:Approval"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -99,7 +99,7 @@ class EthicsAuthority(MINDSObject):
     _path = "/ethics/authority/v1.0.0"
     type = ["minds:Authority"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -152,7 +152,7 @@ class EmbargoStatus(MINDSObject):
     _path = "/core/embargostatus/v1.0.0"
     type = ["minds:Embargostatus"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -195,7 +195,7 @@ class Format(MINDSObject):
     _path = "/core/format/v1.0.0"
     type = ["minds:Format"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -209,7 +209,7 @@ class License(MINDSObject):
     _path = "/core/licensetype/v1.0.0"
     type = ["minds:Licensetype"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #ield("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -223,7 +223,7 @@ class Method(MINDSObject):
     _path = "/core/method/v1.0.0"
     type = ["minds:Method"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -237,7 +237,7 @@ class Modality(MINDSObject):
     _path = "/core/modality/v1.0.0"
     type = ["minds:Modality"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
@@ -249,7 +249,7 @@ class ParcellationAtlas(MINDSObject):
     _path = "/core/parcellationatlas/v1.0.0"
     type = ["minds:Parcellationatlas"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -264,7 +264,7 @@ class ParcellationRegion(MINDSObject):
     type = ["minds:Parcellationregion"]
     fields = (
       Field("alias", basestring, "https://schema.hbp.eu/minds/alias", required=False, multiple=False),
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -279,7 +279,7 @@ class PLAComponent(MINDSObject):
     _path = "/core/placomponent/v1.0.0"
     type = ["minds:Placomponent"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
@@ -294,7 +294,7 @@ class Preparation(MINDSObject):
     _path = "/core/preparation/v1.0.0"
     type = ["minds:Preparation"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -308,7 +308,7 @@ class Protocol(MINDSObject):
     _path = "/experiment/protocol/v1.0.0"
     type = ["minds:Protocol"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -322,7 +322,7 @@ class Publication(MINDSObject):
     _path = "/core/publication/v1.0.0"
     type = ["minds:Publication"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("cite", basestring, "https://schema.hbp.eu/minds/cite", required=False, multiple=False),
       Field("doi", basestring, "https://schema.hbp.eu/minds/doi", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
@@ -338,7 +338,7 @@ class ReferenceSpace(MINDSObject):
     _path = "/core/referencespace/v1.0.0"
     type = ["minds:Referencespace"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
@@ -362,7 +362,7 @@ class Sample(MINDSObject):
     _path = "/experiment/sample/v1.0.0"
     type = ["minds:Sample"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
@@ -384,7 +384,7 @@ class Sex(MINDSObject):
     _path = "/core/sex/v1.0.0"
     type = ["minds:Sex"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
@@ -396,7 +396,7 @@ class SoftwareAgent(MINDSObject):
     _path = "/core/softwareagent/v1.0.0"
     type = ["minds:Softwareagent"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
@@ -409,7 +409,7 @@ class Species(MINDSObject):
     _path = "/core/species/v1.0.0"
     type = ["minds:Species"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -424,7 +424,7 @@ class SpecimenGroup(MINDSObject):
     _path = "/core/specimengroup/v1.0.0"
     type = ["minds:Specimengroup"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
@@ -438,7 +438,7 @@ class Subject(MINDSObject):
     _path = "/experiment/subject/v1.0.0"
     type = ["minds:Subject"]
     fields = (
-      Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
+      # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("cause_of_death", basestring, "https://schema.hbp.eu/minds/causeOfDeath", required=False, multiple=False),
       Field("genotype", basestring, "https://schema.hbp.eu/minds/genotype", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
