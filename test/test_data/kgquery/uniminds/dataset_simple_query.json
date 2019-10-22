@@ -1,0 +1,378 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/dataset/v1.0.0"
+    },
+    "http://schema.org/identifier": "uniminds/core/dataset/v1.0.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/inference/alternatives",
+            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/description",
+            "relative_path": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "relative_path": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/intendedReleaseDate",
+            "relative_path": "https://schema.hbp.eu/uniminds/intendedReleaseDate"
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/brainStructure",
+            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_structure"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/cellularTarget",
+            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "cellular_target"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/contributor",
+            "relative_path": "https://schema.hbp.eu/uniminds/contributor",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "contributor"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/custodian",
+            "relative_path": "https://schema.hbp.eu/uniminds/custodian",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "custodian"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/doi",
+            "relative_path": "https://schema.hbp.eu/uniminds/doi",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "doi"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/embargoStatus",
+            "relative_path": "https://schema.hbp.eu/uniminds/embargoStatus",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "embargo_status"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/ethicsApproval",
+            "relative_path": "https://schema.hbp.eu/uniminds/ethicsApproval",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "ethics_approval"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/fundingInformation",
+            "relative_path": "https://schema.hbp.eu/uniminds/fundingInformation",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "funding_information"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/hbpComponent",
+            "relative_path": "https://schema.hbp.eu/uniminds/hbpComponent",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "hbp_component"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/license",
+            "relative_path": "https://schema.hbp.eu/uniminds/license",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "license"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/mainContact",
+            "relative_path": "https://schema.hbp.eu/uniminds/mainContact",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "main_contact"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/mainFileBundle",
+            "relative_path": "https://schema.hbp.eu/uniminds/mainFileBundle",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "main_file_bundle"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/method",
+            "relative_path": "https://schema.hbp.eu/uniminds/method",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "method"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/project",
+            "relative_path": "https://schema.hbp.eu/uniminds/project",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "project"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/publication",
+            "relative_path": "https://schema.hbp.eu/uniminds/publication",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "publication"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/species",
+            "relative_path": "https://schema.hbp.eu/uniminds/species",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "species"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/studyTarget",
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/subjectGroup",
+            "relative_path": "https://schema.hbp.eu/uniminds/subjectGroup",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "subjectgroup"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

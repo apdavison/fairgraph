@@ -1,0 +1,341 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0"
+    },
+    "http://schema.org/identifier": "minds/core/dataset/v1.0.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/activity",
+            "relative_path": "https://schema.hbp.eu/minds/activity",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "activity"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/containerUrlAsZIP",
+            "relative_path": "https://schema.hbp.eu/minds/containerUrlAsZIP",
+            "filter": {
+                "op": "equals",
+                "parameter": "container_url_as_ZIP"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/container_url",
+            "relative_path": "https://schema.hbp.eu/minds/container_url",
+            "filter": {
+                "op": "contains",
+                "parameter": "container_url"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/datalink",
+            "relative_path": "http://schema.org/datalink",
+            "filter": {
+                "op": "contains",
+                "parameter": "datalink"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/datasetDOI",
+            "relative_path": "https://schema.hbp.eu/minds/datasetDOI",
+            "filter": {
+                "op": "contains",
+                "parameter": "dataset_doi"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/description",
+            "relative_path": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/external_datalink",
+            "relative_path": "https://schema.hbp.eu/minds/external_datalink",
+            "filter": {
+                "op": "contains",
+                "parameter": "external_datalink"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "relative_path": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/release_date",
+            "relative_path": "https://schema.hbp.eu/minds/release_date"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/component",
+            "relative_path": "https://schema.hbp.eu/minds/component",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "component"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/contributors",
+            "relative_path": "https://schema.hbp.eu/minds/contributors",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "contributors"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/doireference",
+            "relative_path": "https://schema.hbp.eu/minds/doireference",
+            "filter": {
+                "op": "contains",
+                "parameter": "doireference"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/embargo_status",
+            "relative_path": "https://schema.hbp.eu/minds/embargo_status",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "embargo_status"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/formats",
+            "relative_path": "https://schema.hbp.eu/minds/formats",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "formats"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/license",
+            "relative_path": "https://schema.hbp.eu/minds/license",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "license"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/modality",
+            "relative_path": "https://schema.hbp.eu/minds/modality",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "modality"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/owners",
+            "relative_path": "https://schema.hbp.eu/minds/owners",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "owners"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/parcellationAtlas",
+            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "parcellation_atlas"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/parcellationRegion",
+            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "parcellation_region"
+            }
+        },
+        {
+            "fieldname": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf",
+            "filter": {
+                "op": "contains",
+                "parameter": "part_of"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/publications",
+            "relative_path": "https://schema.hbp.eu/minds/publications",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "publications"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/reference_space",
+            "relative_path": "https://schema.hbp.eu/minds/reference_space",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "reference_space"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/specimen_group",
+            "relative_path": "https://schema.hbp.eu/minds/specimen_group",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "specimen_group"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

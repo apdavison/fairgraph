@@ -1,0 +1,79 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0"
+    },
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "prov:used",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "recorded_cell"
+            }
+        },
+        {
+            "fieldname": "nsg:stimulusType",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "fieldname": "label",
+                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "stimulus"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

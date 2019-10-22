@@ -1,0 +1,125 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelvalidation/v0.2.0"
+    },
+    "http://schema.org/identifier": "modelvalidation/simulation/modelvalidation/v0.2.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "modelUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "model_instance"
+            }
+        },
+        {
+            "fieldname": "testUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "test_script"
+            }
+        },
+        {
+            "fieldname": "dataUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "reference_data"
+            }
+        },
+        {
+            "fieldname": "startedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+        },
+        {
+            "fieldname": "generated",
+            "relative_path": "http://www.w3.org/ns/prov#generated",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "result"
+            }
+        },
+        {
+            "fieldname": "wasAssociatedWith",
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "started_by"
+            }
+        },
+        {
+            "fieldname": "endedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

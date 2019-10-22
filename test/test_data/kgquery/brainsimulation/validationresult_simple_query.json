@@ -1,0 +1,139 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationresult/v0.1.0"
+    },
+    "http://schema.org/identifier": "modelvalidation/simulation/validationresult/v0.1.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "wasGeneratedBy",
+            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "generated_by"
+            }
+        },
+        {
+            "fieldname": "description",
+            "relative_path": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            }
+        },
+        {
+            "fieldname": "score",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/score",
+            "filter": {
+                "op": "equals",
+                "parameter": "score"
+            }
+        },
+        {
+            "fieldname": "normalizedScore",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/normalizedScore",
+            "filter": {
+                "op": "equals",
+                "parameter": "normalized_score"
+            }
+        },
+        {
+            "fieldname": "passedValidation",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/passedValidation",
+            "filter": {
+                "op": "equals",
+                "parameter": "passed"
+            }
+        },
+        {
+            "fieldname": "dateCreated",
+            "relative_path": "http://schema.org/dateCreated"
+        },
+        {
+            "fieldname": "hadMember",
+            "relative_path": "http://www.w3.org/ns/prov#hadMember",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "additional_data"
+            }
+        },
+        {
+            "fieldname": "oldUUID",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId",
+            "filter": {
+                "op": "contains",
+                "parameter": "old_uuid"
+            }
+        },
+        {
+            "fieldname": "collabID",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/collabID",
+            "filter": {
+                "op": "equals",
+                "parameter": "collab_id"
+            }
+        },
+        {
+            "fieldname": "hash",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/digest",
+            "filter": {
+                "op": "contains",
+                "parameter": "hash"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

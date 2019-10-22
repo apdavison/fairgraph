@@ -1,0 +1,272 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/subject/v1.0.0"
+    },
+    "http://schema.org/identifier": "uniminds/core/subject/v1.0.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/age",
+            "relative_path": "https://schema.hbp.eu/uniminds/age",
+            "filter": {
+                "op": "contains",
+                "parameter": "age"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/ageRangeMax",
+            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMax",
+            "filter": {
+                "op": "contains",
+                "parameter": "age_range_max"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/ageRangeMin",
+            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMin",
+            "filter": {
+                "op": "contains",
+                "parameter": "age_range_min"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/inference/alternatives",
+            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "relative_path": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/ageCategory",
+            "relative_path": "https://schema.hbp.eu/uniminds/ageCategory",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "age_category"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/brainstructure",
+            "relative_path": "https://schema.hbp.eu/uniminds/brainstructure",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_structure"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/cellularTarget",
+            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "cellular_target"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/disability",
+            "relative_path": "https://schema.hbp.eu/uniminds/disability",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "disability"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/genotype",
+            "relative_path": "https://schema.hbp.eu/uniminds/genotype",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "genotype"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/handedness",
+            "relative_path": "https://schema.hbp.eu/uniminds/handedness",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "handedness"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/publication",
+            "relative_path": "https://schema.hbp.eu/uniminds/publication",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "publication"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/sex",
+            "relative_path": "https://schema.hbp.eu/uniminds/sex",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "sex"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/species",
+            "relative_path": "https://schema.hbp.eu/uniminds/species",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "species"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/strain",
+            "relative_path": "https://schema.hbp.eu/uniminds/strain",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "strain"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/studyTarget",
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}
