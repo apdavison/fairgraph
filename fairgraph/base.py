@@ -16,6 +16,7 @@ import logging
 from uuid import UUID
 from dateutil import parser as date_parser
 from six import with_metaclass
+from requests.exceptions import HTTPError
 try:
     basestring
 except NameError:
@@ -685,11 +686,19 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def store_queries(cls, client):
-        #for query_id, resolved in (("fg", False), ("fgResolved", True)):
-        for query_id, resolved in (("fgResolved", True),):
+        for query_id, resolved in (("fg", False), ("fgResolved", True)):
+        #for query_id, resolved in (("fgResolved", True),):
+        #for query_id, resolved in (("fg", False),):
             query_definition = cls.generate_query(query_id, client, resolved=resolved)
             path = "{}/{}".format(cls.path, query_id)
-            client.store_query(path, query_definition)
+            try:
+                client.store_query(path, query_definition)
+            except HTTPError as err:
+                if err.response.status_code == 401:
+                    warnings.warn("Unable to store query to {} with id '{}': {}".format(
+                        path, query_id, err.response.text))
+                else:
+                    raise
 
 
 class MockKGObject(KGObject):
