@@ -113,6 +113,7 @@ class Dataset(MINDSObject):
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
     query_id = "fgDataset"
+    query_id_resolved = "fgResolvedModified"
     fields = (
       Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=True),
       # to be merged in a method:
