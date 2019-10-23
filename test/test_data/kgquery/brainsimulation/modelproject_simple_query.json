@@ -212,6 +212,23 @@
             }
         },
         {
+            "fieldname": "partOf",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "parents"
+            }
+        },
+        {
             "fieldname": "hasPart",
             "relative_path": "http://purl.org/dc/terms/hasPart",
             "ensure_order": true,

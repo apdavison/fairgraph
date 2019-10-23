@@ -8,6 +8,7 @@ from functools import wraps
 from collections import defaultdict
 from datetime import datetime, date
 import warnings
+from copy import copy
 try:
     from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
@@ -137,8 +138,12 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                 if not (isinstance(item, (KGProxy, KGQuery))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
-                        errmsg = "Field '{}' should be of type {}, not {}".format(
-                                 self.name, self.types, type(item))
+                        if item is None and self.required:
+                            errmsg = "Field '{}' is required but was not provided.".format(
+                                     self.name)
+                        else:
+                            errmsg = "Field '{}' should be of type {}, not {}".format(
+                                     self.name, self.types, type(item))
                         if self.strict_mode:
                             raise ValueError(errmsg)
                         else:
@@ -540,123 +545,72 @@ class KGObject(with_metaclass(Registry, object)):
         print(tabulate(data))
 
     @classmethod
-    def generate_query(cls, query_id, client, resolved=False):
-        query = {
-            "https://schema.hbp.eu/graphQuery/root_schema": {
-                "@id": "{}/schemas/{}".format(client.nexus_endpoint, cls.path)
-            },
-            "http://schema.org/identifier": "{}/{}".format(cls.path, query_id),
-            "fields": [
-                {
-                    "relative_path": "@id",
-                    "filter": {
-                        "op": "equals",
-                        "parameter": "id"
-                    }
-                },
-                {
-                    "relative_path": "@type"
+    def generate_query(cls, query_id, client, resolved=False, top_level=True,
+                       field_names_used=None, parents=None):
+        #print(cls, top_level, field_names_used)
+        if top_level:
+            fields = [{
+                "relative_path": "@id",
+                "filter": {
+                    "op": "equals",
+                    "parameter": "id"
                 }
-            ],
-            "@context": {
-                "fieldname": {
-                    "@type": "@id",
-                    "@id": "fieldname"
-                },
-                "schema": "http://schema.org/",
-                "@vocab": "https://schema.hbp.eu/graphQuery/",
-                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                "merge": {
-                    "@type": "@id",
-                    "@id": "merge"
-                },
-                "query": "https://schema.hbp.eu/myQuery/",
-                "dcterms": "http://purl.org/dc/terms/",  # don't think we need this
-                "relative_path": {
-                    "@type": "@id",
-                    "@id": "relative_path"
-                }
-            }
-        }
-        field_names_used = []
+            }]
+        else:
+            fields = [{"relative_path": "@id"}]
+        fields.append({"relative_path": "@type"})
+        if field_names_used is None:
+            field_names_used = []
+
         for field in cls.fields:
-            if field.intrinsic and cls not in field.types:  # avoid recursion to same type:
+            #print("  handling field {}".format(field))
+
+            # set parents to avoid infinite recursion
+            if top_level:
+                # reset for each field
+                parents = set([cls])
+            else:
+                parents.add(cls)
+
+            if field.intrinsic:
                 field_definition = {
                     "fieldname": field.path,
                     "relative_path": expand_uri(field.path, cls.context, client)[0],
                 }
                 field_names_used.append(field.path)
-                if field.name == "name":
-                    field_definition["sort"] = True
+                if top_level:
+                    if field.name == "name":
+                        field_definition["sort"] = True
+
                 if any(issubclass(_type, KGObject) for _type in field.types):
+
+                    if not top_level and field.path in field_names_used:
+                        field_definition["fieldname"] = "{}__{}".format(cls.__name__, field.path)
                     if field.multiple:
                         field_definition["ensure_order"] = True
+
                     field_definition["fields"] = [
                         {"relative_path": "@id"},
                         {"relative_path": "@type"}
                     ]
-                    if resolved:
-                        subfields = {}
+
+                    if resolved and not parents.intersection(set(field.types)):
+                        #               ^^^ avoid recursion to types seen previously
+                        #print("    resolving.... (parents={}, field.types={})".format(parents, field.types))
+                        subfield_map = {}
                         for child_cls in field.types:
-                            for subfield in child_cls.fields:
-                                if subfield.intrinsic and child_cls not in subfield.types:
-                                    subfield_defn = {
-                                        "fieldname": subfield.path,
-                                        "relative_path": expand_uri(subfield.path, child_cls.context, client)[0],
-                                    }
-                                    if any(issubclass(_type, KGObject) for _type in subfield.types):
-                                        if subfield.path in field_names_used:
-                                            subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)  ### will this break stuff?
-                                        subfield_defn["fields"] = [{"relative_path": "@id"},
-                                                                   {"relative_path": "@type"}]
-                                        for subsubfield in subfield.types[0].fields:
-                                            if subsubfield.intrinsic:
-                                                # we are currently going as far as three levels of nesting
-                                                # if we need to go further, probably best to rewrite to use recursion
-                                                subsubfield_defn = {
-                                                    "fieldname": subsubfield.path,
-                                                    "relative_path": expand_uri(subsubfield.path, standard_context, client)[0],
-                                                }
-                                                if issubclass(subsubfield.types[0], OntologyTerm):
-                                                    subsubfield_defn["fieldname"] = "{}__{}".format(
-                                                        subsubfield.types[0].__name__, subsubfield.path)
-                                                    subsubfield_defn["fields"] = [
-                                                        {"relative_path": "@id"},
-                                                        {
-                                                            "fieldname": "label",
-                                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                                                        }
-                                                    ]
-                                                elif issubclass(subsubfield.types[0], StructuredMetadata) and hasattr(subsubfield.types[0], "fields"):
-                                                    subsubfield_defn["fields"] = [
-                                                        {
-                                                            "fieldname": subsubsubfield.name,
-                                                            "relative_path": expand_uri(subsubsubfield.path, subsubfield.types[0].context)[0]
-                                                        }
-                                                        for subsubsubfield in subsubfield.types[0].fields
-                                                    ]
-                                                subfield_defn["fields"].append(subsubfield_defn)
-                                    elif issubclass(subfield.types[0], OntologyTerm) and subfield.path in field_names_used:
-                                        # duplicate and add prefix if necessary
-                                        subfield_defn["fieldname"] = "{}__{}".format(child_cls.__name__, subfield.path)
-                                        subfield_defn["fields"] = [
-                                            {"relative_path": "@id"},
-                                            {
-                                                "fieldname": "label",
-                                                "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                                            }
-                                        ]
-                                    elif issubclass(subfield.types[0], StructuredMetadata) and hasattr(subfield.types[0], "fields"):
-                                        subfield_defn["fields"] = [
-                                            {
-                                                "fieldname": subsubfield.name,
-                                                "relative_path": expand_uri(subsubfield.path, subfield.types[0].context)[0]
-                                            }
-                                            for subsubfield in subfield.types[0].fields
-                                        ]
-                                    subfields[subfield_defn["fieldname"]] = subfield_defn
-                        field_definition["fields"].extend(subfields.values())
+                            subfields = child_cls.generate_query(
+                                query_id, client, resolved=resolved,
+                                top_level=False, field_names_used=field_names_used,
+                                parents=copy(parents))  # use a copy to keep the original for the next iteration
+                            subfield_map.update(
+                                {subfield_defn.get("fieldname", subfield_defn["relative_path"]): subfield_defn
+                                 for subfield_defn in subfields}
+                            )
+                        field_definition["fields"] = list(subfield_map.values())
                 elif any(issubclass(_type, OntologyTerm) for _type in field.types):
+                    if not top_level and field.path in field_names_used:
+                        field_definition["fieldname"] = "{}__{}".format(cls.__name__, field.path)
                     field_definition["fields"] = [
                         {"relative_path": "@id"},
                         {
@@ -672,17 +626,53 @@ class KGObject(with_metaclass(Registry, object)):
                         }
                         for subfield in field.types[0].fields
                     ]
+
+                # here we add a filter for top-level fields
                 if datetime not in field.types:
                     if field.types[0] in (int, float, bool):
                         op = "equals"
                     else:
                         op = "contains"
-                    field_definition["filter"] = {  # don't filter on datetime,  ...
-                        "op": op,
-                        "parameter": field.name
+                    if top_level:
+                        field_definition["filter"] = {  # don't filter on datetime,  ...
+                            "op": op,
+                            "parameter": field.name
+                        }
+
+                fields.append(field_definition)
+
+            # todo: add proxy reverse links for non-intrinsic fields?
+            #       (proxy because otherwise we risk returning the entire graph!)
+        if top_level:
+            query = {
+                "https://schema.hbp.eu/graphQuery/root_schema": {
+                    "@id": "{}/schemas/{}".format(client.nexus_endpoint, cls.path)
+                },
+                "http://schema.org/identifier": "{}/{}".format(cls.path, query_id),
+                "fields": fields,
+                "@context": {
+                    "fieldname": {
+                        "@type": "@id",
+                        "@id": "fieldname"
+                    },
+                    "schema": "http://schema.org/",
+                    "@vocab": "https://schema.hbp.eu/graphQuery/",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "merge": {
+                        "@type": "@id",
+                        "@id": "merge"
+                    },
+                    "query": "https://schema.hbp.eu/myQuery/",
+                    "dcterms": "http://purl.org/dc/terms/",  # don't think we need this
+                    "relative_path": {
+                        "@type": "@id",
+                        "@id": "relative_path"
                     }
-                query["fields"].append(field_definition)
-        return query
+                }
+            }
+            return query
+        else:
+            return fields
 
     @classmethod
     def store_queries(cls, client):
@@ -1016,9 +1006,10 @@ def build_kg_object(cls, data, resolved=False, client=None):
                     try:
                         instance = Instance(kg_cls.path, item, Instance.path)
                         obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
-                    except (ValueError, KeyError):
+                    except (ValueError, KeyError) as err:
                         # to add: emit a warning
-                        obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                        logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(client, api=item.get("fg:api", "nexus"))
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
             else:

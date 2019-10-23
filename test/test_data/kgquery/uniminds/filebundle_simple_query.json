@@ -89,6 +89,22 @@
             }
         },
         {
+            "fieldname": "https://schema.hbp.eu/uniminds/fileBundle",
+            "relative_path": "https://schema.hbp.eu/uniminds/fileBundle",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "file_bundle"
+            }
+        },
+        {
             "fieldname": "https://schema.hbp.eu/uniminds/mimeType",
             "relative_path": "https://schema.hbp.eu/uniminds/mimeType",
             "ensure_order": true,

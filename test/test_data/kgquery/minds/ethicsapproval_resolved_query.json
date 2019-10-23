@@ -49,18 +49,6 @@
                 {
                     "fieldname": "http://schema.org/name",
                     "relative_path": "http://schema.org/name"
-                },
-                {
-                    "fieldname": "EthicsAuthority__https://schema.hbp.eu/minds/generatedBy",
-                    "relative_path": "https://schema.hbp.eu/minds/generatedBy",
-                    "fields": [
-                        {
-                            "relative_path": "@id"
-                        },
-                        {
-                            "relative_path": "@type"
-                        }
-                    ]
                 }
             ],
             "filter": {

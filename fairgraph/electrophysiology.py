@@ -114,6 +114,7 @@ class PatchedCell(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
+    query_id_resolved = "fgResolvedModified"
     collection_class = "PatchedCellCollection"
     experiment_class = "PatchClampExperiment"
     context = {
@@ -252,6 +253,9 @@ class PatchedCell(KGObject):
         #            id=D["@id"], instance=instance)
 
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -261,7 +265,10 @@ class PatchedCell(KGObject):
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
-                data_item = D["brainLocation"]["brainRegion"]
+                if "brainRegion" in D:  # with api='query'
+                    data_item = D["brainRegion"]
+                else:  # with api='nexus'
+                    data_item = D["brainLocation"]["brainRegion"]
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
@@ -351,6 +358,8 @@ class BrainSlicingActivity(KGObject):
     @cache
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -595,6 +604,9 @@ class PatchClampExperiment(KGObject):
     #                id=D["@id"],
     #                instance=instance)
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?

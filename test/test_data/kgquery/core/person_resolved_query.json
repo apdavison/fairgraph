@@ -55,6 +55,18 @@
                 {
                     "fieldname": "address",
                     "relative_path": "http://schema.org/address"
+                },
+                {
+                    "fieldname": "Organization__parentOrganization",
+                    "relative_path": "http://schema.org/parentOrganization",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        }
+                    ]
                 }
             ],
             "filter": {

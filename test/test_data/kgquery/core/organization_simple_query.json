@@ -30,6 +30,22 @@
                 "op": "contains",
                 "parameter": "address"
             }
+        },
+        {
+            "fieldname": "parentOrganization",
+            "relative_path": "http://schema.org/parentOrganization",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "parent"
+            }
         }
     ],
     "@context": {
