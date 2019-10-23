@@ -303,6 +303,30 @@ class Slice(KGObject):  # should move to "core" module?
         if hasattr(self.brain_slicing_activity, "resolve"):
             self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
+class ImplantedBrainTissue(KGObject):  # should move to "core" module?
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/implantedbraintissue/v0.1.0"
+    type = ["nsg:ImplantedBrainTissue", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId",
+        "wasDerivedFrom": "prov:wasDerivedFrom"
+    }
+    fields =  (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated")
+    )
+
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+        if hasattr(self.brain_slicing_activity, "resolve"):
+            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
 class BrainSlicingActivity(KGObject):
     """docstring"""
