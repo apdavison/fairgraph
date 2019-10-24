@@ -447,7 +447,6 @@ class ElectrodeImplantationActivity(KGObject):
     )
 
     def __init__(self, subject, start_time=None, end_time=None, 
-#brain_location=None, 
 people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
