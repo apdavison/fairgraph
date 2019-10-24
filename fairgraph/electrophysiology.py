@@ -303,7 +303,7 @@ class Slice(KGObject):  # should move to "core" module?
         if hasattr(self.brain_slicing_activity, "resolve"):
             self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
-class ImplantedBrainTissue(KGObject):  # should move to "core" module?
+class ImplantedBrainTissue(KGObject):  
     """docstring"""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/implantedbraintissue/v0.1.0"
@@ -318,15 +318,12 @@ class ImplantedBrainTissue(KGObject):  # should move to "core" module?
     }
     fields =  (
         Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated")
+        Field("subject", Subject, "wasDerivedFrom", required=True)
     )
 
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client)
-        if hasattr(self.brain_slicing_activity, "resolve"):
-            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
 class BrainSlicingActivity(KGObject):
     """docstring"""
@@ -404,6 +401,87 @@ class BrainSlicingActivity(KGObject):
     def _build_data(self, client):
         """docstring"""
         data = super(BrainSlicingActivity, self)._build_data(client)
+        if "brainRegion" in data:
+            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
+        return data
+
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+        for i, slice in enumerate(self.slices):
+            if hasattr(slice, "resolve"):
+                self.slices[i] = slice.resolve(client)
+        for i, person in enumerate(self.people):
+            if hasattr(person, "resolve"):
+                self.people[i] = person.resolve(client)
+
+
+class ElectrodeImplantationActivity(KGObject):
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/electrodeimplantation/v0.1.0"
+    type = ["nsg:ElectrodeImplantation", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "generated": "prov:generated",
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "label": "rdfs:label",
+        "value": "schema:value",
+        "unitCode": "schema:unitCode",
+        "anesthesia": "nsg:anesthesia"
+    }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+        Field("start_time", datetime, "startedAtTime", required=False),
+	Field("end_time", datetime, "endedAtTime", required=False),
+        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+    )
+
+    def __init__(self, subject, start_time=None, end_time=None, people=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        D = instance.data
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D.get("brainLocation", {}).get("brainRegion")
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    @property
+    def _existence_query(self):
+        return {  # can only slice a brain once...
+            "path": "prov:used",
+            "op": "eq",
+            "value": self.subject.id
+        }
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(ElectrodeImplantationActivity, self)._build_data(client)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
