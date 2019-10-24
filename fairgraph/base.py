@@ -180,7 +180,11 @@ class Field(object):  # playing with an idea, work in progress, not yet used
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
             if self.multiple:
-                return [serialize_single(item) for item in value]
+                value = [serialize_single(item) for item in value]
+                if len(value) == 1:
+                    return value[0]
+                else:
+                    return value
             else:
                 return value
         else:
