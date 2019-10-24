@@ -428,6 +428,8 @@ class ElectrodeImplantationActivity(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "generated": "prov:generated",
+        "brainLocation": "nsg:brainLocation",
+        "brainRegion": "nsg:brainRegion",
         "used": "prov:used",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -438,6 +440,7 @@ class ElectrodeImplantationActivity(KGObject):
     }
     fields = (
         Field("subject", Subject, "used", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("start_time", datetime, "startedAtTime", required=False),
 	Field("end_time", datetime, "endedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
