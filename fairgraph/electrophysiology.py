@@ -681,24 +681,6 @@ class PatchClampExperiment(KGObject):
         """
         docstring
         """
-    #     D = instance.data
-    #     assert 'nsg:StimulusExperiment' in D["@type"]
-
-    #     # get the recorded traces
-    #     traces_filter = {
-    #         "path": "prov:wasGeneratedBy",
-    #         "op": "eq",
-    #         "value": D["@id"]
-    #     }
-    #     context = {"prov": "http://www.w3.org/ns/prov#"}
-
-    #     return cls(name=D["name"], #name=D["schema:name"],
-    #                #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
-    #                recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
-    #                stimulus=D["nsg:stimulus"],
-    #                traces=KGQuery(Trace, traces_filter, context),
-    #                id=D["@id"],
-    #                instance=instance)
         D = instance.data
         for otype in cls.type:
             if otype not in D["@type"]:
@@ -757,6 +739,93 @@ class PatchClampExperiment(KGObject):
         }
         return KGQuery(Dataset, filter, context)
 
+class ExtracellularElectrodeExperiment(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
+    type = ["nsg:StimulusExperiment", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "label": "rdfs:label"
+    }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("implanted brain tissue", ImplantedBrainTissue, "prov:used", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+    )
+
+    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        """
+        docstring
+        """
+        D = instance.data
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "stimulus":
+                data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(ExtracellularElectrodeExperiment, self)._build_data(client)
+        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType")}
+        return data
+
+    @classmethod
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add the additional filter below, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        if api == "nexus":
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+        elif api == "query":
+            raise NotImplementedError("not yet implemented")
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
+
+    @property
+    def dataset(self):
+        context = {
+            "nsg": self.context["nsg"],
+            "prov": self.context["prov"]
+        }
+        filter = {
+            "path": "^nsg:partOf / prov:wasGeneratedBy",
+            "op": "eq",
+            "value": self.id
+        }
+        return KGQuery(Dataset, filter, context)
 
 class QualifiedTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
