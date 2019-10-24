@@ -1,14 +1,13 @@
 import sys, inspect
 from datetime import datetime
-
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
-from fairgraph.data import FileAssociation, CSCSFile
-from fairgraph.commons import QuantitativeValue
-
 try:
     basestring
 except NameError:
     basestring = str
+
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
+from fairgraph.data import FileAssociation, CSCSFile
+from fairgraph.commons import QuantitativeValue
 
 
 class MINDSObject(KGObject):

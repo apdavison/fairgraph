@@ -6,6 +6,7 @@ including a mock Http client which returns data loaded from the files in the tes
 
 import json
 import os
+import sys
 import random
 from datetime import datetime, date
 from copy import deepcopy
@@ -256,6 +257,8 @@ class BaseTestKG(object):
                         assert val1 == val2
                 # todo: test non-intrinsic fields
 
+    @pytest.mark.skipif(sys.version_info < (3, 6), reason="requires Python 3.6 or higher")
+    # because earlier versions don't preserve dict insert order
     def test_generate_query(self, kg_client):
         cls = self.class_under_test
         generated = cls.generate_query("fgResolved", kg_client, resolved=True)
