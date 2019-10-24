@@ -754,7 +754,7 @@ class ExtracellularElectrodeExperiment(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_brain_tissue", ImplantedBrainTissue, "generated", required=True),
+        Field("recorded_brain_tissue", ImplantedBrainTissue, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
@@ -773,7 +773,6 @@ class ExtracellularElectrodeExperiment(KGObject):
         D = instance.data
         for otype in cls.type:
             if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
