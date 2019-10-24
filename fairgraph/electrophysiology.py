@@ -419,7 +419,7 @@ class BrainSlicingActivity(KGObject):
 class ElectrodeImplantationActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/electrodeimplantation/v0.1.1"
+    _path = "/experiment/electrodeimplantation/v0.1.2"
     type = ["nsg:ElectrodeImplantation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
