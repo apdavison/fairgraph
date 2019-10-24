@@ -754,7 +754,7 @@ class ExtracellularElectrodeExperiment(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("implanted brain tissue", ImplantedBrainTissue, "prov:used", required=True),
+        Field("implanted_brain_tissue", ImplantedBrainTissue, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
