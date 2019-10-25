@@ -941,11 +941,10 @@ people=None, id=None, instance=None):
                 self.people[i] = person.resolve(client)
 
 
-
 class ExtracellularElectrodeExperiment(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.2"
+    _path = "/electrophysiology/stimulusexperiment/v0.1.3"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -960,7 +959,7 @@ class ExtracellularElectrodeExperiment(KGObject):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True)
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
     def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
