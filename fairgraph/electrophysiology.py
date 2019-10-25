@@ -958,12 +958,12 @@ class ExtracellularElectrodeExperiment(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_implanted_brain_tissue", ImplantedBrainTissue, "prov:used", required=True),
+        Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
-    def __init__(self, name, recorded_implanted_brain_tissue, stimulus, traces=None, id=None, instance=None):
+    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -974,7 +974,11 @@ class ExtracellularElectrodeExperiment(KGObject):
         """
         docstring
         """
+
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -1002,11 +1006,8 @@ class ExtracellularElectrodeExperiment(KGObject):
     @classmethod
     def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        # we need to add the additional filter below, as PatchClampExperiment and
-        # IntraCellularSharpElectrodeExperiment share the same path
-        # and JSON-LD type ("nsg:StimulusExperiment")
         if api == "nexus":
-            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:ImplantedBrainTissue'}
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
             context = {
                 "nsg": cls.context["nsg"],
                 "prov": cls.context["prov"],
@@ -1031,6 +1032,7 @@ class ExtracellularElectrodeExperiment(KGObject):
             "value": self.id
         }
         return KGQuery(Dataset, filter, context)
+
 
 
 def list_kg_classes():
