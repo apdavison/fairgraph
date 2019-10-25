@@ -34,6 +34,7 @@ class Trace(KGObject):
         "providerId": "nsg:providerId",
         "description": "schema:description",
         "channel": "nsg:channel",
+        "channelName": "nsg:channelName",
         "projectName": "nsg:projectName",
         "dataUnit": "nsg:dataUnit",
         "timeStep": "nsg:timeStep",
@@ -114,6 +115,7 @@ class PatchedCell(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
+    query_id_resolved = "fgResolvedModified"
     collection_class = "PatchedCellCollection"
     experiment_class = "PatchClampExperiment"
     context = {
@@ -252,6 +254,9 @@ class PatchedCell(KGObject):
         #            id=D["@id"], instance=instance)
 
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -261,7 +266,10 @@ class PatchedCell(KGObject):
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
-                data_item = D["brainLocation"]["brainRegion"]
+                if "brainRegion" in D:  # with api='query'
+                    data_item = D["brainRegion"]
+                else:  # with api='nexus'
+                    data_item = D["brainLocation"]["brainRegion"]
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
@@ -303,27 +311,6 @@ class Slice(KGObject):  # should move to "core" module?
         if hasattr(self.brain_slicing_activity, "resolve"):
             self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
 
-class ImplantedBrainTissue(KGObject):  
-    """docstring"""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/core/implantedbraintissue/v0.1.0"
-    type = ["nsg:ImplantedBrainTissue", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "providerId": "nsg:providerId",
-        "wasDerivedFrom": "prov:wasDerivedFrom"
-    }
-    fields =  (
-        Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True)
-    )
-
-    def resolve(self, client):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
 
 class BrainSlicingActivity(KGObject):
     """docstring"""
@@ -372,6 +359,8 @@ class BrainSlicingActivity(KGObject):
     @cache
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -401,90 +390,6 @@ class BrainSlicingActivity(KGObject):
     def _build_data(self, client):
         """docstring"""
         data = super(BrainSlicingActivity, self)._build_data(client)
-        if "brainRegion" in data:
-            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
-        return data
-
-    def resolve(self, client):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
-        for i, slice in enumerate(self.slices):
-            if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client)
-        for i, person in enumerate(self.people):
-            if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client)
-
-
-class ElectrodeImplantationActivity(KGObject):
-    """docstring"""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/electrodeimplantation/v0.1.2"
-    type = ["nsg:ElectrodeImplantation", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "generated": "prov:generated",
-  #      "brainLocation": "nsg:brainLocation",
-  #      "brainRegion": "nsg:brainRegion",
-        "used": "prov:used",
-        "startedAtTime": "prov:startedAtTime",
-        "endAtTime": "prov:endedAtTime",
-        "label": "rdfs:label",
-        "value": "schema:value",
-        "unitCode": "schema:unitCode",
-        "anesthesia": "nsg:anesthesia"
-    }
-    fields = (
-        Field("subject", Subject, "used", required=True),
-#        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
-        Field("start_time", datetime, "startedAtTime", required=False),
-	Field("end_time", datetime, "endedAtTime", required=False),
-        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
-    )
-
-    def __init__(self, subject, start_time=None, end_time=None, 
-people=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        D = instance.data
-        for otype in cls.type:
-            if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], standard_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-        args = {}
-        for field in cls.fields:
-            if field.name == "brain_location":
-                data_item = D.get("brainLocation", {}).get("brainRegion")
-            elif field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
-
-    @property
-    def _existence_query(self):
-        return {  # can only slice a brain once...
-            "path": "prov:used",
-            "op": "eq",
-            "value": self.subject.id
-        }
-
-    def _build_data(self, client):
-        """docstring"""
-        data = super(ElectrodeImplantationActivity, self)._build_data(client)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
@@ -649,96 +554,6 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     # todo: custom exists(), based on slice not on name
 
 
-class ExtracellularElectrodeExperiment(KGObject):
-    """docstring"""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
-    type = ["nsg:StimulusExperiment", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "label": "rdfs:label"
-    }
-
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("recorded_implanted_brain_tissue", ImplantedBrainTissue, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
-    )
-
-    def __init__(self, name, recorded_implanted_brain_tissue, stimulus, traces=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        """
-        docstring
-        """
-        D = instance.data
-        for otype in cls.type:
-            if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], standard_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-        args = {}
-        for field in cls.fields:
-            if field.name == "stimulus":
-                data_item = D["nsg:stimulus"]["nsg:stimulusType"]
-            elif field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = super(ExtracellularElectrodeExperiment, self)._build_data(client)
-        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType")}
-        return data
-
-    @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
-        """List all objects of this type in the Knowledge Graph"""
-        # we need to add the additional filter below, as PatchClampExperiment and
-        # IntraCellularSharpElectrodeExperiment share the same path
-        # and JSON-LD type ("nsg:StimulusExperiment")
-        if api == "nexus":
-            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:ImplantedBrainTissue'}
-            context = {
-                "nsg": cls.context["nsg"],
-                "prov": cls.context["prov"],
-                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-            }
-        elif api == "query":
-            # todo: what about filtering if api="query"
-            raise NotImplementedError("not yet implemented")
-        else:
-            raise ValueError("'api' must be either 'nexus' or 'query'")
-        return client.list(cls, size=size, api=api, filter=filter, context=context)
-
-    @property
-    def dataset(self):
-        context = {
-            "nsg": self.context["nsg"],
-            "prov": self.context["prov"]
-        }
-        filter = {
-            "path": "^nsg:partOf / prov:wasGeneratedBy",
-            "op": "eq",
-            "value": self.id
-        }
-        return KGQuery(Dataset, filter, context)
-
 class PatchClampExperiment(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
@@ -771,7 +586,28 @@ class PatchClampExperiment(KGObject):
         """
         docstring
         """
+    #     D = instance.data
+    #     assert 'nsg:StimulusExperiment' in D["@type"]
+
+    #     # get the recorded traces
+    #     traces_filter = {
+    #         "path": "prov:wasGeneratedBy",
+    #         "op": "eq",
+    #         "value": D["@id"]
+    #     }
+    #     context = {"prov": "http://www.w3.org/ns/prov#"}
+
+    #     return cls(name=D["name"], #name=D["schema:name"],
+    #                #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
+    #                recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
+    #                stimulus=D["nsg:stimulus"],
+    #                traces=KGQuery(Trace, traces_filter, context),
+    #                id=D["@id"],
+    #                instance=instance)
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
@@ -996,6 +832,205 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
         }
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
+
+class ImplantedBrainTissue(KGObject):  
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/implantedbraintissue/v0.1.0"
+    type = ["nsg:ImplantedBrainTissue", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId",
+        "wasDerivedFrom": "prov:wasDerivedFrom"
+    }
+    fields =  (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True)
+    )
+
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+
+
+
+class ElectrodeImplantationActivity(KGObject):
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/electrodeimplantation/v0.1.2"
+    type = ["nsg:ElectrodeImplantation", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "generated": "prov:generated",
+  #      "brainLocation": "nsg:brainLocation",
+  #      "brainRegion": "nsg:brainRegion",
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "label": "rdfs:label",
+        "value": "schema:value",
+        "unitCode": "schema:unitCode",
+        "anesthesia": "nsg:anesthesia"
+    }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+#        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
+        Field("start_time", datetime, "startedAtTime", required=False),
+	Field("end_time", datetime, "endedAtTime", required=False),
+        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+    )
+
+    def __init__(self, subject, start_time=None, end_time=None, 
+people=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        D = instance.data
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D.get("brainLocation", {}).get("brainRegion")
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    @property
+    def _existence_query(self):
+        return {  # can only slice a brain once...
+            "path": "prov:used",
+            "op": "eq",
+            "value": self.subject.id
+        }
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(ElectrodeImplantationActivity, self)._build_data(client)
+        if "brainRegion" in data:
+            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
+        return data
+
+    def resolve(self, client):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client)
+        for i, slice in enumerate(self.slices):
+            if hasattr(slice, "resolve"):
+                self.slices[i] = slice.resolve(client)
+        for i, person in enumerate(self.people):
+            if hasattr(person, "resolve"):
+                self.people[i] = person.resolve(client)
+
+
+
+class ExtracellularElectrodeExperiment(KGObject):
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
+    type = ["nsg:StimulusExperiment", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "label": "rdfs:label"
+    }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("recorded_implanted_brain_tissue", ImplantedBrainTissue, "prov:used", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+    )
+
+    def __init__(self, name, recorded_implanted_brain_tissue, stimulus, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        """
+        docstring
+        """
+        D = instance.data
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "stimulus":
+                data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(ExtracellularElectrodeExperiment, self)._build_data(client)
+        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType")}
+        return data
+
+    @classmethod
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add the additional filter below, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        if api == "nexus":
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:ImplantedBrainTissue'}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+        elif api == "query":
+            # todo: what about filtering if api="query"
+            raise NotImplementedError("not yet implemented")
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
+
+    @property
+    def dataset(self):
+        context = {
+            "nsg": self.context["nsg"],
+            "prov": self.context["prov"]
+        }
+        filter = {
+            "path": "^nsg:partOf / prov:wasGeneratedBy",
+            "op": "eq",
+            "value": self.id
+        }
+        return KGQuery(Dataset, filter, context)
 
 
 def list_kg_classes():

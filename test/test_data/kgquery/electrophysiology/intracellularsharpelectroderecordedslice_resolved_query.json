@@ -38,7 +38,7 @@
                     "relative_path": "http://schema.org/name"
                 },
                 {
-                    "fieldname": "wasDerivedFrom",
+                    "fieldname": "Slice__wasDerivedFrom",
                     "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
                     "fields": [
                         {
@@ -52,7 +52,7 @@
                             "relative_path": "http://schema.org/name"
                         },
                         {
-                            "fieldname": "Species__species",
+                            "fieldname": "Subject__species",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
                             "fields": [
                                 {
@@ -65,7 +65,7 @@
                             ]
                         },
                         {
-                            "fieldname": "Strain__strain",
+                            "fieldname": "Subject__strain",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
                             "fields": [
                                 {
@@ -78,7 +78,7 @@
                             ]
                         },
                         {
-                            "fieldname": "Sex__sex",
+                            "fieldname": "Subject__sex",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
                             "fields": [
                                 {
@@ -131,7 +131,7 @@
                     "relative_path": "http://schema.org/name"
                 },
                 {
-                    "fieldname": "hadMember",
+                    "fieldname": "IntraCellularSharpElectrodeRecordedCellCollection__hadMember",
                     "relative_path": "http://www.w3.org/ns/prov#hadMember",
                     "fields": [
                         {
@@ -145,7 +145,7 @@
                             "relative_path": "http://schema.org/name"
                         },
                         {
-                            "fieldname": "BrainRegion__brainRegion",
+                            "fieldname": "IntraCellularSharpElectrodeRecordedCell__brainRegion",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                             "fields": [
                                 {
@@ -158,7 +158,7 @@
                             ]
                         },
                         {
-                            "fieldname": "CellType__eType",
+                            "fieldname": "IntraCellularSharpElectrodeRecordedCell__eType",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                             "fields": [
                                 {

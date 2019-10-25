@@ -601,8 +601,8 @@ class ValidationResult(KGObject):
         Field("name", basestring, "name", required=True),
         Field("generated_by", "brainsimulation.ValidationActivity", "wasGeneratedBy"),
         Field("description", basestring, "description"),
-        Field("score", float, "score"),
-        Field("normalized_score", float, "normalizedScore"),
+        Field("score", (float, int), "score"),
+        Field("normalized_score", (float, int), "normalizedScore"),
         Field("passed", bool, "passedValidation"),
         Field("timestamp", (date, datetime), "dateCreated"),
         Field("additional_data", KGObject, "hadMember", multiple=True),
@@ -667,6 +667,8 @@ class ValidationActivity(KGObject):
     @cache
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
         for otype in cls.type:
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?

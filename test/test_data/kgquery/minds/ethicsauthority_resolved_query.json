@@ -30,22 +30,6 @@
                 "op": "contains",
                 "parameter": "name"
             }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/minds/generatedBy",
-            "relative_path": "https://schema.hbp.eu/minds/generatedBy",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "filter": {
-                "op": "contains",
-                "parameter": "generated_by"
-            }
         }
     ],
     "@context": {

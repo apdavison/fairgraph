@@ -69,6 +69,7 @@
                 {
                     "fieldname": "Person__https://schema.hbp.eu/inference/alternatives",
                     "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"

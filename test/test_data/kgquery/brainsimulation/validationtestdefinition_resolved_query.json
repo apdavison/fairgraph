@@ -47,7 +47,7 @@
                     "relative_path": "http://schema.org/email"
                 },
                 {
-                    "fieldname": "affiliation",
+                    "fieldname": "Person__affiliation",
                     "relative_path": "http://schema.org/affiliation",
                     "fields": [
                         {
@@ -65,8 +65,16 @@
                             "relative_path": "http://schema.org/address"
                         },
                         {
-                            "fieldname": "parentOrganization",
-                            "relative_path": "http://schema.org/parentOrganization"
+                            "fieldname": "Organization__parentOrganization",
+                            "relative_path": "http://schema.org/parentOrganization",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                }
+                            ]
                         }
                     ]
                 }

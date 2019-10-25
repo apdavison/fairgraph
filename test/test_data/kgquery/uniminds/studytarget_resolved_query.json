@@ -69,6 +69,7 @@
                 {
                     "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
                     "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -105,6 +106,7 @@
                 {
                     "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
                     "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"

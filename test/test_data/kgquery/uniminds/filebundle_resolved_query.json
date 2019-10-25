@@ -85,6 +85,7 @@
                 {
                     "fieldname": "File__https://schema.hbp.eu/inference/alternatives",
                     "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -111,7 +112,7 @@
                     "relative_path": "http://schema.org/url"
                 },
                 {
-                    "fieldname": "https://schema.hbp.eu/uniminds/mimeType",
+                    "fieldname": "File__https://schema.hbp.eu/uniminds/mimeType",
                     "relative_path": "https://schema.hbp.eu/uniminds/mimeType",
                     "fields": [
                         {
@@ -121,8 +122,17 @@
                             "relative_path": "@type"
                         },
                         {
-                            "fieldname": "https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
+                            "fieldname": "MimeType__https://schema.hbp.eu/inference/alternatives",
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                            "ensure_order": true,
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                }
+                            ]
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -141,6 +151,22 @@
             }
         },
         {
+            "fieldname": "https://schema.hbp.eu/uniminds/fileBundle",
+            "relative_path": "https://schema.hbp.eu/uniminds/fileBundle",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "file_bundle"
+            }
+        },
+        {
             "fieldname": "https://schema.hbp.eu/uniminds/mimeType",
             "relative_path": "https://schema.hbp.eu/uniminds/mimeType",
             "ensure_order": true,
@@ -154,6 +180,7 @@
                 {
                     "fieldname": "MimeType__https://schema.hbp.eu/inference/alternatives",
                     "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"

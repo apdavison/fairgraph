@@ -38,7 +38,7 @@
                     "relative_path": "http://schema.org/name"
                 },
                 {
-                    "fieldname": "prov:used",
+                    "fieldname": "PatchClampExperiment__prov:used",
                     "relative_path": "http://www.w3.org/ns/prov#used",
                     "fields": [
                         {
@@ -52,7 +52,7 @@
                             "relative_path": "http://schema.org/name"
                         },
                         {
-                            "fieldname": "BrainRegion__brainRegion",
+                            "fieldname": "PatchedCell__brainRegion",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                             "fields": [
                                 {
@@ -65,7 +65,7 @@
                             ]
                         },
                         {
-                            "fieldname": "CellType__eType",
+                            "fieldname": "PatchedCell__eType",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                             "fields": [
                                 {
@@ -104,8 +104,96 @@
                     ]
                 },
                 {
-                    "fieldname": "nsg:stimulusType",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"
+                    "fieldname": "PatchClampExperiment__nsg:stimulusType",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "IntraCellularSharpElectrodeExperiment__prov:used",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "IntraCellularSharpElectrodeRecordedCell__brainRegion",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "IntraCellularSharpElectrodeRecordedCell__eType",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "nsg:pipetteNumber",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
+                        },
+                        {
+                            "fieldname": "nsg:sealResistance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
+                        },
+                        {
+                            "fieldname": "nsg:pipetteResistance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
+                        },
+                        {
+                            "fieldname": "nsg:liquidJunctionPotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
+                        },
+                        {
+                            "fieldname": "nsg:labelingCompound",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
+                        },
+                        {
+                            "fieldname": "nsg:chlorideReversalPotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "IntraCellularSharpElectrodeExperiment__nsg:stimulusType",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ]
                 }
             ],
             "filter": {

@@ -160,6 +160,23 @@
                 "op": "contains",
                 "parameter": "study_target"
             }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/subMethod",
+            "relative_path": "https://schema.hbp.eu/uniminds/subMethod",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "submethod"
+            }
         }
     ],
     "@context": {

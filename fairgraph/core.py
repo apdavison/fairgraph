@@ -314,7 +314,7 @@ class Protocol(KGObject):
 
 class Identifier(KGObject):
     namespace = "nexus"
-    _path = "/schemaorgsh/identifier/v0.1.0/"
+    _path = "/schemaorgsh/identifier/v0.1.0"
     type = "schema:Identifier"
 
 
