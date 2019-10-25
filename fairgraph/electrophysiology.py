@@ -1007,7 +1007,7 @@ class ExtracellularElectrodeExperiment(KGObject):
     def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
-            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:ImplantedBrainTissue'}
             context = {
                 "nsg": cls.context["nsg"],
                 "prov": cls.context["prov"],
