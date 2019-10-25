@@ -959,11 +959,14 @@ class ExtracellularElectrodeExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True)
+#,  # todo: make this an OntologyTerm
+        #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
-    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+    def __init__(self, name, recorded_cell, stimulus, 
+#traces=None, 
+id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1032,7 +1035,6 @@ class ExtracellularElectrodeExperiment(KGObject):
             "value": self.id
         }
         return KGQuery(Dataset, filter, context)
-
 
 
 def list_kg_classes():
