@@ -945,7 +945,7 @@ people=None, id=None, instance=None):
 class ExtracellularElectrodeExperiment(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.1.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
