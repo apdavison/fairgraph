@@ -1,13 +1,18 @@
-import sys, inspect
+import sys, inspect, os
 from datetime import datetime
 try:
     basestring
 except NameError:
     basestring = str
+    raw_input = input
+
+import requests
+from tqdm import tqdm
 
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
 from fairgraph.commons import QuantitativeValue
+from fairgraph.utility import in_notebook
 
 
 class MINDSObject(KGObject):
@@ -105,6 +110,55 @@ class EthicsAuthority(MINDSObject):
       #Field("generated_by", KGObject, "https://schema.hbp.eu/minds/generatedBy", required=False, multiple=False))
     )
 
+terms_of_use = """
+# EBRAINS Knowledge Graph Data Platform Citation Requirements
+
+This text is provided to describe the requirements for citing data found via
+EBRAINS Knowledge Graph Data Platform (KG): https://kg.ebrains.eu/search.
+It is meant to provide a more human-readable form of key parts of the KG Terms
+of Service, but in the event of disagreement between the KG Terms of Service
+and these Citation Requirements, the former is to be taken as authoritative.
+
+## Dataset licensing
+
+All datasets in the KG have explicit licensing conditions attached. The
+license is typically one of the Creative Commons licenses. You must follow the
+licensing conditions attached to the dataset, including all restrictions on
+commercial use, requirements for attribution or requirements to share-alike.
+
+## EBRAINS Knowledge Graph citation policy
+
+If you use of the software and datasets found via the KG, the KG Pyxus API, KG
+REST API or fairgraph library in your scientific publication you must follow
+the following citation policy:
+
+1. Cite "EBRAINS Knowledge Graph Data Platform: https://www.ebrains.eu/search"
+
+2. For a dataset is released under a Creative Commons license which includes
+   "Attribution", please cite:
+
+    1. The primary publication listed under the dataset.
+
+    2. The dataset DOI, if using a collection of single datasets.
+
+    3. The parent project DOI, if using multiple dataset from the same project
+
+    4. In cases where a primary publication is not provided, and only in such
+       cases, the names of the Data Contributors should be cited (Data
+       provided by Contributor 1, Contributor 2, ..., and Contributor N) in
+       addition to the citation of the Site and the DOI for the data.
+
+3. For software, you must cite software as defined in the software's
+   respective citation policy. If you can not find a citation or
+   acknowledgement policy for the software, please use the open source
+   repository link as the citation link.
+
+Failure to cite data or software used in a publication or presentation
+constitutes scientific misconduct. Failure to cite data or software used in a
+scientific publication must be corrected by issuing an official Erratum and
+correction of the given article if it is discovered post-publication.
+"""
+
 
 class Dataset(MINDSObject):
     """
@@ -114,6 +168,7 @@ class Dataset(MINDSObject):
     type = ["minds:Dataset"]
     query_id = "fgDataset"
     query_id_resolved = "fgResolvedModified"
+    accepted_terms_of_use = False
     fields = (
       Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=True),
       # to be merged in a method:
@@ -143,6 +198,44 @@ class Dataset(MINDSObject):
       Field("publications", "minds.Publication", "https://schema.hbp.eu/minds/publications", required=False, multiple=True),
       Field("reference_space", "minds.ReferenceSpace", "https://schema.hbp.eu/minds/reference_space", required=False, multiple=True),
       Field("specimen_group", "minds.SpecimenGroup", "https://schema.hbp.eu/minds/specimen_group", required=False, multiple=True))
+
+    def download(self, local_directory, accept_terms_of_use=False):
+        # todo: add support for download as zip
+        # todo: check hashes
+        if not (accept_terms_of_use or self.accepted_terms_of_use):
+            if in_notebook():
+                from IPython.display import display, Markdown
+                display(Markdown(terms_of_use))
+            else:
+                print(terms_of_use)
+            user_response = raw_input("Do you accept the EBRAINS KG Terms of Service? ")
+            if user_response in ('y', 'Y', 'yes', 'YES'):
+                self.__class__.accepted_terms_of_use = True
+            else:
+                raise Exception("Please accept the terms of use before downloading the dataset")
+        response = requests.get(self.container_url + "?format=json")
+        if response.status_code != 200:
+            raise IOError(
+                "Unable to download dataset. Response code {}".format(response.status_code))
+        contents = response.json()
+        total_data_size = sum(item["bytes"] for item in contents) // 1024
+        progress_bar = tqdm(total=total_data_size)
+        for entry in contents:
+            local_path = os.path.join(local_directory, entry["name"])
+            print(local_path)
+            if entry["name"].endswith("/"):
+                os.makedirs(local_path, exist_ok=True)
+            else:
+                response2 = requests.get(self.container_url + "/" + entry["name"])
+                if response2.status_code == 200:
+                    with open(local_path, "wb") as fp:
+                        fp.write(response2.content)
+                    progress_bar.update(entry["bytes"] // 1024)
+                else:
+                    raise IOError(
+                        "Unable to download file '{}'. Response code {}".format(
+                            local_path, response2.status_code))
+        progress_bar.close()
 
 
 class EmbargoStatus(MINDSObject):
