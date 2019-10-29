@@ -236,7 +236,8 @@ class License(OntologyTerm):
 
 class StimulusType(OntologyTerm):
     iri_map = {
-        "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000"
+        "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
+        "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
     }
 
 
@@ -253,7 +254,9 @@ class QuantitativeValue(StructuredMetadata):
         "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
-        "Gohm": "https://en.wiktionary.org/wiki/gigaohm"
+        "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
+        "µA": "http://purl.obolibrary.org/obo/UO_0000038",
+        "nA": "https://en.wiktionary.org/wiki/nanoamp"
     }
 
     def __init__(self, value, unit_text, unit_code=None):
