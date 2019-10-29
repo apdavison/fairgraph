@@ -222,7 +222,6 @@ class Dataset(MINDSObject):
         progress_bar = tqdm(total=total_data_size)
         for entry in contents:
             local_path = os.path.join(local_directory, entry["name"])
-            print(local_path)
             if entry["name"].endswith("/"):
                 os.makedirs(local_path, exist_ok=True)
             else:
