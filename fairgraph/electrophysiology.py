@@ -907,7 +907,6 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
         Field("people", Person, "wasAssociatedWith")
     )
 
-
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharprecordedcellcollection/v0.1.0"
@@ -964,6 +963,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
         }
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
+
 
 def list_kg_classes():
     """List all KG classes defined in this module"""
