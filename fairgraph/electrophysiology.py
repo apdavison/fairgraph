@@ -806,7 +806,6 @@ people=None, id=None, instance=None):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client)
 
-
 class ExtracellularElectrodeExperiment(PatchClampExperiment):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
@@ -855,7 +854,7 @@ class QualifiedMultiTraceGeneration(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
-              (ExtracellularElectrodeExperiment, "electrophysiology.ExtracellularElectrodeExperiment"),
+              (ExtracellularElectrodeExperiment or IntracellularSharpElectrodeExperiment, "electrophysiology.ExtracellularElectrodeExperiment"),
               "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
