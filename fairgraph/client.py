@@ -67,6 +67,21 @@ class KGClient(object):
         return [cls.from_kg_instance(instance, self, resolved=resolved)
                 for instance in instances]
 
+    def count(self, cls, api="nexus", scope="released"):
+        """docstring"""
+        if api == "nexus":
+            url = "{}/data/{}?size=1".format(self.nexus_endpoint, cls.path)
+            response = self._nexus_client._http_client.get(url)
+        elif api == "query":
+            if scope not in ("released", "inferred"):
+                # todo - use a more user-friendly term for 'inferred' and map appropriately
+                raise ValueError("'scope' must be either 'released' or 'inferred'")
+            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, scope.upper())
+            response = self._kg_query_client.get(url)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return response["total"]
+
     def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         # Nexus API
         if filter:
