@@ -854,7 +854,7 @@ class QualifiedMultiTraceGeneration(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
-              (ExtracellularElectrodeExperiment or IntracellularSharpElectrodeExperiment, "electrophysiology.ExtracellularElectrodeExperiment"),
+              (ExtracellularElectrodeExperiment or IntracellularSharpElectrodeExperiment, "electrophysiology.ExtracellularElectrodeExperiment" or "electrophysiology.IntracellularSharpElectrodeExperiment"),
               "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
