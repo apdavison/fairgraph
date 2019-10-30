@@ -747,13 +747,14 @@ class ElectrodeImplantationActivity(KGObject):
     }
     fields = (
         Field("subject", Subject, "used", required=True),
+        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True, required=True),
 #        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("start_time", datetime, "startedAtTime", required=False),
 	Field("end_time", datetime, "endedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
 
-    def __init__(self, subject, start_time=None, end_time=None, 
+    def __init__(self, subject, implanted_brain_tissues, start_time=None, end_time=None, 
 people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -800,8 +801,8 @@ people=None, id=None, instance=None):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client)
         for i, slice in enumerate(self.slices):
-            if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client)
+            if hasattr(implanted_brain_tissues, "resolve"):
+                self.implanted_brain_tissues[i] = implanted_brain_tissues.resolve(client)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client)
@@ -860,7 +861,6 @@ class QualifiedMultiTraceGeneration(KGObject):
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
     )
-
 
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
                  holding_potential=None,
