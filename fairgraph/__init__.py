@@ -22,6 +22,8 @@ limitations under the License.
 import re
 from .client import KGClient
 
+__version__ = "0.4.0.dev"
+
 # work-in-progress
 # def KnowledgeGraphEntity(schema):
 #     namespace = {

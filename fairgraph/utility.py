@@ -133,3 +133,16 @@ def namespace_from_id(id):
     path_parts = parts.path.split("/")
     assert path_parts[2] == "data"
     return path_parts[3]
+
+
+def in_notebook():
+    try:
+        shell = get_ipython().__class__.__name__
+        if shell == 'ZMQInteractiveShell':
+            return True
+        elif shell == 'TerminalInteractiveShell':
+            return False
+        else:
+            return False
+    except NameError:
+        return False
