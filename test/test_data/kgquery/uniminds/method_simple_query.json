@@ -1,0 +1,201 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/method/v1.0.0"
+    },
+    "http://schema.org/identifier": "uniminds/core/method/v1.0.0/fg",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/inference/alternatives",
+            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/description",
+            "relative_path": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/fullName",
+            "relative_path": "https://schema.hbp.eu/uniminds/fullName",
+            "filter": {
+                "op": "contains",
+                "parameter": "fullname"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "relative_path": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/brainStructure",
+            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_structure"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/ethicsApproval",
+            "relative_path": "https://schema.hbp.eu/uniminds/ethicsApproval",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "ethics_approval"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/experimentalPreparation",
+            "relative_path": "https://schema.hbp.eu/uniminds/experimentalPreparation",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "experimental_preparation"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/methodCategory",
+            "relative_path": "https://schema.hbp.eu/uniminds/methodCategory",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "method_category"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/publication",
+            "relative_path": "https://schema.hbp.eu/uniminds/publication",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "publication"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/studyTarget",
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/subMethod",
+            "relative_path": "https://schema.hbp.eu/uniminds/subMethod",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "submethod"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

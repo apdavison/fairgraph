@@ -2,6 +2,7 @@
 define client
 """
 
+import os
 import json
 import logging
 try:
@@ -10,10 +11,11 @@ except ImportError:  # Python 2
     from urlparse import urlparse
     from urllib import quote_plus
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
+from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
-from .core import Organization
-from .electrophysiology import PatchClampExperiment
+
+from .errors import AuthenticationError
 
 
 CURL_LOGGER = logging.getLogger("curl")
@@ -24,43 +26,73 @@ logger = logging.getLogger("fairgraph")
 class KGClient(object):
     """docstring"""
 
-    def __init__(self, token, nexus_endpoint="https://nexus.humanbrainproject.org/v0"):
+    def __init__(self, token=None,
+                 nexus_endpoint="https://nexus.humanbrainproject.org/v0",
+                 kg_query_endpoint="https://kg.humanbrainproject.org/query"):
+        if token is None:
+            try:
+                token = os.environ["HBP_AUTH_TOKEN"]
+            except KeyError:
+                raise AuthenticationError("No token provided.")
         ep = urlparse(nexus_endpoint)
         self.nexus_endpoint = nexus_endpoint
+        auth_client = AccessTokenClient(token)
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
-                                         auth_client=AccessTokenClient(token))
+                                         auth_client=auth_client)
+        self._kg_query_client = HttpClient(kg_query_endpoint, "", auth_client=auth_client)
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-
-    def list(self, cls, from_index=0, size=100, deprecated=False):
+    def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
+             resolved=False, filter=None, context=None):
         """docstring"""
-        instances = []
-        query = self._nexus_client.instances.list_by_schema(*cls.path.split("/"),
-                                                            from_index=from_index,
-                                                            size=size,
-                                                            deprecated=deprecated,
-                                                            resolved=True)
-        # todo: add support for "sort" field
-        instances.extend(query.results)
-        next = query.get_next_link()
-        while len(instances) < size and next:
-            query = self._nexus_client.instances.list_by_full_path(next)
-            instances.extend(query.results)
-            next = query.get_next_link()
-
-        for instance in instances:
-            self.cache[instance.data["@id"]] = instance
-        return [cls.from_kg_instance(instance, self) # todo: lazy resolution
+        if api == "nexus":
+            organization, domain, schema, version = cls.path.split("/")
+            subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
+            instances = self.query_nexus(subpath, filter, context, from_index, size, deprecated)
+        elif api == "query":
+            if hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
+                instances = self.query_kgquery(cls.path, query_id, filter, from_index, size, scope)
+                return [cls.from_kg_instance(instance, self, resolved=resolved)
+                        for instance in instances]
+            else:
+                raise NotImplementedError("Coming soon. For now, please use api='nexus'")
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return [cls.from_kg_instance(instance, self, resolved=resolved)
                 for instance in instances]
 
-    def filter_query(self, path, filter, context, from_index=0, size=100, deprecated=False):
+    def count(self, cls, api="nexus", scope="released"):
+        """docstring"""
+        if api == "nexus":
+            url = "{}/data/{}?size=1".format(self.nexus_endpoint, cls.path)
+            response = self._nexus_client._http_client.get(url)
+        elif api == "query":
+            if scope not in ("released", "inferred"):
+                # todo - use a more user-friendly term for 'inferred' and map appropriately
+                raise ValueError("'scope' must be either 'released' or 'inferred'")
+            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, scope.upper())
+            response = self._kg_query_client.get(url)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return response["total"]
+
+    def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
+        # Nexus API
+        if filter:
+            filter = quote_plus(json.dumps(filter))
+        if context:
+            context=quote_plus(json.dumps(context))
         instances = []
         query = self._nexus_client.instances.list(
             subpath=path,
-            filter_query=quote_plus(json.dumps(filter)),
-            context=quote_plus(json.dumps(context)),
+            filter_query=filter,
+            context=context,
             from_index=from_index,
             size=size,
             deprecated=deprecated,
@@ -77,30 +109,69 @@ class KGClient(object):
             self.cache[instance.data["@id"]] = instance
         return instances
 
-    def instance_from_full_uri(self, uri, use_cache=True, deprecated=False):
+    def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
+        template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
+                        path, query_id, size, scope.upper())
+        if filter:
+            template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
+        if scope not in ("released", "inferred"):
+                # todo - use a more user-friendly term for 'inferred' and map appropriately
+                raise ValueError("'scope' must be either 'released' or 'inferred'")
+        start = from_index
+        response = self._kg_query_client.get(template.format(start))
+        instances = [
+            Instance(path, data, Instance.path)
+            for data in response["results"]
+        ]
+        start += response["size"]
+        while start < min(response["total"], size):
+            response = self._kg_query_client.get(template.format(start))
+            instances.extend([
+                Instance(path, data, Instance.path)
+                for data in response["results"]
+            ])
+            start += response["size"]
+
+        for instance in instances:
+            self.cache[instance.data["@id"]] = instance
+        return instances
+
+    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
+                               resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance from cache")
             instance = self.cache[uri]
-        else:
+        elif api == "nexus":
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
-            self.cache[instance.data["@id"]] = instance
-            logger.debug("Retrieved instance from KG " + str(instance.data))
-        if instance and deprecated is False and instance.data["nxv:deprecated"]:
-            return None
+            if instance and instance.data and "@id" in instance.data:
+                self.cache[instance.data["@id"]] = instance
+                logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
+            else:
+                instance = None
+            if instance and deprecated is False and instance.data["nxv:deprecated"]:
+                instance = None
+        elif api == "query":
+            if cls and hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
+                response = self._kg_query_client.get(
+                    "{}/{}/instances?databaseScope=INFERRED&id={}".format(cls.path,
+                                                                          query_id,
+                                                                          uri))
+                instance = Instance(cls.path, response["results"][0], Instance.path)
+                self.cache[instance.data["@id"]] = instance
+                logger.debug("Retrieved instance from KG Query" + str(instance.data))
+            else:
+                raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
-            return instance
-
-    def instance_from_uuid(self, path, uuid, deprecated=False):
-        # todo: caching
-        instance = self._instance_repo.read_by_full_id(path + "/" + uuid)
-        if instance and deprecated is False and instance.data["nxv:deprecated"]:
-            return None
-        else:
-            return instance
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return instance
 
     def create_new_instance(self, path, data):
         instance = Instance(path, data, Instance.path)
@@ -120,20 +191,56 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, all=False):
+    def by_name(self, cls, name, match="equals", all=False, api="nexus", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
-        context = {"schema": "http://schema.org/"}
-        query_filter = {
-            "path": "schema:name",
-            "op": "eq",
-            "value": name
+        # todo: allow non-exact searches
+        if api not in ("query", "nexus"):
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        valid_match_methods = {
+            #"query": ("starts_with", "ends_with", "contains", "equals", "regex"),
+            "query": ("contains", "equals"),
+            "nexus": ("equals")
         }
-        response = self.filter_query(cls.path, query_filter, context)
-        if response:
+        if match not in valid_match_methods[api]:
+            raise ValueError("'match' must be one of {}".format(valid_match_methods[api]))
+
+        if api == "nexus":
+            op = {"equals": "eq", "contains": "in"}[match]
+            context = {"schema": "http://schema.org/"}
+            query_filter = {
+                "path": "schema:name",
+                "op": op,
+                "value": name
+            }
+            instances = self.query_nexus(cls.path, query_filter, context)
+        else:
+            assert api == "query"
+            if hasattr(cls, "query_id") and cls.query_id is not None:
+                if resolved:
+                    query_id = cls.query_id_resolved
+                else:
+                    query_id = cls.query_id
+                response = self._kg_query_client.get(
+                    "{}/{}{}/instances?databaseScope={}&name={}".format(
+                        cls.path,
+                        query_id,
+                        match == "contains" and "_name_contains" or "",  # workaround
+                        scope.upper(),
+                        name))
+                instances = [Instance(cls.path, result, Instance.path)
+                             for result in response["results"]]
+            else:
+                raise NotImplementedError("Coming soon. For now, please use api='nexus'")
+        if instances:
             if all:
-                return [cls.from_kg_instance(resp, self)
-                        for resp in response]
+                return [cls.from_kg_instance(inst, self, resolved=resolved)
+                        for inst in instances]
             else:  # return only the first result
-                return cls.from_kg_instance(response[0], self)
+                return cls.from_kg_instance(instances[0], self, resolved=resolved)
         else:
             return None
+
+    def store_query(self, path, query_definition):
+        self._kg_query_client.raw = True  # endpoint returns plain text, not JSON
+        response = self._kg_query_client.put(path, data=query_definition)
+        self._kg_query_client.raw = False

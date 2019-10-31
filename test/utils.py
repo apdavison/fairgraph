@@ -6,40 +6,33 @@ including a mock Http client which returns data loaded from the files in the tes
 
 import json
 import os
+import sys
+import random
+from datetime import datetime, date
 from copy import deepcopy
 try:
     from urllib.parse import parse_qs, urlparse
+    basestring = str
 except ImportError:
     from urlparse import parse_qs, urlparse  # py2
 
 import uuid
 
 import pytest
+from jsondiff import diff as jsondiff
 from openid_http_client.http_client import HttpClient
 
 from pyxus.client import NexusClient, NexusConfig
+from pyxus.resources.entity import Instance
 from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         InstanceRepository,
                                         OrganizationRepository,
                                         SchemaRepository)
 import fairgraph.client
-from fairgraph.base import as_list, KGObject, MockKGObject
+from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
+from fairgraph.commons import QuantitativeValue, OntologyTerm, Age, Address, Species
 
 
-# test_data_lookup = {
-#     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/electrophysiology/patchedcell_list_0_50.json",
-#     "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/electrophysiology/trace_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/electrophysiology/multitrace_list_0_10.json",
-#     "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/electrophysiology/slice_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/": "test/test_data/electrophysiology/brainslicing_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/electrophysiology/patchedslice_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/": "test/test_data/electrophysiology/patchedcellcollection_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/electrophysiology/wholecellpatchclamp_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/electrophysiology/stimulusexperiment_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/": "test/test_data/electrophysiology/tracegeneration_list_0_10.json",
-#     "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/electrophysiology/multitracegeneration_list_0_10.json",
-#     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/electrophysiology/patchedcell_example.json",
-# }
 test_data_lookup = {}
 
 
@@ -66,7 +59,9 @@ class MockHttpClient(HttpClient):
                 with open(test_data_path, "r") as fp:
                     data = json.load(fp)
                 self.cache[test_data_path] = data
-            if "filter" in parts.query:
+            #if "query" in parts.path:
+            #        raise Exception()  # for debugging
+            if "filter" in parts.query:  # api="nexus"
                 query = parse_qs(parts.query)
                 filtr = eval(query['filter'][0])
                 if filtr.get("path") == "nsg:brainLocation / nsg:brainRegion":
@@ -75,6 +70,12 @@ class MockHttpClient(HttpClient):
                 elif filtr.get("path") in ("schema:givenName", "schema:familyName"):
                     results = [item for item in data["results"]
                                if item["source"][filtr["path"].split(":")[1]] == filtr["value"]]
+                elif filtr.get("path") == "prov:used / rdf:type":
+                    results = [item for item in data["results"]
+                               if filtr["value"] in data["results"][0]["source"]["prov:used"]["@type"]]
+                elif filtr.get("path") == "nsg:species":
+                    results = [item for item in data["results"]
+                               if item["source"].get("species", {"@id": None})["@id"] == filtr["value"]]
                 elif "op" in filtr:
                     # James Bond does not exist
                     if filtr["value"][0]["value"] in ("James", "Bond"):
@@ -84,6 +85,13 @@ class MockHttpClient(HttpClient):
                                    if item["source"]["familyName"] == "Johnson"]
                 else:
                     raise NotImplementedError("todo")
+                data = deepcopy(data)  # don't want to mess with the cache
+                data["results"] = results
+            elif "species" in parts.query:   # api="query"
+                query = parse_qs(parts.query)
+                value = query["species"][0]
+                results = [item for item in data["results"]
+                           if item.get("species", [{"@id": None}])[0]["@id"] == value]
                 data = deepcopy(data)  # don't want to mess with the cache
                 data["results"] = results
             return data
@@ -118,7 +126,151 @@ class MockNexusClient(NexusClient):
 @pytest.fixture
 def kg_client():
     fairgraph.client.NexusClient = MockNexusClient
+    fairgraph.client.HttpClient = MockHttpClient
     client = fairgraph.client.KGClient("thisismytoken")
     #token = os.environ["HBP_token"]
     #client = fairgraph.client.KGClient(token)
     return client
+
+
+lorem_ipsum = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
+
+lli = len(lorem_ipsum)
+
+
+def _random_text():
+    start = random.randint(0, lli//2)
+    end = random.randint(lli//2, lli)
+    return lorem_ipsum[start:end]
+
+
+def random_uuid():
+    return "http://stuff/{}".format(uuid.uuid4())
+
+
+def generate_random_object(cls, all_fields=True):
+    attrs = {}
+    for field in cls.fields:
+        if all_fields or field.required:
+            obj_type = field.types[0]  # todo: pick randomly if len(field.types) > 1
+            if not field.intrinsic:
+                value = None
+            elif obj_type == basestring:
+                value = _random_text()
+            elif obj_type == int:
+                value = random.randint(1, 10)
+            elif obj_type == float:
+                value = random.uniform(0, 1000)
+            elif issubclass(obj_type, KGObject):
+                if obj_type == KGObject:
+                    # specific type is not determined
+                    # arbitrarily, let's choose minds.Dataset
+                    value = MockKGObject(id=random_uuid(), type=["minds:Dataset"])
+                else:
+                    value = MockKGObject(id=random_uuid(), type=getattr(obj_type, "type", None))
+            elif obj_type == QuantitativeValue:
+                # todo: subclass QV so we can specify the required dimensionality in `fields`
+                value = QuantitativeValue(random.uniform(-10, 10),
+                                        random.choice(list(QuantitativeValue.unit_codes)))
+            elif issubclass(obj_type, OntologyTerm):
+                value = obj_type(random.choice(list(obj_type.iri_map)))
+            elif obj_type == datetime:
+                value = datetime.now()
+            elif obj_type == date:
+                value = date.today()
+            elif obj_type == bool:
+                value = random.choice([True, False])
+            elif obj_type == Distribution:
+                value = Distribution("http://example.com/myfile.txt")
+            elif obj_type == Age:
+                value = Age(QuantitativeValue(random.randint(7, 150), "days"), "Post-natal")
+            elif obj_type == IRI:
+                value = "http://example.com/åêïøù"
+            elif obj_type == Address:
+                value = Address("Paris", "France")
+            elif obj_type == dict:
+                value = {
+                    "a": 1, "b": 2
+                }
+            else:
+                raise NotImplementedError(str(obj_type))
+            attrs[field.name] = value
+    return cls(**attrs)
+
+
+def dates_equal(d1, d2):
+    """Allow comparing dates with datetimes"""
+    if isinstance(d1, date):
+        d1 = datetime(d1.year, d1.month, d1.day)
+    if isinstance(d2, date):
+        d2 = datetime(d2.year, d2.month, d2.day)
+    return d1 == d2
+
+
+class BaseTestKG(object):
+
+    def test_round_trip_random(self, kg_client):
+        cls = self.class_under_test
+        if cls.fields:
+            obj1 = generate_random_object(cls)
+            instance = Instance(cls.path, obj1._build_data(kg_client), Instance.path)
+            instance.data["@id"] = random_uuid()
+            instance.data["@type"] = cls.type
+            obj2 = cls.from_kg_instance(instance, kg_client)
+            for field in cls.fields:
+                if field.intrinsic:
+                    val1 = getattr(obj1, field.name)
+                    val2 = getattr(obj2, field.name)
+                    if issubclass(field.types[0], KGObject):
+                        assert isinstance(val1, MockKGObject)
+                        assert isinstance(val2, KGProxy)
+                        assert val1.type == val2.cls.type
+                    elif date in field.types:
+                        assert dates_equal(val1, val2)
+                    else:
+                        assert val1 == val2
+                # todo: test non-intrinsic fields
+
+    def test_round_trip_minimal_random(self, kg_client):
+        cls = self.class_under_test
+        if cls.fields:
+            obj1 = generate_random_object(cls, all_fields=False)
+            instance = Instance(cls.path, obj1._build_data(kg_client), Instance.path)
+            instance.data["@id"] = random_uuid()
+            instance.data["@type"] = cls.type
+            obj2 = cls.from_kg_instance(instance, kg_client)
+            for field in cls.fields:
+                if field.intrinsic and field.required:
+                    val1 = getattr(obj1, field.name)
+                    val2 = getattr(obj2, field.name)
+                    if issubclass(field.types[0], KGObject):
+                        assert isinstance(val1, MockKGObject)
+                        assert isinstance(val2, KGProxy)
+                        assert val1.type == val2.cls.type
+                    elif date in field.types:
+                        assert dates_equal(val1, val2)
+                    else:
+                        assert val1 == val2
+                # todo: test non-intrinsic fields
+
+    @pytest.mark.skipif(sys.version_info < (3, 6), reason="requires Python 3.6 or higher")
+    # because earlier versions don't preserve dict insert order
+    def test_generate_query(self, kg_client):
+        cls = self.class_under_test
+        generated = cls.generate_query("fgResolved", kg_client, resolved=True)
+        #key = "{}_{}_resolved_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        test_data = "test/test_data/kgquery/{}/{}_resolved_query.json".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        with open(test_data) as fp:
+            expected = json.load(fp)
+        assert not jsondiff(generated, expected)
+
+        generated = cls.generate_query("fg", kg_client, resolved=False)
+        #key = "{}_{}_simple_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        test_data = test_data.replace("resolved", "simple")
+        with open(test_data) as fp:
+            expected = json.load(fp)
+        assert not jsondiff(generated, expected)

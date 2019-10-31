@@ -17,32 +17,35 @@ from fairgraph.electrophysiology import (
     list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.minds import Dataset
 
-from .utils import kg_client, MockKGObject, test_data_lookup
+from .utils import kg_client, MockKGObject, test_data_lookup, BaseTestKG
 from pyxus.resources.entity import Instance
 
 import pytest
 
 
 test_data_lookup.update({
-    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/electrophysiology/patchedcell_list_0_50.json",
-    "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/electrophysiology/trace_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/electrophysiology/multitrace_list_0_10.json",
-    "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/electrophysiology/slice_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/": "test/test_data/electrophysiology/brainslicing_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/electrophysiology/patchedslice_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/": "test/test_data/electrophysiology/patchedcellcollection_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/electrophysiology/wholecellpatchclamp_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/electrophysiology/stimulusexperiment_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/": "test/test_data/electrophysiology/tracegeneration_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/electrophysiology/multitracegeneration_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/electrophysiology/patchedcell_example.json",
+    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedcell_list_0_50.json",
+    "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/nexus/electrophysiology/trace_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
+    "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/nexus/electrophysiology/slice_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/": "test/test_data/nexus/electrophysiology/brainslicing_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedslice_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedcellcollection_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/nexus/electrophysiology/wholecellpatchclamp_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/stimulusexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/tracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/multitracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/nexus/electrophysiology/patchedcell_example.json",
 })
 
 use_core_namespace("neuralactivity")
 use_electrophysiology_namespace("neuralactivity")
 
 
-class TestPatchedCell(object):
+
+
+class TestPatchedCell(BaseTestKG):
+    class_under_test = PatchedCell
 
     def test_list(self, kg_client):
         cells = PatchedCell.list(kg_client, size=50)
@@ -109,7 +112,7 @@ class TestPatchedCell(object):
                             labeling_compound="0.1% biocytin ",
                             reversal_potential_cl=QuantitativeValue(-65, "mV"))
         instance = Instance(PatchedCell.path, cell1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_93f9cd9a9b"
+        instance.data["@id"] = "http://fake_uuid_93f9cd9a9b"
         instance.data["@type"] = PatchedCell.type
         cell2 = PatchedCell.from_kg_instance(instance, kg_client)
         for field in ("name", "brain_location", "cell_type",
@@ -117,6 +120,7 @@ class TestPatchedCell(object):
                       "liquid_junction_potential", "labeling_compound",
                       "reversal_potential_cl"):
             assert getattr(cell1, field) == getattr(cell2, field)
+
 
     def test_repr(self):
         try:
@@ -144,7 +148,8 @@ class TestPatchedCell(object):
             pytest.skip("The remaining lifespan of Python 2 is too short to fix unicode representation errors")
 
 
-class TestTrace(object):
+class TestTrace(BaseTestKG):
+    class_under_test = Trace
 
     def test_list(self, kg_client):
         traces = Trace.list(kg_client, size=10)
@@ -154,14 +159,14 @@ class TestTrace(object):
         trace1 = Trace("example001",
                        data_location=Distribution("http://example.com/example.csv",
                                                   content_type="text/tab-separated-values"),
-                       generated_by=MockKGObject(id="abc123", type=PatchClampExperiment.type),
-                       generation_metadata=MockKGObject(id="def456", type=QualifiedTraceGeneration.type),
+                       generated_by=MockKGObject(id="http://fake_uuid_abc123", type=PatchClampExperiment.type),
+                       generation_metadata=MockKGObject(id="http://fake_uuid_def456", type=QualifiedTraceGeneration.type),
                        channel=42,
                        data_unit="mV",
                        time_step=QuantitativeValue(0.1, "ms"),
-                       part_of=MockKGObject(id="ghi789", type=Dataset.type))
+                       part_of=MockKGObject(id="http://fake_uuid_ghi789", type=Dataset.type))
         instance = Instance(Trace.path, trace1._build_data(kg_client), Instance.path)
-        instance.data["@id"] = "fake_uuid_6a5d6ecf87"
+        instance.data["@id"] = "http://fake_uuid_6a5d6ecf87"
         instance.data["@type"] = Trace.type
         trace2 = Trace.from_kg_instance(instance, kg_client)
         for field in ("name", "data_location", "channel", "data_unit", "time_step"):
@@ -174,48 +179,96 @@ class TestTrace(object):
             assert obj1.type == obj2.type
 
 
-def test_MultiChannelMultiTrialRecording(kg_client):
-    traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
-    assert len(traces) == 4
+class TestMultiChannelMultiTrialRecording(BaseTestKG):
+    class_under_test = MultiChannelMultiTrialRecording
 
-def test__Slice(kg_client):
-    slices = Slice.list(kg_client, size=10)
-    assert len(slices) == 10
+    def test_list(self, kg_client):
+        traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
+        assert len(traces) == 4
 
 
-class TestBrainSlicingActivity(object):
+class TestSlice(BaseTestKG):
+    class_under_test = Slice
+
+    def test_list(self, kg_client):
+        slices = Slice.list(kg_client, size=10)
+        assert len(slices) == 10
+
+
+class TestBrainSlicingActivity(BaseTestKG):
+    class_under_test = BrainSlicingActivity
 
     def test_list(self, kg_client):
         activities = BrainSlicingActivity.list(kg_client, size=10)
         assert len(activities) == 10
 
-    def test_round_trip(self):
-        pass  # todo
+
+class TestPatchedSlice(BaseTestKG):
+    class_under_test = PatchedSlice
+
+    def test_list(self, kg_client):
+        slices = PatchedSlice.list(kg_client, size=10)
+        assert len(slices) == 10
 
 
-def test__PatchedSlice(kg_client):
-    slices = PatchedSlice.list(kg_client, size=10)
-    assert len(slices) == 10
+class TestPatchedCellCollection(BaseTestKG):
+    class_under_test = PatchedCellCollection
 
-def test__PatchedCellCollection(kg_client):
-    collections = PatchedCellCollection.list(kg_client, size=10)
-    assert len(collections) == 10
+    def test_list(self, kg_client):
+        collections = PatchedCellCollection.list(kg_client, size=10)
+        assert len(collections) == 10
 
-def test__PatchClampActivity(kg_client):
-    activities = PatchClampActivity.list(kg_client, size=10)
-    assert len(activities) == 10
 
-def test__PatchClampExperiment(kg_client):
-    experiments = PatchClampExperiment.list(kg_client, size=10)
-    assert len(experiments) == 10
+class TestPatchClampActivity(BaseTestKG):
+    class_under_test = PatchClampActivity
 
-def test__QualifiedTraceGeneration(kg_client):
-    tracegens = QualifiedTraceGeneration.list(kg_client, size=10)
-    assert len(tracegens) == 10
+    def test_list(self, kg_client):
+        activities = PatchClampActivity.list(kg_client, size=10)
+        assert len(activities) == 10
 
-def test__QualifiedMultiTraceGeneration(kg_client):
-    tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
-    assert len(tracegens) == 4
+
+class TestPatchClampExperiment(BaseTestKG):
+    class_under_test = PatchClampExperiment
+
+    def test_list(self, kg_client):
+        experiments = PatchClampExperiment.list(kg_client, size=10)
+        assert len(experiments) == 10
+
+
+class TestQualifiedTraceGeneration(BaseTestKG):
+    class_under_test = QualifiedTraceGeneration
+
+    def test_list(self, kg_client):
+        tracegens = QualifiedTraceGeneration.list(kg_client, size=10)
+        assert len(tracegens) == 10
+
+
+class TestQualifiedMultiTraceGeneration(BaseTestKG):
+    class_under_test = QualifiedMultiTraceGeneration
+
+    def test_list(self, kg_client):
+        tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
+        assert len(tracegens) == 4
+
+
+class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedCell
+
+
+class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecording
+
+
+class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedCellCollection
+
+
+class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeRecordedSlice
+
+
+class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
+    class_under_test = IntraCellularSharpElectrodeExperiment
 
 
 class TestModuleFunctions(object):

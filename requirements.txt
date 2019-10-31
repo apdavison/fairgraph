@@ -3,3 +3,6 @@ git+https://github.com/HumanBrainProject/pyxus.git#egg=pyxus&subdirectory=pyxus
 pathlib2
 python-dateutil
 six
+tabulate
+requests
+tqdm

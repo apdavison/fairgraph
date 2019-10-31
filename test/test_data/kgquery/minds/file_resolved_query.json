@@ -1,0 +1,98 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/file/v0.0.4"
+    },
+    "http://schema.org/identifier": "minds/core/file/v0.0.4/fgResolved",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#absolute_path",
+            "relative_path": "http://hbp.eu/minds#absolute_path",
+            "filter": {
+                "op": "contains",
+                "parameter": "absolute_path"
+            }
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#byte_size",
+            "relative_path": "http://hbp.eu/minds#byte_size",
+            "filter": {
+                "op": "equals",
+                "parameter": "byte_size"
+            }
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#content_type",
+            "relative_path": "http://hbp.eu/minds#content_type",
+            "filter": {
+                "op": "contains",
+                "parameter": "content_type"
+            }
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#hash",
+            "relative_path": "http://hbp.eu/minds#hash",
+            "filter": {
+                "op": "contains",
+                "parameter": "hash"
+            }
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "relative_path": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            }
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#last_modified",
+            "relative_path": "http://hbp.eu/minds#last_modified"
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "http://hbp.eu/minds#relative_path",
+            "relative_path": "http://hbp.eu/minds#relative_path",
+            "filter": {
+                "op": "contains",
+                "parameter": "relative_path"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

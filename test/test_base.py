@@ -64,15 +64,15 @@ class TestDistribution(object):
 class TestModuleFunctions(object):
 
     def test_build_kg_object(self, kg_client):
-        obj = build_kg_object(Person, {"@id": "fake_uuid_a8575fdd19"})
+        obj = build_kg_object(Person, {"@id": "http://fake_uuid_a8575fdd19"})
         assert isinstance(obj, KGProxy)
 
-        obj = build_kg_object(Person, {"@list": [{"@id": "fake_uuid_a8575fdd19"}]})
+        obj = build_kg_object(Person, {"@list": [{"@id": "http://fake_uuid_a8575fdd19"}]})
         assert isinstance(obj, KGProxy)
 
         obj = build_kg_object(Person,
-                              [{"@id": "fake_uuid_a8575fdd19"},
-                               {"@id": "fake_uuid_91ddf5758a"}])
+                              [{"@id": "http://fake_uuid_a8575fdd19"},
+                               {"@id": "http://fake_uuid_91ddf5758a"}])
         assert isinstance(obj, list)
         assert isinstance(obj[1], KGProxy)
 
@@ -80,11 +80,11 @@ class TestModuleFunctions(object):
         assert isinstance(obj, Distribution)
 
         with pytest.raises(ValueError):
-            build_kg_object(tuple, {"@id": "fake_uuid_a8575fdd19"})
+            build_kg_object(tuple, {"@id": "http://fake_uuid_a8575fdd19"})
 
         with pytest.raises(ValueError):
             build_kg_object(Person, "abcde")
 
-        obj = build_kg_object(None, {"@id": "fake_uuid_a8575fdd19", "@type": Person.type})
+        obj = build_kg_object(None, {"@id": "http://fake_uuid_a8575fdd19", "@type": Person.type})
         assert isinstance(obj, KGProxy)
         assert obj.type == Person.type

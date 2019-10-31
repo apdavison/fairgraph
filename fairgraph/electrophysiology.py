@@ -8,15 +8,16 @@ try:
     basestring
 except NameError:
     basestring = str
+from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType
+from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType
 from .core import Subject, Person
 from .minds import Dataset
+from .utility import compact_uri, standard_context
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
-
 
 class Trace(KGObject):
     """docstring"""
@@ -56,8 +57,8 @@ class Trace(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
-        Field("generated_by", "PatchClampExperiment", "wasGeneratedBy", required=True),
-        Field("generation_metadata", "QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
+        Field("generation_metadata", "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
         Field("channel", int, "channel", required=True),
         Field("data_unit", basestring, "dataUnit", required=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
@@ -72,7 +73,7 @@ class Trace(KGObject):
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         return super(Trace, cls).from_kg_instance(instance, client, use_cache=use_cache)
 
     def _build_data(self, client):
@@ -90,72 +91,22 @@ class MultiChannelMultiTrialRecording(Trace):
     _path =  "/electrophysiology/multitrace/v0.1.0"  # for nexus
     #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("data_location", Distribution, "distribution", required=True),
+        Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
+        Field("generation_metadata", "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("channel_names", basestring, "channelName", required=True, multiple=True),
+        Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
+        Field("time_step", QuantitativeValue, "timeStep", required=True),
+        Field("part_of", Dataset, "partOf")
+    )
 
-    def __init__(self, name, data_location, generated_by, generation_metadata, channel_names,
-                 data_unit, time_step, part_of=None, id=None, instance=None):
-        self.name = name
-        self.data_location = data_location
-        self.generated_by = generated_by
-        self.generation_metadata = generation_metadata
-        self.channel_names = channel_names
-        self.data_unit = data_unit
-        self.time_step = time_step
-        self.part_of = part_of
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-        #        f'{self.channel!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.data_location!r}, {self.generated_by!r}, '
-                '{self.channel_names!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:MultiChannelMultiTrialRecording' in D["@type"]
-        #  # todo: handle qualifiedGeneration
-        if "partOf" in D:
-            part_of = KGProxy(Dataset, D["partOf"]["@id"])
-        else:
-            part_of = None
-        return cls(D["name"], D["distribution"],
-                   KGProxy(PatchClampExperiment, D["wasGeneratedBy"]["@id"]),
-                   KGProxy(QualifiedMultiTraceGeneration, D["qualifiedGeneration"]["@id"]),
-                   D.get("channelName"),
-                   D["dataUnit"],
-                   QuantitativeValue.from_jsonld(D["timeStep"]),
-                   part_of=part_of,
-                   id=D["@id"], instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["distribution"] = self.data_location
-        data["wasGeneratedBy"] = {
-            "@type": self.generated_by.type,
-            "@id": self.generated_by.id
-        }
-        data["qualifiedGeneration"] = {
-            "@type": self.generation_metadata.type,
-            "@id": self.generation_metadata.id
-        }
-        if self.channel_names:
-            data["channelName"] = self.channel_names
-        if self.data_unit:
-            data["dataUnit"] = self.data_unit
-        if self.time_step:
-            data["timeStep"] = self.time_step.to_jsonld_alt()
-        if self.part_of:
-            data["partOf"] = {
-                "@type": self.part_of.type,
-                "@id": self.part_of.id
-            }
-        return data
+    def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
+                 time_step, part_of=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class PatchedCell(KGObject):
@@ -163,6 +114,7 @@ class PatchedCell(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
+    query_id_resolved = "fgResolvedModified"
     collection_class = "PatchedCellCollection"
     experiment_class = "PatchClampExperiment"
     context = {
@@ -180,9 +132,9 @@ class PatchedCell(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
-        Field("collection", "PatchedCellCollection", "^prov:hadMember"),
+        Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember"),
         Field("cell_type", CellType, "eType", required=False),
-        Field("experiments", "PatchClampExperiment", "^prov:used", multiple=True),
+        Field("experiments", "electrophysiology.PatchClampExperiment", "^prov:used", multiple=True),
         Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
@@ -192,7 +144,7 @@ class PatchedCell(KGObject):
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
     )
 
-    def __init__(self, name, brain_location, collection, cell_type, experiments=None,
+    def __init__(self, name, brain_location, collection=None, cell_type=None, experiments=None,
                  pipette_id=None, seal_resistance=None, pipette_resistance=None,
                  liquid_junction_potential=None, labeling_compound=None,
                  reversal_potential_cl=None, id=None, instance=None):
@@ -201,64 +153,69 @@ class PatchedCell(KGObject):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, **filters):
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        context = {
-            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
-            'prov': 'http://www.w3.org/ns/prov#'
-        }
-        filter_queries = []
-        for name, value in filters.items():
-            if name == "species":
-                filter_queries.append({
-                    #        collection      / patchedslice / slice              / subject             / species
-                    'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
-                    'op': 'eq',
-                    'value': value.iri
-                })
-            elif name == "brain_region":
-                filter_queries.append({
-                    "path": "nsg:brainLocation / nsg:brainRegion",
-                    "op": "eq",
-                    "value": value.iri
-                })
-            elif name == "cell_type":
-                filter_queries.append({
-                    'path': 'nsg:eType',
-                    'op': 'eq',
-                    'value': value.iri
-                })
-            elif name == "experimenter":
-                filter_queries.append({
-                    #        collection      / patchedslice / patchclampactivity / person
-                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
-                    'op': 'eq',
-                    'value': value.id
-                })
-            elif name == "lab":
-                filter_queries.append({
-                    #        collection      / patchedslice / patchclampactivity / person              / organization
-                    'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
-                    'op': 'eq',
-                    'value': value.id
-                })
-            else:
-                raise Exception("The only supported filters are by species, brain region, cell type "
-                                "experimenter or lab. You specified {name}".format(name=name))
-        if len(filter_queries) == 0:
-            return client.list(cls, size=size)
-        elif len(filter_queries) == 1:
-            filter_query = filter_queries[0]
-        else:
-            filter_query = {
-                "op": "and",
-                "value": filter_queries
+        if api == "nexus":
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
             }
-        return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_queries = []
+            for name, value in filters.items():
+                if name == "species":
+                    filter_queries.append({
+                        #        collection      / patchedslice / slice              / subject             / species
+                        'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name == "brain_region":
+                    filter_queries.append({
+                        "path": "nsg:brainLocation / nsg:brainRegion",
+                        "op": "eq",
+                        "value": value.iri
+                    })
+                elif name == "cell_type":
+                    filter_queries.append({
+                        'path': 'nsg:eType',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name == "experimenter":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                elif name == "lab":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person              / organization
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                else:
+                    raise Exception("The only supported filters are by species, brain region, cell type "
+                                    "experimenter or lab. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+        elif api == "query":
+            return super(PatchedCell, cls).list(client, size, api, scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client, use_cache=True):
+    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         # leaving the following, commented-out code until I check
         # that using "eq" rather than "in" for the collection filter
         # doesn't break anything.
@@ -296,20 +253,30 @@ class PatchedCell(KGObject):
         #            id=D["@id"], instance=instance)
 
         D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
         for otype in cls.type:
-            assert otype in D["@type"]
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
-                data_item = D["brainLocation"]["brainRegion"]
+                if "brainRegion" in D:  # with api='query'
+                    data_item = D["brainRegion"]
+                else:  # with api='nexus'
+                    data_item = D["brainLocation"]["brainRegion"]
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
             args[field.name] = field.deserialize(data_item, client)
-        obj2 = cls(id=D["@id"], instance=instance, **args)
+        obj = cls(id=D["@id"], instance=instance, **args)
 
-        return obj2
+        return obj
 
     def _build_data(self, client):
         """docstring"""
@@ -331,49 +298,11 @@ class Slice(KGObject):  # should move to "core" module?
         "providerId": "nsg:providerId",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
-
-    def __init__(self, name, subject, brain_slicing_activity, id=None, instance=None):
-        self.name = name
-        self.subject = subject
-        self.brain_slicing_activity = brain_slicing_activity
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.subject!r}, {self.brain_slicing_activity!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:Slice' in D["@type"]
-        obj = cls(name=D["name"],
-                  subject=KGProxy(Subject, D["wasDerivedFrom"]["@id"]),
-                  brain_slicing_activity=KGQuery(BrainSlicingActivity,
-                                                 filter = {
-                                                     "path": "prov:generated",
-                                                     "op": "in",
-                                                     "value": D["@id"]
-                                                 },
-                                                 context = {
-                                                     "prov": "http://www.w3.org/ns/prov#",
-                                                 }),
-                  id=D["@id"],
-                  instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["wasDerivedFrom"] = {
-            "@type": self.subject.type,
-            "@id": self.subject.id
-        }
-        return data
+    fields =  (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated")
+    )
 
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
@@ -406,49 +335,47 @@ class BrainSlicingActivity(KGObject):
         "slicingAngle": "nsg:slicingAngle",
         "cuttingThickness": "nsg:cuttingThickness"
     }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+        Field("slices", Slice, "generated", multiple=True, required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
+        Field("slicing_plane", basestring, "slicingPlane", required=False),
+        Field("slicing_angle", float, "slicingAngle", required=False),
+        Field("cutting_solution", basestring, "solution", required=False),
+        Field("cutting_thickness", QuantitativeValue, "cuttingThickness", required=False),
+        Field("start_time", datetime, "startedAtTime", required=False),
+        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+    )
 
-    def __init__(self, subject, slices, brain_location, slicing_plane, slicing_angle,
-                 cutting_solution, cutting_thickness, start_time, people, id=None, instance=None):
-        self.subject = subject
-        self.slices = slices
-        self.brain_location = brain_location
-        self.slicing_plane = slicing_plane
-        self.slicing_angle = slicing_angle
-        self.cutting_solution = cutting_solution
-        self.cutting_thickness = cutting_thickness
-        self.start_time = start_time
-        self.people = people
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
-        #        f'{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
-        #        f'{self.start_time}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.subject!r}, {self.brain_location!r}, {self.slicing_plane!r}, '
-                '{self.slicing_angle!r}, {self.cutting_solution!r}, {self.cutting_thickness!r}, '
-                '{self.start_time}, {self.id})'.format(self=self))
+    def __init__(self, subject, slices, brain_location=None, slicing_plane=None, slicing_angle=None,
+                 cutting_solution=None, cutting_thickness=None, start_time=None, people=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
-        assert 'nsg:BrainSlicing' in D["@type"]
-        obj = cls(subject=KGProxy(Subject, D["used"]["@id"]),
-                  slices=[KGProxy(Slice, slice_uri["@id"])
-                          for slice_uri in D["generated"]],
-                  brain_location=build_kg_object(BrainRegion, D["brainLocation"]["brainRegion"]),
-                  slicing_plane=D["slicingPlane"],
-                  slicing_angle=D.get("slicingAngle", None),
-                  cutting_solution=D.get("solution", None),
-                  cutting_thickness=QuantitativeValue.from_jsonld(D["cuttingThickness"]),
-                  start_time=D.get("startedAtTime", None),
-                  people=[KGProxy(Person, person_uri["@id"])
-                          for person_uri in D.get("wasAssociatedWith", [])],
-                  id=D["@id"],
-                  instance=instance)
+        if resolved:
+            D = cls._fix_keys(D)
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D.get("brainLocation", {}).get("brainRegion")
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
     @property
@@ -461,43 +388,9 @@ class BrainSlicingActivity(KGObject):
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        data["used"] = {
-            "@id": self.subject.id,
-            "@type": self.subject.type
-        }
-        if isinstance(self.brain_location, list):
-            data["brainLocation"] = {
-                "brainRegion": [br.to_jsonld() for br in self.brain_location]
-            }
-        else:
-            data["brainLocation"] = {
-                "brainRegion": self.brain_location.to_jsonld()
-            }
-        if self.slices:
-            data["generated"]  = [
-                {
-                    "@id": slice.id,
-                    "@type": slice.type
-                } for slice in self.slices
-            ]
-        if self.slicing_plane:
-            data["slicingPlane"]= self.slicing_plane
-        if self.slicing_angle:
-            data["slicingAngle"]= self.slicing_angle
-        if self.cutting_solution:
-            data["solution"]= self.cutting_solution
-        if self.cutting_thickness:
-            data["cuttingThickness"]= self.cutting_thickness.to_jsonld()
-        if self.start_time:
-            data["startedAtTime"]= self.start_time
-        if self.people:
-            data["wasAssociatedWith"] = [
-                {
-                    "@type": person.type,
-                    "@id": person.id,
-                } for person in self.people
-            ]
+        data = super(BrainSlicingActivity, self)._build_data(client)
+        if "brainRegion" in data:
+            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
     def resolve(self, client):
@@ -526,58 +419,41 @@ class PatchedSlice(KGObject):
         "hasPart": "nsg:hasPart",
         "wasRevisionOf": "prov:wasRevisionOf"
     }
-    collection_class = "PatchedCellCollection"
-    recording_activity_class = "PatchClampActivity"
+    #collection_class = "PatchedCellCollection"
+    #recording_activity_class = "PatchClampActivity"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "wasRevisionOf", required=True),
+        Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart", required=True),
+        Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated")
+    )
 
-    def __init__(self, name, slice, recorded_cells, recording_activity, id=None, instance=None):
-        self.name = name
-        self.slice = slice
-        self.recorded_cells = recorded_cells
-        self.recording_activity = recording_activity
-        self.id = id
-        self.instance = instance
+    def __init__(self, name, slice, recorded_cells, recording_activity=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.recording_activity!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.recording_activity!r}, {self.id})'.format(self=self))
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client):
+    #     D = instance.data
+    #     for otype in cls.type:
+    #         assert otype in D["@type"]
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        for otype in cls.type:
-            assert otype in D["@type"]
+    #     # filter to get recording activity
+    #     recording_activity_filter = {
+    #         "path": "prov:generated",
+    #         "op": "in",
+    #         "value": D["@id"]
+    #     }
+    #     context={"prov": "http://www.w3.org/ns/prov#"}
 
-        # filter to get recording activity
-        recording_activity_filter = {
-            "path": "prov:generated",
-            "op": "in",
-            "value": D["@id"]
-        }
-        context={"prov": "http://www.w3.org/ns/prov#"}
-
-        return cls(D["name"],
-                   slice=KGProxy(Slice, D["wasRevisionOf"]["@id"]),
-                   recorded_cells=KGProxy(cls.collection_class, D["hasPart"]["@id"]),
-                   recording_activity=KGQuery(cls.recording_activity_class, recording_activity_filter, context),
-                   id=D["@id"],
-                   instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["wasRevisionOf"] = {
-            "@type": self.slice.type,
-            "@id": self.slice.id
-        }
-        data["hasPart"] = {
-            "@type": self.recorded_cells.type,
-            "@id": self.recorded_cells.id
-        }
-        return data
+    #     return cls(D["name"],
+    #                slice=KGProxy(Slice, D["wasRevisionOf"]["@id"]),
+    #                recorded_cells=KGProxy(cls.collection_class, D["hasPart"]["@id"]),
+    #                recording_activity=KGQuery(cls.recording_activity_class, recording_activity_filter, context),
+    #                id=D["@id"],
+    #                instance=instance)
 
 
 class PatchedCellCollection(KGObject):
@@ -593,59 +469,56 @@ class PatchedCellCollection(KGObject):
         "size": "schema:size",
         "hadMember": "prov:hadMember"
     }
-    member_class = "PatchedCell"
-    recorded_from_class = "PatchedSlice"
+    #member_class = "PatchedCell"
+    #recorded_from_class = "PatchedSlice"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("cells", PatchedCell, "hadMember", required=True),
+        Field("slice", PatchedSlice, "^nsg:hasPart")
+    )
 
-    def __init__(self, name, cells, slice, id=None, instance=None):
-        self.name = name
-        self.slice = slice
-        self.cells = cells
-        self.id = id
-        self.instance = instance
+    def __init__(self, name, cells, slice=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @property
     def size(self):
         return len(self.cells)
 
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.size!r}, {self.slice!r}, {self.id})'.format(self=self))
+    # @classmethod
+    # @cache
+    # def from_kg_instance(cls, instance, client):
+    #     """
+    #     docstring
+    #     """
+    #     D = instance.data
+    #     for otype in cls.type:
+    #         assert otype in D["@type"]
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """
-        docstring
-        """
-        D = instance.data
-        for otype in cls.type:
-            assert otype in D["@type"]
+    #     recorded_slice_filter={
+    #         "path": "nsg:hasPart",
+    #         "op": "in",
+    #         "value": D["@id"]
+    #     }
+    #     context = {"nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
 
-        recorded_slice_filter={
-            "path": "nsg:hasPart",
-            "op": "in",
-            "value": D["@id"]
-        }
-        context = {"nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
+    #     return cls(name=D["name"],
+    #                slice=KGQuery(cls.recorded_from_class, recorded_slice_filter, context),
+    #                cells=[KGProxy(cls.member_class, member_uri["@id"])
+    #                       for member_uri in D["hadMember"]],
+    #                id=D["@id"],
+    #                instance=instance)
 
-        return cls(name=D["name"],
-                   slice=KGQuery(cls.recorded_from_class, recorded_slice_filter, context),
-                   cells=[KGProxy(cls.member_class, member_uri["@id"])
-                          for member_uri in D["hadMember"]],
-                   id=D["@id"],
-                   instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["hadMember"] = [{
-            "@type": lookup(self.member_class).type,
-            "@id": cell.id
-        } for cell in self.cells]
-        return data
+    # def _build_data(self, client):
+    #     """docstring"""
+    #     data = {}
+    #     data["name"] = self.name
+    #     data["hadMember"] = [{
+    #         "@type": lookup(self.member_class).type,
+    #         "@id": cell.id
+    #     } for cell in self.cells]
+    #     return data
 
 
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
@@ -653,7 +526,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/wholecellpatchclamp/v0.1.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
-    generates_class = "PatchedSlice"
+    #generates_class = "PatchedSlice"
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -663,65 +536,21 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         "generated": "prov:generated",
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "used", required=True),
+        Field("recorded_slice", PatchedSlice, "generated", required=True),
+        Field("protocol", basestring, "protocol"),
+        Field("people", Person, "wasAssociatedWith", multiple=True)
+    )
 
-    def __init__(self, name, slice, recorded_slice, protocol, people, id=None, instance=None):
-        self.name = name
-        self.slice = slice
-        self.recorded_slice = recorded_slice
-        self.protocol = protocol
-        self.people = people
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.slice!r}, {self.recorded_slice!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """
-        docstring
-        """
-        D = instance.data
-        for otype in cls.type:
-            assert otype in D["@type"]
-
-        return cls(name=D["name"],
-                   slice=KGProxy(Slice, D["used"]["@id"]),
-                   recorded_slice=KGProxy(cls.generates_class, D["generated"]["@id"]),
-                   protocol=D.get("protocol"),
-                   people=[KGProxy(Person, person_uri["@id"])
-                           for person_uri in D.get("wasAssociatedWith", [])],
-                   id=D["@id"],
-                   instance=instance)
+    def __init__(self, name, slice, recorded_slice, protocol=None, people=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     # todo: custom exists(), based on slice not on name
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["used"] = {
-            "@type": self.slice.type,
-            "@id": self.slice.id
-        }
-        data["generated"] = {
-            "@type": self.recorded_slice.type,
-            "@id": self.recorded_slice.id
-        }
-        if self.protocol:
-            data["protocol"] = self.protocol
-        if self.people:
-            data["wasAssociatedWith"] = [
-                {
-                    "@type": person.type,
-                    "@id": person.id
-                } for person in self.people
-            ]
-        return data
 
 
 class PatchClampExperiment(KGObject):
@@ -737,58 +566,103 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label"
     }
-    recorded_cell_class = "PatchedCell"
+    #recorded_cell_class = "PatchedCell"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("recorded_cell", PatchedCell, "prov:used", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+    )
 
-    def __init__(self, name, recorded_cell, stimulus, traces, id=None, instance=None):
-        self.name = name
-        self.recorded_cell = recorded_cell
-        self.stimulus = stimulus
-        self.traces = traces
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})')
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.recorded_cell!r}, {self.stimulus!r}, {self.id})'.format(self=self))
+    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         """
         docstring
         """
+    #     D = instance.data
+    #     assert 'nsg:StimulusExperiment' in D["@type"]
+
+    #     # get the recorded traces
+    #     traces_filter = {
+    #         "path": "prov:wasGeneratedBy",
+    #         "op": "eq",
+    #         "value": D["@id"]
+    #     }
+    #     context = {"prov": "http://www.w3.org/ns/prov#"}
+
+    #     return cls(name=D["name"], #name=D["schema:name"],
+    #                #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
+    #                recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
+    #                stimulus=D["nsg:stimulus"],
+    #                traces=KGQuery(Trace, traces_filter, context),
+    #                id=D["@id"],
+    #                instance=instance)
         D = instance.data
-        assert 'nsg:StimulusExperiment' in D["@type"]
+        if resolved:
+            D = cls._fix_keys(D)
 
-        # get the recorded traces
-        traces_filter = {
-            "path": "prov:wasGeneratedBy",
-            "op": "eq",
-            "value": D["@id"]
-        }
-        context = {"prov": "http://www.w3.org/ns/prov#"}
-
-        return cls(name=D["name"], #name=D["schema:name"],
-                   #recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"][0]["@id"]),
-                   recorded_cell=KGProxy(cls.recorded_cell_class, D["prov:used"]["@id"]),
-                   stimulus=D["nsg:stimulus"],
-                   traces=KGQuery(Trace, traces_filter, context),
-                   id=D["@id"],
-                   instance=instance)
+        for otype in cls.type:
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "stimulus":
+                data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
 
     def _build_data(self, client):
         """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["prov:used"] = {
-            "@type": self.recorded_cell.type,
-            "@id": self.recorded_cell.id
-        }
-        data["nsg:stimulus"] = self.stimulus
-        # todo: save traces if they haven't been already
+        data = super(PatchClampExperiment, self)._build_data(client)
+        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType")}
         return data
+
+    @classmethod
+    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add the additional filter below, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        if api == "nexus":
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+        elif api == "query":
+            # todo: what about filtering if api="query"
+            raise NotImplementedError("not yet implemented")
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
+
+    @property
+    def dataset(self):
+        context = {
+            "nsg": self.context["nsg"],
+            "prov": self.context["prov"]
+        }
+        filter = {
+            "path": "^nsg:partOf / prov:wasGeneratedBy",
+            "op": "eq",
+            "value": self.id
+        }
+        return KGQuery(Dataset, filter, context)
 
 
 class QualifiedTraceGeneration(KGObject):
@@ -808,44 +682,22 @@ class QualifiedTraceGeneration(KGObject):
         "unitCode": "schema:unitCode",
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("stimulus_experiment",
+              (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
+              "activity", required=True),
+        Field("sweep", int, "sweep", multiple=True, required=True),
+        #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
+        Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
+    )
 
-    def __init__(self, name, stimulus_experiment, sweep, traces, holding_potential, id=None, instance=None):
-        self.name = name
-        self.stimulus_experiment = stimulus_experiment
-        self.sweep = sweep
-        self.traces = traces
-        self.holding_potential = holding_potential
-        self.id = id
-        self.instance = instance
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """
-        docstring
-        """
-        D = instance.data
-        assert 'nsg:TraceGeneration' in D["@type"]
-        return cls(D["name"],
-                   build_kg_object(PatchClampExperiment, D.get("stimulus_experiment")),
-                   D["sweep"],
-                   traces=[],
-                   holding_potential=D.get("targetHoldingPotential", None),
-                   id=D["@id"],
-                   instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["sweep"] = self.sweep,
-        data["activity"] = {
-            "@id": self.stimulus_experiment.id,
-            "@type": self.stimulus_experiment.type
-        }
-        if self.holding_potential:
-            data["targetHoldingPotential"] = self.holding_potential.to_jsonld()
-        return data
+    def __init__(self, name, stimulus_experiment, sweep, #traces=None,
+                 holding_potential=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class QualifiedMultiTraceGeneration(KGObject):
@@ -866,44 +718,23 @@ class QualifiedMultiTraceGeneration(KGObject):
         "unitCode": "schema:unitCode",
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("stimulus_experiment",
+              (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
+              "activity", required=True),
+        Field("sweeps", int, "sweep", multiple=True, required=True),
+        #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
+        Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
+    )
 
-    def __init__(self, name, stimulus_experiment, sweeps, traces, holding_potential, id=None, instance=None):
-        self.name = name
-        self.stimulus_experiment = stimulus_experiment
-        self.sweeps = sweeps
-        self.traces = traces
-        self.holding_potential = holding_potential
-        self.id = id
-        self.instance = instance
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        """
-        docstring
-        """
-        D = instance.data
-        assert 'nsg:MultiTraceGeneration' in D["@type"]
-        return cls(D["name"],
-                   build_kg_object(PatchClampExperiment, D.get("stimulus_experiment")),
-                   D["sweep"],
-                   traces=[],
-                   holding_potential=D.get("targetHoldingPotential", None),
-                   id=D["@id"],
-                   instance=instance)
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        data["sweep"] = self.sweeps
-        data["activity"] = {
-            "@id": self.stimulus_experiment.id,
-            "@type": self.stimulus_experiment.type
-        }
-        if self.holding_potential:
-            data["targetHoldingPotential"] = self.holding_potential.to_jsonld()
-        return data
+    def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
+                 holding_potential=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
@@ -912,12 +743,36 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     experiment_class = "IntraCellularSharpElectrodeExperiment"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
+              "^prov:hadMember"),
+        Field("cell_type", CellType, "eType", required=False),
+        Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
+              "^prov:used", multiple=True),
+        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
+        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
+        Field("labeling_compound", basestring, "nsg:labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+    )
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharpelectrode/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "used", required=True),
+        Field("recorded_slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
+              "generated", required=True),
+        Field("protocol", basestring, "protocol"),
+        Field("people", Person, "wasAssociatedWith")
+    )
 
 
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
@@ -926,7 +781,12 @@ class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     type = ["nsg:Collection"]
     member_class = "IntraCellularSharpElectrodeRecordedCell"
     recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
-
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("cells", IntraCellularSharpElectrodeRecordedCell, "hadMember", required=True),
+        Field("slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
+              "^nsg:hasPart")
+    )
 
 class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     namespace = DEFAULT_NAMESPACE
@@ -934,14 +794,43 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     type = ["nsg:IntraCellularSharpElectrodeRecordedSlice", "prov:Entity"]
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     recording_activity_class = "IntraCellularSharpElectrodeRecording"
-
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "wasRevisionOf", required=True),
+        Field("recorded_cells", IntraCellularSharpElectrodeRecordedCellCollection, "hasPart",
+              required=True),
+        Field("recording_activity", IntraCellularSharpElectrodeRecording, "^prov:generated")
+    )
 
 class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.0"  # to fix
+    _path = "/electrophysiology/stimulusexperiment/v0.2.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "prov:used", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
+        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True)
+    )
+
+    @classmethod
+    def list(cls, client, size=100, api='nexus', **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add an additional filter, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        filter = {'path': 'prov:used / rdf:type',
+                  'op': 'eq',
+                  'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
+        context = {
+            "nsg": cls.context["nsg"],
+            "prov": cls.context["prov"],
+            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        }
+        # todo: what about filtering if api="query"
+        return client.list(cls, size=size, api=api, filter=filter, context=context)
 
 
 def list_kg_classes():
