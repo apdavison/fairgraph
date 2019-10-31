@@ -754,8 +754,7 @@ class ElectrodeImplantationActivity(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location=None, start_time=None, end_time=None, 
-people=None, id=None, instance=None):
+    def __init__(self, subject, implanted_brain_tissues, brain_location, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
