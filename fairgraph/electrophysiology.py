@@ -726,7 +726,7 @@ class ImplantedBrainTissue(KGObject):
 class ElectrodeImplantationActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/electrodeimplantation/v0.1.4"
+    _path = "/experiment/electrodeimplantation/v0.1.5"
     type = ["nsg:ElectrodeImplantation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
