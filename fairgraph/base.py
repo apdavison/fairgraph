@@ -351,6 +351,13 @@ class KGObject(with_metaclass(Registry, object)):
         uri = cls.uri_from_uuid(uuid, client)
         return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
 
+    @classmethod
+    def from_id(cls, id, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+        if id.startswith("http"):
+            return cls.from_uri(id, client, use_cache, deprecated, api, resolved)
+        else:
+            return cls.from_uuid(id, client, deprecated, api, resolved)
+
     @property
     def uuid(self):
         return self.id.split("/")[-1]
@@ -507,8 +514,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, match="equals", all=False, api="nexus", resolved=False):
-        return client.by_name(cls, name, match=match, all=all, api=api, resolved=resolved)
+    def by_name(cls, name, client, match="equals", all=False, api="nexus", scope="released", resolved=False):
+        return client.by_name(cls, name, match=match, all=all, api=api, scope="released", resolved=resolved)
 
     @property
     def rev(self):
@@ -761,6 +768,10 @@ class OntologyTerm(StructuredMetadata):
         if data is None:
             return None
         return cls(data["label"], data["@id"])
+
+    @classmethod
+    def terms(cls):
+        return list(cls.iri_map.keys())
 
 
 class KGProxy(object):

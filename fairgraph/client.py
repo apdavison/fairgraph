@@ -191,7 +191,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="nexus", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False, api="nexus", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):
@@ -221,10 +221,12 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}{}/instances?databaseScope=INFERRED&name={}".format(cls.path,
-                                                                              query_id,
-                                                                              match == "contains" and "_name_contains" or "",  # workaround
-                                                                              name))
+                    "{}/{}{}/instances?databaseScope={}&name={}".format(
+                        cls.path,
+                        query_id,
+                        match == "contains" and "_name_contains" or "",  # workaround
+                        scope.upper(),
+                        name))
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]
             else:
