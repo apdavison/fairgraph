@@ -5,3 +5,5 @@ dist
 .coverage
 htmlcov
 *.pyc
+doc/_build
+*.py.orig
