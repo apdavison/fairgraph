@@ -137,7 +137,7 @@ class KGClient(object):
         return instances
 
     def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
-                               resolved=False):
+                               scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         if use_cache and uri in self.cache:
@@ -161,9 +161,10 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}/instances?databaseScope=INFERRED&id={}".format(cls.path,
-                                                                          query_id,
-                                                                          uri))
+                    "{}/{}/instances?databaseScope={}&id={}".format(cls.path,
+                                                                    query_id,
+                                                                    scope.upper(),
+                                                                    uri))
                 instance = Instance(cls.path, response["results"][0], Instance.path)
                 self.cache[instance.data["@id"]] = instance
                 logger.debug("Retrieved instance from KG Query" + str(instance.data))

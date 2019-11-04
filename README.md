@@ -5,23 +5,29 @@ Authors: Andrew Davison and Onur Ates, CNRS
 Copyright CNRS 2019
 
 **fairgraph** is an experimental Python library for working with metadata
-in the HBP Knowledge Graph, with a particular focus on data reuse,
+in the HBP/EBRAINS Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
 The API is not stable, and is subject to change.
 
 ## Installation
 
+To get the latest release:
+
 ```
-git clone https://github.com/HumanBrainProject/pyxus.git pyxus_src
-pip install -r pyxus_src/pyxus/requirements.txt
-pip install pyxus_src/pyxus
+pip install fairgraph
+```
+
+To get the development version:
+
+```
 git clone https://github.com/HumanBrainProject/fairgraph.git
+pip install -r ./fairgraph/requirements.txt
 pip install -U ./fairgraph
 ```
 
 ## Basic setup
 
-The basic idea of the library is to represent data instances from the Knowledge Graph as Python objects.
+The basic idea of the library is to represent metadata nodes from the Knowledge Graph as Python objects.
 Communication with the Knowledge Graph service is through a client object,
 for which an access token associated with an HBP Identity account is needed.
 
@@ -36,13 +42,13 @@ If working outside the Collaboratory, we recommend you obtain a token from https
 and save it as an environment variable, e.g. at a shell prompt:
 
 ```
-export HBP_token=eyJhbGci...nPq
+export HBP_AUTH_TOKEN=eyJhbGci...nPq
 ```
 
 and then in Python
 
 ```
-token = os.environ['HBP_token']
+token = os.environ['HBP_AUTH_TOKEN']
 ```
 
 Once you have a token:
@@ -56,7 +62,7 @@ client = KGClient(token)
 ## Retrieving metadata from the Knowledge Graph
 
 The different metadata/data types available in the Knowledge Graph are grouped into modules,
-currently `commons`, `core`, `brainsimulation`, `electrophysiology` and `minds`.
+currently `commons`, `core`, `brainsimulation`, `electrophysiology`, `software`, `minds` and `uniminds`.
 For example:
 
 ```
@@ -135,7 +141,7 @@ for dataset in activity_datasets:
 ## Storing and editing metadata
 
 For those users who have the necessary permissions to store and edit metadata in the Knowledge Graph,
-**fairgraph* objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
+**fairgraph** objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
 
 ```
 from fairgraph.core import Person, Organization

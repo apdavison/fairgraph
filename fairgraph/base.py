@@ -331,9 +331,11 @@ class KGObject(with_metaclass(Registry, object)):
 
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus',
+                 scope="released", resolved=False):
         instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
-                                                 deprecated=deprecated, api=api, resolved=resolved)
+                                                 deprecated=deprecated, api=api, scope=scope,
+                                                 resolved=resolved)
         if instance is None:
             return None
         else:
@@ -793,12 +795,12 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="nexus"):
+    def resolve(self, client, api="nexus", scope="released"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
         else:
-            obj = self.cls.from_uri(self.id, client, api=api)
+            obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
             KGObject.object_cache[self.id] = obj
             return obj
 
@@ -842,7 +844,7 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="nexus"):
+    def resolve(self, client, size=10000, api="nexus", scope="released"):
         objects = []
         for cls in self.classes:
             if api == "nexus":
@@ -858,7 +860,7 @@ class KGQuery(object):
                     query_id=cls.query_id,
                     filter=self.filter,
                     size=size,
-                    scope="inferred")  # tofix
+                    scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
