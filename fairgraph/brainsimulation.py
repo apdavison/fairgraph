@@ -393,24 +393,31 @@ class EModel(ModelInstance):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class AnalysisResult(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
-        "{{base}}/contexts/nexus/core/resource/v0.3.0"
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "wasDerivedFrom": "prov:wasDerivedFrom"
+        }
     ]
     fields = (
         Field("name", basestring, "name", required=True),
         Field("result_file", (Distribution, basestring), "distribution"),
-        Field("timestamp", datetime, "generatedAtTime", default=datetime.now)
+        Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
+        Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("description", basestring, "description")
     )
 
-    def __init__(self, name, result_file=None, timestamp=None, id=None, instance=None):
+    def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
+                 description=None, id=None, instance=None):
         super(AnalysisResult, self).__init__(
-            name=name, result_file=result_file, timestamp=timestamp,
-            id=id, instance=instance
+            name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
+            description=description, id=id, instance=instance
         )
         self._file_to_upload = None
         if isinstance(result_file, basestring):
