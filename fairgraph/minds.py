@@ -312,7 +312,8 @@ class Method(MINDSObject):
     """
     docstring
     """
-    _path = "/core/method/v1.0.0"
+#    _path = "/core/method/v1.0.0"
+    _path = "/experiment/method/v1.0.0"
     type = ["minds:Method"]
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
