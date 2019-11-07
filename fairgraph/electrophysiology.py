@@ -104,7 +104,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("part_of", Dataset, "partOf")
     )
 
-    def __init__(self, name, data_location, generated_by=None, generation_metadata, channel_names, data_unit,
+    def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
                  time_step, part_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
