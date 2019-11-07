@@ -89,7 +89,7 @@ class Trace(KGObject):
 class MultiChannelMultiTrialRecording(Trace):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path =  "/electrophysiology/multitrace/v0.1.0"  # for nexus
+    _path =  "/electrophysiology/multitrace/v0.1.1"  # for nexus
     #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
@@ -101,11 +101,12 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
         Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
-        Field("part_of", Dataset, "partOf")
+        Field("part_of", Dataset, "partOf"),
+     	Field("external_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False)
     )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
-                 time_step, part_of=None, id=None, instance=None):
+                 time_step, external_url=None, part_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
