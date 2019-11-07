@@ -453,7 +453,7 @@ class Sample(MINDSObject):
     docstring
     """
     _path = "/experiment/sample/v1.0.0"
-    type = ["minds:Sample"]
+    type = "https://schema.hbp.eu/minds/Sample"
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),
