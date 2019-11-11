@@ -86,13 +86,40 @@ def generate_cache_key(qd):
     return tuple(cache_key)
 
 
+docstring_template = """
+{base}
+
+Args
+----
+{args}
+
+"""
+
 class Registry(type):
     """Metaclass for registering Knowledge Graph classes"""
 
     def __new__(meta, name, bases, class_dict):
         cls = type.__new__(meta, name, bases, class_dict)
+        cls._base_docstring = class_dict.get("__doc__", "").strip()
         register_class(cls)
         return cls
+
+    def _get_doc(self):
+        """Dynamically generate docstrings"""
+        field_docs = []
+        if hasattr(self, "fields"):
+            def gen_path(type_):
+                if type_.__module__ == "builtins":
+                    return type_.__name__
+                else:
+                    return "~{}.{}".format(type_.__module__, type_.__name__)
+            for field in self.fields:
+                doc = "{} : {}\n    {}".format(field.name,
+                                            ", ".join(gen_path(t) for t in field.types),
+                                            field.doc)
+                field_docs.append(doc)
+        return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
+    __doc__ = property(_get_doc)
 
     @property
     def path(cls):
@@ -101,10 +128,11 @@ class Registry(type):
         return cls.namespace + cls._path
 
 
-class Field(object):  # playing with an idea, work in progress, not yet used
+class Field(object):
     """Representation of a metadata field"""
 
-    def __init__(self, name, types, path, required=False, default=None, multiple=False, strict=True):
+    def __init__(self, name, types, path, required=False, default=None, multiple=False,
+                 strict=True, doc=""):
         self.name = name
         if isinstance(types, (type, basestring)):
             self._types = (types,)
@@ -117,6 +145,7 @@ class Field(object):  # playing with an idea, work in progress, not yet used
         self.default = default
         self.multiple = multiple
         self.strict_mode = strict
+        self.doc = doc
 
     def __repr__(self):
         return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(

@@ -1,5 +1,13 @@
 """
-electrophysiology
+Metadata for electrophysiology experiments.
+
+The following methods are currently supported:
+    - patch clamp recording in brain slices
+    - sharp electrode intracellular recording in brain slices
+
+Coming soon:
+    - patch clamp recordings in cultured neurons
+    - extracellular electrode recording, including tetrodes and multi-electrode arrays
 
 """
 
@@ -20,7 +28,12 @@ from .utility import compact_uri, standard_context
 DEFAULT_NAMESPACE = "neuralactivity"
 
 class Trace(KGObject):
-    """docstring"""
+    """Single time series recorded during an experiment or simulation.
+
+    :class:`Trace` represents a single recording from a single channel.
+    If you have a file containing recordings from multiple channels, or multiple
+    recordings from a single channel, use :class:`MultiChannelMultiTrialRecording`.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/trace/v0.1.0"
     # v1.0.0 now exists - check differences
@@ -86,7 +99,11 @@ class Trace(KGObject):
 
 
 class MultiChannelMultiTrialRecording(Trace):
-    """docstring"""
+    """Multiple time series recorded during an experiment or simulation.
+
+    Time series may be recorded from multiple ch
+    If you have a file containing only a single recording from a single channel,
+    you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
     _path =  "/electrophysiology/multitrace/v0.1.0"  # for nexus
     #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
@@ -110,7 +127,7 @@ class MultiChannelMultiTrialRecording(Trace):
 
 
 class PatchedCell(KGObject):
-    """docstring"""
+    """A cell recorded in patch clamp."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
@@ -286,7 +303,7 @@ class PatchedCell(KGObject):
 
 
 class Slice(KGObject):  # should move to "core" module?
-    """docstring"""
+    """A brain slice."""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/slice/v0.1.0"
     type = ["nsg:Slice", "prov:Entity"]
@@ -312,7 +329,7 @@ class Slice(KGObject):  # should move to "core" module?
 
 
 class BrainSlicingActivity(KGObject):
-    """docstring"""
+    """The activity of cutting brain tissue into slices."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/brainslicing/v0.1.0"
     type = ["nsg:BrainSlicing", "prov:Activity"]
@@ -405,7 +422,7 @@ class BrainSlicingActivity(KGObject):
 
 
 class PatchedSlice(KGObject):
-    """docstring"""
+    """A slice that has been recorded from using patch clamp."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedslice/v0.1.0"
     type = ["nsg:PatchedSlice", "prov:Entity"]
@@ -457,7 +474,7 @@ class PatchedSlice(KGObject):
 
 
 class PatchedCellCollection(KGObject):
-    """docstring"""
+    """A collection of patched cells."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
@@ -522,7 +539,7 @@ class PatchedCellCollection(KGObject):
 
 
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
-    """docstring"""
+    """A patch clamp recording session."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/wholecellpatchclamp/v0.1.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
@@ -554,7 +571,10 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 
 
 class PatchClampExperiment(KGObject):
-    """docstring"""
+    """
+    Stimulation of the neural tissue and recording of the responses during a patch clamp
+    recording session.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/stimulusexperiment/v0.1.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
@@ -666,6 +686,7 @@ class PatchClampExperiment(KGObject):
 
 
 class QualifiedTraceGeneration(KGObject):
+    """Additional information about the generation of a single-channel electrophysiology trace."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/tracegeneration/v0.1.0"
     type = ["prov:Generation", "nsg:TraceGeneration"]
@@ -701,6 +722,7 @@ class QualifiedTraceGeneration(KGObject):
 
 
 class QualifiedMultiTraceGeneration(KGObject):
+    """Additional information about the generation of a multi-channel electrophysiology trace."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
     #path = DEFAULT_NAMESPACE + "/electrophysiology/multitracegeneration/v0.2.0"  # for nexus-int
@@ -738,6 +760,7 @@ class QualifiedMultiTraceGeneration(KGObject):
 
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
+    """A cell recorded intracellularly with a sharp electrode."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharprecordedcell/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
@@ -761,6 +784,7 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     )
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
+    """A sharp-electrode recording session."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharpelectrode/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
@@ -776,6 +800,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
 
 
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
+    """A collection of cells recorded with a sharp electrode."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharprecordedcellcollection/v0.1.0"
     type = ["nsg:Collection"]
@@ -789,6 +814,7 @@ class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     )
 
 class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
+    """A slice that has been recorded from using a sharp electrode."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharprecordedslice/v0.1.0"
     type = ["nsg:IntraCellularSharpElectrodeRecordedSlice", "prov:Entity"]
@@ -803,7 +829,10 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     )
 
 class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
-    """docstring"""
+    """
+    Stimulation of the neural tissue and recording of the responses with
+    a sharp intracellular electrode.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/stimulusexperiment/v0.2.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
