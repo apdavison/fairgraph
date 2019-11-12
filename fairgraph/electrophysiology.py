@@ -852,11 +852,17 @@ class QualifiedMultiTraceGeneration(KGObject):
         "unitCode": "schema:unitCode",
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
+    
+
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment",
-              (ExtracellularElectrodeExperiment or IntracellularSharpElectrodeExperiment or PatchClampExperiment, "electrophysiology.ExtracellularElectrodeExperiment" or "electrophysiology.IntracellularSharpElectrodeExperiment" or "electrophysiology.PatchClampExperiment"),
-              "activity", required=True),
+
+#        Field("stimulus_experiment",
+#              (ExtracellularElectrodeExperiment or IntracellularSharpElectrodeExperiment or PatchClampExperiment, 
+#"electrophysiology.ExtracellularElectrodeExperiment" or "electrophysiology.IntracellularSharpElectrodeExperiment" or #
+#"electrophysiology.PatchClampExperiment"),
+
+        Field("stimulus_experiment",(PatchClampExperiment,  "electrophysiology.PatchClampExperiment"),"activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
