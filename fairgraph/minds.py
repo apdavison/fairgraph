@@ -312,7 +312,6 @@ class Method(MINDSObject):
     """
     docstring
     """
-#    _path = "/core/method/v1.0.0"
     _path = "/experiment/method/v1.0.0"
     type = ["minds:Method"]
     fields = (

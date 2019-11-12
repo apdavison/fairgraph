@@ -331,9 +331,11 @@ class KGObject(with_metaclass(Registry, object)):
 
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus',
+                 scope="released", resolved=False):
         instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
-                                                 deprecated=deprecated, api=api, resolved=resolved)
+                                                 deprecated=deprecated, api=api, scope=scope,
+                                                 resolved=resolved)
         if instance is None:
             return None
         else:
@@ -351,6 +353,13 @@ class KGObject(with_metaclass(Registry, object)):
         uri = cls.uri_from_uuid(uuid, client)
         return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
 
+    @classmethod
+    def from_id(cls, id, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+        if id.startswith("http"):
+            return cls.from_uri(id, client, use_cache, deprecated, api, resolved)
+        else:
+            return cls.from_uuid(id, client, deprecated, api, resolved)
+
     @property
     def uuid(self):
         return self.id.split("/")[-1]
@@ -360,9 +369,13 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, size=size, api=api, scope=scope, resolved=resolved)
+        return client.list(cls, from_index=from_index, size=size, api=api, scope=scope, resolved=resolved)
+
+    @classmethod
+    def count(cls, client, api='nexus', scope="released"):
+        return client.count(cls, api=api, scope=scope)
 
     @property
     def _existence_query(self):
@@ -503,8 +516,8 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, match="equals", all=False, api="nexus", resolved=False):
-        return client.by_name(cls, name, match=match, all=all, api=api, resolved=resolved)
+    def by_name(cls, name, client, match="equals", all=False, api="nexus", scope="released", resolved=False):
+        return client.by_name(cls, name, match=match, all=all, api=api, scope="released", resolved=resolved)
 
     @property
     def rev(self):
@@ -758,6 +771,10 @@ class OntologyTerm(StructuredMetadata):
             return None
         return cls(data["label"], data["@id"])
 
+    @classmethod
+    def terms(cls):
+        return list(cls.iri_map.keys())
+
 
 class KGProxy(object):
     """docstring"""
@@ -778,12 +795,12 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="nexus"):
+    def resolve(self, client, api="nexus", scope="released"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
         else:
-            obj = self.cls.from_uri(self.id, client, api=api)
+            obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
             KGObject.object_cache[self.id] = obj
             return obj
 
@@ -827,7 +844,7 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="nexus"):
+    def resolve(self, client, size=10000, api="nexus", scope="released"):
         objects = []
         for cls in self.classes:
             if api == "nexus":
@@ -843,7 +860,7 @@ class KGQuery(object):
                     query_id=cls.query_id,
                     filter=self.filter,
                     size=size,
-                    scope="inferred")  # tofix
+                    scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)

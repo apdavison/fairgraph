@@ -862,6 +862,7 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
     )
 
+
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
                  holding_potential=None,
                  id=None, instance=None):
@@ -906,6 +907,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith")
     )
+
 
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     namespace = DEFAULT_NAMESPACE

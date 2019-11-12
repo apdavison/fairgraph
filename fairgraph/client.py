@@ -67,6 +67,21 @@ class KGClient(object):
         return [cls.from_kg_instance(instance, self, resolved=resolved)
                 for instance in instances]
 
+    def count(self, cls, api="nexus", scope="released"):
+        """docstring"""
+        if api == "nexus":
+            url = "{}/data/{}?size=1".format(self.nexus_endpoint, cls.path)
+            response = self._nexus_client._http_client.get(url)
+        elif api == "query":
+            if scope not in ("released", "inferred"):
+                # todo - use a more user-friendly term for 'inferred' and map appropriately
+                raise ValueError("'scope' must be either 'released' or 'inferred'")
+            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, scope.upper())
+            response = self._kg_query_client.get(url)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+        return response["total"]
+
     def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         # Nexus API
         if filter:
@@ -122,7 +137,7 @@ class KGClient(object):
         return instances
 
     def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
-                               resolved=False):
+                               scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         if use_cache and uri in self.cache:
@@ -146,9 +161,10 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}/instances?databaseScope=INFERRED&id={}".format(cls.path,
-                                                                          query_id,
-                                                                          uri))
+                    "{}/{}/instances?databaseScope={}&id={}".format(cls.path,
+                                                                    query_id,
+                                                                    scope.upper(),
+                                                                    uri))
                 instance = Instance(cls.path, response["results"][0], Instance.path)
                 self.cache[instance.data["@id"]] = instance
                 logger.debug("Retrieved instance from KG Query" + str(instance.data))
@@ -176,7 +192,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="nexus", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False, api="nexus", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):
@@ -206,10 +222,12 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}{}/instances?databaseScope=INFERRED&name={}".format(cls.path,
-                                                                              query_id,
-                                                                              match == "contains" and "_name_contains" or "",  # workaround
-                                                                              name))
+                    "{}/{}{}/instances?databaseScope={}&name={}".format(
+                        cls.path,
+                        query_id,
+                        match == "contains" and "_name_contains" or "",  # workaround
+                        scope.upper(),
+                        name))
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]
             else:
