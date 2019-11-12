@@ -95,9 +95,11 @@ class MultiChannelMultiTrialRecording(Trace):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
-        Field("generated_by", "electrophysiology.ExtracellularElectrodeExperiment" or  "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
+        #Field("generated_by", "electrophysiology.ExtracellularElectrodeExperiment" or  "electrophysiology.PatchClampExperiment", #"wasGeneratedBy", required=True),
+	Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
 #PatchClampExperiment uses Trace, ExtracellularElectrode uses MultiTrace
-        Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration" or "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+#        Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration" or "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("generation_metadata", "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
         Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
