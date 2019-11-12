@@ -489,7 +489,7 @@ class PatchedCellCollection(KGObject):
 	id=None, 
 	instance=None):
         args = locals()
-        asrgs.pop("self")
+        args.pop("self")
         KGObject.__init__(self, **args)
 
     @property
