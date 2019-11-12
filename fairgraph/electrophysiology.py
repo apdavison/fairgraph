@@ -478,14 +478,14 @@ class PatchedCellCollection(KGObject):
     #recorded_from_class = "PatchedSlice"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("cells", PatchedCell, "hadMember", required=True)
-        #Field("slice", PatchedSlice, "^nsg:hasPart")
+        Field("cells", PatchedCell, "hadMember", required=True),
+        Field("slice", PatchedSlice, "^nsg:hasPart")
     )
 
     def __init__(self, 
 	name, 
 	cells, 
-	#slice=None, 
+	slice=None, 
 	id=None, 
 	instance=None):
         args = locals()
