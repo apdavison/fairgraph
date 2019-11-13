@@ -9,8 +9,7 @@ then use the :meth:`save()` method, e.g.::
 
     result = AnalysisResult(
         name="inter-spike-interval histograms from subject #f2009a33, white-noise stimulation",
-        result_file="isi_f2009a33_wn.txt",
-        derived_from=dataset
+        result_file="isi_f2009a33_wn.txt"
     )
     result.save(client)
 
