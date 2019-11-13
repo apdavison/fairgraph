@@ -1,0 +1,310 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 32,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "e091ae0f7bac95242071b529445f9a54",
+                "http://schema.org/identifier": "cac1bf871f6454bd02b45bc071b84017",
+                "http://schema.org/name": "Ministero della salute, Italy",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/056f7e9b-79e3-45aa-bce3-d860856c2585",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/056f7e9b-79e3-45aa-bce3-d860856c2585",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "a12456ecf3f1cd66f94321687002ac8a",
+                "http://schema.org/identifier": "a5eac269c9859e30debe6ec758d3cf86",
+                "http://schema.org/name": "CEEA-UB (Comit\u00e8 \u00c8tic d'Experimentaci\u00f3 Animal de la Universitat de Barcelona), Spain",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/056f7e9b-79e3-45aa-bce3-d860856c2585/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/056f7e9b-79e3-45aa-bce3-d860856c2585/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/056f7e9b-79e3-45aa-bce3-d860856c2585"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "018fd04e4def02b2d185e4d2154bb7f7",
+                "http://schema.org/identifier": "4966f6155c08d779d9fcea3332808e89",
+                "http://schema.org/name": "Agence Nationale de Securit\u00e9 du M\u00e9dicament",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "d4675db4a90b0ed97791752021ba7bd2",
+                "http://schema.org/identifier": "409a580af0744e8f247dd82277c813d7",
+                "http://schema.org/name": "Local Ethics Committee (Cajal Institute, Spanish Reseach Council), Spain",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/229c8fec-7fc1-41ce-8d18-698130baceea",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/229c8fec-7fc1-41ce-8d18-698130baceea",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "568b26747da8303245ea07f49edc0b2e",
+                "http://schema.org/identifier": "ef5f404da8647875ae0a23ef24a9de72",
+                "http://schema.org/name": "Norwegian animal research authority (NARA), Norway;Massachussetts General Hospital (MGH) Subcommittee of Research Animal Care (SRAC), USA",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/229c8fec-7fc1-41ce-8d18-698130baceea/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/229c8fec-7fc1-41ce-8d18-698130baceea/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/229c8fec-7fc1-41ce-8d18-698130baceea"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "bf456243bf7fb1b4ae50b2f90fd21adb",
+                "http://schema.org/identifier": "9df1e34cc8a56e933202c51777660f8a",
+                "http://schema.org/name": "Comit\u00e9 de Protection des Personnes Ile-de-France VII",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/424aac47-07bd-4a53-bb06-8ebe1bd89d11",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/424aac47-07bd-4a53-bb06-8ebe1bd89d11",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "301e7a84035dba253a26990f16550227",
+                "http://schema.org/identifier": "e95452b72ecba7c6e9799e67c9ca2c51",
+                "http://schema.org/name": "Medical Ethical Committee of the VU University Medical Centre",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/424aac47-07bd-4a53-bb06-8ebe1bd89d11/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/424aac47-07bd-4a53-bb06-8ebe1bd89d11/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/424aac47-07bd-4a53-bb06-8ebe1bd89d11"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "92727503db409269403dba5383cc64ea",
+                "http://schema.org/identifier": "27dac63411ae26b2197a5df680195948",
+                "http://schema.org/name": "Comit\u00e9 consultatif de Protection des Personnes dans la Recherche (CPPRB)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "ebe766e3b050c89c3ec8e06ad9a4cf76",
+                "http://schema.org/identifier": "b64842983349ad51c5ed872a78cead05",
+                "http://schema.org/name": "Ministry of Health, Italy",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/530c579a-7171-4492-a326-259e412581a0",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/530c579a-7171-4492-a326-259e412581a0",
+                "@type": "https://schema.hbp.eu/minds/Authority",
+                "http://hbp.eu/internal#hashcode": "88b1e7388bd253f6c8cd758701b8b15b",
+                "http://schema.org/identifier": "325316169908ddec6ed4a21545b3e52b",
+                "http://schema.org/name": "Ethics committee at the Heinrich-Heine University D\u00fcsseldorf, Germany",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/530c579a-7171-4492-a326-259e412581a0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/530c579a-7171-4492-a326-259e412581a0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/authority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/530c579a-7171-4492-a326-259e412581a0"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

@@ -1,0 +1,396 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 277,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/identifier": "12f068aea2235d683ae969ee36039c3a",
+                "http://schema.org/name": "code for Eye Movement Simulation @ 00.00.00",
+                "http://schema.org/url": "https://www.nature.com/articles/s41598-017-16093-y",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/0b7e4a9c-9b24-4b8f-8d1d-3b79519f0024",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/010fc359-d05b-4715-8f03-3baa4e5aeaf8",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/010fc359-d05b-4715-8f03-3baa4e5aeaf8",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "Active Models",
+                "http://schema.org/identifier": "6e1c525f0e3e4a2ba79462632ccc5f19",
+                "http://schema.org/name": "grc_kir.mod",
+                "http://schema.org/url": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/Granule_mono_comp/grc_kir.mod",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/71bfbf99-6e2b-41fd-aaa8-b72953035e23",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/010fc359-d05b-4715-8f03-3baa4e5aeaf8/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/010fc359-d05b-4715-8f03-3baa4e5aeaf8/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/010fc359-d05b-4715-8f03-3baa4e5aeaf8"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0153344d-a06b-445f-a57f-1b830acfe786",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0153344d-a06b-445f-a57f-1b830acfe786",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "repaired, corrected and regularized",
+                "http://schema.org/identifier": "a606c7e0a89c1b7417bbdca4e3004095",
+                "http://schema.org/name": "str-msn_d2-20170919-reg15",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Morphology/str-msn_d2-20170919-reg15/",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/8a55685c-9d95-4eeb-8e72-6717d89bb9ea",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0153344d-a06b-445f-a57f-1b830acfe786/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0153344d-a06b-445f-a57f-1b830acfe786/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0153344d-a06b-445f-a57f-1b830acfe786"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/016c04cd-3b25-4181-9ef1-e941993c5cb7",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/016c04cd-3b25-4181-9ef1-e941993c5cb7",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/identifier": "c807d703564eca7b657cf1a258a19b43",
+                "http://schema.org/name": "code for fs_morphologies @ BE110A-rep-cor",
+                "http://schema.org/url": "collab://8123/usecases/models/basal_morphology/fs/BE110A-rep-cor.swc",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/fdd5f4c9-92fb-405e-8ad8-e26784a79cd6",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/016c04cd-3b25-4181-9ef1-e941993c5cb7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/016c04cd-3b25-4181-9ef1-e941993c5cb7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/016c04cd-3b25-4181-9ef1-e941993c5cb7"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0171b917-a039-4842-be4b-56c12ac3565a",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0171b917-a039-4842-be4b-56c12ac3565a",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "Passive Model Release 2016",
+                "http://schema.org/identifier": "9e284f883335182d666ea10c28add62d",
+                "http://schema.org/name": "code for Passive model HL2/3 0603Cell11 @ 1.1",
+                "http://schema.org/url": "https://collab.humanbrainproject.eu/#/collab/528/nav/4671",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/be472f45-0772-4147-803d-8188c9c196b7",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0171b917-a039-4842-be4b-56c12ac3565a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0171b917-a039-4842-be4b-56c12ac3565a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0171b917-a039-4842-be4b-56c12ac3565a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/03c7f35a-cf34-412f-97fa-83f9c049aaa2",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/03c7f35a-cf34-412f-97fa-83f9c049aaa2",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "Active Models",
+                "http://schema.org/identifier": "3560368f449ff0b371c8d52c238830cd",
+                "http://schema.org/name": "GRC_KCA.mod",
+                "http://schema.org/url": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/Granule_multi_comp/GRC_KCA.mod",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/3e8b2f3c-aa83-411a-aeb7-1f21c9e6134a",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/03c7f35a-cf34-412f-97fa-83f9c049aaa2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/03c7f35a-cf34-412f-97fa-83f9c049aaa2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/03c7f35a-cf34-412f-97fa-83f9c049aaa2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0559ee06-92fe-4838-bf4d-48f8b55ac92e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0559ee06-92fe-4838-bf4d-48f8b55ac92e",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/identifier": "fe34ddd2d23a39cc08ecfbd6b05e76e3",
+                "http://schema.org/name": "Migliore_2018_CA1",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/957c161e-6bdb-448b-9b45-5ee0d60b5cd6",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0559ee06-92fe-4838-bf4d-48f8b55ac92e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0559ee06-92fe-4838-bf4d-48f8b55ac92e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/0559ee06-92fe-4838-bf4d-48f8b55ac92e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/067c359f-bb21-4a72-8c21-f63ffd03be89",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/067c359f-bb21-4a72-8c21-f63ffd03be89",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "60d4ab4ee772d5475cde08770dad8491df90255a53bdc5763f98a86b",
+                "http://schema.org/identifier": "ed6b1e6d7602f99c28a249714a4fba62",
+                "http://schema.org/name": "code for Optimized single neuron model MSN D1, cell YJ150915_c6 @ msn_d1_all-6-20170524_hof_0",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Optimisations/str-msn_d1-YJ150915_c6-WT-P270-20-20170524",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/474e69af-063c-401f-9946-6d863bc347c6",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/067c359f-bb21-4a72-8c21-f63ffd03be89/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/067c359f-bb21-4a72-8c21-f63ffd03be89/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/067c359f-bb21-4a72-8c21-f63ffd03be89"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/06a70e91-e9b1-4249-944f-0fc2e5d44955",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/06a70e91-e9b1-4249-944f-0fc2e5d44955",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/identifier": "8c4383c44a591273bf115e292182f0cb",
+                "http://schema.org/name": "code for The Virtual Mouse Brain @ v1",
+                "http://schema.org/url": "http://docs.thevirtualbrain.org/tutorials/Tutorials.html",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/58cb5e75-1c2a-4b1b-8812-0e1b7eeb9a27",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/06a70e91-e9b1-4249-944f-0fc2e5d44955/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/06a70e91-e9b1-4249-944f-0fc2e5d44955/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/06a70e91-e9b1-4249-944f-0fc2e5d44955"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/07e8de19-7b1f-4425-b7b2-5cb73c964f45",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/07e8de19-7b1f-4425-b7b2-5cb73c964f45",
+                "@type": [
+                    "uniminds:FileBundle"
+                ],
+                "http://schema.org/description": "62f9bbfe2a9acf1a93e537828d18e5c87c2a5a6d90813816a95f368b",
+                "http://schema.org/identifier": "e8deb297fe0af7287f518811c9af6fdd",
+                "http://schema.org/name": "code for Optimized single neuron model MSN D2, cell YJ150915_c7 @ msn_d2_all-5-20170517_hof_7",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Optimisations/str-msn_d2-YJ150915_c7-WT-P270-09-20170517/",
+                "https://schema.hbp.eu/uniminds/modelInstance": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/f675cd38-47b6-4bef-bcd4-f4e049bdb5cd",
+                    "@type": [
+                        "uniminds:Modelinstance"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/07e8de19-7b1f-4425-b7b2-5cb73c964f45/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/07e8de19-7b1f-4425-b7b2-5cb73c964f45/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/filebundle/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/07e8de19-7b1f-4425-b7b2-5cb73c964f45"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

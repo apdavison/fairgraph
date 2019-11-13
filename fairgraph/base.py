@@ -249,7 +249,9 @@ class Field(object):
             elif self.types[0] == IRI:
                 return data["@id"]
             elif self.types[0] == int:
-                if isinstance(data, Iterable):
+                if isinstance(data, basestring):
+                    return int(data)
+                elif isinstance(data, Iterable):
                     return [int(item) for item in data]
                 else:
                     return int(data)

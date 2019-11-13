@@ -1,0 +1,346 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 8,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+                    "label": "hippocampus CA1 lacunosum moleculare neuron"
+                },
+                "name": "970428A1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                    "label": "hippocampus CA1 basket cell"
+                },
+                "name": "990111ABHP1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
+                    "label": "hippocampus CA1 ivy neuron"
+                },
+                "name": "960711AHP3",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                    "label": "hippocampus CA1 basket cell"
+                },
+                "name": "990111HP2",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "unknown",
+                    "label": "hippocampus CA1 bistratified cell"
+                },
+                "name": "980513B",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                    "label": "hippocampus CA1 basket cell"
+                },
+                "name": "981215GHP4",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+                    "label": "hippocampus CA1 lacunosum moleculare neuron"
+                },
+                "name": "980205FHP",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86",
+                "@type": [
+                    "nsg:IntraCellularSharpElectrodeRecordedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "unknown",
+                    "label": "hippocampus interneuron BP"
+                },
+                "name": "980120A",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/intrasharprecordedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

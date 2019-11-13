@@ -1,0 +1,563 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 65,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/034a40bf-e071-41df-85aa-e1520cd8ca92",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/034a40bf-e071-41df-85aa-e1520cd8ca92",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "f77d58853cac463f9872032923697312",
+                "http://schema.org/identifier": "f832d42af1ba6064eb0f8b7ce5c0b786",
+                "http://schema.org/name": "GABAergic complex basket formations in the human neocortex",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/3b5e80ba-d4fb-47c6-99d4-f00e67e78c9a"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/959e2417-330a-4b3f-ae00-168972694f7b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d53e633b-16c4-4426-81b8-8bf0c7bdb342"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Blazquez-Llorca, L., Garc\u00eda-Mar\u00edn, V., & DeFelipe, J. (2010). GABAergic complex basket formations in the human neocortex. The Journal of Comparative Neurology, 518(24), 4917\u20134937. ",
+                "https://schema.hbp.eu/minds/doi": "10.1002/cne.22496",
+                "nxv:rev": 36,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/034a40bf-e071-41df-85aa-e1520cd8ca92/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/034a40bf-e071-41df-85aa-e1520cd8ca92/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/034a40bf-e071-41df-85aa-e1520cd8ca92"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "9960e3c1a0dcaffed0d2ddc24331a623",
+                "http://schema.org/identifier": "e5909952a67865ab6babc58553c6ae47",
+                "http://schema.org/name": "The Human Parietal Operculum. II. Stereotaxic Maps and Correlation with Functional Imaging Results",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Eickhoff, S. B., Amunts, K., Mohlberg, H., & Zilles, K. (2005). The Human Parietal Operculum. II. Stereotaxic Maps and Correlation with Functional Imaging Results. Cerebral Cortex, 16(2), 268\u2013279. ",
+                "https://schema.hbp.eu/minds/doi": "10.1093/cercor/bhi106",
+                "nxv:rev": 38,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/0d323998-c68c-4634-a39a-bea7b4171df7",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/0d323998-c68c-4634-a39a-bea7b4171df7",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "a3631da2466309f67510e66d237ac74e",
+                "http://schema.org/identifier": "80bb53c76838237f18d6badfd2a41213",
+                "http://schema.org/name": "The human inferior parietal lobule in stereotaxic space",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/53042082-4177-4256-84a5-0d4a693c48c9"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8a38f341-5b88-4cb2-b8b7-6473a676d892"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/53042082-4177-4256-84a5-0d4a693c48c9"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8a38f341-5b88-4cb2-b8b7-6473a676d892"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/eac78bec-6b4c-4652-bea0-0e927cd558b2"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Caspers, S., Eickhoff, S. B., Geyer, S., Scheperjans, F., Mohlberg, H., Zilles, K., & Amunts, K. (2008). The human inferior parietal lobule in stereotaxic space. Brain Structure and Function, 212(6), 481\u2013495. ",
+                "https://schema.hbp.eu/minds/doi": "10.1007/s00429-008-0195-z",
+                "nxv:rev": 68,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/0d323998-c68c-4634-a39a-bea7b4171df7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/0d323998-c68c-4634-a39a-bea7b4171df7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/0d323998-c68c-4634-a39a-bea7b4171df7"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/10134fd9-cbc3-47ea-9d76-f81d7359d2a8",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/10134fd9-cbc3-47ea-9d76-f81d7359d2a8",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "d1f20c0edbef6c02efe83bac11765ec9",
+                "http://schema.org/identifier": "f3b15167caccd88c96eb20775c3122ec",
+                "http://schema.org/name": "10.1002/hipo.22407; 10.3389/fninf.2011.00002",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": []
+                },
+                "https://schema.hbp.eu/minds/doi": "10.1002/hipo.22407; 10.3389/fninf.2011.00002",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/10134fd9-cbc3-47ea-9d76-f81d7359d2a8/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/10134fd9-cbc3-47ea-9d76-f81d7359d2a8/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/10134fd9-cbc3-47ea-9d76-f81d7359d2a8"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/17fc2c56-1193-4edc-8b24-be3a7c65d098",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/17fc2c56-1193-4edc-8b24-be3a7c65d098",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "3c5fd4264ff0fa456ef803a25bf4badf",
+                "http://schema.org/identifier": "7fc5f49308ba7659bc71b5e34409b793",
+                "http://schema.org/name": "Cytoarchitecture and probability maps of the human medial orbitofrontal cortex",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8b620030-94eb-4e88-9f63-8bf79c9a11f7"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d77176e3-faa9-4c93-8dc0-7f3663c6d2ee"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b4a1f498-d9af-4eab-9df3-315944012d0e"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8e05318b-4e11-454c-a49b-f81e3589dc98"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Henssen, A., Zilles, K., Palomero-Gallagher, N., Schleicher, A., Mohlberg, H., Gerboga, F., \u2026 Amunts, K. (2016). Cytoarchitecture and probability maps of the human medial orbitofrontal cortex. Cortex, 75, 87\u2013112. ",
+                "https://schema.hbp.eu/minds/doi": "10.1016/j.cortex.2015.11.006",
+                "nxv:rev": 40,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/17fc2c56-1193-4edc-8b24-be3a7c65d098/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/17fc2c56-1193-4edc-8b24-be3a7c65d098/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/17fc2c56-1193-4edc-8b24-be3a7c65d098"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/19469f4d-ac33-46ba-a534-9421a658e62d",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/19469f4d-ac33-46ba-a534-9421a658e62d",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "c6fac8549f2501261c698a84a35245cf",
+                "http://schema.org/identifier": "da10416704a2a37452fc76afa6c29a62",
+                "http://schema.org/name": "Cytoarchitectonic mapping of the human brain cerebellar nuclei in stereotaxic space and delineation of their co-activation patterns",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f5087593-7dc5-4f5a-963e-ed8bbe7528d5"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8e05318b-4e11-454c-a49b-f81e3589dc98"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/e4314d3a-cf47-4f5e-99d2-1f2c3f9d804b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Tellmann, S., Bludau, S., Eickhoff, S., Mohlberg, H., Minnerop, M., & Amunts, K. (2015). Cytoarchitectonic mapping of the human brain cerebellar nuclei in stereotaxic space and delineation of their co-activation patterns. Frontiers in Neuroanatomy, 09. ",
+                "https://schema.hbp.eu/minds/doi": "10.3389/fnana.2015.00054",
+                "nxv:rev": 39,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/19469f4d-ac33-46ba-a534-9421a658e62d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/19469f4d-ac33-46ba-a534-9421a658e62d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/19469f4d-ac33-46ba-a534-9421a658e62d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "896928aed239fbffc546bfb0857f9580",
+                "http://schema.org/identifier": "bcea3b6dc5a09972cddccba3fb1836ef",
+                "http://schema.org/name": "Workflow and Atlas System for Brain-Wide Mapping of Axonal Connectivity in Rat",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/673446c4-d4e1-44d8-84ec-80b99e08ccac"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/96edaf99-0e16-49e4-b102-d801bd7f8d0d"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/a1cb1a1f-2634-4e81-b97f-303fd55efc13"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/5271206e-7dcd-4081-a49a-bc5f147028ce"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Zakiewicz, I. M., van Dongen, Y. C., Leergaard, T. B., & Bjaalie, J. G. (2011). Workflow and Atlas System for Brain-Wide Mapping of Axonal Connectivity in Rat. PLoS ONE, 6(8), e22669. ",
+                "https://schema.hbp.eu/minds/doi": "10.1371/journal.pone.0022669\u200b",
+                "nxv:rev": 7,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1d5d5dc2-872a-484c-b632-6bfb85170445",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1d5d5dc2-872a-484c-b632-6bfb85170445",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "7a904e94c7f5d387e4841a36caed82cf",
+                "http://schema.org/identifier": "e837e373e8f8f1785ce4a4f235a3225a",
+                "http://schema.org/name": "Observer-Independent Cytoarchitectonic Mapping of the Human Superior Parietal Cortex",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/eac78bec-6b4c-4652-bea0-0e927cd558b2"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/58065272-f536-4e39-90e5-77f7bf034e0c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Scheperjans, F., Hermann, K., Eickhoff, S. B., Amunts, K., Schleicher, A., & Zilles, K. (2007). Observer-Independent Cytoarchitectonic Mapping of the Human Superior Parietal Cortex. Cerebral Cortex, 18(4), 846\u2013867. ",
+                "https://schema.hbp.eu/minds/doi": "10.1093/cercor/bhm116",
+                "nxv:rev": 53,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1d5d5dc2-872a-484c-b632-6bfb85170445/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1d5d5dc2-872a-484c-b632-6bfb85170445/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1d5d5dc2-872a-484c-b632-6bfb85170445"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/26f23fae-f0ac-491c-a008-8b7e0cd7f350",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/26f23fae-f0ac-491c-a008-8b7e0cd7f350",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "a164db2fd149c808dd1c7ac60d744244",
+                "http://schema.org/identifier": "d3e96b22dd90e0927cbd22c500dee86e",
+                "http://schema.org/name": "Long-Distance Amplitude Correlations in the High Gamma Band Reveal Segregation and Integration within the Reading Network",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0682a2ae-b07c-493c-b065-6a6bf58edeac"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/5e70d458-3cdb-4d78-a98e-8521e519014a"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/87945b85-1634-490f-b29b-c2846f6f7d43"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/a59c337a-572c-4ef2-8171-8d09a26515bc"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bd70083d-02d7-4364-809d-dd9a474b712d"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/dc2a1425-bd1b-4efa-a817-accbb82e78af"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f6dfa049-6746-4df6-9c28-5f16c7d5049c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9e24c45e-861b-4802-9f10-b86e763baea8"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/cbeda0ff-7839-48f2-8587-8f12ee5ab6c9"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Vidal, J. R., Freyermuth, S., Jerbi, K., Hamame, C. M., Ossandon, T., Bertrand, O., \u2026 Lachaux, J.-P. (2012). Long-Distance Amplitude Correlations in the High Gamma Band Reveal Segregation and Integration within the Reading Network. Journal of Neuroscience, 32(19), 6421\u20136434. ",
+                "https://schema.hbp.eu/minds/doi": "10.1523/JNEUROSCI.4363-11.2012",
+                "nxv:rev": 33,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/26f23fae-f0ac-491c-a008-8b7e0cd7f350/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/26f23fae-f0ac-491c-a008-8b7e0cd7f350/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/26f23fae-f0ac-491c-a008-8b7e0cd7f350"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/2e34b38a-af86-41e8-8012-951857a44253",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/2e34b38a-af86-41e8-8012-951857a44253",
+                "@type": "https://schema.hbp.eu/minds/Publication",
+                "http://hbp.eu/internal#hashcode": "9e60e64ee9118a178d316da97a959be4",
+                "http://schema.org/identifier": "c80c8c79f5c398c2b95031c099bff13c",
+                "http://schema.org/name": "Anatomical correlations of the international 10\u201320 sensor placement system in infants",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/authors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/68f88e88-a984-4183-8b6c-d052ebc11271"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/29c6c2a4-0a54-46b6-abc7-95f54c409baf"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/328d488a-9cc5-44a6-be65-9901e6947c3f"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/19a56490-cf87-4c83-90bc-3fce63572b5b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/10f7b3c6-36a7-4664-9a79-04543b339fa1"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/cite": "Kabdebon, C., Leroy, F., Simmonet, H., Perrot, M., Dubois, J., & Dehaene-Lambertz, G. (2014). Anatomical correlations of the international 10\u201320 sensor placement system in infants. NeuroImage, 99, 342\u2013356. ",
+                "https://schema.hbp.eu/minds/doi": "10.1016/j.neuroimage.2014.05.046",
+                "nxv:rev": 33,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/2e34b38a-af86-41e8-8012-951857a44253/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/2e34b38a-af86-41e8-8012-951857a44253/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/2e34b38a-af86-41e8-8012-951857a44253"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

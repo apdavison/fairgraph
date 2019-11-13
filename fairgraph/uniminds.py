@@ -249,7 +249,7 @@ class FileBundle(UnimindsObject):
     A collection of files (e.g. in a folder or directory structure)
     """
     _path = "/core/filebundle/v1.0.0"
-    type = ["uniminds:Filebundle"]
+    type = ["uniminds:FileBundle"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
@@ -658,6 +658,7 @@ def list_kg_classes():
     classes = [obj for name, obj in inspect.getmembers(sys.modules[__name__])
                if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
     classes.remove(UnimindsObject)
+    classes.remove(UnimindsOption)
     return classes
 
 

@@ -1,0 +1,338 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 8,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 990111ABHP1",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 980205FHP",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 980120A",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 990111HP2",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 980513B",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 970428A1",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 960711AHP3",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Recording with step-current stimuli in 981215GHP4",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://www.FIXME.org/ephys_stimuli/0000001",
+                        "label": "Step current"
+                    }
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9",
+                    "@type": [
+                        "nsg:IntraCellularSharpElectrodeRecordedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/?fields=all&size=10&deprecated=False"
+    }
+}

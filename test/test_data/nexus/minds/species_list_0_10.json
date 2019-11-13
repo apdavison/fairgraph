@@ -1,0 +1,340 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 12,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/059bca41-2361-4365-b387-ec3a71fcec69",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/059bca41-2361-4365-b387-ec3a71fcec69",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "a1d02498c5088481c979fe44d6701cf1",
+                "http://schema.org/identifier": [
+                    "5e007bd4445cd1e21e5a98af58193ae2",
+                    "a353a85461a0725ecf86f8b049d05c4d"
+                ],
+                "http://schema.org/name": "Callithrix jacchus",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/059bca41-2361-4365-b387-ec3a71fcec69/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/059bca41-2361-4365-b387-ec3a71fcec69/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/059bca41-2361-4365-b387-ec3a71fcec69"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0a8d5c9b-d6b7-43b3-870c-38104b4cbaac",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0a8d5c9b-d6b7-43b3-870c-38104b4cbaac",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "5849ffcbc59bd3a42a216a51cee091ef",
+                "http://schema.org/identifier": [
+                    "355b50ae727a0ca79f36e6eb81e117bb",
+                    "d4508c7316b49aa2ce5406e60f86e0ab"
+                ],
+                "http://schema.org/name": "Mammalia",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0a8d5c9b-d6b7-43b3-870c-38104b4cbaac/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0a8d5c9b-d6b7-43b3-870c-38104b4cbaac/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0a8d5c9b-d6b7-43b3-870c-38104b4cbaac"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "3ad117d7738df9759e50e04193421ec4",
+                "http://schema.org/identifier": [
+                    "706b858b4ca9d9312c861003b8d0ee74",
+                    "f949ca37984638c76c0964558a40b7aa"
+                ],
+                "http://schema.org/name": "Homo sapiens",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/3f75b0ad-dbcd-464e-b614-499a1b9ae86b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/3f75b0ad-dbcd-464e-b614-499a1b9ae86b",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "f17a610a5d66d26b1a2dd106db549805",
+                "http://schema.org/identifier": [
+                    "04b4f823aedd5190523916182b47d4c7",
+                    "b427cf325c5aecd3cb19c194c17e00e5"
+                ],
+                "http://schema.org/name": "Primates",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/3f75b0ad-dbcd-464e-b614-499a1b9ae86b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/3f75b0ad-dbcd-464e-b614-499a1b9ae86b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/3f75b0ad-dbcd-464e-b614-499a1b9ae86b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/745712aa-fad1-47c4-8ab6-088063f78f64",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/745712aa-fad1-47c4-8ab6-088063f78f64",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "b7ce2873d6e47c72633db912a7cc04bd",
+                "http://schema.org/identifier": [
+                    "b7f1facd14121c89cbf17df432a3cec5",
+                    "3dcfc0130e75859d4bb3efee88a1825f"
+                ],
+                "http://schema.org/name": "Macaca mulatta",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/745712aa-fad1-47c4-8ab6-088063f78f64/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/745712aa-fad1-47c4-8ab6-088063f78f64/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/745712aa-fad1-47c4-8ab6-088063f78f64"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/80f0fa52-01b3-4dfe-9c67-542f64bbf512",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/80f0fa52-01b3-4dfe-9c67-542f64bbf512",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "c937c82efd94bd373b32530d891f932e",
+                "http://schema.org/identifier": [
+                    "4bb45d84c164a541a79c4bceabd65a2d",
+                    "e543cbd7607df5bf37502989fedc30f5"
+                ],
+                "http://schema.org/name": "Monodelphis domestica",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/80f0fa52-01b3-4dfe-9c67-542f64bbf512/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/80f0fa52-01b3-4dfe-9c67-542f64bbf512/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/80f0fa52-01b3-4dfe-9c67-542f64bbf512"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8cd62f75-6626-4ea5-bb97-7c2e6fddcd43",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8cd62f75-6626-4ea5-bb97-7c2e6fddcd43",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "63216fe7c5122145a595287a496e46ee",
+                "http://schema.org/identifier": [
+                    "284102bab98018f5a290732c6261e203",
+                    "0f4a6ca210d4de06c6da584ab17e5f95"
+                ],
+                "http://schema.org/name": "Rodentia",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8cd62f75-6626-4ea5-bb97-7c2e6fddcd43/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8cd62f75-6626-4ea5-bb97-7c2e6fddcd43/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8cd62f75-6626-4ea5-bb97-7c2e6fddcd43"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8daa3c03-a620-4910-a45d-ffa06d81032a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8daa3c03-a620-4910-a45d-ffa06d81032a",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "20ebf46b2d8af3edcd4e5956fb5f0d2e",
+                "http://schema.org/identifier": [
+                    "386e3ec6cecc26ad1de7ee83f830ba1b",
+                    "88183b946cc5f0e8c96b2e66e1c74a7e"
+                ],
+                "http://schema.org/name": "<Unknown>",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8daa3c03-a620-4910-a45d-ffa06d81032a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8daa3c03-a620-4910-a45d-ffa06d81032a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/8daa3c03-a620-4910-a45d-ffa06d81032a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/bf6b0cf2-d2ed-4013-89de-546d9584c51a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/bf6b0cf2-d2ed-4013-89de-546d9584c51a",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "ec2bcdde6d540c2b289c6dc4437cc60f",
+                "http://schema.org/identifier": [
+                    "357cdd2b6adeb29ca7c369dcee7d6b93",
+                    "407fc351d6264f3564bbf0d9eeb64cb2"
+                ],
+                "http://schema.org/name": "Didelphimorphia",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/bf6b0cf2-d2ed-4013-89de-546d9584c51a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/bf6b0cf2-d2ed-4013-89de-546d9584c51a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/bf6b0cf2-d2ed-4013-89de-546d9584c51a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/c541401b-69f4-4809-b6eb-82594fc90551",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/c541401b-69f4-4809-b6eb-82594fc90551",
+                "@type": "https://schema.hbp.eu/minds/Species",
+                "http://hbp.eu/internal#hashcode": "ee1ae2b66bdc49c965898c26ee58a99f",
+                "http://schema.org/identifier": [
+                    "f6cc08a79d76caeeac8114178fc757ff",
+                    "e8b97f9460d74fca2c8f1d425b51df3e"
+                ],
+                "http://schema.org/name": "Macaca fascicularis",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/c541401b-69f4-4809-b6eb-82594fc90551/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/c541401b-69f4-4809-b6eb-82594fc90551/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/species/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/c541401b-69f4-4809-b6eb-82594fc90551"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

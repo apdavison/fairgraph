@@ -1,0 +1,461 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 538,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/003dda7f-2a2e-4947-9988-841f3bc2029e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/003dda7f-2a2e-4947-9988-841f3bc2029e",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "ca8a2423d4a4c250be7d66476ad84a26",
+                "http://schema.org/identifier": "fe68b9dfa7db8afb57b8c67a8d69022f",
+                "http://schema.org/name": "archi-sub-056",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "28 Years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/003dda7f-2a2e-4947-9988-841f3bc2029e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/003dda7f-2a2e-4947-9988-841f3bc2029e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/003dda7f-2a2e-4947-9988-841f3bc2029e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0054918c-2573-4ab1-9056-9a8fe021ac0c",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0054918c-2573-4ab1-9056-9a8fe021ac0c",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "f1bc10681059a4de0ec46cdf9392f340",
+                "http://schema.org/identifier": "87949eff93a7376feea6bf6815c3b8fa",
+                "http://schema.org/name": "IV4r",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "18-24 days old",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/fb8e7444-5d7d-4cbb-aa5e-fd2b0f77351f"
+                },
+                "https://schema.hbp.eu/minds/genotype": "Wild type",
+                "https://schema.hbp.eu/minds/samples": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/e98fd220-23ab-4f41-b6f4-530cd8ac9397"
+                },
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/f3490d7f-8f7f-4b40-b238-963dcac84412"
+                },
+                "https://schema.hbp.eu/minds/strains": "Wistar",
+                "https://schema.hbp.eu/minds/weight": "40 - 50 gram",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0054918c-2573-4ab1-9056-9a8fe021ac0c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0054918c-2573-4ab1-9056-9a8fe021ac0c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0054918c-2573-4ab1-9056-9a8fe021ac0c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/00de3724-ba33-4dcc-82f4-36e5166a4334",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/00de3724-ba33-4dcc-82f4-36e5166a4334",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "e5195ee6738751ac1f4134feb93b45f2",
+                "http://schema.org/identifier": "4e470d9f6f83e4fcb8423864009f5e9e",
+                "http://schema.org/name": "Gre_2015_BESd",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "unknown years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/00de3724-ba33-4dcc-82f4-36e5166a4334/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/00de3724-ba33-4dcc-82f4-36e5166a4334/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/00de3724-ba33-4dcc-82f4-36e5166a4334"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01250dd7-ec9e-4955-99cd-a873fafda05d",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01250dd7-ec9e-4955-99cd-a873fafda05d",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "a09be644f3c887bfaf2cbfc0bde18972",
+                "http://schema.org/identifier": "505edad253cce9152f5c5db96ef1772c",
+                "http://schema.org/name": "archi-sub-079",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "20 Years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01250dd7-ec9e-4955-99cd-a873fafda05d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01250dd7-ec9e-4955-99cd-a873fafda05d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01250dd7-ec9e-4955-99cd-a873fafda05d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01508510-849c-46ce-a257-a1edd55488a8",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01508510-849c-46ce-a257-a1edd55488a8",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "880dc0ed372fd118909ca9fea0404c85",
+                "http://schema.org/identifier": "b5632afe96e95498fd89449c790048a1",
+                "http://schema.org/name": "Ibc-sub-08",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "36.5 Years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01508510-849c-46ce-a257-a1edd55488a8/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01508510-849c-46ce-a257-a1edd55488a8/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/01508510-849c-46ce-a257-a1edd55488a8"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0183c0d9-6e63-4d98-82a0-84ad5bfe4ded",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0183c0d9-6e63-4d98-82a0-84ad5bfe4ded",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "8fa540d5a2ea37d3501eeaf2b4c06867",
+                "http://schema.org/identifier": "6e3165e38547da5bdb0ec9177de0951c",
+                "http://schema.org/name": "s150616",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "47 days",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/fb8e7444-5d7d-4cbb-aa5e-fd2b0f77351f"
+                },
+                "https://schema.hbp.eu/minds/samples": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/c304b7be-d0b2-4df5-8fa4-8b7ec1cd5f63"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/64670c0d-ea12-4e87-98a8-83d3b5479f73"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/cd3b011c-ccb9-4e88-99f5-7f0d6f92d792"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/71b05d58-f0c2-4108-a4ae-d646f7af25a8"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/77e3ccaf-55cf-4c86-aed3-a3b118300bef"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/cfc1656c-67d1-4d2c-a17e-efd7ce0df88c"
+                },
+                "https://schema.hbp.eu/minds/strains": "C57Bl/6J",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0183c0d9-6e63-4d98-82a0-84ad5bfe4ded/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0183c0d9-6e63-4d98-82a0-84ad5bfe4ded/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/0183c0d9-6e63-4d98-82a0-84ad5bfe4ded"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02804a24-16f4-49fb-b6f7-d1bcd21cc69a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02804a24-16f4-49fb-b6f7-d1bcd21cc69a",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "24077b174bd389b646248380954d030c",
+                "http://schema.org/identifier": "ce65578cc02d24d98ff47fe43bd1581e",
+                "http://schema.org/name": "3292",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "37 week",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/samples": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/516983b0-d489-4363-be05-77c427107f2d"
+                },
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/cfc1656c-67d1-4d2c-a17e-efd7ce0df88c"
+                },
+                "https://schema.hbp.eu/minds/strains": "FVB-Tg(Pcp2-tTA)3Horr/J",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02804a24-16f4-49fb-b6f7-d1bcd21cc69a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02804a24-16f4-49fb-b6f7-d1bcd21cc69a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02804a24-16f4-49fb-b6f7-d1bcd21cc69a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02893128-2145-41d9-914b-081a3166cde1",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02893128-2145-41d9-914b-081a3166cde1",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "10020e101b3524e1886c4ee54de3e43e",
+                "http://schema.org/identifier": "1fceb9b6b2fae25cf5b9f55e13ced01b",
+                "http://schema.org/name": "LYONNEURO_2015_SCAl",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "31 years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02893128-2145-41d9-914b-081a3166cde1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02893128-2145-41d9-914b-081a3166cde1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/02893128-2145-41d9-914b-081a3166cde1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/03a85da4-02de-4e94-aa6a-067d96ae08c2",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/03a85da4-02de-4e94-aa6a-067d96ae08c2",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "feef30ad20d8fef5fb1c27015ffa87ae",
+                "http://schema.org/identifier": "9ca67c1926c6b8d134e30b6701d3aff0",
+                "http://schema.org/name": "jubrain-sub-01",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "79 year",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/5e549c51-6ea5-4ec5-88e1-787710eba630"
+                },
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/03a85da4-02de-4e94-aa6a-067d96ae08c2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/03a85da4-02de-4e94-aa6a-067d96ae08c2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/03a85da4-02de-4e94-aa6a-067d96ae08c2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/059112c0-31c6-43c0-8f11-23c91b7728a1",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/059112c0-31c6-43c0-8f11-23c91b7728a1",
+                "@type": "https://schema.hbp.eu/minds/Subject",
+                "http://hbp.eu/internal#hashcode": "11463565ea0a647b2c811f6c15bc1bbf",
+                "http://schema.org/identifier": "d9f41f60455b1a41333c57fe64e8d0fa",
+                "http://schema.org/name": "Ibc-sub-04",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/age": "26.9 Years",
+                "https://schema.hbp.eu/minds/age_category": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/agecategory/v1.0.0/97eaac65-ec72-4435-9e20-5b2308076060"
+                },
+                "https://schema.hbp.eu/minds/causeOfDeath": "not applicable",
+                "https://schema.hbp.eu/minds/samples": [],
+                "https://schema.hbp.eu/minds/sex": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c"
+                },
+                "https://schema.hbp.eu/minds/species": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/species/v1.0.0/0ea4e6ba-2681-4f7d-9fa9-49b915caaac9"
+                },
+                "https://schema.hbp.eu/minds/strains": [],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/059112c0-31c6-43c0-8f11-23c91b7728a1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/059112c0-31c6-43c0-8f11-23c91b7728a1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/subject/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/059112c0-31c6-43c0-8f11-23c91b7728a1"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/subject/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

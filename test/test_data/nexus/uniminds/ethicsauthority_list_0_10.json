@@ -1,0 +1,220 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 35,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "2f5872d5-8727-462d-baa0-7eaa356e075c301598",
+                "http://schema.org/name": "National Food Chain Safety Office (NFCSO), Hungary",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/2f5872d5-8727-462d-baa0-7eaa356e075c"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/04c80a94-cb19-46bf-a7a7-f5df244537f1",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/04c80a94-cb19-46bf-a7a7-f5df244537f1",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "27dac63411ae26b2197a5df680195948",
+                "http://schema.org/name": "Comit\u00e9 consultatif de Protection des Personnes dans la Recherche (CPPRB)",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4378e9f6-6798-44ef-a2fe-4f039c082fb4"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/04c80a94-cb19-46bf-a7a7-f5df244537f1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/04c80a94-cb19-46bf-a7a7-f5df244537f1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/04c80a94-cb19-46bf-a7a7-f5df244537f1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "409a580af0744e8f247dd82277c813d7",
+                "http://schema.org/name": "Local Ethics Committee (Cajal Institute, Spanish Reseach Council), Spain",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/20da4cad-20fa-4272-a6de-ff6bedc58794"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "d6a4f71b15e17394ed0fd1bb76020cca",
+                "http://schema.org/name": "CPP Ile-de- France VII / CHU de Bic\u00eatre / 78 rue du G\u00e9n\u00e9ral Leclerc \u2013 94275 LE KREMLIN BICETRE CEDEX",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/9a1dadc8-c5f5-4814-9850-bd976c7bc56c"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0bd735bb-8bce-4fca-93c1-8d386650326a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0bd735bb-8bce-4fca-93c1-8d386650326a",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "bac6b91353564ab48384686f9366ac03",
+                "http://schema.org/name": "Italian Ministry of Health, Italy",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/792c5aaf-8d89-44cf-bd79-6d3874c0b5f6"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0bd735bb-8bce-4fca-93c1-8d386650326a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0bd735bb-8bce-4fca-93c1-8d386650326a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0bd735bb-8bce-4fca-93c1-8d386650326a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/10c3443e-1f37-4c2e-8136-3783bc660f8b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/10c3443e-1f37-4c2e-8136-3783bc660f8b",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "2b10085b5db31b92493ca63802b03f48",
+                "http://schema.org/name": "Norwegian animal research authority (NARA), Norway",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/c32b9d3f-e92d-4d8d-b481-8146a4cfcd99"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/10c3443e-1f37-4c2e-8136-3783bc660f8b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/10c3443e-1f37-4c2e-8136-3783bc660f8b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/10c3443e-1f37-4c2e-8136-3783bc660f8b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "4966f6155c08d779d9fcea3332808e89",
+                "http://schema.org/name": "Agence Nationale de Securit\u00e9 du M\u00e9dicament",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "b64842983349ad51c5ed872a78cead05",
+                "http://schema.org/name": "Ministry of Health, Italy",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/2f258342-7918-41bf-b463-f947ea3de3cd",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/2f258342-7918-41bf-b463-f947ea3de3cd",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "c335a0b785b175da73989479a74fab1a",
+                "http://schema.org/name": "Italian Ministry of Health",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/65ae315f-98cc-4aa5-91b9-b14d66ff6632"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/2f258342-7918-41bf-b463-f947ea3de3cd/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/2f258342-7918-41bf-b463-f947ea3de3cd/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/2f258342-7918-41bf-b463-f947ea3de3cd"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/336ddd3c-7e19-4e03-aaea-353b0eebb97d",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/336ddd3c-7e19-4e03-aaea-353b0eebb97d",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsauthority",
+                "http://schema.org/identifier": "cac1bf871f6454bd02b45bc071b84017",
+                "http://schema.org/name": "Ministero della salute, Italy",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/01427c76-3d90-4947-9c16-0afb359dcd4f"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/336ddd3c-7e19-4e03-aaea-353b0eebb97d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/336ddd3c-7e19-4e03-aaea-353b0eebb97d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/ethicsauthority/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/336ddd3c-7e19-4e03-aaea-353b0eebb97d"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

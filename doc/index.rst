@@ -154,8 +154,10 @@ Storing and editing metadata
 For those users who have the necessary permissions to store and edit metadata in the Knowledge Graph,
 **fairgraph** objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.::
 
-   from fairgraph.core import Person, Organization
+   from fairgraph.core import Person, Organization, use_namespace
    from fairgraph.commons import Address
+
+   use_namespace("neuralactivity")
 
    mgm = Organization("Metro-Goldwyn-Mayer")
    mgm.save(client)

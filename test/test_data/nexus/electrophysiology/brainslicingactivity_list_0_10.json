@@ -1,0 +1,904 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 51,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/01867ab6-3c31-455c-a32b-b772390fd35b",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/01867ab6-3c31-455c-a32b-b772390fd35b",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
+                            "label": "lobule 5 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
+                            "label": "lobule 6 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
+                            "label": "lobule 7 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
+                            "label": "lobule 8 of the cerebellar vermis"
+                        }
+                    ]
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 220
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/895f10be-e3e5-43c0-86d9-80ea3b5844a3",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Para-sagittal",
+                "solution": "cold Krebs solution",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/e1bd7fd4-f356-4133-9e8d-961aa2082394",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/61da15a4-878f-40a5-ae2c-eb0925c472a4",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/01867ab6-3c31-455c-a32b-b772390fd35b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/01867ab6-3c31-455c-a32b-b772390fd35b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/01867ab6-3c31-455c-a32b-b772390fd35b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/067be29d-dec1-4e19-aed2-76cf1eb56b7d",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/067be29d-dec1-4e19-aed2-76cf1eb56b7d",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 300
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7125b8fa-3ca9-4654-bd4c-f15133b16d23",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Coronal",
+                "solution": "126 mM choline, 17 mM glucose, 26 mM NaHCO<sub>3</sub>, 2.5 mM KCl, 1.4 mM NaH<sub>2</sub>PO<sub>4</sub>, 7 mM MgCl<sub>2</sub>, and 0.5 mM CaCl<sub>2</sub> (equilibrated with 95% O<sub>2</sub> /5% CO<sub>2</sub>)",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/1f37ba75-1f9e-42ad-a573-321c3ae0ce08",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/067be29d-dec1-4e19-aed2-76cf1eb56b7d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/067be29d-dec1-4e19-aed2-76cf1eb56b7d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/067be29d-dec1-4e19-aed2-76cf1eb56b7d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/0a6f8174-fe6b-4dd5-b9ca-ccc8537ad96e",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/0a6f8174-fe6b-4dd5-b9ca-ccc8537ad96e",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 220
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7c359a61-1bc6-403f-9160-6900aea328f2",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7811f067-df58-4efc-8bde-410e0f15869e",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Para-sagittal",
+                "solution": "cold Krebs solution",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/926e9f99-9482-48dc-8ae7-c208e9a39a8d",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/0a6f8174-fe6b-4dd5-b9ca-ccc8537ad96e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/0a6f8174-fe6b-4dd5-b9ca-ccc8537ad96e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/0a6f8174-fe6b-4dd5-b9ca-ccc8537ad96e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/14dd81d9-2061-4071-bb78-8cb93d6b0a4e",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/14dd81d9-2061-4071-bb78-8cb93d6b0a4e",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 300
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/47217779-c20c-4785-ace8-a8bb5af6aa67",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Coronal",
+                "solution": "126 mM choline, 17 mM glucose, 26 mM NaHCO<sub>3</sub>, 2.5 mM KCl, 1.4 mM NaH<sub>2</sub>PO<sub>4</sub>, 7 mM MgCl<sub>2</sub>, and 0.5 mM CaCl<sub>2</sub> (equilibrated with 95% O<sub>2</sub> /5% CO<sub>2</sub>)",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/1b55fe54-8827-4e2f-b979-76467836ea6c",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/2923d7cd-795e-47c3-ae62-b7422c04526d",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/14dd81d9-2061-4071-bb78-8cb93d6b0a4e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/14dd81d9-2061-4071-bb78-8cb93d6b0a4e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/14dd81d9-2061-4071-bb78-8cb93d6b0a4e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/1d0cdcb2-b97c-40e9-ade7-23602deb7fd5",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/1d0cdcb2-b97c-40e9-ade7-23602deb7fd5",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 450
+                },
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02f1c738-78e8-4324-9742-fa5291d3d39d",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "slicingPlane": "Coronal",
+                "solution": "248 mM sucrose, 25.5 mM NaHCO<sub>3</sub>, 3.3 mM KCl, 1.2 mM KH<sub>2</sub>PO<sub>4</sub>, 1 mM MgSO<sub>4</sub>, 2.5 mM CaCl<sub>2</sub> , and 15 mM D-glucose, equilibriated with 95% O<sub>2</sub> /5% CO<sub>2</sub>",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/ac214d21-a148-493c-938d-d18cc299b722",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9",
+                    "@type": [
+                        "nsg:Person",
+                        "prov:Agent"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/1d0cdcb2-b97c-40e9-ade7-23602deb7fd5/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/1d0cdcb2-b97c-40e9-ade7-23602deb7fd5/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/1d0cdcb2-b97c-40e9-ade7-23602deb7fd5"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/23b7d32a-cea6-4ce0-87bc-c6bf1a0f9dbc",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/23b7d32a-cea6-4ce0-87bc-c6bf1a0f9dbc",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 220
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/a35ee46b-5480-46ef-885e-7e90b7ba0b3a",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/557cfa2a-fa68-47de-a028-eaea6f77c4e7",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/82e4c602-2798-4e09-882b-01bb4f90a655",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/14710aff-07d0-4669-a7f8-ff0d74dcbfac",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/b2811580-dfd8-4d9a-896e-74f7bb7274fb",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Para-sagittal",
+                "solution": "cold Krebs solution",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/d6ef93f7-aac6-49c3-8ee5-ee2168779855",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/61da15a4-878f-40a5-ae2c-eb0925c472a4",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/23b7d32a-cea6-4ce0-87bc-c6bf1a0f9dbc/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/23b7d32a-cea6-4ce0-87bc-c6bf1a0f9dbc/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/23b7d32a-cea6-4ce0-87bc-c6bf1a0f9dbc"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
+                            "label": "lobule 5 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
+                            "label": "lobule 6 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
+                            "label": "lobule 7 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
+                            "label": "lobule 8 of the cerebellar vermis"
+                        }
+                    ]
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 220
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e7e9b25c-756d-4a2f-ba1b-19cd7d4479fc",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Para-sagittal",
+                "solution": "cold Krebs solution",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/961d9d5e-21f2-4b26-9adb-142ad9798f98",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/61da15a4-878f-40a5-ae2c-eb0925c472a4",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/337951a7-22e9-4f12-acdc-1cd1adcc02c1",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/337951a7-22e9-4f12-acdc-1cd1adcc02c1",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 450
+                },
+                "generated": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/9c8ae846-13d5-48f2-81fe-e15ecdb29b99",
+                    "@type": [
+                        "nsg:Slice",
+                        "prov:Entity"
+                    ]
+                },
+                "slicingPlane": "Coronal",
+                "solution": "248 mM sucrose, 25.5 mM NaHCO<sub>3</sub>, 3.3 mM KCl, 1.2 mM KH<sub>2</sub>PO<sub>4</sub>, 1 mM MgSO<sub>4</sub>, 2.5 mM CaCl<sub>2</sub> , and 15 mM D-glucose, equilibriated with 95% O<sub>2</sub> /5% CO<sub>2</sub>",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/a91c70aa-4ca9-4e19-8b0d-37642a92b8e9",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9",
+                    "@type": [
+                        "nsg:Person",
+                        "prov:Agent"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/337951a7-22e9-4f12-acdc-1cd1adcc02c1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/337951a7-22e9-4f12-acdc-1cd1adcc02c1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/337951a7-22e9-4f12-acdc-1cd1adcc02c1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 300
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/63dcdb8a-ef32-48f3-9e45-3808a8941c1f",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Coronal",
+                "solution": "126 mM choline, 17 mM glucose, 26 mM NaHCO<sub>3</sub>, 2.5 mM KCl, 1.4 mM NaH<sub>2</sub>PO<sub>4</sub>, 7 mM MgCl<sub>2</sub>, and 0.5 mM CaCl<sub>2</sub> (equilibrated with 95% O<sub>2</sub> /5% CO<sub>2</sub>)",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/e51dc8cb-b968-4aca-904d-c07abe5dea20",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/3a06d7dd-02ad-47df-bb14-46d3801250d4",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "cuttingThickness": "nsg:cuttingThickness",
+                    "generated": "prov:generated",
+                    "label": "rdfs:label",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "slicingAngle": "nsg:slicingAngle",
+                    "slicingPlane": "nsg:slicingPlane",
+                    "solution": "nsg:solution",
+                    "startedAtTime": "prov:startedAtTime",
+                    "unitCode": "schema:unitCode",
+                    "used": "prov:used",
+                    "value": "schema:value",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/3a06d7dd-02ad-47df-bb14-46d3801250d4",
+                "@type": [
+                    "nsg:BrainSlicing",
+                    "prov:Activity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "cuttingThickness": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "\u00b5m",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                    },
+                    "value": 220
+                },
+                "generated": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/37f9254f-19ab-44eb-b63d-abcb97b7b213",
+                        "@type": [
+                            "nsg:Slice",
+                            "prov:Entity"
+                        ]
+                    }
+                ],
+                "slicingPlane": "Para-sagittal",
+                "solution": "cold Krebs solution",
+                "used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/d2999a3b-3c9a-4b63-8372-ec1047600f2d",
+                    "@type": [
+                        "nsg:Subject",
+                        "prov:Entity"
+                    ]
+                },
+                "wasAssociatedWith": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/61da15a4-878f-40a5-ae2c-eb0925c472a4",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/3a06d7dd-02ad-47df-bb14-46d3801250d4/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/3a06d7dd-02ad-47df-bb14-46d3801250d4/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/3a06d7dd-02ad-47df-bb14-46d3801250d4"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}
