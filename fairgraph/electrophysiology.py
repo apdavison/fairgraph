@@ -841,6 +841,70 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
 
+class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/intrasharprecordedcell/v0.1.0"
+    type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
+    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
+    experiment_class = "IntraCellularSharpElectrodeExperiment"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
+              "^prov:hadMember"),
+        Field("cell_type", CellType, "eType", required=False),
+        Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
+              "^prov:used", multiple=True),
+        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
+        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
+        Field("labeling_compound", basestring, "nsg:labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+    )
+
+class IntraCellularSharpElectrodeRecording(PatchClampActivity):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/intrasharpelectrode/v0.1.0"
+    type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
+    generates_class = "IntraCellularSharpElectrodeRecordedSlice"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "used", required=True),
+        Field("recorded_slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
+              "generated", required=True),
+        Field("protocol", basestring, "protocol"),
+        Field("people", Person, "wasAssociatedWith")
+    )
+
+
+class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/intrasharprecordedcellcollection/v0.1.0"
+    type = ["nsg:Collection"]
+    member_class = "IntraCellularSharpElectrodeRecordedCell"
+    recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("cells", IntraCellularSharpElectrodeRecordedCell, "hadMember", required=True),
+        Field("slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
+              "^nsg:hasPart")
+    )
+
+class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/intrasharprecordedslice/v0.1.0"
+    type = ["nsg:IntraCellularSharpElectrodeRecordedSlice", "prov:Entity"]
+    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
+    recording_activity_class = "IntraCellularSharpElectrodeRecording"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("slice", Slice, "wasRevisionOf", required=True),
+        Field("recorded_cells", IntraCellularSharpElectrodeRecordedCellCollection, "hasPart",
+              required=True),
+        Field("recording_activity", IntraCellularSharpElectrodeRecording, "^prov:generated")
+    )
 
 class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """docstring"""
@@ -915,73 +979,6 @@ class QualifiedMultiTraceGeneration(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-
-class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/intrasharprecordedcell/v0.1.0"
-    type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
-    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
-    experiment_class = "IntraCellularSharpElectrodeExperiment"
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
-        Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
-              "^prov:hadMember"),
-        Field("cell_type", CellType, "eType", required=False),
-        Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
-              "^prov:used", multiple=True),
-        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
-        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
-        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
-        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
-        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
-        Field("labeling_compound", basestring, "nsg:labelingCompound"),
-        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
-    )
-
-class IntraCellularSharpElectrodeRecording(PatchClampActivity):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/intrasharpelectrode/v0.1.0"
-    type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
-    generates_class = "IntraCellularSharpElectrodeRecordedSlice"
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("slice", Slice, "used", required=True),
-        Field("recorded_slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
-              "generated", required=True),
-        Field("protocol", basestring, "protocol"),
-        Field("people", Person, "wasAssociatedWith")
-    )
-
-
-class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/intrasharprecordedcellcollection/v0.1.0"
-    type = ["nsg:Collection"]
-    member_class = "IntraCellularSharpElectrodeRecordedCell"
-    recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("cells", IntraCellularSharpElectrodeRecordedCell, "hadMember", required=True),
-        Field("slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
-              "^nsg:hasPart")
-    )
-
-class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/intrasharprecordedslice/v0.1.0"
-    type = ["nsg:IntraCellularSharpElectrodeRecordedSlice", "prov:Entity"]
-    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
-    recording_activity_class = "IntraCellularSharpElectrodeRecording"
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("slice", Slice, "wasRevisionOf", required=True),
-        Field("recorded_cells", IntraCellularSharpElectrodeRecordedCellCollection, "hasPart",
-              required=True),
-        Field("recording_activity", IntraCellularSharpElectrodeRecording, "^prov:generated")
-    )
-
 
 
 def list_kg_classes():
