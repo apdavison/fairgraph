@@ -864,7 +864,8 @@ class QualifiedMultiTraceGeneration(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
-	types = (
+	
+	(
 	(ExtracellularElectrodeExperiment,  "electrophysiology.ExtracellularElectrodeExperiment"),
 	(IntracellularSharpElectrodeExperiment,  "electrophysiology.IntracellularSharpElectrodeExperiment"),
 	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment"))
