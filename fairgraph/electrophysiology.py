@@ -841,28 +841,6 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
 
-class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/intrasharprecordedcell/v0.1.0"
-    type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
-    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
-    experiment_class = "IntraCellularSharpElectrodeExperiment"
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
-        Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
-              "^prov:hadMember"),
-        Field("cell_type", CellType, "eType", required=False),
-        Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
-              "^prov:used", multiple=True),
-        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
-        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
-        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
-        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
-        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
-        Field("labeling_compound", basestring, "nsg:labelingCompound"),
-        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
-    )
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     namespace = DEFAULT_NAMESPACE
@@ -877,7 +855,6 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith")
     )
-
 
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     namespace = DEFAULT_NAMESPACE
@@ -935,6 +912,30 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
         }
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
+
+
+class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/intrasharprecordedcell/v0.1.0"
+    type = ["nsg:IntraCellularSharpElectrodeRecordedCell", "prov:Entity"]
+    collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
+    experiment_class = "IntraCellularSharpElectrodeExperiment"
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
+        Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
+              "^prov:hadMember"),
+        Field("cell_type", CellType, "eType", required=False),
+        Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
+              "^prov:used", multiple=True),
+        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
+        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
+        Field("labeling_compound", basestring, "nsg:labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+    )
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
