@@ -694,7 +694,7 @@ class QualifiedTraceGeneration(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment",
+        Field("stimulus_experiment", 
               (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
               "activity", required=True),
         Field("sweep", int, "sweep", multiple=True, required=True),
@@ -864,9 +864,10 @@ class QualifiedMultiTraceGeneration(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
-	(ExtracellularElectrodeExperiment,  "electrophysiology.ExtracellularElectrodeExperiment") or
-	(IntracellularSharpElectrodeExperiment,  "electrophysiology.IntracellularSharpElectrodeExperiment") or
-	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment")
+	types = (
+	(ExtracellularElectrodeExperiment,  "electrophysiology.ExtracellularElectrodeExperiment"),
+	(IntracellularSharpElectrodeExperiment,  "electrophysiology.IntracellularSharpElectrodeExperiment"),
+	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment"))
 	, "activity", required=True),
 
 
