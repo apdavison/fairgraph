@@ -961,7 +961,7 @@ class QualifiedMultiTraceGeneration(KGObject):
 	
 	(
 	(ExtracellularElectrodeExperiment,  "electrophysiology.ExtracellularElectrodeExperiment"),
-	(IntracellularSharpElectrodeExperiment,  "electrophysiology.IntracellularSharpElectrodeExperiment"),
+	(IntraCellularSharpElectrodeExperiment,  "electrophysiology.IntraCellularSharpElectrodeExperiment"),
 	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment"))
 	, "activity", required=True),
 
