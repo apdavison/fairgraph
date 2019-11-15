@@ -1,0 +1,340 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 521,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/00b4df15-0e45-4696-8e89-4e5d32f00670",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/00b4df15-0e45-4696-8e89-4e5d32f00670",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for msn_d1_all-6-20170524 @ hof_5",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/00b4df15-0e45-4696-8e89-4e5d32f00670/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/00b4df15-0e45-4696-8e89-4e5d32f00670/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/00b4df15-0e45-4696-8e89-4e5d32f00670"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/01442083-43c4-43e0-b289-80dcfba68bda",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/01442083-43c4-43e0-b289-80dcfba68bda",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for msn_d2_morphologies @ L0629-slide-2-section-3-3-rep-ax-cor",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/01442083-43c4-43e0-b289-80dcfba68bda/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/01442083-43c4-43e0-b289-80dcfba68bda/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/01442083-43c4-43e0-b289-80dcfba68bda"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0159ceca-5b56-4e1a-82a6-af99474770f4",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0159ceca-5b56-4e1a-82a6-af99474770f4",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "name": "EModel for CA1_pyr_cACpyr_dend-050921AM2_axon-051208AM2_20170915145830 @ 1.0",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0159ceca-5b56-4e1a-82a6-af99474770f4/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0159ceca-5b56-4e1a-82a6-af99474770f4/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0159ceca-5b56-4e1a-82a6-af99474770f4"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0203e429-811e-4b8e-8939-2c3cd99f3a96",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0203e429-811e-4b8e-8939-2c3cd99f3a96",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for msn_d2_morphologies @ L0621-slide-1-section-4-1-rep-ax-cor",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0203e429-811e-4b8e-8939-2c3cd99f3a96/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0203e429-811e-4b8e-8939-2c3cd99f3a96/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0203e429-811e-4b8e-8939-2c3cd99f3a96"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0270c36d-4ddb-41ee-8359-ddfaed746937",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0270c36d-4ddb-41ee-8359-ddfaed746937",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for msn_d2_morphologies @ bg0123a-rep-ax-cor",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0270c36d-4ddb-41ee-8359-ddfaed746937/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0270c36d-4ddb-41ee-8359-ddfaed746937/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/0270c36d-4ddb-41ee-8359-ddfaed746937"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02ead4ff-53fc-435d-b0d9-53e4ebac390e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02ead4ff-53fc-435d-b0d9-53e4ebac390e",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002037",
+                    "label": "cerebellum"
+                },
+                "name": "EModel for Single granule cell model - rat @ Masoli et al., 2017",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02ead4ff-53fc-435d-b0d9-53e4ebac390e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02ead4ff-53fc-435d-b0d9-53e4ebac390e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02ead4ff-53fc-435d-b0d9-53e4ebac390e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02f6e0f8-6d3a-4520-949c-090097fd2fe2",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02f6e0f8-6d3a-4520-949c-090097fd2fe2",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "name": "EModel for CA1_int_cNAC_010710HP2 @ 20170209135322",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02f6e0f8-6d3a-4520-949c-090097fd2fe2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02f6e0f8-6d3a-4520-949c-090097fd2fe2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/02f6e0f8-6d3a-4520-949c-090097fd2fe2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03561bee-9cd0-4f20-b04a-e3be8c91f88e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03561bee-9cd0-4f20-b04a-e3be8c91f88e",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for msn_d2_all-5-20170517 @ msn_d2_all-5-20170517_hof_2",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03561bee-9cd0-4f20-b04a-e3be8c91f88e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03561bee-9cd0-4f20-b04a-e3be8c91f88e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03561bee-9cd0-4f20-b04a-e3be8c91f88e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03929ce8-4c6e-488e-8f2b-c54adf992b3e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03929ce8-4c6e-488e-8f2b-c54adf992b3e",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for fs_morphologies @ MTC070301C-IDA-rep-cor",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03929ce8-4c6e-488e-8f2b-c54adf992b3e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03929ce8-4c6e-488e-8f2b-c54adf992b3e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/03929ce8-4c6e-488e-8f2b-c54adf992b3e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/04cd1828-323b-4670-a109-d10268c55f0a",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/04cd1828-323b-4670-a109-d10268c55f0a",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModel"
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "name": "EModel for fs_morphologies @ TKB060508A2-CH5-BC-H-ZK-60X-1-rep-cor",
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/04cd1828-323b-4670-a109-d10268c55f0a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/04cd1828-323b-4670-a109-d10268c55f0a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodel/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/04cd1828-323b-4670-a109-d10268c55f0a"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/?fields=all&size=10&deprecated=False"
+    }
+}

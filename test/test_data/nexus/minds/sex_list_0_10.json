@@ -1,0 +1,142 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 4,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165",
+                "@type": "https://schema.hbp.eu/minds/Sex",
+                "http://hbp.eu/internal#hashcode": "29bf8e9b23b2620358cba567ff2c03eb",
+                "http://schema.org/identifier": [
+                    "386e3ec6cecc26ad1de7ee83f830ba1b",
+                    "88183b946cc5f0e8c96b2e66e1c74a7e"
+                ],
+                "http://schema.org/name": "<Unknown>",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/sex/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/48a91db5-3198-4671-b227-0ca6d1516165"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c",
+                "@type": "https://schema.hbp.eu/minds/Sex",
+                "http://hbp.eu/internal#hashcode": "5f7ab0081eaa8457c53e25ba37f95c2e",
+                "http://schema.org/identifier": [
+                    "63889cfb9d3cbe05d1bd2be5cc9953fd",
+                    "8c79918a7ec155833d29033122e8c3e5"
+                ],
+                "http://schema.org/name": "Male",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/sex/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/85ba5561-e9bf-41a8-b0fe-bd17ae0f7b2c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/a95459b9-a5b7-4c56-acb6-d8a125b137e7",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/a95459b9-a5b7-4c56-acb6-d8a125b137e7",
+                "@type": "https://schema.hbp.eu/minds/Sex",
+                "http://hbp.eu/internal#hashcode": "29893f88e50ac394b89cfb5f67a47e3b",
+                "http://schema.org/identifier": [
+                    "046126404783cc054e27d3e01bd04b22",
+                    "6cf2cee28c631ce674d419c25caaf592"
+                ],
+                "http://schema.org/name": "Hermaphrodite",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/a95459b9-a5b7-4c56-acb6-d8a125b137e7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/a95459b9-a5b7-4c56-acb6-d8a125b137e7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/sex/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/a95459b9-a5b7-4c56-acb6-d8a125b137e7"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea",
+                "@type": "https://schema.hbp.eu/minds/Sex",
+                "http://hbp.eu/internal#hashcode": "a5b4ab5cbb933a02f5df5255deafe1ef",
+                "http://schema.org/identifier": [
+                    "b719ce180ec7bd9641fece2f920f4817",
+                    "ebdd749b0fd4003a3a2e055e6b2ada71"
+                ],
+                "http://schema.org/name": "Female",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/sex/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/f7c82ad1-b4ba-495a-ba81-145d8dbf82ea"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/sex/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

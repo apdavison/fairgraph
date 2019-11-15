@@ -1,0 +1,273 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 15,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/04441b86-8103-4f09-96af-45522b51188c",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/04441b86-8103-4f09-96af-45522b51188c",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "35a19bccaaa60a248e1f6e0cae1e1abd",
+                "http://schema.org/name": "abc",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/914a9a70-19b0-431e-896d-38c3cecf69ab"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/fecc838a-d11b-42ce-a78c-18ffb48904f3"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/04441b86-8103-4f09-96af-45522b51188c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/04441b86-8103-4f09-96af-45522b51188c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/04441b86-8103-4f09-96af-45522b51188c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/21202d4a-afff-48d2-86aa-5da20c68cfa3",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/21202d4a-afff-48d2-86aa-5da20c68cfa3",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "32e53ff53208d2898e929fe323a1ce9f",
+                "http://schema.org/name": "def",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/72dcf44c-3e0d-4daf-a5a1-59013b1f78a2"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/c6464189-9488-433b-b6cc-eabef8cadac5"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/21202d4a-afff-48d2-86aa-5da20c68cfa3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/21202d4a-afff-48d2-86aa-5da20c68cfa3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/21202d4a-afff-48d2-86aa-5da20c68cfa3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/26e9fe8b-eb79-41bf-8536-3ff9172ecc30",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/26e9fe8b-eb79-41bf-8536-3ff9172ecc30",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "57387e5306b6edf7e9a6c9d8d1a53d82",
+                "http://schema.org/name": "ghi",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/9186acb9-cc11-442d-a16c-320e56ac1b0c"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/73e027d3-f93a-4c39-9248-65cf45886225"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/26e9fe8b-eb79-41bf-8536-3ff9172ecc30/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/26e9fe8b-eb79-41bf-8536-3ff9172ecc30/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/26e9fe8b-eb79-41bf-8536-3ff9172ecc30"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/52a3b6c3-2a69-4e8f-bf7f-fff9be5bbf96",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/52a3b6c3-2a69-4e8f-bf7f-fff9be5bbf96",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "224f7921f737f8d58f6bbc846103c500",
+                "http://schema.org/name": "jkl",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/287a7ca3-359a-430e-869d-6991f266396e"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/52a3b6c3-2a69-4e8f-bf7f-fff9be5bbf96/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/52a3b6c3-2a69-4e8f-bf7f-fff9be5bbf96/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/52a3b6c3-2a69-4e8f-bf7f-fff9be5bbf96"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6a8a3dcf-671a-4d68-b20d-bc643d0f5d76",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6a8a3dcf-671a-4d68-b20d-bc643d0f5d76",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "d3000e1a77e180dc34539f03197b7f11",
+                "http://schema.org/name": "mno",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/268673f6-d5e8-49bf-93ab-a681bee36231"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6a8a3dcf-671a-4d68-b20d-bc643d0f5d76/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6a8a3dcf-671a-4d68-b20d-bc643d0f5d76/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6a8a3dcf-671a-4d68-b20d-bc643d0f5d76"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6f692d70-fa05-419c-b669-82fe251f168e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6f692d70-fa05-419c-b669-82fe251f168e",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "840b0f761d61d672927510f93570cef6",
+                "http://schema.org/name": "pqr",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/8b53e36d-ff7f-4205-83e0-199aa589064e"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6f692d70-fa05-419c-b669-82fe251f168e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6f692d70-fa05-419c-b669-82fe251f168e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/6f692d70-fa05-419c-b669-82fe251f168e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/764bcb5e-4e11-428a-8208-3e527fb9783a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/764bcb5e-4e11-428a-8208-3e527fb9783a",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "4b99c13013f59eb4aa6fc87d531d9c24",
+                "http://schema.org/name": "stu",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/509489a6-10bd-4bac-b69e-bc8890639643"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/764bcb5e-4e11-428a-8208-3e527fb9783a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/764bcb5e-4e11-428a-8208-3e527fb9783a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/764bcb5e-4e11-428a-8208-3e527fb9783a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/806e0e46-d483-4318-858d-0addb8db03f5",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/806e0e46-d483-4318-858d-0addb8db03f5",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "109e0c45dfcc824e51fa4b6b4d8d279c",
+                "http://schema.org/name": "vwx",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0b15f836-7964-4916-993b-815f42ef0662"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/806e0e46-d483-4318-858d-0addb8db03f5/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/806e0e46-d483-4318-858d-0addb8db03f5/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/806e0e46-d483-4318-858d-0addb8db03f5"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/9159bcd3-2fac-4d8b-b06f-66329e791c98",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/9159bcd3-2fac-4d8b-b06f-66329e791c98",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "2e9ecff39c5a3d15fc9b56b9d5286d54",
+                "http://schema.org/name": "yzA",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/f0894378-2179-4d83-ade2-8228aec9d20c"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/0950cefd-8608-4c1e-a535-9d38deb184e9"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/9159bcd3-2fac-4d8b-b06f-66329e791c98/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/9159bcd3-2fac-4d8b-b06f-66329e791c98/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/9159bcd3-2fac-4d8b-b06f-66329e791c98"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/a73d195d-bbed-41ae-8be7-fe565b64224e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/a73d195d-bbed-41ae-8be7-fe565b64224e",
+                "@type": "https://schema.hbp.eu/uniminds/Ethicsapproval",
+                "http://schema.org/identifier": "5c1edcc07ad28b40aad2b3bca5d61e7a",
+                "http://schema.org/name": "BCD",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239"
+                },
+                "https://schema.hbp.eu/uniminds/ethicsAuthority": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/40145988-8a7c-487c-95e4-1cfdee9c7b8d"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/a73d195d-bbed-41ae-8be7-fe565b64224e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/a73d195d-bbed-41ae-8be7-fe565b64224e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/ethicsapproval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/a73d195d-bbed-41ae-8be7-fe565b64224e"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/ethicsapproval/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

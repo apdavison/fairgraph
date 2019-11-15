@@ -1,0 +1,313 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 19,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/0afdf752-a164-4fe2-bf87-177713deb539",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/0afdf752-a164-4fe2-bf87-177713deb539",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "200bb6760b64b839af00dbece3d9c505",
+                "http://schema.org/identifier": "348b67d0658c23b37e08a9700eaf6466",
+                "http://schema.org/name": "pts, nii, gii, eeg, csv, pos, xlsx, docx",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/0afdf752-a164-4fe2-bf87-177713deb539/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/0afdf752-a164-4fe2-bf87-177713deb539/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/0afdf752-a164-4fe2-bf87-177713deb539"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/19b66f2e-1e45-4c27-9aaf-3a0c17a2813f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/19b66f2e-1e45-4c27-9aaf-3a0c17a2813f",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "b2c2089598c170806150d3a5549d825c",
+                "http://schema.org/identifier": "ea9715932022991e0bb6d23cbfdd9f25",
+                "http://schema.org/name": "nifti, Brainvisa Mesh, gifti, csv",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/19b66f2e-1e45-4c27-9aaf-3a0c17a2813f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/19b66f2e-1e45-4c27-9aaf-3a0c17a2813f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/19b66f2e-1e45-4c27-9aaf-3a0c17a2813f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "3ea4e18f80741f3a46b5099e8884539b",
+                "http://schema.org/identifier": "77270b41f129f57649307e02177d475c",
+                "http://schema.org/name": "Nifti, bundles, bundlesdata,  minf",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/2942699c-51dd-43d8-9d1c-284f037e0314",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/2942699c-51dd-43d8-9d1c-284f037e0314",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "b61ef4b53c9dd9894f38d0f34187928e",
+                "http://schema.org/identifier": "0f635d0e0f3874fff8b581c132e6c7a7",
+                "http://schema.org/name": "xml",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/2942699c-51dd-43d8-9d1c-284f037e0314/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/2942699c-51dd-43d8-9d1c-284f037e0314/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/2942699c-51dd-43d8-9d1c-284f037e0314"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/349b5877-024a-4b29-849d-0ffcfc0c0072",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/349b5877-024a-4b29-849d-0ffcfc0c0072",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "287faa8a6f66c48b0357be5e0e3d98e4",
+                "http://schema.org/identifier": "c7640aef219038fcd94ec1fc87e6e9b1",
+                "http://schema.org/name": "3D-TIFF",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/349b5877-024a-4b29-849d-0ffcfc0c0072/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/349b5877-024a-4b29-849d-0ffcfc0c0072/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/349b5877-024a-4b29-849d-0ffcfc0c0072"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/4f3bb58e-718d-45bd-8191-2d7b011fd63f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/4f3bb58e-718d-45bd-8191-2d7b011fd63f",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "c01bdd7cbd18fa3ec2248a4a6ba991de",
+                "http://schema.org/identifier": [
+                    "386e3ec6cecc26ad1de7ee83f830ba1b",
+                    "b475e018dbc1c499c57f1fa9a194ef8a"
+                ],
+                "http://schema.org/name": "<Unknown>",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/4f3bb58e-718d-45bd-8191-2d7b011fd63f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/4f3bb58e-718d-45bd-8191-2d7b011fd63f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/4f3bb58e-718d-45bd-8191-2d7b011fd63f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/545a2ec7-7a20-4b15-bf08-9256ce046c10",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/545a2ec7-7a20-4b15-bf08-9256ce046c10",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "bfa3d2c86dc4441630fb2616d6ff7601",
+                "http://schema.org/identifier": "2312e3f54dd5bbda8a89bfd57c9d0e51",
+                "http://schema.org/name": "tif, nii",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/545a2ec7-7a20-4b15-bf08-9256ce046c10/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/545a2ec7-7a20-4b15-bf08-9256ce046c10/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/545a2ec7-7a20-4b15-bf08-9256ce046c10"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "5d581da9d3f036bad26a7e0f963f5060",
+                "http://schema.org/identifier": "591c9f70ca6b27b8e5ce7e1967c03e94",
+                "http://schema.org/name": "xlsx, tif, txt",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/8124ea2e-5efe-4caf-808d-65badff9c997",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/8124ea2e-5efe-4caf-808d-65badff9c997",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "90efe833b6b3cef268f904ac01a215b7",
+                "http://schema.org/identifier": "fd89d59d1e9b8807784ec4863e4dee58",
+                "http://schema.org/name": "Nifti, Csv, Txt",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/8124ea2e-5efe-4caf-808d-65badff9c997/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/8124ea2e-5efe-4caf-808d-65badff9c997/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/8124ea2e-5efe-4caf-808d-65badff9c997"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/90fbf46d-ff18-495c-9f3a-7b829e46c007",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/90fbf46d-ff18-495c-9f3a-7b829e46c007",
+                "@type": "https://schema.hbp.eu/minds/Format",
+                "http://hbp.eu/internal#hashcode": "07d7545533a1d68a2116d2dad08b5cb6",
+                "http://schema.org/identifier": "3d49d24a29a8ca3592264cf5b173d1b3",
+                "http://schema.org/name": "Nifti Files, gifti files, csv files, json files",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/90fbf46d-ff18-495c-9f3a-7b829e46c007/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/90fbf46d-ff18-495c-9f3a-7b829e46c007/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/format/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/90fbf46d-ff18-495c-9f3a-7b829e46c007"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

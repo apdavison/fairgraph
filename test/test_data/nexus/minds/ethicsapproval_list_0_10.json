@@ -1,0 +1,340 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 16,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/023c07c5-5101-467a-93ea-2e56cb4b7c7c",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/023c07c5-5101-467a-93ea-2e56cb4b7c7c",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "c9a31a4ff1a4e20a547ad8b4da3b38c3",
+                "http://schema.org/identifier": "895b5fb39803ed5ad5a952a5d2744cf6",
+                "http://schema.org/name": "abc",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/92f899c4-fc5c-4ba1-8e08-43348289d292"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/023c07c5-5101-467a-93ea-2e56cb4b7c7c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/023c07c5-5101-467a-93ea-2e56cb4b7c7c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/023c07c5-5101-467a-93ea-2e56cb4b7c7c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "c3bfa1943fb1a442a0471e669ae16d41",
+                "http://schema.org/identifier": "109e0c45dfcc824e51fa4b6b4d8d279c",
+                "http://schema.org/name": "def",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/9a1dadc8-c5f5-4814-9850-bd976c7bc56c"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/0d220874-38a5-4c32-b389-46828d231e31"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/2199d5a7-1a8d-4414-8e0e-3faab9b3c931",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/2199d5a7-1a8d-4414-8e0e-3faab9b3c931",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "c9e4ec0ba0d75656ac485fbff3f6d0f3",
+                "http://schema.org/identifier": "1e28a76354a4cd9e0ef0b0378ece2639",
+                "http://schema.org/name": "ghi",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/65ae315f-98cc-4aa5-91b9-b14d66ff6632"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/2199d5a7-1a8d-4414-8e0e-3faab9b3c931/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/2199d5a7-1a8d-4414-8e0e-3faab9b3c931/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/2199d5a7-1a8d-4414-8e0e-3faab9b3c931"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "9e6f30dba87066ef13470c44cc86c1f4",
+                "http://schema.org/identifier": "5c1edcc07ad28b40aad2b3bca5d61e7a",
+                "http://schema.org/name": "jkl",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/996cafcd-f25e-4ee1-a320-0098447422ad"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/303afd28-69a5-4e59-8272-d0230c3a0239"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "56c9f71410e0c6308a8087771e901503",
+                "http://schema.org/identifier": "32e53ff53208d2898e929fe323a1ce9f",
+                "http://schema.org/name": "mno",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/3b08d488-fa8e-4f02-a1c2-f09de88d154d"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/3491c372-b5a0-42e9-9862-1493e02bf961"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "3f86a2b0ebd792bb359e303654a18390",
+                "http://schema.org/identifier": "224f7921f737f8d58f6bbc846103c500",
+                "http://schema.org/name": "pqr",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/4c2c0e0d-dd65-4854-85e1-ce624da57f0f"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/4b64ffea-7cdf-4e84-aa01-d1978d6eb933"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6211201c-778d-4190-94fb-f34361114b73",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6211201c-778d-4190-94fb-f34361114b73",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "d1f159b047cfdca3fe71b3ce46f288f5",
+                "http://schema.org/identifier": "06a63ddfdffa12570db2cf954e1cc1c6",
+                "http://schema.org/name": "stu",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/acd616c9-d5b9-4236-a195-3264a7585091"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6211201c-778d-4190-94fb-f34361114b73/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6211201c-778d-4190-94fb-f34361114b73/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6211201c-778d-4190-94fb-f34361114b73"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "f6a065bdec6b213d98d2db681ca0f0c9",
+                "http://schema.org/identifier": "d3000e1a77e180dc34539f03197b7f11",
+                "http://schema.org/name": "vwx",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/08cd198a-38b0-4599-b9e2-fd512c7344f6"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/6c025e2f-a923-4bf2-a6de-79155dbf6160"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "8a7f8afaf96d3114c5b65c2ca6da177c",
+                "http://schema.org/identifier": "4b99c13013f59eb4aa6fc87d531d9c24",
+                "http://schema.org/name": "yzA",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/9910cc7d-e957-42c7-ad13-1a97fadcbe80"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/7005f96f-aaec-4299-b0d1-ad253546ffb0"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad",
+                "@type": "https://schema.hbp.eu/minds/Approval",
+                "http://hbp.eu/internal#hashcode": "55d2928cb09c63abaa5a87f8dc190502",
+                "http://schema.org/identifier": "840b0f761d61d672927510f93570cef6",
+                "http://schema.org/name": "BCD",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/generatedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/authority/v1.0.0/d335a03c-07bb-4088-a6e3-f2771cfc16ea"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/ethics/approval/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/8590d9bc-2283-4d37-a6c0-4a28a1dc59ad"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/ethics/approval/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

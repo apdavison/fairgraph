@@ -1,0 +1,837 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 52,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/01c68387-fcc4-4fd3-85f0-6eb8ce4467a1",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/01c68387-fcc4-4fd3-85f0-6eb8ce4467a1",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "bpo_efel",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b056bb91-a8d0-4136-842f-0398cab13003",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "label": "pyramidal cell"
+                },
+                "dataType": "Mean, SD",
+                "dateCreated": "2018-03-08T14:13:15.329938+00:00",
+                "description": "Tests eFEL features under current injection of varying amplitudes",
+                "name": "BluePyOpt-eFEL Evaluator",
+                "oldUUID": "b456bdb2-1aa0-4425-b1df-b2f0a51a18a1",
+                "recordingModality": "electrophysiology",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/c3f83c99-e496-4661-909e-23d366d9f8b9",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "status": "in development",
+                "testType": "single cell activity",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/01c68387-fcc4-4fd3-85f0-6eb8ce4467a1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/01c68387-fcc4-4fd3-85f0-6eb8ce4467a1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/01c68387-fcc4-4fd3-85f0-6eb8ce4467a1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/057c33e4-76d1-4652-b349-93f2dfca1a06",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/057c33e4-76d1-4652-b349-93f2dfca1a06",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "CA1-LDsyn-Neyman-gof-Test",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/9cec7695-cb43-4da7-b51b-ebc11ad3b681",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "dataType": "Frequency of occurence, probability",
+                "dateCreated": "2017-12-21T15:57:14.551871+00:00",
+                "description": "Tests a synapses distribution of different m-types (AA, BP, BS, CCKBC, Ivy, OLM, PC, PPA, SCA, Tri) across the layers of Hippocampus CA1 (SO, SP, SR, SLM) and the external space (OUT).\n\nIt consists of a Neyman goodness-of-fit test to compare observed and predicted distributions. A typical rule is that all of the observed and expected frequencies should be at least k=5. It is assumed that the asymptotic distribution of the score is a Chi-square function with k-1 degrees of freedom. The test is not valid when the observed or expected frequencies in each layer are too small.\n\nBasic transformation to compute the Neyman-score from data in each CA1 layer: [ prediction - observation ]^2/prediction",
+                "name": "CA1 laminar-distribution-synapses Neyman-Test",
+                "oldUUID": "9edaf3f0-8db6-48c5-b40c-9778511c3bd9",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/6025d338-ec95-4909-823e-e73e104918e1",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "status": "in development",
+                "testType": "network activity",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/057c33e4-76d1-4652-b349-93f2dfca1a06/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/057c33e4-76d1-4652-b349-93f2dfca1a06/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/057c33e4-76d1-4652-b349-93f2dfca1a06"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/09e5217c-feb6-415a-bba7-469603151ac2",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/09e5217c-feb6-415a-bba7-469603151ac2",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "Test_2019-10-14_16:55:20_integration_py3.7.2",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/daa3bd93-cd05-469a-a07d-0d035f18ad5a",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0010011",
+                    "label": "basal ganglia"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000120",
+                    "label": "granule cell"
+                },
+                "dataType": "Mean, SD",
+                "dateCreated": "2019-10-14T14:55:21.882667",
+                "description": "Later",
+                "name": "IGNORE - Test Test - Test_2019-10-14_16:55:20_integration_py3.7.2",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/e68959e3-f545-44a0-8c76-ea82cd8c094f",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "status": "proposal",
+                "testType": "network structure",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/09e5217c-feb6-415a-bba7-469603151ac2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/09e5217c-feb6-415a-bba7-469603151ac2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/09e5217c-feb6-415a-bba7-469603151ac2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/0ebea482-c433-447f-8666-7f250c09664b",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/0ebea482-c433-447f-8666-7f250c09664b",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "morph_stats_msn_d2",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b056bb91-a8d0-4136-842f-0398cab13003",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "celltype": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D2 type)"
+                },
+                "dataType": "Morphology",
+                "dateCreated": "2018-05-09T15:13:56.396077+00:00",
+                "description": "soma diameter: 12.3 +- 1.25 um\nReinius2015, DOI: 10.3389/fnbeh.2015.00071\n\ndendritic field diameter: 349.5 +- 82.5 um\nrostrocaudal extent (Z): 395 +- 67.5 um\ndorsoventral extent (Y): 332 +- 46.25 um\nmediolateral extent (X): 275 +- 37.5 um\nPreston1980, PMID: 7353139, Brain Res. 1980 Feb 10;183(2):253-63.\n(inferred from linear extents and coronal slice direction)\n\nnumber of primary dendrites: 6.75 +- 1.75\nGertler2008, DOI: 10.1523/JNEUROSCI.2660-08.2008\nFieblinger2010, DOI: 10.1038/ncomms6316\n(inferred from range and median values)\n\ntotal dendritic length: 2354 +- 562.5 um\nFieblinger2010, DOI: 10.1038/ncomms6316\n(inferred from range and median values)\n\nnumber of dendritic branch points: 11.9 +- 6.25\nGertler2008, DOI: 10.1523/JNEUROSCI.2660-08.2008\n(inferred from range and median values)\n\nnumber of axons: 1 +- 0.1\nTepper2004, DOI: 10.1016/j.tins.2004.08.007\n\naxonal field diameter: 493 +- 100 um\nKawaguchi1990, PMID: 1698947, J Neurosci. 1990 Oct;10(10):3421-38.\n(std assigned to the one of D1)",
+                "name": "Basal Ganglia MSN D2 Type Morphology Soft Constraints",
+                "oldUUID": "ab692cf2-542f-4fa1-bd6a-a6e816e116dd",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/6f393762-7722-4eb8-867b-3558b85f96d6",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "status": "in development",
+                "testType": "single cell activity",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/0ebea482-c433-447f-8666-7f250c09664b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/0ebea482-c433-447f-8666-7f250c09664b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/0ebea482-c433-447f-8666-7f250c09664b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/100abccb-6d30-4c1e-a960-bc0489e0d82d",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/100abccb-6d30-4c1e-a960-bc0489e0d82d",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "hippo_somafeat_CA1_pyr_cACpyr",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/34423c4b-9bf2-4488-a681-8cfb6bc2c84e",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "label": "pyramidal cell"
+                },
+                "dataType": "Mean, SD",
+                "dateCreated": "2019-03-28T12:54:19.315018+00:00",
+                "description": "Tests eFEL features under current injection of varying amplitudes",
+                "name": "Hippocampus_SomaticFeaturesTest_CA1_pyr_cACpyr",
+                "oldUUID": "3c667b96-d10e-4bf4-bf65-ea5bcb3bd18d",
+                "recordingModality": "electrophysiology",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/2858a9e4-3c74-4ed8-8cf6-a98303b6a612",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "status": "in development",
+                "testType": "single cell activity",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/100abccb-6d30-4c1e-a960-bc0489e0d82d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/100abccb-6d30-4c1e-a960-bc0489e0d82d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/100abccb-6d30-4c1e-a960-bc0489e0d82d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1c978f82-2f47-4e06-9f0c-c1579afa512c",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1c978f82-2f47-4e06-9f0c-c1579afa512c",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "Test_2019-10-14_17:08:57_integration_py3.7.2_edit3.1",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/daa3bd93-cd05-469a-a07d-0d035f18ad5a",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0010011",
+                    "label": "basal ganglia"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000120",
+                    "label": "granule cell"
+                },
+                "dataType": "Mean, SD",
+                "dateCreated": "2019-10-14T15:08:58.826399",
+                "description": "Later",
+                "name": "IGNORE - Test Test - Test_2019-10-14_17:08:57_integration_py3.7.2_edit3.1",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/d7f11007-b95f-47e1-a1d4-3be173ee6143",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "status": "proposal",
+                "testType": "network structure",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1c978f82-2f47-4e06-9f0c-c1579afa512c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1c978f82-2f47-4e06-9f0c-c1579afa512c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1c978f82-2f47-4e06-9f0c-c1579afa512c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1e097933-245b-4eb2-ab41-ca04760f083a",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1e097933-245b-4eb2-ab41-ca04760f083a",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "HippoCircuit_Boutons_Total",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b2cf2392-318f-4ceb-845a-56d53627c641",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b056bb91-a8d0-4136-842f-0398cab13003",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "celltype": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "not applicable"
+                },
+                "dataType": "Morphology",
+                "dateCreated": "2018-08-09T12:38:50.944860+00:00",
+                "description": "",
+                "name": "HippoCircuit - Total Boutons",
+                "oldUUID": "dc4a9955-1acb-44f8-972a-b8c74b4ee7d9",
+                "recordingModality": "",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/799a2abe-211f-4add-8b56-f7123f9a73e2",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "status": "in development",
+                "testType": "network structure",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1e097933-245b-4eb2-ab41-ca04760f083a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1e097933-245b-4eb2-ab41-ca04760f083a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/1e097933-245b-4eb2-ab41-ca04760f083a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/306d24e1-6564-4e79-8b20-cca46816b8fb",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/306d24e1-6564-4e79-8b20-cca46816b8fb",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "HippoCircuit_Axon_Length",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b2cf2392-318f-4ceb-845a-56d53627c641",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/b056bb91-a8d0-4136-842f-0398cab13003",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                },
+                "celltype": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "not applicable"
+                },
+                "dataType": "Morphology",
+                "dateCreated": "2018-08-09T12:38:50.514763+00:00",
+                "description": "",
+                "name": "HippoCircuit - Average Axon Length",
+                "oldUUID": "8de5b0c0-7c9e-4ab8-9930-c83e58d97656",
+                "recordingModality": "",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/e34082c1-3492-4585-ab3b-29b6afdc740c",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "status": "in development",
+                "testType": "network structure",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/306d24e1-6564-4e79-8b20-cca46816b8fb/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/306d24e1-6564-4e79-8b20-cca46816b8fb/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/306d24e1-6564-4e79-8b20-cca46816b8fb"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/36652dbe-d002-446b-906a-ce8b6266ed44",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/36652dbe-d002-446b-906a-ce8b6266ed44",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "morph_stats_Test",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/9cec7695-cb43-4da7-b51b-ebc11ad3b681",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "dataType": "Morphology",
+                "dateCreated": "2018-04-13T09:20:32.723584+00:00",
+                "description": "Tests a set of cell's morphological features in a digitally reconstructed neuron",
+                "name": "Basal Ganglia FS Type Morphology Soft Constraints",
+                "oldUUID": "1f078d74-f9b7-4f47-b49f-b4bb505164dd",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/90bbc952-f278-4101-8e3b-c111c0c0942a",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "status": "in development",
+                "testType": "network structure",
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/36652dbe-d002-446b-906a-ce8b6266ed44/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/36652dbe-d002-446b-906a-ce8b6266ed44/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/36652dbe-d002-446b-906a-ce8b6266ed44"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/3cf3a974-0213-43bf-9cf3-31bd645ecd9e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "abstractionLevel": "nsg:abstractionLevel",
+                        "alias": "nsg:alias",
+                        "author": "schema:author",
+                        "brainRegion": "nsg:brainRegion",
+                        "celltype": "nsg:celltype",
+                        "dataType": "nsg:dataType",
+                        "dateCreated": "schema:dateCreated",
+                        "description": "schema:description",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "oldUUID": "nsg:providerId",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "recordingModality": "nsg:recordingModality",
+                        "referenceData": "nsg:referenceData",
+                        "schema": "http://schema.org/",
+                        "scoreType": "nsg:scoreType",
+                        "species": "nsg:species",
+                        "status": "nsg:status",
+                        "testType": "nsg:testType"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/3cf3a974-0213-43bf-9cf3-31bd645ecd9e",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ValidationTestDefinition"
+                ],
+                "alias": "Test_2019-10-14_16:56:30_integration_py3.7.2_getValTest_1",
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/daa3bd93-cd05-469a-a07d-0d035f18ad5a",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0010011",
+                    "label": "basal ganglia"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000120",
+                    "label": "granule cell"
+                },
+                "dataType": "Mean, SD",
+                "dateCreated": "2019-10-14T14:56:31.305297",
+                "description": "Later",
+                "name": "IGNORE - Test Test - Test_2019-10-14_16:56:30_integration_py3.7.2_getValTest_1",
+                "recordingModality": "electron microscopy",
+                "referenceData": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/ba9c3a66-2893-4065-ba3f-611aa23142b5",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:Entity",
+                            "nsg:AnalysisResult"
+                        ]
+                    }
+                ],
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "status": "proposal",
+                "testType": "network structure",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/3cf3a974-0213-43bf-9cf3-31bd645ecd9e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/3cf3a974-0213-43bf-9cf3-31bd645ecd9e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/validationtestdefinition/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/3cf3a974-0213-43bf-9cf3-31bd645ecd9e"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

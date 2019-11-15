@@ -1,3 +1,10 @@
+"""
+"Minimal Information for Neuroscience DataSets" - metadata common to all neuroscience
+datasets independent of the type of investigation
+
+"""
+
+
 import sys, inspect, os
 from datetime import datetime
 try:
@@ -17,7 +24,7 @@ from fairgraph.utility import in_notebook
 
 class MINDSObject(KGObject):
     """
-    ...
+    Base class for MINDS metadata
 
     N.B. all MINDS objects have the same "fg" query ID, because the query url includes the namepsace/version/class path,
     e.g. for the Activity class, the url is : https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg
@@ -38,7 +45,8 @@ class MINDSObject(KGObject):
 
 class Person(MINDSObject):
     """
-    docstring
+    A person associated with research data or models, for example as an experimentalist,
+    or a data analyst.
     """
     _path = "/core/person/v1.0.0"
     type = ["minds:Person"]
@@ -51,7 +59,7 @@ class Person(MINDSObject):
 
 class Activity(MINDSObject):
     """
-    docstring
+    A research activity.
     """
     _path = "/core/activity/v1.0.0"
     type = ["minds:Activity"]
@@ -70,7 +78,7 @@ class Activity(MINDSObject):
 
 class AgeCategory(MINDSObject):
     """
-    docstring
+    An age category, e.g. "adult", "juvenile"
     """
     _path = "/core/agecategory/v1.0.0"
     type = ["minds:Agecategory"]
@@ -84,7 +92,7 @@ class AgeCategory(MINDSObject):
 
 class EthicsApproval(MINDSObject):
     """
-    docstring
+    Record of an  ethics approval.
     """
     _path = "/ethics/approval/v1.0.0"
     type = ["minds:Approval"]
@@ -98,7 +106,7 @@ class EthicsApproval(MINDSObject):
 
 class EthicsAuthority(MINDSObject):
     """
-    docstring
+    A entity legally authorised to approve or deny permission to conduct an experiment on ethical grounds.
     """
     _path = "/ethics/authority/v1.0.0"
     type = ["minds:Authority"]
@@ -162,7 +170,7 @@ correction of the given article if it is discovered post-publication.
 
 class Dataset(MINDSObject):
     """
-    docstring
+    A collection of related data files.
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
@@ -239,7 +247,7 @@ class Dataset(MINDSObject):
 
 class EmbargoStatus(MINDSObject):
     """
-    docstring
+    Information about the embargo period during which a given dataset cannot be publicly shared.
     """
     _path = "/core/embargostatus/v1.0.0"
     type = ["minds:Embargostatus"]
@@ -252,7 +260,7 @@ class EmbargoStatus(MINDSObject):
 
 class File(MINDSObject):
     """
-    docstring
+    Metadata about a single file.
     """
     _path = "/core/file/v0.0.4"
     type = ["minds:File"]
@@ -269,7 +277,7 @@ class File(MINDSObject):
 
 class FileAssociation(MINDSObject):
     """
-    docstring
+    A link between a file and a dataset.
     """
     _path = "/core/fileassociation/v1.0.0"
     type = ["minds:Fileassociation"]
@@ -282,7 +290,7 @@ class FileAssociation(MINDSObject):
 
 class Format(MINDSObject):
     """
-    docstring
+    A file/data format.
     """
     _path = "/core/format/v1.0.0"
     type = ["minds:Format"]
@@ -296,7 +304,7 @@ class Format(MINDSObject):
 
 class License(MINDSObject):
     """
-    docstring
+    A license governing sharing of a dataset.
     """
     _path = "/core/licensetype/v1.0.0"
     type = ["minds:Licensetype"]
@@ -310,7 +318,7 @@ class License(MINDSObject):
 
 class Method(MINDSObject):
     """
-    docstring
+    An experimental method.
     """
     _path = "/experiment/method/v1.0.0"
     type = ["minds:Method"]
@@ -324,7 +332,7 @@ class Method(MINDSObject):
 
 class Modality(MINDSObject):
     """
-    docstring
+    A recording modality.
     """
     _path = "/core/modality/v1.0.0"
     type = ["minds:Modality"]
@@ -336,7 +344,7 @@ class Modality(MINDSObject):
 
 class ParcellationAtlas(MINDSObject):
     """
-    docstring
+    A brain atlas in which the brain of a given species of animal is divided into regions.
     """
     _path = "/core/parcellationatlas/v1.0.0"
     type = ["minds:Parcellationatlas"]
@@ -350,7 +358,7 @@ class ParcellationAtlas(MINDSObject):
 
 class ParcellationRegion(MINDSObject):
     """
-    docstring
+    A brain region as defined by a brain atlas.
     """
     _path = "/core/parcellationregion/v1.0.0"
     type = ["minds:Parcellationregion"]
@@ -366,7 +374,7 @@ class ParcellationRegion(MINDSObject):
 
 class PLAComponent(MINDSObject):
     """
-    docstring
+    A data or software component, as defined in the HBP "project lifecycle" application.
     """
     _path = "/core/placomponent/v1.0.0"
     type = ["minds:Placomponent"]
@@ -381,7 +389,7 @@ class PLAComponent(MINDSObject):
 
 class Preparation(MINDSObject):
     """
-    docstring
+    An experimental preparation.
     """
     _path = "/core/preparation/v1.0.0"
     type = ["minds:Preparation"]
@@ -395,7 +403,7 @@ class Preparation(MINDSObject):
 
 class Protocol(MINDSObject):
     """
-    docstring
+    An experimental procotol.
     """
     _path = "/experiment/protocol/v1.0.0"
     type = ["minds:Protocol"]
@@ -409,7 +417,7 @@ class Protocol(MINDSObject):
 
 class Publication(MINDSObject):
     """
-    docstring
+    A scientific publication.
     """
     _path = "/core/publication/v1.0.0"
     type = ["minds:Publication"]
@@ -425,7 +433,7 @@ class Publication(MINDSObject):
 
 class ReferenceSpace(MINDSObject):
     """
-    docstring
+    A reference space for a brain atlas.
     """
     _path = "/core/referencespace/v1.0.0"
     type = ["minds:Referencespace"]
@@ -439,7 +447,7 @@ class ReferenceSpace(MINDSObject):
 
 class Role(MINDSObject):
     """
-    docstring
+    The role of a person within an experiment.
     """
     _path = "/prov/role/v1.0.0"
     type = ["minds:Role"]
@@ -449,7 +457,7 @@ class Role(MINDSObject):
 
 class Sample(MINDSObject):
     """
-    docstring
+    A sample of neural tissue.
     """
     _path = "/experiment/sample/v1.0.0"
     type = "https://schema.hbp.eu/minds/Sample"
@@ -471,7 +479,7 @@ class Sample(MINDSObject):
 
 class Sex(MINDSObject):
     """
-    docstring
+    The sex of an animal or person from whom/which data were obtained.
     """
     _path = "/core/sex/v1.0.0"
     type = ["minds:Sex"]
@@ -483,7 +491,7 @@ class Sex(MINDSObject):
 
 class SoftwareAgent(MINDSObject):
     """
-    docstring
+    Software that performed a given activity.
     """
     _path = "/core/softwareagent/v1.0.0"
     type = ["minds:Softwareagent"]
@@ -496,7 +504,7 @@ class SoftwareAgent(MINDSObject):
 
 class Species(MINDSObject):
     """
-    docstring
+    The species of an experimental subject, expressed with the binomial nomenclature.
     """
     _path = "/core/species/v1.0.0"
     type = ["minds:Species"]
@@ -511,7 +519,7 @@ class Species(MINDSObject):
 
 class SpecimenGroup(MINDSObject):
     """
-    docstring
+    A group of experimental subjects.
     """
     _path = "/core/specimengroup/v1.0.0"
     type = ["minds:Specimengroup"]
@@ -525,7 +533,7 @@ class SpecimenGroup(MINDSObject):
 
 class Subject(MINDSObject):
     """
-    docstring
+    The organism that is the subject of an experimental investigation.
     """
     _path = "/experiment/subject/v1.0.0"
     type = ["minds:Subject"]

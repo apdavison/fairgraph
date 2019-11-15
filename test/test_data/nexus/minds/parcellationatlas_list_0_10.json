@@ -1,0 +1,241 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 7,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/112baeab-6aae-416a-b1ab-60eaa858fd5a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/112baeab-6aae-416a-b1ab-60eaa858fd5a",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "589f130e2309c15f36ded07b19ab3ada",
+                "http://schema.org/identifier": [
+                    "2195bbee9024503ee13ef654c3edd89b",
+                    "8ccf6028f69962253feceacfc83c5d0b"
+                ],
+                "http://schema.org/name": "MarsAtlas (human)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/112baeab-6aae-416a-b1ab-60eaa858fd5a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/112baeab-6aae-416a-b1ab-60eaa858fd5a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/112baeab-6aae-416a-b1ab-60eaa858fd5a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/522b368e-49a3-49fa-88d3-0870a307974a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/522b368e-49a3-49fa-88d3-0870a307974a",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "f4254606d59722774145b74d2250d8bb",
+                "http://schema.org/identifier": [
+                    "be9ef00ca328dd4f9c74823b329c1232",
+                    "2b7f532cb5a7d52d96df7f588bce8a37"
+                ],
+                "http://schema.org/name": "Waxholm Space Atlas of the Sprague Dawley Rat Brain (rat)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/522b368e-49a3-49fa-88d3-0870a307974a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/522b368e-49a3-49fa-88d3-0870a307974a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/522b368e-49a3-49fa-88d3-0870a307974a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/5a7289a5-ab5f-443c-b9c1-e3548f8f466f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/5a7289a5-ab5f-443c-b9c1-e3548f8f466f",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "b4214526c57138d878aded12d930fdbe",
+                "http://schema.org/identifier": [
+                    "9d41f19af8c41e8f564a06d7da34fa58",
+                    "8e47ef8bcccef820a2e3ed7c68c7fd62"
+                ],
+                "http://schema.org/name": "Allen Human Brain Atlas (human)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/5a7289a5-ab5f-443c-b9c1-e3548f8f466f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/5a7289a5-ab5f-443c-b9c1-e3548f8f466f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/5a7289a5-ab5f-443c-b9c1-e3548f8f466f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "acd482bb5b4572ce849f2a2231769b4e",
+                "http://schema.org/identifier": [
+                    "deec923ec31a82f89a9c7c76a6fefd6b",
+                    "e2d45e028b6da0f6d9fdb9491a4de80a"
+                ],
+                "http://schema.org/name": "J\u00fclich Cytoarchitechtonic Brain Atlas (human)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/94c1125b-b87e-45e4-901c-00daee7f2579"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e2b46bcf-2e8f-4f9f-930d-17935435460a",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e2b46bcf-2e8f-4f9f-930d-17935435460a",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "f0bcd9aafbecb53e9f141a18913f9873",
+                "http://schema.org/identifier": [
+                    "6e9e95ca03e2ba2bf2505a24e4227ac5",
+                    "ae242b645d2fe2401245a3471c223e4d"
+                ],
+                "http://schema.org/name": "Allen Mouse Common Coordinate Framework v3 (mouse)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e2b46bcf-2e8f-4f9f-930d-17935435460a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e2b46bcf-2e8f-4f9f-930d-17935435460a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e2b46bcf-2e8f-4f9f-930d-17935435460a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e39b93c7-e484-4fc8-ab2a-0b3d7c0a800e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e39b93c7-e484-4fc8-ab2a-0b3d7c0a800e",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "0ef5cde2e1bc63654492e3d50542b062",
+                "http://schema.org/identifier": [
+                    "386e3ec6cecc26ad1de7ee83f830ba1b",
+                    "88183b946cc5f0e8c96b2e66e1c74a7e"
+                ],
+                "http://schema.org/name": "<Unknown>",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e39b93c7-e484-4fc8-ab2a-0b3d7c0a800e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e39b93c7-e484-4fc8-ab2a-0b3d7c0a800e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e39b93c7-e484-4fc8-ab2a-0b3d7c0a800e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e4939174-4b22-4ebe-ba63-07b926912ae7",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e4939174-4b22-4ebe-ba63-07b926912ae7",
+                "@type": "https://schema.hbp.eu/minds/Parcellationatlas",
+                "http://hbp.eu/internal#hashcode": "d39068643f561c504f4293d9687c15dc",
+                "http://schema.org/identifier": [
+                    "e5b8828361f3035e8162b39abba2365c",
+                    "41f5321f6915e533899b70e1edd10cbe"
+                ],
+                "http://schema.org/name": "Paxinos Rat Brain Atlas (rat)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e4939174-4b22-4ebe-ba63-07b926912ae7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e4939174-4b22-4ebe-ba63-07b926912ae7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/parcellationatlas/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/e4939174-4b22-4ebe-ba63-07b926912ae7"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

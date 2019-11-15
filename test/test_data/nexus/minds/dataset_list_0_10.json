@@ -1,0 +1,1378 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 214,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/015d4210-99eb-41a9-b554-58a179411f95",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/015d4210-99eb-41a9-b554-58a179411f95",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "c05eca9e8fffa89d58eea1794bb3697b",
+                "http://schema.org/description": "The goal of the study is to produce the first high resolution, 3D reconstruction of the entire macrostructure and vascular system of the mouse brain. To that end previously synchrotron radiation-based X-ray microscopy images were collected. Recently two-photon microscopy images were collected to that end. And we are looking for additional alternative imaging sources. Then this data is translated into 3D mesh and volumetric models (graph).  \nThis dataset contains tiff image array of part of cortical vasculature of the mouse brain.  \nThis dataset is used as an input to computational methods that results in the dataset \u201c3D reconstruction of the vascular system of the mouse brain\u201d ([doi: 10.25493/47H2-1HR](https://doi.org/10.25493/47H2-1HR)).",
+                "http://schema.org/identifier": "632636291a6ff5cb30c55821abaa55c4",
+                "http://schema.org/name": "3D imaging of the vascular system of the mouse brain.",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/0aea91a6-18ec-4714-b1f3-170bda3f4335"
+                },
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/629a79a0-be68-406f-aa61-a64e8d7cf5cb"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Weber_SGA1_T1.3.5",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8ce641e3-39d6-4c75-a109-4f766e2c712a"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b2c04d55-3a65-4425-9fc0-70b942fb6aeb"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/a6907569-7984-43ee-8047-6dfdb9dcb9b0"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-08-17T10:00:39.602782+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Weber_SGA1_T1.3.5/hbp-00744",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": [],
+                "https://schema.hbp.eu/minds/license": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/licensetype/v1.0.0/88e71f2d-4fcc-4cb1-bc9f-cbab9ab2058b"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b2c04d55-3a65-4425-9fc0-70b942fb6aeb"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": [],
+                "https://schema.hbp.eu/minds/publications": [],
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/a6af0661-c717-44b7-a3d0-a5630e42d94b"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2017-12-13",
+                "https://schema.hbp.eu/minds/specimen_group": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/9b707be0-2af1-4e1f-a686-3bab72a00232"
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/015d4210-99eb-41a9-b554-58a179411f95/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/015d4210-99eb-41a9-b554-58a179411f95/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/015d4210-99eb-41a9-b554-58a179411f95"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/019ec94d-324b-44aa-8a6f-b78f8689b644",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/019ec94d-324b-44aa-8a6f-b78f8689b644",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "f911b7adde7df0908a95ec166583eefe",
+                "http://schema.org/description": "**Embargo status:**   \n*This dataset is temporarily under embargo. The data will become available for download after the embargo period.*",
+                "http://schema.org/identifier": "ef885b1330592c3a06886ed8de567b45",
+                "http://schema.org/name": "Modulation of GABAergic currents by anti-neuroligin 2 and anti-gephyrin intrabodies (scFvNLG2-645)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/64bf79e1-01d7-48c9-b9d6-0a468f89e0ee"
+                },
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/2260b3bd-3252-46a8-b68a-af95ec4263dd"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00713",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/10c23e11-b004-4ebc-9930-402c1c19403c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0a8cb089-291e-4e56-9c7e-26107a4269bb"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8ccf3fff-90cf-4004-80b1-89a8d992aa14"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/89367b7b-51cb-47a9-a8dd-22160cff87c5"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/4fd6b309-31b3-4a50-8345-2e012ca17e80"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/feca5f91-2b53-4c90-85b5-8b75e775c434"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-11-07T12:37:50.250633+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00713/mIPSCs-scFvNLG2-645",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/formats": [],
+                "https://schema.hbp.eu/minds/license": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/c197a2a5-4c7f-4040-b2cf-6deab1e33788"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/feca5f91-2b53-4c90-85b5-8b75e775c434"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": [],
+                "https://schema.hbp.eu/minds/publications": [],
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/00b2d288-0109-4f4f-8118-df03cdad1fa9"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/019ec94d-324b-44aa-8a6f-b78f8689b644/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/019ec94d-324b-44aa-8a6f-b78f8689b644/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/019ec94d-324b-44aa-8a6f-b78f8689b644"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/05ce0031-5ee1-4445-8525-c0fd53ac026e",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/05ce0031-5ee1-4445-8525-c0fd53ac026e",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "3c4d86aeddb20401531ce4166937dd59",
+                "http://schema.org/description": "**Embargo status:**   \n*This dataset is temporarily under embargo. The data will become available for download after the embargo period.*",
+                "http://schema.org/identifier": "c5af9b27676cacc1383e44b7148aca43",
+                "http://schema.org/name": "Synapse maps - FIBSEM",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/ea4d98e6-c141-4b7c-8f0c-6572b2e661d0"
+                },
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/330c7bed-1052-4c9c-8f9c-0e70ba8783c8"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Defelipe_RUP_T1.2.6",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0fa5fccc-4440-45f4-af37-98aeef9e76e6"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/770f88a8-1cea-4948-9d46-f8ce781d57da"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/18dc5a15-205a-421e-92d1-38a277e82fab"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0a82cc19-7fd8-4a17-8158-ad1ec34c6dbc"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9ef253d5-15cf-419e-b5d7-c6de22501642"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/fd0479f5-3bff-4e73-9750-0e8b3211a6f8"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d53e633b-16c4-4426-81b8-8bf0c7bdb342"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/e5ecff01-9937-42fa-898d-7800cfa6d576"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b8dc1274-daa2-4b1b-8e14-4984c448289b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/7384ec00-ff24-4ca0-ae33-f30746565d99"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-10-04T09:52:53.019329+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Defelipe_RUP_T1.2.6/hbp-00030/PSD95-FIBSEM/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/formats": [],
+                "https://schema.hbp.eu/minds/license": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/licensetype/v1.0.0/88e71f2d-4fcc-4cb1-bc9f-cbab9ab2058b"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d53e633b-16c4-4426-81b8-8bf0c7bdb342"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": [],
+                "https://schema.hbp.eu/minds/publications": [],
+                "https://schema.hbp.eu/minds/release_date": "2016-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7110952e-913b-4c34-a022-e18c6ffcfb9d"
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/05ce0031-5ee1-4445-8525-c0fd53ac026e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/05ce0031-5ee1-4445-8525-c0fd53ac026e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/05ce0031-5ee1-4445-8525-c0fd53ac026e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/067af138-d45e-4495-b094-3544e28122ca",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/067af138-d45e-4495-b094-3544e28122ca",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "13c64fec8f7ed5c578afafca89515a43",
+                "http://schema.org/description": "This dataset contains the distinct architectonic Ch 1-3 (Basal Forebrain) in the MNI Colin 27 reference brain. As part of the JuBrain atlas, the area was identified using classical histological criteria and quantitative cytoarchitectonic analysis on cell-body-stained histological sections of 10 human postmortem brains obtained from the body donor program of the University of D\u00fcsseldorf. Subsequently the results of the cytoarchitectonic analysis are mapped to the MNI Colin 27 reference brain where each voxel is assigned with the probability to belong to Ch 1-3 (Basal Forebrain). The probability map of Ch 1-3 (Basal Forebrain) is given in file jubrain-pmap-v22c_space-mnicolin27_BasalForebrain-Ch-1-3.nii. The JuBrain atlas relies on a modular, flexible and adaptive framework containing workflows to create the probabilistic brain maps for these structures. Note that methodological improvements and integration of new brain structures may lead to small deviations in earlier released datasets.",
+                "http://schema.org/identifier": "14ca3b38abd01aaf41a2ec01327425ea",
+                "http://schema.org/name": "Probabilistic cytoarchitectonic map of Ch 1-3 (Basal Forebrain)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/58085a92-f26f-455c-ab9d-b61fee111b1d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/d8a99e0a-7372-40a0-b56d-4cc7ec5ce31b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/366282bb-f3ed-4e63-9d60-ba353999717d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/97a248f1-4806-4c78-b016-667ef99f96f9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/425c86c8-7cc5-4ee7-b8f3-71e4acfb631e"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/f5a9e274-b291-4f79-9c19-f3467ee753d5"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/323aa606-da3a-42a1-b16f-e07887dc43ec"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-11-23T23:09:43.566223+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/a6b07b03-d5cd-4492-a40d-bba9063f8ac2"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/374ba945-c144-4877-b26d-3d8ceb6916c3"
+                },
+                "https://schema.hbp.eu/minds/publications": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/bb0e6fa2-b405-468b-9857-4eab9cddea36"
+                },
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/7f39f7be-445b-47c0-9791-e971c0b6d992"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/1eeceef0-1c28-4397-b77b-2b07a625fa9e"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/99367096-953f-454b-ba0b-bb5caca2289b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f3d05206-9ac8-4dac-9660-4db8dd34a54f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f4c01d99-fb91-42ec-8835-b6627ad3ba70"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/6230bc43-ff18-437e-aaa5-bfedc1af6e0a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/af8acce9-3b7b-416e-b3fa-f130776a3106"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/0ad83302-df8e-4822-9e90-df7c3c458df0"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/8ca1acb7-8b88-4f14-8e94-55800f6fc9ed"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/289f7c18-19f7-4f25-ad04-773698a7583d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/75566968-576e-4ac2-b4cd-fd3e71e4dc3d"
+                    }
+                ],
+                "nxv:rev": 14,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/067af138-d45e-4495-b094-3544e28122ca/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/067af138-d45e-4495-b094-3544e28122ca/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/067af138-d45e-4495-b094-3544e28122ca"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/06a33cf8-8cfe-4029-8a5e-83a75242d600",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/06a33cf8-8cfe-4029-8a5e-83a75242d600",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "1de5ad705ff772af5007f3ceeb99886b",
+                "http://schema.org/description": "This dataset contains the densities (in fmol/mg protein) of 16 receptors for classical neurotransmitters in Area 44v using quantitative in vitro autoradiography. The receptor density measurements can be provided in three ways: (fp) as density fingerprints (average across samples; mean density and standard deviation for each of the 16 receptors), (pr) as laminar density profiles (exemplary data from one sample; average course of the density from the pial surface to the border between layer VI and the white matter for each receptor), and (ar) as color-coded autoradiographs (exemplary data from one sample; laminar density distribution patterns for each receptor labeling). \nThis dataset contains the following receptor density measurements based on the labeling of these receptor binding sites: \n1.\tAMPA (glutamate; labelled with [3H]AMPA): fp\n2.\tkainate (glutamate; [3H]kainate): fp\n3.\tNMDA (glutamate; [3H]MK-801): fp\n4.\tmGluR2/3 (glutamate; [3H] LY 341 495): fp\n5.\tGABAA (GABA; [3H]muscimol): fp\n6.\tGABAB (GABA; [3H] CGP54626): fp\n7.\tGABAA associated benzodiazepine binding sites (BZ; [3H]flumazenil): fp\n8.\tmuscarinic M1 (acetylcholine; [3H]pirenzepine): fp\n9.\tmuscarinic M2 (acetylcholine; [3H]oxotremorine-M): fp\n10.\tmuscarinic M3 (acetylcholine; [3H]4-DAMP): fp\n11.\tnicotinic \u03b14\u03b22 (acetylcholine; [3H]epibatidine): fp\n12.\t\u03b11 (noradrenalin; [3H]prazosin): fp\n13.\t\u03b12 (noradrenalin; [3H]UK-14,304): fp\n14.\t5-HT1A (serotonin; [3H]8-OH-DPAT): fp\n15.\t5-HT2 (serotonin; [3H]ketanserin): fp\n16.\tD1 (dopamine; [3H]SCH23390): fp\n\nWhich sample was used for which receptor density measurement is stated in metadata files accompanying the main data repository.",
+                "http://schema.org/identifier": "3f5b7af3c3a2e556b9c15093c70d9477",
+                "http://schema.org/name": "Density measurements of different receptors for Area 44v",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/9c7d4bbd-b14b-48fc-9594-1284c3a0a3e6"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/5a23746a-d007-4a59-bf24-ae51d1df0e08"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/5a80de71-ca73-445e-a349-cff2923ef575"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/8005e207-d58b-4c2e-b19e-afca88cae8cc"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/d8c0ad71-2a4e-4805-858b-71ee489c9d12"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/ecd00b9e-7539-4424-830c-a76c34fc6061"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/decece35-3eda-41ac-9947-ee5af7993330"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/c5fce892-a884-4a7b-9d61-f13315031a7d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/d0ed6dde-8278-460f-93ef-19c422e7660d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/93ae0a14-9b84-4a0c-b898-6e6b950bf107"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/b0d64a89-5950-4a0e-b5f1-3bc0ef18ea9c"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/c37b65d2-e5e9-472b-a219-a5962dcc6bd9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/f087d505-fe8a-4cdd-b4eb-a727a7da99ed"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/96ff2146-a699-448a-87ba-a800629ecf39"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/c65d65a4-217e-4069-bd45-738a1b877724"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/557fb09b-d7d2-485e-b59f-64f4cbd28ce8"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/f465fdfc-148d-48b8-8410-395ce81c69f2"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/77aeb65e-9ff1-46b2-9f58-e11b2a0687d2"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/Receptors",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b675b108-e7a6-48bd-ae57-fd22017fd442"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d77176e3-faa9-4c93-8dc0-7f3663c6d2ee"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/2a4d1270-c4cb-4c33-9dd7-5015e7b8a672"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/ceab31fc-8466-4659-bebd-2c05ff001cf3"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/2a4d1270-c4cb-4c33-9dd7-5015e7b8a672"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8a95a49b-5c22-47fc-8bc8-ff94b61aa3af"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d77176e3-faa9-4c93-8dc0-7f3663c6d2ee"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-10-12T15:50:47.528405+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/Receptors/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/6b3395bb-45e7-434c-b3e3-c5651393bfc1"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d77176e3-faa9-4c93-8dc0-7f3663c6d2ee"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/7e5e7aa8-28b8-445b-8980-2a6f3fa645b3"
+                },
+                "https://schema.hbp.eu/minds/publications": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/e9cad1a8-2efb-48ab-9e59-a61f196685d1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/a0c59f84-4d08-491c-a961-b9d393620231"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/b2bf8e7e-d94a-46a5-89ca-b62dca09ac8f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2c44d26b-d702-46c0-84a5-92a8a78592ce"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/95f44409-cf16-4c19-8556-c9ee17696fa7"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/44f7b6c2-1eae-496e-8c7b-30649eca79ee"
+                    }
+                ],
+                "nxv:rev": 40,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/06a33cf8-8cfe-4029-8a5e-83a75242d600/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/06a33cf8-8cfe-4029-8a5e-83a75242d600/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/06a33cf8-8cfe-4029-8a5e-83a75242d600"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/072f9660-8d3f-4145-a545-62b415fb9b63",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/072f9660-8d3f-4145-a545-62b415fb9b63",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "19b61f8082f22c11d330c56067794051",
+                "http://schema.org/description": "This dataset contains images of neurofilament in human cortex obtained using serial two-photon microscopy. The individual 3D tiles acquired with the two-photon fluorescence microscope were fused together to produce the final image.",
+                "http://schema.org/identifier": "44ac63f7dc4c5f0f5db43fb829193537",
+                "http://schema.org/name": "Map of neurofilament in human brain cortex",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/41d41deb-d39b-4a68-9d8a-c3925f2fec13"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/3e44f979-2a75-4bf7-a8c8-d05f8271a6f2"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/c93b7458-7edb-4404-9ac3-7b54239fe9c0"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/b1624137-1a30-418a-a28f-d6cc6658231e"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-data-000326",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/4da3ca2e-0f32-4e25-a775-ac29b7e7c5de"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/1efd6447-cc99-4298-b5d4-60a4bc436234"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-08-09T11:29:44.337097+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/hbp-data-000326/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/f3f7490c-66a7-485d-8af7-cd1864a4aa64"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/4da3ca2e-0f32-4e25-a775-ac29b7e7c5de"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/4608145f-017c-47d2-b821-9ab121065d57"
+                },
+                "https://schema.hbp.eu/minds/publications": [],
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/3c230b5b-1ca4-45a4-8771-6e1a113d5da6"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/072f9660-8d3f-4145-a545-62b415fb9b63/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/072f9660-8d3f-4145-a545-62b415fb9b63/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/072f9660-8d3f-4145-a545-62b415fb9b63"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/080085dc-5740-4293-b8b9-4f44525cf3ba",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/080085dc-5740-4293-b8b9-4f44525cf3ba",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "fdd6170bc6c4f2b748dddcbc79ac341d",
+                "http://schema.org/description": "This dataset contains the distinct architectonic Area OP3 (POperc) in the MNI Colin 27 reference brain. As part of the JuBrain atlas, the area was identified using classical histological criteria and quantitative cytoarchitectonic analysis on cell-body-stained histological sections of 10 human postmortem brains obtained from the body donor program of the University of D\u00fcsseldorf. Subsequently the results of the cytoarchitectonic analysis are mapped to the MNI Colin 27 reference brain where each voxel is assigned with the probability to belong to Area OP3 (POperc). The probability map of Area OP3 (POperc) is given in file jubrain-pmap-v22c_space-mnicolin27_Area-OP3.nii. The JuBrain atlas relies on a modular, flexible and adaptive framework containing workflows to create the probabilistic brain maps for these structures. Note that methodological improvements and integration of new brain structures may lead to small deviations in earlier released datasets.",
+                "http://schema.org/identifier": "77bb5b859947674decd96f8886619653",
+                "http://schema.org/name": "Probabilistic cytoarchitectonic map of Area OP3 (POperc)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/58085a92-f26f-455c-ab9d-b61fee111b1d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/d8a99e0a-7372-40a0-b56d-4cc7ec5ce31b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/366282bb-f3ed-4e63-9d60-ba353999717d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/97a248f1-4806-4c78-b016-667ef99f96f9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/425c86c8-7cc5-4ee7-b8f3-71e4acfb631e"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/f5a9e274-b291-4f79-9c19-f3467ee753d5"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d2be3785-5b4b-4451-87be-62b30442ed30"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-11-23T16:55:42.182221+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/a6b07b03-d5cd-4492-a40d-bba9063f8ac2"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/f6f10b01-6c10-42cf-8129-f5aaf307a36b"
+                },
+                "https://schema.hbp.eu/minds/publications": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/c02fae4a-73f8-41ba-9b18-7f70bf915c31"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/06e1d13f-6ac3-488f-aa30-f71b6aa7be71"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/7f39f7be-445b-47c0-9791-e971c0b6d992"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f3d05206-9ac8-4dac-9660-4db8dd34a54f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f4c01d99-fb91-42ec-8835-b6627ad3ba70"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/6230bc43-ff18-437e-aaa5-bfedc1af6e0a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/af8acce9-3b7b-416e-b3fa-f130776a3106"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/8ca1acb7-8b88-4f14-8e94-55800f6fc9ed"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/289f7c18-19f7-4f25-ad04-773698a7583d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2de06b82-23a8-4dba-b63a-1569a76d1415"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/ead3ddc6-ed73-407e-beed-3448ef3e0826"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/75566968-576e-4ac2-b4cd-fd3e71e4dc3d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/827a673f-9366-457d-8670-092599959eca"
+                    }
+                ],
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/080085dc-5740-4293-b8b9-4f44525cf3ba/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/080085dc-5740-4293-b8b9-4f44525cf3ba/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/080085dc-5740-4293-b8b9-4f44525cf3ba"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/09ab8155-f869-41a4-9875-65b21108a73b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/09ab8155-f869-41a4-9875-65b21108a73b",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "f119f5f18f2430bbfe23b9203a67da81",
+                "http://schema.org/description": "Structural MRI database acquired on 77 healthy human subjects and including\u00a0: 1) a series of diffusion MRI data providing isomaps of long and short individual white matter bundles as well as corresponding atlases in the Talairach/MNI spaces\u00a0; 2) a series of T1-weighted anatomical scans for each individual",
+                "http://schema.org/identifier": "4c8b1e6ae03c556a73e07ba7617a6ade",
+                "http://schema.org/name": "Structural mapping of the brain (ARCHI database): ARCHI_dwi",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/35f6f8b5-e13e-43ef-b3d1-e069851d7f5e"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/2d957db0-dfa5-4d28-a1b1-bbbe040151b1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/4c6f2651-e897-43e8-8a94-276b2f015963"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/9d3a73b6-ca4c-4e61-ae92-6959bb1f789f"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/ArchiDti",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/7923ef91-3968-4fe0-aa98-6104669255db"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9bb2310b-5d50-4614-aa5d-39843fb2bc73"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/e6e0999b-4ef2-4587-8470-aebc4c4f7450"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/4023f3ef-27d0-4ef0-bc27-44bbc8a3c386"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d5e7354f-853d-4239-8ad3-86ff965d7406"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/eb58ceda-89e4-40d6-a3e5-38f08b116491"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/c56d5ac2-c3fa-4a8c-b704-02e5d1aff0c4"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f3d4eeaf-f5a8-432f-922c-8dd81a78beb2"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/d5b865a5-e994-4b00-98ee-ff66569cf9ed"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/b1ab524d-7370-4a29-bc0c-81cb8b2031ac"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/13ba94bd-68ed-4dbe-ae9c-a2f8c5fca4a1"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/329d2339-7e2c-4c35-8284-cfa3ccf6ae43"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9f7b7063-dfcb-4edd-a1f4-ce9e1be94cb7"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-07-09T12:26:59.684539+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/ArchiDti/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/281ecf86-9b94-40d6-9b6a-784e01521d7e"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9f7b7063-dfcb-4edd-a1f4-ce9e1be94cb7"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": [],
+                "https://schema.hbp.eu/minds/publications": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/f5b8d89b-290a-4b73-9f33-473c88c231b7"
+                },
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "./"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2015-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/3c774592-5781-432b-8068-991a01f7cd5a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/96eff58e-8f0f-47ea-bae7-0048f8623bc1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/41e88110-e466-4621-9799-c85f27ed1756"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/54d3a1b0-a007-4f03-b628-c4b028ae901a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7bc4a3fa-3937-4c52-8a30-bd53d81d7802"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7ff810d7-29ba-47f9-8cb3-470f0a69ba9b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/ebfafa3a-0648-4e98-87c5-c3df2e890282"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/95d1b6d4-ba12-46b6-b796-47e0fb4f2f0d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/19f6f178-0b11-4b9c-88c3-5a8b4a55e015"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2be5550a-de85-41c1-a0ef-2b2b37886935"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/6beb8146-85dd-4b96-b0fa-d776c27f249d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/ce0c78d2-2e1f-4f86-a755-1db98c2d0b16"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7e1f2780-c236-4e09-84cf-12a55d22d028"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/9e71daa8-0e65-4c49-9b80-96426496a068"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/fc5f988c-a276-4a5d-8273-a99aba81fe5f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/cca837aa-71d3-4754-b7c6-f7209f691680"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/4021789f-a170-4d8b-b6be-3599580fa5a0"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/69920605-5d73-484d-b70c-42417611e498"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/d9d37eea-9135-4b92-8e8c-916dcb64e29b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/33faf975-a6a1-4e01-a7f1-4170faaf555d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/aaf43e98-3ab1-45bb-acb8-43eebea762cd"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2aecbc68-fc1d-464f-8bb5-f0afada556fc"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7c2d6738-350c-4ed0-99aa-88d9df0ab927"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/802543bf-6c32-4833-baf1-2ff1ebe4bd09"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/75f25b94-5ca9-45dd-8492-1cafaf9c4551"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/86ca6bf5-29ca-4661-aab7-0b7e939b80f9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/4b08985d-1422-49bf-881f-6430372010eb"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/4d391acf-4cd1-4219-832a-159e41e40db8"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a958b209-d62a-43bf-b9b2-e1ddc3f0b9dd"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/ef1090b5-6297-47fb-bb4d-3bfbac53c1d5"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/0c042bf7-25d9-4d53-8901-7a10347e5c5d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/e6568547-f3b7-40b2-8890-15c817231fc1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/156f731b-3c28-4a7a-937c-f44a1cce47d3"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/4058437a-f72b-4dcb-baec-f3913ecb379c"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/0d8098b0-a375-4b14-acf9-4112bcc67ba9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/3cf21df7-8c80-439e-a067-6fbc4b4125bb"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/cfe46b52-f7a4-4174-85b6-1ae5eed30187"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/c67b0341-43b2-430d-b4d1-94c356a7ee43"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/b00b6899-4ca4-4ac8-8582-e616e065dd8e"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/86c4841c-d8b7-4a16-b417-6881c056fae8"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/cbf7ccf6-471b-4375-aac5-6fdc8a8686e9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7e163f95-2b5b-4364-832a-2edbfde9e719"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a5437f20-7b04-43e1-a7c0-45cf6b944285"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/08bdddec-0d2e-4863-b1f7-6137148e4147"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a9e7324b-aedc-41ee-9b6c-2c114f6356a7"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/091594bb-f223-4fb7-a2c0-af32efc162c8"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/76cdc59b-d39d-4f50-9396-6bb40f2ee959"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/7c836b02-ccd1-4c4b-919d-cb7346a705fc"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/4dfcb156-342e-42f8-9f48-8ccc2daf157d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/dbd2f5af-190a-40c2-83d1-b9ffbca58631"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/0b2824a3-5295-4798-a38f-ab94cf37e62e"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/41403eaa-64dc-4b55-a325-22ccebe686ca"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/07f41b32-4bcc-4d36-a7d0-0405f722fad7"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/8e20ff26-5f7f-421c-9b87-ec2341deaef4"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/46dc14ed-2803-48e2-a8bf-34dc29bda2b1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/fb44e49d-0fe4-45d7-bef8-50ebcb96ee93"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/e008b375-9656-441d-a57a-569f736f33ca"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a6222a98-1613-410d-87d5-51960a281fb2"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/115829ca-265e-4cc7-b72d-264a0535248f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/98063e46-6ea5-491a-8cc4-1c9575692edb"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a3065285-d67b-4bc9-a9f0-430a0c2c1d5b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/9911fdf0-8ebb-4476-ab92-a5bb5f8e824e"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/20ea4927-c073-47a7-86e8-1bf68eee1662"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/9ae3a9d0-f01d-4818-b350-a9ec26441687"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/391626dd-51c9-44a4-89ac-b7ea5133cab5"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/d8c81aae-4e5e-44fd-984c-f268880ba035"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/a0dec7a1-9bea-4225-9d47-7212886c200c"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/523b385a-a4f0-43d0-8e43-fd127fc08911"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/d3acdbeb-61f2-47c0-b7e4-2fbc61dbffe3"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/00b6c878-7d22-474b-a8e9-8daf67b4c0da"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/8709345c-3d16-4964-8e0a-022833d8414f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/b5c6ddf8-8493-43cc-8c11-a4cd28b48b9c"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/b642c823-24df-4a10-ac8f-145978ff9e8a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/6d5f25ff-6b7a-4c41-92bb-b15733c1ecef"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2b31e6fa-2d75-4711-b170-60fc1e9f9cc2"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/e3d25e99-f53c-40f3-b740-d0691bd67d77"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/57ce88e0-9226-4ee5-8936-d25ee700b5f1"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/3c774592-5781-432b-8068-991a01f7cd5a"
+                    }
+                ],
+                "nxv:rev": 18,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/09ab8155-f869-41a4-9875-65b21108a73b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/09ab8155-f869-41a4-9875-65b21108a73b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/09ab8155-f869-41a4-9875-65b21108a73b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a06681d-4815-4df3-a024-f367291483ba",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a06681d-4815-4df3-a024-f367291483ba",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "90db448bf0a489a1268605f95ffd5c13",
+                "http://schema.org/description": "This dataset contains the distinct architectonic Area Ig1 (Insula) in the MNI Colin 27 reference. As part of the JuBrain atlas, the area was identified using classical histological criteria and quantitative cytoarchitectonic analysis on cell-body-stained histological sections of 10 human postmortem brains obtained from the body donor program of the University of D\u00fcsseldorf. Subsequently the results of the cytoarchitectonic analysis are mapped to the MNI Colin 27 reference where each voxel is assigned with the probability to belong to Area Ig1 (Insula). The probability map of Area Ig1 (Insula) is given in file jubrain-pmap-v22c_space-mnicolin27_Area-Ig1.nii. The JuBrain atlas relies on a modular, flexible and adaptive framework containing workflows to create the probabilistic brain maps for these structures. Note that methodological improvements and integration of new brain structures may lead to small deviations in earlier released datasets.",
+                "http://schema.org/identifier": "b92753135f125edbf285cdae74a45572",
+                "http://schema.org/name": "Probabilistic cytoarchitectonic map of Area Ig1 (Insula)",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/58085a92-f26f-455c-ab9d-b61fee111b1d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/d8a99e0a-7372-40a0-b56d-4cc7ec5ce31b"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/366282bb-f3ed-4e63-9d60-ba353999717d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/97a248f1-4806-4c78-b016-667ef99f96f9"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/425c86c8-7cc5-4ee7-b8f3-71e4acfb631e"
+                    }
+                ],
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/f5a9e274-b291-4f79-9c19-f3467ee753d5"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/9705b35c-3857-438b-b04f-f6a8ab79926c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/99a95057-bd4d-43ab-ad70-b7920ceedc48"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/f000487e-a9b4-4dee-8a2d-68f71019af0b"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/323aa606-da3a-42a1-b16f-e07887dc43ec"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/bacae1fc-d8ff-4050-8388-7d826592c62c"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-11-23T15:53:32.362715+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_227176556f3c4bb38df9feea4b91200c/JuBrain/",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/format/v1.0.0/a6b07b03-d5cd-4492-a40d-bba9063f8ac2"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/46cf08af-8086-4e8a-9e9f-182ca583bdf0"
+                },
+                "https://schema.hbp.eu/minds/publications": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/6b5ba7eb-f6a8-4f0c-867b-d1c8c6ec1d3e"
+                },
+                "https://schema.hbp.eu/minds/reference_space": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/7f39f7be-445b-47c0-9791-e971c0b6d992"
+                },
+                "https://schema.hbp.eu/minds/release_date": "2018-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f3d05206-9ac8-4dac-9660-4db8dd34a54f"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/f4c01d99-fb91-42ec-8835-b6627ad3ba70"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/6230bc43-ff18-437e-aaa5-bfedc1af6e0a"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/af8acce9-3b7b-416e-b3fa-f130776a3106"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/8ca1acb7-8b88-4f14-8e94-55800f6fc9ed"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/289f7c18-19f7-4f25-ad04-773698a7583d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/2de06b82-23a8-4dba-b63a-1569a76d1415"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/ead3ddc6-ed73-407e-beed-3448ef3e0826"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/75566968-576e-4ac2-b4cd-fd3e71e4dc3d"
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/827a673f-9366-457d-8670-092599959eca"
+                    }
+                ],
+                "nxv:rev": 32,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a06681d-4815-4df3-a024-f367291483ba/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a06681d-4815-4df3-a024-f367291483ba/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a06681d-4815-4df3-a024-f367291483ba"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140",
+                "@type": "https://schema.hbp.eu/minds/Dataset",
+                "http://hbp.eu/internal#hashcode": "9e1c1a0f691f0fd7fe9f3da03a52d822",
+                "http://schema.org/description": "A general procedure to fit individual synaptic events recorded from voltage clamp experiments was tested with various sets of experimental data on GABAergic synapses; gephyrin and gephyrin-dependent pathways were chosen as a suitable example of a kinetic model of synaptic transmission. The data used here are obtained from coronal hippocampal slices (300 \u03bcm thick) from juvenile (P21-30) C57B16/J male mice receiving input from parvalbumin positive (PV+) interneurons. The dataset contains 614 individual events recorded from 3 different neurons (expC1-C3). The first column of each txt file contains the time in ms and the other columns contain spontaneous inhibitory synaptic currents (sIPSCs) in pA.\nComputational modeling of brain circuits requires the definition of many parameters that are difficult to determine from experimental findings. One way to help interpret these data is to fit them using a particular kinetic model. In [1] we proposed a general procedure to fit individual synaptic events recorded from voltage clamp experiments. Starting from any given model description (mod file) in the NEURON simulation environment, the procedure exploits user-defined constraints, dependencies, and rules for the parameters of the model to fit the time course of individual spontaneous synaptic events that are recorded experimentally. A Python version is available for public use, as a Jupyter Notebook in the Collaboratory Portal of the Human Brain Project. To illustrate the potential application of the procedure, we tested its use with various sets of experimental data on GABAergic synapses; gephyrin and gephyrin-dependent pathways were chosen as a suitable example of a kinetic model of synaptic transmission. For individual spontaneous inhibitory events in hippocampal pyramidal CA1 neurons, we found that gephyrin-dependent subcellular pathways may shape synaptic events at different levels, and can be correlated with cell- or event-specific activity history and/or pathological conditions.\nFitting experimental data against a number of different models is a common way to do this (reviewed in [2]), and can help in the subsequent interpretation of the data. In general, experimental traces are fitted using specific approaches for specific purposes (e.g., [3], [4]). However, to the best of our knowledge, there is no easy, user-friendly, general procedure available for this purpose, especially in computational neuroscience. Our aim was thus to identify the appropriate conceptual structure of a procedure to obtain good, reliable fits of raw experimental traces of spontaneous synaptic events. This is an important step because spontaneous synaptic events have been so far exclusively analyzed using traces obtained by averaging many events. However, as can be easily imagined, each synapse in any given neuron has its own, independent, history of activation. The most likely physiological consequence is that the variables relative to the subcellular processes underlying synaptic transmission are different for each synapse. If a researcher is interested in testing a specific kinetic scheme implemented for specific biochemical pathways, the use of individual events is the most appropriate choice, since this approach would give information on the different combinations of model parameters that are consistent with the observed events. Averaging traces will lose a lot of relevant information.\nWe therefore present here the implementation of a procedure leading to the development of a unifying optimization method for individual synaptic events. Experimental data, kinetic models of synaptic transmission, and fitting parameters and their dependencies can be user defined/provided or gathered from databases. They can be used to generate optimized groups of parameters able to represent a population of synapses, either for simulation purposes or to study the functional consequences of a particular protein or subcellular synaptic transmission pathway. \n[1] Lupascu CA, Morabito A, Merenda E, et al. A General Procedure to Study Subcellular Models of Transsynaptic Signaling at Inhibitory Synapses. Frontiers in Neuroinformatics. 2016;10:23. doi:10.3389/fninf.2016.00023   \n[2] Van Geit W., De Schutter E., Achard P. (2008). Automated neuron model optimization techniques: a review. Biol. Cybern. 99, 241\u2013251. 10.1007/s00422-008-0257-6  \n[3] Bekkers J. M. (2003). Convolution of mini distributions for fitting evoked synaptic amplitude histograms. J. Neurosci. Methods. 130, 105\u2013114. 10.1016/j.jneumeth.2003.09.018  \n[4] Meisl G., Kirkegaard J. B., Arosio P., Michaels T. C., Vendruscolo M., Dobson C. M., et al. . (2016). Molecular mechanisms of protein aggregation from global fitting of kinetic models. Nat. Protoc. 11, 252\u2013272. 10.1038/nprot.2016.010",
+                "http://schema.org/identifier": "7877f8d8dd316f5c89f8438c0a337300",
+                "http://schema.org/name": "sIPSCs from juvenile (P21-30) C57Bl6/J male mice from CA1 pyramidal neurons receiving input from PV+ interneurons",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/activity/v1.0.0/e5d805ca-ba1e-4c26-b8ce-aad4bc28633c"
+                },
+                "https://schema.hbp.eu/minds/component": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/placomponent/v1.0.0/ddad51f1-0264-4509-a3bc-c805c8d2c89b"
+                },
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar029",
+                "https://schema.hbp.eu/minds/contributors": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/feca5f91-2b53-4c90-85b5-8b75e775c434"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/3d8fbcda-7599-406c-b257-4c7c9e9d12f8"
+                        },
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/8ccf3fff-90cf-4004-80b1-89a8d992aa14"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/created_at": "2018-05-31T09:46:51.054376+00:00",
+                "https://schema.hbp.eu/minds/datalink": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar029/hbp-00013",
+                "https://schema.hbp.eu/minds/datasetDOI": [],
+                "https://schema.hbp.eu/minds/embargo_status": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/embargostatus/v1.0.0/222b535c-2e8f-4892-acf4-39006c5219b9"
+                },
+                "https://schema.hbp.eu/minds/formats": [],
+                "https://schema.hbp.eu/minds/license": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/licensetype/v1.0.0/88e71f2d-4fcc-4cb1-bc9f-cbab9ab2058b"
+                },
+                "https://schema.hbp.eu/minds/license_info": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/licenses/core/information/v1.0.0/381a4b0b-fab2-4f1c-80f8-c3ab1ad1da51"
+                },
+                "https://schema.hbp.eu/minds/owners": {
+                    "@list": [
+                        {
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/feca5f91-2b53-4c90-85b5-8b75e775c434"
+                        }
+                    ]
+                },
+                "https://schema.hbp.eu/minds/parcellationRegion": [],
+                "https://schema.hbp.eu/minds/publications": [],
+                "https://schema.hbp.eu/minds/release_date": "2016-03-31",
+                "https://schema.hbp.eu/minds/specimen_group": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/specimengroup/v1.0.0/c29e2c60-fead-46d6-aa16-95986c3f6691"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/dataset/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

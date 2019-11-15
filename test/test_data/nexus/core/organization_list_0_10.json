@@ -1,0 +1,324 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 18,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/0bd9ab46-59ee-481e-9e5f-20ecde987592",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/0bd9ab46-59ee-481e-9e5f-20ecde987592",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP2",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/0bd9ab46-59ee-481e-9e5f-20ecde987592/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/0bd9ab46-59ee-481e-9e5f-20ecde987592/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/0bd9ab46-59ee-481e-9e5f-20ecde987592"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1559b59e-61b3-40c7-b96d-c201ed351a42",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1559b59e-61b3-40c7-b96d-c201ed351a42",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "UK",
+                    "addressLocality": "London"
+                },
+                "name": "Thomson Lab",
+                "parentOrganization": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/ca8bb7d6-cef7-4ee1-a057-6d1366ae2833",
+                    "@type": "nsg:Organization"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1559b59e-61b3-40c7-b96d-c201ed351a42/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1559b59e-61b3-40c7-b96d-c201ed351a42/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1559b59e-61b3-40c7-b96d-c201ed351a42"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Italy",
+                    "addressLocality": "Rome"
+                },
+                "name": "European Brain Research Institute",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/2bcc393f-9c2e-4d7e-bfe6-e5f97987c607",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/2bcc393f-9c2e-4d7e-bfe6-e5f97987c607",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP11",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/2bcc393f-9c2e-4d7e-bfe6-e5f97987c607/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/2bcc393f-9c2e-4d7e-bfe6-e5f97987c607/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/2bcc393f-9c2e-4d7e-bfe6-e5f97987c607"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/42ce11ba-1e4d-4ed2-b62d-29194be45e62",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/42ce11ba-1e4d-4ed2-b62d-29194be45e62",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP4",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/42ce11ba-1e4d-4ed2-b62d-29194be45e62/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/42ce11ba-1e4d-4ed2-b62d-29194be45e62/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/42ce11ba-1e4d-4ed2-b62d-29194be45e62"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5302948a-e52e-4fc8-83da-b4cb681d34be",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5302948a-e52e-4fc8-83da-b4cb681d34be",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "United States",
+                    "addressLocality": "Seattle"
+                },
+                "name": "Allen Institute",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5302948a-e52e-4fc8-83da-b4cb681d34be/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5302948a-e52e-4fc8-83da-b4cb681d34be/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5302948a-e52e-4fc8-83da-b4cb681d34be"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5a7ad462-0112-4f23-afd8-b83486fe7417",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5a7ad462-0112-4f23-afd8-b83486fe7417",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP5",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5a7ad462-0112-4f23-afd8-b83486fe7417/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5a7ad462-0112-4f23-afd8-b83486fe7417/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/5a7ad462-0112-4f23-afd8-b83486fe7417"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/645e25bb-1a16-410f-8907-543314fc8e76",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/645e25bb-1a16-410f-8907-543314fc8e76",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/645e25bb-1a16-410f-8907-543314fc8e76/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/645e25bb-1a16-410f-8907-543314fc8e76/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/645e25bb-1a16-410f-8907-543314fc8e76"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/7907a5f0-1d7a-40b2-a745-9266b426706e",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/7907a5f0-1d7a-40b2-a745-9266b426706e",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Switzerland",
+                    "addressLocality": "Geneva"
+                },
+                "name": "Blue Brain Project",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/7907a5f0-1d7a-40b2-a745-9266b426706e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/7907a5f0-1d7a-40b2-a745-9266b426706e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/7907a5f0-1d7a-40b2-a745-9266b426706e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/93353a04-b83e-4489-b94c-0b359d68632e",
+            "source": {
+                "@context": {
+                    "address": "schema:address",
+                    "addressCountry": "schema:addressCountry",
+                    "addressLocality": "schema:addressLocality",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "parentOrganization": "schema:parentOrganization",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/93353a04-b83e-4489-b94c-0b359d68632e",
+                "@type": "nsg:Organization",
+                "address": {
+                    "@type": "schema:PostalAddress",
+                    "addressCountry": "Europe",
+                    "addressLocality": "HBP"
+                },
+                "name": "HBP-SP8",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/93353a04-b83e-4489-b94c-0b359d68632e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/93353a04-b83e-4489-b94c-0b359d68632e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/organization/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/93353a04-b83e-4489-b94c-0b359d68632e"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

@@ -1,0 +1,270 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 79,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/018a8f3f-d629-43ce-a891-f0c65c87ad1f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/018a8f3f-d629-43ce-a891-f0c65c87ad1f",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "b5fa5b56d2221ea7f9f80e5e431fe43e",
+                "http://schema.org/name": "Cytoarchitectonic mapping of the human dorsal extrastriate cortex",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/93e040fd-16b2-4d15-a035-a114e57ff0c4"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/be8227b5-7779-4263-9038-639af6212d11"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/018a8f3f-d629-43ce-a891-f0c65c87ad1f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/018a8f3f-d629-43ce-a891-f0c65c87ad1f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/018a8f3f-d629-43ce-a891-f0c65c87ad1f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0313e17e-a334-4011-8ccd-cf2d5e7aa0a8",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0313e17e-a334-4011-8ccd-cf2d5e7aa0a8",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "48c441ba49ae5f75351db72ea17715a4",
+                "http://schema.org/name": "Ventral visual cortex in humans: Cytoarchitectonic mapping of two extrastriate areas",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/770721af-354b-4c58-bf0b-eadd2c9a6139"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/7444ce27-4175-4d40-ad3a-5266a3a0ab1c"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0313e17e-a334-4011-8ccd-cf2d5e7aa0a8/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0313e17e-a334-4011-8ccd-cf2d5e7aa0a8/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0313e17e-a334-4011-8ccd-cf2d5e7aa0a8"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/05997d1b-bea3-49f6-9f8d-a3140eea5236",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/05997d1b-bea3-49f6-9f8d-a3140eea5236",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "de01026e-1ae5-4a73-8b3a-bbd6d0230434301597",
+                "http://schema.org/name": "Light microscopical mapping of the hippocampal region, the pyriform cortex and the corticomedial amygdaloid nuclei of the rat with Timm's sulphide silver method",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/de01026e-1ae5-4a73-8b3a-bbd6d0230434"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/9f8ee4c0-6a9b-4f84-8842-9856f50e2aea"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/05997d1b-bea3-49f6-9f8d-a3140eea5236/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/05997d1b-bea3-49f6-9f8d-a3140eea5236/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/05997d1b-bea3-49f6-9f8d-a3140eea5236"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/09c509d4-1ef6-4a91-9a6e-45a25cc1543f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/09c509d4-1ef6-4a91-9a6e-45a25cc1543f",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "a98f1032eabe84778a9b3fdaf76b1e9c",
+                "http://schema.org/name": "The human inferior parietal cortex: Cytoarchitectonic parcellation and interindividual variability",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/d72db3e2-d320-4ec5-a365-1f819f4bbc83"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/09c509d4-1ef6-4a91-9a6e-45a25cc1543f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/09c509d4-1ef6-4a91-9a6e-45a25cc1543f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/09c509d4-1ef6-4a91-9a6e-45a25cc1543f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0bf1965a-d884-4faa-8d92-398296835bc0",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0bf1965a-d884-4faa-8d92-398296835bc0",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "96ca2e95671d9a4130711ad54a5d0288",
+                "http://schema.org/name": "Observer-Independent Method for Microstructural Parcellation of Cerebral Cortex: A Quantitative Approach to Cytoarchitectonics",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/cff90184-794a-4d90-a4a9-2881422f2d34"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/9b03b545-9dd1-43e3-8245-db1ae2c3a7ff"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0bf1965a-d884-4faa-8d92-398296835bc0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0bf1965a-d884-4faa-8d92-398296835bc0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/0bf1965a-d884-4faa-8d92-398296835bc0"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/13fa62fb-13bc-442b-b510-e1b0c17bee6c",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/13fa62fb-13bc-442b-b510-e1b0c17bee6c",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "99bf55e6-3158-40ef-b3ed-b6d98d654ab6305524",
+                "http://schema.org/name": "A three\u2010plane architectonic atlas of the rat hippocampal region",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/99bf55e6-3158-40ef-b3ed-b6d98d654ab6"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/983886e4-f074-4dfa-9936-bdd80ca0f937"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/13fa62fb-13bc-442b-b510-e1b0c17bee6c/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/13fa62fb-13bc-442b-b510-e1b0c17bee6c/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/13fa62fb-13bc-442b-b510-e1b0c17bee6c"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/140bae09-2329-4da4-877a-39f4a3a7516b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/140bae09-2329-4da4-877a-39f4a3a7516b",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "3eb762c222586a13e2ca64426b0cd780",
+                "http://schema.org/name": "Areas 3a, 3b, and 1 of Human Primary Somatosensory Cortex",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/6a4bf777-02bf-43b3-a6a1-62188fda5b75"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/86254edf-3d75-4eed-aa16-453baf8e4e5c"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/140bae09-2329-4da4-877a-39f4a3a7516b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/140bae09-2329-4da4-877a-39f4a3a7516b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/140bae09-2329-4da4-877a-39f4a3a7516b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/14e04f84-d049-4740-a1d4-c32f9b196f79",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/14e04f84-d049-4740-a1d4-c32f9b196f79",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "fed673a283df3cf1217ee6d213e91c7a",
+                "http://schema.org/name": "Human Somatosensory Area 2: Observer-Independent Cytoarchitectonic Mapping, Interindividual Variability, and Population Map",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/a1576a72-51df-43c7-9701-8d13afd0b88c"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/52c22dc2-963b-454b-b2b4-c011ae677b2f"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/14e04f84-d049-4740-a1d4-c32f9b196f79/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/14e04f84-d049-4740-a1d4-c32f9b196f79/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/14e04f84-d049-4740-a1d4-c32f9b196f79"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1761e02f-1700-4518-aa9c-d8a94af26a34",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1761e02f-1700-4518-aa9c-d8a94af26a34",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "d71f9b6e7a8128af16cc6c0a629141c6",
+                "http://schema.org/name": "Expression mapping of tetracycline-responsive prion protein promoter: Digital atlasing for generating cell-specific disease models",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/5fc2637a-3e94-4cf8-bcdf-bc3edc6ae621"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/abe578db-fc4a-4db6-a383-8ae2e6a37b14"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1761e02f-1700-4518-aa9c-d8a94af26a34/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1761e02f-1700-4518-aa9c-d8a94af26a34/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1761e02f-1700-4518-aa9c-d8a94af26a34"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1a264e2e-43d5-4841-b3bf-f0f53c402d84",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1a264e2e-43d5-4841-b3bf-f0f53c402d84",
+                "@type": "https://schema.hbp.eu/uniminds/Publication",
+                "http://schema.org/identifier": "cdaf6252c2cddc3e5b4937d2a8747ee9",
+                "http://schema.org/name": "Multimodal architectonic mapping of human superior temporal gyrus",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/9064e3fd-87ff-4c52-8f40-e99ef8706a26"
+                },
+                "https://schema.hbp.eu/uniminds/publicationId": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/4ed3d064-1617-4377-81de-064aed5ea653"
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1a264e2e-43d5-4841-b3bf-f0f53c402d84/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1a264e2e-43d5-4841-b3bf-f0f53c402d84/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/publication/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/1a264e2e-43d5-4841-b3bf-f0f53c402d84"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/publication/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

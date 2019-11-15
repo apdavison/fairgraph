@@ -1,0 +1,552 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 75,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0530d384-fa25-4229-b288-e9ea2c15c8f3",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0530d384-fa25-4229-b288-e9ea2c15c8f3",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                    "label": "cerebellar granule cell"
+                },
+                "name": "sub13k.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0530d384-fa25-4229-b288-e9ea2c15c8f3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0530d384-fa25-4229-b288-e9ea2c15c8f3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0530d384-fa25-4229-b288-e9ea2c15c8f3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                    "label": "cerebellar granule cell"
+                },
+                "name": "sub11k.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                    "label": "Golgi cell"
+                },
+                "name": "GF2.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1405a8a1-ac68-4489-88bb-4f44e4a1d8f7",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1405a8a1-ac68-4489-88bb-4f44e4a1d8f7",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                    "label": "Golgi cell"
+                },
+                "name": "sub16g.samp2",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1405a8a1-ac68-4489-88bb-4f44e4a1d8f7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1405a8a1-ac68-4489-88bb-4f44e4a1d8f7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1405a8a1-ac68-4489-88bb-4f44e4a1d8f7"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                },
+                "name": "hbp00014_Sub2_Samp3__ExpB6",
+                "nsg:chlorideReversalPotential": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "mV",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                    },
+                    "value": "-16"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "5th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "6th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "7th cerebellar lobule"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                            "label": "8th cerebellar lobule"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                    "label": "cerebellar granule cell"
+                },
+                "name": "sub1m.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
+                            "label": "lobule 5 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
+                            "label": "lobule 6 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
+                            "label": "lobule 7 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
+                            "label": "lobule 8 of the cerebellar vermis"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                    "label": "cerebellar granule cell"
+                },
+                "name": "sub2r.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/26bf75a0-6dd4-47ba-9d94-f65bc262fe83",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/26bf75a0-6dd4-47ba-9d94-f65bc262fe83",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                },
+                "name": "hbp00014_Sub1_Samp3__ExpB3",
+                "nsg:chlorideReversalPotential": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "mV",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                    },
+                    "value": "-16"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/26bf75a0-6dd4-47ba-9d94-f65bc262fe83/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/26bf75a0-6dd4-47ba-9d94-f65bc262fe83/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/26bf75a0-6dd4-47ba-9d94-f65bc262fe83"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": {
+                        "@id": "http://purl.obolibrary.org/obo/UBERON_0003881",
+                        "label": "hippocampus CA1"
+                    }
+                },
+                "eType": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                },
+                "name": "hbp00011_Sub2_Samp1__ExpE5",
+                "nsg:chlorideReversalPotential": {
+                    "@type": "nsg:QuantitativeValue",
+                    "label": "mV",
+                    "unitCode": {
+                        "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                    },
+                    "value": "-16"
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+            "source": {
+                "@context": {
+                    "brainLocation": "nsg:brainLocation",
+                    "brainRegion": "nsg:brainRegion",
+                    "eType": "nsg:eType",
+                    "label": "rdfs:label",
+                    "labelingCompound": "nsg:labelingCompound",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+                "@type": [
+                    "nsg:PatchedCell",
+                    "prov:Entity"
+                ],
+                "brainLocation": {
+                    "brainRegion": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
+                            "label": "lobule 5 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
+                            "label": "lobule 6 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
+                            "label": "lobule 7 of the cerebellar vermis"
+                        },
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
+                            "label": "lobule 8 of the cerebellar vermis"
+                        }
+                    ]
+                },
+                "eType": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                    "label": "cerebellar granule cell"
+                },
+                "name": "sub1-ca.samp1",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/patchedcell/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

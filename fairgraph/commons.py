@@ -48,7 +48,9 @@ class Address(StructuredMetadata):
 
 
 class Species(OntologyTerm):
-    """docstring"""
+    """
+    The species of an experimental subject, expressed with the binomial nomenclature.
+    """
     iri_map = {
         "Rodentia": "http://purl.obolibrary.org/obo/NCBITaxon_9989",
         "Mus musculus": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
@@ -63,7 +65,9 @@ class Species(OntologyTerm):
 
 
 class Strain(OntologyTerm):
-    """docstring"""
+    """
+    An inbred sub-population within a species.
+    """
     iri_map = {
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
@@ -82,7 +86,9 @@ class Strain(OntologyTerm):
 
 
 class Sex(OntologyTerm):
-    """docstring"""
+    """
+    The sex of an animal or person from whom/which data were obtained.
+    """
     iri_map = {
         "male": "schema:Male",
         "female": "schema:Female"
@@ -90,7 +96,9 @@ class Sex(OntologyTerm):
 
 
 class BrainRegion(OntologyTerm):
-    """docstring"""
+    """
+    A sub-structure or region with the brain.
+    """
     iri_map = {
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
         "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
@@ -121,7 +129,7 @@ class BrainRegion(OntologyTerm):
 
 
 class CellType(OntologyTerm):
-    """docstring"""
+    """A type of neuron or glial cell."""
     iri_map = {
         "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
         "hippocampus CA1 basket cell": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
@@ -154,7 +162,9 @@ class CellType(OntologyTerm):
 
 
 class AbstractionLevel(OntologyTerm):
-    """docstring"""
+    """
+    Level of abstraction for a neuroscience model, e.g.rate neurons, spiking neurons
+    """
     iri_map = {
         "protein structure": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345670",
         "systems biology": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
@@ -387,7 +397,7 @@ class Age(StructuredMetadata):
     }
     fields = (
         Field("value", basestring, "value", required=True),
-        Field("period", KGObject, "period",  required=True, multiple=True)
+        Field("period", basestring, "period",  required=True, multiple=True)
     )
 
     def __init__(self, value, period):

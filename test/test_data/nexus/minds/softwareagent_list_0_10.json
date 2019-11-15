@@ -1,0 +1,30 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 1,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                "@type": "https://schema.hbp.eu/minds/Softwareagent",
+                "http://hbp.eu/internal#hashcode": "fc93f8ab3a83a0241b2336df2b0020f2",
+                "http://schema.org/description": "Script for data imports dataworkbench -> knowledge graph (part of HBP curation scripts)",
+                "http://schema.org/identifier": "python_dataworkbench_loader_v0_0_1",
+                "http://schema.org/name": "Dataworkbench loader",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/softwareagent/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

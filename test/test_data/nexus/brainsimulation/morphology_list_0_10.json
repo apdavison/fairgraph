@@ -1,0 +1,300 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 524,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00775568-a822-467a-b966-dfde72f90782",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00775568-a822-467a-b966-dfde72f90782",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                },
+                "name": "Morphology for Golding_et_al_2001_dichotomy @ fig8B",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00775568-a822-467a-b966-dfde72f90782/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00775568-a822-467a-b966-dfde72f90782/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00775568-a822-467a-b966-dfde72f90782"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00ab8cdc-60f5-497c-bfe3-648bbad2af47",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00ab8cdc-60f5-497c-bfe3-648bbad2af47",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D2 type)"
+                },
+                "name": "Morphology for Optimized single neuron model MSN D2, cell YJ150915_c7 @ msn_d2_all-5-20170517_hof_5",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00ab8cdc-60f5-497c-bfe3-648bbad2af47/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00ab8cdc-60f5-497c-bfe3-648bbad2af47/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/00ab8cdc-60f5-497c-bfe3-648bbad2af47"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/014da81b-7dd2-442f-924a-1304cdb0b615",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/014da81b-7dd2-442f-924a-1304cdb0b615",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "label": "pyramidal cell"
+                },
+                "name": "Morphology for CA1_int_cNAC_010710HP2_20170511132718 @ 1.0",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/014da81b-7dd2-442f-924a-1304cdb0b615/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/014da81b-7dd2-442f-924a-1304cdb0b615/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/014da81b-7dd2-442f-924a-1304cdb0b615"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01a2f16b-5efa-4fa2-b97c-256eb2a1b357",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01a2f16b-5efa-4fa2-b97c-256eb2a1b357",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "fast spiking interneuron"
+                },
+                "name": "Morphology for Optimized single neuron model FS, cell 161205_FS1 @ str-fs-161205_FS1-BE37A-20180212_hof_4",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01a2f16b-5efa-4fa2-b97c-256eb2a1b357/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01a2f16b-5efa-4fa2-b97c-256eb2a1b357/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01a2f16b-5efa-4fa2-b97c-256eb2a1b357"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01cd4586-0478-45e7-9fef-bd07f6f17a38",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01cd4586-0478-45e7-9fef-bd07f6f17a38",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D2 type)"
+                },
+                "name": "Morphology for msn_d2_morphologies @ L0629-slide-3-section-4-1-rep-ax-cor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01cd4586-0478-45e7-9fef-bd07f6f17a38/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01cd4586-0478-45e7-9fef-bd07f6f17a38/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/01cd4586-0478-45e7-9fef-bd07f6f17a38"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/02987a16-c5ae-4ae1-af48-1bdba6c3ca56",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/02987a16-c5ae-4ae1-af48-1bdba6c3ca56",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D1 type)"
+                },
+                "name": "Morphology for msn_d1_morphologies @ WT-P270-11-rep-ax-cor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/02987a16-c5ae-4ae1-af48-1bdba6c3ca56/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/02987a16-c5ae-4ae1-af48-1bdba6c3ca56/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/02987a16-c5ae-4ae1-af48-1bdba6c3ca56"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03a55564-8d41-483b-b660-3d22b317ab25",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03a55564-8d41-483b-b660-3d22b317ab25",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D1 type)"
+                },
+                "name": "Morphology for msn_d1_all-6-20170524 @ hof_2",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03a55564-8d41-483b-b660-3d22b317ab25/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03a55564-8d41-483b-b660-3d22b317ab25/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03a55564-8d41-483b-b660-3d22b317ab25"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03bca6b6-a184-4eb9-a798-df89764107b9",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03bca6b6-a184-4eb9-a798-df89764107b9",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000099",
+                    "label": "interneuron"
+                },
+                "name": "Morphology for CA1_int_cAC_970627BHP1_20190328160727 @ 1.0",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03bca6b6-a184-4eb9-a798-df89764107b9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03bca6b6-a184-4eb9-a798-df89764107b9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03bca6b6-a184-4eb9-a798-df89764107b9"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03e86be7-74de-40c5-9f32-5bc416ff2705",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03e86be7-74de-40c5-9f32-5bc416ff2705",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D1 type)"
+                },
+                "name": "Morphology for msn_d1_morphologies @ 13-1-JB-rep-ax-cor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03e86be7-74de-40c5-9f32-5bc416ff2705/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03e86be7-74de-40c5-9f32-5bc416ff2705/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/03e86be7-74de-40c5-9f32-5bc416ff2705"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0551dce6-f713-4377-a80e-9cf96f8ff531",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {}
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0551dce6-f713-4377-a80e-9cf96f8ff531",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Morphology"
+                ],
+                "modelOf": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "medium spiny neuron (D1 type)"
+                },
+                "name": "Morphology for msn_d1_morphologies @ 22-1-DE-rep-ax-cor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0551dce6-f713-4377-a80e-9cf96f8ff531/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0551dce6-f713-4377-a80e-9cf96f8ff531/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/morphology/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0551dce6-f713-4377-a80e-9cf96f8ff531"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/?fields=all&size=10&deprecated=False"
+    }
+}

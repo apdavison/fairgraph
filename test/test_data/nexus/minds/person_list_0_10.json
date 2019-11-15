@@ -1,0 +1,320 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 342,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/002a6c69-9d07-47f4-ac5a-78ca16933a90",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/002a6c69-9d07-47f4-ac5a-78ca16933a90",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "5dcb8e7ca2d1032e3dae37bc034267b5",
+                "http://schema.org/identifier": "3c3753da03c6ffc38de60145dce58997",
+                "http://schema.org/name": "Armstrong, Neil",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Armstrong, N.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/002a6c69-9d07-47f4-ac5a-78ca16933a90/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/002a6c69-9d07-47f4-ac5a-78ca16933a90/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/002a6c69-9d07-47f4-ac5a-78ca16933a90"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "e529b7a7602edfe461f40fbbce319ee7",
+                "http://schema.org/identifier": "e86dc72d5594a43f7a1db1e3945db2bf",
+                "http://schema.org/name": "Brill, Yvonne",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Brill, Y.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01784c79-9a7b-4b47-83b6-0f50c075af81"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01c1ef63-bc10-4d28-b471-20f7d52790e3",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01c1ef63-bc10-4d28-b471-20f7d52790e3",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "dcb9bdebc586a60b85eba198e80c3316",
+                "http://schema.org/identifier": "89e6546bf8dbdfe05ca7839257bc4545",
+                "http://schema.org/name": "Whittle, Frank",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Whittle, F.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01c1ef63-bc10-4d28-b471-20f7d52790e3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01c1ef63-bc10-4d28-b471-20f7d52790e3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/01c1ef63-bc10-4d28-b471-20f7d52790e3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0354898a-74eb-472b-8167-f7079cf2e8eb",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0354898a-74eb-472b-8167-f7079cf2e8eb",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "4c21c952b9190fe26f0e56e9dd116d62",
+                "http://schema.org/identifier": "6cb180318a1592839b7950477a6c7cab",
+                "http://schema.org/name": "Weber, Johanna",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Weber, J.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0354898a-74eb-472b-8167-f7079cf2e8eb/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0354898a-74eb-472b-8167-f7079cf2e8eb/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/0354898a-74eb-472b-8167-f7079cf2e8eb"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "3e2715b9f1b54e5385e9a0e8fb165fd3",
+                "http://schema.org/identifier": "2b65804fc53f229aba03606e30273409",
+                "http://schema.org/name": "Borman, Frank",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Borman, F.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041c1fd4-18dd-44b9-95bd-46c896ad4e10"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041d9e23-1327-40e4-8283-82138eb1db13",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041d9e23-1327-40e4-8283-82138eb1db13",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "a8089ee88e3d0d154de051a8ea32fa1f",
+                "http://schema.org/identifier": "dddfaa11fb9c7af6f9e2a54f9e3ef163",
+                "http://schema.org/name": "Chawla, Kalpana",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Chawla, K.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041d9e23-1327-40e4-8283-82138eb1db13/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041d9e23-1327-40e4-8283-82138eb1db13/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/041d9e23-1327-40e4-8283-82138eb1db13"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "93e48d96aa54e9b65e2206a124d5f449",
+                "http://schema.org/identifier": "5b43785b16504b1ee97d3f2bca0f465e",
+                "http://schema.org/name": "Sikorsky, Igor",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Sikorsky, I.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046690a9-5dce-4bd4-913e-aba36c242f19"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "5e3c24b333e361e0a522395d8fee9ec3",
+                "http://schema.org/identifier": "718691f4d526795c8335904ac7cf31c8",
+                "http://schema.org/name": "MacGill, Elsie",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "MacGill, E.",
+                "nxv:rev": 21,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/046b6968-e416-47f3-bcf7-4a31158c8a23"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "046b7e15acc2df89f38914ea22df8271",
+                "http://schema.org/identifier": "3d5330abd9543acef7f52f4bc2fccd72",
+                "http://schema.org/name": "da Vinci, Leonardo",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "da Vinci, L.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/051798e2-a1e3-4cda-982d-d1075df1458f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/065af71a-28b2-446d-bafe-326c5d8046bb",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/065af71a-28b2-446d-bafe-326c5d8046bb",
+                "@type": "https://schema.hbp.eu/minds/Person",
+                "http://hbp.eu/internal#hashcode": "82addc8ee4e0529c202746ad35f98b36",
+                "http://schema.org/identifier": "4dd3305d32bed0c1f8d4231ca56a6d1d",
+                "http://schema.org/name": "Johnson, Katherine",
+                "http://www.w3.org/ns/prov#qualifiedAssociation": {
+                    "@type": "http://www.w3.org/ns/prov#Association",
+                    "http://www.w3.org/ns/prov#agent": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
+                        "@type": "http://www.w3.org/ns/prov#Agent"
+                    },
+                    "http://www.w3.org/ns/prov#hadRole": {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
+                        "@type": "http://www.w3.org/ns/prov#Role"
+                    }
+                },
+                "https://schema.hbp.eu/minds/shortName": "Johnson, K.",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/065af71a-28b2-446d-bafe-326c5d8046bb/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/065af71a-28b2-446d-bafe-326c5d8046bb/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/person/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/065af71a-28b2-446d-bafe-326c5d8046bb"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/minds/core/person/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

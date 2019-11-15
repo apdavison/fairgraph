@@ -1,7 +1,49 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 30,
+    "total": 75,
     "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Loose-cell attached recording in sub7r.samp2",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Pre-synaptic extracellular electrical stimulation"
+                    },
+                    "schema:description": ""
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5e233acc-bebe-47df-99f2-b817e7018838",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5"
+                }
+            }
+        },
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/076f58be-5750-4ad9-a0df-7761d74e618b",
             "source": {
@@ -85,6 +127,216 @@
             }
         },
         {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Spontaneous firing in GF1.samp2",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Spontaneous firing"
+                    },
+                    "schema:description": "The CC step protocol was applied in current clamp configuration; it consisted in steps of injected current (2 or 4 pA/step) starting from a holding potential, both in hyperpolarizing and depolarizing direction."
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/4b66204c-1652-4344-80af-b44eab6005f3",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Spontaneous firing in GF2.samp2",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Spontaneous firing"
+                    },
+                    "schema:description": "The CC step protocol was applied in current clamp configuration; it consisted in steps of injected current (2 or 4 pA/step) starting from a holding potential, both in hyperpolarizing and depolarizing direction."
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/c2e7975d-1264-43fe-9e78-f2ef0d7c502a",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0ba98d3e-dca6-4294-aeb1-c6b90d3368b0",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0ba98d3e-dca6-4294-aeb1-c6b90d3368b0",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Loose-cell attached recording in sub6r.samp1",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Pre-synaptic extracellular electrical stimulation"
+                    },
+                    "schema:description": ""
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/62d5969e-8e56-473c-8f0a-0ddcfda77d20",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0ba98d3e-dca6-4294-aeb1-c6b90d3368b0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0ba98d3e-dca6-4294-aeb1-c6b90d3368b0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0ba98d3e-dca6-4294-aeb1-c6b90d3368b0"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0cadf593-0aaa-48ea-90db-8ad1a17032e5",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0cadf593-0aaa-48ea-90db-8ad1a17032e5",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Loose-cell attached recording in sub3.samp2",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Pre-synaptic extracellular electrical stimulation"
+                    },
+                    "schema:description": ""
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6fcd80fd-6181-4ba4-a146-59d1c9c8eb60",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0cadf593-0aaa-48ea-90db-8ad1a17032e5/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0cadf593-0aaa-48ea-90db-8ad1a17032e5/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0cadf593-0aaa-48ea-90db-8ad1a17032e5"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3",
+            "source": {
+                "@context": {
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3",
+                "@type": [
+                    "nsg:StimulusExperiment",
+                    "prov:Activity"
+                ],
+                "name": "Loose-cell attached recording in sub11k.samp1",
+                "nsg:stimulus": {
+                    "nsg:stimulusType": {
+                        "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+                        "label": "Pre-synaptic extracellular electrical stimulation"
+                    },
+                    "schema:description": ""
+                },
+                "prov:used": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e",
+                    "@type": [
+                        "nsg:PatchedCell",
+                        "prov:Entity"
+                    ]
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3"
+                }
+            }
+        },
+        {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/127575a6-14de-4879-ae6a-0b141064b1a2",
             "source": {
                 "@context": {
@@ -126,7 +378,7 @@
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/190ae873-b488-4ca5-9f83-3fb228e40b54",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/12f393a1-e9af-41f6-98af-09923e1da88f",
             "source": {
                 "@context": {
                     "label": "rdfs:label",
@@ -136,145 +388,21 @@
                     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
                     "schema": "http://schema.org/"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/190ae873-b488-4ca5-9f83-3fb228e40b54",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/12f393a1-e9af-41f6-98af-09923e1da88f",
                 "@type": [
                     "nsg:StimulusExperiment",
                     "prov:Activity"
                 ],
-                "name": "Spontaneous activity recording in hbp00011_Sub3_Samp2__ExpE10",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/8512c3a3-eee3-4c64-acbf-850ab0bd42ee",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/190ae873-b488-4ca5-9f83-3fb228e40b54/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/190ae873-b488-4ca5-9f83-3fb228e40b54/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/190ae873-b488-4ca5-9f83-3fb228e40b54"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/21ffe513-4464-40e7-a4dd-b16fa414146f",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/21ffe513-4464-40e7-a4dd-b16fa414146f",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Spontaneous activity recording in hbp00013_Sub3_Samp1__ExpC3",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/7c3e7077-aa3b-42a3-b79a-895103ca3728",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/21ffe513-4464-40e7-a4dd-b16fa414146f/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/21ffe513-4464-40e7-a4dd-b16fa414146f/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/21ffe513-4464-40e7-a4dd-b16fa414146f"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Spontaneous activity recording in hbp00011_Sub1_Samp2__ExpE2",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/86204409-0ac6-4204-8713-afb075bbbd05",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Loose-cell attached recording in sub1-ca.samp1",
+                "name": "Loose-cell attached recording in sub15g.samp5",
                 "nsg:stimulus": {
                     "nsg:stimulusType": {
                         "@id": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
                         "label": "Pre-synaptic extracellular electrical stimulation"
                     },
-                    "schema:description": "The mossy fiber bundle was stimulated with a large-tip (10-20 µm) patch-pipette filled with extracellular Krebs’ solution, via a stimulus isolation unit (10 pulses at 50 Hz) to elicit synaptic action potentials"
+                    "schema:description": ""
                 },
                 "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/ba1f0cba-b9b3-4a1f-a5f7-9e9ec5fd1d9d",
                     "@type": [
                         "nsg:PatchedCell",
                         "prov:Entity"
@@ -284,140 +412,16 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d/outgoing",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/12f393a1-e9af-41f6-98af-09923e1da88f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/12f393a1-e9af-41f6-98af-09923e1da88f/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Spontaneous activity recording in hbp00011_Sub3_Samp1__ExpE9",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/49ce2d7b-0527-46c3-83ac-d443918394b7",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2e32eb4d-315f-4c95-b781-bc7058528c49",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2e32eb4d-315f-4c95-b781-bc7058528c49",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Spontaneous activity recording in hbp00011_Sub1_Samp3__ExpE3",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/da27bfdc-740b-4361-8f10-a1b1b7fa9e54",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2e32eb4d-315f-4c95-b781-bc7058528c49/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2e32eb4d-315f-4c95-b781-bc7058528c49/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2e32eb4d-315f-4c95-b781-bc7058528c49"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3",
-            "source": {
-                "@context": {
-                    "label": "rdfs:label",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3",
-                "@type": [
-                    "nsg:StimulusExperiment",
-                    "prov:Activity"
-                ],
-                "name": "Spontaneous activity recording in hbp00012_Sub2_Samp1__ExpD3",
-                "nsg:stimulus": {
-                    "nsg:stimulusType": {
-                        "@id": "http://www.FIXME.org/ephys_stimuli/0000000",
-                        "label": "No stimulus (spontaneous activity)"
-                    },
-                    "schema:description": "No stimulus (spontaneous activity)"
-                },
-                "prov:used": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5bd6ed48-9f6e-4a95-9800-d985384ae1eb",
-                    "@type": [
-                        "nsg:PatchedCell",
-                        "prov:Entity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3"
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/12f393a1-e9af-41f6-98af-09923e1da88f"
                 }
             }
         }
     ],
     "links": {
         "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-        "next": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/?&size=10&deprecated=False&fields=all&from=10",
-        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/?from=0&size=10&deprecated=False&fields=all&deprecated=False&&&"
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/?fields=all&size=10&deprecated=False"
     }
 }

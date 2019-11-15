@@ -1,5 +1,5 @@
 """
-core
+Metadata for entities that are used in multiple contexts (e.g. in both electrophysiology and in simulation).
 
 """
 
@@ -25,7 +25,7 @@ logger = logging.getLogger("fairgraph")
 
 
 class Subject(KGObject):
-    """docstring"""
+    """The individual organism that is the subject of an experimental study."""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/subject/v0.1.2"
     type = ["nsg:Subject", "prov:Entity"]
@@ -64,7 +64,9 @@ class Subject(KGObject):
 
 
 class Organization(KGObject):
-    """docstring"""
+    """
+    An organization associated with research data or models, e.g. a university, lab or department.
+    """
     namespace = DEFAULT_NAMESPACE
     _path =  "/core/organization/v0.1.0"
     type = "nsg:Organization"
@@ -88,44 +90,12 @@ class Organization(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
-    # @classmethod
-    # @cache
-    # def from_kg_instance(cls, instance, client):
-    #     """docstring"""
-    #     D = instance.data
-    #     assert 'nsg:Organization' in D["@type"]
-    #     if "parentOrganization" in D:
-    #         parent = KGProxy(cls, D["parentOrganization"]["@id"])
-    #     else:
-    #         parent = None
-    #     if "address" in D:
-    #         address = Address(D["address"]["addressLocality"], D["address"]["addressCountry"])
-    #     else:
-    #         address = None
-    #     return cls(D["name"], address, parent, id=D["@id"], instance=instance)
-
-    # def _build_data(self, client):
-    #     """docstring"""
-    #     data = {}
-    #     data["name"] = self.name
-    #     if self.address:
-    #         data["address"] = {
-    #             "@type": "schema:PostalAddress",
-    #             "addressLocality": self.address.locality,
-    #             "addressCountry": self.address.country
-    #         }
-    #     if self.parent:
-    #         if self.parent.id is None:
-    #             self.parent.save(client)
-    #         data["parentOrganization"] = {
-    #             "@type": self.parent.type,
-    #             "@id": self.parent.id
-    #         }
-    #     return data
-
 
 class Person(KGObject):
-    """docstring"""
+    """
+    A person associated with research data or models, for example as an experimentalist,
+    or a data analyst.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/person/v0.1.0"
     type = ["nsg:Person", "prov:Agent"]
@@ -139,10 +109,10 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
     fields = (
-        Field("family_name",  basestring, "familyName", required=True),
-        Field("given_name",  basestring, "givenName",  required=True),
-        Field("email", basestring, "email"),
-        Field("affiliation", Organization, "affiliation")
+        Field("family_name",  basestring, "familyName", required=True, doc="Family name / surname"),
+        Field("given_name",  basestring, "givenName",  required=True, doc="Given name"),
+        Field("email", basestring, "email", doc="e-mail address"),
+        Field("affiliation", Organization, "affiliation", doc="Organization to which person belongs")
     )
 
     def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
@@ -193,19 +163,6 @@ class Person(KGObject):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    # @classmethod
-    # @cache
-    # def from_kg_instance(cls, instance, client):
-    #     """docstring"""
-    #     D = instance.data
-    #     assert 'nsg:Person' in D["@type"]
-    #     if "affiliation" in D:
-    #         affiliation = KGProxy(Organization, D["affiliation"]["@id"])
-    #     else:
-    #         affiliation = None
-    #     return cls(D["familyName"], D["givenName"], D.get("email", None),
-    #                affiliation, D["@id"], instance=instance)
-
     @property
     def _existence_query(self):
         return {
@@ -224,28 +181,15 @@ class Person(KGObject):
             ]
         }
 
-    # def _build_data(self, client):
-    #     """docstring"""
-    #     data = {}
-    #     data["familyName"] = self.family_name
-    #     data["givenName"] = self.given_name
-    #     if self.email:
-    #         data["email"] = self.email
-    #     if self.affiliation:
-    #         if self.affiliation.id is None:
-    #             self.affiliation.save(client)
-    #         data["affiliation"] = {
-    #             "@type": self.affiliation.type,
-    #             "@id": self.affiliation.id
-    #         }
-    #     return data
-
     def resolve(self, client):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client)
 
 
 class Protocol(KGObject):
+    """
+    An experimental protocol.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
@@ -319,6 +263,7 @@ class Identifier(KGObject):
 
 
 class Material(object):
+    """Metadata about a chemical product or other material used in an experimental protocol."""
 
     def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
         self.name = name
@@ -357,7 +302,7 @@ class Material(object):
 
 
 class Collection(KGObject):
-    """docstring"""
+    """A collection of other metadata objects"""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/collection/v0.1.0"
     type = ["nsg:Collection", "prov:Entity"]

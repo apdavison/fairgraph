@@ -1,0 +1,250 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 79,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "877d4faab59c37620cdfa1f9b9c421d6",
+                "http://schema.org/name": "10.1002/cne.20849",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/585efa36-3eae-4997-a427-503fdf14cc58"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "a98f1032eabe84778a9b3fdaf76b1e9c",
+                "http://schema.org/name": "10.1016/j.neuroimage.2006.06.054",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/d72db3e2-d320-4ec5-a365-1f819f4bbc83"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/048b42c0-a3e8-467b-bba0-7fdc480211df"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0bd82f5e-8fc3-4df4-b5fc-cc5cca84a8ac",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0bd82f5e-8fc3-4df4-b5fc-cc5cca84a8ac",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "4856aadc63c5359f11575b42645c9227",
+                "http://schema.org/name": "10.1007/s00429-015-1040-9",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/cec4ca51-0f5b-47d8-952f-5196c25e7976"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0bd82f5e-8fc3-4df4-b5fc-cc5cca84a8ac/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0bd82f5e-8fc3-4df4-b5fc-cc5cca84a8ac/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0bd82f5e-8fc3-4df4-b5fc-cc5cca84a8ac"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0c700608-7405-49ee-b24b-dcc8fce81745",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0c700608-7405-49ee-b24b-dcc8fce81745",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "a03ffeda7dfa1304afde24cf9cbebd83",
+                "http://schema.org/name": "10.1016/j.media.2014.09.007",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/8a6f3271-36d1-4f5c-a535-a3e9a5a294ed"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0c700608-7405-49ee-b24b-dcc8fce81745/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0c700608-7405-49ee-b24b-dcc8fce81745/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0c700608-7405-49ee-b24b-dcc8fce81745"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0d30dfe4-d127-4df1-978d-984347b2643b",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0d30dfe4-d127-4df1-978d-984347b2643b",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "fadaa01a0e2f2d5fd5769934bdbecc30",
+                "http://schema.org/name": "10.1007/978-3-319-10470-6_92",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/58e9fcfe-127c-4ff8-97bd-79235fda0b79"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0d30dfe4-d127-4df1-978d-984347b2643b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0d30dfe4-d127-4df1-978d-984347b2643b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0d30dfe4-d127-4df1-978d-984347b2643b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0dc95a7d-f75e-4bcf-8ecd-05a6d3043409",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0dc95a7d-f75e-4bcf-8ecd-05a6d3043409",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "bcea3b6dc5a09972cddccba3fb1836ef",
+                "http://schema.org/name": "10.1371/journal.pone.0022669\u200b",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/1a7c9073-ed85-4308-9b41-0d5fe95722c2"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0dc95a7d-f75e-4bcf-8ecd-05a6d3043409/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0dc95a7d-f75e-4bcf-8ecd-05a6d3043409/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0dc95a7d-f75e-4bcf-8ecd-05a6d3043409"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0e1e07ce-a061-4839-82ab-8d80dc676427",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0e1e07ce-a061-4839-82ab-8d80dc676427",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "6667b76a32ec90500f902cbbf07aa111",
+                "http://schema.org/name": "10.1006/nimg.2000.0714",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/a3079293-24dc-41cb-92ac-33c81d070dc2"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0e1e07ce-a061-4839-82ab-8d80dc676427/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0e1e07ce-a061-4839-82ab-8d80dc676427/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/0e1e07ce-a061-4839-82ab-8d80dc676427"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1192c496-35eb-4055-ad34-b60b791051d0",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1192c496-35eb-4055-ad34-b60b791051d0",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "a5f1b80e17a1a693d7f246d0551eff31",
+                "http://schema.org/name": "10.1016/j.neuroimage.2013.05.052",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/7ba3500b-6b11-42f1-b83c-0bf0ac05ff60"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1192c496-35eb-4055-ad34-b60b791051d0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1192c496-35eb-4055-ad34-b60b791051d0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1192c496-35eb-4055-ad34-b60b791051d0"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/12773e40-42d5-4e48-9d1e-c4136b3e767f",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/12773e40-42d5-4e48-9d1e-c4136b3e767f",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "1aeecfe552062b4dfcc832ea1bf1fd70",
+                "http://schema.org/name": "10.1006/nimg.1999.0516",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/8dd4642e-4c90-42dd-925c-cade023cd893"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/12773e40-42d5-4e48-9d1e-c4136b3e767f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/12773e40-42d5-4e48-9d1e-c4136b3e767f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/12773e40-42d5-4e48-9d1e-c4136b3e767f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1b52708e-d736-42b2-b631-d26c0c193775",
+            "source": {
+                "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1b52708e-d736-42b2-b631-d26c0c193775",
+                "@type": "https://schema.hbp.eu/uniminds/Publicationid",
+                "http://schema.org/identifier": "f2b56901b80ca57c5f77813b84954468",
+                "http://schema.org/name": "10.1093/cercor/bhs048",
+                "http://www.w3.org/ns/prov#wasDerivedFrom": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/publication/v1.0.0/efd8bdbb-8db7-4895-a56c-1550644776af"
+                },
+                "https://schema.hbp.eu/uniminds/publicationIdType": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationidtype/v1.0.0/aeeb6251-e2b6-498a-a262-7406fc3deba3"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1b52708e-d736-42b2-b631-d26c0c193775/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1b52708e-d736-42b2-b631-d26c0c193775/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/options/publicationid/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/1b52708e-d736-42b2-b631-d26c0c193775"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/?fields=all&size=10&deprecated=False"
+    }
+}

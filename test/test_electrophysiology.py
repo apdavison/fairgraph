@@ -24,17 +24,29 @@ import pytest
 
 
 test_data_lookup.update({
-    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedcell_list_0_50.json",
-    "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/nexus/electrophysiology/trace_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
-    "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/nexus/electrophysiology/slice_list_0_10.json",
     "/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/": "test/test_data/nexus/electrophysiology/brainslicing_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedslice_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/brainslicingactivity/v0.1.0/": "test/test_data/nexus/electrophysiology/brainslicingactivity_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/intracellularsharpelectrodeexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectrodeexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecordedcell_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecordedcellcollection_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecordedslice_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecording_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multichannelmultitrialrecording/v0.1.0/": "test/test_data/nexus/electrophysiology/multichannelmultitrialrecording_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/multitracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchclampactivity/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampactivity_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchclampexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedcell_list_0_50.json",
     "/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedcellcollection_list_0_10.json",
-    "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/nexus/electrophysiology/wholecellpatchclamp_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/stimulusexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/": "test/test_data/nexus/electrophysiology/patchedslice_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/qualifiedmultitracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/qualifiedtracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/qualifiedtracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/core/slice/v0.1.0/": "test/test_data/nexus/electrophysiology/slice_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/": "test/test_data/nexus/electrophysiology/intracellularsharpelectrodeexperiment_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/": "test/test_data/nexus/electrophysiology/trace_list_0_10.json",
     "/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/tracegeneration_list_0_10.json",
-    "/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/multitracegeneration_list_0_10.json",
+    "/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/": "test/test_data/nexus/electrophysiology/wholecellpatchclamp_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2": "test/test_data/nexus/electrophysiology/patchedcell_example.json",
 })
 
@@ -47,8 +59,8 @@ use_electrophysiology_namespace("neuralactivity")
 class TestPatchedCell(BaseTestKG):
     class_under_test = PatchedCell
 
-    def test_list(self, kg_client):
-        cells = PatchedCell.list(kg_client, size=50)
+    def test_list_nexus(self, kg_client):
+        cells = PatchedCell.list(kg_client, api="nexus", size=50)
         assert len(cells) == 30
         assert cells[0].brain_location == BrainRegion("hippocampus CA1")
         assert isinstance(cells[0].collection, KGQuery)
@@ -151,9 +163,10 @@ class TestPatchedCell(BaseTestKG):
 class TestTrace(BaseTestKG):
     class_under_test = Trace
 
-    def test_list(self, kg_client):
-        traces = Trace.list(kg_client, size=10)
-        assert len(traces) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
     def test_round_trip(self, kg_client):
         trace1 = Trace("example001",
@@ -182,7 +195,12 @@ class TestTrace(BaseTestKG):
 class TestMultiChannelMultiTrialRecording(BaseTestKG):
     class_under_test = MultiChannelMultiTrialRecording
 
-    def test_list(self, kg_client):
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+    def test_list_nexus(self, kg_client):
         traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
         assert len(traces) == 4
 
@@ -190,85 +208,117 @@ class TestMultiChannelMultiTrialRecording(BaseTestKG):
 class TestSlice(BaseTestKG):
     class_under_test = Slice
 
-    def test_list(self, kg_client):
-        slices = Slice.list(kg_client, size=10)
-        assert len(slices) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestBrainSlicingActivity(BaseTestKG):
     class_under_test = BrainSlicingActivity
 
-    def test_list(self, kg_client):
-        activities = BrainSlicingActivity.list(kg_client, size=10)
-        assert len(activities) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestPatchedSlice(BaseTestKG):
     class_under_test = PatchedSlice
 
-    def test_list(self, kg_client):
-        slices = PatchedSlice.list(kg_client, size=10)
-        assert len(slices) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestPatchedCellCollection(BaseTestKG):
     class_under_test = PatchedCellCollection
 
-    def test_list(self, kg_client):
-        collections = PatchedCellCollection.list(kg_client, size=10)
-        assert len(collections) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestPatchClampActivity(BaseTestKG):
     class_under_test = PatchClampActivity
 
-    def test_list(self, kg_client):
-        activities = PatchClampActivity.list(kg_client, size=10)
-        assert len(activities) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestPatchClampExperiment(BaseTestKG):
     class_under_test = PatchClampExperiment
 
-    def test_list(self, kg_client):
-        experiments = PatchClampExperiment.list(kg_client, size=10)
-        assert len(experiments) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestQualifiedTraceGeneration(BaseTestKG):
     class_under_test = QualifiedTraceGeneration
 
-    def test_list(self, kg_client):
-        tracegens = QualifiedTraceGeneration.list(kg_client, size=10)
-        assert len(tracegens) == 10
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
 
 
 class TestQualifiedMultiTraceGeneration(BaseTestKG):
     class_under_test = QualifiedMultiTraceGeneration
 
-    def test_list(self, kg_client):
-        tracegens = QualifiedMultiTraceGeneration.list(kg_client, size=10)
-        assert len(tracegens) == 4
+    def test_list_nexus(self, kg_client):
+        tracegens = QualifiedMultiTraceGeneration.list(kg_client, api="nexus", size=10)
+        assert len(tracegens) == 10, len(objects)
 
 
 class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCell
 
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
 
 class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecording
+
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
 
 
 class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCellCollection
 
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
 
 class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedSlice
 
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
 
 class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeExperiment
+
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
 
 
 class TestModuleFunctions(object):

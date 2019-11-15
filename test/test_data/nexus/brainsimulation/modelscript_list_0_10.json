@@ -1,0 +1,328 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 627,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://github.com/lbologna/bsp_data_repository"
+                },
+                "name": "ModelScript for CA1_pyr_cAC_oh140807_A0_idH @ 20170310134220",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00a9353b-380a-4813-b2ec-1fdaea3379f2",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00a9353b-380a-4813-b2ec-1fdaea3379f2",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "asc, py, hoc, mod, json",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/rat/CA1/v4.0.5/optimizations/CA1_int_bAC_980120A_20190329120234/CA1_int_bAC_980120A_20190329120234.zip?bluenaas=true"
+                },
+                "name": "ModelScript for CA1_int_bAC_980120A_20190329120234 @ 1.0",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00a9353b-380a-4813-b2ec-1fdaea3379f2/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00a9353b-380a-4813-b2ec-1fdaea3379f2/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00a9353b-380a-4813-b2ec-1fdaea3379f2"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00f869a0-c3b8-4d2e-923a-f371a167bfb6",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00f869a0-c3b8-4d2e-923a-f371a167bfb6",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "asc, py, hoc, mod, json",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605/CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605.zip?bluenaas=true"
+                },
+                "name": "ModelScript for CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605 @ 1.0",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00f869a0-c3b8-4d2e-923a-f371a167bfb6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00f869a0-c3b8-4d2e-923a-f371a167bfb6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/00f869a0-c3b8-4d2e-923a-f371a167bfb6"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0186de9c-7159-4b3d-abf6-f4460373b5c8",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0186de9c-7159-4b3d-abf6-f4460373b5c8",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "NEURON, Python",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_usecase_resources/models/basalunit/str-fs-161205_FS1-BE37A-20180212.tar.bz2"
+                },
+                "name": "ModelScript for str-fs-161205_FS1-BE37A-20180212 @ hof_7",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0186de9c-7159-4b3d-abf6-f4460373b5c8/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0186de9c-7159-4b3d-abf6-f4460373b5c8/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0186de9c-7159-4b3d-abf6-f4460373b5c8"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01e3c31f-3576-48c7-a4cc-1cfd547b04b1",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01e3c31f-3576-48c7-a4cc-1cfd547b04b1",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://github.com/lbologna/bsp_data_repository"
+                },
+                "name": "ModelScript for CA1_pyr_cAC_oh140807_A0_idF @ 20171003142610",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01e3c31f-3576-48c7-a4cc-1cfd547b04b1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01e3c31f-3576-48c7-a4cc-1cfd547b04b1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01e3c31f-3576-48c7-a4cc-1cfd547b04b1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01f8e767-7e73-46c5-8d99-bcfaf85efa90",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01f8e767-7e73-46c5-8d99-bcfaf85efa90",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_usecase_resources/models/morphounit/msn_d1/62-1-DE-rep-ax-cor.swc"
+                },
+                "name": "ModelScript for msn_d1_morphologies @ 62-1-DE-rep-ax-cor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01f8e767-7e73-46c5-8d99-bcfaf85efa90/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01f8e767-7e73-46c5-8d99-bcfaf85efa90/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/01f8e767-7e73-46c5-8d99-bcfaf85efa90"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/026285df-4a3c-4a0f-a104-158cb6f78b03",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/026285df-4a3c-4a0f-a104-158cb6f78b03",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "asc, py, hoc, mod, json",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538/CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538.zip?bluenaas=true"
+                },
+                "name": "ModelScript for CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538 @ 1.0",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/026285df-4a3c-4a0f-a104-158cb6f78b03/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/026285df-4a3c-4a0f-a104-158cb6f78b03/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/026285df-4a3c-4a0f-a104-158cb6f78b03"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0282c302-6ecd-49f4-910b-81529b2630e6",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0282c302-6ecd-49f4-910b-81529b2630e6",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "asc, py, hoc, mod, json",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/rat/CA1/v4.0.5/optimizations/CA1_int_cAC_990611HP2_20190328162145/CA1_int_cAC_990611HP2_20190328162145.zip?bluenaas=true"
+                },
+                "name": "ModelScript for CA1_int_cAC_990611HP2_20190328162145 @ 1.0",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0282c302-6ecd-49f4-910b-81529b2630e6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0282c302-6ecd-49f4-910b-81529b2630e6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0282c302-6ecd-49f4-910b-81529b2630e6"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/041e35a6-d618-460c-8366-87a057884668",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/041e35a6-d618-460c-8366-87a057884668",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "mod, asc, hoc",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/BlueNaaS_models/grc_mono.zip"
+                },
+                "name": "ModelScript for Granule cell - Mono compartmental @ V 1.0",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/041e35a6-d618-460c-8366-87a057884668/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/041e35a6-d618-460c-8366-87a057884668/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/041e35a6-d618-460c-8366-87a057884668"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0473188a-25aa-4d4a-b509-b7b44d134bd4",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
+                    {
+                        "license": "schema:license"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0473188a-25aa-4d4a-b509-b7b44d134bd4",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:EModelScript"
+                ],
+                "code_format": "asc, py, hoc, mod, json",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_int_cAC_031031AM1_20180201104443/CA1_int_cAC_031031AM1_20180201104443.zip?bluenaas=true"
+                },
+                "name": "ModelScript for CA1_int_cAC_031031AM1_20180201104443 @ 1.0",
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0473188a-25aa-4d4a-b509-b7b44d134bd4/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0473188a-25aa-4d4a-b509-b7b44d134bd4/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0473188a-25aa-4d4a-b509-b7b44d134bd4"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

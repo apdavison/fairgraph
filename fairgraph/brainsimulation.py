@@ -1,5 +1,6 @@
 """
-brain simulation
+Metadata for model building, simulation and validation.
+
 """
 
 try:
@@ -45,7 +46,13 @@ class HasAliasMixin(object):
 
 
 class ModelProject(KGObject, HasAliasMixin):
-    """docstring"""
+    """
+    Representation of a neuroscience model or modelling project.
+
+    We distinguish a model in an abstract sense (this class), which may have multiple
+    parameterizations and multiple implementations, from a specific version and
+    parameterization of a model - see :class:`ModelInstance` and :class:`ModelScript`
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/modelproject/v0.1.0"
     #path = DEFAULT_NAMESPACE + "/simulation/modelproject/v0.1.1"
@@ -200,7 +207,11 @@ class ModelProject(KGObject, HasAliasMixin):
 
 
 class ModelInstance(KGObject):
-    """docstring"""
+    """
+    A specific implementation, code version and parameterization of a model.
+
+    See also: :class:`ModelProject`, :class:`MEModel`, :class:`ModelScript`
+    """
     #path = DEFAULT_NAMESPACE + "/simulation/modelinstance/v0.1.2"
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/modelinstance/v0.1.1"
@@ -261,7 +272,14 @@ class ModelInstance(KGObject):
 
 
 class MEModel(ModelInstance):
-    """docstring"""
+    """
+    A specific implementation, code version and parameterization of a single neuron model
+    with a defined morphology (M) and electrical (E) behaviour.
+
+    This is a specialized sub-class of :class:`ModelInstance`.
+
+    See also: :class:`ModelProject`, :class:`ModelScript`, :class:`Morphology`, :class:`EModel`
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/memodel/v0.1.2"  # latest is 0.1.4, but all the data is currently under 0.1.2
     type = ["prov:Entity", "nsg:MEModel", "nsg:ModelInstance"]
@@ -288,6 +306,10 @@ class MEModel(ModelInstance):
 
 
 class Morphology(KGObject):
+    """
+    The morphology of a single neuron model, typically defined as a set of cylinders or
+    truncated cones connected in a tree structure.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/morphology/v0.1.1"
     type = ["prov:Entity", "nsg:Morphology"]
@@ -328,6 +350,11 @@ class Morphology(KGObject):
 
 
 class ModelScript(KGObject):
+    """
+    Code or markup defining all or part of a model.
+
+    See also: :class:`ModelInstance`, :class:`MEModel`, :class:`EModel`
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/emodelscript/v0.1.0"
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
@@ -363,6 +390,7 @@ class ModelScript(KGObject):
 
 
 class EModel(ModelInstance):
+    """The electrical component of an :class:`MEModel`"""
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/emodel/v0.1.1"
     type = ["prov:Entity", "nsg:EModel"]
@@ -396,6 +424,14 @@ class EModel(ModelInstance):
 
 
 class AnalysisResult(KGObject):
+    """The result of a data analysis.
+
+    For example a graph, a histogram, etc. The result is expected to be stored either in a local
+    file or in a web-accessible location with a direct URL.
+
+    Note that local results files smaller than 1 MB in size will be uploaded and stored within
+    the Knowledge Graph. Larger files must be stored elsewhere.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
@@ -482,7 +518,10 @@ class AnalysisResult(KGObject):
 
 
 class ValidationTestDefinition(KGObject, HasAliasMixin):
-    """docstring"""
+    """Definition of a model validation test.
+
+    See also: :class:`ValidationScript`, :class:`ValidationActivity`, :class:`ValidationResult`
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/validationtestdefinition/v0.1.0"
     #path = DEFAULT_NAMESPACE + "/simulation/validationtestdefinition/v0.1.2"
@@ -545,7 +584,12 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
 
 
 class ValidationScript(KGObject):  # or ValidationImplementation
-    """docstring"""
+    """
+    Code implementing a particular model validation test.
+
+    See also: :class:`ValidationTestDefinition`, :class:`ValidationActivity`,
+     :class:`ValidationResult`
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/validationscript/v0.1.0"
     type = ["prov:Entity", "nsg:ModelValidationScript"]
@@ -580,7 +624,14 @@ class ValidationScript(KGObject):  # or ValidationImplementation
 
 
 class ValidationResult(KGObject):
-    """docstring"""
+    """
+    The results of running a model validation test.
+
+    Including a numerical score, and optional additional data.
+
+    See also: :class:`ValidationTestDefinition`, :class:`ValidationScript`,
+    :class:`ValidationActivity`.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/validationresult/v0.1.0"
     #path = DEFAULT_NAMESPACE + "/simulation/validationresult/v0.1.1"
@@ -621,7 +672,12 @@ class ValidationResult(KGObject):
 
 
 class ValidationActivity(KGObject):
-    """docstring"""
+    """
+    Record of the validation of a model against experimental data.
+
+    Links a :class:`ModelInstance`, a :class:`ValidationTestDefinition` and a
+    reference data set to a :class:`ValidationResult`.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/modelvalidation/v0.2.0"  # only present in nexus-int
     type = ["prov:Activity", "nsg:ModelValidation"]

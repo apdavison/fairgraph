@@ -1,3 +1,9 @@
+"""
+An updated version of MINDS
+
+"""
+
+
 import sys, inspect
 from datetime import datetime
 try:
@@ -19,9 +25,14 @@ class UnimindsObject(MINDSObject):
     namespace = "uniminds"
 
 
+class UnimindsOption(MINDSObject):
+    namespace = "uniminds"
+
+
 class Person(UnimindsObject):
     """
-    docstring
+    A person associated with research data or models, for example as an experimentalist,
+    or a data analyst.
     """
     _path = "/core/person/v1.0.0"
     type = ["uniminds:Person"]
@@ -35,9 +46,9 @@ class Person(UnimindsObject):
       Field("orcid", basestring, "https://schema.hbp.eu/uniminds/orcid", required=False, multiple=False))
 
 
-class AbstractionLevel(UnimindsObject):
+class AbstractionLevel(UnimindsOption):
     """
-    docstring
+    Level of abstraction for a neuroscience model, e.g.rate neurons, spiking neurons
     """
     _path = "/options/abstractionlevel/v1.0.0"
     type = ["uniminds:Abstractionlevel"]
@@ -47,9 +58,9 @@ class AbstractionLevel(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class AgeCategory(UnimindsObject):
+class AgeCategory(UnimindsOption):
     """
-    docstring
+    An age category, e.g. "adult", "juvenile"
     """
     _path = "/options/agecategory/v1.0.0"
     type = ["uniminds:Agecategory"]
@@ -59,9 +70,9 @@ class AgeCategory(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class BrainStructure(UnimindsObject):
+class BrainStructure(UnimindsOption):
     """
-    docstring
+    A sub-structure or region with the brain.
     """
     _path = "/options/brainstructure/v1.0.0"
     type = ["uniminds:Brainstructure"]
@@ -71,9 +82,9 @@ class BrainStructure(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class CellularTarget(UnimindsObject):
+class CellularTarget(UnimindsOption):
     """
-    docstring
+    The type of neuron or glial cell that is the focus of the study.
     """
     _path = "/options/cellulartarget/v1.0.0"
     type = ["uniminds:Cellulartarget"]
@@ -83,9 +94,9 @@ class CellularTarget(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Country(UnimindsObject):
+class Country(UnimindsOption):
     """
-    docstring
+    A geographical country.
     """
     _path = "/options/country/v1.0.0"
     type = ["uniminds:Country"]
@@ -97,7 +108,7 @@ class Country(UnimindsObject):
 
 class Dataset(UnimindsObject):
     """
-    docstring
+    A collection of related data files.
     """
     _path = "/core/dataset/v1.0.0"
     type = ["uniminds:Dataset"]
@@ -129,9 +140,9 @@ class Dataset(UnimindsObject):
 
 
 
-class Disability(UnimindsObject):
+class Disability(UnimindsOption):
     """
-    docstring
+    A disability or disease.
     """
     _path = "/options/disability/v1.0.0"
     type = ["uniminds:Disability"]
@@ -141,9 +152,9 @@ class Disability(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Doi(UnimindsObject):
+class Doi(UnimindsOption):
     """
-    docstring
+    Digital Object Identifier (https://www.doi.org)
     """
     _path = "/options/doi/v1.0.0"
     type = ["uniminds:Doi"]
@@ -153,9 +164,9 @@ class Doi(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class EmbargoStatus(UnimindsObject):
+class EmbargoStatus(UnimindsOption):
     """
-    docstring
+    Information about the embargo period during which a given dataset cannot be publicly shared.
     """
     _path = "/options/embargostatus/v1.0.0"
     type = ["uniminds:Embargostatus"]
@@ -167,7 +178,7 @@ class EmbargoStatus(UnimindsObject):
 
 class EthicsApproval(UnimindsObject):
     """
-    docstring
+    Record of an  ethics approval.
     """
     _path = "/core/ethicsapproval/v1.0.0"
     type = ["uniminds:Ethicsapproval"]
@@ -181,9 +192,9 @@ class EthicsApproval(UnimindsObject):
 
 
 
-class EthicsAuthority(UnimindsObject):
+class EthicsAuthority(UnimindsOption):
     """
-    docstring
+    A entity legally authorised to approve or deny permission to conduct an experiment on ethical grounds.
     """
     _path = "/options/ethicsauthority/v1.0.0"
     type = ["uniminds:Ethicsauthority"]
@@ -193,9 +204,9 @@ class EthicsAuthority(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class ExperimentalPreparation(UnimindsObject):
+class ExperimentalPreparation(UnimindsOption):
     """
-    docstring
+    An experimental preparation.
     """
     _path = "/options/experimentalpreparation/v1.0.0"
     type = ["uniminds:Experimentalpreparation"]
@@ -207,7 +218,7 @@ class ExperimentalPreparation(UnimindsObject):
 
 class File(UnimindsObject):
     """
-    docstring
+    Metadata about a single file.
     """
     _path = "/core/file/v1.0.0"
     type = ["uniminds:File"]
@@ -220,10 +231,9 @@ class File(UnimindsObject):
       Field("mime_type", "uniminds.MimeType", "https://schema.hbp.eu/uniminds/mimeType", required=False, multiple=False))
 
 
-
 class FileAssociation(UnimindsObject):
     """
-    docstring
+    A link between a file and a dataset.
     """
     _path = "/core/fileassociation/v1.0.0"
     type = ["uniminds:Fileassociation"]
@@ -234,13 +244,12 @@ class FileAssociation(UnimindsObject):
       Field("to", Dataset, "https://schema.hbp.eu/linkinginstance/to", required=False, multiple=False))
 
 
-
 class FileBundle(UnimindsObject):
     """
-    docstring
+    A collection of files (e.g. in a folder or directory structure)
     """
     _path = "/core/filebundle/v1.0.0"
-    type = ["uniminds:Filebundle"]
+    type = ["uniminds:FileBundle"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
@@ -255,7 +264,7 @@ class FileBundle(UnimindsObject):
 
 class FileBundleGroup(UnimindsObject):
     """
-    docstring
+    A collection of file bundles (see :class:`FileBundle`)
     """
     _path = "/options/filebundlegroup/v1.0.0"
     type = ["uniminds:Filebundlegroup"]
@@ -268,7 +277,7 @@ class FileBundleGroup(UnimindsObject):
 
 class FundingInformation(UnimindsObject):
     """
-    docstring
+    Information about the source of funding of a study.
     """
     _path = "/core/fundinginformation/v1.0.0"
     type = ["uniminds:Fundinginformation"]
@@ -279,9 +288,10 @@ class FundingInformation(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Genotype(UnimindsObject):
+class Genotype(UnimindsOption):
     """
-    docstring
+    Genetic makeup of a study subject, typically a reference to an inbred strain,
+    with or without mutations.
     """
     _path = "/options/genotype/v1.0.0"
     type = ["uniminds:Genotype"]
@@ -291,9 +301,9 @@ class Genotype(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Handedness(UnimindsObject):
+class Handedness(UnimindsOption):
     """
-    docstring
+    Preferred hand (left, right, or ambidextrous)
     """
     _path = "/options/handedness/v1.0.0"
     type = ["uniminds:Handedness"]
@@ -305,7 +315,7 @@ class Handedness(UnimindsObject):
 
 class HBPComponent(UnimindsObject):
     """
-    docstring
+    A data or software component, as defined in the HBP "project lifecycle" application.
     """
     _path = "/core/hbpcomponent/v1.0.0"
     type = ["uniminds:Hbpcomponent"]
@@ -317,9 +327,9 @@ class HBPComponent(UnimindsObject):
       Field("component_owner", Person, "https://schema.hbp.eu/uniminds/componentOwner", required=False, multiple=False))
 
 
-class License(UnimindsObject):
+class License(UnimindsOption):
     """
-    docstring
+    A license governing sharing of a dataset.
     """
     _path = "/options/license/v1.0.0"
     type = ["uniminds:License"]
@@ -333,7 +343,7 @@ class License(UnimindsObject):
 
 class Method(UnimindsObject):
     """
-    docstring
+    An experimental method.
     """
     _path = "/core/method/v1.0.0"
     type = ["uniminds:Method"]
@@ -352,9 +362,9 @@ class Method(UnimindsObject):
       Field("submethod", "uniminds.Method", "https://schema.hbp.eu/uniminds/subMethod", required=False, multiple=True))
 
 
-class MethodCategory(UnimindsObject):
+class MethodCategory(UnimindsOption):
     """
-    docstring
+    A category used for classifying experimental methods (see :class:`ExperimentalMethod`)
     """
     _path = "/options/methodcategory/v1.0.0"
     type = ["uniminds:Methodcategory"]
@@ -364,9 +374,9 @@ class MethodCategory(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class MimeType(UnimindsObject):
+class MimeType(UnimindsOption):
     """
-    docstring
+    Media type of a document
     """
     _path = "/options/mimetype/v1.0.0"
     type = ["uniminds:Mimetype"]
@@ -376,9 +386,9 @@ class MimeType(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class ModelFormat(UnimindsObject):
+class ModelFormat(UnimindsOption):
     """
-    docstring
+    Programming or markup language used to describe or create a model
     """
     _path = "/options/modelformat/v1.0.0"
     type = ["uniminds:Modelformat"]
@@ -390,7 +400,7 @@ class ModelFormat(UnimindsObject):
 
 class ModelInstance(UnimindsObject):
     """
-    docstring
+    A specific version/parameterization of a neuroscience model.
     """
     _path = "/core/modelinstance/v1.0.0"
     type = ["uniminds:Modelinstance"]
@@ -413,9 +423,9 @@ class ModelInstance(UnimindsObject):
       Field("study_target", "uniminds.StudyTarget", "https://schema.hbp.eu/uniminds/studyTarget", required=False, multiple=True))
 
 
-class ModelScope(UnimindsObject):
+class ModelScope(UnimindsOption):
     """
-    docstring
+    'What is being modelled': a protein, a single cell, the entire brain, etc.
     """
     _path = "/options/modelscope/v1.0.0"
     type = ["uniminds:Modelscope"]
@@ -427,7 +437,7 @@ class ModelScope(UnimindsObject):
 
 class Organization(UnimindsObject):
     """
-    docstring
+    An organization associated with research data or models, e.g. a university, lab or department.
     """
     _path = "/options/organization/v1.0.0"
     type = ["uniminds:Organization"]
@@ -440,7 +450,7 @@ class Organization(UnimindsObject):
 
 class Project(UnimindsObject):
     """
-    docstring
+    A research project, which may have generated one or more datasets (see :class:`Dataset`)
     """
     _path = "/core/project/v1.0.0"
     type = ["uniminds:Project"]
@@ -454,7 +464,7 @@ class Project(UnimindsObject):
 
 class Publication(UnimindsObject):
     """
-    docstring
+    A scientific publication.
     """
     _path = "/core/publication/v1.0.0"
     type = ["uniminds:Publication"]
@@ -470,9 +480,9 @@ class Publication(UnimindsObject):
       Field("subjectgroup", "uniminds.SubjectGroup", "https://schema.hbp.eu/uniminds/subjectGroup", required=False, multiple=False))
 
 
-class PublicationId(UnimindsObject):
+class PublicationId(UnimindsOption):
     """
-    docstring
+    Identifier for a publication (e.g. a DOI, a PubMed ID)
     """
     _path = "/options/publicationid/v1.0.0"
     type = ["uniminds:Publicationid"]
@@ -484,9 +494,9 @@ class PublicationId(UnimindsObject):
       Field("publication_id_type", "uniminds.PublicationIdType", "https://schema.hbp.eu/uniminds/publicationIdType", required=False, multiple=False))
 
 
-class PublicationIdType(UnimindsObject):
+class PublicationIdType(UnimindsOption):
     """
-    docstring
+    A type of publication identifier (e.g. ISBN, DOI)
     """
     _path = "/options/publicationidtype/v1.0.0"
     type = ["uniminds:Publicationidtype"]
@@ -496,9 +506,9 @@ class PublicationIdType(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Sex(UnimindsObject):
+class Sex(UnimindsOption):
     """
-    docstring
+    The sex of an animal or person from whom/which data were obtained.
     """
     _path = "/options/sex/v1.0.0"
     type = ["uniminds:Sex"]
@@ -508,9 +518,9 @@ class Sex(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Species(UnimindsObject):
+class Species(UnimindsOption):
     """
-    docstring
+    The species of an experimental subject, expressed with the binomial nomenclature.
     """
     _path = "/options/species/v1.0.0"
     type = ["uniminds:Species"]
@@ -520,9 +530,9 @@ class Species(UnimindsObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
 
 
-class Strain(UnimindsObject):
+class Strain(UnimindsOption):
     """
-    docstring
+    An inbred sub-population within a species.
     """
     _path = "/options/strain/v1.0.0"
     type = ["uniminds:Strain"]
@@ -534,7 +544,7 @@ class Strain(UnimindsObject):
 
 class StudyTarget(UnimindsObject):
     """
-    docstring
+    The focus of an experimental or modelling study.
     """
     _path = "/core/studytarget/v1.0.0"
     type = ["uniminds:Studytarget"]
@@ -547,10 +557,9 @@ class StudyTarget(UnimindsObject):
       Field("study_target_type", "uniminds.StudyTargetType", "https://schema.hbp.eu/uniminds/studyTargetType", required=False, multiple=False))
 
 
-
-class StudyTargetSource(UnimindsObject):
+class StudyTargetSource(UnimindsOption):
     """
-    docstring
+    Context of a study target, e.g. if the target is a brain region, the source might be an atlas.
     """
     _path = "/options/studytargetsource/v1.0.0"
     type = ["uniminds:Studytargetsource"]
@@ -561,9 +570,9 @@ class StudyTargetSource(UnimindsObject):
 
 
 
-class StudyTargetType(UnimindsObject):
+class StudyTargetType(UnimindsOption):
     """
-    docstring
+    Category of study target (see :class:`StudyTarget`)
     """
     _path = "/options/studytargettype/v1.0.0"
     type = ["uniminds:Studytargettype"]
@@ -576,7 +585,7 @@ class StudyTargetType(UnimindsObject):
 
 class Subject(UnimindsObject):
     """
-    docstring
+    The organism that is the subject of an experimental investigation.
     """
     _path = "/core/subject/v1.0.0"
     type = ["uniminds:Subject"]
@@ -603,7 +612,7 @@ class Subject(UnimindsObject):
 
 class SubjectGroup(UnimindsObject):
     """
-    docstring
+    A group of experimental subjects.
     """
     _path = "/core/subjectgroup/v1.0.0"
     type = ["uniminds:Subjectgroup"]
@@ -633,7 +642,7 @@ class SubjectGroup(UnimindsObject):
 
 class TissueSample(UnimindsObject):
     """
-    docstring
+    A sample of brain tissue.
     """
     _path = "/core/tissuesample/v1.0.0"
     type = ["uniminds:Tissuesample"]
@@ -644,19 +653,13 @@ class TissueSample(UnimindsObject):
       Field("subject", Subject, "https://schema.hbp.eu/uniminds/subject", required=False, multiple=False))
 
 
-# end of script-generated code
-
-
 def list_kg_classes():
     """List all KG classes defined in this module"""
     classes = [obj for name, obj in inspect.getmembers(sys.modules[__name__])
                if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
     classes.remove(UnimindsObject)
+    classes.remove(UnimindsOption)
     return classes
-
-
-class UniMINDSOption():
-    pass
 
 
 if __name__=='__main__':

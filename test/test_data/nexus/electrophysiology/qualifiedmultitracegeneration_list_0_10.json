@@ -1,0 +1,580 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 49,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/004a621d-fecf-4e42-929d-c5e26abf96c3",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/004a621d-fecf-4e42-929d-c5e26abf96c3",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/f6b067d9-77d3-4bac-94b9-6a6319415055",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub5.samp2",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/004a621d-fecf-4e42-929d-c5e26abf96c3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/004a621d-fecf-4e42-929d-c5e26abf96c3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/004a621d-fecf-4e42-929d-c5e26abf96c3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/00983c8b-c4a1-4751-8653-bef0f3f94d40",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/00983c8b-c4a1-4751-8653-bef0f3f94d40",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/003eb70a-5d6f-4108-bc7c-a3e99e9741f5",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub7r.samp2",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/00983c8b-c4a1-4751-8653-bef0f3f94d40/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/00983c8b-c4a1-4751-8653-bef0f3f94d40/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/00983c8b-c4a1-4751-8653-bef0f3f94d40"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/96c2de01-e1f3-4a76-9951-c5336e059978",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for current-voltage relationships recorded in sub1vc.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/10a3abb3-2c5e-4628-828e-2fe4ee8bc5c3",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/10a3abb3-2c5e-4628-828e-2fe4ee8bc5c3",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2458f2c5-48b0-4d23-9f63-e4dae5683e82",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub9r.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/10a3abb3-2c5e-4628-828e-2fe4ee8bc5c3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/10a3abb3-2c5e-4628-828e-2fe4ee8bc5c3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/10a3abb3-2c5e-4628-828e-2fe4ee8bc5c3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b08d9dd-a750-44fc-8f0f-f254ddc15068",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub1epsp.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26,
+                    27,
+                    28,
+                    29,
+                    30,
+                    31,
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/190b6a3d-816b-4cd1-9f64-fc658a3c486b",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/190b6a3d-816b-4cd1-9f64-fc658a3c486b",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fb2151ce-bb9f-45a2-989c-a359cc827617",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub2-ca.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/190b6a3d-816b-4cd1-9f64-fc658a3c486b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/190b6a3d-816b-4cd1-9f64-fc658a3c486b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/190b6a3d-816b-4cd1-9f64-fc658a3c486b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/1c7980c5-b535-41fa-b560-bec769567b23",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/1c7980c5-b535-41fa-b560-bec769567b23",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7489e72f-61c9-497f-a604-a4f84b738596",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub16g.samp4",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/1c7980c5-b535-41fa-b560-bec769567b23/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/1c7980c5-b535-41fa-b560-bec769567b23/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/1c7980c5-b535-41fa-b560-bec769567b23"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/206682a3-36e9-427f-9f6b-018424732671",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/206682a3-36e9-427f-9f6b-018424732671",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/72cd011c-0c87-444f-b461-af932917754c",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub2.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/206682a3-36e9-427f-9f6b-018424732671/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/206682a3-36e9-427f-9f6b-018424732671/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/206682a3-36e9-427f-9f6b-018424732671"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a0f57f60-7813-4d8f-a7e1-2e3b74d01b43",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub1.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/26e511f5-85b1-4b40-a408-2c75ef6f73f0",
+            "source": {
+                "@context": {
+                    "activity": "prov:activity",
+                    "label": "rdfs:label",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sweep": "nsg:sweep",
+                    "targetHoldingPotential": "nsg:targetHoldingPotential",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/26e511f5-85b1-4b40-a408-2c75ef6f73f0",
+                "@type": [
+                    "prov:Generation",
+                    "nsg:MultiTraceGeneration"
+                ],
+                "activity": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/885c00bd-e733-4449-afe3-bc180244fac1",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "name": "Metadata for EPSPs recorded in sub16g.samp1",
+                "sweep": [
+                    0,
+                    1,
+                    2
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/26e511f5-85b1-4b40-a408-2c75ef6f73f0/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/26e511f5-85b1-4b40-a408-2c75ef6f73f0/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/26e511f5-85b1-4b40-a408-2c75ef6f73f0"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

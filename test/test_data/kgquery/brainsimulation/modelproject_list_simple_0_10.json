@@ -1,0 +1,835 @@
+{
+    "results": [
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/283a1b0d-4769-4e27-a6e0-b8a44715492e"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "022d44be-bf8d-452a-a436-f14794cf5676",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:07:51.785784+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 0603Cell03",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/19ee2756-b9c0-45c9-b027-10579e15165d",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5a730c73-d07a-4a31-8490-955142360bf3"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "5bb35857-007e-4168-b0f2-d6f62aec91d7",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:22:45.090218+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 0603Cell08",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/32ed233a-3f8a-42df-bfa8-45c7b28f6167",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/334f812f-8bb9-488c-b40a-3e280d251f2b"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "fbc08765-e3b3-4365-8f05-40d9f4a64756",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:28:22.655084+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 0603Cell11",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/a81c0155-a8d1-43ae-82d6-dae4e3bb6f30",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/91b97cdf-2273-40de-9c22-4586a36b5455"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "e2da9168-da92-4cb8-b7cb-bd1786d992a7",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:31:20.862549+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 1303Cell03",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/240dcfda-55b7-421e-b593-d29ea6b6fe88",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/aa464676-0236-4b53-9481-7e485beb877d"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "e8aec8c4-f080-4ea4-91ae-2b7c0b5ef02b",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:41:05.815551+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 1303Cell06",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/2f14c756-48fe-49be-a897-479c9cd0af16",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/407aeee9-16f4-4bf4-b684-589143022418"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0"
+                }
+            ],
+            "description": "A model of HL2/3 PC",
+            "oldUUID": "38081019-4428-4eb9-9174-dbb69703987a",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2019-02-18T09:35:53.179687+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "name": "Active model HL2/3 1503Cell05",
+            "alias": null,
+            "collabID": 1655.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/16f2bdb7-6aec-4c29-b2d0-0d35db3b682a",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "label": "pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": true,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3e9b0bb4-58c9-44ba-b653-0d398e78cd68"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/421ed0f6-7926-4136-b99c-757ebad5cfe3"
+                }
+            ],
+            "description": "description goes here",
+            "oldUUID": "455a4ae5-b809-4643-989d-a3b456875d9f",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2017-09-26T11:24:56.735810+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                }
+            ],
+            "organization": [],
+            "name": "name goes here",
+            "alias": "alias_goes_here",
+            "collabID": 5359.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "celltype": [],
+            "modelOf": [],
+            "partOf": [],
+            "images": null,
+            "private": true,
+            "hasPart": [],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/432ed0f6-7926-4136-b99c-757ebad5cfe2"
+                }
+            ],
+            "description": "The quick brown fox",
+            "oldUUID": "1ee2260f-88d3-48e0-9f26-65d255fce1af",
+            "abstractionLevel": [
+                {
+                    "@id": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
+                    "label": "systems biology"
+                }
+            ],
+            "brainRegion": [],
+            "dateCreated": "2018-03-31T19:34:17.825463+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                }
+            ],
+            "organization": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/6d9b621c-e6dd-4c39-a2b5-20d8a4d24834"
+                }
+            ],
+            "name": "Jumps over the lazy dog",
+            "alias": null,
+            "collabID": 1571.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/11dfe94d-b46a-4bb2-8700-020680754e53",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1ecd55ca-c68d-45cb-b0c9-62fae2070f6b"
+                }
+            ],
+            "celltype": [],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010",
+                    "label": "network"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/66093025-090b-46e8-be2a-b356dfebd588"
+                },
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/0e2d2583-dac9-4b6b-85b0-e55ec036499d"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ee4b17a2-3c4f-4cb1-83af-59779628699e"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8eb6a54f-08e3-4453-8fa9-cef6228140b4"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1181e1b3-c52e-4dd9-a1e0-abcc33930d7d"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1ecd55ca-c68d-45cb-b0c9-62fae2070f6b"
+                }
+            ],
+            "description": "The dynamics of networks of sparsely connected excitatory and inhibitory integrate-and-fire neurons are studied analytically (and with simulations). The analysis reveals a rich repertoire of states, including synchronous states in which neurons fire regularly; asynchronous states with stationary global activity and very irregular individual cell activity; and states in which the global activity oscillates but individual cells fire irregularly, typically at rates lower than the global oscillation frequency. See paper for more and details.\n\n Brunel N (2000) Dynamics of sparsely connected networks of excitatory and inhibitory spiking neurons. <a href=\"http://dx.doi.org/10.1023/A:1008925309027\">J Comput Neurosci 8:183-208.</a>",
+            "oldUUID": "d166ce65-0f97-4c2d-ab26-5eac71506bba",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "dateCreated": "2017-10-06T09:40:25.518162+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9544",
+                    "label": "Macaca mulatta"
+                }
+            ],
+            "organization": [],
+            "name": "Brunel 2000",
+            "alias": "brunel-2000",
+            "collabID": 5196.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/08d6d619-97b1-42ac-b68e-9dc831ccb1cd",
+            "PLAComponents": null
+        },
+        {
+            "owner": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8d959d8a-ab23-4c2d-a274-04c446641da1"
+                }
+            ],
+            "celltype": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "label": "pyramidal cell"
+                }
+            ],
+            "modelOf": [
+                {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                }
+            ],
+            "partOf": [],
+            "images": null,
+            "private": false,
+            "hasPart": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/efc5df61-f51d-446e-9d34-b7cc4c8ff69c"
+                },
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/62644afb-a4ff-4478-b12d-289960b87ab0"
+                },
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/849513d4-8ee9-4c2a-9ecb-83b1ac2d1c19"
+                },
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5227d206-e5e4-4c48-ba0f-6b166e2065fd"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelProject"
+            ],
+            "author": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/4190d599-a229-4d61-ab0c-fba8ab29704e"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/539b39f7-2a34-45af-aa25-c0bdfa17408b"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/6782143b-fa37-41d6-9194-4d6edbb6f872"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e5ea9e4c-e710-42b4-a8ff-36916f985edc"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/41484500-d65a-4045-bec8-9037a12edd6a"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/3d5598e5-815b-430d-a593-7f517496931d"
+                },
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8d959d8a-ab23-4c2d-a274-04c446641da1"
+                }
+            ],
+            "description": "A model of CA1 pyramidal neurons, as described in\r\n\r\nD.Bianchi, A. Marasco, A.Limongiello, C.Marchetti, H.Marie, B.Tirozzi, M.Migliore (2012) On the mechanisms underlying the depolarization block in the spiking dynamics of CA1 pyramidal neurons. J Comput Neurosci.",
+            "oldUUID": "1ac5ebfa-242c-425b-8b72-644e6084c7c5",
+            "abstractionLevel": [],
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                }
+            ],
+            "dateCreated": "2017-09-24T20:58:55.082905+00:00",
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                }
+            ],
+            "organization": [],
+            "name": "CA1_Bianchi",
+            "alias": null,
+            "collabID": 343.0,
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/4a21411a-da0b-4cc3-bdd0-30a74ebaab4c",
+            "PLAComponents": null
+        }
+    ],
+    "total": 351,
+    "size": 10,
+    "start": 0
+}
