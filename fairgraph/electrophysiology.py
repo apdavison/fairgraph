@@ -962,7 +962,9 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("stimulus_experiment",
 	#(ExtracellularElectrodeExperiment,  "electrophysiology.ExtracellularElectrodeExperiment"),
 	#(IntraCellularSharpElectrodeExperiment,  "electrophysiology.IntraCellularSharpElectrodeExperiment"),
-	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment")
+#	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment")
+	(ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment)
+
 	, "activity", required=True),
 
 
