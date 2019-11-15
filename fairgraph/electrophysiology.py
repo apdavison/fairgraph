@@ -99,8 +99,10 @@ class MultiChannelMultiTrialRecording(Trace):
         #Field("generated_by", "electrophysiology.ExtracellularElectrodeExperiment" or  "electrophysiology.PatchClampExperiment", #"wasGeneratedBy", required=True),
 
 	Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
+
 #PatchClampExperiment uses Trace, ExtracellularElectrode uses MultiTrace
 #        Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration" or "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+
         Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration", "qualifiedGeneration", required=True),
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
         Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
@@ -956,7 +958,6 @@ class QualifiedMultiTraceGeneration(KGObject):
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
     
-# MULTIPLE OPTIONS
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
@@ -964,10 +965,7 @@ class QualifiedMultiTraceGeneration(KGObject):
 	#(IntraCellularSharpElectrodeExperiment,  "electrophysiology.IntraCellularSharpElectrodeExperiment"),
 #	(PatchClampExperiment,  "electrophysiology.PatchClampExperiment")
 	(ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment)
-
 	, "activity", required=True),
-
-
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
