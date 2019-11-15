@@ -73,7 +73,7 @@ class Strain(OntologyTerm):
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
         "C57BL/6J": "https://www.jax.org/strain/000664",  # RRID:IMSR_JAX:000664,
-	"B6.129-Nlgn3<tm4Sud>/J", "https://www.jax.org/strain/023398",
+	"B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
