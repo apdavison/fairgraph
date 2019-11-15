@@ -95,7 +95,9 @@ class MultiChannelMultiTrialRecording(Trace):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
+# MULTIPLE OPTIONS
         #Field("generated_by", "electrophysiology.ExtracellularElectrodeExperiment" or  "electrophysiology.PatchClampExperiment", #"wasGeneratedBy", required=True),
+
 	Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
 #PatchClampExperiment uses Trace, ExtracellularElectrode uses MultiTrace
 #        Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration" or "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
@@ -954,7 +956,7 @@ class QualifiedMultiTraceGeneration(KGObject):
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
     
-
+# MULTIPLE OPTIONS
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment",
