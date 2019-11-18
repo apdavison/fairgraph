@@ -1,0 +1,255 @@
+{
+    "results": [
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/5d7629fb-69b8-4557-b85e-f7857346bda7"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7c359a61-1bc6-403f-9160-6900aea328f2"
+                }
+            ],
+            "name": "GF1.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/43f869d8-148a-4c02-9419-bdf1da91c179"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/439afd13-78a3-462c-9563-962a5c38a782"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7811f067-df58-4efc-8bde-410e0f15869e"
+                }
+            ],
+            "name": "GF1.samp2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/31de6d9b-9d27-489b-bf24-b22e4ab82251"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/748b7b03-797f-42e0-a4aa-11ee2cfc0aa9"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/3d6dd104-294b-4a3e-b3a6-a25e24365a20"
+                }
+            ],
+            "name": "GF2.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/d593c68b-5348-424f-929b-ddcc54f15894"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/78e77e74-8833-43cc-bb74-9be8e01ffbe1"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/b8982911-273c-4ac4-b201-32737addddc5"
+                }
+            ],
+            "name": "GF2.samp2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/9da3e421-4a11-44f1-9282-42933a52a5d6"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ffaf7d08-6f52-4611-8c3f-5fb42a0fce32"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/657be907-99ed-4cfa-84fa-13e6b3e53887"
+                }
+            ],
+            "name": "hbp00011_Sub1_Samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/ba3d7979-c6ea-471c-a112-ab830a6a2d6a"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/0d3d76f8-14f9-4a89-8fec-36b5d31956c4"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e9d8c56d-0537-47a6-9b52-2c4ad02ae8cb"
+                }
+            ],
+            "name": "hbp00011_Sub1_Samp2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/e3873c04-4c87-43e2-ab4b-b29ce1da801e"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/c603f011-f635-4791-9d43-69bd799ccb39"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/f66f574a-baca-447b-bf9b-3869a8f7ccd1"
+                }
+            ],
+            "name": "hbp00011_Sub1_Samp3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/3f471283-6ba7-47fa-ae6e-feec4b8537ae"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/f41e995f-054e-4436-86b1-fbc9c7844bef"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e"
+                }
+            ],
+            "name": "hbp00011_Sub1_Samp4",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/92aed236-fdbd-42e5-badf-4b58b9661d37"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/6fcbd23e-49ce-4849-b11d-851745ce5645"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/6b4e25f6-aad2-48f9-8951-88d8115859cc"
+                }
+            ],
+            "name": "hbp00011_Sub2_Samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/05b79721-4318-4a6c-bd57-181fb79f64db"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ab1e080c-2232-4f82-b001-aad1b32aed13"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332"
+                }
+            ],
+            "name": "hbp00011_Sub2_Samp2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/0cbcef5b-d51b-4823-92dc-82ddee5c587d"
+        }
+    ],
+    "total": 75,
+    "size": 10,
+    "start": 0
+}

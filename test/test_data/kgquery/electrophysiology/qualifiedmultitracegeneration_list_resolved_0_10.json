@@ -1,0 +1,775 @@
+{
+    "results": [
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1vc.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/54f2eb67-b6df-42fd-8b45-62a3b42582a9",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1vc.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/54f2eb67-b6df-42fd-8b45-62a3b42582a9",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Current-voltage relationships in sub1vc.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/96c2de01-e1f3-4a76-9951-c5336e059978"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for current-voltage relationships recorded in sub1vc.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/0b4b7b22-f373-46a7-98ab-0818bb68cf6f",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": 0.0,
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub2vc.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e0856c8d-4c37-4d64-a65f-5d67c7facd86",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub2vc.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e0856c8d-4c37-4d64-a65f-5d67c7facd86",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Current-voltage relationships in sub2vc.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/9f6a7e64-1de4-49cd-afa8-ef3d025dc73f"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for current-voltage relationships recorded in sub2vc.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/4c97bbd6-87be-4f8d-8dfc-76407b521467",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0,
+                8.0,
+                9.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV1m.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/d49df5e7-3a1d-4df9-b48a-3e413948038f",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV1m.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/d49df5e7-3a1d-4df9-b48a-3e413948038f",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Voltage-clamp recording in IV1m.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in IV1m.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fd4f6bcd-336f-4e61-b3c9-cbd07bb40cc1",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0,
+                8.0,
+                9.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV2r.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5d57ceda-d18e-433c-92ce-0235e743da75",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV2r.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5d57ceda-d18e-433c-92ce-0235e743da75",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Voltage-clamp recording in IV2r.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in IV2r.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/c23a3a83-0ac8-4468-8041-3396090f339a",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV5g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/99588b84-eebe-4dc0-a847-12dcd4606379",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV5g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/99588b84-eebe-4dc0-a847-12dcd4606379",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Voltage-clamp recording in IV5g.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in IV5g.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/621adb37-fb9d-45bc-b625-8552834709fe",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV6g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6a7c7b9b-7ba6-4f12-950d-be25ffa6f247",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV6g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6a7c7b9b-7ba6-4f12-950d-be25ffa6f247",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Voltage-clamp recording in IV6g.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in IV6g.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/ad6ab38e-d52d-46dd-a67e-c440917a89e4",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV7g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/45205f54-33ee-43a4-a2d4-0aef04a5e0e2",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "IV7g.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/45205f54-33ee-43a4-a2d4-0aef04a5e0e2",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                    "label": "Golgi cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Voltage-clamp recording in IV7g.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/e9c64680-c4df-4964-9a86-e532864d0b07"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in IV7g.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/60870fa0-dc4c-4a9c-abeb-adea6b881238",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1-ca.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1-ca.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Loose-cell attached recording in sub1-ca.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in sub1-ca.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/48233504-1813-4c09-806f-2fb63b1538f4",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0,
+                8.0,
+                9.0,
+                10.0,
+                11.0,
+                12.0,
+                13.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/68b0b665-3503-4a0c-9bd7-af0176b7c7a9",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub1.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/68b0b665-3503-4a0c-9bd7-af0176b7c7a9",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Loose-cell attached recording in sub1.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a0f57f60-7813-4d8f-a7e1-2e3b74d01b43"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in sub1.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/2588547f-fa9f-4541-b325-9fdb42273f7a",
+            "targetHoldingPotential": null
+        },
+        {
+            "sweep": [
+                0.0,
+                1.0,
+                2.0,
+                3.0,
+                4.0,
+                5.0,
+                6.0,
+                7.0,
+                8.0,
+                9.0,
+                10.0,
+                11.0,
+                12.0,
+                13.0
+            ],
+            "activity": [
+                {
+                    "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
+                    "PatchClampExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub10k.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "PatchedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e8d12d78-8a4f-4c9e-8475-ab3ad45ec6c7",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "PatchedCell__brainRegion": [],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "IntraCellularSharpElectrodeExperiment__prov:used": [
+                        {
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                            "name": "sub10k.samp1",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                            "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e8d12d78-8a4f-4c9e-8475-ab3ad45ec6c7",
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                            "IntraCellularSharpElectrodeRecordedCell__eType": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/CL_0001031",
+                                    "label": "cerebellar granule cell"
+                                }
+                            ],
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                        }
+                    ],
+                    "name": "Loose-cell attached recording in sub10k.samp1",
+                    "PatchClampExperiment__nsg:stimulusType": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d2a34a4-539e-47f5-9175-f332098352a3"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+            ],
+            "name": "Metadata for EPSPs recorded in sub10k.samp1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/bdf8f64b-bee8-4588-b0c8-0e4236ce85bb",
+            "targetHoldingPotential": null
+        }
+    ],
+    "total": 49,
+    "size": 10,
+    "start": 0
+}

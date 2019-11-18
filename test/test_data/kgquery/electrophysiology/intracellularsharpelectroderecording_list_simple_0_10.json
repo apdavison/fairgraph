@@ -1,0 +1,295 @@
+{
+    "results": [
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/34dea335-3a60-46aa-81a8-68b927be2dd6"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_960711AHP3",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/08f9b33d-c0ef-4f1d-aded-0c9155e3ff8d",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/67756b13-2af2-4257-b091-17d7c640f75b"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/ff3a0973-df58-44ca-9084-0fbb50563fac"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_970428A1",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/7665a2b5-8cc0-46d8-9012-b4f1c0ace335",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02f1c738-78e8-4324-9742-fa5291d3d39d"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/411e675e-09c6-4f9f-99d9-6c7b7674d56c"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_980120A",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/ca424ec3-50c1-4a3c-96b0-b8e83f08f8cf",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/3d86aba8-00d3-4b79-bbc4-2d4ec787e655"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/32ec0d1b-2927-48e9-8ae8-ed463c9595bc"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_980205FHP",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/8f8bebdb-96eb-444e-8d3c-3bb1aadeacd9",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/d7b54be9-ebeb-4c88-8c6c-def17b0a66f3"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/eb64f8b7-e014-4e2a-8ba3-1847b207630e"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_980513B",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/a99c7cb7-47e7-4906-a5da-bacb62d6a78e",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/9c8ae846-13d5-48f2-81fe-e15ecdb29b99"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/ec095da5-2d53-4cdf-b4c6-cb57ec42d9b9"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_981215GHP4",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/d3dbffa9-b2cb-4eab-9bab-cf50726aba61",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/6fc035ff-9582-4c8c-978a-501992c867eb"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/dfec93d1-ca3e-48b2-bcb2-23da91f9272e"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_990111ABHP1",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/a5630fb3-e676-48fd-be22-c1452d646fee",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/ffec3a87-b921-497d-b8c6-319c1e64b42b"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/5c512e12-7ebc-415a-ada0-03013e7b8e44"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrode",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "thomson_ucl_990111HP2",
+            "wasAssociatedWith": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/6f3fbbea-9ddc-4325-8341-09c179c7e0b9"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/d60c5f20-de7c-4974-888d-5a8066ab14f6",
+            "used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/262ecb62-1847-4981-a379-48dec94b0b52"
+                }
+            ]
+        }
+    ],
+    "total": 8,
+    "size": 8,
+    "start": 0
+}

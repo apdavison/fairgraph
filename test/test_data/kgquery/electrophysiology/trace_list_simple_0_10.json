@@ -1,0 +1,469 @@
+{
+    "results": [
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 960711AHP3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/f1343657-3c80-4a17-9117-538abbdd0f58",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/960711A_HP3/960711A_HP3_EphysData/96711008_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/8d30a437-bd13-4927-9675-bf664e9395a2"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 970428A1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/5c706718-4201-4591-8773-0fe00368c4ce",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/970428A1A2/970428_EphysData/97428002_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/36bb0e79-f901-4041-8075-2ab7b7a9e4d7"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 980120A",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/980120A/980120A_EphysData/98120001_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/60fead54-6742-4d20-8fbe-73c161b3a65a"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 980205FHP",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/f2246e34-4eaa-4248-bcf6-d4bc3bb33a35",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/980205F/980205F_EphysData/98205024_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/9129f45c-d498-4c85-86b5-1ecd4cc89cce"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 980513B",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/980513B/980513B_EphysData/98513010_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/421a8718-d05d-421a-8a4b-2ad007d4276e"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 981215GHP4",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/9b255794-ba88-4af6-ac8f-2acd98f8b48d",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/981215G_HP4/981215G_HP4_EphysData/98D15008_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/e3f7317d-8cda-4dce-911d-7f9196749498"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 990111ABHP1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/7ba32883-aae8-4408-b38d-b6ca04c801c4",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/990111abhp1/990111abhp1_EphysData/99111002_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/acfc48d6-d3f1-4c8b-b696-2d1f03e6260f"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.1,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "Response to step current stimulus recorded in 990111HP2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d",
+            "distribution": {
+                "http://schema.org/downloadURL": {
+                    "@id": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/990111_HP2/990111_HP2_Ephysdata/99111008_metadata_updated.JSON"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/80c11c6f-7775-4009-a07f-939284e3f189"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/7fa2067c-fe0f-4492-af6a-3b25c69217e6"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/515473f3-889d-4807-8391-c36a4685f593"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.05,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "sIPSCs recorded in hbp00011_Sub1_Samp1__ExpE1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/a84901d0-6995-49d6-a604-c6c8b6ad4049",
+            "distribution": {
+                "http://schema.org/mediaType": "text/tab-separated-values",
+                "http://schema.org/downloadURL": {
+                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp1/hbp-00011_Tg2576_Sub1_Samp1__expE1.txt"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/4f1f7ec4-9fdc-4a11-84fe-1da5a9a7045d"
+                }
+            ]
+        },
+        {
+            "partOf": [
+                {
+                    "@type": [
+                        "https://schema.hbp.eu/minds/Dataset",
+                        "https://schema.hbp.eu/Inference"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/7fa2067c-fe0f-4492-af6a-3b25c69217e6"
+                }
+            ],
+            "wasGeneratedBy": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
+                }
+            ],
+            "timeStep": {
+                "http://schema.org/value": 0.05,
+                "http://schema.org/unitText": "ms"
+            },
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Trace"
+            ],
+            "channel": 0.0,
+            "name": "sIPSCs recorded in hbp00011_Sub1_Samp2__ExpE2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/00075fe4-eaba-4290-85c0-fecb4e5c0bd7",
+            "distribution": {
+                "http://schema.org/mediaType": "text/tab-separated-values",
+                "http://schema.org/downloadURL": {
+                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2/hbp-00011_Tg2576_Sub1_Samp2__expE2.txt"
+                }
+            },
+            "dataUnit": "mV",
+            "qualifiedGeneration": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/5a497fa2-cebc-4489-8567-2fa0238abd3c"
+                }
+            ]
+        }
+    ],
+    "total": 34,
+    "size": 10,
+    "start": 0
+}

@@ -1,0 +1,347 @@
+{
+    "results": [
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "GF1.samp1",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                            "label": "Golgi cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "GF1.samp1 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/5d7629fb-69b8-4557-b85e-f7857346bda7"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "GF1.samp2",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                            "label": "Golgi cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/4b66204c-1652-4344-80af-b44eab6005f3",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "GF1.samp2 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/439afd13-78a3-462c-9563-962a5c38a782"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "GF2.samp1",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                            "label": "Golgi cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "GF2.samp1 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/748b7b03-797f-42e0-a4aa-11ee2cfc0aa9"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "GF2.samp2",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                            "label": "Golgi cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/c2e7975d-1264-43fe-9e78-f2ef0d7c502a",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "GF2.samp2 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/78e77e74-8833-43cc-bb74-9be8e01ffbe1"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub1_Samp1__ExpE1",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e617c15f-bf24-4f5d-b824-a413c0b34f50",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub1_Samp1 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ffaf7d08-6f52-4611-8c3f-5fb42a0fce32"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub1_Samp2__ExpE2",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/86204409-0ac6-4204-8713-afb075bbbd05",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub1_Samp2 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/0d3d76f8-14f9-4a89-8fec-36b5d31956c4"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub1_Samp3__ExpE3",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/da27bfdc-740b-4361-8f10-a1b1b7fa9e54",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub1_Samp3 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/c603f011-f635-4791-9d43-69bd799ccb39"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub1_Samp4__ExpE4",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/db2c2e92-dba6-455f-b87d-37c350b60d24",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub1_Samp4 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/f41e995f-054e-4436-86b1-fbc9c7844bef"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub2_Samp1__ExpE5",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub2_Samp1 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/6fcbd23e-49ce-4849-b11d-851745ce5645"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                        },
+                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                    },
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "hbp00011_Sub2_Samp2__ExpE6",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "PatchedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                            "label": "hippocampus CA1 pyramidal cell"
+                        }
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/98d08c95-32aa-4a23-b177-6785057f3ca6",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "PatchedCell__brainRegion": [],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "name": "hbp00011_Sub2_Samp2 - patched cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ab1e080c-2232-4f82-b001-aad1b32aed13"
+        }
+    ],
+    "total": 75,
+    "size": 10,
+    "start": 0
+}
