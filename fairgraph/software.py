@@ -1,3 +1,4 @@
+# encoding: utf-8
 """
 Metadata about, or related to, software
 """
