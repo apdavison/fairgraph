@@ -1061,7 +1061,7 @@ def build_kg_object(cls, data, resolved=False, client=None):
                     except (ValueError, KeyError) as err:
                         # to add: emit a warning
                         logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                        obj = KGProxy(kg_cls, item["@id"]).resolve(client, api=item.get("fg:api", "nexus"))
+                        obj = KGProxy(kg_cls, item["@id"])  #.resolve(client, api=item.get("fg:api", "nexus"))
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
             else:

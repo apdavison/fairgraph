@@ -51,6 +51,21 @@ test_data_lookup.update({
 
     "/query/neuralactivity/experiment/patchedcell/v0.1.0/fgModified/instances": "test/test_data/kgquery/electrophysiology/patchedcell_list_simple_0_10.json",
     "/query/neuralactivity/experiment/patchedcell/v0.1.0/fgResolvedModified/instances": "test/test_data/kgquery/electrophysiology/patchedcell_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/brainslicing/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/brainslicingactivity_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectrodeexperiment_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/fgResolvedModified/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedcell_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedcellcollection_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedslice_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/intrasharpelectrode/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecording_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitrace/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampactivity_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampexperiment_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/patchedcellcollection/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchedcellcollection_list_resolved_0_10.json",
+    "/query/neuralactivity/experiment/patchedslice/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchedslice_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/qualifiedmultitracegeneration_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/tracegeneration/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/qualifiedtracegeneration_list_resolved_0_10.json",
+    "/query/neuralactivity/core/slice/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/slice_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/trace/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/trace_list_resolved_0_10.json",
 })
 
 use_core_namespace("neuralactivity")
@@ -79,6 +94,11 @@ class TestPatchedCell(BaseTestKG):
     def test_list_with_filter(self, kg_client):
         cells = PatchedCell.list(kg_client, brain_region=BrainRegion("hippocampus CA1"), size=50)
         assert len(cells) == 26
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
 
     def test_get_from_uri_nexus(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
@@ -208,6 +228,11 @@ class TestTrace(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
+
     def test_round_trip(self, kg_client):
         trace1 = Trace("example001",
                        data_location=Distribution("http://example.com/example.csv",
@@ -238,11 +263,12 @@ class TestMultiChannelMultiTrialRecording(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
-        assert len(objects) == 10, len(objects)
+        assert len(objects) == 4, len(objects)
 
-    def test_list_nexus(self, kg_client):
-        traces = MultiChannelMultiTrialRecording.list(kg_client, size=10)
-        assert len(traces) == 4
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
 
 
 class TestSlice(BaseTestKG):
@@ -251,6 +277,11 @@ class TestSlice(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 10, len(objects)
 
 
@@ -262,6 +293,11 @@ class TestBrainSlicingActivity(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
+
 
 class TestPatchedSlice(BaseTestKG):
     class_under_test = PatchedSlice
@@ -269,6 +305,11 @@ class TestPatchedSlice(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 10, len(objects)
 
 
@@ -280,6 +321,11 @@ class TestPatchedCellCollection(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
+
 
 class TestPatchClampActivity(BaseTestKG):
     class_under_test = PatchClampActivity
@@ -287,6 +333,11 @@ class TestPatchClampActivity(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 10, len(objects)
 
 
@@ -298,6 +349,13 @@ class TestPatchClampExperiment(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        cls.set_strict_mode(False, field_name="name")  # some examples have empty names
+        cls.set_strict_mode(False, field_name="stimulus")
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
+
 
 class TestQualifiedTraceGeneration(BaseTestKG):
     class_under_test = QualifiedTraceGeneration
@@ -305,6 +363,11 @@ class TestQualifiedTraceGeneration(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 10, len(objects)
 
 
@@ -315,6 +378,11 @@ class TestQualifiedMultiTraceGeneration(BaseTestKG):
         tracegens = QualifiedMultiTraceGeneration.list(kg_client, api="nexus", size=10)
         assert len(tracegens) == 10, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 10, len(objects)
+
 
 class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCell
@@ -322,6 +390,11 @@ class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 8, len(objects)
 
 
@@ -333,6 +406,11 @@ class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 8, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 8, len(objects)
+
 
 class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCellCollection
@@ -340,6 +418,11 @@ class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 8, len(objects)
 
 
@@ -351,6 +434,11 @@ class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 8, len(objects)
 
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
+        assert len(objects) == 8, len(objects)
+
 
 class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeExperiment
@@ -358,6 +446,11 @@ class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 8, len(objects)
+
+    def test_list_kgquery_resolved(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="query", size=10, resolved=True)
         assert len(objects) == 8, len(objects)
 
 

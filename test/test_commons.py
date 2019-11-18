@@ -3,7 +3,7 @@
 
 """
 
-from fairgraph.commons import QuantitativeValueRange
+from fairgraph.commons import QuantitativeValue, QuantitativeValueRange
 
 
 class TestQuantitativeValueRange(object):
@@ -45,3 +45,12 @@ class TestQuantitativeValueRange(object):
         obj2 = QuantitativeValueRange.from_jsonld(data)
         assert obj.unit_code == "http://purl.obolibrary.org/obo/UO_0000017"
         assert obj.max == 1.5
+
+    def test_from_jsonld_alt(self):
+        data = {
+            "http://schema.org/value": 0.05,
+            "http://schema.org/unitText": "ms"
+        }
+        obj = QuantitativeValue.from_jsonld(data)
+        assert obj.value == 0.05
+        assert obj.unit_text == "ms"

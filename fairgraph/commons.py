@@ -308,6 +308,9 @@ class QuantitativeValue(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
+        for key in list(data):
+            if "http://schema.org/" in key:
+                data[key.replace("http://schema.org/", "")] = data[key]
         if "label" in data:
             unit_text = data["label"]
         elif "unitText" in data:
@@ -373,6 +376,9 @@ class QuantitativeValueRange(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
+        for key in list(data):
+            if "http://schema.org/" in key:
+                data[key.replace("http://schema.org/", "")] = data[key]
         if "label" in data:
             unit_text = data["label"]
         elif "unitText" in data:

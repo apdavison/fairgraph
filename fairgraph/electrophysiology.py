@@ -171,7 +171,7 @@ class PatchedCell(KGObject):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
             context = {
@@ -227,7 +227,7 @@ class PatchedCell(KGObject):
                 }
             return KGQuery(cls, filter_query, context).resolve(client, size=size)
         elif api == "query":
-            return super(PatchedCell, cls).list(client, size, api, scope, resolved, **filters)
+            return super(PatchedCell, cls).list(client, size, from_index, api, scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
@@ -640,7 +640,12 @@ class PatchClampExperiment(KGObject):
         args = {}
         for field in cls.fields:
             if field.name == "stimulus":
-                data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+                if "nsg:stimulus" in D:
+                    data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+                elif "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType" in D:
+                    data_item = D["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"]
+                else:
+                    data_item = None
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
@@ -656,7 +661,7 @@ class PatchClampExperiment(KGObject):
         return data
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         # we need to add the additional filter below, as PatchClampExperiment and
         # IntraCellularSharpElectrodeExperiment share the same path
@@ -668,12 +673,13 @@ class PatchClampExperiment(KGObject):
                 "prov": cls.context["prov"],
                 "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
             }
+            return client.list(cls, size=size, api=api, filter=filter, context=context)
         elif api == "query":
             # todo: what about filtering if api="query"
-            raise NotImplementedError("not yet implemented")
+            return super(PatchClampExperiment, cls).list(client, size, from_index, api, scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
-        return client.list(cls, size=size, api=api, filter=filter, context=context)
+
 
     @property
     def dataset(self):
@@ -849,21 +855,26 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     )
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', **filters):
+    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        # we need to add an additional filter, as PatchClampExperiment and
-        # IntraCellularSharpElectrodeExperiment share the same path
-        # and JSON-LD type ("nsg:StimulusExperiment")
-        filter = {'path': 'prov:used / rdf:type',
-                  'op': 'eq',
-                  'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
-        context = {
-            "nsg": cls.context["nsg"],
-            "prov": cls.context["prov"],
-            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-        }
-        # todo: what about filtering if api="query"
-        return client.list(cls, size=size, api=api, filter=filter, context=context)
+        if api == "nexus":
+            # we need to add an additional filter, as PatchClampExperiment and
+            # IntraCellularSharpElectrodeExperiment share the same path
+            # and JSON-LD type ("nsg:StimulusExperiment")
+            filter = {'path': 'prov:used / rdf:type',
+                    'op': 'eq',
+                    'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+            return client.list(cls, size=size, from_index=from_index, api=api, scope=scope,
+                               resolved=resolved, filter=filter, context=context)
+        elif api == "query":
+            # todo: what about filtering?
+            return super(IntraCellularSharpElectrodeExperiment, cls).list(
+                client, size, from_index, api, scope, resolved, **filters)
 
 
 def list_kg_classes():
