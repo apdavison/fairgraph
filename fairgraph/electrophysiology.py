@@ -131,6 +131,7 @@ class PatchedCell(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcell/v0.1.0"  # latest 0.2.1
     type = ["nsg:PatchedCell", "prov:Entity"]
+    query_id = "fgModified"
     query_id_resolved = "fgResolvedModified"
     collection_class = "PatchedCellCollection"
     experiment_class = "PatchClampExperiment"
@@ -285,7 +286,10 @@ class PatchedCell(KGObject):
                 if "brainRegion" in D:  # with api='query'
                     data_item = D["brainRegion"]
                 else:  # with api='nexus'
-                    data_item = D["brainLocation"]["brainRegion"]
+                    if "brainRegion" in D["brainLocation"]:
+                        data_item = D["brainLocation"]["brainRegion"]
+                    else:
+                        data_item = D["brainLocation"]
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
