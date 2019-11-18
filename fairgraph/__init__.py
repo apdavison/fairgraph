@@ -1,10 +1,10 @@
 """
 Python client for the Human Brain Project Neural Activity Resource
 
-Author: Andrew Davison, CNRS, 2018
+Authors: Andrew Davison et al., CNRS, 2018-2019 (see authors.rst)
 
 
-Copyright 2018 CNRS
+Copyright 2018-2019 CNRS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ limitations under the License.
 import re
 from .client import KGClient
 
-__version__ = "0.4.0.dev"
+__version__ = "0.4.0"
 
 # work-in-progress
 # def KnowledgeGraphEntity(schema):
