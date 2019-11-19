@@ -117,12 +117,11 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
         Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
-        Field("part_of", Dataset, "partOf"),
-     	Field("external_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False)
+        Field("part_of", Dataset, "partOf")
     )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
-                 time_step, external_url=None, part_of=None, id=None, instance=None):
+                 time_step, part_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
