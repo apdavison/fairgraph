@@ -388,7 +388,7 @@ class KGObject(with_metaclass(Registry, object)):
 
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus',
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api="query",
                  scope="released", resolved=False):
         instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
                                                  deprecated=deprecated, api=api, scope=scope,
@@ -399,7 +399,7 @@ class KGObject(with_metaclass(Registry, object)):
             return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False, api='nexus', resolved=False):
+    def from_uuid(cls, uuid, client, deprecated=False, api="query", resolved=False):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -411,7 +411,7 @@ class KGObject(with_metaclass(Registry, object)):
         return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
 
     @classmethod
-    def from_id(cls, id, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+    def from_id(cls, id, client, use_cache=True, deprecated=False, api="query", resolved=False):
         if id.startswith("http"):
             return cls.from_uri(id, client, use_cache, deprecated, api, resolved)
         else:
@@ -432,7 +432,7 @@ class KGObject(with_metaclass(Registry, object)):
                            resolved=resolved, filter=filters or None)
 
     @classmethod
-    def count(cls, client, api='nexus', scope="released"):
+    def count(cls, client, api="query", scope="released"):
         return client.count(cls, api=api, scope=scope)
 
     def _build_existence_query(self, api="query"):
@@ -465,7 +465,7 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    def exists(self, client, api='nexus'):
+    def exists(self, client, api="query"):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
@@ -599,7 +599,7 @@ class KGObject(with_metaclass(Registry, object)):
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, match="equals", all=False, api="nexus", scope="released", resolved=False):
+    def by_name(cls, name, client, match="equals", all=False, api="query", scope="released", resolved=False):
         return client.by_name(cls, name, match=match, all=all, api=api, scope="released", resolved=resolved)
 
     @property
@@ -883,7 +883,7 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="nexus", scope="released"):
+    def resolve(self, client, api="query", scope="released"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
@@ -932,7 +932,7 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="nexus", scope="released"):
+    def resolve(self, client, size=10000, api="query", scope="released"):
         objects = []
         for cls in self.classes:
             if api == "nexus":

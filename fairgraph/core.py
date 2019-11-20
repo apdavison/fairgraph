@@ -141,7 +141,7 @@ class Person(KGObject):
         return '{self.given_name} {self.family_name}'.format(self=self)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == 'nexus':
             context = {

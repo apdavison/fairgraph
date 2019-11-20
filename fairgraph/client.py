@@ -59,7 +59,7 @@ class KGClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-    def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
+    def list(self, cls, from_index=0, size=100, deprecated=False, api="query", scope="released",
              resolved=False, filter=None, context=None):
         """docstring"""
         if api == "nexus":
@@ -82,7 +82,7 @@ class KGClient(object):
         return [cls.from_kg_instance(instance, self, resolved=resolved)
                 for instance in instances]
 
-    def count(self, cls, api="nexus", scope="released"):
+    def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
             url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
@@ -153,7 +153,7 @@ class KGClient(object):
             instance.data["fg:api"] = "query"
         return instances
 
-    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
+    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="query",
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
@@ -214,7 +214,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="nexus", scope="released", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False, api="query", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):

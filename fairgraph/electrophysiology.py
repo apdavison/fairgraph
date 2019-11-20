@@ -186,7 +186,7 @@ class PatchedCell(KGObject):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
             context = {
@@ -342,7 +342,7 @@ class Slice(KGObject):  # should move to "core" module?
               "^prov:generated", reverse="slices")
     )
 
-    def resolve(self, client, api="nexus"):
+    def resolve(self, client, api="query"):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client, api=api)
         if hasattr(self.brain_slicing_activity, "resolve"):
@@ -424,7 +424,7 @@ class BrainSlicingActivity(KGObject):
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
-    def resolve(self, client, api="nexus"):
+    def resolve(self, client, api="query"):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client, api=api)
         for i, slice in enumerate(self.slices):
@@ -673,7 +673,7 @@ class PatchClampExperiment(KGObject):
         return data
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         # we need to add the additional filter below, as PatchClampExperiment and
         # IntraCellularSharpElectrodeExperiment share the same path
@@ -872,7 +872,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     )
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
             # we need to add an additional filter, as PatchClampExperiment and

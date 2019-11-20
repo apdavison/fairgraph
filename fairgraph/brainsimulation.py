@@ -48,7 +48,7 @@ ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 class HasAliasMixin(object):
 
     @classmethod
-    def from_alias(cls, alias, client, api="nexus"):
+    def from_alias(cls, alias, client, api="query"):
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
         }
@@ -151,7 +151,7 @@ class ModelProject(KGObject, HasAliasMixin):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == 'nexus':
             context = {

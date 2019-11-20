@@ -70,8 +70,8 @@ class TestModelProject(BaseTestKG):
         models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True)
         assert len(models) == 10
 
-    def test_list_with_filter(self, kg_client):
-        models = ModelProject.list(kg_client, size=10, species="Rattus norvegicus")
+    def test_list_nexus_with_filter(self, kg_client):
+        models = ModelProject.list(kg_client, api="nexus", size=10, species="Rattus norvegicus")
         assert len(models) == 5
 
     def test_list_kgquery_with_filter(self, kg_client):
