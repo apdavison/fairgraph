@@ -236,7 +236,8 @@ class ModelInstance(KGObject):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -296,7 +297,8 @@ class MEModel(ModelInstance):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -448,7 +450,8 @@ class AnalysisResult(KGObject):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
-            "wasDerivedFrom": "prov:wasDerivedFrom"
+            "wasDerivedFrom": "prov:wasDerivedFrom",
+            "generatedAtTime": "prov:generatedAtTime"
         }
     ]
     fields = (
