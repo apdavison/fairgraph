@@ -129,6 +129,7 @@ class Person(KGObject):
         Field("email", basestring, "email", doc="e-mail address"),
         Field("affiliation", Organization, "affiliation", doc="Organization to which person belongs")
     )
+    existence_query_fields = ("family_name", "given_name")
 
     def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
         args = locals()
@@ -178,24 +179,6 @@ class Person(KGObject):
             return super(Person, cls).list(client, size, api, scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
-
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:familyName",
-                    "op": "eq",
-                    "value": self.family_name
-                },
-                {
-                    "path": "schema:givenName",
-                    "op": "eq",
-                    "value": self.given_name
-                }
-            ]
-        }
 
     def resolve(self, client, api="query"):
         if hasattr(self.affiliation, "resolve"):

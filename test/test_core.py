@@ -122,6 +122,26 @@ class TestPerson(BaseTestKG):
         p3_exists = p3_noid.exists(kg_client)
         assert p3_exists
 
+    def test_existence_query(self):
+        obj = Person("Johnson", "Katherine")
+        expected = {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:familyName",
+                    "op": "eq",
+                    "value": "Johnson"
+                },
+                {
+                    "path": "schema:givenName",
+                    "op": "eq",
+                    "value": "Katherine"
+                }
+            ]
+        }
+        generated = obj._build_existence_query(api="nexus")
+        assert expected == generated
+
     def test_get_context(self, kg_client):
         p1 = Person("Hamilton", "Margaret", "margaret.hamilton@nasa.gov",
                     KGProxy(Organization, "http://fake_uuid_855fead8"),

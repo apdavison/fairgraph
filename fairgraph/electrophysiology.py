@@ -240,7 +240,8 @@ class PatchedCell(KGObject):
                     "op": "and",
                     "value": filter_queries
                 }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
             return super(PatchedCell, cls).list(client, size, from_index, api, scope, resolved, **filters)
         else:
@@ -383,6 +384,7 @@ class BrainSlicingActivity(KGObject):
         Field("start_time", datetime, "startedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
+    existence_query_fields = ("subject",)  # can only slice a brain once...
 
     def __init__(self, subject, slices, brain_location=None, slicing_plane=None, slicing_angle=None,
                  cutting_solution=None, cutting_thickness=None, start_time=None, people=None,
@@ -414,14 +416,6 @@ class BrainSlicingActivity(KGObject):
             args[field.name] = field.deserialize(data_item, client)
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
-
-    @property
-    def _existence_query(self):
-        return {  # can only slice a brain once...
-            "path": "prov:used",
-            "op": "eq",
-            "value": self.subject.id
-        }
 
     def _build_data(self, client):
         """docstring"""

@@ -294,6 +294,11 @@ class KGObject(with_metaclass(Registry, object)):
     query_id = "fg"
     query_id_resolved = "fgResolved"
     fields = []
+    existence_query_fields = ["name"]
+    # Note that this default value of existence_query_fields should in
+    # many cases be over-ridden.
+    # It assumes that "name" is unique within instances of a given type,
+    # which may often not be the case.
 
     def __init__(self, id=None, instance=None, **properties):
         if self.fields:
@@ -430,24 +435,42 @@ class KGObject(with_metaclass(Registry, object)):
     def count(cls, client, api='nexus', scope="released"):
         return client.count(cls, api=api, scope=scope)
 
-    @property
-    def _existence_query(self):
-        # Note that this default implementation should in
-        # many cases be over-ridden.
-        # It assumes that "name" is unique within instances of a given type,
-        # which may often not be the case.
-        return {
-            "path": "schema:name",
-            "op": "eq",
-            "value": self.name
-        }
+    def _build_existence_query(self, api="query"):
+        query_fields = []
+        for field_name in self.existence_query_fields:
+            for field in self.fields:
+                if field.name == field_name:
+                    query_fields.append(field)
+                    break
+        if api == "query":
+            return  {
+                field.name: field.serialize(getattr(self, field.name), None)
+                for field in query_fields
+            }
+        elif api == "nexus":
+            query_parts = []
+            for field in query_fields:
+                query_parts.append({
+                    "path": standard_context[field.path],
+                    "op": "eq",
+                    "value": field.serialize(getattr(self, field.name), None)
+                })
+            if len(query_fields) == 1:
+                return query_parts[0]
+            else:
+                return {
+                    "op": "and",
+                    "value": query_parts
+                }
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
     def exists(self, client, api='nexus'):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
         else:
-            query_filter = self._existence_query
+            query_filter = self._build_existence_query(api=api)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
@@ -568,7 +591,8 @@ class KGObject(with_metaclass(Registry, object)):
             self.id = instance.data["@id"]
             self.instance = instance
             KGObject.object_cache[self.id] = self
-            KGObject.save_cache[self.__class__][generate_cache_key(self._existence_query)] = self.id
+            existence_query = self._build_existence_query(api="nexus")  # make this key api-independent?
+            KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
 
     def delete(self, client):
         """Deprecate"""

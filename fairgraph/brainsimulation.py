@@ -138,6 +138,8 @@ class ModelProject(KGObject, HasAliasMixin):
               "hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
+    # allow multiple projects with the same name
+    existence_query_fields = ("name", "date_created")
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
@@ -147,25 +149,6 @@ class ModelProject(KGObject, HasAliasMixin):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-    @property
-    def _existence_query(self):
-        # allow multiple projects with the same name
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "schema:dateCreated",
-                    "op": "eq",
-                    "value": self.date_created.isoformat()
-                }
-            ]
-        }
 
     @classmethod
     def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
@@ -475,6 +458,7 @@ class AnalysisResult(KGObject):
         Field("derived_from", KGObject, "wasDerivedFrom"),
         Field("description", basestring, "description")
     )
+    existence_query_fields = ("name", "timestamp")
 
     def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
                  description=None, id=None, instance=None):
@@ -492,24 +476,6 @@ class AnalysisResult(KGObject):
         elif result_file is not None:
             for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
-
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": self.timestamp.isoformat()
-                }
-            ]
-        }
 
     def save(self, client):
         super(AnalysisResult, self).save(client)
@@ -741,15 +707,7 @@ class ValidationActivity(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp",  datetime, "endedAtTime")
     )
-
-    @property
-    def _existence_query(self):
-        # to fix: need an _and_ on model_instance, test_script, reference_data and timestamp
-        return {
-            "path": "prov:startedAtTime",
-            "op": "eq",
-            "value": self.timestamp.isoformat()
-        }
+    existence_query_fields = ("timestamp")
 
     @property
     def duration(self):
