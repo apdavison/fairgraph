@@ -1,8 +1,8 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/minds/core/method/v1.0.0"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/method/v1.0.0"
     },
-    "http://schema.org/identifier": "minds/core/method/v1.0.0/fg",
+    "http://schema.org/identifier": "minds/experiment/method/v1.0.0/fg",
     "fields": [
         {
             "relative_path": "@id",

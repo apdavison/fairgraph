@@ -272,6 +272,7 @@ class EmbargoStatus(MINDSObject):
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
     )
 
+
 class File(MINDSObject):
     """
     Metadata about a single file.
@@ -334,7 +335,8 @@ class Method(MINDSObject):
     """
     An experimental method.
     """
-    _path = "/core/method/v1.0.0"
+    _path = "/experiment/method/v1.0.0"
+    # also see "/core/method/v1.0.0"
     type = ["minds:Method"]
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
