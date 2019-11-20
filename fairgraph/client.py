@@ -182,9 +182,13 @@ class KGClient(object):
                                                                     query_id,
                                                                     scope.upper(),
                                                                     uri))
-                instance = Instance(cls.path, response["results"][0], Instance.path)
-                self.cache[instance.data["@id"]] = instance
-                logger.debug("Retrieved instance from KG Query" + str(instance.data))
+                if len(response["results"]) > 0:
+                    instance = Instance(cls.path, response["results"][0], Instance.path)
+                    self.cache[instance.data["@id"]] = instance
+                    logger.debug("Retrieved instance from KG Query" + str(instance.data))
+                else:
+                    logger.warning("Instance not found at {} using KG Query API".format(uri))
+                    instance = None
             else:
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
