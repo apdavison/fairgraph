@@ -1,8 +1,8 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitrace/v0.1.0"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitrace/v0.1.1"
     },
-    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.0/fgResolved",
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.1/fgResolved",
     "fields": [
         {
             "relative_path": "@id",
@@ -123,6 +123,108 @@
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
                     ]
+                },
+                {
+                    "fieldname": "ExtracellularElectrodeExperiment__prov:used",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "ImplantedBrainTissue__wasDerivedFrom",
+                            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "Subject__species",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "fieldname": "label",
+                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Subject__strain",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "fieldname": "label",
+                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Subject__sex",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "fieldname": "label",
+                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "age",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
+                                    "fields": [
+                                        {
+                                            "fieldname": "value",
+                                            "relative_path": "http://schema.org/value"
+                                        },
+                                        {
+                                            "fieldname": "period",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "deathDate",
+                                    "relative_path": "http://schema.org/deathDate"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "ExtracellularElectrodeExperiment__nsg:stimulusType",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ]
                 }
             ],
             "filter": {
@@ -145,7 +247,7 @@
                     "relative_path": "http://schema.org/name"
                 },
                 {
-                    "fieldname": "QualifiedTraceGeneration__activity",
+                    "fieldname": "QualifiedMultiTraceGeneration__activity",
                     "relative_path": "http://www.w3.org/ns/prov#activity",
                     "fields": [
                         {
@@ -159,7 +261,7 @@
                             "relative_path": "http://schema.org/name"
                         },
                         {
-                            "fieldname": "PatchClampExperiment__prov:used",
+                            "fieldname": "ExtracellularElectrodeExperiment__prov:used",
                             "relative_path": "http://www.w3.org/ns/prov#used",
                             "fields": [
                                 {
@@ -173,59 +275,82 @@
                                     "relative_path": "http://schema.org/name"
                                 },
                                 {
-                                    "fieldname": "PatchedCell__brainRegion",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+                                    "fieldname": "ImplantedBrainTissue__wasDerivedFrom",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
                                         },
                                         {
-                                            "fieldname": "label",
-                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "fieldname": "PatchedCell__eType",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
-                                    "fields": [
-                                        {
-                                            "relative_path": "@id"
+                                            "relative_path": "@type"
                                         },
                                         {
-                                            "fieldname": "label",
-                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "Subject__species",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "fieldname": "label",
+                                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Subject__strain",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "fieldname": "label",
+                                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Subject__sex",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "fieldname": "label",
+                                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "age",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
+                                            "fields": [
+                                                {
+                                                    "fieldname": "value",
+                                                    "relative_path": "http://schema.org/value"
+                                                },
+                                                {
+                                                    "fieldname": "period",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "deathDate",
+                                            "relative_path": "http://schema.org/deathDate"
                                         }
                                     ]
-                                },
-                                {
-                                    "fieldname": "nsg:pipetteNumber",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
-                                },
-                                {
-                                    "fieldname": "nsg:sealResistance",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
-                                },
-                                {
-                                    "fieldname": "nsg:pipetteResistance",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
-                                },
-                                {
-                                    "fieldname": "nsg:liquidJunctionPotential",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
-                                },
-                                {
-                                    "fieldname": "nsg:labelingCompound",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
-                                },
-                                {
-                                    "fieldname": "nsg:chlorideReversalPotential",
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
                                 }
                             ]
                         },
                         {
-                            "fieldname": "PatchClampExperiment__nsg:stimulusType",
+                            "fieldname": "ExtracellularElectrodeExperiment__nsg:stimulusType",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
                             "fields": [
                                 {
@@ -305,6 +430,85 @@
                         },
                         {
                             "fieldname": "IntraCellularSharpElectrodeExperiment__nsg:stimulusType",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "PatchClampExperiment__prov:used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "PatchedCell__brainRegion",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "fieldname": "label",
+                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "PatchedCell__eType",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "fieldname": "label",
+                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "nsg:pipetteNumber",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
+                                },
+                                {
+                                    "fieldname": "nsg:sealResistance",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
+                                },
+                                {
+                                    "fieldname": "nsg:pipetteResistance",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
+                                },
+                                {
+                                    "fieldname": "nsg:liquidJunctionPotential",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
+                                },
+                                {
+                                    "fieldname": "nsg:labelingCompound",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
+                                },
+                                {
+                                    "fieldname": "nsg:chlorideReversalPotential",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "PatchClampExperiment__nsg:stimulusType",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType",
                             "fields": [
                                 {

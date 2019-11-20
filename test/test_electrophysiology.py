@@ -14,6 +14,7 @@ from fairgraph.electrophysiology import (
     IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
     IntraCellularSharpElectrodeRecordedCellCollection,
     IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
+    ElectrodeImplantationActivity, ExtracellularElectrodeExperiment, ImplantedBrainTissue,
     list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.minds import Dataset
 
@@ -33,6 +34,7 @@ test_data_lookup.update({
     "/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecording_list_0_10.json",
     "/v0/data/neuralactivity/electrophysiology/multichannelmultitrialrecording/v0.1.0/": "test/test_data/nexus/electrophysiology/multichannelmultitrialrecording_list_0_10.json",
     "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.1/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
     "/v0/data/neuralactivity/experiment/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/multitracegeneration_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchclampactivity/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampactivity_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchclampexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampexperiment_list_0_10.json",
@@ -58,6 +60,7 @@ test_data_lookup.update({
     "/query/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedslice_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/intrasharpelectrode/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecording_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/multitrace/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitrace/v0.1.1/fgResolved/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampactivity_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampexperiment_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/patchedcellcollection/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchedcellcollection_list_resolved_0_10.json",
@@ -74,6 +77,7 @@ test_data_lookup.update({
     "/query/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedslice_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/intrasharpelectrode/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecording_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/multitrace/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitrace/v0.1.1/fg/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchclampactivity_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchclampexperiment_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/patchedcellcollection/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchedcellcollection_list_resolved_0_10.json",
@@ -557,6 +561,8 @@ class TestModuleFunctions(object):
             QualifiedTraceGeneration, QualifiedMultiTraceGeneration,
             IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
             IntraCellularSharpElectrodeRecordedCellCollection,
-            IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording
+            IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
+            ElectrodeImplantationActivity, ImplantedBrainTissue,
+            ExtracellularElectrodeExperiment
         ))
         assert set(list_kg_classes()) == expected_classes

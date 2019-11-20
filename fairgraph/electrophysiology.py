@@ -127,7 +127,10 @@ class MultiChannelMultiTrialRecording(Trace):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
-	Field("generated_by", (electrophysiology.PatchClampExperiment, electrophysiology.ExtracellularElectrodeExperiment), "wasGeneratedBy", required=True),
+        Field("generated_by",
+              ("electrophysiology.PatchClampExperiment",
+               "electrophysiology.ExtracellularElectrodeExperiment"),
+              "wasGeneratedBy", required=True),
         Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration", "qualifiedGeneration", required=True),
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
         Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
@@ -510,12 +513,7 @@ class PatchedCellCollection(KGObject):
         Field("slice", PatchedSlice, "^nsg:hasPart", reverse="recorded_cells")
     )
 
-    def __init__(self, 
-	name, 
-	cells, 
-	slice=None, 
-	id=None, 
-	instance=None):
+    def __init__(self, name, cells, slice=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -734,7 +732,7 @@ class QualifiedTraceGeneration(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment", 
+        Field("stimulus_experiment",
               (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
               "activity", required=True),
         Field("sweep", int, "sweep", multiple=True, required=True),
@@ -749,7 +747,8 @@ class QualifiedTraceGeneration(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
-class ImplantedBrainTissue(KGObject):  
+
+class ImplantedBrainTissue(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/implantedbraintissue/v0.1.0"
@@ -770,6 +769,7 @@ class ImplantedBrainTissue(KGObject):
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client)
+
 
 class ElectrodeImplantationActivity(KGObject):
     """docstring"""
@@ -798,11 +798,13 @@ class ElectrodeImplantationActivity(KGObject):
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("start_time", datetime, "startedAtTime", required=False),
-	Field("end_time", datetime, "endedAtTime", required=False),
+        Field("end_time", datetime, "endedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
+    existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, subject, implanted_brain_tissues, brain_location,
+                 start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -829,14 +831,6 @@ class ElectrodeImplantationActivity(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    @property
-    def _existence_query(self):
-        return {  # can only slice a brain once...
-            "path": "prov:used",
-            "op": "eq",
-            "value": self.subject.id
-        }
-
     def _build_data(self, client):
         """docstring"""
         data = super(ElectrodeImplantationActivity, self)._build_data(client)
@@ -848,11 +842,12 @@ class ElectrodeImplantationActivity(KGObject):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client)
         for i, slice in enumerate(self.slices):
-            if hasattr(implanted_brain_tissues, "resolve"):
-                self.implanted_brain_tissues[i] = implanted_brain_tissues.resolve(client)
+            if hasattr(self.implanted_brain_tissues, "resolve"):
+                self.implanted_brain_tissues[i] = self.implanted_brain_tissues.resolve(client)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client)
+
 
 class ExtracellularElectrodeExperiment(PatchClampExperiment):
     """docstring"""
@@ -880,6 +875,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         }
         # todo: what about filtering if api="query"
         return client.list(cls, size=size, api=api, filter=filter, context=context)
+
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     """A cell recorded intracellularly with a sharp electrode."""
@@ -920,6 +916,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith")
     )
+
 
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     """A collection of cells recorded with a sharp electrode."""
@@ -991,6 +988,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
             return super(IntraCellularSharpElectrodeExperiment, cls).list(
                 client, size, from_index, api, scope, resolved, **filters)
 
+
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
@@ -1009,7 +1007,7 @@ class QualifiedMultiTraceGeneration(KGObject):
         "unitCode": "schema:unitCode",
         "targetHoldingPotential": "nsg:targetHoldingPotential"
     }
-    
+
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment), "activity", required=True),
