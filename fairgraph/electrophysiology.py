@@ -165,9 +165,9 @@ class PatchedCell(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
-        Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember"),
+        Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember", reverse="cells"),
         Field("cell_type", CellType, "eType", required=False),
-        Field("experiments", "electrophysiology.PatchClampExperiment", "^prov:used", multiple=True),
+        Field("experiments", "electrophysiology.PatchClampExperiment", "^prov:used", reverse="recorded_cell", multiple=True),
         Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
@@ -232,7 +232,7 @@ class PatchedCell(KGObject):
                     raise Exception("The only supported filters are by species, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
-                return client.list(cls, size=size)
+                return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
                 filter_query = filter_queries[0]
             else:
@@ -337,14 +337,15 @@ class Slice(KGObject):  # should move to "core" module?
     fields =  (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated")
+        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
+              "^prov:generated", reverse="slices")
     )
 
-    def resolve(self, client):
+    def resolve(self, client, api="nexus"):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
+            self.subject = self.subject.resolve(client, api=api)
         if hasattr(self.brain_slicing_activity, "resolve"):
-            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client)
+            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client, api=api)
 
 
 class BrainSlicingActivity(KGObject):
@@ -429,15 +430,15 @@ class BrainSlicingActivity(KGObject):
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
-    def resolve(self, client):
+    def resolve(self, client, api="nexus"):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
+            self.subject = self.subject.resolve(client, api=api)
         for i, slice in enumerate(self.slices):
             if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client)
+                self.slices[i] = slice.resolve(client, api=api)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client)
+                self.people[i] = person.resolve(client, api=api)
 
 
 class PatchedSlice(KGObject):
@@ -461,7 +462,8 @@ class PatchedSlice(KGObject):
         Field("name", basestring, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
         Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart", required=True),
-        Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated")
+        Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated",
+              reverse="recorded_slice")
     )
 
     def __init__(self, name, slice, recorded_cells, recording_activity=None, id=None, instance=None):
@@ -510,7 +512,7 @@ class PatchedCellCollection(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("cells", PatchedCell, "hadMember", required=True),
-        Field("slice", PatchedSlice, "^nsg:hasPart")
+        Field("slice", PatchedSlice, "^nsg:hasPart", reverse="recorded_cells")
     )
 
     def __init__(self, name, cells, slice=None, id=None, instance=None):
@@ -610,7 +612,8 @@ class PatchClampExperiment(KGObject):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
+              multiple=True, reverse="generated_by")
     )
 
     def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
@@ -695,7 +698,6 @@ class PatchClampExperiment(KGObject):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-
     @property
     def dataset(self):
         context = {
@@ -703,9 +705,11 @@ class PatchClampExperiment(KGObject):
             "prov": self.context["prov"]
         }
         filter = {
-            "path": "^nsg:partOf / prov:wasGeneratedBy",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "^nsg:partOf / prov:wasGeneratedBy",
+                "op": "eq",
+                "value": self.id
+            }
         }
         return KGQuery(Dataset, filter, context)
 
@@ -795,10 +799,10 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
-              "^prov:hadMember"),
+              "^prov:hadMember", reverse="cells"),
         Field("cell_type", CellType, "eType", required=False),
         Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
-              "^prov:used", multiple=True),
+              "^prov:used", multiple=True, reverse="recorded_cell"),
         Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
@@ -807,6 +811,7 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
         Field("labeling_compound", basestring, "nsg:labelingCompound"),
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
     )
+
 
 class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     """A sharp-electrode recording session."""
@@ -835,8 +840,9 @@ class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
         Field("name", basestring, "name", required=True),
         Field("cells", IntraCellularSharpElectrodeRecordedCell, "hadMember", required=True),
         Field("slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
-              "^nsg:hasPart")
+              "^nsg:hasPart", reverse="recorded_cells")
     )
+
 
 class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     """A slice that has been recorded from using a sharp electrode."""
@@ -850,8 +856,10 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
         Field("slice", Slice, "wasRevisionOf", required=True),
         Field("recorded_cells", IntraCellularSharpElectrodeRecordedCellCollection, "hasPart",
               required=True),
-        Field("recording_activity", IntraCellularSharpElectrodeRecording, "^prov:generated")
+        Field("recording_activity", IntraCellularSharpElectrodeRecording, "^prov:generated",
+              reverse="recorded_slice")
     )
+
 
 class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     """
@@ -866,7 +874,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "prov:used", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True)
+        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
     @classmethod

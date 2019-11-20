@@ -122,6 +122,7 @@ class KGClient(object):
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
+            instance.data["fg:api"] = "nexus"
         return instances
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
@@ -149,6 +150,7 @@ class KGClient(object):
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
+            instance.data["fg:api"] = "query"
         return instances
 
     def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
@@ -199,6 +201,7 @@ class KGClient(object):
         instance.data.pop("links", None)
         instance.data.pop("nxv:rev", None)
         instance.data.pop("nxv:deprecated", None)
+        instance.data.pop("fg:api", None)
         instance = self._nexus_client.instances.update(instance)
         return instance
 

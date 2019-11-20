@@ -172,7 +172,8 @@ class Person(KGObject):
                     "op": "and",
                     "value": filter_queries
                 }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
             return super(Person, cls).list(client, size, api, scope, resolved, **filters)
         else:
@@ -196,9 +197,9 @@ class Person(KGObject):
             ]
         }
 
-    def resolve(self, client):
+    def resolve(self, client, api="query"):
         if hasattr(self.affiliation, "resolve"):
-            self.affiliation = self.affiliation.resolve(client)
+            self.affiliation = self.affiliation.resolve(client, api=api)
 
 
 class Protocol(KGObject):

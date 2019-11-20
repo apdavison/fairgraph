@@ -48,16 +48,21 @@ ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 class HasAliasMixin(object):
 
     @classmethod
-    def from_alias(cls, alias, client):
+    def from_alias(cls, alias, client, api="nexus"):
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
         }
         query = {
-            "path": "nsg:alias",
-            "op": "eq",
-            "value": alias
+            "nexus": {
+                "path": "nsg:alias",
+                "op": "eq",
+                "value": alias
+            },
+            "query": {
+                "alias": alias
+            }
         }
-        return KGQuery(cls, query, context).resolve(client)
+        return KGQuery(cls, query, context).resolve(client, api=api)
 
 
 class ModelProject(KGObject, HasAliasMixin):
@@ -200,7 +205,8 @@ class ModelProject(KGObject, HasAliasMixin):
                     "op": "and",
                     "value": filter_queries
                 }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
             # todo: handle resolved=True for nexus queries (i.e. do all the downstream resolutions  )
         else:
             # todo: handle author, owner
@@ -215,7 +221,8 @@ class ModelProject(KGObject, HasAliasMixin):
 
 
     def authors_str(self, client):
-        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client))
+        api = self.instance.data.get("fg:api", "query")
+        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client, api=api))
                          for obj in self.authors)
 
     #def sub_projects(self):
@@ -276,9 +283,14 @@ class ModelInstance(KGObject):
     @property
     def project(self):
         query = {
-            "path": "dcterms:hasPart",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "dcterms:hasPart",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "instances": self.id  # untested
+            }
         }
         context = {
             "dcterms": "http://purl.org/dc/terms/"
@@ -587,9 +599,14 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     @property
     def scripts(self):
         query = {
-            "path": "nsg:implements",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "nsg:implements",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "test_definition": self.id
+            }
         }
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"

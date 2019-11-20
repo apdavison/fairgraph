@@ -147,7 +147,7 @@ class Field(object):
     """Representation of a metadata field"""
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False,
-                 strict=True, doc=""):
+                 strict=True, reverse=None, doc=""):
         self.name = name
         if isinstance(types, (type, basestring)):
             self._types = (types,)
@@ -160,6 +160,7 @@ class Field(object):
         self.default = default
         self.multiple = multiple
         self.strict_mode = strict
+        self.reverse = reverse
         self.doc = doc
 
     def __repr__(self):
@@ -241,9 +242,14 @@ class Field(object):
         try:
             if not self.intrinsic:
                 query_filter = {
-                    "path": self.path[1:],  # remove initial ^
-                    "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
-                    "value": data
+                    "nexus": {
+                        "path": self.path[1:],  # remove initial ^
+                        "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
+                        "value": data
+                    },
+                    "query": {
+                        self.reverse: data
+                    }
                 }
                 # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
                 # query_context = {context_key: TODO: lookup contexts}
@@ -454,14 +460,19 @@ class KGObject(with_metaclass(Registry, object)):
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
-                if response:
-                    self.id = response[0].data["@id"]
-                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
-                return bool(response)
-            else:
-                raise NotImplementedError()
 
-    def get_context(self, client):
+            elif api == "query":
+                response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                                                size=1, scope="inferred")
+                                                # not sure about the appropriate scope here
+            else:
+                raise ValueError("'api' must be either 'nexus' or 'query'")
+            if response:
+                self.id = response[0].data["@id"]
+                KGObject.save_cache[self.__class__][query_cache_key] = self.id
+            return bool(response)
+
+    def get_context(self, client=None):
         context_urls = set()
         if isinstance(self.context, dict):
             context_dict = self.context
@@ -473,7 +484,8 @@ class KGObject(with_metaclass(Registry, object)):
                 else:
                     assert isinstance(item, basestring)
                     if "{{base}}" in item:
-                        context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
+                        if client:
+                            context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
                     else:
                         assert item.startswith("http")
                         context_urls.add(item)
@@ -902,7 +914,7 @@ class KGQuery(object):
             if api == "nexus":
                 instances = client.query_nexus(
                     path=cls.path,
-                    filter=self.filter,
+                    filter=self.filter["nexus"],
                     context=self.context,
                     size=size
                 )
@@ -910,7 +922,7 @@ class KGQuery(object):
                 instances = client.query_kgquery(
                     path=cls.path,
                     query_id=cls.query_id,
-                    filter=self.filter,
+                    filter=self.filter["query"],
                     size=size,
                     scope=scope)
             else:
@@ -1082,7 +1094,7 @@ def build_kg_object(cls, data, resolved=False, client=None):
                     except (ValueError, KeyError) as err:
                         # to add: emit a warning
                         logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                        obj = KGProxy(kg_cls, item["@id"])  #.resolve(client, api=item.get("fg:api", "nexus"))
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(client, api=item.get("fg:api", "query"))
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
             else:
