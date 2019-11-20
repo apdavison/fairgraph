@@ -753,6 +753,11 @@ class KGObject(with_metaclass(Registry, object)):
                 else:
                     raise
 
+    @classmethod
+    def retrieve_query(cls, query_id, client):
+        path = "{}/{}".format(cls.path, query_id)
+        return client.retrieve_query(path)
+
 
 class MockKGObject(KGObject):
     """Mock version of KGObject, useful for testing."""

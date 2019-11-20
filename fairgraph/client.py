@@ -260,3 +260,6 @@ class KGClient(object):
         self._kg_query_client.raw = True  # endpoint returns plain text, not JSON
         response = self._kg_query_client.put(path, data=query_definition)
         self._kg_query_client.raw = False
+
+    def retrieve_query(self, path):
+        return self._kg_query_client.get(path)
