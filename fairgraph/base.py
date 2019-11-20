@@ -415,9 +415,10 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, from_index=from_index, size=size, api=api, scope=scope, resolved=resolved)
+        return client.list(cls, from_index=from_index, size=size, api=api, scope=scope,
+                           resolved=resolved, filter=filters or None)
 
     @classmethod
     def count(cls, client, api='nexus', scope="released"):
