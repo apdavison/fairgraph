@@ -258,6 +258,14 @@ class Dataset(MINDSObject):
                             local_path, response2.status_code))
         progress_bar.close()
 
+    def methods(self, client, api="query", scope="released"):
+        """Return a list of experimental methods associated with the dataset"""
+        filter = {
+            "dataset": self.id
+        }
+        instances = client.query_kgquery(Method.path, "fgDatasets", filter=filter, scope=scope)
+        return [Method.from_kg_instance(inst, client) for inst in instances]
+
 
 class EmbargoStatus(MINDSObject):
     """
