@@ -434,6 +434,7 @@ class EModel(ModelInstance):
         KGObject.__init__(self, **args)
 
 
+
 class AnalysisResult(KGObject):
     """The result of a data analysis.
 

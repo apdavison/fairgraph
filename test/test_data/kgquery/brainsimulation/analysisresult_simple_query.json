@@ -34,6 +34,8 @@
         {
             "fieldname": "generatedAtTime",
             "relative_path": "http://www.w3.org/ns/prov#generatedAtTime"
+<<<<<<< HEAD
+=======
         },
         {
             "fieldname": "wasDerivedFrom",
@@ -58,6 +60,7 @@
                 "op": "contains",
                 "parameter": "description"
             }
+>>>>>>> f70c7bf807c03586f55d62103bff0a8103341649
         }
     ],
     "@context": {
