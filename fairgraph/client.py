@@ -2,6 +2,21 @@
 define client
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 import os
 import json
 import logging
@@ -44,7 +59,7 @@ class KGClient(object):
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
-    def list(self, cls, from_index=0, size=100, deprecated=False, api="nexus", scope="released",
+    def list(self, cls, from_index=0, size=100, deprecated=False, api="query", scope="released",
              resolved=False, filter=None, context=None):
         """docstring"""
         if api == "nexus":
@@ -67,7 +82,7 @@ class KGClient(object):
         return [cls.from_kg_instance(instance, self, resolved=resolved)
                 for instance in instances]
 
-    def count(self, cls, api="nexus", scope="released"):
+    def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
             url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
@@ -107,6 +122,7 @@ class KGClient(object):
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
+            instance.data["fg:api"] = "nexus"
         return instances
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
@@ -134,9 +150,10 @@ class KGClient(object):
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
+            instance.data["fg:api"] = "query"
         return instances
 
-    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="nexus",
+    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="query",
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
@@ -165,9 +182,13 @@ class KGClient(object):
                                                                     query_id,
                                                                     scope.upper(),
                                                                     uri))
-                instance = Instance(cls.path, response["results"][0], Instance.path)
-                self.cache[instance.data["@id"]] = instance
-                logger.debug("Retrieved instance from KG Query" + str(instance.data))
+                if len(response["results"]) > 0:
+                    instance = Instance(cls.path, response["results"][0], Instance.path)
+                    self.cache[instance.data["@id"]] = instance
+                    logger.debug("Retrieved instance from KG Query" + str(instance.data))
+                else:
+                    logger.warning("Instance not found at {} using KG Query API".format(uri))
+                    instance = None
             else:
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
@@ -184,6 +205,7 @@ class KGClient(object):
         instance.data.pop("links", None)
         instance.data.pop("nxv:rev", None)
         instance.data.pop("nxv:deprecated", None)
+        instance.data.pop("fg:api", None)
         instance = self._nexus_client.instances.update(instance)
         return instance
 
@@ -192,7 +214,7 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="nexus", scope="released", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False, api="query", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):
@@ -245,3 +267,6 @@ class KGClient(object):
         self._kg_query_client.raw = True  # endpoint returns plain text, not JSON
         response = self._kg_query_client.put(path, data=query_definition)
         self._kg_query_client.raw = False
+
+    def retrieve_query(self, path):
+        return self._kg_query_client.get(path)

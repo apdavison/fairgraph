@@ -3,6 +3,21 @@ Metadata for entities that are used in multiple contexts (e.g. in both electroph
 
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from __future__ import unicode_literals
 import sys, inspect
 import logging
@@ -114,6 +129,7 @@ class Person(KGObject):
         Field("email", basestring, "email", doc="e-mail address"),
         Field("affiliation", Organization, "affiliation", doc="Organization to which person belongs")
     )
+    existence_query_fields = ("family_name", "given_name")
 
     def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
         args = locals()
@@ -125,7 +141,7 @@ class Person(KGObject):
         return '{self.given_name} {self.family_name}'.format(self=self)
 
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == 'nexus':
             context = {
@@ -157,33 +173,16 @@ class Person(KGObject):
                     "op": "and",
                     "value": filter_queries
                 }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
             return super(Person, cls).list(client, size, api, scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:familyName",
-                    "op": "eq",
-                    "value": self.family_name
-                },
-                {
-                    "path": "schema:givenName",
-                    "op": "eq",
-                    "value": self.given_name
-                }
-            ]
-        }
-
-    def resolve(self, client):
+    def resolve(self, client, api="query"):
         if hasattr(self.affiliation, "resolve"):
-            self.affiliation = self.affiliation.resolve(client)
+            self.affiliation = self.affiliation.resolve(client, api=api)
 
 
 class Protocol(KGObject):

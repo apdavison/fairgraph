@@ -77,8 +77,11 @@ class MockHttpClient(HttpClient):
                     results = [item for item in data["results"]
                                if item["source"].get("species", {"@id": None})["@id"] == filtr["value"]]
                 elif "op" in filtr:
+                    if filtr["op"] == "eq" and filtr["path"] == "schema:name":
+                        results = [item for item in data["results"]
+                                   if item["source"]["name"] == filtr["value"]]
                     # James Bond does not exist
-                    if filtr["value"][0]["value"] in ("James", "Bond"):
+                    elif filtr["value"][0]["value"] in ("James", "Bond"):
                         results = []
                     elif filtr["value"][0]["value"] in ("Katherine", "Johnson"):
                         results = [item for item in data["results"]

@@ -7,10 +7,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -141,10 +141,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -187,10 +187,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -321,10 +321,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -367,10 +367,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -501,10 +501,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -547,10 +547,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -681,10 +681,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -727,10 +727,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -861,10 +861,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -907,10 +907,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "celltype": [
@@ -1041,10 +1041,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Eyal",
-                    "givenName": "Guy",
+                    "familyName": "Armstrong",
+                    "": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/38d8abae-0184-4dbd-91ff-f31519bacab0",
-                    "email": "guy.eyal@epfl.ch"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "description": "A model of HL2/3 PC",
@@ -1087,10 +1087,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Destexhe",
-                    "givenName": "Alain",
+                    "familyName": "Sikorsky",
+                    "": "Igor",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e8cf1814-a152-4259-9774-7057fe00e3d1",
-                    "email": "destexhe@unic.cnrs-gif.fr"
+                    "email": "isikorsky@example.com"
                 }
             ],
             "celltype": [
@@ -1218,7 +1218,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Tort-Colet",
-                    "givenName": "Núria",
+                    "": "Núria",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ccc40e37-b97b-49ad-8e4f-1f873deac41a",
                     "email": "nuria.tort-colet@unic.cnrs-gif.fr"
                 },
@@ -1227,10 +1227,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Destexhe",
-                    "givenName": "Alain",
+                    "familyName": "Sikorsky",
+                    "": "Igor",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e8cf1814-a152-4259-9774-7057fe00e3d1",
-                    "email": "destexhe@unic.cnrs-gif.fr"
+                    "email": "isikorsky@example.com"
                 }
             ],
             "description": "Adaptive exponential integrate-and-fire (aeIF) neuron models for different cell types:\n\n     - RS (Regular Spiking) pyramidal cells (excitatory)\n     - RSw (weakly adapting Regular Spiking) pyramidal cell (excitatory)\n     - FS (Fast Spiking) interneuron cells (inhibitory) with negligible adaptation.\n     - LTS (Low Threshold Spiking) cortical cell (excitatory)\n     - TC (ThalamoCortical) thalamic cell (excitatory)\n     - RE (Reticular thalamic nucleus) thalamic cells (inhibitory)\n\nThis script reproduces Figure 1 of the following article:\n\nDestexhe A (2009) Self-sustained asynchronous irregular states and Up-Down states inthalamic, cortical and thalamocortial networks of nonlinear integrate-and-fire neurons. J Computat Neurosci 27:493-506\nDOI 10.1007/s10827-009-0164-4\n\nIn the figure we see the response of each cell type to a depolarizing current pulse of 0.25nA or a hyperpolarizing current pulse -0.25nA.",
@@ -1263,7 +1263,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Linne",
-                    "givenName": "Marja-Leena",
+                    "": "Marja-Leena",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e",
                     "email": "marja-leena.linne@tut.fi"
                 }
@@ -1284,7 +1284,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Manninen",
-                    "givenName": "Tiina",
+                    "": "Tiina",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/145889b2-b8bc-4c9e-a00f-6c3c8f2d1a3c",
                     "email": "tiina.manninen@tut.fi"
                 },
@@ -1294,7 +1294,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Linne",
-                    "givenName": "Marja-Leena",
+                    "": "Marja-Leena",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e",
                     "email": "marja-leena.linne@tut.fi"
                 }
@@ -1340,7 +1340,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Gleeson",
-                    "givenName": "Padraig",
+                    "": "Padraig",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1ecd55ca-c68d-45cb-b0c9-62fae2070f6b",
                     "email": "p.gleeson@ucl.ac.uk"
                 }
@@ -1366,7 +1366,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Brunel",
-                    "givenName": "Nicolas",
+                    "": "Nicolas",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ee4b17a2-3c4f-4cb1-83af-59779628699e",
                     "email": "unknown@example.com"
                 },
@@ -1376,7 +1376,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Davison",
-                    "givenName": "Andrew",
+                    "": "Andrew",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8eb6a54f-08e3-4453-8fa9-cef6228140b4",
                     "email": "andrew.davison@unic.cnrs-gif.fr"
                 },
@@ -1386,7 +1386,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Marin",
-                    "givenName": "Boris",
+                    "": "Boris",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1181e1b3-c52e-4dd9-a1e0-abcc33930d7d",
                     "email": "unknown@example.com"
                 },
@@ -1396,7 +1396,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Gleeson",
-                    "givenName": "Padraig",
+                    "": "Padraig",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/1ecd55ca-c68d-45cb-b0c9-62fae2070f6b",
                     "email": "p.gleeson@ucl.ac.uk"
                 }
@@ -1431,7 +1431,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Migliore",
-                    "givenName": "Michele",
+                    "": "Michele",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8d959d8a-ab23-4c2d-a274-04c446641da1",
                     "email": "michele.migliore@cnr.it"
                 }
@@ -1839,7 +1839,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Bianchi",
-                    "givenName": "Daniela",
+                    "": "Daniela",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/4190d599-a229-4d61-ab0c-fba8ab29704e",
                     "email": "danielabianchi12@gmail.com"
                 },
@@ -1849,7 +1849,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Marasco",
-                    "givenName": "Addolorata",
+                    "": "Addolorata",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/539b39f7-2a34-45af-aa25-c0bdfa17408b",
                     "email": "unknown@example.com"
                 },
@@ -1859,7 +1859,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Limongiello",
-                    "givenName": "Alessandro",
+                    "": "Alessandro",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/6782143b-fa37-41d6-9194-4d6edbb6f872",
                     "email": "unknown@example.com"
                 },
@@ -1869,7 +1869,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Marchetti",
-                    "givenName": "Cristina",
+                    "": "Cristina",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e5ea9e4c-e710-42b4-a8ff-36916f985edc",
                     "email": "c.marchetti@ebri.it"
                 },
@@ -1879,7 +1879,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Marie",
-                    "givenName": "Hélène",
+                    "": "Hélène",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/41484500-d65a-4045-bec8-9037a12edd6a",
                     "email": "unknown@example.com"
                 },
@@ -1889,7 +1889,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Tirozzi",
-                    "givenName": "Brunello",
+                    "": "Brunello",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/3d5598e5-815b-430d-a593-7f517496931d",
                     "email": "unknown@example.com"
                 },
@@ -1899,7 +1899,7 @@
                         "http://www.w3.org/ns/prov#Agent"
                     ],
                     "familyName": "Migliore",
-                    "givenName": "Michele",
+                    "": "Michele",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/8d959d8a-ab23-4c2d-a274-04c446641da1",
                     "email": "michele.migliore@cnr.it"
                 }

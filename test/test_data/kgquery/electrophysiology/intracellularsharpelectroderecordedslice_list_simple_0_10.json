@@ -1,0 +1,191 @@
+{
+    "results": [
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/50d5095a-879c-4b45-bbaf-af016b98c799"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/67756b13-2af2-4257-b091-17d7c640f75b"
+                }
+            ],
+            "name": "thomson_ucl_960711AHP3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/34dea335-3a60-46aa-81a8-68b927be2dd6"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/dd673403-090a-4af8-b165-87188d58757e"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02f1c738-78e8-4324-9742-fa5291d3d39d"
+                }
+            ],
+            "name": "thomson_ucl_970428A1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/ff3a0973-df58-44ca-9084-0fbb50563fac"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/73ea26bc-8ab5-4e85-9d92-1faa078f648c"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/3d86aba8-00d3-4b79-bbc4-2d4ec787e655"
+                }
+            ],
+            "name": "thomson_ucl_980120A",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/411e675e-09c6-4f9f-99d9-6c7b7674d56c"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/48489590-5bc7-469e-b2f7-614585f2e85b"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/d7b54be9-ebeb-4c88-8c6c-def17b0a66f3"
+                }
+            ],
+            "name": "thomson_ucl_980205FHP",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/32ec0d1b-2927-48e9-8ae8-ed463c9595bc"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/344413d5-2aed-406b-be9c-375e26bdfb2f"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/9c8ae846-13d5-48f2-81fe-e15ecdb29b99"
+                }
+            ],
+            "name": "thomson_ucl_980513B",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/eb64f8b7-e014-4e2a-8ba3-1847b207630e"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/46a17e5f-c3a6-4bcd-8ceb-745b3c203f4d"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/6fc035ff-9582-4c8c-978a-501992c867eb"
+                }
+            ],
+            "name": "thomson_ucl_981215GHP4",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/ec095da5-2d53-4cdf-b4c6-cb57ec42d9b9"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/9d11c19b-ba90-4d87-b80b-9531899d0dba"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/ffec3a87-b921-497d-b8c6-319c1e64b42b"
+                }
+            ],
+            "name": "thomson_ucl_990111ABHP1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/dfec93d1-ca3e-48b2-bcb2-23da91f9272e"
+        },
+        {
+            "hasPart": [
+                {
+                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/84470e9b-71fa-4f9d-8496-72951daabe20"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedSlice",
+                "http://www.w3.org/ns/prov#Entity"
+            ],
+            "wasRevisionOf": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/262ecb62-1847-4981-a379-48dec94b0b52"
+                }
+            ],
+            "name": "thomson_ucl_990111HP2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/5c512e12-7ebc-415a-ada0-03013e7b8e44"
+        }
+    ],
+    "total": 8,
+    "size": 8,
+    "start": 0
+}

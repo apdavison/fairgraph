@@ -4,6 +4,20 @@ datasets independent of the type of investigation
 
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 import sys, inspect, os
 from datetime import datetime
@@ -244,6 +258,14 @@ class Dataset(MINDSObject):
                             local_path, response2.status_code))
         progress_bar.close()
 
+    def methods(self, client, api="query", scope="released"):
+        """Return a list of experimental methods associated with the dataset"""
+        filter = {
+            "dataset": self.id
+        }
+        instances = client.query_kgquery(Method.path, "fgDatasets", filter=filter, scope=scope)
+        return [Method.from_kg_instance(inst, client) for inst in instances]
+
 
 class EmbargoStatus(MINDSObject):
     """
@@ -257,6 +279,7 @@ class EmbargoStatus(MINDSObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
     )
+
 
 class File(MINDSObject):
     """
@@ -321,6 +344,7 @@ class Method(MINDSObject):
     An experimental method.
     """
     _path = "/experiment/method/v1.0.0"
+    # also see "/core/method/v1.0.0"
     type = ["minds:Method"]
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),

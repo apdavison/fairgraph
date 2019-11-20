@@ -3,6 +3,21 @@ Metadata for model building, simulation and validation.
 
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 try:
     basestring
 except NameError:
@@ -33,16 +48,21 @@ ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 class HasAliasMixin(object):
 
     @classmethod
-    def from_alias(cls, alias, client):
+    def from_alias(cls, alias, client, api="query"):
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
         }
         query = {
-            "path": "nsg:alias",
-            "op": "eq",
-            "value": alias
+            "nexus": {
+                "path": "nsg:alias",
+                "op": "eq",
+                "value": alias
+            },
+            "query": {
+                "alias": alias
+            }
         }
-        return KGQuery(cls, query, context).resolve(client)
+        return KGQuery(cls, query, context).resolve(client, api=api)
 
 
 class ModelProject(KGObject, HasAliasMixin):
@@ -118,6 +138,8 @@ class ModelProject(KGObject, HasAliasMixin):
               "hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
+    # allow multiple projects with the same name
+    existence_query_fields = ("name", "date_created")
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
@@ -128,27 +150,8 @@ class ModelProject(KGObject, HasAliasMixin):
         args.pop("self")
         KGObject.__init__(self, **args)
 
-    @property
-    def _existence_query(self):
-        # allow multiple projects with the same name
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "schema:dateCreated",
-                    "op": "eq",
-                    "value": self.date_created.isoformat()
-                }
-            ]
-        }
-
     @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == 'nexus':
             context = {
@@ -185,7 +188,8 @@ class ModelProject(KGObject, HasAliasMixin):
                     "op": "and",
                     "value": filter_queries
                 }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
             # todo: handle resolved=True for nexus queries (i.e. do all the downstream resolutions  )
         else:
             # todo: handle author, owner
@@ -200,7 +204,8 @@ class ModelProject(KGObject, HasAliasMixin):
 
 
     def authors_str(self, client):
-        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client))
+        api = self.instance.data.get("fg:api", "query")
+        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client, api=api))
                          for obj in self.authors)
 
     #def sub_projects(self):
@@ -231,7 +236,8 @@ class ModelInstance(KGObject):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -261,9 +267,14 @@ class ModelInstance(KGObject):
     @property
     def project(self):
         query = {
-            "path": "dcterms:hasPart",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "dcterms:hasPart",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "instances": self.id  # untested
+            }
         }
         context = {
             "dcterms": "http://purl.org/dc/terms/"
@@ -286,7 +297,8 @@ class MEModel(ModelInstance):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -439,7 +451,8 @@ class AnalysisResult(KGObject):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
-            "wasDerivedFrom": "prov:wasDerivedFrom"
+            "wasDerivedFrom": "prov:wasDerivedFrom",
+            "generatedAtTime": "prov:generatedAtTime"
         }
     ]
     fields = (
@@ -449,6 +462,7 @@ class AnalysisResult(KGObject):
         Field("derived_from", KGObject, "wasDerivedFrom"),
         Field("description", basestring, "description")
     )
+    existence_query_fields = ("name", "timestamp")
 
     def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
                  description=None, id=None, instance=None):
@@ -466,24 +480,6 @@ class AnalysisResult(KGObject):
         elif result_file is not None:
             for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
-
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": self.timestamp.isoformat()
-                }
-            ]
-        }
 
     def save(self, client):
         super(AnalysisResult, self).save(client)
@@ -573,9 +569,14 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     @property
     def scripts(self):
         query = {
-            "path": "nsg:implements",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "nsg:implements",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "test_definition": self.id
+            }
         }
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
@@ -710,15 +711,7 @@ class ValidationActivity(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp",  datetime, "endedAtTime")
     )
-
-    @property
-    def _existence_query(self):
-        # to fix: need an _and_ on model_instance, test_script, reference_data and timestamp
-        return {
-            "path": "prov:startedAtTime",
-            "op": "eq",
-            "value": self.timestamp.isoformat()
-        }
+    existence_query_fields = ("timestamp")
 
     @property
     def duration(self):

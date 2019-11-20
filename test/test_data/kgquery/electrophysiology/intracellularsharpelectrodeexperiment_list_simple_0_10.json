@@ -1,0 +1,151 @@
+{
+    "results": [
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 960711AHP3",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 970428A1",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 980120A",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 980205FHP",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 980513B",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 981215GHP4",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 990111ABHP1",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "Recording with step-current stimuli in 990111HP2",
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50"
+        }
+    ],
+    "total": 8,
+    "size": 8,
+    "start": 0
+}
