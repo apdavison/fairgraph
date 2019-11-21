@@ -38,7 +38,7 @@ from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Fi
 from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType
 from .core import Subject, Person
 from .minds import Dataset
-from .utility import compact_uri, standard_context
+from .utility import compact_uri, standard_context, as_list
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
@@ -307,7 +307,7 @@ class PatchedCell(KGObject):
         if resolved:
             D = cls._fix_keys(D)
 
-        for otype in cls.type:
+        for otype in as_list(cls.type):
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
@@ -416,7 +416,7 @@ class BrainSlicingActivity(KGObject):
         D = instance.data
         if resolved:
             D = cls._fix_keys(D)
-        for otype in cls.type:
+        for otype in as_list(cls.type):
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
@@ -662,7 +662,7 @@ class PatchClampExperiment(KGObject):
         if resolved:
             D = cls._fix_keys(D)
 
-        for otype in cls.type:
+        for otype in as_list(cls.type):
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
@@ -831,7 +831,7 @@ class ElectrodeImplantationActivity(KGObject):
     @cache
     def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
-        for otype in cls.type:
+        for otype in as_list(cls.type):
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
