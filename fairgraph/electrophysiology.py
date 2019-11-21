@@ -26,7 +26,8 @@ Coming soon:
 # limitations under the License.
 
 
-import sys, inspect
+import sys
+import inspect
 try:
     basestring
 except NameError:
@@ -41,6 +42,7 @@ from .utility import compact_uri, standard_context
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
+
 
 class Trace(KGObject):
     """Single time series recorded during an experiment or simulation.
@@ -86,10 +88,13 @@ class Trace(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
-        Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy", required=True),
-        Field("generation_metadata", "electrophysiology.QualifiedTraceGeneration", "qualifiedGeneration", required=True),
+        Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy",
+              required=True),
+        Field("generation_metadata", "electrophysiology.QualifiedTraceGeneration",
+              "qualifiedGeneration", required=True),
         Field("channel", int, "channel", required=True),
-        Field("data_unit", basestring, "dataUnit", required=True),  # add type for units, to allow checking?
+        # add type for units, to allow checking?
+        Field("data_unit", basestring, "dataUnit", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("part_of", Dataset, "partOf")
     )
@@ -121,8 +126,8 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    _path =  "/electrophysiology/multitrace/v0.1.1"  # for nexus
-    #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
+    _path = "/electrophysiology/multitrace/v0.1.1"  # for nexus
+    # path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
         Field("name", basestring, "name", required=True),
@@ -131,9 +136,13 @@ class MultiChannelMultiTrialRecording(Trace):
               ("electrophysiology.PatchClampExperiment",
                "electrophysiology.ExtracellularElectrodeExperiment"),
               "wasGeneratedBy", required=True),
-        Field("generation_metadata", "electrophysiology.QualifiedMultiTraceGeneration", "qualifiedGeneration", required=True),
+        Field("generation_metadata",
+              "electrophysiology.QualifiedMultiTraceGeneration",
+              "qualifiedGeneration",
+              required=True),
         Field("channel_names", basestring, "channelName", required=True, multiple=True),
-        Field("data_unit", basestring, "dataUnit", required=True, multiple=True),  # add type for units, to allow checking?
+        Field("data_unit", basestring, "dataUnit", required=True,
+              multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("part_of", Dataset, "partOf")
     )
@@ -169,9 +178,11 @@ class PatchedCell(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
-        Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember", reverse="cells"),
+        Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember",
+              reverse="cells"),
         Field("cell_type", CellType, "eType", required=False),
-        Field("experiments", "electrophysiology.PatchClampExperiment", "^prov:used", reverse="recorded_cell", multiple=True),
+        Field("experiments", "electrophysiology.PatchClampExperiment",
+              "^prov:used", reverse="recorded_cell", multiple=True),
         Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
@@ -190,7 +201,8 @@ class PatchedCell(KGObject):
         KGObject.__init__(self, **args)
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
             context = {
@@ -247,7 +259,8 @@ class PatchedCell(KGObject):
             filter_query = {"nexus": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(PatchedCell, cls).list(client, size, from_index, api, scope, resolved, **filters)
+            return super(PatchedCell, cls).list(client, size, from_index, api,
+                                                scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
@@ -339,7 +352,7 @@ class Slice(KGObject):  # should move to "core" module?
         "providerId": "nsg:providerId",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
-    fields =  (
+    fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
@@ -459,12 +472,14 @@ class PatchedSlice(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
-        Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart", required=True),
+        Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart",
+              required=True),
         Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated",
               reverse="recorded_slice")
     )
 
-    def __init__(self, name, slice, recorded_cells, recording_activity=None, id=None, instance=None):
+    def __init__(self, name, slice, recorded_cells, recording_activity=None,
+                 id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -609,7 +624,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by")
     )
@@ -677,7 +692,8 @@ class PatchClampExperiment(KGObject):
         return data
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         # we need to add the additional filter below, as PatchClampExperiment and
         # IntraCellularSharpElectrodeExperiment share the same path
@@ -692,7 +708,8 @@ class PatchClampExperiment(KGObject):
             return client.list(cls, size=size, api=api, filter=filter, context=context)
         elif api == "query":
             # todo: what about filtering if api="query"
-            return super(PatchClampExperiment, cls).list(client, size, from_index, api, scope, resolved, **filters)
+            return super(PatchClampExperiment, cls).list(client, size, from_index, api,
+                                                         scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
@@ -761,7 +778,7 @@ class ImplantedBrainTissue(KGObject):
         "providerId": "nsg:providerId",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
-    fields =  (
+    fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True)
     )
@@ -795,7 +812,8 @@ class ElectrodeImplantationActivity(KGObject):
     }
     fields = (
         Field("subject", Subject, "used", required=True),
-        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True, required=True),
+        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
+              multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("start_time", datetime, "startedAtTime", required=False),
         Field("end_time", datetime, "endedAtTime", required=False),
@@ -858,8 +876,9 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
+              multiple=True)
     )
 
     @classmethod
@@ -961,21 +980,23 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),  # todo: make this an OntologyTerm
+        Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "prov:used",
+              required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="query", scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
         if api == "nexus":
             # we need to add an additional filter, as PatchClampExperiment and
             # IntraCellularSharpElectrodeExperiment share the same path
             # and JSON-LD type ("nsg:StimulusExperiment")
             filter = {'path': 'prov:used / rdf:type',
-                    'op': 'eq',
-                    'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
+                      'op': 'eq',
+                      'value': "nsg:IntraCellularSharpElectrodeRecordedCell"}
             context = {
                 "nsg": cls.context["nsg"],
                 "prov": cls.context["prov"],
@@ -1010,7 +1031,12 @@ class QualifiedMultiTraceGeneration(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment), "activity", required=True),
+        Field("stimulus_experiment",
+              (ExtracellularElectrodeExperiment,
+               IntraCellularSharpElectrodeExperiment,
+               PatchClampExperiment),
+              "activity",
+              required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")

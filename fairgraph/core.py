@@ -19,7 +19,8 @@ Metadata for entities that are used in multiple contexts (e.g. in both electroph
 
 
 from __future__ import unicode_literals
-import sys, inspect
+import sys
+import inspect
 import logging
 try:
     basestring
@@ -72,7 +73,8 @@ class Subject(KGObject):
         Field("death_date", date, "deathDate")
     )
 
-    def __init__(self, name, species, age, sex=None, strain=None, death_date=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, strain=None,
+                 death_date=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -83,7 +85,7 @@ class Organization(KGObject):
     An organization associated with research data or models, e.g. a university, lab or department.
     """
     namespace = DEFAULT_NAMESPACE
-    _path =  "/core/organization/v0.1.0"
+    _path = "/core/organization/v0.1.0"
     type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
@@ -124,14 +126,16 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
     fields = (
-        Field("family_name",  basestring, "familyName", required=True, doc="Family name / surname"),
-        Field("given_name",  basestring, "givenName",  required=True, doc="Given name"),
+        Field("family_name", basestring, "familyName", required=True, doc="Family name / surname"),
+        Field("given_name", basestring, "givenName", required=True, doc="Given name"),
         Field("email", basestring, "email", doc="e-mail address"),
-        Field("affiliation", Organization, "affiliation", doc="Organization to which person belongs")
+        Field("affiliation", Organization, "affiliation",
+              doc="Organization to which person belongs")
     )
     existence_query_fields = ("family_name", "given_name")
 
-    def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
+    def __init__(self, family_name, given_name, email=None,
+                 affiliation=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -163,7 +167,7 @@ class Person(KGObject):
                     })
                 else:
                     raise ValueError("The only supported filters are by first (given) name or "
-                                    "or last (family) name. You specified {name}".format(name=name))
+                                     "or last (family) name. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, size=size)
             elif len(filter_queries) == 1:
@@ -199,7 +203,8 @@ class Protocol(KGObject):
         "prov": "http://www.w3.org/ns/prov#"
     }
 
-    def __init__(self, name, steps, materials, author, date_published, identifier, id=None, instance=None):
+    def __init__(self, name, steps, materials, author,
+                 date_published, identifier, id=None, instance=None):
         self.name = name
         self.steps = steps
         self.materials = materials
@@ -210,8 +215,6 @@ class Protocol(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.identifier!r}, {self.id})')
         return ('{self.__class__.__name__}('
                 '{self.identifier!r}, {self.id})'.format(self=self))
 
@@ -279,7 +282,6 @@ class Material(object):
             "nsg:reagentLinearFormula": self.formula,
             "schema:sku": self.stock_keeping_unit,
             "schema:identifier": {
-                #"@type": "",
                 "@id": self.identifier.id,
             },
             "nsg:reagentVendor": {
@@ -315,9 +317,8 @@ class Collection(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("members", KGObject, "hadMember",  required=True, multiple=True)
+        Field("members", KGObject, "hadMember", required=True, multiple=True)
     )
-
 
     def __init__(self, name, members, id=None, instance=None):
         args = locals()

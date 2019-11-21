@@ -275,7 +275,7 @@ class QuantitativeValue(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
         "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
@@ -293,8 +293,6 @@ class QuantitativeValue(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r} {self.unit_text!r})')
         return ('{self.__class__.__name__}('
                 '{self.value!r} {self.unit_text!r})'.format(self=self))
 
@@ -352,7 +350,7 @@ class QuantitativeValueRange(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
     }
 
@@ -367,8 +365,6 @@ class QuantitativeValueRange(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r} {self.unit_text!r})')
         return ('{self.__class__.__name__}('
                 '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
 
@@ -419,7 +415,7 @@ class Age(StructuredMetadata):
     }
     fields = (
         Field("value", basestring, "value", required=True),
-        Field("period", basestring, "period",  required=True, multiple=True)
+        Field("period", basestring, "period", required=True, multiple=True)
     )
 
     def __init__(self, value, period):
@@ -429,13 +425,13 @@ class Age(StructuredMetadata):
         self.period = period
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r}, {self.period!r})')
         return ('{self.__class__.__name__}('
                 '{self.value!r}, {self.period!r})'.format(self=self))
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.value == other.value and self.period == other.period
+        return (isinstance(other, self.__class__)
+                and self.value == other.value
+                and self.period == other.period)
 
     def __ne__(self, other):
         return not self.__eq__(other)

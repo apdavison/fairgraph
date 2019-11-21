@@ -92,8 +92,6 @@ use_core_namespace("neuralactivity")
 use_electrophysiology_namespace("neuralactivity")
 
 
-
-
 class TestPatchedCell(BaseTestKG):
     class_under_test = PatchedCell
 
@@ -160,7 +158,6 @@ class TestPatchedCell(BaseTestKG):
         assert isinstance(cell.collection, KGQuery)
         assert isinstance(cell.experiments, KGQuery)
 
-
     def test_get_from_uuid(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
         a = PatchedCell.from_uri(uri, kg_client, api="nexus")
@@ -224,25 +221,26 @@ class TestPatchedCell(BaseTestKG):
             unicode
         except NameError:
             cell = PatchedCell("example001",
-                            brain_location=BrainRegion("primary auditory cortex"),
-                            collection=None,
-                            cell_type=CellType("pyramidal cell"),
-                            experiments=None,
-                            pipette_id=31,
-                            seal_resistance=QuantitativeValue(1.2, "GΩ"),
-                            pipette_resistance=QuantitativeValue(1.5, "MΩ"),
-                            liquid_junction_potential=None,
-                            labeling_compound="0.1% biocytin ",
-                            reversal_potential_cl=None)
+                               brain_location=BrainRegion("primary auditory cortex"),
+                               collection=None,
+                               cell_type=CellType("pyramidal cell"),
+                               experiments=None,
+                               pipette_id=31,
+                               seal_resistance=QuantitativeValue(1.2, "GΩ"),
+                               pipette_resistance=QuantitativeValue(1.5, "MΩ"),
+                               liquid_junction_potential=None,
+                               labeling_compound="0.1% biocytin ",
+                               reversal_potential_cl=None)
             expected_repr = ("PatchedCell(name='example001', "
-                            "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
-                            "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
-                            "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
-                            "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
-                            "labeling_compound='0.1% biocytin ', id=None)")
+                             "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
+                             "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
+                             "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
+                             "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
+                             "labeling_compound='0.1% biocytin ', id=None)")
             assert repr(cell) == expected_repr
         else:
-            pytest.skip("The remaining lifespan of Python 2 is too short to fix unicode representation errors")
+            pytest.skip(
+                "The remaining lifespan of Python 2 is too short to fix unicode representation errors")
 
 
 class TestTrace(BaseTestKG):

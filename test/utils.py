@@ -112,7 +112,8 @@ class MockHttpClient(HttpClient):
 
 class MockNexusClient(NexusClient):
 
-    def __init__(self, scheme=None, host=None, prefix=None, alternative_namespace=None, auth_client=None):
+    def __init__(self, scheme=None, host=None, prefix=None,
+                 alternative_namespace=None, auth_client=None):
         self.version = None
         self.namespace = alternative_namespace if alternative_namespace is not None else "{}://{}".format(scheme, host)
         self.env = None
@@ -146,8 +147,8 @@ lli = len(lorem_ipsum)
 
 
 def _random_text():
-    start = random.randint(0, lli//2)
-    end = random.randint(lli//2, lli)
+    start = random.randint(0, lli // 2)
+    end = random.randint(lli // 2, lli)
     return lorem_ipsum[start:end]
 
 
@@ -178,7 +179,7 @@ def generate_random_object(cls, all_fields=True):
             elif obj_type == QuantitativeValue:
                 # todo: subclass QV so we can specify the required dimensionality in `fields`
                 value = QuantitativeValue(random.uniform(-10, 10),
-                                        random.choice(list(QuantitativeValue.unit_codes)))
+                                          random.choice(list(QuantitativeValue.unit_codes)))
             elif issubclass(obj_type, OntologyTerm):
                 value = obj_type(random.choice(list(obj_type.iri_map)))
             elif obj_type == datetime:
@@ -266,7 +267,8 @@ class BaseTestKG(object):
         cls = self.class_under_test
         generated = cls.generate_query("fgResolved", kg_client, resolved=True)
         #key = "{}_{}_resolved_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
-        test_data = "test/test_data/kgquery/{}/{}_resolved_query.json".format(cls.__module__.split(".")[1], cls.__name__.lower())
+        test_data = "test/test_data/kgquery/{}/{}_resolved_query.json".format(
+            cls.__module__.split(".")[1], cls.__name__.lower())
         with open(test_data) as fp:
             expected = json.load(fp)
         assert not jsondiff(generated, expected)

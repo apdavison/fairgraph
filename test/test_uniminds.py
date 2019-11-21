@@ -91,7 +91,6 @@ test_data_lookup.update({
 })
 
 
-
 class TestAbstractionLevel(BaseTestKG):
     class_under_test = AbstractionLevel
 

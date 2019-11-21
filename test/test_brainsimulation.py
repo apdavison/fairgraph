@@ -195,6 +195,7 @@ class TestAnalysisResult(BaseTestKG):
         generated = obj._build_existence_query(api="nexus")
         assert expected == generated
 
+
 class TestValidationTestDefinition(BaseTestKG):
     class_under_test = ValidationTestDefinition
 

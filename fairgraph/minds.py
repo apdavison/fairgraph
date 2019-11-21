@@ -19,7 +19,9 @@ datasets independent of the type of investigation
 # limitations under the License.
 
 
-import sys, inspect, os
+import sys
+import inspect
+import os
 from datetime import datetime
 try:
     basestring

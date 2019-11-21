@@ -47,7 +47,7 @@ standard_context = {
     "release": "nsg:release",
     "version": "schema:version",
     "generatedAtTime": "prov:generatedAtTime",
-    "isPartOf": "nsg:isPartOf", # not sure about prefix,
+    "isPartOf": "nsg:isPartOf",  # not sure about prefix,
     "parameters": "nsg:parameters",
     "morphology": "nsg:morphology",
     "eModel": "nsg:eModel",

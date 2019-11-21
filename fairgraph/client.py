@@ -102,7 +102,7 @@ class KGClient(object):
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
-            context=quote_plus(json.dumps(context))
+            context = quote_plus(json.dumps(context))
         instances = []
         query = self._nexus_client.instances.list(
             subpath=path,
@@ -127,12 +127,12 @@ class KGClient(object):
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
-                        path, query_id, size, scope.upper())
+            path, query_id, size, scope.upper())
         if filter:
             template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
         if scope not in ("released", "inferred"):
-                # todo - use a more user-friendly term for 'inferred' and map appropriately
-                raise ValueError("'scope' must be either 'released' or 'inferred'")
+            # todo - use a more user-friendly term for 'inferred' and map appropriately
+            raise ValueError("'scope' must be either 'released' or 'inferred'")
         start = from_index
         response = self._kg_query_client.get(template.format(start))
         instances = [
@@ -214,7 +214,8 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="query", scope="released", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False,
+                api="query", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):

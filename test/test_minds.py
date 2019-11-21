@@ -305,6 +305,7 @@ class TestSpecimenGroup(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+
 class TestSubject(BaseTestKG):
     class_under_test = Subject
 
