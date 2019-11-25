@@ -29,6 +29,11 @@ from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
+try:
+    from jupyter_collab_storage import oauth_token_handler
+except ImportError:
+    oauth_token_handler = None
+
 
 from .errors import AuthenticationError
 
@@ -45,10 +50,13 @@ class KGClient(object):
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.org/query"):
         if token is None:
-            try:
-                token = os.environ["HBP_AUTH_TOKEN"]
-            except KeyError:
-                raise AuthenticationError("No token provided.")
+            if oauth_token_handler:
+                token = oauth_token_handler.get_token()
+            else:
+                try:
+                    token = os.environ["HBP_AUTH_TOKEN"]
+                except KeyError:
+                    raise AuthenticationError("No token provided.")
         ep = urlparse(nexus_endpoint)
         self.nexus_endpoint = nexus_endpoint
         auth_client = AccessTokenClient(token)
