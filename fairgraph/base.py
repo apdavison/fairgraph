@@ -488,6 +488,9 @@ class KGObject(with_metaclass(Registry, object)):
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
+            elif api == "any":
+                if not self.exists(client, "query"):
+                    return self.exists(client, "nexus")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
@@ -498,7 +501,7 @@ class KGObject(with_metaclass(Registry, object)):
                                                 size=1, scope="inferred")
                 # not sure about the appropriate scope here
             else:
-                raise ValueError("'api' must be either 'nexus' or 'query'")
+                raise ValueError("'api' must be 'nexus', 'query' or 'any'")
             if response:
                 self.id = response[0].data["@id"]
                 KGObject.save_cache[self.__class__][query_cache_key] = self.id
@@ -575,7 +578,7 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id or self.exists(client):
+        if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
                 # this can occur if updating a previously-saved object that has been constructed

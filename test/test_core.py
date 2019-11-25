@@ -167,5 +167,5 @@ class TestPerson(BaseTestKG):
 
     def test_save_new(self, kg_client, monkeypatch):
         new_p = Person("Ride", "Sally", "sally.ride@nasa.gov")
-        monkeypatch.setattr(Person, "exists", lambda self, kg_client: False)
+        monkeypatch.setattr(Person, "exists", lambda self, kg_client, api='any': False)
         new_p.save(kg_client)

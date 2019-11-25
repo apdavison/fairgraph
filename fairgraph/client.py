@@ -25,6 +25,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urlparse
     from urllib import quote_plus
+from requests.exceptions import HTTPError
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
@@ -149,7 +150,13 @@ class KGClient(object):
             # todo - use a more user-friendly term for 'inferred' and map appropriately
             raise ValueError("'scope' must be either 'released' or 'inferred'")
         start = from_index
-        response = self._kg_query_client.get(template.format(start))
+        try:
+            response = self._kg_query_client.get(template.format(start))
+        except HTTPError as err:
+            if err.status_code == 403:
+                response = None
+            else:
+                raise
         if response and "results" in response:
             instances = [
                 Instance(path, data, Instance.path)
