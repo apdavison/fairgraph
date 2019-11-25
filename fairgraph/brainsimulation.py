@@ -460,14 +460,18 @@ class AnalysisResult(KGObject):
         Field("result_file", (Distribution, basestring), "distribution"),
         Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
         Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("attributed_to", Person, "wasAttributedTo"),
+        #Field("generated_by", Analysis, "wasGeneratedBy"),
         Field("description", basestring, "description")
     )
     existence_query_fields = ("name", "timestamp")
 
     def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
+                 attributed_to=None, #generated_by=None,
                  description=None, id=None, instance=None):
         super(AnalysisResult, self).__init__(
             name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
+            attributed_to=attributed_to, #generated_by=generated_by,
             description=description, id=id, instance=instance
         )
         self._file_to_upload = None

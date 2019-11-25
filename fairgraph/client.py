@@ -49,7 +49,8 @@ class KGClient(object):
     def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.org/query",
-                 release_endpoint="https://kg.humanbrainproject.org/api/releases"):
+                 release_endpoint="https://kg.humanbrainproject.org/api/releases",
+                 idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
         if token is None:
             if oauth_token_handler:
                 token = oauth_token_handler.get_token()
@@ -66,6 +67,7 @@ class KGClient(object):
                                          auth_client=auth_client)
         self._kg_query_client = HttpClient(kg_query_endpoint, "", auth_client=auth_client)
         self._release_client = HttpClient(release_endpoint, "", auth_client=auth_client, raw=True)
+        self._idm_client = HttpClient(idm_endpoint, "", auth_client=auth_client)
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
@@ -307,3 +309,6 @@ class KGClient(object):
         response = self._release_client.delete(path)
         if response.status_code not in (200, 204):
             raise Exception("Can't unrelease node with id {}".format(uri))
+
+    def user_info(self):
+        return self._idm_client.get("user/me")

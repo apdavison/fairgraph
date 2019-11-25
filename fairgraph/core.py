@@ -165,9 +165,16 @@ class Person(KGObject):
                         "op": "eq",
                         "value": value
                     })
+                elif name == "email":
+                    filter_queries.append({
+                        "path": "schema:email",
+                        "op": "eq",
+                        "value": value
+                    })
                 else:
-                    raise ValueError("The only supported filters are by first (given) name or "
-                                     "or last (family) name. You specified {name}".format(name=name))
+                    raise ValueError(
+                        "The only supported filters are by first (given) name, "
+                        "last (family) name or email. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, size=size)
             elif len(filter_queries) == 1:
@@ -187,6 +194,48 @@ class Person(KGObject):
     def resolve(self, client, api="query"):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client, api=api)
+
+    @classmethod
+    def me(cls, client, api="nexus", allow_multiple=False):
+        """Return the Person who is currently logged-in.
+
+        (the user associated with the token stored in the client).
+
+        If the Person node does not exist in the KG, it will be created.
+        """
+        user_info = client.user_info()
+        given_name = user_info["givenName"]
+        family_name = user_info["familyName"]
+        email = [entry["value"] for entry in user_info["emails"] if entry["primary"]][0]
+        # first look for a node that matches name and primary email
+        people = Person.list(client, api=api, scope="inferred", family_name=family_name,
+                             given_name=given_name, email=email, resolved=False)
+        # if we don't find a node, try to match by any email
+        if not people:
+            for entry in user_info["emails"]:
+                people.extend(Person.list(client, api=api, scope="inferred", email=entry["value"],
+                                          resolved=False))
+        # if we still don't find a node, try to match by name
+        if not people:
+            people = Person.list(client, api=api, scope="inferred", family_name=family_name,
+                                 given_name=given_name, resolved=False)
+        # otherwise, create a new node
+        if people:
+            if isinstance(people, list):
+                if len(people) > 1:
+                    if allow_multiple:
+                        return people
+                    else:
+                        raise Exception("Found multiple entries. "
+                                        "Use the 'allow_multiple' option to avoid this error.")
+                else:
+                    people = people[0]
+            return people
+        else:
+            person = Person(family_name=family_name, given_name=given_name, email=email)
+            # todo: add linked organization based on user_info affiliation
+            person.save(client)
+            return person
 
 
 class Protocol(KGObject):

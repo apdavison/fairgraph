@@ -525,7 +525,7 @@ class KGObject(with_metaclass(Registry, object)):
             raise ValueError("Unexpected value for context")
 
         if self.instance:
-            instance_context = self.instance.data["@context"]
+            instance_context = self.instance.data.get("@context", {})
             if isinstance(instance_context, dict):
                 context_dict.update(instance_context)
             elif isinstance(instance_context, basestring):
@@ -588,7 +588,9 @@ class KGObject(with_metaclass(Registry, object)):
                 logger.info("Updating {self!r}".format(self=self))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
-                assert self.instance.data["@type"] == self.type
+                if "@type" in self.instance.data:
+                    assert set(compact_uri(self.instance.data["@type"],
+                                           standard_context)) == set(self.type)
                 self.instance = client.update_instance(self.instance)
             else:
                 logger.info("Not updating {self!r}, unchanged".format(self=self))
