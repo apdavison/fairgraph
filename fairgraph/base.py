@@ -451,7 +451,7 @@ class KGObject(with_metaclass(Registry, object)):
                 if field.name == field_name:
                     query_fields.append(field)
                     break
-        if api == "query":
+        if api in ("query", "any"):
             return {
                 field.name: field.serialize(getattr(self, field.name), None)
                 for field in query_fields
