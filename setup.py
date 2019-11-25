@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='fairgraph',
-    version='0.5.0.dev',
+    version='0.5.0',
     description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
     long_description_content_type="text/markdown",

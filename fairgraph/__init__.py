@@ -22,24 +22,4 @@ limitations under the License.
 import re
 from .client import KGClient
 
-__version__ = "0.5.0.dev"
-
-# work-in-progress
-# def KnowledgeGraphEntity(schema):
-#     namespace = {
-#         "context": schema.data["@context"],
-#         "revision": schema.get_revision(),
-#         "version": schema.get_version(),
-#         "organisation": schema.get_organisation(),
-#         "domain": schema.get_domain(),
-#         "deprecated": schema.is_deprecated(),
-#     }
-#     for shape in schema["shapes"]:
-#         if hasattr(shape, "targetClass"):
-#             principal_shape = shape
-#             break
-#     name = re.sub(".*?:", "", principal_shape["targetClass"])
-#     # ...unfinished
-
-#     bases = (object,)
-#     return type(name, bases, namespace)
+__version__ = "0.5.0"
