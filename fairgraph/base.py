@@ -437,8 +437,54 @@ class KGObject(with_metaclass(Registry, object)):
     def list(cls, client, size=100, from_index=0, api="query",
              scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
+
+        def get_filter_value(filters, field):
+            value = filters[field.name]
+            if not isinstance(value, field.types):
+                if isinstance(value, basestring) and issubclass(field.types[0], OntologyTerm):
+                    value = field.types[0](value)
+                else:
+                    raise TypeError("{} must be of type {}".format(field.name, field.types))
+            if hasattr(value, "iri"):
+                filter_value = value.iri
+            elif hasattr(value, "id"):
+                filter_value = value.id
+            else:
+                filter_value = value
+            return filter_value
+
+        if api == 'nexus':
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
+            }
+            filter_queries = []
+            if filters:
+                for field in cls.fields:
+                    if field.name in filters:
+                        filter_queries.append({
+                            "path": cls.context[field.path],
+                            "op": "eq",
+                            "value": get_filter_value(filters, field)
+                        })
+            if len(filter_queries) == 0:
+                filter_query = None
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+        else:  # api="query"
+            filter_queries = {}
+            if filters:
+                for field in cls.fields:
+                    if field.name in filters:
+                        filter_queries[field.name] = get_filter_value(filters, field)
+            filter_query = filter_queries or None
+            context = None
         return client.list(cls, from_index=from_index, size=size, api=api, scope=scope,
-                           resolved=resolved, filter=filters or None)
+                           resolved=resolved, filter=filter_query, context=context)
 
     @classmethod
     def count(cls, client, api="query", scope="released"):

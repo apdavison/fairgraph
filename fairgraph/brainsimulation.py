@@ -104,14 +104,6 @@ class ModelProject(KGObject, HasAliasMixin):
         "partOf": "nsg:partOf",
         "hasPart": "dcterms:hasPart"
     }
-    attribute_map = {
-        "model_of": (ModelScope, context["modelOf"]),
-        "brain_region": (BrainRegion, context["brainRegion"]),
-        "species": (Species, context["species"]),
-        "celltype": (CellType, context["celltype"]),
-        "abstraction_level": (AbstractionLevel, context["abstractionLevel"]),
-    }
-    # should be able to replace `attribute_map` by extending `fields`
     fields = (
         Field("name", basestring, "name", required=True),
         Field("owners", Person, "owner", required=True, multiple=True),
@@ -149,60 +141,6 @@ class ModelProject(KGObject, HasAliasMixin):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-    @classmethod
-    def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
-        """List all objects of this type in the Knowledge Graph"""
-        if api == 'nexus':
-            context = {
-                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
-            }
-            filter_queries = []
-            for name, value in filters.items():
-                if name in cls.attribute_map:
-                    concept_class, concept_uri = cls.attribute_map[name]
-                    filter_queries.append({
-                        'path': concept_uri,
-                        'op': 'eq',
-                        'value': concept_class(value).iri
-                    })
-                elif name in ("author", "owner"):
-                    if not isinstance(value, Person):
-                        raise TypeError("{} must be a Person object".format(name))
-                    filter_queries.append({
-                        "path": cls.context[name],
-                        "op": "eq",
-                        "value": value.id
-                    })
-                else:
-                    raise Exception("The only supported filters are by '{supported_filters}'. "
-                                    "You specified '{name}'".format(
-                                        supported_filters="', '".join(
-                                            chain(cls.attribute_map, ["author", "owner"])),
-                                        name=name))
-            if len(filter_queries) == 0:
-                return client.list(cls, size=size)
-            elif len(filter_queries) == 1:
-                filter_query = filter_queries[0]
-            else:
-                filter_query = {
-                    "op": "and",
-                    "value": filter_queries
-                }
-            filter_query = {"nexus": filter_query}
-            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
-            # todo: handle resolved=True for nexus queries (do all the downstream resolutions)
-        else:
-            # todo: handle author, owner
-            filter_queries = {}
-            for name, value in filters.items():
-                if name in cls.attribute_map:
-                    concept_class, concept_uri = cls.attribute_map[name]
-                    filter_queries[name] = concept_class.iri_map[value]
-                else:
-                    filter_queries[name] = value
-            return client.list(cls, size=size, api=api, scope=scope,
-                               filter=filter_queries, resolved=resolved)
 
     def authors_str(self, client):
         api = self.instance.data.get("fg:api", "query")
