@@ -153,7 +153,7 @@ class KGClient(object):
         try:
             response = self._kg_query_client.get(template.format(start))
         except HTTPError as err:
-            if err.status_code == 403:
+            if err.response.status_code == 403:
                 response = None
             else:
                 raise
