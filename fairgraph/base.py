@@ -462,7 +462,8 @@ class KGObject(with_metaclass(Registry, object)):
                 for field in cls.fields:
                     if field.name in filters:
                         filter_queries.append({
-                            "path": cls.context[field.path],
+                            #"path": cls.context[field.path],  # todo: fix contexts
+                            "path": standard_context[field.path],
                             "op": "eq",
                             "value": get_filter_value(filters, field)
                         })
