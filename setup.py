@@ -30,5 +30,14 @@ setup(
     ],
     keywords='nar hbp metadata electrophysiology nexus shacl',
     packages=find_packages(),
-    #install_requires=['pyxus']
+    install_requires=[
+        "openid_http_client @ git+https://github.com/HumanBrainProject/openid_http_client.git#subdirectory=openid_http_client",
+        "pyxus @ git+https://github.com/HumanBrainProject/pyxus.git#subdirectory=pyxus",
+        "pathlib2",
+        "python-dateutil",
+        "six",
+        "tabulate",
+        "requests",
+        "tqdm"
+    ]
 )
