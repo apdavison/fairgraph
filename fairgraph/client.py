@@ -143,18 +143,21 @@ class KGClient(object):
             raise ValueError("'scope' must be either 'released' or 'inferred'")
         start = from_index
         response = self._kg_query_client.get(template.format(start))
-        instances = [
-            Instance(path, data, Instance.path)
-            for data in response["results"]
-        ]
-        start += response["size"]
-        while start < min(response["total"], size):
-            response = self._kg_query_client.get(template.format(start))
-            instances.extend([
+        if response and "results" in response:
+            instances = [
                 Instance(path, data, Instance.path)
                 for data in response["results"]
-            ])
+            ]
             start += response["size"]
+            while start < min(response["total"], size):
+                response = self._kg_query_client.get(template.format(start))
+                instances.extend([
+                    Instance(path, data, Instance.path)
+                    for data in response["results"]
+                ])
+                start += response["size"]
+        else:
+            instances = []
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
