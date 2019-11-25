@@ -139,6 +139,9 @@ class KGClient(object):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
             path, query_id, size, scope.upper())
         if filter:
+            for key, value in filter.items():
+                if hasattr(value, "iri"):
+                    filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
         if scope not in ("released", "inferred"):
             # todo - use a more user-friendly term for 'inferred' and map appropriately

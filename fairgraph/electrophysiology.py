@@ -126,7 +126,7 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/multitrace/v0.1.1"  # for nexus
+    _path = "/electrophysiology/multitrace/v0.1.0"  # for nexus
     # path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.0"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
@@ -218,7 +218,7 @@ class PatchedCell(KGObject):
                         'op': 'eq',
                         'value': value.iri
                     })
-                elif name == "brain_region":
+                elif name in ("brain_region", "brain_location"):
                     filter_queries.append({
                         "path": "nsg:brainLocation / nsg:brainRegion",
                         "op": "eq",
@@ -624,7 +624,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=False),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by")
     )

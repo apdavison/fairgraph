@@ -24,6 +24,7 @@ from collections import defaultdict
 from datetime import datetime, date
 import warnings
 from copy import copy
+from io import BytesIO
 try:
     from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
@@ -654,7 +655,8 @@ class KGObject(with_metaclass(Registry, object)):
                     strv = strv[:value_column_width - 4] + " ..."
                 return strv
             data = [(k, fit_column(v)) for k, v in data]
-        print(tabulate(data))
+        print(tabulate(data, tablefmt="plain"))
+        #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
     def generate_query(cls, query_id, client, resolved=False, top_level=True,
@@ -1080,6 +1082,15 @@ class Distribution(StructuredMetadata):
             local_file_name = self.original_file_name or self.location.split("/")[-1]
             with open(os.path.join(local_directory, local_file_name), "wb") as fp:
                 fp.write(response.content)
+        else:
+            raise IOError(str(response.content))
+
+    def read(self, client):
+        #headers = client._nexus_client._http_client.auth_client.get_headers()
+        #response = requests.get(self.location, headers=headers)
+        response = requests.get(self.location)
+        if response.status_code == 200:
+            return BytesIO(response.content)
         else:
             raise IOError(str(response.content))
 
