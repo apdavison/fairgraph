@@ -43,7 +43,8 @@ class KGClient(object):
 
     def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
-                 kg_query_endpoint="https://kg.humanbrainproject.org/query"):
+                 kg_query_endpoint="https://kg.humanbrainproject.org/query",
+                 release_endpoint="https://kg.humanbrainproject.org/api/releases"):
         if token is None:
             try:
                 token = os.environ["HBP_AUTH_TOKEN"]
@@ -56,6 +57,7 @@ class KGClient(object):
                                          alternative_namespace=nexus_endpoint,
                                          auth_client=auth_client)
         self._kg_query_client = HttpClient(kg_query_endpoint, "", auth_client=auth_client)
+        self._release_client = HttpClient(release_endpoint, "", auth_client=auth_client, raw=True)
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
@@ -271,3 +273,23 @@ class KGClient(object):
 
     def retrieve_query(self, path):
         return self._kg_query_client.get(path)
+
+    def is_released(self, uri):
+        """Release status of the node"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.get(path)
+        return response.json()["status"] == "RELEASED"
+
+    def release(self, uri):
+        """Release the node with the given uri"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.put(path)
+        if response.status_code not in (200, 201):
+            raise Exception("Can't release node with id {}".format(uri))
+
+    def unrelease(self, uri):
+        """Unrelease the node with the given uri"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.delete(path)
+        if response.status_code not in (200, 204):
+            raise Exception("Can't unrelease node with id {}".format(uri))

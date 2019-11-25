@@ -804,6 +804,18 @@ class KGObject(with_metaclass(Registry, object)):
         path = "{}/{}".format(cls.path, query_id)
         return client.retrieve_query(path)
 
+    def is_released(self, client):
+        """Release status of the node"""
+        return client.is_released(self.id)
+
+    def release(self, client):
+        """Release this node (make it available in public search)."""
+        return client.release(self.id)
+
+    def unrelease(self, client):
+        """Urelease this node (remove it from public search)."""
+        return client.unrelease(self.id)
+
 
 class MockKGObject(KGObject):
     """Mock version of KGObject, useful for testing."""
