@@ -187,7 +187,8 @@ class Person(KGObject):
             filter_query = {"nexus": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(Person, cls).list(client, size, api, scope, resolved, **filters)
+            return super(Person, cls).list(client, size=size, api=api,
+                                           scope=scope, resolved=resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
@@ -196,7 +197,7 @@ class Person(KGObject):
             self.affiliation = self.affiliation.resolve(client, api=api)
 
     @classmethod
-    def me(cls, client, api="nexus", allow_multiple=False):
+    def me(cls, client, api="query", allow_multiple=False):
         """Return the Person who is currently logged-in.
 
         (the user associated with the token stored in the client).

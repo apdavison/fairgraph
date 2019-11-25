@@ -34,7 +34,6 @@
         {
             "fieldname": "generatedAtTime",
             "relative_path": "http://www.w3.org/ns/prov#generatedAtTime"
-
         },
         {
             "fieldname": "wasDerivedFrom",
@@ -50,6 +49,22 @@
             "filter": {
                 "op": "contains",
                 "parameter": "derived_from"
+            }
+        },
+        {
+            "fieldname": "wasAttributedTo",
+            "relative_path": "http://www.w3.org/ns/prov#wasAttributedTo",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "attributed_to"
             }
         },
         {

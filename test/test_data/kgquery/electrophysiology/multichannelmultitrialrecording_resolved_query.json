@@ -1,8 +1,8 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitrace/v0.1.1"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitrace/v0.1.0"
     },
-    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.1/fgResolved",
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.0/fgResolved",
     "fields": [
         {
             "relative_path": "@id",

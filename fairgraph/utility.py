@@ -87,6 +87,7 @@ standard_context = {
     "endedAtTime": "prov:endedAtTime",
     "generated": "prov:generated",
     "wasGeneratedBy": "prov:wasGeneratedBy",
+    "wasAttributedTo": "prov:wasAttributedTo",
     "passedValidation": "nsg:passedValidation",
     "passed": "nsg:passedValidation",
     "repository": "schema:codeRepository",

@@ -629,7 +629,7 @@ class PatchClampExperiment(KGObject):
               multiple=True, reverse="generated_by")
     )
 
-    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+    def __init__(self, name, recorded_cell, stimulus=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -688,7 +688,7 @@ class PatchClampExperiment(KGObject):
     def _build_data(self, client):
         """docstring"""
         data = super(PatchClampExperiment, self)._build_data(client)
-        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType")}
+        data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
     @classmethod

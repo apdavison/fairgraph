@@ -452,7 +452,9 @@ class AnalysisResult(KGObject):
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
             "wasDerivedFrom": "prov:wasDerivedFrom",
-            "generatedAtTime": "prov:generatedAtTime"
+            "generatedAtTime": "prov:generatedAtTime",
+            "wasAttributedTo": "prov:wasAttributedTo",
+            #"wasGeneratedBy": "prov:wasGeneratedBy",
         }
     ]
     fields = (
