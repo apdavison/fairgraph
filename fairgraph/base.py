@@ -403,7 +403,8 @@ class KGObject(with_metaclass(Registry, object)):
             return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False, api="query", resolved=False):
+    def from_uuid(cls, uuid, client, deprecated=False, api="query",
+                  scope="released", resolved=False):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -412,14 +413,16 @@ class KGObject(with_metaclass(Registry, object)):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
+        return cls.from_uri(uri, client, deprecated=deprecated, api=api,
+                            scope=scope, resolved=resolved)
 
     @classmethod
-    def from_id(cls, id, client, use_cache=True, deprecated=False, api="query", resolved=False):
+    def from_id(cls, id, client, use_cache=True, deprecated=False, api="query",
+                scope="released", resolved=False):
         if id.startswith("http"):
-            return cls.from_uri(id, client, use_cache, deprecated, api, resolved)
+            return cls.from_uri(id, client, use_cache, deprecated, api, scope, resolved)
         else:
-            return cls.from_uuid(id, client, deprecated, api, resolved)
+            return cls.from_uuid(id, client, deprecated, api, scope, resolved)
 
     @property
     def uuid(self):
