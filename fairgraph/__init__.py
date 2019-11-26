@@ -22,4 +22,4 @@ limitations under the License.
 import re
 from .client import KGClient
 
-__version__ = "0.5.1"
+__version__ = "0.5.2.dev"

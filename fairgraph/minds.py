@@ -190,7 +190,6 @@ class Dataset(MINDSObject):
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
-    query_id = "fgDataset"
     query_id_resolved = "fgResolvedModified"
     accepted_terms_of_use = False
     fields = (
@@ -250,7 +249,7 @@ class Dataset(MINDSObject):
                 os.makedirs(local_path, exist_ok=True)
             else:
                 response2 = requests.get(self.container_url + "/" + entry["name"])
-                if response2.status_code == 200:
+                if response2.status_code not in (200, 204):
                     with open(local_path, "wb") as fp:
                         fp.write(response2.content)
                     progress_bar.update(entry["bytes"] // 1024)
