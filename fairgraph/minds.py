@@ -237,7 +237,7 @@ class Dataset(MINDSObject):
             else:
                 raise Exception("Please accept the terms of use before downloading the dataset")
         response = requests.get(self.container_url + "?format=json")
-        if response.status_code != 200:
+        if response.status_code not in (200, 204):
             raise IOError(
                 "Unable to download dataset. Response code {}".format(response.status_code))
         contents = response.json()
