@@ -545,7 +545,7 @@ class KGObject(with_metaclass(Registry, object)):
 
             elif api == "query":
                 response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
-                                                size=1, scope="inferred")
+                                                size=1, scope="latest")
                 # not sure about the appropriate scope here
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")

@@ -44,6 +44,12 @@ CURL_LOGGER.setLevel(logging.WARNING)
 logger = logging.getLogger("fairgraph")
 
 
+SCOPE_MAP = {
+    "released": "RELEASED",
+    "latest": "INFERRED",
+}
+
+
 class KGClient(object):
     """docstring"""
 
@@ -101,10 +107,9 @@ class KGClient(object):
             url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
-            if scope not in ("released", "inferred"):
-                # todo - use a more user-friendly term for 'inferred' and map appropriately
-                raise ValueError("'scope' must be either 'released' or 'inferred'")
-            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, scope.upper())
+            if scope not in SCOPE_MAP:
+                raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
+            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, SCOPE_MAP[scope])
             response = self._kg_query_client.get(url)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -140,15 +145,14 @@ class KGClient(object):
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
-            path, query_id, size, scope.upper())
+            path, query_id, size, SCOPE_MAP[scope])
         if filter:
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
-        if scope not in ("released", "inferred"):
-            # todo - use a more user-friendly term for 'inferred' and map appropriately
-            raise ValueError("'scope' must be either 'released' or 'inferred'")
+        if scope not in SCOPE_MAP:
+            raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
         try:
             response = self._kg_query_client.get(template.format(start))
@@ -205,7 +209,7 @@ class KGClient(object):
                 response = self._kg_query_client.get(
                     "{}/{}/instances?databaseScope={}&id={}".format(cls.path,
                                                                     query_id,
-                                                                    scope.upper(),
+                                                                    SCOPE_MAP[scope],
                                                                     uri))
                 if len(response["results"]) > 0:
                     instance = Instance(cls.path, response["results"][0], Instance.path)
@@ -274,7 +278,7 @@ class KGClient(object):
                         cls.path,
                         query_id,
                         match == "contains" and "_name_contains" or "",  # workaround
-                        scope.upper(),
+                        SCOPE_MAP[scope],
                         name))
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]

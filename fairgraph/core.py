@@ -209,16 +209,16 @@ class Person(KGObject):
         family_name = user_info["familyName"]
         email = [entry["value"] for entry in user_info["emails"] if entry["primary"]][0]
         # first look for a node that matches name and primary email
-        people = Person.list(client, api=api, scope="inferred", family_name=family_name,
+        people = Person.list(client, api=api, scope="latest", family_name=family_name,
                              given_name=given_name, email=email, resolved=False)
         # if we don't find a node, try to match by any email
         if not people:
             for entry in user_info["emails"]:
-                people.extend(Person.list(client, api=api, scope="inferred", email=entry["value"],
+                people.extend(Person.list(client, api=api, scope="latest", email=entry["value"],
                                           resolved=False))
         # if we still don't find a node, try to match by name
         if not people:
-            people = Person.list(client, api=api, scope="inferred", family_name=family_name,
+            people = Person.list(client, api=api, scope="latest", family_name=family_name,
                                  given_name=given_name, resolved=False)
         # otherwise, create a new node
         if people:

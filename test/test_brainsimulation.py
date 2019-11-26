@@ -67,7 +67,7 @@ class TestModelProject(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
     def test_list_kgquery(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True)
+        models = ModelProject.list(kg_client, api="query", scope="latest", size=10, resolved=True)
         assert len(models) == 10
 
     def test_list_nexus_with_filter(self, kg_client):
@@ -75,7 +75,7 @@ class TestModelProject(BaseTestKG):
         assert len(models) == 5
 
     def test_list_kgquery_with_filter(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True, species="Rattus norvegicus")
+        models = ModelProject.list(kg_client, api="query", scope="latest", size=10, resolved=True, species="Rattus norvegicus")
         assert len(models) == 2
 
     def test_count_nexus(self, kg_client):
