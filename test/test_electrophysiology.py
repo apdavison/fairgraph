@@ -14,6 +14,7 @@ from fairgraph.electrophysiology import (
     IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
     IntraCellularSharpElectrodeRecordedCellCollection,
     IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
+    ElectrodeImplantationActivity, ExtracellularElectrodeExperiment, ImplantedBrainTissue,
     list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.minds import Dataset
 
@@ -33,6 +34,7 @@ test_data_lookup.update({
     "/v0/data/neuralactivity/experiment/intrasharpelectrode/v0.1.0/": "test/test_data/nexus/electrophysiology/intracellularsharpelectroderecording_list_0_10.json",
     "/v0/data/neuralactivity/electrophysiology/multichannelmultitrialrecording/v0.1.0/": "test/test_data/nexus/electrophysiology/multichannelmultitrialrecording_list_0_10.json",
     "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.0/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
+    "/v0/data/neuralactivity/electrophysiology/multitrace/v0.1.1/": "test/test_data/nexus/electrophysiology/multitrace_list_0_10.json",
     "/v0/data/neuralactivity/experiment/multitracegeneration/v0.1.0/": "test/test_data/nexus/electrophysiology/multitracegeneration_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchclampactivity/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampactivity_list_0_10.json",
     "/v0/data/neuralactivity/experiment/patchclampexperiment/v0.1.0/": "test/test_data/nexus/electrophysiology/patchclampexperiment_list_0_10.json",
@@ -58,6 +60,7 @@ test_data_lookup.update({
     "/query/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedslice_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/intrasharpelectrode/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecording_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/multitrace/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitrace/v0.1.1/fgResolved/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampactivity_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchclampexperiment_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/patchedcellcollection/v0.1.0/fgResolved/instances": "test/test_data/kgquery/electrophysiology/patchedcellcollection_list_resolved_0_10.json",
@@ -74,6 +77,7 @@ test_data_lookup.update({
     "/query/neuralactivity/experiment/intrasharprecordedslice/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecordedslice_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/intrasharpelectrode/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/intracellularsharpelectroderecording_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/multitrace/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
+    "/query/neuralactivity/electrophysiology/multitrace/v0.1.1/fg/instances": "test/test_data/kgquery/electrophysiology/multichannelmultitrialrecording_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchclampactivity_list_resolved_0_10.json",
     "/query/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchclampexperiment_list_resolved_0_10.json",
     "/query/neuralactivity/experiment/patchedcellcollection/v0.1.0/fg/instances": "test/test_data/kgquery/electrophysiology/patchedcellcollection_list_resolved_0_10.json",
@@ -86,8 +90,6 @@ test_data_lookup.update({
 
 use_core_namespace("neuralactivity")
 use_electrophysiology_namespace("neuralactivity")
-
-
 
 
 class TestPatchedCell(BaseTestKG):
@@ -156,7 +158,6 @@ class TestPatchedCell(BaseTestKG):
         assert isinstance(cell.collection, KGQuery)
         assert isinstance(cell.experiments, KGQuery)
 
-
     def test_get_from_uuid(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
         a = PatchedCell.from_uri(uri, kg_client, api="nexus")
@@ -220,25 +221,26 @@ class TestPatchedCell(BaseTestKG):
             unicode
         except NameError:
             cell = PatchedCell("example001",
-                            brain_location=BrainRegion("primary auditory cortex"),
-                            collection=None,
-                            cell_type=CellType("pyramidal cell"),
-                            experiments=None,
-                            pipette_id=31,
-                            seal_resistance=QuantitativeValue(1.2, "GΩ"),
-                            pipette_resistance=QuantitativeValue(1.5, "MΩ"),
-                            liquid_junction_potential=None,
-                            labeling_compound="0.1% biocytin ",
-                            reversal_potential_cl=None)
+                               brain_location=BrainRegion("primary auditory cortex"),
+                               collection=None,
+                               cell_type=CellType("pyramidal cell"),
+                               experiments=None,
+                               pipette_id=31,
+                               seal_resistance=QuantitativeValue(1.2, "GΩ"),
+                               pipette_resistance=QuantitativeValue(1.5, "MΩ"),
+                               liquid_junction_potential=None,
+                               labeling_compound="0.1% biocytin ",
+                               reversal_potential_cl=None)
             expected_repr = ("PatchedCell(name='example001', "
-                            "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
-                            "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
-                            "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
-                            "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
-                            "labeling_compound='0.1% biocytin ', id=None)")
+                             "brain_location=BrainRegion('primary auditory cortex', 'http://purl.obolibrary.org/obo/UBERON_0034751'), "
+                             "cell_type=CellType('pyramidal cell', 'http://purl.obolibrary.org/obo/CL_0000598'), "
+                             "pipette_id=31, seal_resistance=QuantitativeValue(1.2 'GΩ'), "
+                             "pipette_resistance=QuantitativeValue(1.5 'MΩ'), "
+                             "labeling_compound='0.1% biocytin ', id=None)")
             assert repr(cell) == expected_repr
         else:
-            pytest.skip("The remaining lifespan of Python 2 is too short to fix unicode representation errors")
+            pytest.skip(
+                "The remaining lifespan of Python 2 is too short to fix unicode representation errors")
 
 
 class TestTrace(BaseTestKG):
@@ -557,6 +559,8 @@ class TestModuleFunctions(object):
             QualifiedTraceGeneration, QualifiedMultiTraceGeneration,
             IntraCellularSharpElectrodeExperiment, IntraCellularSharpElectrodeRecordedCell,
             IntraCellularSharpElectrodeRecordedCellCollection,
-            IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording
+            IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
+            ElectrodeImplantationActivity, ImplantedBrainTissue,
+            ExtracellularElectrodeExperiment
         ))
         assert set(list_kg_classes()) == expected_classes

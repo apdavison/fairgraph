@@ -19,7 +19,8 @@ Metadata for entities that are used in multiple contexts (e.g. in both electroph
 
 
 from __future__ import unicode_literals
-import sys, inspect
+import sys
+import inspect
 import logging
 try:
     basestring
@@ -72,7 +73,8 @@ class Subject(KGObject):
         Field("death_date", date, "deathDate")
     )
 
-    def __init__(self, name, species, age, sex=None, strain=None, death_date=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, strain=None,
+                 death_date=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -83,7 +85,7 @@ class Organization(KGObject):
     An organization associated with research data or models, e.g. a university, lab or department.
     """
     namespace = DEFAULT_NAMESPACE
-    _path =  "/core/organization/v0.1.0"
+    _path = "/core/organization/v0.1.0"
     type = "nsg:Organization"
     context = {
         "schema": "http://schema.org/",
@@ -124,14 +126,16 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
     fields = (
-        Field("family_name",  basestring, "familyName", required=True, doc="Family name / surname"),
-        Field("given_name",  basestring, "givenName",  required=True, doc="Given name"),
+        Field("family_name", basestring, "familyName", required=True, doc="Family name / surname"),
+        Field("given_name", basestring, "givenName", required=True, doc="Given name"),
         Field("email", basestring, "email", doc="e-mail address"),
-        Field("affiliation", Organization, "affiliation", doc="Organization to which person belongs")
+        Field("affiliation", Organization, "affiliation",
+              doc="Organization to which person belongs")
     )
     existence_query_fields = ("family_name", "given_name")
 
-    def __init__(self, family_name, given_name, email=None, affiliation=None, id=None, instance=None):
+    def __init__(self, family_name, given_name, email=None,
+                 affiliation=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -161,9 +165,16 @@ class Person(KGObject):
                         "op": "eq",
                         "value": value
                     })
+                elif name == "email":
+                    filter_queries.append({
+                        "path": "schema:email",
+                        "op": "eq",
+                        "value": value
+                    })
                 else:
-                    raise ValueError("The only supported filters are by first (given) name or "
-                                    "or last (family) name. You specified {name}".format(name=name))
+                    raise ValueError(
+                        "The only supported filters are by first (given) name, "
+                        "last (family) name or email. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, size=size)
             elif len(filter_queries) == 1:
@@ -176,13 +187,56 @@ class Person(KGObject):
             filter_query = {"nexus": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(Person, cls).list(client, size, api, scope, resolved, **filters)
+            return super(Person, cls).list(client, size=size, api=api,
+                                           scope=scope, resolved=resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
     def resolve(self, client, api="query"):
         if hasattr(self.affiliation, "resolve"):
             self.affiliation = self.affiliation.resolve(client, api=api)
+
+    @classmethod
+    def me(cls, client, api="query", allow_multiple=False):
+        """Return the Person who is currently logged-in.
+
+        (the user associated with the token stored in the client).
+
+        If the Person node does not exist in the KG, it will be created.
+        """
+        user_info = client.user_info()
+        given_name = user_info["givenName"]
+        family_name = user_info["familyName"]
+        email = [entry["value"] for entry in user_info["emails"] if entry["primary"]][0]
+        # first look for a node that matches name and primary email
+        people = Person.list(client, api=api, scope="latest", family_name=family_name,
+                             given_name=given_name, email=email, resolved=False)
+        # if we don't find a node, try to match by any email
+        if not people:
+            for entry in user_info["emails"]:
+                people.extend(Person.list(client, api=api, scope="latest", email=entry["value"],
+                                          resolved=False))
+        # if we still don't find a node, try to match by name
+        if not people:
+            people = Person.list(client, api=api, scope="latest", family_name=family_name,
+                                 given_name=given_name, resolved=False)
+        # otherwise, create a new node
+        if people:
+            if isinstance(people, list):
+                if len(people) > 1:
+                    if allow_multiple:
+                        return people
+                    else:
+                        raise Exception("Found multiple entries. "
+                                        "Use the 'allow_multiple' option to avoid this error.")
+                else:
+                    people = people[0]
+            return people
+        else:
+            person = Person(family_name=family_name, given_name=given_name, email=email)
+            # todo: add linked organization based on user_info affiliation
+            person.save(client)
+            return person
 
 
 class Protocol(KGObject):
@@ -199,7 +253,8 @@ class Protocol(KGObject):
         "prov": "http://www.w3.org/ns/prov#"
     }
 
-    def __init__(self, name, steps, materials, author, date_published, identifier, id=None, instance=None):
+    def __init__(self, name, steps, materials, author,
+                 date_published, identifier, id=None, instance=None):
         self.name = name
         self.steps = steps
         self.materials = materials
@@ -210,8 +265,6 @@ class Protocol(KGObject):
         self.instance = instance
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.identifier!r}, {self.id})')
         return ('{self.__class__.__name__}('
                 '{self.identifier!r}, {self.id})'.format(self=self))
 
@@ -279,7 +332,6 @@ class Material(object):
             "nsg:reagentLinearFormula": self.formula,
             "schema:sku": self.stock_keeping_unit,
             "schema:identifier": {
-                #"@type": "",
                 "@id": self.identifier.id,
             },
             "nsg:reagentVendor": {
@@ -315,9 +367,8 @@ class Collection(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("members", KGObject, "hadMember",  required=True, multiple=True)
+        Field("members", KGObject, "hadMember", required=True, multiple=True)
     )
-
 
     def __init__(self, name, members, id=None, instance=None):
         args = locals()

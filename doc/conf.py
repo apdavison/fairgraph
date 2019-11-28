@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = 'fairgraph'
-copyright = '2019, Andrew P. Davison, Onur Ates, Yann Zerlaut'
-author = 'Andrew P. Davison, Onur Ates, Yann Zerlaut'
+copyright = '2019, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen'
+author = 'Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen'
 
 # The short X.Y version
-version = '0.4'
+version = '0.5'
 # The full version, including alpha/beta/rc tags
-release = '0.5.0.dev'
+release = '0.5.2.dev'
 
 
 # -- General configuration ---------------------------------------------------
@@ -133,7 +133,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'fairgraph.tex', 'fairgraph Documentation',
-     'Andrew P. Davison, Onur Ates, Yann Zerlaut', 'manual'),
+     'Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen', 'manual'),
 ]
 
 

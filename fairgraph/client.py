@@ -25,10 +25,16 @@ try:
 except ImportError:  # Python 2
     from urlparse import urlparse
     from urllib import quote_plus
+from requests.exceptions import HTTPError
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
+try:
+    from jupyter_collab_storage import oauth_token_handler
+except ImportError:
+    oauth_token_handler = None
+
 
 from .errors import AuthenticationError
 
@@ -38,17 +44,28 @@ CURL_LOGGER.setLevel(logging.WARNING)
 logger = logging.getLogger("fairgraph")
 
 
+SCOPE_MAP = {
+    "released": "RELEASED",
+    "latest": "INFERRED",
+}
+
+
 class KGClient(object):
     """docstring"""
 
     def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
-                 kg_query_endpoint="https://kg.humanbrainproject.org/query"):
+                 kg_query_endpoint="https://kg.humanbrainproject.org/query",
+                 release_endpoint="https://kg.humanbrainproject.org/api/releases",
+                 idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
         if token is None:
-            try:
-                token = os.environ["HBP_AUTH_TOKEN"]
-            except KeyError:
-                raise AuthenticationError("No token provided.")
+            if oauth_token_handler:
+                token = oauth_token_handler.get_token()
+            else:
+                try:
+                    token = os.environ["HBP_AUTH_TOKEN"]
+                except KeyError:
+                    raise AuthenticationError("No token provided.")
         ep = urlparse(nexus_endpoint)
         self.nexus_endpoint = nexus_endpoint
         auth_client = AccessTokenClient(token)
@@ -56,6 +73,8 @@ class KGClient(object):
                                          alternative_namespace=nexus_endpoint,
                                          auth_client=auth_client)
         self._kg_query_client = HttpClient(kg_query_endpoint, "", auth_client=auth_client)
+        self._release_client = HttpClient(release_endpoint, "", auth_client=auth_client, raw=True)
+        self._idm_client = HttpClient(idm_endpoint, "", auth_client=auth_client)
         self._instance_repo = self._nexus_client.instances
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
@@ -88,10 +107,9 @@ class KGClient(object):
             url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
-            if scope not in ("released", "inferred"):
-                # todo - use a more user-friendly term for 'inferred' and map appropriately
-                raise ValueError("'scope' must be either 'released' or 'inferred'")
-            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, scope.upper())
+            if scope not in SCOPE_MAP:
+                raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
+            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, SCOPE_MAP[scope])
             response = self._kg_query_client.get(url)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -102,7 +120,7 @@ class KGClient(object):
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
-            context=quote_plus(json.dumps(context))
+            context = quote_plus(json.dumps(context))
         instances = []
         query = self._nexus_client.instances.list(
             subpath=path,
@@ -127,26 +145,37 @@ class KGClient(object):
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
-                        path, query_id, size, scope.upper())
+            path, query_id, size, SCOPE_MAP[scope])
         if filter:
+            for key, value in filter.items():
+                if hasattr(value, "iri"):
+                    filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
-        if scope not in ("released", "inferred"):
-                # todo - use a more user-friendly term for 'inferred' and map appropriately
-                raise ValueError("'scope' must be either 'released' or 'inferred'")
+        if scope not in SCOPE_MAP:
+            raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
-        response = self._kg_query_client.get(template.format(start))
-        instances = [
-            Instance(path, data, Instance.path)
-            for data in response["results"]
-        ]
-        start += response["size"]
-        while start < min(response["total"], size):
+        try:
             response = self._kg_query_client.get(template.format(start))
-            instances.extend([
+        except HTTPError as err:
+            if err.response.status_code == 403:
+                response = None
+            else:
+                raise
+        if response and "results" in response:
+            instances = [
                 Instance(path, data, Instance.path)
                 for data in response["results"]
-            ])
+            ]
             start += response["size"]
+            while start < min(response["total"], size):
+                response = self._kg_query_client.get(template.format(start))
+                instances.extend([
+                    Instance(path, data, Instance.path)
+                    for data in response["results"]
+                ])
+                start += response["size"]
+        else:
+            instances = []
 
         for instance in instances:
             self.cache[instance.data["@id"]] = instance
@@ -180,7 +209,7 @@ class KGClient(object):
                 response = self._kg_query_client.get(
                     "{}/{}/instances?databaseScope={}&id={}".format(cls.path,
                                                                     query_id,
-                                                                    scope.upper(),
+                                                                    SCOPE_MAP[scope],
                                                                     uri))
                 if len(response["results"]) > 0:
                     instance = Instance(cls.path, response["results"][0], Instance.path)
@@ -214,7 +243,8 @@ class KGClient(object):
         if instance.id in self.cache:
             self.cache.pop(instance.id)
 
-    def by_name(self, cls, name, match="equals", all=False, api="query", scope="released", resolved=False):
+    def by_name(self, cls, name, match="equals", all=False,
+                api="query", scope="released", resolved=False):
         """Retrieve an object based on the value of schema:name"""
         # todo: allow non-exact searches
         if api not in ("query", "nexus"):
@@ -248,7 +278,7 @@ class KGClient(object):
                         cls.path,
                         query_id,
                         match == "contains" and "_name_contains" or "",  # workaround
-                        scope.upper(),
+                        SCOPE_MAP[scope],
                         name))
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]
@@ -270,3 +300,26 @@ class KGClient(object):
 
     def retrieve_query(self, path):
         return self._kg_query_client.get(path)
+
+    def is_released(self, uri):
+        """Release status of the node"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.get(path)
+        return response.json()["status"] == "RELEASED"
+
+    def release(self, uri):
+        """Release the node with the given uri"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.put(path)
+        if response.status_code not in (200, 201):
+            raise Exception("Can't release node with id {}".format(uri))
+
+    def unrelease(self, uri):
+        """Unrelease the node with the given uri"""
+        path = Instance.extract_id_from_url(uri, self._instance_repo.path)
+        response = self._release_client.delete(path)
+        if response.status_code not in (200, 204):
+            raise Exception("Can't unrelease node with id {}".format(uri))
+
+    def user_info(self):
+        return self._idm_client.get("user/me")

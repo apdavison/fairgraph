@@ -54,6 +54,22 @@
             }
         },
         {
+            "fieldname": "wasAttributedTo",
+            "relative_path": "http://www.w3.org/ns/prov#wasAttributedTo",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "attributed_to"
+            }
+        },
+        {
             "fieldname": "description",
             "relative_path": "http://schema.org/description",
             "filter": {
