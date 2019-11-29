@@ -18,6 +18,7 @@
             "fieldname": "name",
             "relative_path": "http://schema.org/name",
             "sort": true,
+            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"

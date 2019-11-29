@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 1179,
+    "total": 2902,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00073e83-dab1-4f6c-9950-6efb3ccb4f13",
@@ -21,7 +21,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00955/C57/id6/SS1-Vb",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": [
                     {
                         "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/1fdd7526-18a9-418c-bc7c-c336ddbedd43"
@@ -74,7 +74,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00713/mIPSCs-scFvGephcyto/mIPSCs-gephcyto/gephcyto-c2",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": [
                     {
                         "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/3c181f2d-9c70-4d31-bf3b-b30351f15630"
@@ -104,6 +104,82 @@
             }
         },
         {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/004d2783-ae26-4064-9b32-bd6e2461b2aa",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/004d2783-ae26-4064-9b32-bd6e2461b2aa",
+                "@type": "https://schema.hbp.eu/minds/Sample",
+                "http://schema.org/identifier": "e603aa92-2305-4f20-99d0-be2b5ed06ae0",
+                "http://schema.org/name": "N.i140703-001_raw-lfp-spikes_ch14",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
+                "https://schema.hbp.eu/minds/methods": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c1ac0df1-b376-4cf2-9fc5-e70fffef07d0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aea856db-b1cd-448f-a5e4-9add4d134ca0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/cdf85ba8-d4f7-4ab7-a9a3-5f1a697f778a",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/7a60bc78-b32d-45f7-8391-0e49bf4884af",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/8f6eee64-9e54-4dd6-bfcc-702cdc0acccc",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    }
+                ],
+                "https://schema.hbp.eu/minds/parcellationRegion": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/cafab842-72f2-4b7f-a43f-d3231984291c",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/a972280c-b20e-44dd-bf02-a85528c6bf74",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/004d2783-ae26-4064-9b32-bd6e2461b2aa/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/004d2783-ae26-4064-9b32-bd6e2461b2aa/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/004d2783-ae26-4064-9b32-bd6e2461b2aa"
+                }
+            }
+        },
+        {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00806af6-d522-4bd4-ad72-df5ad2f900ee",
             "source": {
                 "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00806af6-d522-4bd4-ad72-df5ad2f900ee",
@@ -122,7 +198,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00962/VGLUT1-VGAT/C57-6/Layer2-VGLUT1",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": [
                     {
                         "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aee4d6cd-9f8d-44f8-94c8-ba07298cf981"
@@ -152,6 +228,158 @@
             }
         },
         {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/008c3fec-2294-4339-84e6-c65557de0848",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/008c3fec-2294-4339-84e6-c65557de0848",
+                "@type": "https://schema.hbp.eu/minds/Sample",
+                "http://schema.org/identifier": "0687210c-6ec3-4a3a-841f-93faf03fdef9",
+                "http://schema.org/name": "N.i140703-001_raw-lfp-spikes_ch81",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
+                "https://schema.hbp.eu/minds/methods": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/cdf85ba8-d4f7-4ab7-a9a3-5f1a697f778a",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/7a60bc78-b32d-45f7-8391-0e49bf4884af",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aea856db-b1cd-448f-a5e4-9add4d134ca0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c1ac0df1-b376-4cf2-9fc5-e70fffef07d0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/8f6eee64-9e54-4dd6-bfcc-702cdc0acccc",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    }
+                ],
+                "https://schema.hbp.eu/minds/parcellationRegion": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/cafab842-72f2-4b7f-a43f-d3231984291c",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/a972280c-b20e-44dd-bf02-a85528c6bf74",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/008c3fec-2294-4339-84e6-c65557de0848/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/008c3fec-2294-4339-84e6-c65557de0848/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/008c3fec-2294-4339-84e6-c65557de0848"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009c6232-b1b8-4e37-9897-b98bb1329959",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009c6232-b1b8-4e37-9897-b98bb1329959",
+                "@type": "https://schema.hbp.eu/minds/Sample",
+                "http://schema.org/identifier": "e49732f8-9444-44d6-8070-97e9deee73b7",
+                "http://schema.org/name": "N.i140703-001_raw-lfp-spikes_ch26",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
+                "https://schema.hbp.eu/minds/methods": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c1ac0df1-b376-4cf2-9fc5-e70fffef07d0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aea856db-b1cd-448f-a5e4-9add4d134ca0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/7a60bc78-b32d-45f7-8391-0e49bf4884af",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/cdf85ba8-d4f7-4ab7-a9a3-5f1a697f778a",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/8f6eee64-9e54-4dd6-bfcc-702cdc0acccc",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    }
+                ],
+                "https://schema.hbp.eu/minds/parcellationRegion": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/a972280c-b20e-44dd-bf02-a85528c6bf74",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/cafab842-72f2-4b7f-a43f-d3231984291c",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009c6232-b1b8-4e37-9897-b98bb1329959/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009c6232-b1b8-4e37-9897-b98bb1329959/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009c6232-b1b8-4e37-9897-b98bb1329959"
+                }
+            }
+        },
+        {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009cfc7c-d036-439e-99d5-6d32503ed567",
             "source": {
                 "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/009cfc7c-d036-439e-99d5-6d32503ed567",
@@ -170,7 +398,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00938/morph-ChIN-STR/sbj2-160505/cell7",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aee4d6cd-9f8d-44f8-94c8-ba07298cf981"
                 },
@@ -210,7 +438,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00961/mhippo-vGlut1-vGAT/c57-3/rad/VGAT",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": [
                     {
                         "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/f8274174-ba79-40d2-835e-28e53f7a5849"
@@ -240,6 +468,82 @@
             }
         },
         {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00ca4a89-81cf-4c74-a1c9-f47cf694156e",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "minds": "https://schema.hbp.eu/",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "uniminds": "https://schema.hbp.eu/uniminds/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00ca4a89-81cf-4c74-a1c9-f47cf694156e",
+                "@type": "https://schema.hbp.eu/minds/Sample",
+                "http://schema.org/identifier": "32bdc571-43b9-4470-8cf8-0a6d1de8cc94",
+                "http://schema.org/name": "N.i140703-001_raw-lfp-spikes_ch29",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
+                "https://schema.hbp.eu/minds/methods": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aea856db-b1cd-448f-a5e4-9add4d134ca0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c1ac0df1-b376-4cf2-9fc5-e70fffef07d0",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/7a60bc78-b32d-45f7-8391-0e49bf4884af",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/cdf85ba8-d4f7-4ab7-a9a3-5f1a697f778a",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/8f6eee64-9e54-4dd6-bfcc-702cdc0acccc",
+                        "@type": [
+                            "minds:Method"
+                        ]
+                    }
+                ],
+                "https://schema.hbp.eu/minds/parcellationRegion": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/cafab842-72f2-4b7f-a43f-d3231984291c",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/a972280c-b20e-44dd-bf02-a85528c6bf74",
+                        "@type": [
+                            "minds:Parcellationregion"
+                        ]
+                    }
+                ],
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00ca4a89-81cf-4c74-a1c9-f47cf694156e/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00ca4a89-81cf-4c74-a1c9-f47cf694156e/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/00ca4a89-81cf-4c74-a1c9-f47cf694156e"
+                }
+            }
+        },
+        {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/010913ca-8e73-4755-a466-3e2ed73b592a",
             "source": {
                 "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/010913ca-8e73-4755-a466-3e2ed73b592a",
@@ -258,7 +562,7 @@
                         "@type": "http://www.w3.org/ns/prov#Role"
                     }
                 },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00963/Mouse-HC/ID2-HC43//Lacunosum-Moleculare/LacMol-2",
+                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/minds/methods": [
                     {
                         "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/f8274174-ba79-40d2-835e-28e53f7a5849"
@@ -284,207 +588,6 @@
                     "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/010913ca-8e73-4755-a466-3e2ed73b592a/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
                     "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/010913ca-8e73-4755-a466-3e2ed73b592a"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/012eef05-f1df-4872-8f94-45ebba669375",
-            "source": {
-                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/012eef05-f1df-4872-8f94-45ebba669375",
-                "@type": "https://schema.hbp.eu/minds/Sample",
-                "http://hbp.eu/internal#hashcode": "160ce098cb25dae8a4743c4ce40923da",
-                "http://schema.org/identifier": "b6b2cc87da23e2515004acdee0d2c446",
-                "http://schema.org/name": "SST15.VenSST15",
-                "http://www.w3.org/ns/prov#qualifiedAssociation": {
-                    "@type": "http://www.w3.org/ns/prov#Association",
-                    "http://www.w3.org/ns/prov#agent": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
-                        "@type": "http://www.w3.org/ns/prov#Agent"
-                    },
-                    "http://www.w3.org/ns/prov#hadRole": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
-                        "@type": "http://www.w3.org/ns/prov#Role"
-                    }
-                },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Pavone_SGA1_1.3.1/hbp-00932/WBimg/SST15/VenSST15",
-                "https://schema.hbp.eu/minds/methods": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/1e7de922-57d6-4077-b4fa-48eb7462a6b7"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/dd4cb5a6-3bd5-48af-b25c-00557fa617c7"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/aeee4d0c-c2cf-4607-b23b-135c5faa3d59"
-                    }
-                ],
-                "https://schema.hbp.eu/minds/parcellationAtlas": {
-                    "@id": "./"
-                },
-                "https://schema.hbp.eu/minds/parcellationRegion": [],
-                "nxv:rev": 2,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/012eef05-f1df-4872-8f94-45ebba669375/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/012eef05-f1df-4872-8f94-45ebba669375/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/012eef05-f1df-4872-8f94-45ebba669375"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/014b146a-efbf-4d97-a9c2-a628b1f4c7ad",
-            "source": {
-                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/014b146a-efbf-4d97-a9c2-a628b1f4c7ad",
-                "@type": "https://schema.hbp.eu/minds/Sample",
-                "http://hbp.eu/internal#hashcode": "edd574e613a9c81269951f751f8d09b2",
-                "http://schema.org/identifier": "94cedc3ce80ec8c06422b20c7937059a",
-                "http://schema.org/name": "d140528_0201",
-                "http://www.w3.org/ns/prov#qualifiedAssociation": {
-                    "@type": "http://www.w3.org/ns/prov#Association",
-                    "http://www.w3.org/ns/prov#agent": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
-                        "@type": "http://www.w3.org/ns/prov#Agent"
-                    },
-                    "http://www.w3.org/ns/prov#hadRole": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
-                        "@type": "http://www.w3.org/ns/prov#Role"
-                    }
-                },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/hbp-00805_v1/Hippocampus_slice_Morphology+EPhys/Other/STEP_LONG/d140528-02",
-                "https://schema.hbp.eu/minds/methods": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/48b75efb-b2e5-46fd-a0e5-ccb9657391c1"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c6f69f25-f608-4f19-b4d0-19e484967fb9"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/46c3c1e9-7b61-4aee-9cd0-ae2e20141339"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/54c4d7b3-cfbe-4bae-8f12-6d3d89f766e9"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/872e158f-3cc6-4f7c-a5e0-6db3c8a3024a"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/c507d828-95d9-45f6-a522-c29f52b98b3d"
-                    }
-                ],
-                "https://schema.hbp.eu/minds/parcellationAtlas": {
-                    "@id": "./"
-                },
-                "https://schema.hbp.eu/minds/parcellationRegion": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/73cec177-2161-48ed-ab9a-7e69d3bd73c8"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/7e860366-de24-41a5-804d-af2388bd3cbd"
-                    }
-                ],
-                "nxv:rev": 2,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/014b146a-efbf-4d97-a9c2-a628b1f4c7ad/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/014b146a-efbf-4d97-a9c2-a628b1f4c7ad/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/014b146a-efbf-4d97-a9c2-a628b1f4c7ad"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01a63dc3-b06a-4ba9-8dc3-e75300f60fd6",
-            "source": {
-                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01a63dc3-b06a-4ba9-8dc3-e75300f60fd6",
-                "@type": "https://schema.hbp.eu/minds/Sample",
-                "http://hbp.eu/internal#hashcode": "9de8c43eed3ec3e54d0571c150b4f335",
-                "http://schema.org/identifier": "5867a533f14ccced0f3e22b44993c1ff",
-                "http://schema.org/name": "sub3.samp1",
-                "http://www.w3.org/ns/prov#qualifiedAssociation": {
-                    "@type": "http://www.w3.org/ns/prov#Association",
-                    "http://www.w3.org/ns/prov#agent": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
-                        "@type": "http://www.w3.org/ns/prov#Agent"
-                    },
-                    "http://www.w3.org/ns/prov#hadRole": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
-                        "@type": "http://www.w3.org/ns/prov#Role"
-                    }
-                },
-                "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub3/samp1",
-                "https://schema.hbp.eu/minds/methods": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/3c181f2d-9c70-4d31-bf3b-b30351f15630"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/54c4d7b3-cfbe-4bae-8f12-6d3d89f766e9"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/method/v1.0.0/872e158f-3cc6-4f7c-a5e0-6db3c8a3024a"
-                    }
-                ],
-                "https://schema.hbp.eu/minds/parcellationAtlas": {
-                    "@id": "./"
-                },
-                "https://schema.hbp.eu/minds/parcellationRegion": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/97623f78-7358-4d63-a765-1e459a7361ab"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/a3ae4ed4-150d-4356-ac3a-1230040515da"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/ddd4a579-fef3-464b-8742-bb4d07860c7e"
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/3de045ce-c5d7-4b75-bfb5-4340a4c163f7"
-                    }
-                ],
-                "nxv:rev": 2,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01a63dc3-b06a-4ba9-8dc3-e75300f60fd6/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01a63dc3-b06a-4ba9-8dc3-e75300f60fd6/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01a63dc3-b06a-4ba9-8dc3-e75300f60fd6"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01d83bd2-1b90-4a82-8b42-54e210be5668",
-            "source": {
-                "@id": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01d83bd2-1b90-4a82-8b42-54e210be5668",
-                "@type": "https://schema.hbp.eu/minds/Sample",
-                "http://hbp.eu/internal#hashcode": "1b0df88093257a302fbf1b76db861447",
-                "http://schema.org/identifier": "67e811e97c5232ddc09ad9b6c47a4fa8",
-                "http://schema.org/name": "nm-sub-20-sam-01",
-                "http://www.w3.org/ns/prov#qualifiedAssociation": {
-                    "@type": "http://www.w3.org/ns/prov#Association",
-                    "http://www.w3.org/ns/prov#agent": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/softwareagent/v1.0.0/eef524ba-4ef6-4ad0-96fa-ce3e3a77da3b",
-                        "@type": "http://www.w3.org/ns/prov#Agent"
-                    },
-                    "http://www.w3.org/ns/prov#hadRole": {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/minds/prov/role/v1.0.0/7fe83449-047f-48ad-9b91-6fac579430f3",
-                        "@type": "http://www.w3.org/ns/prov#Role"
-                    }
-                },
-                "https://schema.hbp.eu/minds/methods": [],
-                "https://schema.hbp.eu/minds/parcellationRegion": [],
-                "https://schema.hbp.eu/minds/weightPostFixation": "not reported",
-                "https://schema.hbp.eu/minds/weightPreFixation": "not reported g",
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01d83bd2-1b90-4a82-8b42-54e210be5668/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01d83bd2-1b90-4a82-8b42-54e210be5668/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/minds/experiment/sample/v1.0.0/01d83bd2-1b90-4a82-8b42-54e210be5668"
                 }
             }
         }

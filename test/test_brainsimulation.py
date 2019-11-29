@@ -34,9 +34,9 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/validationscript/v0.1.0/": "test/test_data/nexus/brainsimulation/validationscript_list_0_10.json",
     "/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/": "test/test_data/nexus/brainsimulation/validationtestdefinition_list_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.0/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
-    "/query/modelvalidation/simulation/modelproject/v0.1.0/fg/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
+    "/query/modelvalidation/simulation/modelproject/v0.1.0/fgSimple/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
 
-    "/query/neuralactivity/core/person/v0.1.0/fg/instances": "test/test_data/kgquery/core/person_list_simple_0_10.json",
+    "/query/neuralactivity/core/person/v0.1.0/fgSimple/instances": "test/test_data/kgquery/core/person_list_simple_0_10.json",
 })
 
 
@@ -72,7 +72,7 @@ class TestModelProject(BaseTestKG):
 
     def test_list_nexus_with_filter(self, kg_client):
         models = ModelProject.list(kg_client, api="nexus", size=10, species="Rattus norvegicus")
-        assert len(models) == 5
+        assert len(models) == 6
 
     def test_list_kgquery_with_filter(self, kg_client):
         models = ModelProject.list(kg_client, api="query", scope="latest", size=10, resolved=True, species="Rattus norvegicus")
@@ -80,7 +80,7 @@ class TestModelProject(BaseTestKG):
 
     def test_count_nexus(self, kg_client):
         count = ModelProject.count(kg_client, api='nexus')
-        assert count == 739
+        assert count == 351
 
     def test_count_kgquery(self, kg_client):
         count = ModelProject.count(kg_client, api='query')

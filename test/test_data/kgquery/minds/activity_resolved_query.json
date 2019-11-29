@@ -5,35 +5,38 @@
     "http://schema.org/identifier": "minds/core/activity/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/ethicsApproval",
-            "relative_path": "https://schema.hbp.eu/minds/ethicsApproval",
+            "filter": {
+                "op": "contains",
+                "parameter": "ethics_approval"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -51,7 +54,6 @@
                 },
                 {
                     "fieldname": "EthicsApproval__https://schema.hbp.eu/minds/generatedBy",
-                    "relative_path": "https://schema.hbp.eu/minds/generatedBy",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -68,91 +70,43 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/generatedBy"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "ethics_approval"
-            }
+            "relative_path": "https://schema.hbp.eu/minds/ethicsApproval"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/ethicsAuthority",
-            "relative_path": "https://schema.hbp.eu/minds/ethicsAuthority",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                },
-                {
-                    "fieldname": "http://schema.org/identifier",
-                    "relative_path": "http://schema.org/identifier"
-                },
-                {
-                    "fieldname": "http://schema.org/name",
-                    "relative_path": "http://schema.org/name"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "ethics_authority"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "http://schema.org/identifier",
+                    "relative_path": "http://schema.org/identifier"
+                },
+                {
+                    "fieldname": "http://schema.org/name",
+                    "relative_path": "http://schema.org/name"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/minds/ethicsAuthority"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/methods",
-            "relative_path": "https://schema.hbp.eu/minds/methods",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                },
-                {
-                    "fieldname": "http://schema.org/identifier",
-                    "relative_path": "http://schema.org/identifier"
-                },
-                {
-                    "fieldname": "http://schema.org/name",
-                    "relative_path": "http://schema.org/name"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "methods"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/minds/preparation",
-            "relative_path": "https://schema.hbp.eu/minds/preparation",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                },
-                {
-                    "fieldname": "http://schema.org/identifier",
-                    "relative_path": "http://schema.org/identifier"
-                },
-                {
-                    "fieldname": "http://schema.org/name",
-                    "relative_path": "http://schema.org/name"
-                }
-            ],
-            "filter": {
-                "op": "contains",
-                "parameter": "preparation"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/minds/protocols",
-            "relative_path": "https://schema.hbp.eu/minds/protocols",
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -170,10 +124,56 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
+            "relative_path": "https://schema.hbp.eu/minds/methods"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/preparation",
+            "filter": {
+                "op": "contains",
+                "parameter": "preparation"
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "http://schema.org/identifier",
+                    "relative_path": "http://schema.org/identifier"
+                },
+                {
+                    "fieldname": "http://schema.org/name",
+                    "relative_path": "http://schema.org/name"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/minds/preparation"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/protocols",
             "filter": {
                 "op": "contains",
                 "parameter": "protocols"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "http://schema.org/identifier",
+                    "relative_path": "http://schema.org/identifier"
+                },
+                {
+                    "fieldname": "http://schema.org/name",
+                    "relative_path": "http://schema.org/name"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/minds/protocols"
         }
     ],
     "@context": {

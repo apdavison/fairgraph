@@ -5,27 +5,31 @@
     "http://schema.org/identifier": "modelvalidation/simulation/morphology/v0.1.1/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "modelOf",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/modelOf",
+            "filter": {
+                "op": "contains",
+                "parameter": "cell_type"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -35,18 +39,15 @@
                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "cell_type"
-            }
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/modelOf"
         },
         {
             "fieldname": "distribution",
-            "relative_path": "http://schema.org/distribution",
             "filter": {
                 "op": "contains",
                 "parameter": "distribution"
-            }
+            },
+            "relative_path": "http://schema.org/distribution"
         }
     ],
     "@context": {

@@ -2,63 +2,24 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/project/v1.0.0"
     },
-    "http://schema.org/identifier": "uniminds/core/project/v1.0.0/fg",
+    "http://schema.org/identifier": "uniminds/core/project/v1.0.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/inference/alternatives",
-            "relative_path": "https://schema.hbp.eu/inference/alternatives",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "alternatives"
-            }
-        },
-        {
-            "fieldname": "http://schema.org/description",
-            "relative_path": "http://schema.org/description",
-            "filter": {
-                "op": "contains",
-                "parameter": "description"
-            }
-        },
-        {
-            "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
-            "filter": {
-                "op": "contains",
-                "parameter": "identifier"
-            }
-        },
-        {
-            "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
-            "filter": {
-                "op": "contains",
-                "parameter": "name"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/uniminds/coordinator",
-            "relative_path": "https://schema.hbp.eu/uniminds/coordinator",
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -68,10 +29,49 @@
                     "relative_path": "@type"
                 }
             ],
+            "relative_path": "https://schema.hbp.eu/inference/alternatives"
+        },
+        {
+            "fieldname": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            },
+            "relative_path": "http://schema.org/description"
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            },
+            "relative_path": "http://schema.org/identifier"
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/coordinator",
             "filter": {
                 "op": "contains",
                 "parameter": "coordinator"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/coordinator"
         }
     ],
     "@context": {

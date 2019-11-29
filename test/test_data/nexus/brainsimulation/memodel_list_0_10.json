@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 521,
+    "total": 522,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/003689bc-f4c1-4faf-9d89-03bf16e6769d",
@@ -9,6 +9,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -29,6 +30,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-07-17T14:48:49.694878+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/bf633968-6194-4588-ac66-f0b9c61538ae",
@@ -55,7 +57,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "68-3-DE-rep-ax-cor",
-                "nxv:rev": 3,
+                "nxv:rev": 4,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -73,6 +75,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -93,6 +96,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-07-17T14:48:01.429774+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/409bbde5-e5b9-4fd3-839b-7774859d1752",
@@ -119,7 +123,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "217F-NEM-2C_tracing-rep-ax-cor",
-                "nxv:rev": 3,
+                "nxv:rev": 4,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -137,6 +141,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -157,6 +162,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-29T14:21:46.209276+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/3f10670b-a033-4d1b-bfb2-ec1b9543428e",
@@ -184,7 +190,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -202,6 +208,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -222,6 +229,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-07-17T14:49:02.530796+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/ab8a1751-4085-4751-9711-83450376c191",
@@ -248,7 +256,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "L0617-slide-1-section-4-2-rep-ax-cor",
-                "nxv:rev": 3,
+                "nxv:rev": 4,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -266,6 +274,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -286,6 +295,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2017-09-24T20:59:45.736389+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/1a20ea00-6bbc-419b-a579-ff8203d49e6d",
@@ -312,7 +322,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "20170310161659",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -330,6 +340,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -350,6 +361,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-07-15T14:12:59.698050+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/8fe26365-dca5-47ba-aa2e-0992cdc30db7",
@@ -377,7 +389,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "hof_4",
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -395,6 +407,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -411,6 +424,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-05-18T09:53:50.890137+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/a4696085-6be0-4322-9ad5-7856a1a58e51",
@@ -429,7 +443,7 @@
                 "name": "MEModel for Long range dependence in Integrate and Fire models @ v1",
                 "oldUUID": "986d9804-52ac-4309-9fa1-ad6e1acfcba3",
                 "version": "v1",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -447,6 +461,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -467,6 +482,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-29T14:16:38.219590+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/42df409a-3136-4643-9bec-701a7cc0c074",
@@ -494,7 +510,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -512,6 +528,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -532,6 +549,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-07-17T14:47:16.137130+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/a650c67a-fc09-43c1-b38c-dac5d9446c29",
@@ -558,7 +576,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "RP101026-1-INT-IDC-rep-cor",
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -576,6 +594,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -596,6 +615,7 @@
                         "nsg:EModel"
                     ]
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-06-18T15:15:29.466313+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/279a574e-dd82-4410-924b-6c4b911ed8c8",
@@ -622,7 +642,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",

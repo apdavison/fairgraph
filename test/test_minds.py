@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from .utils import BaseTestKG, kg_client, test_data_lookup
 
 from fairgraph.minds import (
@@ -60,6 +62,9 @@ test_data_lookup.update({
     "/v0/data/minds/core/species/v1.0.0/": "test/test_data/nexus/minds/species_list_0_10.json",
     "/v0/data/minds/core/specimengroup/v1.0.0/": "test/test_data/nexus/minds/specimengroup_list_0_10.json",
     "/v0/data/minds/experiment/subject/v1.0.0/": "test/test_data/nexus/minds/subject_list_0_10.json",
+
+    #"/query/minds/core/dataset/v1.0.0/fgResolvedModified/instances": "test/test_data/kgquery/minds/dataset_list_resolved_0_10.json",
+    "/query/minds/core/dataset/v1.0.0/fgResolved/instances": "test/test_data/kgquery/minds/dataset_list_resolved_0_10.json",
 })
 
 
@@ -89,6 +94,19 @@ class TestDataset(BaseTestKG):
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
 
+    def test_from_id_kgquery_resolved(self, kg_client):
+        uuid = "bd78a096-6804-4655-83e7-38286ba59671"
+        dataset = Dataset.from_id(uuid, kg_client, api="query", scope="released", resolved=True)
+        assert dataset.uuid == uuid
+        assert dataset.activity.ethics_authority.name == "Veterinary Office, Canton of Zurich, Switzerland"
+        assert dataset.activity.preparation.name == "In vivo"
+        #assert dataset.activity.protocols[0].name == 'Synchrotron radiation based X-ray tomography'
+        assert dataset.release_date == datetime(2017, 11, 1, 0, 0)
+        assert dataset.embargo_status.name == "Free"
+        assert dataset.license.name == "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+        assert dataset.parcellation_region.alias == "Neocortex"
+        assert dataset.parcellation_region.species.name == "Rattus norvegicus"
+        assert dataset.specimen_group.subjects.age_category.name == "Adult"
 
 class TestEmbargoStatus(BaseTestKG):
     class_under_test = EmbargoStatus
@@ -150,7 +168,7 @@ class TestMethod(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
-        assert len(objects) == 1, len(objects)
+        assert len(objects) == 10, len(objects)
 
 
 class TestModality(BaseTestKG):

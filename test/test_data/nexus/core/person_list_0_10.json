@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 184,
+    "total": 196,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/02be7e84-af91-4481-a7c1-1ec204eaeab8",
@@ -19,7 +19,7 @@
                     "nsg:Person",
                     "prov:Agent"
                 ],
-                "email": "unknown@example.com",
+                "email": "neil.armstrong@nasa.gov",
                 "familyName": "Armstrong",
                 "givenName": "Neil",
                 "nxv:rev": 1,
@@ -189,6 +189,37 @@
             }
         },
         {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06732516-0779-473c-9a66-7a683ee45d07",
+            "source": {
+                "@context": {
+                    "affiliation": "schema:affiliation",
+                    "email": "schema:email",
+                    "familyName": "schema:familyName",
+                    "givenName": "schema:givenName",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06732516-0779-473c-9a66-7a683ee45d07",
+                "@type": [
+                    "nsg:Person",
+                    "prov:Agent"
+                ],
+                "email": "unknown@example.com",
+                "familyName": "Sikorsky",
+                "givenName": "Igor",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06732516-0779-473c-9a66-7a683ee45d07/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06732516-0779-473c-9a66-7a683ee45d07/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/person/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06732516-0779-473c-9a66-7a683ee45d07"
+                }
+            }
+        },
+        {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/06af84b4-ab1c-4d07-adc7-0c232bfbdc49",
             "source": {
                 "@context": {
@@ -206,8 +237,8 @@
                     "prov:Agent"
                 ],
                 "email": "unknown@example.com",
-                "familyName": "Sikorsky",
-                "givenName": "Igor",
+                "familyName": "McGill",
+                "givenName": "Elsie",
                 "nxv:rev": 1,
                 "nxv:deprecated": false,
                 "links": {
@@ -237,8 +268,8 @@
                     "prov:Agent"
                 ],
                 "email": "unknown@example.com",
-                "familyName": "MacGill",
-                "givenName": "Elsie",
+                "familyName": "da Vinci",
+                "givenName": "Leonardo",
                 "nxv:rev": 1,
                 "nxv:deprecated": false,
                 "links": {
@@ -268,8 +299,8 @@
                     "prov:Agent"
                 ],
                 "email": "unknown@example.com",
-                "familyName": "da Vinci",
-                "givenName": "Leonardo",
+                "familyName": "Johnson",
+                "givenName": "Katherine",
                 "nxv:rev": 1,
                 "nxv:deprecated": false,
                 "links": {
@@ -280,41 +311,10 @@
                     "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/09469380-e55b-416d-9328-612de8831c4c"
                 }
             }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/0a1991f3-5bdd-4c20-9dc1-e128178dab8f",
-            "source": {
-                "@context": {
-                    "affiliation": "schema:affiliation",
-                    "email": "schema:email",
-                    "familyName": "schema:familyName",
-                    "givenName": "schema:givenName",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "schema": "http://schema.org/"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/0a1991f3-5bdd-4c20-9dc1-e128178dab8f",
-                "@type": [
-                    "nsg:Person",
-                    "prov:Agent"
-                ],
-                "email": "unknown@example.com",
-                "familyName": "Johnson",
-                "givenName": "Katherine",
-                "nxv:rev": 2,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/0a1991f3-5bdd-4c20-9dc1-e128178dab8f/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/0a1991f3-5bdd-4c20-9dc1-e128178dab8f/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/person/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/0a1991f3-5bdd-4c20-9dc1-e128178dab8f"
-                }
-            }
         }
     ],
     "links": {
         "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/?fields=all"
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/?fields=all&size=10&deprecated=False"
     }
 }

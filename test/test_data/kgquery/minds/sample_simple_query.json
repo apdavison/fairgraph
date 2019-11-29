@@ -2,95 +2,65 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/minds/experiment/sample/v1.0.0"
     },
-    "http://schema.org/identifier": "minds/experiment/sample/v1.0.0/fg",
+    "http://schema.org/identifier": "minds/experiment/sample/v1.0.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/container_url",
-            "relative_path": "https://schema.hbp.eu/minds/container_url",
             "filter": {
                 "op": "contains",
                 "parameter": "container_url"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/container_url"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/weightPostFixation",
-            "relative_path": "https://schema.hbp.eu/minds/weightPostFixation",
             "filter": {
                 "op": "contains",
                 "parameter": "weight_post_fixation"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/weightPostFixation"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/weightPreFixation",
-            "relative_path": "https://schema.hbp.eu/minds/weightPreFixation",
             "filter": {
                 "op": "contains",
                 "parameter": "weight_pre_fixation"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/weightPreFixation"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/methods",
-            "relative_path": "https://schema.hbp.eu/minds/methods",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "methods"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/minds/parcellationAtlas",
-            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "filter": {
-                "op": "contains",
-                "parameter": "parcellation_atlas"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/minds/parcellationRegion",
-            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion",
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -100,18 +70,48 @@
                     "relative_path": "@type"
                 }
             ],
+            "relative_path": "https://schema.hbp.eu/minds/methods"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/parcellationAtlas",
+            "filter": {
+                "op": "contains",
+                "parameter": "parcellation_atlas"
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/minds/parcellationRegion",
             "filter": {
                 "op": "contains",
                 "parameter": "parcellation_region"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion"
         },
         {
             "fieldname": "https://schema.hbp.eu/brainviewer/reference",
-            "relative_path": "https://schema.hbp.eu/brainviewer/reference",
             "filter": {
                 "op": "contains",
                 "parameter": "reference"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/brainviewer/reference"
         }
     ],
     "@context": {

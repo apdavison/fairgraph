@@ -2,30 +2,34 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0"
     },
-    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fg",
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "activity",
-            "relative_path": "http://www.w3.org/ns/prov#activity",
+            "filter": {
+                "op": "contains",
+                "parameter": "stimulus_experiment"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -34,26 +38,23 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "stimulus_experiment"
-            }
+            "relative_path": "http://www.w3.org/ns/prov#activity"
         },
         {
             "fieldname": "sweep",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep",
             "filter": {
                 "op": "equals",
                 "parameter": "sweeps"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep"
         },
         {
             "fieldname": "targetHoldingPotential",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "holding_potential"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential"
         }
     ],
     "@context": {

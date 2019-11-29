@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 627,
+    "total": 628,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/006fb213-6af0-44d6-9545-a61dd88acfee",
@@ -51,7 +51,7 @@
                 "code_format": "asc, py, hoc, mod, json",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/rat/CA1/v4.0.5/optimizations/CA1_int_bAC_980120A_20190329120234/CA1_int_bAC_980120A_20190329120234.zip?bluenaas=true"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for CA1_int_bAC_980120A_20190329120234 @ 1.0",
                 "nxv:rev": 4,
@@ -83,7 +83,7 @@
                 "code_format": "asc, py, hoc, mod, json",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605/CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605.zip?bluenaas=true"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for CA1_pyr_cACpyr_oh140807_A0_idB_20170915112605 @ 1.0",
                 "nxv:rev": 4,
@@ -115,7 +115,7 @@
                 "code_format": "NEURON, Python",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_usecase_resources/models/basalunit/str-fs-161205_FS1-BE37A-20180212.tar.bz2"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for str-fs-161205_FS1-BE37A-20180212 @ hof_7",
                 "nxv:rev": 2,
@@ -178,7 +178,7 @@
                 "code_format": "",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_usecase_resources/models/morphounit/msn_d1/62-1-DE-rep-ax-cor.swc"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for msn_d1_morphologies @ 62-1-DE-rep-ax-cor",
                 "nxv:rev": 1,
@@ -210,7 +210,7 @@
                 "code_format": "asc, py, hoc, mod, json",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538/CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538.zip?bluenaas=true"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for CA1_pyr_cACpyr_mpg141217_A_idB_20170915111538 @ 1.0",
                 "nxv:rev": 4,
@@ -242,7 +242,7 @@
                 "code_format": "asc, py, hoc, mod, json",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/rat/CA1/v4.0.5/optimizations/CA1_int_cAC_990611HP2_20190328162145/CA1_int_cAC_990611HP2_20190328162145.zip?bluenaas=true"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for CA1_int_cAC_990611HP2_20190328162145 @ 1.0",
                 "nxv:rev": 4,
@@ -274,7 +274,7 @@
                 "code_format": "mod, asc, hoc",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/BlueNaaS_models/grc_mono.zip"
+                    "downloadURL": "https://object.cscs.ch:443/v1/A"
                 },
                 "name": "ModelScript for Granule cell - Mono compartmental @ V 1.0",
                 "nxv:rev": 2,
@@ -306,7 +306,7 @@
                 "code_format": "asc, py, hoc, mod, json",
                 "distribution": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_int_cAC_031031AM1_20180201104443/CA1_int_cAC_031031AM1_20180201104443.zip?bluenaas=true"
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
                 },
                 "name": "ModelScript for CA1_int_cAC_031031AM1_20180201104443 @ 1.0",
                 "nxv:rev": 4,

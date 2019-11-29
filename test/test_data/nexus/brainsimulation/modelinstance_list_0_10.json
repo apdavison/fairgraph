@@ -9,6 +9,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -21,6 +22,7 @@
                     "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
                     "label": "cerebral cortex"
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-06-03T20:39:13.218921+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/8690bd02-e09e-4ebf-a903-cddfcbf81198",
@@ -32,7 +34,7 @@
                 "name": "ModelInstance for Mean-field Model of AdEx networks @ 1.0",
                 "oldUUID": "36cd7308-bdc6-459e-9d07-5cba5a3a6bec",
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -50,6 +52,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -62,6 +65,7 @@
                     "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
                     "label": "cerebral cortex"
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2017-10-19T15:00:53.118071+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/0e45c718-037a-4c23-aca1-b19ae3f64ed1",
@@ -73,7 +77,7 @@
                 "name": "ModelInstance for LFP point model @ 0.1.0",
                 "oldUUID": "36954de6-04b8-4c3f-90d5-8dbd290e44b0",
                 "version": "0.1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -91,6 +95,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -100,6 +105,7 @@
                     "nsg:ModelInstance"
                 ],
                 "description": "Spine model",
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-28T16:02:02.330263+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/14056887-b981-4138-af4d-f57fffe90438",
@@ -112,7 +118,7 @@
                 "nsg:parameters": "None",
                 "oldUUID": "9fc00eca-f002-4a77-ac20-db5f916389e8",
                 "version": "2018.03",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -130,6 +136,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -138,6 +145,7 @@
                     "prov:Entity",
                     "nsg:ModelInstance"
                 ],
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-10-15T07:25:36.125039+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/c5c8b24c-59f5-49c3-9c3e-a87bad3869f9",
@@ -149,7 +157,7 @@
                 "name": "ModelInstance for Sudoku solver @ 1",
                 "oldUUID": "540bc741-0bf2-445c-886e-2a1db6804dc5",
                 "version": "1",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -167,6 +175,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -180,6 +189,7 @@
                     "label": "basal ganglia"
                 },
                 "description": "Role of DARPP-32 and ARPP-21 in the Emergence of Temporal Constraints on Striatal Calcium and Dopamine Integration. Nair AG, Bhalla US, Hellgren Kotaleski J. PLoS Comput. Biol. 2016 Sep; 12(9): e1005080",
+                "fg:api": "nexus",
                 "generatedAtTime": "2019-02-19T11:39:00.966452+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/8dd0f5e5-1f96-417d-b167-143e33c7d6be",
@@ -191,7 +201,7 @@
                 "name": "ModelInstance for Striatal Calcium and Dopamine Integration Model @ SGA2 2016.09",
                 "oldUUID": "00a44709-7aa3-4fbf-95d0-84c744d5bb1f",
                 "version": "SGA2 2016.09",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -209,6 +219,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -222,6 +233,7 @@
                     "label": "somatosensory cortex"
                 },
                 "description": "Active model",
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-29T12:14:24.808345+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/7eb0c3e1-a1fd-462b-b37d-dcc447f5655e",
@@ -238,7 +250,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -256,6 +268,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -269,6 +282,7 @@
                     "label": "cerebellum"
                 },
                 "description": "Active Models",
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-27T14:11:48.512743+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/fd9f5a2c-7c0a-4bfe-bf2e-dbcc56c3946c",
@@ -284,7 +298,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "Masoli et al., 2017",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -302,6 +316,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -314,6 +329,7 @@
                     "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
                     "label": "cerebral cortex"
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2017-10-06T09:42:52.215037+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/6f096d75-8daa-4e7f-8c87-561d44cbcc3c",
@@ -329,7 +345,7 @@
                     "label": "Macaca mulatta"
                 },
                 "version": "bf21c5de543a30c3c2449626a1e5777c4ed0484e",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -347,6 +363,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -360,6 +377,7 @@
                     "label": "cerebellum"
                 },
                 "description": "Active Models",
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-03-27T15:54:10.532486+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/d54f8b49-1502-4f99-8b4c-c9d7c8f5d66b",
@@ -375,7 +393,7 @@
                     "label": "Mus musculus"
                 },
                 "version": "SGA1 M24",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -393,6 +411,7 @@
                     "https://nexus.humanbrainproject.org/v0/contexts/neurosciencegraph/core/data/v0.3.1",
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
                     {
+                        "generatedAtTime": "prov:generatedAtTime",
                         "oldUUID": "nsg:providerId"
                     }
                 ],
@@ -405,6 +424,7 @@
                     "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
                     "label": "cerebral cortex"
                 },
+                "fg:api": "nexus",
                 "generatedAtTime": "2018-01-03T12:26:35.593190+00:00",
                 "mainModelScript": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/04f62d80-08cc-49be-aa65-3c76a2456f52",
@@ -420,7 +440,7 @@
                     "label": "Rattus norvegicus"
                 },
                 "version": "1.0",
-                "nxv:rev": 1,
+                "nxv:rev": 2,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",

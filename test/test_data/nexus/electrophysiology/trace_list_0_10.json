@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 26,
+    "total": 34,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/00075fe4-eaba-4290-85c0-fecb4e5c0bd7",
@@ -44,7 +44,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2/hbp-00011_Tg2576_Sub1_Samp2__expE2.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00011_Sub1_Samp2__ExpE2",
@@ -125,7 +125,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T.1.1.6_nar032/hbp-00015/sIPSCs/Sub1/Samp1/hbp-00015_sIPSCs_Sub1_Samp1__expA1.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00015_Sub1_Samp1__ExpA1",
@@ -200,7 +200,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp4/hbp-00011_Tg2576_Sub2_Samp4__expE8.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00011_Sub2_Samp4__ExpE8",
@@ -281,7 +281,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub3/Samp1/hbp-00011_Tg2576_Sub3_Samp1__expE9.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00011_Sub3_Samp1__ExpE9",
@@ -362,7 +362,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar028/hbp-00014/APD14/Sub2/Samp3/hbp-00014_APD14_Sub2_Samp3__expB6.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00014_Sub2_Samp3__ExpB6",
@@ -398,6 +398,258 @@
                     "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/13934fac-0c28-4e53-9af9-10e1b852e93e/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
                     "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/13934fac-0c28-4e53-9af9-10e1b852e93e"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "channel": "nsg:channel",
+                        "dataUnit": "nsg:dataUnit",
+                        "description": "schema:description",
+                        "distribution": {
+                            "@id": "schema:distribution",
+                            "@type": "@id"
+                        },
+                        "downloadURL": {
+                            "@id": "schema:downloadURL",
+                            "@type": "@id"
+                        },
+                        "mediaType": {
+                            "@id": "schema:mediaType"
+                        },
+                        "minds": "https://schema.hbp.eu/",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "partOf": "nsg:partOf",
+                        "projectName": "nsg:projectName",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "providerId": "nsg:providerId",
+                        "qualifiedGeneration": "prov:qualifiedGeneration",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "timeStep": "nsg:timeStep",
+                        "unitCode": "schema:unitCode",
+                        "unitText": "schema:unitText",
+                        "value": "schema:value",
+                        "wasGeneratedBy": "prov:wasGeneratedBy"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Trace"
+                ],
+                "channel": 0,
+                "dataUnit": "mV",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/990111_HP2/990111_HP2_Ephysdata/99111008_metadata_updated.JSON"
+                },
+                "name": "Response to step current stimulus recorded in 990111HP2",
+                "partOf": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17",
+                    "@type": [
+                        "minds:Dataset"
+                    ]
+                },
+                "qualifiedGeneration": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/80c11c6f-7775-4009-a07f-939284e3f189",
+                    "@type": [
+                        "prov:Generation",
+                        "nsg:TraceGeneration"
+                    ]
+                },
+                "timeStep": {
+                    "unitText": "ms",
+                    "value": 0.1
+                },
+                "wasGeneratedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "nxv:rev": 4,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1443cac6-5b7a-4a6b-9d14-4289c911a79d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "channel": "nsg:channel",
+                        "dataUnit": "nsg:dataUnit",
+                        "description": "schema:description",
+                        "distribution": {
+                            "@id": "schema:distribution",
+                            "@type": "@id"
+                        },
+                        "downloadURL": {
+                            "@id": "schema:downloadURL",
+                            "@type": "@id"
+                        },
+                        "mediaType": {
+                            "@id": "schema:mediaType"
+                        },
+                        "minds": "https://schema.hbp.eu/",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "partOf": "nsg:partOf",
+                        "projectName": "nsg:projectName",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "providerId": "nsg:providerId",
+                        "qualifiedGeneration": "prov:qualifiedGeneration",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "timeStep": "nsg:timeStep",
+                        "unitCode": "schema:unitCode",
+                        "unitText": "schema:unitText",
+                        "value": "schema:value",
+                        "wasGeneratedBy": "prov:wasGeneratedBy"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Trace"
+                ],
+                "channel": 0,
+                "dataUnit": "mV",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/980513B/980513B_EphysData/98513010_metadata_updated.JSON"
+                },
+                "name": "Response to step current stimulus recorded in 980513B",
+                "partOf": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17",
+                    "@type": [
+                        "minds:Dataset"
+                    ]
+                },
+                "qualifiedGeneration": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/421a8718-d05d-421a-8a4b-2ad007d4276e",
+                    "@type": [
+                        "prov:Generation",
+                        "nsg:TraceGeneration"
+                    ]
+                },
+                "timeStep": {
+                    "unitText": "ms",
+                    "value": 0.1
+                },
+                "wasGeneratedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/175708bf-6c41-40b4-9a73-8bfc8cdd435f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "channel": "nsg:channel",
+                        "dataUnit": "nsg:dataUnit",
+                        "description": "schema:description",
+                        "distribution": {
+                            "@id": "schema:distribution",
+                            "@type": "@id"
+                        },
+                        "downloadURL": {
+                            "@id": "schema:downloadURL",
+                            "@type": "@id"
+                        },
+                        "mediaType": {
+                            "@id": "schema:mediaType"
+                        },
+                        "minds": "https://schema.hbp.eu/",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "partOf": "nsg:partOf",
+                        "projectName": "nsg:projectName",
+                        "prov": "http://www.w3.org/ns/prov#",
+                        "providerId": "nsg:providerId",
+                        "qualifiedGeneration": "prov:qualifiedGeneration",
+                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                        "schema": "http://schema.org/",
+                        "timeStep": "nsg:timeStep",
+                        "unitCode": "schema:unitCode",
+                        "unitText": "schema:unitText",
+                        "value": "schema:value",
+                        "wasGeneratedBy": "prov:wasGeneratedBy"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Trace"
+                ],
+                "channel": 0,
+                "dataUnit": "mV",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "swift:///Users/andrew/Data/NAR/UCL/UCL_Mercer_CA1/980120A/980120A_EphysData/98120001_metadata_updated.JSON"
+                },
+                "name": "Response to step current stimulus recorded in 980120A",
+                "partOf": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/445c35b9-53bf-42ef-a03c-36fa6682fe17",
+                    "@type": [
+                        "minds:Dataset"
+                    ]
+                },
+                "qualifiedGeneration": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/60fead54-6742-4d20-8fbe-73c161b3a65a",
+                    "@type": [
+                        "prov:Generation",
+                        "nsg:TraceGeneration"
+                    ]
+                },
+                "timeStep": {
+                    "unitText": "ms",
+                    "value": 0.1
+                },
+                "wasGeneratedBy": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f",
+                    "@type": [
+                        "nsg:StimulusExperiment",
+                        "prov:Activity"
+                    ]
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/1f92c91e-6d3e-4f5b-9211-cb09dc03ba7b"
                 }
             }
         },
@@ -443,7 +695,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar029/hbp-00013/APD13/Sub1/Samp1/hbp-00013_APD13_Sub1_Samp1__expC1.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00013_Sub1_Samp1__ExpC1",
@@ -524,7 +776,7 @@
                 "channel": 0,
                 "dataUnit": "mV",
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar028/hbp-00014/APD14/Sub2/Samp2/hbp-00014_APD14_Sub2_Samp2__expB5.txt",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "text/tab-separated-values"
                 },
                 "name": "sIPSCs recorded in hbp00014_Sub2_Samp2__ExpB5",
@@ -562,241 +814,10 @@
                     "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3a3f92a6-d7de-445a-901e-72456758e7b2"
                 }
             }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3d807780-3776-47fa-a31d-a4149d1d8450",
-            "source": {
-                "@context": {
-                    "channel": "nsg:channel",
-                    "dataUnit": "nsg:dataUnit",
-                    "description": "schema:description",
-                    "distribution": {
-                        "@id": "schema:distribution",
-                        "@type": "@id"
-                    },
-                    "downloadURL": {
-                        "@id": "schema:downloadURL",
-                        "@type": "@id"
-                    },
-                    "mediaType": {
-                        "@id": "schema:mediaType"
-                    },
-                    "minds": "http://hbp.eu/minds#",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "partOf": "nsg:partOf",
-                    "projectName": "nsg:projectName",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "providerId": "nsg:providerId",
-                    "qualifiedGeneration": "prov:qualifiedGeneration",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/",
-                    "timeStep": "nsg:timeStep",
-                    "unitCode": "schema:unitCode",
-                    "unitText": "schema:unitText",
-                    "value": "schema:value",
-                    "wasGeneratedBy": "prov:wasGeneratedBy"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3d807780-3776-47fa-a31d-a4149d1d8450",
-                "@type": [
-                    "prov:Entity",
-                    "nsg:Trace"
-                ],
-                "channel": 0,
-                "dataUnit": "mV",
-                "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar028/hbp-00014/APD14/Sub1/Samp2/hbp-00014_APD14_Sub1_Samp2__expB2.txt",
-                    "mediaType": "text/tab-separated-values"
-                },
-                "name": "sIPSCs recorded in hbp00014_Sub1_Samp2__ExpB2",
-                "partOf": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/48934c56-32d1-4e4f-ae9b-c38c3225d6c4",
-                    "@type": [
-                        "hbp:Dataset"
-                    ]
-                },
-                "qualifiedGeneration": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/490ac96e-d7a0-49ce-aff9-1b049bf406f8",
-                    "@type": [
-                        "prov:Generation",
-                        "nsg:TraceGeneration"
-                    ]
-                },
-                "timeStep": {
-                    "unitText": "ms",
-                    "value": 0.05
-                },
-                "wasGeneratedBy": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d5a2fbe-504d-4d88-838a-eca83b9627a1",
-                    "@type": [
-                        "nsg:StimulusExperiment",
-                        "prov:Activity"
-                    ]
-                },
-                "nxv:rev": 2,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3d807780-3776-47fa-a31d-a4149d1d8450/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3d807780-3776-47fa-a31d-a4149d1d8450/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/3d807780-3776-47fa-a31d-a4149d1d8450"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/402a8104-d868-4ee2-ab8f-002e17533903",
-            "source": {
-                "@context": {
-                    "channel": "nsg:channel",
-                    "dataUnit": "nsg:dataUnit",
-                    "description": "schema:description",
-                    "distribution": {
-                        "@id": "schema:distribution",
-                        "@type": "@id"
-                    },
-                    "downloadURL": {
-                        "@id": "schema:downloadURL",
-                        "@type": "@id"
-                    },
-                    "mediaType": {
-                        "@id": "schema:mediaType"
-                    },
-                    "minds": "http://hbp.eu/minds#",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "partOf": "nsg:partOf",
-                    "projectName": "nsg:projectName",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "providerId": "nsg:providerId",
-                    "qualifiedGeneration": "prov:qualifiedGeneration",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/",
-                    "timeStep": "nsg:timeStep",
-                    "unitCode": "schema:unitCode",
-                    "unitText": "schema:unitText",
-                    "value": "schema:value",
-                    "wasGeneratedBy": "prov:wasGeneratedBy"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/402a8104-d868-4ee2-ab8f-002e17533903",
-                "@type": [
-                    "prov:Entity",
-                    "nsg:Trace"
-                ],
-                "channel": 0,
-                "dataUnit": "mV",
-                "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T.1.1.6_nar032/hbp-00015/sIPSCs/Sub2/Samp1/hbp-00015_sIPSCs_Sub2_Samp1__expA2.txt",
-                    "mediaType": "text/tab-separated-values"
-                },
-                "name": "sIPSCs recorded in hbp00015_Sub2_Samp1__ExpA2",
-                "qualifiedGeneration": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/76f2863a-9dc5-41fd-94f9-b797083058e5",
-                    "@type": [
-                        "prov:Generation",
-                        "nsg:TraceGeneration"
-                    ]
-                },
-                "timeStep": {
-                    "unitText": "ms",
-                    "value": 0.05
-                },
-                "wasGeneratedBy": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/726fc5b5-8177-4887-99a5-5d71384e0777",
-                    "@type": [
-                        "nsg:StimulusExperiment",
-                        "prov:Activity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/402a8104-d868-4ee2-ab8f-002e17533903/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/402a8104-d868-4ee2-ab8f-002e17533903/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/402a8104-d868-4ee2-ab8f-002e17533903"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/485b466b-cfc9-4094-a353-80d6a27439c1",
-            "source": {
-                "@context": {
-                    "channel": "nsg:channel",
-                    "dataUnit": "nsg:dataUnit",
-                    "description": "schema:description",
-                    "distribution": {
-                        "@id": "schema:distribution",
-                        "@type": "@id"
-                    },
-                    "downloadURL": {
-                        "@id": "schema:downloadURL",
-                        "@type": "@id"
-                    },
-                    "mediaType": {
-                        "@id": "schema:mediaType"
-                    },
-                    "minds": "http://hbp.eu/minds#",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "partOf": "nsg:partOf",
-                    "projectName": "nsg:projectName",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "providerId": "nsg:providerId",
-                    "qualifiedGeneration": "prov:qualifiedGeneration",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/",
-                    "timeStep": "nsg:timeStep",
-                    "unitCode": "schema:unitCode",
-                    "unitText": "schema:unitText",
-                    "value": "schema:value",
-                    "wasGeneratedBy": "prov:wasGeneratedBy"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/485b466b-cfc9-4094-a353-80d6a27439c1",
-                "@type": [
-                    "prov:Entity",
-                    "nsg:Trace"
-                ],
-                "channel": 0,
-                "dataUnit": "mV",
-                "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T.1.1.6_nar032/hbp-00015/sIPSCs/Sub3/Samp1/hbp-00015_sIPSCs_Sub3_Samp1__expA3.txt",
-                    "mediaType": "text/tab-separated-values"
-                },
-                "name": "sIPSCs recorded in hbp00015_Sub3_Samp1__ExpA3",
-                "qualifiedGeneration": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/71913824-cc96-4192-b5e6-ad2504fb1a5b",
-                    "@type": [
-                        "prov:Generation",
-                        "nsg:TraceGeneration"
-                    ]
-                },
-                "timeStep": {
-                    "unitText": "ms",
-                    "value": 0.05
-                },
-                "wasGeneratedBy": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/ae6ee650-e08e-4a4e-851e-4c641170d4e3",
-                    "@type": [
-                        "nsg:StimulusExperiment",
-                        "prov:Activity"
-                    ]
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/485b466b-cfc9-4094-a353-80d6a27439c1/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/485b466b-cfc9-4094-a353-80d6a27439c1/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/trace/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/485b466b-cfc9-4094-a353-80d6a27439c1"
-                }
-            }
         }
     ],
     "links": {
         "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/?from=0&size=10&deprecated=False&fields=all&deprecated=False&&&"
+        "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/trace/v0.1.0/?fields=all&size=10&deprecated=False"
     }
 }

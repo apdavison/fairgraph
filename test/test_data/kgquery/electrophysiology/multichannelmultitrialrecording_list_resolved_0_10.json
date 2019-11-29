@@ -175,7 +175,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub1epsp",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -297,7 +297,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub2epsp",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -418,7 +418,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2018-03-31",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/EPSP/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -491,7 +491,19 @@
                     ],
                     "name": "Recording in sub1epsp.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b08d9dd-a750-44fc-8f0f-f254ddc15068"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b08d9dd-a750-44fc-8f0f-f254ddc15068",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub1epsp.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/9fa64ab6-2b33-428a-bdb8-612c5b8c30fa",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -511,7 +523,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub1epsp/samp1/hbp-00810_EPSP_sub1epsp_samp1__11giu057-EPSP.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -582,14 +594,7 @@
                         58.0,
                         59.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in sub1epsp.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -634,9 +639,28 @@
                             ],
                             "name": "Recording in sub1epsp.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b08d9dd-a750-44fc-8f0f-f254ddc15068"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b08d9dd-a750-44fc-8f0f-f254ddc15068",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "sub1epsp.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/9fa64ab6-2b33-428a-bdb8-612c5b8c30fa",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in sub1epsp.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/187e48a8-7571-450e-a337-ffc4bdc275b7",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -815,7 +839,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub1epsp",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -937,7 +961,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub2epsp",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -1058,7 +1082,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2018-03-31",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/EPSP/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -1131,7 +1155,19 @@
                     ],
                     "name": "Recording in sub2epsp.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/8722d85f-7d91-45b3-82ac-1cd166141333"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/8722d85f-7d91-45b3-82ac-1cd166141333",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub2epsp.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -1148,7 +1184,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub2epsp/samp1/hbp-00810_EPSP_sub2epsp_samp1__D4609045-EPSP.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",
@@ -1206,14 +1242,7 @@
                         48.0,
                         49.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in sub2epsp.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/b35fbdd3-cdd0-498a-bc0a-25b305aea1d9",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -1258,9 +1287,28 @@
                             ],
                             "name": "Recording in sub2epsp.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/8722d85f-7d91-45b3-82ac-1cd166141333"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/8722d85f-7d91-45b3-82ac-1cd166141333",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "sub2epsp.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in sub2epsp.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/b35fbdd3-cdd0-498a-bc0a-25b305aea1d9",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -1436,7 +1484,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -1517,7 +1565,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -1651,7 +1699,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -1732,7 +1780,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -1828,7 +1876,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/GapFree/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -1899,7 +1947,19 @@
                     ],
                     "name": "Spontaneous firing in GF1.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2d6af64c-d4a3-417b-8c80-19662480d6bc"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2d6af64c-d4a3-417b-8c80-19662480d6bc",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF1.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -1919,7 +1979,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF1/samp1/hbp-00810_GapFree_GF1_samp1__2505000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -1929,14 +1989,7 @@
             "qualifiedGeneration": [
                 {
                     "sweep": 0.0,
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for spontaneous firing recorded in GF1.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/4680fb87-ff76-40c1-ae95-a39befefe02e",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -1991,9 +2044,28 @@
                             ],
                             "name": "Spontaneous firing in GF1.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2d6af64c-d4a3-417b-8c80-19662480d6bc"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2d6af64c-d4a3-417b-8c80-19662480d6bc",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "GF1.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for spontaneous firing recorded in GF1.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/4680fb87-ff76-40c1-ae95-a39befefe02e",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -2169,7 +2241,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -2250,7 +2322,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -2384,7 +2456,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -2465,7 +2537,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -2561,7 +2633,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/GapFree/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -2632,7 +2704,19 @@
                     ],
                     "name": "Spontaneous firing in GF1.samp2",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF1.samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/4b66204c-1652-4344-80af-b44eab6005f3",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -2652,7 +2736,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF1/samp2/hbp-00810_GapFree_GF1_samp2__2505001.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -2662,14 +2746,7 @@
             "qualifiedGeneration": [
                 {
                     "sweep": 0.0,
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for spontaneous firing recorded in GF1.samp2",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/c1e4c9b6-4d9f-4d61-a84c-c16f27c56dfb",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -2724,9 +2801,28 @@
                             ],
                             "name": "Spontaneous firing in GF1.samp2",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0af580a5-98dc-427d-956c-646f42e30d22",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "GF1.samp2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/4b66204c-1652-4344-80af-b44eab6005f3",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for spontaneous firing recorded in GF1.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/c1e4c9b6-4d9f-4d61-a84c-c16f27c56dfb",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -2902,7 +2998,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -2983,7 +3079,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3117,7 +3213,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3198,7 +3294,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3294,7 +3390,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/GapFree/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -3365,7 +3461,19 @@
                     ],
                     "name": "Spontaneous firing in GF2.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b5d38dd2-2908-4058-9a2b-fe1b9f2c4971"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b5d38dd2-2908-4058-9a2b-fe1b9f2c4971",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF2.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -3385,7 +3493,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF2/samp1/hbp-00810_GapFree_GF2_samp1__2605001.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -3395,14 +3503,7 @@
             "qualifiedGeneration": [
                 {
                     "sweep": 0.0,
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for spontaneous firing recorded in GF2.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/7d268d49-1ade-4df6-bbb7-8875e551ec62",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -3457,9 +3558,28 @@
                             ],
                             "name": "Spontaneous firing in GF2.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b5d38dd2-2908-4058-9a2b-fe1b9f2c4971"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b5d38dd2-2908-4058-9a2b-fe1b9f2c4971",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "GF2.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for spontaneous firing recorded in GF2.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/7d268d49-1ade-4df6-bbb7-8875e551ec62",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -3635,7 +3755,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3716,7 +3836,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF1/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3850,7 +3970,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -3931,7 +4051,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree/GF2/samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4027,7 +4147,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/GapFree/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "76b71ee20f84dd3271b351c22fcc1fe9",
@@ -4098,7 +4218,19 @@
                     ],
                     "name": "Spontaneous firing in GF2.samp2",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF2.samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/c2e7975d-1264-43fe-9e78-f2ef0d7c502a",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -4118,7 +4250,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF2/samp2/hbp-00810_GapFree_GF2_samp1__2605004.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -4128,14 +4260,7 @@
             "qualifiedGeneration": [
                 {
                     "sweep": 0.0,
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for spontaneous firing recorded in GF2.samp2",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/3ffc34dc-52e5-418e-b4db-46ae18ddf04e",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -4190,9 +4315,28 @@
                             ],
                             "name": "Spontaneous firing in GF2.samp2",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0b65d76e-61d6-433a-b158-a29463da970e",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "GF2.samp2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/c2e7975d-1264-43fe-9e78-f2ef0d7c502a",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for spontaneous firing recorded in GF2.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/3ffc34dc-52e5-418e-b4db-46ae18ddf04e",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -4353,7 +4497,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4463,7 +4607,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4591,7 +4735,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4719,7 +4863,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4847,7 +4991,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV7g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -4975,7 +5119,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV8g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -5099,7 +5243,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/IV/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "7a9c823a2988f36f570e6cacf5be8909",
@@ -5184,7 +5328,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV1m.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV1m.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/d49df5e7-3a1d-4df9-b48a-3e413948038f",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -5204,7 +5360,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1/hbp-00810_IV_IV1m_samp1__B4608015.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -5225,14 +5381,7 @@
                         8.0,
                         9.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in IV1m.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fd4f6bcd-336f-4e61-b3c9-cbd07bb40cc1",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -5287,9 +5436,28 @@
                             ],
                             "name": "Voltage-clamp recording in IV1m.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "IV1m.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/d49df5e7-3a1d-4df9-b48a-3e413948038f",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in IV1m.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fd4f6bcd-336f-4e61-b3c9-cbd07bb40cc1",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -5450,7 +5618,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -5560,7 +5728,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -5688,7 +5856,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -5816,7 +5984,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -5944,7 +6112,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV7g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -6072,7 +6240,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV8g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -6196,7 +6364,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/IV/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "7a9c823a2988f36f570e6cacf5be8909",
@@ -6281,7 +6449,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV2r.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV2r.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5d57ceda-d18e-433c-92ce-0235e743da75",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -6302,7 +6482,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1/hbp-00810_IV_IV2r_samp1__280916-0003.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -6324,14 +6504,7 @@
                         8.0,
                         9.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in IV2r.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/c23a3a83-0ac8-4468-8041-3396090f339a",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -6386,9 +6559,28 @@
                             ],
                             "name": "Voltage-clamp recording in IV2r.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "IV2r.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5d57ceda-d18e-433c-92ce-0235e743da75",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in IV2r.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/c23a3a83-0ac8-4468-8041-3396090f339a",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -6549,7 +6741,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -6659,7 +6851,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -6787,7 +6979,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -6915,7 +7107,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -7043,7 +7235,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV7g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -7171,7 +7363,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV8g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -7295,7 +7487,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/IV/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "7a9c823a2988f36f570e6cacf5be8909",
@@ -7380,7 +7572,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV5g.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV5g.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/99588b84-eebe-4dc0-a847-12dcd4606379",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -7400,7 +7604,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1/hbp-00810_IV_IV5g_samp1__0703000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -7419,14 +7623,7 @@
                         6.0,
                         7.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in IV5g.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/621adb37-fb9d-45bc-b625-8552834709fe",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -7481,9 +7678,28 @@
                             ],
                             "name": "Voltage-clamp recording in IV5g.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "IV5g.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/99588b84-eebe-4dc0-a847-12dcd4606379",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in IV5g.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/621adb37-fb9d-45bc-b625-8552834709fe",
+                    "targetHoldingPotential": null
                 }
             ]
         },
@@ -7644,7 +7860,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -7754,7 +7970,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -7882,7 +8098,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -8010,7 +8226,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -8138,7 +8354,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV7g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -8266,7 +8482,7 @@
                                             "Sample__https://schema.hbp.eu/minds/parcellationAtlas": [],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV8g/samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -8390,7 +8606,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2017-09-30",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4?prefix=hbp-00810/IV/",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "7a9c823a2988f36f570e6cacf5be8909",
@@ -8475,7 +8691,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV6g.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV6g.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6a7c7b9b-7ba6-4f12-950d-be25ffa6f247",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "timeStep": {
@@ -8495,7 +8723,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1/hbp-00810_IV_IV6g_samp1__1002000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -8514,14 +8742,7 @@
                         6.0,
                         7.0
                     ],
-                    "@type": [
-                        "http://www.w3.org/ns/prov#Generation",
-                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
-                    ],
-                    "name": "Metadata for EPSPs recorded in IV6g.samp1",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/ad6ab38e-d52d-46dd-a67e-c440917a89e4",
-                    "targetHoldingPotential": null,
-                    "QualifiedTraceGeneration__activity": [
+                    "QualifiedMultiTraceGeneration__activity": [
                         {
                             "IntraCellularSharpElectrodeExperiment__nsg:stimulusType": [],
                             "PatchClampExperiment__prov:used": [
@@ -8576,9 +8797,28 @@
                             ],
                             "name": "Voltage-clamp recording in IV6g.samp1",
                             "PatchClampExperiment__nsg:stimulusType": [],
-                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6"
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6",
+                            "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                            "ExtracellularElectrodeExperiment__prov:used": [
+                                {
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "name": "IV6g.samp1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6a7c7b9b-7ba6-4f12-950d-be25ffa6f247",
+                                    "ImplantedBrainTissue__wasDerivedFrom": []
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Generation",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MultiTraceGeneration"
+                    ],
+                    "name": "Metadata for EPSPs recorded in IV6g.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/multitracegeneration/v0.1.0/ad6ab38e-d52d-46dd-a67e-c440917a89e4",
+                    "targetHoldingPotential": null
                 }
             ]
         }

@@ -2,50 +2,51 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/emodelscript/v0.1.0"
     },
-    "http://schema.org/identifier": "modelvalidation/simulation/emodelscript/v0.1.0/fg",
+    "http://schema.org/identifier": "modelvalidation/simulation/emodelscript/v0.1.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "code_format",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/code_format",
             "filter": {
                 "op": "contains",
                 "parameter": "code_format"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/code_format"
         },
         {
             "fieldname": "license",
-            "relative_path": "http://schema.org/license",
             "filter": {
                 "op": "contains",
                 "parameter": "license"
-            }
+            },
+            "relative_path": "http://schema.org/license"
         },
         {
             "fieldname": "distribution",
-            "relative_path": "http://schema.org/distribution",
             "filter": {
                 "op": "contains",
                 "parameter": "distribution"
-            }
+            },
+            "relative_path": "http://schema.org/distribution"
         }
     ],
     "@context": {

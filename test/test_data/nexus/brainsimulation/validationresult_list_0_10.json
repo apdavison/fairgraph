@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 1695,
+    "total": 1879,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationresult/v0.1.0/005c0ff2-9121-4af8-99cc-b28cd76bb784",

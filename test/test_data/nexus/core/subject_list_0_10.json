@@ -1,7 +1,66 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 38,
+    "total": 40,
     "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/01894620-d014-449f-abab-1ca487580e4f",
+            "source": {
+                "@context": {
+                    "age": "nsg:age",
+                    "deathDate": "schema:deathDate",
+                    "label": "rdfs:label",
+                    "maxValue": "schema:maxValue",
+                    "minValue": "schema:minValue",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "period": "nsg:period",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "providerId": "nsg:providerId",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "sex": "nsg:sex",
+                    "species": "nsg:species",
+                    "strain": "nsg:strain",
+                    "unitCode": "schema:unitCode",
+                    "value": "schema:value"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/01894620-d014-449f-abab-1ca487580e4f",
+                "@type": [
+                    "nsg:Subject",
+                    "prov:Entity"
+                ],
+                "age": {
+                    "period": "Post-natal",
+                    "value": {
+                        "@type": "nsg:QuantitativeValue",
+                        "label": "months",
+                        "maxValue": 79,
+                        "minValue": 63,
+                        "unitCode": {
+                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                        }
+                    }
+                },
+                "name": "N",
+                "sex": {
+                    "@id": "schema:Male",
+                    "label": "male"
+                },
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9544",
+                    "label": "Macaca mulatta"
+                },
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/01894620-d014-449f-abab-1ca487580e4f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/01894620-d014-449f-abab-1ca487580e4f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/subject/v0.1.2",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/01894620-d014-449f-abab-1ca487580e4f"
+                }
+            }
+        },
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/064f0b3f-5166-4ce9-856f-c7a5f6c0f188",
             "source": {
@@ -542,69 +601,6 @@
                     "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/34bc8475-11ec-4eb9-8a4c-9f47ad4c9181/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/subject/v0.1.2",
                     "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/34bc8475-11ec-4eb9-8a4c-9f47ad4c9181"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3cff5b9e-5666-4adb-b295-a34c587353b9",
-            "source": {
-                "@context": {
-                    "age": "nsg:age",
-                    "deathDate": "schema:deathDate",
-                    "label": "rdfs:label",
-                    "maxValue": "schema:maxValue",
-                    "minValue": "schema:minValue",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "period": "nsg:period",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "providerId": "nsg:providerId",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/",
-                    "sex": "nsg:sex",
-                    "species": "nsg:species",
-                    "strain": "nsg:strain",
-                    "unitCode": "schema:unitCode",
-                    "value": "schema:value"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3cff5b9e-5666-4adb-b295-a34c587353b9",
-                "@type": [
-                    "nsg:Subject",
-                    "prov:Entity"
-                ],
-                "age": {
-                    "period": "Post-natal",
-                    "value": {
-                        "@type": "nsg:QuantitativeValue",
-                        "label": "weeks",
-                        "unitCode": {
-                            "@id": "http://purl.obolibrary.org/obo/UO_0000034"
-                        },
-                        "value": 7
-                    }
-                },
-                "deathDate": "1999-01-11T00:00:00",
-                "name": "thomson_ucl_990111",
-                "sex": {
-                    "@id": "schema:Male",
-                    "label": "male"
-                },
-                "species": {
-                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
-                    "label": "Rattus norvegicus"
-                },
-                "strain": {
-                    "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
-                    "label": "Sprague-Dawley"
-                },
-                "nxv:rev": 1,
-                "nxv:deprecated": false,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3cff5b9e-5666-4adb-b295-a34c587353b9/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3cff5b9e-5666-4adb-b295-a34c587353b9/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/core/subject/v0.1.2",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3cff5b9e-5666-4adb-b295-a34c587353b9"
                 }
             }
         }

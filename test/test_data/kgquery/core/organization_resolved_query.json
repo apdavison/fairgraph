@@ -5,35 +5,39 @@
     "http://schema.org/identifier": "neuralactivity/core/organization/v0.1.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "address",
-            "relative_path": "http://schema.org/address",
             "filter": {
                 "op": "contains",
                 "parameter": "address"
-            }
+            },
+            "relative_path": "http://schema.org/address"
         },
         {
             "fieldname": "parentOrganization",
-            "relative_path": "http://schema.org/parentOrganization",
+            "filter": {
+                "op": "contains",
+                "parameter": "parent"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -42,10 +46,7 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "parent"
-            }
+            "relative_path": "http://schema.org/parentOrganization"
         }
     ],
     "@context": {

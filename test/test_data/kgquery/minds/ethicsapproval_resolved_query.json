@@ -5,35 +5,38 @@
     "http://schema.org/identifier": "minds/ethics/approval/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/generatedBy",
-            "relative_path": "https://schema.hbp.eu/minds/generatedBy",
+            "filter": {
+                "op": "contains",
+                "parameter": "generated_by"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -51,10 +54,7 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "generated_by"
-            }
+            "relative_path": "https://schema.hbp.eu/minds/generatedBy"
         }
     ],
     "@context": {

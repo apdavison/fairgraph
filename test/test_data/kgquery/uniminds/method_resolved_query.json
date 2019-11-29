@@ -5,18 +5,21 @@
     "http://schema.org/identifier": "uniminds/core/method/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/inference/alternatives",
-            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -26,47 +29,47 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "alternatives"
-            }
+            "relative_path": "https://schema.hbp.eu/inference/alternatives"
         },
         {
             "fieldname": "http://schema.org/description",
-            "relative_path": "http://schema.org/description",
             "filter": {
                 "op": "contains",
                 "parameter": "description"
-            }
+            },
+            "relative_path": "http://schema.org/description"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/fullName",
-            "relative_path": "https://schema.hbp.eu/uniminds/fullName",
             "filter": {
                 "op": "contains",
                 "parameter": "fullname"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/fullName"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/brainStructure",
-            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_structure"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -77,7 +80,6 @@
                 },
                 {
                     "fieldname": "BrainStructure__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -86,7 +88,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -97,14 +100,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "brain_structure"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/ethicsApproval",
-            "relative_path": "https://schema.hbp.eu/uniminds/ethicsApproval",
+            "filter": {
+                "op": "contains",
+                "parameter": "ethics_approval"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -114,7 +117,6 @@
                 },
                 {
                     "fieldname": "EthicsApproval__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -123,7 +125,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "https://schema.hbp.eu/uniminds/hbpEthicsApproval",
@@ -139,7 +142,6 @@
                 },
                 {
                     "fieldname": "EthicsApproval__https://schema.hbp.eu/uniminds/countryOfOrigin",
-                    "relative_path": "https://schema.hbp.eu/uniminds/countryOfOrigin",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -149,7 +151,6 @@
                         },
                         {
                             "fieldname": "Country__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -158,7 +159,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -168,11 +170,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/countryOfOrigin"
                 },
                 {
                     "fieldname": "EthicsApproval__https://schema.hbp.eu/uniminds/ethicsAuthority",
-                    "relative_path": "https://schema.hbp.eu/uniminds/ethicsAuthority",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -183,7 +185,6 @@
                         },
                         {
                             "fieldname": "EthicsAuthority__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -192,7 +193,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -202,17 +204,18 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/ethicsAuthority"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "ethics_approval"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/ethicsApproval"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/experimentalPreparation",
-            "relative_path": "https://schema.hbp.eu/uniminds/experimentalPreparation",
+            "filter": {
+                "op": "contains",
+                "parameter": "experimental_preparation"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -222,7 +225,6 @@
                 },
                 {
                     "fieldname": "ExperimentalPreparation__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -231,7 +233,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -242,14 +245,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "experimental_preparation"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/experimentalPreparation"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/methodCategory",
-            "relative_path": "https://schema.hbp.eu/uniminds/methodCategory",
+            "filter": {
+                "op": "contains",
+                "parameter": "method_category"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -259,7 +262,6 @@
                 },
                 {
                     "fieldname": "MethodCategory__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -268,7 +270,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -279,14 +282,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "method_category"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/methodCategory"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/publication",
-            "relative_path": "https://schema.hbp.eu/uniminds/publication",
+            "filter": {
+                "op": "contains",
+                "parameter": "publication"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -296,7 +299,6 @@
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -305,7 +307,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -321,7 +324,6 @@
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/uniminds/brainStructure",
-                    "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -331,7 +333,6 @@
                         },
                         {
                             "fieldname": "BrainStructure__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -340,7 +341,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -350,11 +352,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/brainStructure"
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/uniminds/project",
-                    "relative_path": "https://schema.hbp.eu/uniminds/project",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -364,7 +366,6 @@
                         },
                         {
                             "fieldname": "Project__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -373,7 +374,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/description",
@@ -389,7 +391,6 @@
                         },
                         {
                             "fieldname": "Project__https://schema.hbp.eu/uniminds/coordinator",
-                            "relative_path": "https://schema.hbp.eu/uniminds/coordinator",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -400,7 +401,6 @@
                                 },
                                 {
                                     "fieldname": "Person__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -409,7 +409,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/email",
@@ -435,13 +436,14 @@
                                     "fieldname": "https://schema.hbp.eu/uniminds/orcid",
                                     "relative_path": "https://schema.hbp.eu/uniminds/orcid"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/coordinator"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/project"
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/uniminds/publicationId",
-                    "relative_path": "https://schema.hbp.eu/uniminds/publicationId",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -451,7 +453,6 @@
                         },
                         {
                             "fieldname": "PublicationId__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -460,7 +461,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -472,7 +474,6 @@
                         },
                         {
                             "fieldname": "PublicationId__https://schema.hbp.eu/uniminds/publication",
-                            "relative_path": "https://schema.hbp.eu/uniminds/publication",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -480,11 +481,11 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/publication"
                         },
                         {
                             "fieldname": "PublicationId__https://schema.hbp.eu/uniminds/publicationIdType",
-                            "relative_path": "https://schema.hbp.eu/uniminds/publicationIdType",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -494,7 +495,6 @@
                                 },
                                 {
                                     "fieldname": "PublicationIdType__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -503,7 +503,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -513,13 +514,14 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/publicationIdType"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/publicationId"
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/uniminds/studyTarget",
-                    "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -529,7 +531,6 @@
                         },
                         {
                             "fieldname": "StudyTarget__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -538,7 +539,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "https://schema.hbp.eu/uniminds/fullName",
@@ -554,7 +556,6 @@
                         },
                         {
                             "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetSource",
-                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -564,7 +565,6 @@
                                 },
                                 {
                                     "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -573,7 +573,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -583,11 +584,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource"
                         },
                         {
                             "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetType",
-                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -597,7 +598,6 @@
                                 },
                                 {
                                     "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -606,7 +606,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -616,13 +617,14 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/studyTarget"
                 },
                 {
                     "fieldname": "Publication__https://schema.hbp.eu/uniminds/subjectGroup",
-                    "relative_path": "https://schema.hbp.eu/uniminds/subjectGroup",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -640,7 +642,6 @@
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -649,7 +650,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/description",
@@ -669,7 +671,6 @@
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/ageCategory",
-                            "relative_path": "https://schema.hbp.eu/uniminds/ageCategory",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -679,7 +680,6 @@
                                 },
                                 {
                                     "fieldname": "AgeCategory__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -688,7 +688,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -698,11 +699,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/ageCategory"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/cellularTarget",
-                            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -712,7 +713,6 @@
                                 },
                                 {
                                     "fieldname": "CellularTarget__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -721,7 +721,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -731,11 +732,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/brainStructure",
-                            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -745,7 +746,6 @@
                                 },
                                 {
                                     "fieldname": "BrainStructure__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -754,7 +754,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -764,11 +765,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/disability",
-                            "relative_path": "https://schema.hbp.eu/uniminds/disability",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -778,7 +779,6 @@
                                 },
                                 {
                                     "fieldname": "Disability__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -787,7 +787,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -797,11 +798,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/disability"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/genotype",
-                            "relative_path": "https://schema.hbp.eu/uniminds/genotype",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -811,7 +812,6 @@
                                 },
                                 {
                                     "fieldname": "Genotype__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -820,7 +820,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -830,11 +831,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/genotype"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/handedness",
-                            "relative_path": "https://schema.hbp.eu/uniminds/handedness",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -845,7 +846,6 @@
                                 },
                                 {
                                     "fieldname": "Handedness__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -854,7 +854,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -864,11 +865,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/handedness"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/publication",
-                            "relative_path": "https://schema.hbp.eu/uniminds/publication",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -876,11 +877,11 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/publication"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/sex",
-                            "relative_path": "https://schema.hbp.eu/uniminds/sex",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -891,7 +892,6 @@
                                 },
                                 {
                                     "fieldname": "Sex__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -900,7 +900,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -910,11 +911,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/sex"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/species",
-                            "relative_path": "https://schema.hbp.eu/uniminds/species",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -925,7 +926,6 @@
                                 },
                                 {
                                     "fieldname": "Species__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -934,7 +934,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -944,11 +945,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/species"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/strain",
-                            "relative_path": "https://schema.hbp.eu/uniminds/strain",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -959,7 +960,6 @@
                                 },
                                 {
                                     "fieldname": "Strain__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -968,7 +968,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -978,11 +979,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/strain"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/studyTarget",
-                            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -993,7 +994,6 @@
                                 },
                                 {
                                     "fieldname": "StudyTarget__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -1002,7 +1002,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "https://schema.hbp.eu/uniminds/fullName",
@@ -1018,7 +1019,6 @@
                                 },
                                 {
                                     "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetSource",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1028,7 +1028,6 @@
                                         },
                                         {
                                             "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1037,7 +1036,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1047,11 +1047,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource"
                                 },
                                 {
                                     "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetType",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1061,7 +1061,6 @@
                                         },
                                         {
                                             "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1070,7 +1069,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1080,13 +1080,14 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget"
                         },
                         {
                             "fieldname": "SubjectGroup__https://schema.hbp.eu/uniminds/subjects",
-                            "relative_path": "https://schema.hbp.eu/uniminds/subjects",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -1109,7 +1110,6 @@
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/inference/alternatives",
-                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -1118,7 +1118,8 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                 },
                                 {
                                     "fieldname": "http://schema.org/identifier",
@@ -1130,7 +1131,6 @@
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/ageCategory",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/ageCategory",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1140,7 +1140,6 @@
                                         },
                                         {
                                             "fieldname": "AgeCategory__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1149,7 +1148,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1159,11 +1159,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/ageCategory"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/brainstructure",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/brainstructure",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1173,7 +1173,6 @@
                                         },
                                         {
                                             "fieldname": "BrainStructure__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1182,7 +1181,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1192,11 +1192,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/brainstructure"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/cellularTarget",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1206,7 +1206,6 @@
                                         },
                                         {
                                             "fieldname": "CellularTarget__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1215,7 +1214,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1225,11 +1225,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/disability",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/disability",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1239,7 +1239,6 @@
                                         },
                                         {
                                             "fieldname": "Disability__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1248,7 +1247,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1258,11 +1258,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/disability"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/genotype",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/genotype",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1272,7 +1272,6 @@
                                         },
                                         {
                                             "fieldname": "Genotype__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1281,7 +1280,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1291,11 +1291,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/genotype"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/handedness",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/handedness",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1305,7 +1305,6 @@
                                         },
                                         {
                                             "fieldname": "Handedness__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1314,7 +1313,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1324,11 +1324,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/handedness"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/publication",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/publication",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1336,11 +1336,11 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/publication"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/sex",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/sex",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1350,7 +1350,6 @@
                                         },
                                         {
                                             "fieldname": "Sex__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1359,7 +1358,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1369,11 +1369,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/sex"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/species",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/species",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1383,7 +1383,6 @@
                                         },
                                         {
                                             "fieldname": "Species__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1392,7 +1391,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1402,11 +1402,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/species"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/strain",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/strain",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -1416,7 +1416,6 @@
                                         },
                                         {
                                             "fieldname": "Strain__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1425,7 +1424,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "http://schema.org/identifier",
@@ -1435,11 +1435,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/strain"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/uniminds/studyTarget",
-                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -1450,7 +1450,6 @@
                                         },
                                         {
                                             "fieldname": "StudyTarget__https://schema.hbp.eu/inference/alternatives",
-                                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -1459,7 +1458,8 @@
                                                 {
                                                     "relative_path": "@type"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                         },
                                         {
                                             "fieldname": "https://schema.hbp.eu/uniminds/fullName",
@@ -1475,7 +1475,6 @@
                                         },
                                         {
                                             "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetSource",
-                                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource",
                                             "fields": [
                                                 {
                                                     "relative_path": "@id"
@@ -1485,7 +1484,6 @@
                                                 },
                                                 {
                                                     "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
-                                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                                     "ensure_order": true,
                                                     "fields": [
                                                         {
@@ -1494,7 +1492,8 @@
                                                         {
                                                             "relative_path": "@type"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                                 },
                                                 {
                                                     "fieldname": "http://schema.org/identifier",
@@ -1504,11 +1503,11 @@
                                                     "fieldname": "http://schema.org/name",
                                                     "relative_path": "http://schema.org/name"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource"
                                         },
                                         {
                                             "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetType",
-                                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType",
                                             "fields": [
                                                 {
                                                     "relative_path": "@id"
@@ -1518,7 +1517,6 @@
                                                 },
                                                 {
                                                     "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
-                                                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                                                     "ensure_order": true,
                                                     "fields": [
                                                         {
@@ -1527,7 +1525,8 @@
                                                         {
                                                             "relative_path": "@type"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                                                 },
                                                 {
                                                     "fieldname": "http://schema.org/identifier",
@@ -1537,23 +1536,27 @@
                                                     "fieldname": "http://schema.org/name",
                                                     "relative_path": "http://schema.org/name"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/uniminds/studyTarget"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/uniminds/subjects"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/subjectGroup"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "publication"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/publication"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/studyTarget",
-            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -1563,7 +1566,6 @@
                 },
                 {
                     "fieldname": "StudyTarget__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -1572,7 +1574,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "https://schema.hbp.eu/uniminds/fullName",
@@ -1588,7 +1591,6 @@
                 },
                 {
                     "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetSource",
-                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -1598,7 +1600,6 @@
                         },
                         {
                             "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -1607,7 +1608,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -1617,11 +1619,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource"
                 },
                 {
                     "fieldname": "StudyTarget__https://schema.hbp.eu/uniminds/studyTargetType",
-                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -1631,7 +1633,6 @@
                         },
                         {
                             "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
-                            "relative_path": "https://schema.hbp.eu/inference/alternatives",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -1640,7 +1641,8 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/inference/alternatives"
                         },
                         {
                             "fieldname": "http://schema.org/identifier",
@@ -1650,17 +1652,18 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "study_target"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/subMethod",
-            "relative_path": "https://schema.hbp.eu/uniminds/subMethod",
+            "filter": {
+                "op": "contains",
+                "parameter": "submethod"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -1670,10 +1673,7 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "submethod"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/subMethod"
         }
     ],
     "@context": {

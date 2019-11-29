@@ -5,18 +5,21 @@
     "http://schema.org/identifier": "uniminds/core/studytarget/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/inference/alternatives",
-            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -26,39 +29,39 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "alternatives"
-            }
+            "relative_path": "https://schema.hbp.eu/inference/alternatives"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/fullName",
-            "relative_path": "https://schema.hbp.eu/uniminds/fullName",
             "filter": {
                 "op": "contains",
                 "parameter": "fullname"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/fullName"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/studyTargetSource",
-            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource",
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target_source"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -68,7 +71,6 @@
                 },
                 {
                     "fieldname": "StudyTargetSource__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -77,7 +79,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -88,14 +91,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "study_target_source"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetSource"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/studyTargetType",
-            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType",
+            "filter": {
+                "op": "contains",
+                "parameter": "study_target_type"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -105,7 +108,6 @@
                 },
                 {
                     "fieldname": "StudyTargetType__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -114,7 +116,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives"
                 },
                 {
                     "fieldname": "http://schema.org/identifier",
@@ -125,10 +128,7 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "study_target_type"
-            }
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTargetType"
         }
     ],
     "@context": {

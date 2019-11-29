@@ -463,7 +463,7 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e8cf1814-a152-4259-9774-7057fe00e3d1"
                 }
             ],
             "celltype": [
@@ -501,17 +501,17 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ccc40e37-b97b-49ad-8e4f-1f873deac41a"
                 },
                 {
                     "@type": [
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/421ed0f6-7926-4136-b99c-757ebad5cfe3"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/e8cf1814-a152-4259-9774-7057fe00e3d1"
                 }
             ],
-            "description": "description goes here",
+            "description": "Adaptive exponential integrate-and-fire (aeIF) neuron models for different cell types:\n\n     - RS (Regular Spiking) pyramidal cells (excitatory)\n     - RSw (weakly adapting Regular Spiking) pyramidal cell (excitatory)\n     - FS (Fast Spiking) interneuron cells (inhibitory) with negligible adaptation.\n     - LTS (Low Threshold Spiking) cortical cell (excitatory)\n     - TC (ThalamoCortical) thalamic cell (excitatory)\n     - RE (Reticular thalamic nucleus) thalamic cells (inhibitory)\n\nThis script reproduces Figure 1 of the following article:\n\nDestexhe A (2009) Self-sustained asynchronous irregular states and Up-Down states inthalamic, cortical and thalamocortial networks of nonlinear integrate-and-fire neurons. J Computat Neurosci 27:493-506\nDOI 10.1007/s10827-009-0164-4\n\nIn the figure we see the response of each cell type to a depolarizing current pulse of 0.25nA or a hyperpolarizing current pulse -0.25nA.",
             "oldUUID": "455a4ae5-b809-4643-989d-a3b456875d9f",
             "abstractionLevel": [],
             "brainRegion": [
@@ -528,10 +528,10 @@
                 }
             ],
             "organization": [],
-            "name": "name goes here",
-            "alias": "alias_goes_here",
+            "name": "AdEx Neuron Models with PyNN",
+            "alias": "AdEx Models",
             "collabID": 5359.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/13abca24-af13-4cae-8be8-878856e7952c",
             "PLAComponents": null
         },
         {
@@ -541,7 +541,7 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e"
                 }
             ],
             "celltype": [],
@@ -560,17 +560,17 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/145889b2-b8bc-4c9e-a00f-6c3c8f2d1a3c"
                 },
                 {
                     "@type": [
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/432ed0f6-7926-4136-b99c-757ebad5cfe2"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/ea1bc827-f267-4193-86b0-6842e8b8256e"
                 }
             ],
-            "description": "The quick brown fox",
+            "description": "A computational model for astrocyte-neuron interactions is developed to facilitate better understanding of the role of glial cells, specifically astrocytes, in synaptic and network level plasticity and learning. The developed model is complex, consisting of a large number of equations. In brief, the well-established biophysical and biochemical mechanisms are described for the neuronal compartments. The astrocyte compartment of the model contains several key mechanisms, including intracellular calcium and IP3, that are known to be involved in the regulation of cortical synapses. Background information for the construction of the model can be found in Manninen et al. (2017) and Manninen et al. (2018).  A classical stimulation protocol of long-term plasticity was used to test the model functionality. The integrated model was validated against typical neuronal spiking and astrocyte calcium excitability data. Further details of the model can be obtained in Havela et al. 2017. In summary, the model was able to capture the dynamical responses of both neurons and astrocytes during the simulation of the full model when varying the frequency of the stimuli and the volume of the postsynaptic neuron compartment.\n\nRelated code: https://senselab.med.yale.edu/modeldb/showmodel.cshtml?model=223648#tabs-1",
             "oldUUID": "1ee2260f-88d3-48e0-9f26-65d255fce1af",
             "abstractionLevel": [
                 {
@@ -589,10 +589,10 @@
             "organization": [
                 {
                     "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/6d9b621c-e6dd-4c39-a2b5-20d8a4d24834"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/6d9b521c-e6dd-4c39-a2b5-20d8a4d24834"
                 }
             ],
-            "name": "Jumps over the lazy dog",
+            "name": "Astrocyte-Neuron Interaction model",
             "alias": null,
             "collabID": 1571.0,
             "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/11dfe94d-b46a-4bb2-8700-020680754e53",

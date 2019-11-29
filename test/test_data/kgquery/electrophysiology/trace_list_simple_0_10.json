@@ -401,7 +401,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "text/tab-separated-values",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp1/hbp-00011_Tg2576_Sub1_Samp1__expE1.txt"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",
@@ -448,7 +448,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "text/tab-separated-values",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2/hbp-00011_Tg2576_Sub1_Samp2__expE2.txt"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",

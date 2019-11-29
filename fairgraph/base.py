@@ -296,7 +296,7 @@ class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     object_cache = {}
     save_cache = defaultdict(dict)
-    query_id = "fg"
+    query_id = "fgSimple"
     query_id_resolved = "fgResolved"
     fields = []
     existence_query_fields = ["name"]
@@ -544,7 +544,7 @@ class KGObject(with_metaclass(Registry, object)):
                 response = client.query_nexus(self.__class__.path, query_filter, context)
 
             elif api == "query":
-                response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
                                                 size=1, scope="latest")
                 # not sure about the appropriate scope here
             else:
@@ -747,6 +747,8 @@ class KGObject(with_metaclass(Registry, object)):
                 if top_level:
                     if field.name == "name":
                         field_definition["sort"] = True
+                        if field.required:
+                            field_definition["required"] = True
 
                 if any(issubclass(_type, KGObject) for _type in field.types):
 
@@ -842,9 +844,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def store_queries(cls, client):
-        for query_id, resolved in (("fg", False), ("fgResolved", True)):
-        #for query_id, resolved in (("fgResolved", True),):
-        #for query_id, resolved in (("fg", False),):
+        for query_id, resolved in (("fgSimple", False), ("fgResolved", True)):
             query_definition = cls.generate_query(query_id, client, resolved=resolved)
             path = "{}/{}".format(cls.path, query_id)
             try:

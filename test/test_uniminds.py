@@ -196,7 +196,7 @@ class TestExperimentalPreparation(BaseTestKG):
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
-        assert len(objects) == 1, len(objects)
+        assert len(objects) == 2, len(objects)
 
 
 class TestFile(BaseTestKG):

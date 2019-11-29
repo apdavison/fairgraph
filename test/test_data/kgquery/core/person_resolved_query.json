@@ -5,42 +5,45 @@
     "http://schema.org/identifier": "neuralactivity/core/person/v0.1.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "familyName",
-            "relative_path": "http://schema.org/familyName",
             "filter": {
                 "op": "contains",
                 "parameter": "family_name"
-            }
+            },
+            "relative_path": "http://schema.org/familyName"
         },
         {
             "fieldname": "givenName",
-            "relative_path": "http://schema.org/givenName",
             "filter": {
                 "op": "contains",
                 "parameter": "given_name"
-            }
+            },
+            "relative_path": "http://schema.org/givenName"
         },
         {
             "fieldname": "email",
-            "relative_path": "http://schema.org/email",
             "filter": {
                 "op": "contains",
                 "parameter": "email"
-            }
+            },
+            "relative_path": "http://schema.org/email"
         },
         {
             "fieldname": "affiliation",
-            "relative_path": "http://schema.org/affiliation",
+            "filter": {
+                "op": "contains",
+                "parameter": "affiliation"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -58,7 +61,6 @@
                 },
                 {
                     "fieldname": "Organization__parentOrganization",
-                    "relative_path": "http://schema.org/parentOrganization",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -66,13 +68,11 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "http://schema.org/parentOrganization"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "affiliation"
-            }
+            "relative_path": "http://schema.org/affiliation"
         }
     ],
     "@context": {

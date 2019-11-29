@@ -7,16 +7,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/eb825ca0-852b-42da-af8a-f742e274becf"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/54f2eb67-b6df-42fd-8b45-62a3b42582a9"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Current-voltage relationships in sub1vc.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/c1850ee1-f2e0-41cb-a90b-f8e16a129b41"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/96c2de01-e1f3-4a76-9951-c5336e059978"
         },
         {
             "prov:used": [
@@ -25,16 +25,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e0856c8d-4c37-4d64-a65f-5d67c7facd86"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Current-voltage relationships in sub2vc.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fcf47e5b-c3f5-408f-a98c-aad4396b3dcb"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/9f6a7e64-1de4-49cd-afa8-ef3d025dc73f"
         },
         {
             "prov:used": [
@@ -43,16 +43,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/a2a770d7-e4dd-418d-85ad-121d9ec133aa"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/1e75e3e1-479b-4631-bd60-aac995df88b3"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "EPSCs recording in sub1m.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/42523020-b70d-401e-abba-cc38e8b59ed2"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a1e51aa8-7e8e-4d8f-bb77-2e65fbe212d2"
         },
         {
             "prov:used": [
@@ -61,16 +61,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/98d08c95-32aa-4a23-b177-6785057f3ca6"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/23795510-f39a-4f3d-b95c-3b7e4c182e55"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "EPSCs recording in sub2r.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/076f58be-5750-4ad9-a0df-7761d74e618b"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/c7b0ba21-6178-46ff-856a-8712f1ae1cbf"
         },
         {
             "prov:used": [
@@ -79,16 +79,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/ce33df8b-442b-4429-8414-2c948b59b8c5"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/fe0cffa7-ed21-4850-8156-4c9695312741"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "EPSCs recording in sub2r.samp2",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/6fced569-0ef5-4f50-91d7-5068acd62c82"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/6d671fe2-bd26-4605-a14e-4a687bbb7cb2"
         },
         {
             "prov:used": [
@@ -97,16 +97,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5bd6ed48-9f6e-4a95-9800-d985384ae1eb"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6fbb7c5e-ea86-4172-83e1-8f36ce904b04"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "EPSCs recording in sub2r.samp3",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/64fe8d66-5688-40b1-a4e7-588b990c6330"
         },
         {
             "prov:used": [
@@ -115,16 +115,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/9739920e-92df-472b-9a11-f14de7a23ee7"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Loose-cell attached recording in sub1-ca.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/095448b1-aba3-4e5b-9929-97cfd8ae74bf"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d"
         },
         {
             "prov:used": [
@@ -133,16 +133,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/49ce2d7b-0527-46c3-83ac-d443918394b7"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/68b0b665-3503-4a0c-9bd7-af0176b7c7a9"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Loose-cell attached recording in sub1.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a0f57f60-7813-4d8f-a7e1-2e3b74d01b43"
         },
         {
             "prov:used": [
@@ -151,16 +151,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e8d12d78-8a4f-4c9e-8475-ab3ad45ec6c7"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Loose-cell attached recording in sub10k.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/d3aad845-2762-42e0-8e10-7ab4b718216c"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d2a34a4-539e-47f5-9175-f332098352a3"
         },
         {
             "prov:used": [
@@ -169,16 +169,16 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
                         "http://www.w3.org/ns/prov#Entity"
                     ],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/ec1e44fa-1866-46e0-9fed-00f3b0e62aec"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0827d7ea-64a5-4cf9-83e7-471b4b5f078e"
                 }
             ],
             "@type": [
                 "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                 "http://www.w3.org/ns/prov#Activity"
             ],
-            "name": null,
+            "name": "Loose-cell attached recording in sub11k.samp1",
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
-            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d5a2fbe-504d-4d88-838a-eca83b9627a1"
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/0d215e1f-0984-4d13-afaa-23eb72cd3cf3"
         }
     ],
     "total": 75,
