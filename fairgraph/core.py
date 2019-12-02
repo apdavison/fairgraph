@@ -14,7 +14,7 @@ from datetime import date, datetime
 from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
+from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue, Handedness
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -45,6 +45,7 @@ class Subject(KGObject):
         "age": "nsg:age",  # change from nsg:age to "http://dbpedia.org/ontology/age" ?
         "period": "nsg:period",
         "sex": "nsg:sex",
+        "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
         "providerId": "nsg:providerId"
     }
@@ -53,11 +54,12 @@ class Subject(KGObject):
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
         Field("sex", Sex, "sex"),
+        Field("handedness", Handedness, "handedness"),
         Field("age", Age, "age", required=True),
         Field("death_date", date, "deathDate")
     )
 
-    def __init__(self, name, species, age, sex=None, strain=None, death_date=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, death_date=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

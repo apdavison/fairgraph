@@ -95,6 +95,14 @@ class Sex(OntologyTerm):
         "female": "schema:Female"
     }
 
+class Handedness(OntologyTerm):
+    """
+    The handedness of an animal or person from whom/which data were obtained.
+    """
+    iri_map = {
+        "left":"http://dbpedia.org/ontology/handedness",
+        "right":"http://dbpedia.org/ontology/handedness"
+    }
 
 class BrainRegion(OntologyTerm):
     """
