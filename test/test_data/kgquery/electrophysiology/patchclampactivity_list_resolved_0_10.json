@@ -1,0 +1,1811 @@
+{
+    "results": [
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "GF1.samp1",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                            "label": "Golgi cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                            "name": "GF1.samp1 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/5d7629fb-69b8-4557-b85e-f7857346bda7"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "C57BL/6"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "GF1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/926e9f99-9482-48dc-8ae7-c208e9a39a8d",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "http://schema.org/maxValue": 22.0,
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                                },
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                                "http://schema.org/minValue": 16.0
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF1.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7c359a61-1bc6-403f-9160-6900aea328f2"
+                        }
+                    ],
+                    "name": "GF1.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/43f869d8-148a-4c02-9419-bdf1da91c179"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "GF1.samp1",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Johnson",
+                    "givenName": "Katherine",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
+                    "email": "kjohnson@nasa.gov"
+                },
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "da Vinci",
+                    "givenName": "Leonardo",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
+                    "email": "leo@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/ec287baa-a2eb-4467-9101-fc7b8c56c3ba",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "GF1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/926e9f99-9482-48dc-8ae7-c208e9a39a8d",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 22.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 16.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "GF1.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7c359a61-1bc6-403f-9160-6900aea328f2"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "GF1.samp2",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                            "label": "Golgi cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/4b66204c-1652-4344-80af-b44eab6005f3",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                            "name": "GF1.samp2 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/439afd13-78a3-462c-9563-962a5c38a782"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "C57BL/6"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "GF1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/926e9f99-9482-48dc-8ae7-c208e9a39a8d",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "http://schema.org/maxValue": 22.0,
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                                },
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                                "http://schema.org/minValue": 16.0
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF1.samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7811f067-df58-4efc-8bde-410e0f15869e"
+                        }
+                    ],
+                    "name": "GF1.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/31de6d9b-9d27-489b-bf24-b22e4ab82251"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "GF1.samp2",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Johnson",
+                    "givenName": "Katherine",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
+                    "email": "kjohnson@nasa.gov"
+                },
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "da Vinci",
+                    "givenName": "Leonardo",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
+                    "email": "leo@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/b79b91cb-ee29-40a8-baf6-01ba3e4e8083",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "GF1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/926e9f99-9482-48dc-8ae7-c208e9a39a8d",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 22.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 16.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "GF1.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/7811f067-df58-4efc-8bde-410e0f15869e"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "GF2.samp1",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                            "label": "Golgi cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/0d560fa1-44d1-4f9c-bfc6-2fb5e873260a",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                            "name": "GF2.samp1 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/748b7b03-797f-42e0-a4aa-11ee2cfc0aa9"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "C57BL/6"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "GF2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/abe09aef-7c54-4d66-8b9c-00ff4bc0f0eb",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "http://schema.org/maxValue": 22.0,
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                                },
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                                "http://schema.org/minValue": 16.0
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF2.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/3d6dd104-294b-4a3e-b3a6-a25e24365a20"
+                        }
+                    ],
+                    "name": "GF2.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/d593c68b-5348-424f-929b-ddcc54f15894"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "GF2.samp1",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Johnson",
+                    "givenName": "Katherine",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
+                    "email": "kjohnson@nasa.gov"
+                },
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "da Vinci",
+                    "givenName": "Leonardo",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
+                    "email": "leo@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/4ca337ac-2d78-4c94-92ec-c9b4a7ef9b43",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "GF2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/abe09aef-7c54-4d66-8b9c-00ff4bc0f0eb",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 22.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 16.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "GF2.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/3d6dd104-294b-4a3e-b3a6-a25e24365a20"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "GF2.samp2",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/CL_0000119",
+                                            "label": "Golgi cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/c2e7975d-1264-43fe-9e78-f2ef0d7c502a",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                            "name": "GF2.samp2 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/78e77e74-8833-43cc-bb74-9be8e01ffbe1"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "C57BL/6"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "GF2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/abe09aef-7c54-4d66-8b9c-00ff4bc0f0eb",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "http://schema.org/maxValue": 22.0,
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                                },
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                                "http://schema.org/minValue": 16.0
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "GF2.samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/b8982911-273c-4ac4-b201-32737addddc5"
+                        }
+                    ],
+                    "name": "GF2.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/9da3e421-4a11-44f1-9282-42933a52a5d6"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "GF2.samp2",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Johnson",
+                    "givenName": "Katherine",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
+                    "email": "kjohnson@nasa.gov"
+                },
+                {
+                    "Person__affiliation": [],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "da Vinci",
+                    "givenName": "Leonardo",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
+                    "email": "leo@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/dc70500b-dc6c-4060-9555-9141705bb784",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "GF2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/abe09aef-7c54-4d66-8b9c-00ff4bc0f0eb",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 22.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 16.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "GF2.samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/b8982911-273c-4ac4-b201-32737addddc5"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub1_Samp1__ExpE1",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e617c15f-bf24-4f5d-b824-a413c0b34f50",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp1 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ffaf7d08-6f52-4611-8c3f-5fb42a0fce32"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/657be907-99ed-4cfa-84fa-13e6b3e53887"
+                        }
+                    ],
+                    "name": "hbp00011_Sub1_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/ba3d7979-c6ea-471c-a112-ab830a6a2d6a"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub1_Samp1",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub1_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/657be907-99ed-4cfa-84fa-13e6b3e53887"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub1_Samp2__ExpE2",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/86204409-0ac6-4204-8713-afb075bbbd05",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp2 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/0d3d76f8-14f9-4a89-8fec-36b5d31956c4"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e9d8c56d-0537-47a6-9b52-2c4ad02ae8cb"
+                        }
+                    ],
+                    "name": "hbp00011_Sub1_Samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/e3873c04-4c87-43e2-ab4b-b29ce1da801e"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub1_Samp2",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/adcb02db-d38b-4718-b07e-6a6fe184e0e8",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub1_Samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e9d8c56d-0537-47a6-9b52-2c4ad02ae8cb"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub1_Samp3__ExpE3",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/da27bfdc-740b-4361-8f10-a1b1b7fa9e54",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp3 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/c603f011-f635-4791-9d43-69bd799ccb39"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp3",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/f66f574a-baca-447b-bf9b-3869a8f7ccd1"
+                        }
+                    ],
+                    "name": "hbp00011_Sub1_Samp3",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/3f471283-6ba7-47fa-ae6e-feec4b8537ae"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub1_Samp3",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/5b55540c-3f41-4d42-946c-12629021c330",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub1_Samp3",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/f66f574a-baca-447b-bf9b-3869a8f7ccd1"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub1_Samp4__ExpE4",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/db2c2e92-dba6-455f-b87d-37c350b60d24",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp4 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/f41e995f-054e-4436-86b1-fbc9c7844bef"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub1",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub1_Samp4",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e"
+                        }
+                    ],
+                    "name": "hbp00011_Sub1_Samp4",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/92aed236-fdbd-42e5-badf-4b58b9661d37"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub1_Samp4",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/4e2eea27-b262-43ed-ad21-e233caa02fad",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/c0b39281-62a4-4068-b3e6-0f7d33462e0c",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub1_Samp4",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/123a4cb6-9067-4266-917d-eef11b9cd84e"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub2_Samp1__ExpE5",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub2_Samp1 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/6fcbd23e-49ce-4849-b11d-851745ce5645"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub2_Samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/6b4e25f6-aad2-48f9-8951-88d8115859cc"
+                        }
+                    ],
+                    "name": "hbp00011_Sub2_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/05b79721-4318-4a6c-bd57-181fb79f64db"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub2_Samp1",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/72544fd4-623d-43b2-89b7-26e95c8851d0",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub2_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/6b4e25f6-aad2-48f9-8951-88d8115859cc"
+                }
+            ]
+        },
+        {
+            "protocol": null,
+            "generated": [
+                {
+                    "PatchedSlice__hasPart": [
+                        {
+                            "PatchedCellCollection__hadMember": [
+                                {
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "mV",
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                                        },
+                                        "https://schema.hbp.eu/neuralactivity/experiment/patchedcell/v0.1.0/value": "-16"
+                                    },
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                                    "name": "hbp00011_Sub2_Samp2__ExpE6",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                                    "PatchedCell__eType": [
+                                        {
+                                            "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                                            "label": "hippocampus CA1 pyramidal cell"
+                                        }
+                                    ],
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/98d08c95-32aa-4a23-b177-6785057f3ca6",
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                                    "PatchedCell__brainRegion": [],
+                                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub2_Samp2 - patched cell collection",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ab1e080c-2232-4f82-b001-aad1b32aed13"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedSlice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "PatchedSlice__wasRevisionOf": [
+                        {
+                            "Slice__wasDerivedFrom": [
+                                {
+                                    "Subject__sex": [
+                                        {
+                                            "@id": "http://schema.org/Female",
+                                            "label": "female"
+                                        }
+                                    ],
+                                    "Subject__strain": [
+                                        {
+                                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                            "label": "Tg2576"
+                                        }
+                                    ],
+                                    "@type": [
+                                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                        "http://www.w3.org/ns/prov#Entity"
+                                    ],
+                                    "Subject__species": [
+                                        {
+                                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                            "label": "Mus musculus"
+                                        }
+                                    ],
+                                    "deathDate": null,
+                                    "name": "hbp00011_Sub2",
+                                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                                    "age": [
+                                        {
+                                            "period": "Post-natal",
+                                            "value": {
+                                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                                "http://schema.org/unitCode": {
+                                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                                },
+                                                "http://schema.org/value": "3",
+                                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "hbp00011_Sub2_Samp2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332"
+                        }
+                    ],
+                    "name": "hbp00011_Sub2_Samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedslice/v0.1.0/0cbcef5b-d51b-4823-92dc-82ddee5c587d"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/WholeCellPatchClamp",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": "hbp00011_Sub2_Samp2",
+            "wasAssociatedWith": [
+                {
+                    "Person__affiliation": [
+                        {
+                            "address": {
+                                "http://schema.org/addressLocality": "Rome",
+                                "@type": "http://schema.org/PostalAddress",
+                                "http://schema.org/addressCountry": "Italy"
+                            },
+                            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Organization",
+                            "Organization__parentOrganization": [],
+                            "name": "European Brain Research Institute",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/organization/v0.1.0/1b3fb3bc-211d-42bc-99b4-d232d0e7974c"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
+                        "http://www.w3.org/ns/prov#Agent"
+                    ],
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
+                    "email": "weber@example.com"
+                }
+            ],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/e4b115d9-477c-4584-8102-b07ac0af5b04",
+            "used": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/44b57242-88cb-4595-b9d3-44288f830549",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub2_Samp2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/08a068aa-b44a-4d0c-945a-e3c740b7c332"
+                }
+            ]
+        }
+    ],
+    "total": 75,
+    "size": 10,
+    "start": 0
+}

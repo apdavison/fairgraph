@@ -1,6 +1,21 @@
 """
-
+Base functionality
 """
+
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 import os
 import sys
@@ -9,6 +24,7 @@ from collections import defaultdict
 from datetime import datetime, date
 import warnings
 from copy import copy
+from io import BytesIO
 try:
     from collections.abc import Iterable, Mapping
 except ImportError:  # Python 2
@@ -42,6 +58,8 @@ registry = {
 }
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
+
+
 def register_class(target_class):
     name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
     registry['names'][name] = target_class
@@ -81,7 +99,8 @@ def generate_cache_key(qd):
             cache_key.append(tuple(sub_key))
         else:
             if not isinstance(value, (basestring, int, float)):
-                raise TypeError("Expected a string, integer or float for key '{}', not a {}".format(key, type(value)))
+                errmsg = "Expected a string, integer or float for key '{}', not a {}"
+                raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
     return tuple(cache_key)
 
@@ -94,6 +113,7 @@ Args
 {args}
 
 """
+
 
 class Registry(type):
     """Metaclass for registering Knowledge Graph classes"""
@@ -115,8 +135,8 @@ class Registry(type):
                     return "~{}.{}".format(type_.__module__, type_.__name__)
             for field in self.fields:
                 doc = "{} : {}\n    {}".format(field.name,
-                                            ", ".join(gen_path(t) for t in field.types),
-                                            field.doc)
+                                               ", ".join(gen_path(t) for t in field.types),
+                                               field.doc)
                 field_docs.append(doc)
         return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
     __doc__ = property(_get_doc)
@@ -132,7 +152,7 @@ class Field(object):
     """Representation of a metadata field"""
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False,
-                 strict=True, doc=""):
+                 strict=True, reverse=None, doc=""):
         self.name = name
         if isinstance(types, (type, basestring)):
             self._types = (types,)
@@ -145,6 +165,7 @@ class Field(object):
         self.default = default
         self.multiple = multiple
         self.strict_mode = strict
+        self.reverse = reverse
         self.doc = doc
 
     def __repr__(self):
@@ -226,9 +247,14 @@ class Field(object):
         try:
             if not self.intrinsic:
                 query_filter = {
-                    "path": self.path[1:],  # remove initial ^
-                    "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
-                    "value": data
+                    "nexus": {
+                        "path": self.path[1:],  # remove initial ^
+                        "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
+                        "value": data
+                    },
+                    "query": {
+                        self.reverse: data
+                    }
                 }
                 # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
                 # query_context = {context_key: TODO: lookup contexts}
@@ -273,6 +299,11 @@ class KGObject(with_metaclass(Registry, object)):
     query_id = "fg"
     query_id_resolved = "fgResolved"
     fields = []
+    existence_query_fields = ["name"]
+    # Note that this default value of existence_query_fields should in
+    # many cases be over-ridden.
+    # It assumes that "name" is unique within instances of a given type,
+    # which may often not be the case.
 
     def __init__(self, id=None, instance=None, **properties):
         if self.fields:
@@ -296,7 +327,8 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             for key, value in properties.items():
                 if key not in self.property_names:
-                    raise TypeError("{self.__class__.__name__} got an unexpected keyword argument '{key}'".format(self=self, key=key))
+                    errmsg = "{name} got an unexpected keyword argument '{key}'"
+                    raise TypeError(errmsg.format(name=self.__class__.__name__, key=key))
                 else:
                     setattr(self, key, value)
 
@@ -306,7 +338,7 @@ class KGObject(with_metaclass(Registry, object)):
     def __repr__(self):
         if self.fields:
             template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
-                                for field in self.fields if getattr(self, field.name) is not None)
+                              for field in self.fields if getattr(self, field.name) is not None)
             template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
             return template.format(self=self)
         else:  # temporary, while converting all classes to use fields
@@ -320,7 +352,7 @@ class KGObject(with_metaclass(Registry, object)):
             if resolved:
                 D = cls._fix_keys(D)
             if "@type" in D and D["@type"]:
-                for otype in cls.type:
+                for otype in as_list(cls.type):
                     if otype not in D["@type"]:
                         # todo: profile - move compaction outside loop?
                         compacted_types = compact_uri(D["@type"], standard_context)
@@ -360,9 +392,8 @@ class KGObject(with_metaclass(Registry, object)):
                 data[fixed_key] = data.pop(key)
         return data
 
-
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api='nexus',
+    def from_uri(cls, uri, client, use_cache=True, deprecated=False, api="query",
                  scope="released", resolved=False):
         instance = client.instance_from_full_uri(uri, cls=cls, use_cache=use_cache,
                                                  deprecated=deprecated, api=api, scope=scope,
@@ -373,7 +404,8 @@ class KGObject(with_metaclass(Registry, object)):
             return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
-    def from_uuid(cls, uuid, client, deprecated=False, api='nexus', resolved=False):
+    def from_uuid(cls, uuid, client, deprecated=False, api="query",
+                  scope="released", resolved=False):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -382,14 +414,16 @@ class KGObject(with_metaclass(Registry, object)):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, deprecated=deprecated, api=api, resolved=resolved)
+        return cls.from_uri(uri, client, deprecated=deprecated, api=api,
+                            scope=scope, resolved=resolved)
 
     @classmethod
-    def from_id(cls, id, client, use_cache=True, deprecated=False, api='nexus', resolved=False):
+    def from_id(cls, id, client, use_cache=True, deprecated=False, api="query",
+                scope="released", resolved=False):
         if id.startswith("http"):
-            return cls.from_uri(id, client, use_cache, deprecated, api, resolved)
+            return cls.from_uri(id, client, use_cache, deprecated, api, scope, resolved)
         else:
-            return cls.from_uuid(id, client, deprecated, api, resolved)
+            return cls.from_uuid(id, client, deprecated, api, scope, resolved)
 
     @property
     def uuid(self):
@@ -400,32 +434,99 @@ class KGObject(with_metaclass(Registry, object)):
         return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api='nexus', scope="released", resolved=False, **filters):
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        return client.list(cls, from_index=from_index, size=size, api=api, scope=scope, resolved=resolved)
+
+        def get_filter_value(filters, field):
+            value = filters[field.name]
+            if not isinstance(value, field.types):
+                if isinstance(value, basestring) and issubclass(field.types[0], OntologyTerm):
+                    value = field.types[0](value)
+                else:
+                    raise TypeError("{} must be of type {}".format(field.name, field.types))
+            if hasattr(value, "iri"):
+                filter_value = value.iri
+            elif hasattr(value, "id"):
+                filter_value = value.id
+            else:
+                filter_value = value
+            return filter_value
+
+        if api == 'nexus':
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
+            }
+            filter_queries = []
+            if filters:
+                for field in cls.fields:
+                    if field.name in filters:
+                        filter_queries.append({
+                            #"path": cls.context[field.path],  # todo: fix contexts
+                            "path": standard_context[field.path],
+                            "op": "eq",
+                            "value": get_filter_value(filters, field)
+                        })
+            if len(filter_queries) == 0:
+                filter_query = None
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+        else:  # api="query"
+            filter_queries = {}
+            if filters:
+                for field in cls.fields:
+                    if field.name in filters:
+                        filter_queries[field.name] = get_filter_value(filters, field)
+            filter_query = filter_queries or None
+            context = None
+        return client.list(cls, from_index=from_index, size=size, api=api, scope=scope,
+                           resolved=resolved, filter=filter_query, context=context)
 
     @classmethod
-    def count(cls, client, api='nexus', scope="released"):
+    def count(cls, client, api="query", scope="released"):
         return client.count(cls, api=api, scope=scope)
 
-    @property
-    def _existence_query(self):
-        # Note that this default implementation should in
-        # many cases be over-ridden.
-        # It assumes that "name" is unique within instances of a given type,
-        # which may often not be the case.
-        return {
-            "path": "schema:name",
-            "op": "eq",
-            "value": self.name
-        }
+    def _build_existence_query(self, api="query"):
+        query_fields = []
+        for field_name in self.existence_query_fields:
+            for field in self.fields:
+                if field.name == field_name:
+                    query_fields.append(field)
+                    break
+        if api in ("query", "any"):
+            return {
+                field.name: field.serialize(getattr(self, field.name), None)
+                for field in query_fields
+            }
+        elif api == "nexus":
+            query_parts = []
+            for field in query_fields:
+                query_parts.append({
+                    "path": standard_context[field.path],
+                    "op": "eq",
+                    "value": field.serialize(getattr(self, field.name), None)
+                })
+            if len(query_fields) == 1:
+                return query_parts[0]
+            else:
+                return {
+                    "op": "and",
+                    "value": query_parts
+                }
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    def exists(self, client, api='nexus'):
+    def exists(self, client, api="query"):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             return True
         else:
-            query_filter = self._existence_query
+            query_filter = self._build_existence_query(api=api)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
@@ -434,18 +535,26 @@ class KGObject(with_metaclass(Registry, object)):
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
+            elif api == "any":
+                if not self.exists(client, "query"):
+                    return self.exists(client, "nexus")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
-                if response:
-                    self.id = response[0].data["@id"]
-                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
-                return bool(response)
-            else:
-                raise NotImplementedError()
 
-    def get_context(self, client):
+            elif api == "query":
+                response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                                                size=1, scope="latest")
+                # not sure about the appropriate scope here
+            else:
+                raise ValueError("'api' must be 'nexus', 'query' or 'any'")
+            if response:
+                self.id = response[0].data["@id"]
+                KGObject.save_cache[self.__class__][query_cache_key] = self.id
+            return bool(response)
+
+    def get_context(self, client=None):
         context_urls = set()
         if isinstance(self.context, dict):
             context_dict = self.context
@@ -457,7 +566,8 @@ class KGObject(with_metaclass(Registry, object)):
                 else:
                     assert isinstance(item, basestring)
                     if "{{base}}" in item:
-                        context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
+                        if client:
+                            context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
                     else:
                         assert item.startswith("http")
                         context_urls.add(item)
@@ -465,7 +575,7 @@ class KGObject(with_metaclass(Registry, object)):
             raise ValueError("Unexpected value for context")
 
         if self.instance:
-            instance_context = self.instance.data["@context"]
+            instance_context = self.instance.data.get("@context", {})
             if isinstance(instance_context, dict):
                 context_dict.update(instance_context)
             elif isinstance(instance_context, basestring):
@@ -515,20 +625,22 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id or self.exists(client):
+        if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)  # api argument?
+                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
 
         if self.instance:
             if self._update_needed(data):
                 logger.info("Updating {self!r}".format(self=self))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
-                assert self.instance.data["@type"] == self.type
+                if "@type" in self.instance.data:
+                    assert set(compact_uri(self.instance.data["@type"],
+                                           standard_context)) == set(self.type)
                 self.instance = client.update_instance(self.instance)
             else:
                 logger.info("Not updating {self!r}, unchanged".format(self=self))
@@ -540,15 +652,19 @@ class KGObject(with_metaclass(Registry, object)):
             self.id = instance.data["@id"]
             self.instance = instance
             KGObject.object_cache[self.id] = self
-            KGObject.save_cache[self.__class__][generate_cache_key(self._existence_query)] = self.id
+            existence_query = self._build_existence_query(api="nexus")
+            # make the cache key api-independent?
+            KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
 
     def delete(self, client):
         """Deprecate"""
         client.delete_instance(self.instance)
 
     @classmethod
-    def by_name(cls, name, client, match="equals", all=False, api="nexus", scope="released", resolved=False):
-        return client.by_name(cls, name, match=match, all=all, api=api, scope="released", resolved=resolved)
+    def by_name(cls, name, client, match="equals", all=False, api="query",
+                scope="released", resolved=False):
+        return client.by_name(cls, name, match=match, all=all, api=api,
+                              scope="released", resolved=resolved)
 
     @property
     def rev(self):
@@ -584,13 +700,15 @@ class KGObject(with_metaclass(Registry, object)):
                                     for field in self.fields]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
+
             def fit_column(value):
                 strv = str(value)
                 if len(strv) > value_column_width:
                     strv = strv[:value_column_width - 4] + " ..."
                 return strv
             data = [(k, fit_column(v)) for k, v in data]
-        print(tabulate(data))
+        print(tabulate(data, tablefmt="plain"))
+        #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
     def generate_query(cls, query_id, client, resolved=False, top_level=True,
@@ -738,6 +856,23 @@ class KGObject(with_metaclass(Registry, object)):
                 else:
                     raise
 
+    @classmethod
+    def retrieve_query(cls, query_id, client):
+        path = "{}/{}".format(cls.path, query_id)
+        return client.retrieve_query(path)
+
+    def is_released(self, client):
+        """Release status of the node"""
+        return client.is_released(self.id)
+
+    def release(self, client):
+        """Release this node (make it available in public search)."""
+        return client.release(self.id)
+
+    def unrelease(self, client):
+        """Urelease this node (remove it from public search)."""
+        return client.unrelease(self.id)
+
 
 class MockKGObject(KGObject):
     """Mock version of KGObject, useful for testing."""
@@ -765,7 +900,6 @@ def cache(f):
     return wrapper
 
 
-
 class StructuredMetadata(with_metaclass(Registry, object)):
     """Abstract base class"""
     pass
@@ -782,8 +916,6 @@ class OntologyTerm(StructuredMetadata):
                 raise ValueError("No IRI found for label {}".format(label))
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.label!r}, {self.iri!r})')
         return ('{self.__class__.__name__}('
                 '{self.label!r}, {self.iri!r})'.format(self=self))
 
@@ -826,7 +958,7 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="nexus", scope="released"):
+    def resolve(self, client, api="query", scope="released"):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
@@ -836,8 +968,6 @@ class KGProxy(object):
             return obj
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.cls!r}, {self.id!r})')
         return ('{self.__class__.__name__}('
                 '{self.cls!r}, {self.id!r})'.format(self=self))
 
@@ -845,7 +975,9 @@ class KGProxy(object):
         return isinstance(other, self.__class__) and self.cls == other.cls and self.id == other.id
 
     def __ne__(self, other):
-        return not isinstance(other, self.__class__) or self.cls != other.cls or self.id != other.id
+        return (not isinstance(other, self.__class__)
+                or self.cls != other.cls
+                or self.id != other.id)
 
     @property
     def uuid(self):
@@ -875,13 +1007,13 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="nexus", scope="released"):
+    def resolve(self, client, size=10000, api="query", scope="released"):
         objects = []
         for cls in self.classes:
             if api == "nexus":
                 instances = client.query_nexus(
                     path=cls.path,
-                    filter=self.filter,
+                    filter=self.filter["nexus"],
                     context=self.context,
                     size=size
                 )
@@ -889,13 +1021,13 @@ class KGQuery(object):
                 instances = client.query_kgquery(
                     path=cls.path,
                     query_id=cls.query_id,
-                    filter=self.filter,
+                    filter=self.filter["query"],
                     size=size,
                     scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
-                        for instance in instances)
+                           for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
         if len(objects) == 1:
@@ -983,7 +1115,7 @@ class Distribution(StructuredMetadata):
                 "value": self.size
             }
         if self.digest:
-            data["digest"]= {
+            data["digest"] = {
                 "algorithm": self.digest_method,  # e.g. "SHA-256"
                 "value": self.digest
             }
@@ -1002,6 +1134,15 @@ class Distribution(StructuredMetadata):
             local_file_name = self.original_file_name or self.location.split("/")[-1]
             with open(os.path.join(local_directory, local_file_name), "wb") as fp:
                 fp.write(response.content)
+        else:
+            raise IOError(str(response.content))
+
+    def read(self, client):
+        #headers = client._nexus_client._http_client.auth_client.get_headers()
+        #response = requests.get(self.location, headers=headers)
+        response = requests.get(self.location)
+        if response.status_code == 200:
+            return BytesIO(response.content)
         else:
             raise IOError(str(response.content))
 
@@ -1061,7 +1202,9 @@ def build_kg_object(cls, data, resolved=False, client=None):
                     except (ValueError, KeyError) as err:
                         # to add: emit a warning
                         logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                        obj = KGProxy(kg_cls, item["@id"]).resolve(client, api=item.get("fg:api", "nexus"))
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(
+                            client,
+                            api=item.get("fg:api", "query"))
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
             else:

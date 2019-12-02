@@ -1,6 +1,6 @@
 # fairgraph: a Python API for the Human Brain Project Knowledge Graph.
 
-Authors: Andrew Davison and Onur Ates, CNRS
+Authors: Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, CNRS
 
 Copyright CNRS 2019
 

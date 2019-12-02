@@ -43,7 +43,7 @@ test_data_lookup.update({
     "/v0/data/minds/core/fileassociation/v1.0.0/": "test/test_data/nexus/minds/fileassociation_list_0_10.json",
     "/v0/data/minds/core/format/v1.0.0/": "test/test_data/nexus/minds/format_list_0_10.json",
     "/v0/data/minds/core/licensetype/v1.0.0/": "test/test_data/nexus/minds/license_list_0_10.json",
-    "/v0/data/minds/core/method/v1.0.0/": "test/test_data/nexus/minds/method_list_0_10.json",
+    "/v0/data/minds/experiment/method/v1.0.0/": "test/test_data/nexus/minds/method_list_0_10.json",
     "/v0/data/minds/core/modality/v1.0.0/": "test/test_data/nexus/minds/modality_list_0_10.json",
     "/v0/data/minds/core/parcellationatlas/v1.0.0/": "test/test_data/nexus/minds/parcellationatlas_list_0_10.json",
     "/v0/data/minds/core/parcellationregion/v1.0.0/": "test/test_data/nexus/minds/parcellationregion_list_0_10.json",
@@ -304,6 +304,7 @@ class TestSpecimenGroup(BaseTestKG):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
+
 
 class TestSubject(BaseTestKG):
     class_under_test = Subject

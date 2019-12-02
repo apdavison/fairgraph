@@ -4,14 +4,35 @@ datasets independent of the type of investigation
 
 """
 
+# Copyright 2018-2019 CNRS
 
-import sys, inspect, os
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+import sys
+import inspect
+import os
 from datetime import datetime
 try:
     basestring
 except NameError:
     basestring = str
     raw_input = input
+try:
+    from urllib.parse import urlparse, quote_plus, parse_qs, urlencode
+except ImportError:  # Python 2
+    from urlparse import urlparse, parse_qs, urlencode
+    from urllib import quote_plus
 
 import requests
 from tqdm import tqdm
@@ -174,7 +195,6 @@ class Dataset(MINDSObject):
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
-    query_id = "fgDataset"
     query_id_resolved = "fgResolvedModified"
     accepted_terms_of_use = False
     fields = (
@@ -221,20 +241,28 @@ class Dataset(MINDSObject):
                 self.__class__.accepted_terms_of_use = True
             else:
                 raise Exception("Please accept the terms of use before downloading the dataset")
-        response = requests.get(self.container_url + "?format=json")
-        if response.status_code != 200:
+
+        parts = urlparse(self.container_url)
+        query_dict = parse_qs(parts.query)
+        query_dict['format'] = "json"
+        url = parts._replace(query=urlencode(query_dict, True)).geturl()
+        response = requests.get(url)
+        if response.status_code not in (200, 204):
             raise IOError(
                 "Unable to download dataset. Response code {}".format(response.status_code))
         contents = response.json()
         total_data_size = sum(item["bytes"] for item in contents) // 1024
         progress_bar = tqdm(total=total_data_size)
-        for entry in contents:
+        for entry in sorted(contents,
+                            key=lambda entry: entry["content_type"] != "application/directory"):
+            # take directories first
             local_path = os.path.join(local_directory, entry["name"])
-            if entry["name"].endswith("/"):
+            #if entry["name"].endswith("/"):
+            if entry["content_type"] == "application/directory":
                 os.makedirs(local_path, exist_ok=True)
             else:
                 response2 = requests.get(self.container_url + "/" + entry["name"])
-                if response2.status_code == 200:
+                if response2.status_code in (200, 204):
                     with open(local_path, "wb") as fp:
                         fp.write(response2.content)
                     progress_bar.update(entry["bytes"] // 1024)
@@ -243,6 +271,14 @@ class Dataset(MINDSObject):
                         "Unable to download file '{}'. Response code {}".format(
                             local_path, response2.status_code))
         progress_bar.close()
+
+    def methods(self, client, api="query", scope="released"):
+        """Return a list of experimental methods associated with the dataset"""
+        filter = {
+            "dataset": self.id
+        }
+        instances = client.query_kgquery(Method.path, "fgDatasets", filter=filter, scope=scope)
+        return [Method.from_kg_instance(inst, client) for inst in instances]
 
 
 class EmbargoStatus(MINDSObject):
@@ -257,6 +293,7 @@ class EmbargoStatus(MINDSObject):
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False))
     )
+
 
 class File(MINDSObject):
     """
@@ -321,6 +358,7 @@ class Method(MINDSObject):
     An experimental method.
     """
     _path = "/experiment/method/v1.0.0"
+    # also see "/core/method/v1.0.0"
     type = ["minds:Method"]
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),

@@ -54,10 +54,10 @@ class TestDistribution(object):
             'downloadURL': 'http://example.com/data2.dat',
         }
         obj = Distribution.from_jsonld(data)
-        assert obj.size == None
-        assert obj.content_type == None
-        assert obj.digest == None
-        assert obj.digest_method == None
+        assert obj.size is None
+        assert obj.content_type is None
+        assert obj.digest is None
+        assert obj.digest_method is None
         assert obj.location == 'http://example.com/data2.dat'
 
 

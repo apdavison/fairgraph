@@ -1,0 +1,1101 @@
+{
+    "results": [
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                                    "label": "Wistar"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                                    "label": "Rattus norvegicus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "sub9r",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/961d9d5e-21f2-4b26-9adb-142ad9798f98",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "sub9r.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e7e9b25c-756d-4a2f-ba1b-19cd7d4479fc"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/29bd5f4d-3be8-4690-85df-cd886ac219c9",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                            "label": "Wistar"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                            "label": "Rattus norvegicus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "sub9r",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/961d9d5e-21f2-4b26-9adb-142ad9798f98",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "129/Sv"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "sub4",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3e330b4c-f4ab-4710-9547-9087f386558c",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "sub4.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/e2790e75-98e5-4865-b1fd-6d6830fe7d16"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/6f49b454-1492-4d21-af41-cbf0385f18ab",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "129/Sv"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "sub4",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/3e330b4c-f4ab-4710-9547-9087f386558c",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                                    "label": "Wistar"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                                    "label": "Rattus norvegicus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "sub8r",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/1bb781e4-506d-465c-b421-a42cb668d6cb",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "sub8r.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/be5c3d7d-4f69-4a0a-9cd9-9dbd0ea83079"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/a564b37c-94c4-4124-a828-032f4d5d5105",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                            "label": "Wistar"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                            "label": "Rattus norvegicus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "sub8r",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/1bb781e4-506d-465c-b421-a42cb668d6cb",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 300.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "126 mM choline, 17 mM glucose, 26 mM NaHCO<sub>3</sub>, 2.5 mM KCl, 1.4 mM NaH<sub>2</sub>PO<sub>4</sub>, 7 mM MgCl<sub>2</sub>, and 0.5 mM CaCl<sub>2</sub> (equilibrated with 95% O<sub>2</sub> /5% CO<sub>2</sub>)",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Male",
+                                    "label": "male"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6J"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00015_Sub2",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/786bf34d-80ed-403a-b29d-6a56fa009f72",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://schema.org/value": "21",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00015_Sub2_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/02d618db-850a-4eff-9611-915b096f244a"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Coronal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/9989e833-4844-4a08-aa84-2617b45869d4",
+            "used": [
+                {
+                    "Subject__sex": [
+                        {
+                            "@id": "http://schema.org/Male",
+                            "label": "male"
+                        }
+                    ],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "C57BL/6J"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "hbp00015_Sub2",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/786bf34d-80ed-403a-b29d-6a56fa009f72",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://schema.org/value": "21",
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                                    "label": "Wistar"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                                    "label": "Rattus norvegicus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "IV2r",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/064f0b3f-5166-4ce9-856f-c7a5f6c0f188",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "IV2r.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/a07763bc-27d8-457e-a2fe-122333bc7593"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/b3f783bb-1c13-4117-a083-e24fa194496d",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
+                            "label": "Wistar"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                            "label": "Rattus norvegicus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "IV2r",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/064f0b3f-5166-4ce9-856f-c7a5f6c0f188",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 300.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "126 mM choline, 17 mM glucose, 26 mM NaHCO<sub>3</sub>, 2.5 mM KCl, 1.4 mM NaH<sub>2</sub>PO<sub>4</sub>, 7 mM MgCl<sub>2</sub>, and 0.5 mM CaCl<sub>2</sub> (equilibrated with 95% O<sub>2</sub> /5% CO<sub>2</sub>)",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Female",
+                                    "label": "female"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "Tg2576"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "hbp00011_Sub3",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/e51dc8cb-b968-4aca-904d-c07abe5dea20",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                        },
+                                        "http://schema.org/value": "3",
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "hbp00011_Sub3_Samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/63dcdb8a-ef32-48f3-9e45-3808a8941c1f"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Coronal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/39fa2877-8d85-46ed-b6b7-b2bed3c7e095",
+            "used": [
+                {
+                    "Subject__sex": [
+                        {
+                            "@id": "http://schema.org/Female",
+                            "label": "female"
+                        }
+                    ],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "Tg2576"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "hbp00011_Sub3",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.0/e51dc8cb-b968-4aca-904d-c07abe5dea20",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000035"
+                                },
+                                "http://schema.org/value": "3",
+                                "http://www.w3.org/2000/01/rdf-schema#label": "months"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "129/Sv"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "sub11k",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/b8279fbc-074c-4bff-baeb-e4393784afa4",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "sub11k.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/c4ccd09e-6f95-49f8-b9a9-eda16711ea02"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/f85dea7e-c0d2-4321-86cf-aa8876e52be8",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "129/Sv"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "sub11k",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/b8279fbc-074c-4bff-baeb-e4393784afa4",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 450.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "248 mM sucrose, 25.5 mM NaHCO<sub>3</sub>, 3.3 mM KCl, 1.2 mM KH<sub>2</sub>PO<sub>4</sub>, 1 mM MgSO<sub>4</sub>, 2.5 mM CaCl<sub>2</sub> , and 15 mM D-glucose, equilibriated with 95% O<sub>2</sub> /5% CO<sub>2</sub>",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [
+                                {
+                                    "@id": "http://schema.org/Male",
+                                    "label": "male"
+                                }
+                            ],
+                            "Subject__strain": [
+                                {
+                                    "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
+                                    "label": "Sprague-Dawley"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                                    "label": "Rattus norvegicus"
+                                }
+                            ],
+                            "deathDate": "1998-02-05T00:00:00",
+                            "name": "thomson_ucl_980205",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/b9bb6b60-51f1-4842-a9b9-6ffcdd297a20",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000034"
+                                        },
+                                        "http://schema.org/value": 7.0,
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "weeks"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "thomson_ucl_980205FHP",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/d7b54be9-ebeb-4c88-8c6c-def17b0a66f3"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Coronal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/bd1c7d11-5aaf-475d-add2-8cafb63b6efa",
+            "used": [
+                {
+                    "Subject__sex": [
+                        {
+                            "@id": "http://schema.org/Male",
+                            "label": "male"
+                        }
+                    ],
+                    "Subject__strain": [
+                        {
+                            "@id": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
+                            "label": "Sprague-Dawley"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                            "label": "Rattus norvegicus"
+                        }
+                    ],
+                    "deathDate": "1998-02-05T00:00:00",
+                    "name": "thomson_ucl_980205",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/b9bb6b60-51f1-4842-a9b9-6ffcdd297a20",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000034"
+                                },
+                                "http://schema.org/value": 7.0,
+                                "http://www.w3.org/2000/01/rdf-schema#label": "weeks"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "C57BL/6"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "IV5g",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/ce4b8cd4-ccb3-4cba-b03e-14b666dca40f",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 22.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 16.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "IV5g.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/0d6bd023-2ddc-4109-a579-50bf0ec9c0c2"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/bd483b7b-23e6-4912-9f12-fad599e3b751",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "C57BL/6"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "IV5g",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/ce4b8cd4-ccb3-4cba-b03e-14b666dca40f",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 22.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 16.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        },
+        {
+            "cuttingThickness": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000017"
+                },
+                "http://schema.org/value": 220.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "\u00b5m"
+            },
+            "solution": "cold Krebs solution",
+            "generated": [
+                {
+                    "Slice__wasDerivedFrom": [
+                        {
+                            "Subject__sex": [],
+                            "Subject__strain": [
+                                {
+                                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                                    "label": "129/Sv"
+                                }
+                            ],
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "Subject__species": [
+                                {
+                                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                                    "label": "Mus musculus"
+                                }
+                            ],
+                            "deathDate": null,
+                            "name": "sub2vc",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/94914157-a8ee-4eef-baae-f7f415b1ab94",
+                            "age": [
+                                {
+                                    "period": "Post-natal",
+                                    "value": {
+                                        "http://schema.org/maxValue": 24.0,
+                                        "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                        "http://schema.org/unitCode": {
+                                            "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                        },
+                                        "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                        "http://schema.org/minValue": 18.0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Slice",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "name": "sub2vc.samp1",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/slice/v0.1.0/1a8ec1f7-9ee9-4678-904b-6fb41fc79220"
+                }
+            ],
+            "startedAtTime": null,
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/BrainSlicing",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "slicingAngle": null,
+            "slicingPlane": "Para-sagittal",
+            "wasAssociatedWith": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/brainslicing/v0.1.0/45ea31e6-eb81-4654-a48a-fbcc9d5f269e",
+            "used": [
+                {
+                    "Subject__sex": [],
+                    "Subject__strain": [
+                        {
+                            "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                            "label": "129/Sv"
+                        }
+                    ],
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Subject",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "Subject__species": [
+                        {
+                            "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                            "label": "Mus musculus"
+                        }
+                    ],
+                    "deathDate": null,
+                    "name": "sub2vc",
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/subject/v0.1.2/94914157-a8ee-4eef-baae-f7f415b1ab94",
+                    "age": [
+                        {
+                            "period": "Post-natal",
+                            "value": {
+                                "http://schema.org/maxValue": 24.0,
+                                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                                "http://schema.org/unitCode": {
+                                    "@id": "http://purl.obolibrary.org/obo/UO_0000033"
+                                },
+                                "http://www.w3.org/2000/01/rdf-schema#label": "days",
+                                "http://schema.org/minValue": 18.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "brainRegion": []
+        }
+    ],
+    "total": 51,
+    "size": 10,
+    "start": 0
+}

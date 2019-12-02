@@ -4,6 +4,7 @@ Tests of fairgraph.brainsimulation module, using a mock Http client
 which returns data loaded from the files in the test_data directory.
 """
 
+from datetime import datetime
 from pyxus.resources.entity import Instance
 
 from fairgraph.base import KGQuery, KGProxy, as_list, Distribution, KGObject
@@ -12,7 +13,7 @@ from fairgraph.brainsimulation import (
     ModelScript, ModelProject, ModelInstance, MEModel, Morphology, EModel, AnalysisResult,
     ValidationTestDefinition, ValidationScript, ValidationResult, ValidationActivity
 )
-from fairgraph.core import use_namespace as use_core_namespace
+from fairgraph.core import Person, use_namespace as use_core_namespace
 
 from .utils import (kg_client, MockKGObject, test_data_lookup, generate_random_object,
                     BaseTestKG, random_uuid)
@@ -34,6 +35,8 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/": "test/test_data/nexus/brainsimulation/validationtestdefinition_list_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.0/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.0/fg/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
+
+    "/query/neuralactivity/core/person/v0.1.0/fg/instances": "test/test_data/kgquery/core/person_list_simple_0_10.json",
 })
 
 
@@ -64,15 +67,15 @@ class TestModelProject(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
     def test_list_kgquery(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True)
+        models = ModelProject.list(kg_client, api="query", scope="latest", size=10, resolved=True)
         assert len(models) == 10
 
-    def test_list_with_filter(self, kg_client):
-        models = ModelProject.list(kg_client, size=10, species="Rattus norvegicus")
+    def test_list_nexus_with_filter(self, kg_client):
+        models = ModelProject.list(kg_client, api="nexus", size=10, species="Rattus norvegicus")
         assert len(models) == 5
 
     def test_list_kgquery_with_filter(self, kg_client):
-        models = ModelProject.list(kg_client, api="query", scope="inferred", size=10, resolved=True, species="Rattus norvegicus")
+        models = ModelProject.list(kg_client, api="query", scope="latest", size=10, resolved=True, species="Rattus norvegicus")
         assert len(models) == 2
 
     def test_count_nexus(self, kg_client):
@@ -82,6 +85,31 @@ class TestModelProject(BaseTestKG):
     def test_count_kgquery(self, kg_client):
         count = ModelProject.count(kg_client, api='query')
         assert count == 351
+
+    def test_existence_query(self, kg_client):
+        obj = ModelProject(name="foo",
+                           owners=Person("Holmes", "Sherlock"),
+                           authors=Person("Holmes", "Sherlock"),
+                           description="",
+                           private=True,
+                           date_created=datetime(2000, 1, 1))
+        expected = {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:name",
+                    "op": "eq",
+                    "value": "foo"
+                },
+                {
+                    "path": "schema:dateCreated",
+                    "op": "eq",
+                    "value": "2000-01-01T00:00:00"
+                }
+            ]
+        }
+        generated = obj._build_existence_query(api="nexus")
+        assert expected == generated
 
 
 class TestModelInstance(BaseTestKG):
@@ -146,6 +174,26 @@ class TestAnalysisResult(BaseTestKG):
         cls = self.class_under_test
         objects = cls.list(kg_client, api="nexus", size=10)
         assert len(objects) == 10, len(objects)
+
+    def test_existence_query(self, kg_client):
+        obj = AnalysisResult("foo", timestamp=datetime(2000, 1, 1))
+        expected = {
+            "op": "and",
+            "value": [
+                {
+                    "path": "schema:name",
+                    "op": "eq",
+                    "value": "foo"
+                },
+                {
+                    "path": "prov:generatedAtTime",
+                    "op": "eq",
+                    "value": "2000-01-01T00:00:00"
+                }
+            ]
+        }
+        generated = obj._build_existence_query(api="nexus")
+        assert expected == generated
 
 
 class TestValidationTestDefinition(BaseTestKG):

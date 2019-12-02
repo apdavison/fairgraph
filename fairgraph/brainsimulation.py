@@ -3,6 +3,21 @@ Metadata for model building, simulation and validation.
 
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 try:
     basestring
 except NameError:
@@ -33,16 +48,21 @@ ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 class HasAliasMixin(object):
 
     @classmethod
-    def from_alias(cls, alias, client):
+    def from_alias(cls, alias, client, api="query"):
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
         }
         query = {
-            "path": "nsg:alias",
-            "op": "eq",
-            "value": alias
+            "nexus": {
+                "path": "nsg:alias",
+                "op": "eq",
+                "value": alias
+            },
+            "query": {
+                "alias": alias
+            }
         }
-        return KGQuery(cls, query, context).resolve(client)
+        return KGQuery(cls, query, context).resolve(client, api=api)
 
 
 class ModelProject(KGObject, HasAliasMixin):
@@ -84,14 +104,6 @@ class ModelProject(KGObject, HasAliasMixin):
         "partOf": "nsg:partOf",
         "hasPart": "dcterms:hasPart"
     }
-    attribute_map = {
-        "model_of": (ModelScope, context["modelOf"]),
-        "brain_region": (BrainRegion, context["brainRegion"]),
-        "species": (Species, context["species"]),
-        "celltype": (CellType, context["celltype"]),
-        "abstraction_level": (AbstractionLevel, context["abstractionLevel"]),
-    }
-    # should be able to replace `attribute_map` by extending `fields`
     fields = (
         Field("name", basestring, "name", required=True),
         Field("owners", Person, "owner", required=True, multiple=True),
@@ -118,6 +130,8 @@ class ModelProject(KGObject, HasAliasMixin):
               "hasPart", multiple=True),
         Field("images", dict, "images", multiple=True)  # type should be Distribution?
     )
+    # allow multiple projects with the same name
+    existence_query_fields = ("name", "date_created")
 
     def __init__(self, name, owners, authors, description, date_created, private, collab_id=None,
                  alias=None, organization=None, pla_components=None, brain_region=None,
@@ -128,79 +142,9 @@ class ModelProject(KGObject, HasAliasMixin):
         args.pop("self")
         KGObject.__init__(self, **args)
 
-    @property
-    def _existence_query(self):
-        # allow multiple projects with the same name
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "schema:dateCreated",
-                    "op": "eq",
-                    "value": self.date_created.isoformat()
-                }
-            ]
-        }
-
-    @classmethod
-    def list(cls, client, size=100, api='nexus', scope="released", resolved=False, **filters):
-        """List all objects of this type in the Knowledge Graph"""
-        if api == 'nexus':
-            context = {
-            'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
-            }
-            filter_queries = []
-            for name, value in filters.items():
-                if name in cls.attribute_map:
-                    concept_class, concept_uri = cls.attribute_map[name]
-                    filter_queries.append({
-                        'path': concept_uri,
-                        'op': 'eq',
-                        'value': concept_class(value).iri
-                    })
-                elif name in ("author", "owner"):
-                    if not isinstance(value, Person):
-                        raise TypeError("{} must be a Person object".format(name))
-                    filter_queries.append({
-                        "path": cls.context[name],
-                        "op": "eq",
-                        "value": value.id
-                    })
-                else:
-                    raise Exception("The only supported filters are by '{supported_filters}'. "
-                                    "You specified '{name}'".format(
-                                        supported_filters="', '".join(chain(cls.attribute_map, ["author", "owner"])),
-                                        name=name))
-            if len(filter_queries) == 0:
-                return client.list(cls, size=size)
-            elif len(filter_queries) == 1:
-                filter_query = filter_queries[0]
-            else:
-                filter_query = {
-                    "op": "and",
-                    "value": filter_queries
-                }
-            return KGQuery(cls, filter_query, context).resolve(client, size=size)
-            # todo: handle resolved=True for nexus queries (i.e. do all the downstream resolutions  )
-        else:
-            # todo: handle author, owner
-            filter_queries = {}
-            for name, value in filters.items():
-                if name in cls.attribute_map:
-                    concept_class, concept_uri = cls.attribute_map[name]
-                    filter_queries[name] = concept_class.iri_map[value]
-                else:
-                    filter_queries[name] = value
-            return client.list(cls, size=size, api=api, scope=scope, filter=filter_queries, resolved=resolved)
-
-
     def authors_str(self, client):
-        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client))
+        api = self.instance.data.get("fg:api", "query")
+        return ", ".join("{obj.given_name} {obj.family_name}".format(obj=obj.resolve(client, api=api))
                          for obj in self.authors)
 
     #def sub_projects(self):
@@ -231,7 +175,8 @@ class ModelInstance(KGObject):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -242,7 +187,7 @@ class ModelInstance(KGObject):
         Field("model_of", (CellType, BrainRegion), "modelOf", required=False),  # should be True, but causes problems for a couple of cases at the moment
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
         Field("release", basestring, "release", required=False),
-        Field("version",  basestring, "version", required=True),
+        Field("version", basestring, "version", required=True),
         Field("timestamp", datetime, "generatedAtTime", required=False),
         Field("part_of", KGObject, "isPartOf"),
         Field("description", basestring, "description"),
@@ -261,9 +206,14 @@ class ModelInstance(KGObject):
     @property
     def project(self):
         query = {
-            "path": "dcterms:hasPart",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "dcterms:hasPart",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "instances": self.id  # untested
+            }
         }
         context = {
             "dcterms": "http://purl.org/dc/terms/"
@@ -286,7 +236,8 @@ class MEModel(ModelInstance):
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {"oldUUID": "nsg:providerId"}
+        {"oldUUID": "nsg:providerId",
+         "generatedAtTime": "prov:generatedAtTime"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -358,7 +309,7 @@ class ModelScript(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/emodelscript/v0.1.0"
     type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
-    context =  [  # todo: root should be set by client to nexus or nexus-int or whatever as required
+    context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
@@ -369,7 +320,7 @@ class ModelScript(KGObject):
         Field("name", basestring, "name", required=True),
         Field("code_format", basestring, "code_format"),
         Field("license", basestring, "license"),
-        Field("distribution", Distribution,  "distribution")
+        Field("distribution", Distribution, "distribution")
     )
 
     def __init__(self, name, code_location=None, code_format=None, license=None,
@@ -405,7 +356,7 @@ class EModel(ModelInstance):
         Field("model_of", (CellType, BrainRegion), "modelOf", required=False),
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=False),
         Field("release", basestring, "release", required=False),
-        Field("version",  basestring, "version", required=False),
+        Field("version", basestring, "version", required=False),
         Field("timestamp", datetime, "generatedAtTime", required=False),
         Field("part_of", KGObject, "isPartOf"),
         Field("description", basestring, "description"),
@@ -435,11 +386,14 @@ class AnalysisResult(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
-    context =  [
+    context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {
-            "wasDerivedFrom": "prov:wasDerivedFrom"
+            "wasDerivedFrom": "prov:wasDerivedFrom",
+            "generatedAtTime": "prov:generatedAtTime",
+            "wasAttributedTo": "prov:wasAttributedTo",
+            #"wasGeneratedBy": "prov:wasGeneratedBy",
         }
     ]
     fields = (
@@ -447,13 +401,18 @@ class AnalysisResult(KGObject):
         Field("result_file", (Distribution, basestring), "distribution"),
         Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
         Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("attributed_to", Person, "wasAttributedTo"),
+        #Field("generated_by", Analysis, "wasGeneratedBy"),
         Field("description", basestring, "description")
     )
+    existence_query_fields = ("name", "timestamp")
 
     def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
+                 attributed_to=None, #generated_by=None,
                  description=None, id=None, instance=None):
         super(AnalysisResult, self).__init__(
             name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
+            attributed_to=attributed_to, #generated_by=generated_by,
             description=description, id=id, instance=instance
         )
         self._file_to_upload = None
@@ -467,24 +426,6 @@ class AnalysisResult(KGObject):
             for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
 
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": self.timestamp.isoformat()
-                }
-            ]
-        }
-
     def save(self, client):
         super(AnalysisResult, self).save(client)
         if self._file_to_upload:
@@ -494,7 +435,8 @@ class AnalysisResult(KGObject):
         assert os.path.isfile(file_path)
         statinfo = os.stat(file_path)
         if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:
-            raise Exception("File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
+            raise Exception(
+                "File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
         # todo, use the Nexus HTTP client directly for the following
         headers = client._nexus_client._http_client.auth_client.get_headers()
         content_type, encoding = mimetypes.guess_type(file_path, strict=False)
@@ -504,7 +446,7 @@ class AnalysisResult(KGObject):
                                     "file": (os.path.basename(file_path),
                                              open(file_path, "rb"),
                                              content_type)
-                                })
+        })
         if response.status_code < 300:
             logger.info("Added attachment {} to {}".format(file_path, self.id))
             self._file_to_upload = None
@@ -573,9 +515,14 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     @property
     def scripts(self):
         query = {
-            "path": "nsg:implements",
-            "op": "eq",
-            "value": self.id
+            "nexus": {
+                "path": "nsg:implements",
+                "op": "eq",
+                "value": self.id
+            },
+            "query": {
+                "test_definition": self.id
+            }
         }
         context = {
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
@@ -705,20 +652,12 @@ class ValidationActivity(KGObject):
         Field("model_instance", (ModelInstance, MEModel), "modelUsed", required=True),
         Field("test_script", ValidationScript, "testUsed", required=True),
         Field("reference_data", Collection, "dataUsed", required=True),
-        Field("timestamp", datetime,  "startedAtTime", required=True),
+        Field("timestamp", datetime, "startedAtTime", required=True),
         Field("result", ValidationResult, "generated"),
         Field("started_by", Person, "wasAssociatedWith"),
-        Field("end_timestamp",  datetime, "endedAtTime")
+        Field("end_timestamp", datetime, "endedAtTime")
     )
-
-    @property
-    def _existence_query(self):
-        # to fix: need an _and_ on model_instance, test_script, reference_data and timestamp
-        return {
-            "path": "prov:startedAtTime",
-            "op": "eq",
-            "value": self.timestamp.isoformat()
-        }
+    existence_query_fields = ("timestamp")
 
     @property
     def duration(self):
@@ -733,16 +672,18 @@ class ValidationActivity(KGObject):
         D = instance.data
         if resolved:
             D = cls._fix_keys(D)
-        for otype in cls.type:
+        for otype in as_list(cls.type):
             if otype not in D["@type"]:
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+
         def filter_by_kg_type(items, type_name):
             filtered_items = []
             for item in as_list(items):
-                if type_name in item["@type"] or type_name in compact_uri(item["@type"], standard_context):
+                if (type_name in item["@type"]
+                    or type_name in compact_uri(item["@type"], standard_context)):
                     filtered_items.append(item)
             return filtered_items
         try:

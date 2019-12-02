@@ -1,0 +1,231 @@
+{
+    "results": [
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "960711AHP3",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
+                            "label": "hippocampus CA1 ivy neuron"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_960711AHP3 - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/50d5095a-879c-4b45-bbaf-af016b98c799"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "970428A1",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+                            "label": "hippocampus CA1 lacunosum moleculare neuron"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_970428A1 - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/dd673403-090a-4af8-b165-87188d58757e"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "980120A",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "unknown",
+                            "label": "hippocampus interneuron BP"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_980120A - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/73ea26bc-8ab5-4e85-9d92-1faa078f648c"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "980205FHP",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+                            "label": "hippocampus CA1 lacunosum moleculare neuron"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_980205FHP - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/48489590-5bc7-469e-b2f7-614585f2e85b"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "980513B",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "unknown",
+                            "label": "hippocampus CA1 bistratified cell"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_980513B - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/344413d5-2aed-406b-be9c-375e26bdfb2f"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "981215GHP4",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                            "label": "hippocampus CA1 basket cell"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_981215GHP4 - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/46a17e5f-c3a6-4bcd-8ceb-745b3c203f4d"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "990111ABHP1",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                            "label": "hippocampus CA1 basket cell"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_990111ABHP1 - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/9d11c19b-ba90-4d87-b80b-9531899d0dba"
+        },
+        {
+            "hadMember": [
+                {
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/IntraCellularSharpElectrodeRecordedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential": null,
+                    "name": "990111HP2",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber": null,
+                    "IntraCellularSharpElectrodeRecordedCell__brainRegion": [],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26",
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance": null,
+                    "IntraCellularSharpElectrodeRecordedCell__eType": [
+                        {
+                            "@id": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+                            "label": "hippocampus CA1 basket cell"
+                        }
+                    ],
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
+                    "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
+                }
+            ],
+            "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+            "name": "thomson_ucl_990111HP2 - recorded cell collection",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/84470e9b-71fa-4f9d-8496-72951daabe20"
+        }
+    ],
+    "total": 8,
+    "size": 8,
+    "start": 0
+}

@@ -3,6 +3,21 @@
 
 """
 
+# Copyright 2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 try:
     from urllib.parse import urlparse, quote_plus
 except ImportError:  # Python 2
@@ -32,7 +47,7 @@ standard_context = {
     "release": "nsg:release",
     "version": "schema:version",
     "generatedAtTime": "prov:generatedAtTime",
-    "isPartOf": "nsg:isPartOf", # not sure about prefix,
+    "isPartOf": "nsg:isPartOf",  # not sure about prefix,
     "parameters": "nsg:parameters",
     "morphology": "nsg:morphology",
     "eModel": "nsg:eModel",
@@ -72,6 +87,7 @@ standard_context = {
     "endedAtTime": "prov:endedAtTime",
     "generated": "prov:generated",
     "wasGeneratedBy": "prov:wasGeneratedBy",
+    "wasAttributedTo": "prov:wasAttributedTo",
     "passedValidation": "nsg:passedValidation",
     "passed": "nsg:passedValidation",
     "repository": "schema:codeRepository",

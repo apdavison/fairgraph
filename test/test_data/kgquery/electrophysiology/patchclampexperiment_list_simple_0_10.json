@@ -1,0 +1,187 @@
+{
+    "results": [
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/eb825ca0-852b-42da-af8a-f742e274becf"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/c1850ee1-f2e0-41cb-a90b-f8e16a129b41"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/fcf47e5b-c3f5-408f-a98c-aad4396b3dcb"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/a2a770d7-e4dd-418d-85ad-121d9ec133aa"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/42523020-b70d-401e-abba-cc38e8b59ed2"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/98d08c95-32aa-4a23-b177-6785057f3ca6"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/076f58be-5750-4ad9-a0df-7761d74e618b"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/ce33df8b-442b-4429-8414-2c948b59b8c5"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/6fced569-0ef5-4f50-91d7-5068acd62c82"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5bd6ed48-9f6e-4a95-9800-d985384ae1eb"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/33c2675b-aaac-4ab4-8070-52c0be3956e3"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/9739920e-92df-472b-9a11-f14de7a23ee7"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/095448b1-aba3-4e5b-9929-97cfd8ae74bf"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/49ce2d7b-0527-46c3-83ac-d443918394b7"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2c5442e9-ad06-48e2-a653-bbc254e5d41e"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/2ede7538-b186-4210-a373-132fa3937018"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/d3aad845-2762-42e0-8e10-7ab4b718216c"
+        },
+        {
+            "prov:used": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                        "http://www.w3.org/ns/prov#Entity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/ec1e44fa-1866-46e0-9fed-00f3b0e62aec"
+                }
+            ],
+            "@type": [
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "name": null,
+            "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType": [],
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d5a2fbe-504d-4d88-838a-eca83b9627a1"
+        }
+    ],
+    "total": 75,
+    "size": 10,
+    "start": 0
+}

@@ -3,6 +3,21 @@
 
 """
 
+# Copyright 2018-2019 CNRS
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 import collections
 try:
     basestring
@@ -72,8 +87,8 @@ class Strain(OntologyTerm):
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
-        "C57BL/6J": "https://www.jax.org/strain/000664",  # RRID:IMSR_JAX:000664,
-	"B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
+        "C57BL/6J": "https://www.jax.org/strain/000664",
+        "B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
@@ -268,7 +283,7 @@ class QuantitativeValue(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
         "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
@@ -286,8 +301,6 @@ class QuantitativeValue(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r} {self.unit_text!r})')
         return ('{self.__class__.__name__}('
                 '{self.value!r} {self.unit_text!r})'.format(self=self))
 
@@ -317,6 +330,9 @@ class QuantitativeValue(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
+        for key in list(data):
+            if "http://schema.org/" in key:
+                data[key.replace("http://schema.org/", "")] = data[key]
         if "label" in data:
             unit_text = data["label"]
         elif "unitText" in data:
@@ -342,7 +358,7 @@ class QuantitativeValueRange(StructuredMetadata):
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV":  "http://purl.obolibrary.org/obo/UO_0000247",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
     }
 
@@ -357,8 +373,6 @@ class QuantitativeValueRange(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r} {self.unit_text!r})')
         return ('{self.__class__.__name__}('
                 '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
 
@@ -382,6 +396,9 @@ class QuantitativeValueRange(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
+        for key in list(data):
+            if "http://schema.org/" in key:
+                data[key.replace("http://schema.org/", "")] = data[key]
         if "label" in data:
             unit_text = data["label"]
         elif "unitText" in data:
@@ -406,7 +423,7 @@ class Age(StructuredMetadata):
     }
     fields = (
         Field("value", basestring, "value", required=True),
-        Field("period", basestring, "period",  required=True, multiple=True)
+        Field("period", basestring, "period", required=True, multiple=True)
     )
 
     def __init__(self, value, period):
@@ -416,13 +433,13 @@ class Age(StructuredMetadata):
         self.period = period
 
     def __repr__(self):
-        #return (f'{self.__class__.__name__}('
-        #        f'{self.value!r}, {self.period!r})')
         return ('{self.__class__.__name__}('
                 '{self.value!r}, {self.period!r})'.format(self=self))
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.value == other.value and self.period == other.period
+        return (isinstance(other, self.__class__)
+                and self.value == other.value
+                and self.period == other.period)
 
     def __ne__(self, other):
         return not self.__eq__(other)

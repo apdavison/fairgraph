@@ -1,0 +1,267 @@
+{
+    "results": [
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/b1f3c06f-ba3a-415c-a671-fa8d305fb62b"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 960711AHP3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/8d30a437-bd13-4927-9675-bf664e9395a2",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -66.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ae6b534e-1277-49c4-9ebf-2cf7bd28e3be"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 970428A1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/36bb0e79-f901-4041-8075-2ab7b7a9e4d7",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -68.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/52c7ca05-09ee-4bc4-8bfa-aeafe21e4a2f"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 980120A",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/60fead54-6742-4d20-8fbe-73c161b3a65a",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -68.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/488c68fe-1d95-4aae-af89-986b8cfeeb9b"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 980205FHP",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/9129f45c-d498-4c85-86b5-1ecd4cc89cce",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -76.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/9f0a73fb-0414-4b69-816d-366ee15dc141"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 980513B",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/421a8718-d05d-421a-8a4b-2ad007d4276e",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -71.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/ba02a7b1-b018-4ea0-8755-98f24e180f28"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 981215GHP4",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/e3f7317d-8cda-4dce-911d-7f9196749498",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -65.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/392ca8cd-8b94-4301-9652-fd18e0883562"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 990111ABHP1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/acfc48d6-d3f1-4c8b-b696-2d1f03e6260f",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -68.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.2.1/6555c56e-cbd8-4957-8047-5c0d13beae50"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for responses recorded in 990111HP2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/80c11c6f-7775-4009-a07f-939284e3f189",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -74.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/515473f3-889d-4807-8391-c36a4685f593"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for sIPSCs recorded in hbp00011_Sub1_Samp1__ExpE1",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/4f1f7ec4-9fdc-4a11-84fe-1da5a9a7045d",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -75.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        },
+        {
+            "sweep": 1.0,
+            "activity": [
+                {
+                    "@type": [
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
+                        "http://www.w3.org/ns/prov#Activity"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Generation",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/TraceGeneration"
+            ],
+            "name": "Metadata for sIPSCs recorded in hbp00011_Sub1_Samp2__ExpE2",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/tracegeneration/v0.1.0/5a497fa2-cebc-4489-8567-2fa0238abd3c",
+            "targetHoldingPotential": {
+                "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/QuantitativeValue",
+                "http://schema.org/unitCode": {
+                    "@id": "http://purl.obolibrary.org/obo/UO_0000247"
+                },
+                "http://schema.org/value": -75.0,
+                "http://www.w3.org/2000/01/rdf-schema#label": "mV"
+            }
+        }
+    ],
+    "total": 34,
+    "size": 10,
+    "start": 0
+}
