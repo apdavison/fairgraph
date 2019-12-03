@@ -546,7 +546,7 @@ class KGObject(with_metaclass(Registry, object)):
                                                 size=1, scope="latest")
                 elif self.exists(client, "nexus"):
                        print('option2')
- 	               response = client.query_nexus(self.__class__.path, query_filter, context)
+                       response = client.query_nexus(self.__class__.path, query_filter, context)
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
