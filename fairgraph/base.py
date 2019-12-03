@@ -536,8 +536,11 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             elif api == "any":
-                if not self.exists(client, "query"):
-                    return self.exists(client, "nexus")
+                if self.exists(client, "query"):
+                	response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                                                size=1, scope="latest")
+                elif self.exists(client, "nexus"):
+ 	               response = client.query_nexus(self.__class__.path, query_filter, context)
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
