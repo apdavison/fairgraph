@@ -541,11 +541,11 @@ class KGObject(with_metaclass(Registry, object)):
             elif api == "any":
                 print('here')
                 if self.exists(client, "query"):
-                        print('option1')
-                	response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                       print('option1')
+                       response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
                                                 size=1, scope="latest")
                 elif self.exists(client, "nexus"):
-                        print('option2')
+                       print('option2')
  	               response = client.query_nexus(self.__class__.path, query_filter, context)
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
