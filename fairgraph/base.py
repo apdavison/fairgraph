@@ -542,6 +542,9 @@ class KGObject(with_metaclass(Registry, object)):
                 if self.exists(client, "query"):
                        response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
                                                 size=1, scope="latest")
+                       print(self.__class__.path)
+                       print(query_filter)
+                       print(response)
                        print(response)
                 elif self.exists(client, "nexus"):
                        response = client.query_nexus(self.__class__.path, query_filter, context)
