@@ -539,6 +539,7 @@ class KGObject(with_metaclass(Registry, object)):
                 print(self.id)
                 return True
             elif api == "any":
+		print('here')
                 if self.exists(client, "query"):
                 	response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
                                                 size=1, scope="latest")
@@ -548,7 +549,6 @@ class KGObject(with_metaclass(Registry, object)):
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
-
             elif api == "query":
                 response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
                                                 size=1, scope="latest")
