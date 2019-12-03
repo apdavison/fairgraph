@@ -628,7 +628,7 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id or self.exists(client, api="query"):
+        if self.id or self.exists(client, api="nexus"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
                 # this can occur if updating a previously-saved object that has been constructed
