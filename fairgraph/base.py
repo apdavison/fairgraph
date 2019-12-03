@@ -638,7 +638,8 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+                if self.id != None:
+                    self.instance = client.instance_from_full_uri(self.id, use_cache=False)
 
         if self.instance:
             if self._update_needed(data):
