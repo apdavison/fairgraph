@@ -631,7 +631,7 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id:
+        if self.id or self.exists(client, api="any") == True:
             # or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
