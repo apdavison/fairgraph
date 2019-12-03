@@ -219,9 +219,7 @@ class KGClient(object):
                     logger.warning("Instance not found at {} using KG Query API".format(uri))
                     instance = None
             else:
-                print(Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
-                                data=self._instance_repo._http_client.get(uri),
-                                root_path=Instance.path))
+                print(Instance.extract_id_from_url(uri, self._instance_repo.path))
                 raise NotImplementedError("Coming soon. For now, please use api='nexus'")
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
