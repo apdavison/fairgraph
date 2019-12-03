@@ -526,7 +526,7 @@ class KGObject(with_metaclass(Registry, object)):
         if self.id:
             return True
         else:
-	    print('test')
+            print('test')
             query_filter = self._build_existence_query(api=api)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
