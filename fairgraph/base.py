@@ -628,12 +628,6 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id or self.exists(client, api="any"):
-            # note that calling self.exists() sets self.id if the object does exist
-            if self.instance is None:
-                # this can occur if updating a previously-saved object that has been constructed
-                # (e.g. in a script), rather than retrieved from Nexus
-                # since we don't know its current revision, we have to retrieve it
 
 
         if self.instance:
