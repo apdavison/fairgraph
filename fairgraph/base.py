@@ -527,16 +527,13 @@ class KGObject(with_metaclass(Registry, object)):
             return True
         else:
             query_filter = self._build_existence_query(api=api)
-            print(query_filter)
             query_cache_key = generate_cache_key(query_filter)
-            print(query_cache_key)
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
                 # that has just been written to Nexus may not appear in the query.
                 # Therefore we cache the query when creating an instance and
                 # where exists() returns True
                 self.id = self.save_cache[self.__class__][query_cache_key]
-                print(self.id)
                 return True
             elif api == "any":
                 if self.exists(client, "query"):
@@ -544,7 +541,6 @@ class KGObject(with_metaclass(Registry, object)):
                                                 size=1, scope="latest")
                        print(self.__class__.path)
                        print(query_filter)
-                       print(response)
                        print(response)
                 elif self.exists(client, "nexus"):
                        response = client.query_nexus(self.__class__.path, query_filter, context)
@@ -635,7 +631,7 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id != None:
+        if self.id != None or self.exists(client, api="any"):
             # or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
