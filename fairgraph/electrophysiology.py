@@ -114,6 +114,35 @@ class Task(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+class Device(KGObject):
+    """Stimulus provided to Subject in MEGExperiment"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/device/v0.1.0"
+    type = ["prov:Entity", "nsg:Device"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "value": "schema:value"
+        "minds": "https://schema.hbp.eu/",
+        "partOf": "nsg:partOf"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("manufacturer", basestring, "manufacturer", required=True),
+        Field("model_name", basestring, "modelName", required=True),
+        Field("software_version", basestring, "softwareVersion", required=True),
+        Field("serial_number", basestring, "serialNumber", required=True)
+    )
+
+    def __init__(self, name, manufacturer, model_name, software_verison, serial_number, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
 class Trace(KGObject):
     """Single time series recorded during an experiment or simulation.
 
@@ -818,12 +847,17 @@ class MagnetoencephalographyExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
+        Field("sensors", MEGObject, "sensors", required=True),
+        Field("head_localization_coils", MEGObject, "headLocalizationCoils", required=True),
+        Field("digitized_head_points", MEGObject, "digitizedHeadPoints", required=True),
+        Field("task", Task, "task", required=True),
+
         Field("sampling_frequency", QuantitativeValue, "samplingFrequency", required=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by")
     )
 
-    def __init__(self, name, sampling_frequency, traces=None, id=None, instance=None):
+    def __init__(self, name, sensors, head_localization_coils, digitized_head_points, task, sampling_frequency, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
