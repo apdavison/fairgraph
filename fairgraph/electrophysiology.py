@@ -46,7 +46,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class MEGObject(KGObject):
     """Objects required for MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megobject/v0.1.0"
+    _path = "/electrophysiology/megobject/v0.1.1"
     type = ["nsg:MEGObject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -73,6 +73,43 @@ class MEGObject(KGObject):
     )
 
     def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+class Task(KGObject):
+    """Stimulus provided to Subject in MEGExperiment"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/task/v0.1.1"
+    type = ["prov:Entity", "nsg:Task"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "value": "schema:value",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        },
+        "minds": "https://schema.hbp.eu/",
+        "partOf": "nsg:partOf"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("description", basestring, "description", required=True),
+        Field("cogatlastid", Distribution, "cogAtlastID", required=True),
+        Field("cogatpoid", Distribution, "cogPIOD", required=True)
+    )
+
+    def __init__(self, name, description, cogatlasid, cogpoid, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
