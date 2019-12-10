@@ -65,7 +65,7 @@ class MEGObject(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("coordinate_system", basestring, "coordinateSystem", required=False),
-        Field("coordinate_unit", basestring, "coordinateUnit", required=False),
+        Field("coordinate_units", basestring, "coordinateUnits", required=False),
         Field("description", basestring, "description", required=False)
     )
 
