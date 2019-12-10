@@ -43,6 +43,39 @@ from .utility import compact_uri, standard_context, as_list
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
+class MEGObject(KGObject):
+    """Objects required for MEG Experiment"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/megobject/v0.1.0"
+    type = ["nsg:MEGObject", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "value": "schema:value",
+        "minValue": "schema:minValue",
+        "maxValue": "schema:maxValue",
+        "unitCode": "schema:unitCode",
+        "dataUnit": "nsg:dataUnit",
+        "unitText": "schema:unitText",
+        "unitCode": "schema:unitCode",
+        "description": "schema:description",
+        "label": "rdfs:label",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("coordinate_system", basestring, "coordinateSystem", required=False),
+        Field("coordinate_units", basestring, "coordinateUnits", required=False),
+        Field("description", basestring, "description", required=False)
+    )
+
+    def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 class Trace(KGObject):
     """Single time series recorded during an experiment or simulation.
@@ -714,6 +747,104 @@ class PatchClampExperiment(KGObject):
         elif api == "query":
             # todo: what about filtering if api="query"
             return super(PatchClampExperiment, cls).list(client, size, from_index, api,
+                                                         scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+
+    @property
+    def dataset(self):
+        context = {
+            "nsg": self.context["nsg"],
+            "prov": self.context["prov"]
+        }
+        filter = {
+            "nexus": {
+                "path": "^nsg:partOf / prov:wasGeneratedBy",
+                "op": "eq",
+                "value": self.id
+            }
+        }
+        return KGQuery(Dataset, filter, context)
+
+
+class MagnetoencephalographyExperiment(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/magnetoencephalographyexperiment/v0.1.0"
+    type = ["nsg:StimulusExperiment", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "label": "rdfs:label"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("sampling_frequency", QuantitativeValue, "samplingFrequency", required=True),
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
+              multiple=True, reverse="generated_by")
+    )
+
+    def __init__(self, name, sampling_frequency, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+
+        for otype in as_list(cls.type):
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "stimulus":
+                if "nsg:stimulus" in D:
+                    data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+                elif "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType" in D:
+                    data_item = D["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"]
+                else:
+                    data_item = None
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(MagnetoencephalographyExperiment, self)._build_data(client)
+        #data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
+        return data
+
+    @classmethod
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        # we need to add the additional filter below, as PatchClampExperiment and
+        # IntraCellularSharpElectrodeExperiment share the same path
+        # and JSON-LD type ("nsg:StimulusExperiment")
+        if api == "nexus":
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            context = {
+                "nsg": cls.context["nsg"],
+                "prov": cls.context["prov"],
+                "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            }
+            return client.list(cls, size=size, api=api, filter=filter, context=context)
+        elif api == "query":
+            # todo: what about filtering if api="query"
+            return super(MagnetoencephalographyExperiment, cls).list(client, size, from_index, api,
                                                          scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
