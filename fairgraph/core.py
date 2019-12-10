@@ -40,6 +40,40 @@ DEFAULT_NAMESPACE = None
 logger = logging.getLogger("fairgraph")
 
 
+class MEGObject(KGObject):
+    """Objects required for MEG Experiment"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/megobject/v0.1.0"
+    type = ["nsg:MEGObject", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "value": "schema:value",
+        "minValue": "schema:minValue",
+        "maxValue": "schema:maxValue",
+        "unitCode": "schema:unitCode",
+        "dataUnit": "nsg:dataUnit",
+        "unitText": "schema:unitText",
+        "unitCode": "schema:unitCode",
+        "description": "schema:description",
+        "label": "rdfs:label",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("coordinate_system", basestring, "coordinateSystem", required=False),
+        Field("coordinate_unit", basestring, "coordinateUnit", required=False),
+        Field("description", basestring, "description", required=False)
+    )
+
+    def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
 class Subject(KGObject):
     """The individual organism that is the subject of an experimental study."""
     namespace = DEFAULT_NAMESPACE
