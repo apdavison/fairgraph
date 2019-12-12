@@ -850,12 +850,12 @@ class MagnetoencephalographyExperiment(KGObject):
         Field("sensors", MEGObject, "sensors"),
         Field("head_localization_coils", MEGObject, "headLocalizationCoils"),
         Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
-        Field("task", Task, "task", required=True),
-        Field("sampling_frequency", QuantitativeValue, "samplingFrequency", required=True),
+        Field("task", Task, "task"),
+        Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
-    def __init__(self, name, sensors=None, head_localization_coils=None, digitized_head_points=None, task, sampling_frequency, id=None, instance=None):
+    def __init__(self, name, sensors=None, head_localization_coils=None, digitized_head_points=None, task=None, sampling_frequency=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
