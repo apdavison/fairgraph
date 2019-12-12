@@ -855,7 +855,7 @@ class MagnetoencephalographyExperiment(KGObject):
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True)
     )
 
-    def __init__(self, name, sensors=None, head_localization_coils=None, digitized_head_points=None, task, sampling_frequency, traces, id=None, instance=None):
+    def __init__(self, name, sensors=None, head_localization_coils=None, digitized_head_points=None, task, sampling_frequency, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
