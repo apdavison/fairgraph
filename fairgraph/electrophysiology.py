@@ -126,7 +126,7 @@ class Device(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
         "description": "schema:description",
-        "value": "schema:value"
+        "value": "schema:value",
         "minds": "https://schema.hbp.eu/",
         "partOf": "nsg:partOf"
     }
