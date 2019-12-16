@@ -836,7 +836,7 @@ class PatchClampExperiment(KGObject):
 
 class MagnetoencephalographyExperiment(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/magnetoencephalographyexperiment/v0.1.0"
+    _path = "/electrophysiology/magnetoencephalographyexperiment/v0.1.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
