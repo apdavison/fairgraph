@@ -764,7 +764,7 @@ class MEGExperiment(KGObject):
 
     def _build_data(self, client):
         """docstring"""
-        data = super(PatchClampExperiment, self)._build_data(client)
+        data = super(MEGExperiment, self)._build_data(client)
         data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
@@ -772,9 +772,6 @@ class MEGExperiment(KGObject):
     def list(cls, client, size=100, from_index=0, api="query",
              scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        # we need to add the additional filter below, as PatchClampExperiment and
-        # IntraCellularSharpElectrodeExperiment share the same path
-        # and JSON-LD type ("nsg:StimulusExperiment")
         if api == "nexus":
             filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:Device'}
             context = {
@@ -785,7 +782,7 @@ class MEGExperiment(KGObject):
             return client.list(cls, size=size, api=api, filter=filter, context=context)
         elif api == "query":
             # todo: what about filtering if api="query"
-            return super(PatchClampExperiment, cls).list(client, size, from_index, api,
+            return super(MEGExperiment, cls).list(client, size, from_index, api,
                                                          scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -804,8 +801,6 @@ class MEGExperiment(KGObject):
             }
         }
         return KGQuery(Dataset, filter, context)
-
-
 
 
 class PatchClampExperiment(KGObject):
