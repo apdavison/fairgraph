@@ -62,6 +62,16 @@ class Address(StructuredMetadata):
                        data["http://schema.org/addressCountry"])
 
 
+class Group(OntologyTerm):
+    """
+    The subject group
+    """
+    iri_map = {
+        "control group": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C28143",
+        "treatment group": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C161322"
+    }
+
+
 class Species(OntologyTerm):
     """
     The species of an experimental subject, expressed with the binomial nomenclature.
@@ -109,6 +119,7 @@ class Sex(OntologyTerm):
         "male": "schema:Male",
         "female": "schema:Female"
     }
+
 
 class Handedness(OntologyTerm):
     """
