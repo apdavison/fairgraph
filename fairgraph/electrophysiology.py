@@ -847,13 +847,12 @@ class MagnetoencephalographyExperiment(KGObject):
         "label": "rdfs:label"
     }
     fields = (
-        Field("sensors", MEGObject, "sensors", required=False),
-        Field("head_localization_coils", MEGObject, "headLocalizationCoils", required=False),
-        Field("digitized_head_points", MEGObject, "digitizedHeadPoints", required=False),
-        Field("device", Device, "device", required=False),
-        Field("task", Task, "task", required=False),
+        Field("sensors", MEGObject, "prov:used", required=False),
+        Field("head_localization_coils", MEGObject, "prov:used", required=False),
+        Field("digitized_head_points", MEGObject, "prov:used", required=False),
+        Field("device", Device, "nsg:device", required=False),
+        Field("task", Task, "nsg:task", required=False),
         Field("sampling_frequency", QuantitativeValue, "samplingFrequency", required=False)
-#        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, required=False)
     )
 
     def __init__(self, sensors=None, head_localization_coils=None, digitized_head_points=None, device=None, task=None, sampling_frequency=None, id=None, instance=None):
@@ -870,40 +869,21 @@ class MagnetoencephalographyExperiment(KGObject):
 
         for otype in as_list(cls.type):
             if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
-        for field in cls.fields:
-            if field.name == "stimulus":
-                if "nsg:stimulus" in D:
-                    data_item = D["nsg:stimulus"]["nsg:stimulusType"]
-                elif "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType" in D:
-                    data_item = D["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"]
-                else:
-                    data_item = None
-            elif field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
+
 
     def _build_data(self, client):
         """docstring"""
         data = super(MagnetoencephalographyExperiment, self)._build_data(client)
-        #data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
     @classmethod
     def list(cls, client, size=100, from_index=0, api="query",
              scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        # we need to add the additional filter below, as PatchClampExperiment and
-        # IntraCellularSharpElectrodeExperiment share the same path
-        # and JSON-LD type ("nsg:StimulusExperiment")
         if api == "nexus":
             filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:Device'}
             context = {
