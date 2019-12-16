@@ -848,11 +848,11 @@ class MagnetoencephalographyExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("sensors", MEGObject, "sensors"),
-        Field("head_localization_coils", MEGObject, "headLocalizationCoils"),
-        Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
-        Field("task", Task, "task"),
-        Field("sampling_frequency", QuantitativeValue, "samplingFrequency")
+        Field("sensors", MEGObject, "sensors", required=False),
+        Field("head_localization_coils", MEGObject, "headLocalizationCoils", required=False),
+        Field("digitized_head_points", MEGObject, "digitizedHeadPoints", required=False),
+        Field("task", Task, "task", required=False),
+        Field("sampling_frequency", QuantitativeValue, "samplingFrequency", required=False)
 #        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, required=False)
     )
 
