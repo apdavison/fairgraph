@@ -106,7 +106,7 @@ class Task(KGObject):
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
         Field("cogatlasid", Distribution, "cogAtlastID", required=True),
-        Field("cogatpoid", Distribution, "cogPIOD", required=True)
+        Field("cogpoid", Distribution, "cogPIOD", required=True)
     )
 
     def __init__(self, name, description, cogatlasid, cogpoid, id=None, instance=None):
