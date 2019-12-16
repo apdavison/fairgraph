@@ -905,7 +905,7 @@ class MagnetoencephalographyExperiment(KGObject):
         # IntraCellularSharpElectrodeExperiment share the same path
         # and JSON-LD type ("nsg:StimulusExperiment")
         if api == "nexus":
-            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:PatchedCell'}
+            filter = {'path': 'prov:used / rdf:type', 'op': 'eq', 'value': 'nsg:Device'}
             context = {
                 "nsg": cls.context["nsg"],
                 "prov": cls.context["prov"],
