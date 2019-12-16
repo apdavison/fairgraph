@@ -105,7 +105,7 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("cogatlastid", Distribution, "cogAtlastID", required=True),
+        Field("cogatlasid", Distribution, "cogAtlastID", required=True),
         Field("cogatpoid", Distribution, "cogPIOD", required=True)
     )
 
