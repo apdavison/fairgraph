@@ -723,7 +723,7 @@ class MEGExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-	Field("device", Device, "device", require=False)
+	Field("device", Device, "device", required=False)
     )
 
     def __init__(self, name, device=None, id=None, instance=None):
