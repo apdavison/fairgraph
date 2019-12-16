@@ -847,7 +847,6 @@ class MagnetoencephalographyExperiment(KGObject):
         "label": "rdfs:label"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
         Field("sensors", MEGObject, "sensors", required=False),
         Field("head_localization_coils", MEGObject, "headLocalizationCoils", required=False),
         Field("digitized_head_points", MEGObject, "digitizedHeadPoints", required=False),
