@@ -80,7 +80,7 @@ class MEGObject(KGObject):
 class Task(KGObject):
     """Stimulus provided to Subject in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/task/v0.1.1"
+    _path = "/electrophysiology/task/v0.1.2"
     type = ["prov:Entity", "nsg:Task"]
     context = {
         "schema": "http://schema.org/",
