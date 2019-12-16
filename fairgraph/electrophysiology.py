@@ -46,7 +46,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class MEGObject(KGObject):
     """Objects required for MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megobject/v0.1.3"
+    _path = "/electrophysiology/megobject/v0.1.4"
     type = ["nsg:MEGObject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
