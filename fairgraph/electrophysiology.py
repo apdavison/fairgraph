@@ -746,14 +746,22 @@ class MEGExperiment(KGObject):
                 if otype not in compacted_types:
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
         args = {}
-        for field in cls.fields:
-            if field.intrinsic:
+        for field in cls.fields:s
+            if field.name == "stimulus":
+                if "nsg:stimulus" in D:
+                    data_item = D["nsg:stimulus"]["nsg:stimulusType"]
+                elif "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType" in D:
+                    data_item = D["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"]
+                else:
+                    data_item = None
+            elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
             args[field.name] = field.deserialize(data_item, client)
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
+
 
     def _build_data(self, client):
         """docstring"""
