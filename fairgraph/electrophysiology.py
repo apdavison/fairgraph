@@ -117,7 +117,7 @@ class Task(KGObject):
 class Device(KGObject):
     """Stimulus provided to Subject in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/device/v0.1.1"
+    _path = "/electrophysiology/device/v0.1.2"
     type = ["prov:Entity", "nsg:Device"]
     context = {
         "schema": "http://schema.org/",
