@@ -138,7 +138,7 @@ class Device(KGObject):
         Field("serial_number", basestring, "serialNumber", required=True)
     )
 
-    def __init__(self, name, manufacturer, model_name, software_verison, serial_number, id=None, instance=None):
+    def __init__(self, name, manufacturer, model_name, software_version, serial_number, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
