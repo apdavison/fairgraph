@@ -722,10 +722,11 @@ class MEGExperiment(KGObject):
         "label": "rdfs:label"
     }
     fields = (
-        Field("name", basestring, "name", required=True)
+        Field("name", basestring, "name", required=True),
+	Field("device", Device, "device", require=False)
     )
 
-    def __init__(self, name, id=None, instance=None):
+    def __init__(self, name, device=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
