@@ -673,7 +673,7 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             return None
 
-    def resolve(self, client):
+    def resolve(self, client, api="query"):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
