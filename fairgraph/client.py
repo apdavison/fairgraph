@@ -211,7 +211,7 @@ class KGClient(object):
                                                                     query_id,
                                                                     SCOPE_MAP[scope],
                                                                     uri))
-                if len(response["results"]) > 0:
+                if response and len(response["results"]) > 0:
                     instance = Instance(cls.path, response["results"][0], Instance.path)
                     self.cache[instance.data["@id"]] = instance
                     logger.debug("Retrieved instance from KG Query" + str(instance.data))

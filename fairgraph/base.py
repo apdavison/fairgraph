@@ -633,8 +633,12 @@ class KGObject(with_metaclass(Registry, object)):
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
 
-                # todo: try both query and nexus APIs
-                self.instance = client.instance_from_full_uri(self.id, cls=self.__class__, use_cache=False)
+                # try both query and nexus APIs
+                self.instance = client.instance_from_full_uri(
+                    self.id, cls=self.__class__, api="query", scope="latest", use_cache=False)
+                if self.instance is None:
+                    self.instance = client.instance_from_full_uri(
+                        self.id, cls=self.__class__, api="nexus", use_cache=False)
 
         if self.instance:
             if self._update_needed(data):
