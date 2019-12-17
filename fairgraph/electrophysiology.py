@@ -723,10 +723,13 @@ class MEGExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-	Field("device", Device, "prov:used", required=False)
+	Field("device", Device, "prov:used", required=False),
+	Field("digitized_head_points", MEGObject, "prov:used", required=False),
+	Field("sensors", MEGObject, "prov:used", required=False),
+	Field("head_localization_coils", MEGObject, "prov:used", required=False),
     )
 
-    def __init__(self, name, device=None, id=None, instance=None):
+    def __init__(self, name, device=None, digitized_head_points=None, sensors=None, head_localization_coils=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
