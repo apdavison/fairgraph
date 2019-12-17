@@ -536,10 +536,10 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             elif api == "any":
-                if self.exists(client, "query"):
+                if self.exists(client, "nexus"):
                     return True
                 else:
-                    return self.exists(client, "nexus")
+                    return self.exists(client, "query")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
@@ -552,7 +552,7 @@ class KGObject(with_metaclass(Registry, object)):
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
             if response:
-                self.instance = response[0]
+                # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
                 self.id = self.instance.data["@id"]
                 KGObject.save_cache[self.__class__][query_cache_key] = self.id
             return bool(response)
