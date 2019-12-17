@@ -342,7 +342,7 @@ class QuantitativeValue(StructuredMetadata):
         else:
             unit_code = None
         if "value" in data:
-        return cls(float(data["value"]), unit_text, unit_code)
+            return cls(float(data["value"]), unit_text, unit_code)
         elif "minValue" in data:
             return QuantitativeValueRange(float(data["minValue"]), float(data["maxValue"]),
                                           unit_text, unit_code)

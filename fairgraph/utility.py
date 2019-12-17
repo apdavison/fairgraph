@@ -100,6 +100,8 @@ standard_context = {
     "givenName": "schema:givenName",
     "email": "schema:email",
     "affiliation": "schema:affiliation",
+    "propertyID": "schema:propertyID",
+    "value": "schema:value"
 }
 
 
@@ -149,6 +151,15 @@ def namespace_from_id(id):
     path_parts = parts.path.split("/")
     assert path_parts[2] == "data"
     return path_parts[3]
+
+
+def filter_by_kg_type(items, type_name):
+    filtered_items = []
+    for item in as_list(items):
+        if (type_name in item["@type"]
+            or type_name in compact_uri(item["@type"], standard_context)):
+            filtered_items.append(item)
+    return filtered_items
 
 
 def in_notebook():

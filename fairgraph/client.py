@@ -219,7 +219,7 @@ class KGClient(object):
                     logger.warning("Instance not found at {} using KG Query API".format(uri))
                     instance = None
             else:
-                raise NotImplementedError("Coming soon. For now, please use api='nexus'")
+                raise NotImplementedErrors("Coming soon. For now, please use api='nexus'")
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance

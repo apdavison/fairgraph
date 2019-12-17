@@ -34,10 +34,10 @@ import inspect
 from dateutil import parser as date_parser
 import requests
 from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field, IRI
-from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm, model_format_to_content_type
+from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm, QuantitativeValue, model_format_to_content_type
 from .core import Organization, Person, Age, Collection
 from .computing import ComputingEnvironment
-from .utility import compact_uri, standard_context
+from .utility import compact_uri, standard_context, filter_by_kg_type
 
 
 logger = logging.getLogger("fairgraph")
@@ -310,8 +310,8 @@ class ModelScript(KGObject):
     See also: :class:`ModelInstance`, :class:`MEModel`, :class:`EModel`
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/emodelscript/v0.1.0"
-    type = ["prov:Entity", "nsg:EModelScript"]  # generalize to other sub-types of script
+    _path = "/simulation/modelscript/v0.1.3"   # modified for neuromorphic on nexus-int, need to update in other namespaces for prod
+    type = ["prov:Entity", "nsg:ModelScript"]  # generalize to other sub-types of script
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
@@ -354,13 +354,13 @@ class ModelScript(KGObject):
 
     def read_content(self, client):
         # todo: allow content to be edited?
-        return self.distribution.read_content(client)
+        return self.distribution.read(client)
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
-        assert 'nsg:EModelScript' in D["@type"]  # generalise
+        assert 'nsg:ModelScript' in D["@type"]  # generalise
         obj = cls(name=D["name"],
                   distribution=build_kg_object(Distribution, D.get("distribution")),
                   license=D.get("license"),
@@ -437,18 +437,13 @@ class EModel(ModelInstance):
         KGObject.__init__(self, **args)
 
 
-class AnalysisResult(KGObject):
-    """The result of a data analysis.
-
-    For example a graph, a histogram, etc. The result is expected to be stored either in a local
-    file or in a web-accessible location with a direct URL.
+class KGDataObject(KGObject):
+    """Base class for user-generated data files.
 
     Note that local results files smaller than 1 MB in size will be uploaded and stored within
     the Knowledge Graph. Larger files must be stored elsewhere.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/analysisresult/v1.0.0"
-    type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
@@ -456,7 +451,7 @@ class AnalysisResult(KGObject):
             "wasDerivedFrom": "prov:wasDerivedFrom",
             "generatedAtTime": "prov:generatedAtTime",
             "wasAttributedTo": "prov:wasAttributedTo",
-            #"wasGeneratedBy": "prov:wasGeneratedBy",
+            "wasGeneratedBy": "prov:wasGeneratedBy",
         }
     ]
     fields = (
@@ -471,11 +466,11 @@ class AnalysisResult(KGObject):
     existence_query_fields = ("name", "timestamp")
 
     def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
-                 attributed_to=None, #generated_by=None,
+                 attributed_to=None, generated_by=None,
                  description=None, id=None, instance=None):
-        super(AnalysisResult, self).__init__(
+        super(KGDataObject, self).__init__(
             name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
-            attributed_to=attributed_to, #generated_by=generated_by,
+            attributed_to=attributed_to, generated_by=generated_by,
             description=description, id=id, instance=instance
         )
         self._file_to_upload = None
@@ -490,7 +485,7 @@ class AnalysisResult(KGObject):
                 assert isinstance(rf, Distribution)
 
     def save(self, client):
-        super(AnalysisResult, self).save(client)
+        super(KGDataObject, self).save(client)
         if self._file_to_upload:
             self.upload_attachment(self._file_to_upload, client)
 
@@ -513,7 +508,10 @@ class AnalysisResult(KGObject):
         if response.status_code < 300:
             logger.info("Added attachment {} to {}".format(file_path, self.id))
             self._file_to_upload = None
-            self.result_file = Distribution.from_jsonld(response.json()["distribution"][0])
+            if hasattr(self, "result_file"):
+                self.result_file = Distribution.from_jsonld(response.json()["distribution"][0])
+            if hasattr(self, "config_file"):
+                self.config_file = Distribution.from_jsonld(response.json()["distribution"][0])
         else:
             raise Exception(str(response.content))
 
@@ -522,79 +520,46 @@ class AnalysisResult(KGObject):
             rf.download(local_directory, client)
 
 
-class SimulationOutput(KGObject):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/output/v1.0.0"
+class Analysis(KGObject):
+    pass  # todo
+
+
+class AnalysisResult(KGDataObject):
+    """The result of a data analysis.
+
+    For example a graph, a histogram, etc. The result is expected to be stored either in a local
+    file or in a web-accessible location with a direct URL.
+
+    Note that local results files smaller than 1 MB in size will be uploaded and stored within
+    the Knowledge Graph. Larger files must be stored elsewhere.
+    """
+    _path = "/simulation/analysisresult/v1.0.0"
+    type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("result_file", (Distribution, basestring), "distribution"),
+        Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
+        Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("attributed_to", Person, "wasAttributedTo"),
+        Field("generated_by", Analysis, "wasGeneratedBy"),
+        Field("description", basestring, "description")
+    )
+
+
+class SimulationOutput(KGDataObject):
+    """File produced by a simulation.
+    """
+    _path = "/simulation/output/v0.1.0"
     type = ["prov:Entity", "nsg:SimulationOutput"]
-    context =  [
-        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
-        "{{base}}/contexts/nexus/core/resource/v0.3.0"
-    ]
-
-    def __init__(self, name, result_file=None, timestamp=None, id=None, instance=None):
-        self.name = name
-        self.result_file = result_file
-        self.timestamp = timestamp or datetime.datetime.now()
-        self.id = id
-        self.instance = instance
-        if isinstance(result_file, basestring):
-            if result_file.startswith("http"):
-                self.result_file = Distribution(location=result_file)
-            else:
-                raise ValueError("result_file must be provided as a URL")
-        elif result_file is not None:
-            for rf in as_list(self.result_file):
-                assert isinstance(rf, Distribution)
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.timestamp!r}, '
-                '{self.result_file!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:SimulationOutput' in D["@type"]
-        obj = cls(name=D["name"],
-                    result_file=build_kg_object(Distribution, D.get("distribution")),
-                    timestamp=date_parser.parse(D.get("generatedAtTime"))
-                            if "generatedAtTime" in D else None,
-                    id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.timestamp:
-            data["generatedAtTime"] = self.timestamp.isoformat()
-        if isinstance(self.result_file, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.result_file]
-        elif self.result_file is not None:
-            if isinstance(self.result_file, Distribution):
-                data["distribution"] = self.result_file.to_jsonld(client)
-            else:
-                data["distribution"] = [rf.to_jsonld(client) for rf in self.result_file]
-        return data
-
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": self.timestamp.isoformat()
-                }
-            ]
-        }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("result_file", (Distribution, basestring), "distribution"),
+        Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
+        Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("attributed_to", Person, "wasAttributedTo"),
+        Field("generated_by", "brainsimulation.Simulation", "wasGeneratedBy"),
+        Field("description", basestring, "description")
+    )
 
 
 class ValidationTestDefinition(KGObject, HasAliasMixin):
@@ -816,14 +781,6 @@ class ValidationActivity(KGObject):
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
                     print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-
-        def filter_by_kg_type(items, type_name):
-            filtered_items = []
-            for item in as_list(items):
-                if (type_name in item["@type"]
-                    or type_name in compact_uri(item["@type"], standard_context)):
-                    filtered_items.append(item)
-            return filtered_items
         try:
             model_instance = filter_by_kg_type(D["modelUsed"], "nsg:ModelInstance")[0]
         except KeyError:
@@ -851,85 +808,50 @@ class ValidationActivity(KGObject):
         return obj
 
 
-class SimulationConfiguration(KGObject):
+class SimulationConfiguration(KGDataObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/configuration/v1.0.0"
+    _path = "/simulation/configuration/v1.0.1"
     type = ["prov:Entity", "nsg:Configuration"]
     context =  [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
-        "{{base}}/contexts/nexus/core/resource/v0.3.0"
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "prov": "http://www.w3.org/ns/prov#",
+            "generatedAtTime": "prov:generatedAtTime"
+        }
     ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("config_file", (Distribution, basestring), "distribution"),
+        Field("timestamp", datetime, "generatedAtTime")
+    )
+    existence_query_fields = ("name", "timestamp")
 
-    def __init__(self, name, config_file=None, timestamp=None, id=None, instance=None):
-        self.name = name
-        self.config_file = config_file
+    def __init__(self, name, config_file=None, timestamp=None, description=None,
+                 id=None, instance=None):
+        super(SimulationConfiguration, self).__init__(
+            name=name, result_file=config_file, timestamp=timestamp,
+            description=description, id=id, instance=instance
+        )
         self.timestamp = timestamp or datetime.datetime.now()
-        self.id = id
-        self.instance = instance
+        self._file_to_upload = None
         if isinstance(config_file, basestring):
             if config_file.startswith("http"):
                 self.config_file = Distribution(location=config_file)
+            elif os.path.isfile(config_file):
+                self._file_to_upload = config_file
+                self.config_file = None
             else:
-                raise ValueError("config_file must be provided as a URL")
+                raise Exception()
         elif config_file is not None:
             for cf in as_list(self.config_file):
                 assert isinstance(cf, Distribution)
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.timestamp!r}, '
-                '{self.config_file!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client):
-        D = instance.data
-        assert 'nsg:Configuration' in D["@type"]
-        obj = cls(name=D["name"],
-                  config_file=build_kg_object(Distribution, D.get("distribution")),
-                  timestamp=date_parser.parse(D.get("generatedAtTime"))
-                            if "generatedAtTime" in D else None,
-                  id=D["@id"], instance=instance)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.timestamp:
-            data["generatedAtTime"] = self.timestamp.isoformat()
-        if isinstance(self.result_file, list):
-            data["distribution"] = [item.to_jsonld(client) for item in self.result_file]
-        elif self.result_file is not None:
-            if isinstance(self.result_file, Distribution):
-                data["distribution"] = self.result_file.to_jsonld(client)
-            else:
-                data["distribution"] = [rf.to_jsonld(client) for rf in self.result_file]
-        return data
-
-    @property
-    def _existence_query(self):
-        return {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": self.name
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": self.timestamp.isoformat()
-                }
-            ]
-        }
 
 
 class Simulation(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/simulation/v0.2.3"
+    _path = "/simulation/simulation/v0.2.4"
     type = ["prov:Activity", "nsg:Simulation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -951,108 +873,109 @@ class Simulation(KGObject):
             "job_id": "nsg:providerId"
         }
     ]
+    fields = (
+        Field("model_instance", (ModelInstance, MEModel), "used", required=True),
+        Field("simulation_config", SimulationConfiguration, "used"),
+        Field("start_time", datetime, "startedAtTime", required=True),
+        Field("computing_environment", ComputingEnvironment, "used", required=True),
+        Field("status", basestring, "status"),
+        # should probably restrict to the enum https://schema.org/ActionStatusType
+        Field("result", (SimulationOutput, ValidationResult), "generated", multiple=True),
+        Field("started_by", Person, "wasAssociatedWith"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("resource_usage", float, "resourceUsage"),
+        Field("tags", str,  "tags", multiple=True),
+        Field("job_id", str, "providerId")
+    )
+    existence_query_fields = ("start_time", "model_instance", "simulation_config", "computing_environment")
 
-    def __init__(self, model_instance, simulation_config, start_time,
-                 computing_environment, status=None,
-                 result=None, started_by=None, end_time=None, resource_usage=None,
-                 tags=None, job_id=None, id=None, instance=None):
-
-        self.model_instance = model_instance
-        self.simulation_config = simulation_config
-        self.computing_environment = computing_environment
-        self.start_time = start_time
-        self.result = result
-        self.started_by = started_by
-        self.status = status  # should probably restrict to the enum https://schema.org/ActionStatusType
-        self.end_time = end_time
-        self.resource_usage = resource_usage
-        self.tags = tags
-        self.job_id = job_id
-        self.id = id
-        self.instance = instance
-
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.model_instance!r}, '
-                '{self.start_time!r} {self.computing_environment!r}, '
-                '{self.job_id} {self.id})'.format(self=self))
-
-    @property
-    def _existence_query(self):
-        # to fix: need an _and_ on model_instance, simulation_config, computing_environment and start_time, also maybe job_id
-        return {
-            "path": "prov:startedAtTime",
-            "op": "eq",
-            "value": self.start_time.isoformat()
-        }
+    def __init__(self, model_instance, simulation_config=None, start_time=None,
+                 computing_environment=None, status=None, result=None, started_by=None,
+                 end_time=None, resource_usage=None, tags=None, job_id=None,
+                 id=None, instance=None):
+        super(Simulation, self).__init__(
+            model_instance=model_instance, simulation_config=simulation_config,
+            start_time=start_time, computing_environment=computing_environment, status=status,
+            result=result, started_by=started_by, end_time=end_time,
+            resource_usage=resource_usage, tags=tags, job_id=job_id,
+            id=id, instance=instance
+        )
+        if start_time and end_time:
+            if end_time < start_time:
+                raise ValueError("start_time ({}) must be before end_time ({})".format(
+                    start_time, end_time))
 
     @classmethod
     @cache
-    def from_kg_instance(cls, instance, client):
+    def from_kg_instance(cls, instance, client, resolved=False):
         D = instance.data
         assert 'nsg:Simulation' in D["@type"]
         model_instance = [item for item in D.get("used") if "nsg:ModelInstance" in item["@type"]][0]
-        simulation_config = [item for item in D.get("used") if "nsg:SimulationConfiguration" in item["@type"]][0]
+        simulation_config = [item for item in D.get("used") if "nsg:SimulationConfiguration" in item["@type"]]
+        if simulation_config:
+            assert len(simulation_config) == 1
+            simulation_config = simulation_config[0]
         computing_environment = [item for item in D.get("used") if "nsg:ComputingEnvironment" in item["@type"]][0]
-        obj = cls(model_instance=build_kg_object(ModelInstance, model_instance),
-                  simulation_config=build_kg_object(SimulationConfiguration, simulation_config),
-                  start_time=D.get("startedAtTime", None),
-                  computing_environment=build_kg_object(ComputingEnvironment, computing_environment),
-                  status=D.get("status", None),
-                  #result=build_kg_object(ValidationResult, D.get("result")),
-                  result=build_kg_object(None, D.get("result")),  # could be ValidationResult, SimulationOutput, ...
-                  started_by=build_kg_object(Person, D.get("wasAssociatedWith")),
-                  end_time=D.get("endedAtTime", None),
-                  resource_usage=D.get("resourceUsage", None),
+        api = D.get("fg:api", "query")
+        obj = cls(model_instance=build_kg_object(ModelInstance, model_instance, resolved=resolved, client=client, api=api),
+                  simulation_config=build_kg_object(SimulationConfiguration, simulation_config, resolved=resolved, client=client, api=api),
+                  start_time=date_parser.parse(D.get("startedAtTime")),
+                  computing_environment=build_kg_object(ComputingEnvironment, computing_environment, resolved=resolved, client=client, api=api),
+                  status=D.get("status"),
+                  result=build_kg_object(None, D.get("result"), resolved=resolved, client=client, api=api),  # could be ValidationResult, SimulationOutput, ...
+                  started_by=build_kg_object(Person, D.get("wasAssociatedWith"), resolved=resolved, client=client, api=api),
+                  end_time=date_parser.parse(D.get("endedAtTime")) if D.get("endedAtTime") else None,
+                  resource_usage=D.get("resourceUsage"),
                   tags=D.get("tags", []),
                   job_id=D.get("providerId"),
                   id=D["@id"],
                   instance=instance)
         return obj
 
-    def _build_data(self, client):
-        data = {}
-        if isinstance(self.start_time, (datetime.date, datetime.datetime)):
-            data["startedAtTime"] = self.start_time.isoformat()
-        else:
-            raise ValueError("start_time must be a date or datetime object")
-        if isinstance(self.end_time, (datetime.date, datetime.datetime)):
-            data["endedAtTime"] = self.start_time.isoformat()
-        elif self.end_time is None:
-            pass
-        else:
-            raise ValueError("end_time must be a date or datetime object")
-        data["used"] = [
-            {"@id": self.model_instance.id, "@type": self.model_instance.type},
-            {"@id": self.simulation_configuration.id, "@type": self.simulation_configuration.type},
-            {"@id": self.computing_environment.id, "@type": self.computing_environment.type},
-        ]
-        if self.started_by is not None:
-            data["wasAssociatedWith"] = [{
-                "@type": agent.type,
-                "@id": agent.id
-            } for agent in self.started_by]
-        if self.result is not None:
-            data["generated"] = {
-                "@type": self.result.type,
-                "@id": self.result.id
-            }
-        if self.status is not None:
-            data["status"] = self.status
-        if self.resource_usage is not None:
-            data["resourceUsage"] = self.resource_usage
-        if self.tags:
-            data["tags"] = self.tags
-        if self.job_id is not None:
-            data["providerId"] = self.job_id
-        return data
+    # def _build_data(self, client):
+    #     data = {}
+    #     if isinstance(self.start_time, (datetime.date, datetime.datetime)):
+    #         data["startedAtTime"] = self.start_time.isoformat()
+    #     else:
+    #         raise ValueError("start_time must be a date or datetime object")
+    #     if isinstance(self.end_time, (datetime.date, datetime.datetime)):
+    #         data["endedAtTime"] = self.start_time.isoformat()
+    #     elif self.end_time is None:
+    #         pass
+    #     else:
+    #         raise ValueError("end_time must be a date or datetime object")
+    #     data["used"] = [
+    #         {"@id": self.model_instance.id, "@type": self.model_instance.type},
+    #         {"@id": self.simulation_configuration.id, "@type": self.simulation_configuration.type},
+    #         {"@id": self.computing_environment.id, "@type": self.computing_environment.type},
+    #     ]
+    #     if self.started_by is not None:
+    #         data["wasAssociatedWith"] = [{
+    #             "@type": agent.type,
+    #             "@id": agent.id
+    #         } for agent in self.started_by]
+    #     if self.result is not None:
+    #         data["generated"] = {
+    #             "@type": self.result.type,
+    #             "@id": self.result.id
+    #         }
+    #     if self.status is not None:
+    #         data["status"] = self.status
+    #     if self.resource_usage is not None:
+    #         data["resourceUsage"] = self.resource_usage
+    #     if self.tags:
+    #         data["tags"] = self.tags
+    #     if self.job_id is not None:
+    #         data["providerId"] = self.job_id
+    #     return data
 
 
 def list_kg_classes():
     """List all KG classes defined in this module"""
-    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
-            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+    cls_list = [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+                if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+    cls_list.remove(KGDataObject)
+    return cls_list
 
 
 def use_namespace(namespace):

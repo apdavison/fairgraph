@@ -309,10 +309,20 @@ class Protocol(KGObject):
 
 
 class Identifier(KGObject):
-    namespace = "nexus"
-    _path = "/schemaorgsh/identifier/v0.1.0"
-    type = "schema:Identifier"
+    namespace = DEFAULT_NAMESPACE
+    _path = "/commons/identifier/v0.2.0"
+    type = "schema:identifier"
+    context = {
+        "schema": "http://schema.org/",
+        "propertyID": "schema:propertyID",
+        "value": "schema:value"
+    }
 
+    fields = (
+        Field("label", basestring, "propertyID"),
+        Field("value", basestring, "value")
+    )
+    existence_query_fields = ("label", "value")
 
 class Material(object):
     """Metadata about a chemical product or other material used in an experimental protocol."""

@@ -98,7 +98,9 @@ def generate_cache_key(qd):
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
         else:
-            if not isinstance(value, (basestring, int, float)):
+            if isinstance(value, dict) and "@id" in value:
+                value = value["@id"]
+            elif not isinstance(value, (basestring, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
@@ -240,7 +242,7 @@ class Field(object):
         else:
             return serialize_single(value)
 
-    def deserialize(self, data, client, resolved=False):
+    def deserialize(self, data, client, resolved=False, api=None):
 
         if data is None:
             return data
@@ -265,11 +267,11 @@ class Field(object):
                 }
                 return KGQuery(self.types, query_filter, query_context)
             if Distribution in self.types:
-                return build_kg_object(Distribution, data)
+                return build_kg_object(Distribution, data, api=api)
             elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
                 if len(self.types) > 1 or self.types[0] == KGObject:
-                    return build_kg_object(None, data, resolved=resolved, client=client)
-                return build_kg_object(self.types[0], data, resolved=resolved, client=client)
+                    return build_kg_object(None, data, resolved=resolved, client=client, api=api)
+                return build_kg_object(self.types[0], data, resolved=resolved, client=client, api=api)
             elif self.types[0] in (datetime, date):
                 return date_parser.parse(data)
             elif self.types[0] == IRI:
@@ -360,6 +362,7 @@ class KGObject(with_metaclass(Registry, object)):
                             print("Warning: type mismatch {} - {}".format(otype, compacted_types))
             else:
                 print("Warning: type information not available")
+            api = D.get("fg:api", "query")
             args = {}
             for field in cls.fields:
                 if field.intrinsic:
@@ -367,7 +370,7 @@ class KGObject(with_metaclass(Registry, object)):
                     # todo: handle over-loaded fields, e.g. "used" in ValidationActivity
                 else:
                     data_item = D["@id"]
-                args[field.name] = field.deserialize(data_item, client, resolved=resolved)
+                args[field.name] = field.deserialize(data_item, client, resolved=resolved, api=api)
             return cls(id=D["@id"], instance=instance, **args)
         else:
             raise NotImplementedError("To be implemented by child class")
@@ -401,6 +404,7 @@ class KGObject(with_metaclass(Registry, object)):
         if instance is None:
             return None
         else:
+            instance.data["fg:api"] = api
             return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
 
     @classmethod
@@ -499,18 +503,30 @@ class KGObject(with_metaclass(Registry, object)):
                     query_fields.append(field)
                     break
         if api in ("query", "any"):
-            return {
-                field.name: field.serialize(getattr(self, field.name), None)
-                for field in query_fields
-            }
+            query = {}
+            for field in query_fields:
+                value = getattr(self, field.name)
+                if hasattr(value, "id"):
+                    query[field.name] = value.id
+                elif value is not None:
+                    query[field.name] = field.serialize(value, None)
+            return query
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
-                query_parts.append({
-                    "path": standard_context[field.path],
-                    "op": "eq",
-                    "value": field.serialize(getattr(self, field.name), None)
-                })
+                value = getattr(self, field.name)
+                if hasattr(value, "id"):
+                    query_parts.append({
+                        "path": standard_context[field.path],
+                        "op": "eq",
+                        "value": value.id
+                    })
+                elif value is not None:
+                    query_parts.append({
+                        "path": standard_context[field.path],
+                        "op": "eq",
+                        "value": field.serialize(value, None)
+                    })
             if len(query_fields) == 1:
                 return query_parts[0]
             else:
@@ -631,7 +647,8 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+                self.instance = client.instance_from_full_uri(self.id, cls=self.__class__,
+                                                              use_cache=False, api="nexus")  # should use api="any"
 
         if self.instance:
             if self._update_needed(data):
@@ -958,12 +975,12 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="query", scope="released"):
+    def resolve(self, client, api="query", scope="released", recursive=False):
         """docstring"""
         if self.id in KGObject.object_cache:
             return KGObject.object_cache[self.id]
         else:
-            obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
+            obj = self.cls.from_uri(self.id, client, api=api, scope=scope, resolved=recursive)
             KGObject.object_cache[self.id] = obj
             return obj
 
@@ -1137,17 +1154,19 @@ class Distribution(StructuredMetadata):
         else:
             raise IOError(str(response.content))
 
-    def read(self, client):
-        #headers = client._nexus_client._http_client.auth_client.get_headers()
-        #response = requests.get(self.location, headers=headers)
-        response = requests.get(self.location)
+    def read(self, client, with_auth=True):
+        if with_auth:
+            headers = client._nexus_client._http_client.auth_client.get_headers()
+        else:
+            headers = {}
+        response = requests.get(self.location, headers=headers)
         if response.status_code == 200:
-            return BytesIO(response.content)
+            return BytesIO(response.content).read().decode('utf-8')
         else:
             raise IOError(str(response.content))
 
 
-def build_kg_object(cls, data, resolved=False, client=None):
+def build_kg_object(cls, data, resolved=False, client=None, api=None):
     """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
 
@@ -1196,15 +1215,20 @@ def build_kg_object(cls, data, resolved=False, client=None):
                 if resolved:
                     if kg_cls.namespace is None:
                         kg_cls.namespace = namespace_from_id(item["@id"])
-                    try:
-                        instance = Instance(kg_cls.path, item, Instance.path)
-                        obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
-                    except (ValueError, KeyError) as err:
-                        # to add: emit a warning
-                        logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                        obj = KGProxy(kg_cls, item["@id"]).resolve(
-                            client,
-                            api=item.get("fg:api", "query"))
+                    if api is None:
+                        api = item.get("fg:api", "query")
+                    if api == "query":
+                        # item should be already resolved
+                        try:
+                            instance = Instance(kg_cls.path, item, Instance.path)
+                            obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+                        except (ValueError, KeyError) as err:
+                            # to add: emit a warning
+                            logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
+                            obj = KGProxy(kg_cls, item["@id"]).resolve(client, api="query")
+                    else:
+                        # need to resolve now
+                        obj = KGProxy(kg_cls, item["@id"]).resolve(client, api="nexus", recursive=True)
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
             else:
