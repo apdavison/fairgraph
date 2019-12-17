@@ -550,7 +550,8 @@ class KGObject(with_metaclass(Registry, object)):
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
             if response:
-                self.id = response[0].data["@id"]
+                self.instance = response[0]
+                self.id = self.instance.data["@id"]
                 KGObject.save_cache[self.__class__][query_cache_key] = self.id
             return bool(response)
 
@@ -631,7 +632,9 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+
+                # todo: try both query and nexus APIs
+                self.instance = client.instance_from_full_uri(self.id, cls=self.__class__, use_cache=False)
 
         if self.instance:
             if self._update_needed(data):
