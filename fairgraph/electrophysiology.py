@@ -711,7 +711,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 
 class MEGExperiment(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.1.0"
+    _path = "/electrophysiology/megexperiment/v0.1.1"
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
