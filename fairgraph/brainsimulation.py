@@ -503,7 +503,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         Field("celltype", CellType, "celltype", multiple=True),
         Field("test_type", basestring, "testType"),
         Field("age", Age, "age"),
-        Field("reference_data", KGObject, "referenceData"),
+        Field("reference_data", KGObject, "referenceData", multiple=True),  # to fix: should be a Collection
         Field("data_type", basestring, "dataType"),
         Field("recording_modality", basestring, "recordingModality"),
         Field("score_type", basestring, "scoreType"),
