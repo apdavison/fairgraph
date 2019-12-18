@@ -1229,15 +1229,18 @@ class QualifiedMultiTraceGeneration(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
+        Field("channel_type", basestring, "channelType", required=False),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment), "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
-        Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
+        Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
+	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
+	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
     )
 
 
-    def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
-                 holding_potential=None,
+    def __init__(self, name, channel_type=None, stimulus_experiment, sweeps, #traces=None,
+                 holding_potential=None, sampling_frequency=None, power_line_frequency=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
