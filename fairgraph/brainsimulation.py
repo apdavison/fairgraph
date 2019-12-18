@@ -657,7 +657,7 @@ class ValidationActivity(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp", datetime, "endedAtTime")
     )
-    existence_query_fields = ("timestamp")
+    existence_query_fields = ("timestamp",)
 
     @property
     def duration(self):

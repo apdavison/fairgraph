@@ -819,7 +819,7 @@ class ElectrodeImplantationActivity(KGObject):
         Field("end_time", datetime, "endedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
-    existence_query_fields = ("subject")
+    existence_query_fields = ("subject",)
 
     def __init__(self, subject, implanted_brain_tissues, brain_location,
                  start_time=None, end_time=None, people=None, id=None, instance=None):

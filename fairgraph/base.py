@@ -498,6 +498,8 @@ class KGObject(with_metaclass(Registry, object)):
                 if field.name == field_name:
                     query_fields.append(field)
                     break
+        if len(query_fields) < 1:
+            raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
             return {
                 field.name: field.serialize(getattr(self, field.name), None)
