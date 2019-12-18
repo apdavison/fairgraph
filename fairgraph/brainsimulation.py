@@ -564,6 +564,7 @@ class ValidationScript(KGObject):  # or ValidationImplementation
         Field("version", basestring, "version"),
         Field("description", basestring, "description"),
         Field("parameters", basestring, "parameters"),
+        Field("test_class", basestring, "path"),
         Field("test_definition", ValidationTestDefinition, "implements"),
         Field("old_uuid", basestring, "oldUUID")
     )
