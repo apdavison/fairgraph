@@ -1229,7 +1229,7 @@ class QualifiedMultiTraceGeneration(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("channel_type", basestring, "channelType", required=False),
+        Field("channel_type", basestring, "channelType"),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment), "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
