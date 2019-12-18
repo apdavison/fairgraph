@@ -643,7 +643,7 @@ class KGObject(with_metaclass(Registry, object)):
 
         if self.instance:
             if self._update_needed(data):
-                logger.info("Updating {self!r}".format(self=self))
+                logger.info("Updating {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
@@ -651,7 +651,8 @@ class KGObject(with_metaclass(Registry, object)):
                                            standard_context)) == set(self.type)
                 self.instance = client.update_instance(self.instance)
             else:
-                logger.info("Not updating {self!r}, unchanged".format(self=self))
+                logger.info("Not updating {}(id={}), unchanged".format(self.__class__.__name__,
+                                                                       self.id))
         else:
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
