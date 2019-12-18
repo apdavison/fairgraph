@@ -234,7 +234,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("generated_by",
               ("electrophysiology.PatchClampExperiment",
                "electrophysiology.ExtracellularElectrodeExperiment",
-               "electrophysiology.MagnetoencephalographyExperiment"),
+               "electrophysiology.MEGExperiment"),
               "wasGeneratedBy", required=True),
         Field("generation_metadata",
               "electrophysiology.QualifiedMultiTraceGeneration",
@@ -1230,47 +1230,6 @@ class QualifiedMultiTraceGeneration(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment), "activity", required=True),
-        Field("sweeps", int, "sweep", multiple=True, required=True),
-        #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
-        Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
-    )
-
-
-    def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
-                 holding_potential=None,
-                 id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
-class QualifiedMultiTraceGeneration(KGObject):
-    namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
-    #path = DEFAULT_NAMESPACE + "/electrophysiology/multitracegeneration/v0.2.0"  # for nexus-int
-    type = ["prov:Generation", "nsg:MultiTraceGeneration"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "sweep": "nsg:sweep",
-        "activity": "prov:activity",
-        "label": "rdfs:label",
-        "value": "schema:value",
-        "unitCode": "schema:unitCode",
-        "targetHoldingPotential": "nsg:targetHoldingPotential"
-    }
-
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment",
-              (ExtracellularElectrodeExperiment,
-               IntraCellularSharpElectrodeExperiment,
-               PatchClampExperiment),
-              "activity",
-              required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
