@@ -339,6 +339,10 @@ class ModelScript(KGObject):
         else:
             return None
 
+    @code_location.setter
+    def code_location(self, value):
+        self.distribution = Distribution(location=value)
+
 
 class EModel(ModelInstance):
     """The electrical component of an :class:`MEModel`"""
