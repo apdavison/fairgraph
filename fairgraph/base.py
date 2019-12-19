@@ -643,7 +643,7 @@ class KGObject(with_metaclass(Registry, object)):
 
         if self.instance:
             if self._update_needed(data):
-                logger.info("Updating {}(id={})".format(self.__class__.__name__, self.id))
+                logger.info("Updating - {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
@@ -683,7 +683,7 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             return None
 
-    def resolve(self, client, api="query"):
+    def resolve(self, client, api="query", use_cache=True):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
@@ -972,7 +972,8 @@ class KGProxy(object):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
-            logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
+            if obj:
+                logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
             return obj
         else:
             obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
@@ -1019,7 +1020,7 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="query", scope="released"):
+    def resolve(self, client, size=10000, api="query", scope="released", use_cache=True):
         objects = []
         for cls in self.classes:
             if api == "nexus":
