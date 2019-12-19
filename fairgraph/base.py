@@ -660,10 +660,11 @@ class KGObject(with_metaclass(Registry, object)):
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
-            KGObject.object_cache[self.id] = self
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
             KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
+
+        KGObject.object_cache[self.id] = self
 
     def delete(self, client):
         """Deprecate"""
