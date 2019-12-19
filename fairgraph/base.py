@@ -663,7 +663,7 @@ class KGObject(with_metaclass(Registry, object)):
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
             KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
-
+        logger.debug("Updating cache for object {}".format(self.id))
         KGObject.object_cache[self.id] = self
 
     def delete(self, client):
