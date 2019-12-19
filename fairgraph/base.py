@@ -967,9 +967,10 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="query", scope="released"):
+    def resolve(self, client, api="query", scope="released", use_cache=True):
         """docstring"""
-        if self.id in KGObject.object_cache:
+        if use_cache and self.id in KGObject.object_cache:
+            logger.debug("Retrieving object {} from cache".format(self.id))
             return KGObject.object_cache[self.id]
         else:
             obj = self.cls.from_uri(self.id, client, api=api, scope=scope)

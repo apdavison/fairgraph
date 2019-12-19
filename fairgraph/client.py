@@ -117,6 +117,7 @@ class KGClient(object):
 
     def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         # Nexus API
+        logger.debug("Making Nexus query {} with filter {}".format(path, filter))
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
@@ -186,6 +187,7 @@ class KGClient(object):
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
+        logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance from cache")
             instance = self.cache[uri]
