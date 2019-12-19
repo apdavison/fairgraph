@@ -663,7 +663,7 @@ class KGObject(with_metaclass(Registry, object)):
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
             KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
-        logger.debug("Updating cache for object {}".format(self.id))
+        logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObject.object_cache[self.id] = self
 
     def delete(self, client):
@@ -971,8 +971,9 @@ class KGProxy(object):
     def resolve(self, client, api="query", scope="released", use_cache=True):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
-            logger.debug("Retrieving object {} from cache".format(self.id))
-            return KGObject.object_cache[self.id]
+            obj = KGObject.object_cache[self.id]
+            logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
+            return obj
         else:
             obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
             KGObject.object_cache[self.id] = obj
