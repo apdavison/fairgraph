@@ -1053,8 +1053,8 @@ class IRI(object):
 
     def __init__(self, value):
         if isinstance(value, IRI):
-            self.value = value.value
-        elif not value.startswith("http"):
+            value = value.value
+        if not value.startswith("http"):
             raise ValueError("Invalid IRI")
         self.value = value
 
