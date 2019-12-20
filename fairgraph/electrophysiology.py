@@ -77,6 +77,7 @@ class MEGObject(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class Task(KGObject):
     """Stimulus provided to Subject in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
@@ -114,6 +115,7 @@ class Task(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class Device(KGObject):
     """Stimulus provided to Subject in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
@@ -142,6 +144,7 @@ class Device(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
+
 
 class Trace(KGObject):
     """Single time series recorded during an experiment or simulation.
@@ -966,6 +969,7 @@ class QualifiedTraceGeneration(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class ImplantedBrainTissue(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
@@ -987,6 +991,7 @@ class ImplantedBrainTissue(KGObject):
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client)
+
 
 class ElectrodeImplantationActivity(KGObject):
     """docstring"""
@@ -1136,6 +1141,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
         Field("people", Person, "wasAssociatedWith")
     )
 
+
 class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     """A collection of cells recorded with a sharp electrode."""
     namespace = DEFAULT_NAMESPACE
@@ -1207,6 +1213,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
             # todo: what about filtering?
             return super(IntraCellularSharpElectrodeExperiment, cls).list(
                 client, size, from_index, api, scope, resolved, **filters)
+
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
