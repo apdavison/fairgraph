@@ -1052,7 +1052,9 @@ class KGQuery(object):
 class IRI(object):
 
     def __init__(self, value):
-        if not value.startswith("http"):
+        if isinstance(value, IRI):
+            self.value = value.value
+        elif not value.startswith("http"):
             raise ValueError("Invalid IRI")
         self.value = value
 
