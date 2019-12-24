@@ -210,7 +210,7 @@ class ROISelection(KGObject):
     _path = "/optophysiology/roiselection/v0.1.0"
     type = ["prov:Activity", "nsg:ROISelection"]
     context = {
-        "schema": "http://schema.org/",
+      l  "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
