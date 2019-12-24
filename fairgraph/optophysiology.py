@@ -132,7 +132,7 @@ class ImageSequence(KGObject):
 
 
 class CranialWindow(KGObject):
-    """A sequence of images in the same imaging plane, produced by scanning optical microscopy"""
+    """A window (partially) through the skull."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/cranialwindow/v0.1.0"
     type = ["prov:Entity", "nsg:CranialWindow"]
@@ -352,6 +352,36 @@ class TwoPhotonImaging(KGObject):
     )
 
     def __init__(self, cranial_window, image_sequence, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+class Craniotomy(KGObject):
+    """Surgical procedure to give optical access through the skull to the brain (dura)."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/craniotomy/v0.1.0"
+    type = ["prov:Activity", "nsg:Craniotomy"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "generated": "prov:generated",
+        "used": "prov:used",
+        "anesthesia": "nsg:anesthesia",
+        "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime"
+    }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+        Field("cranial_window", CranialWindow, "generated", required=True),
+        Field("anesthesia", basestring, "anesthesia"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True)
+    )
+
+    def __init__(self, subject, cranial_window, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
