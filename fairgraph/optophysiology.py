@@ -84,6 +84,7 @@ class FluorescenceTrace(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class ImageSequence(KGObject):
     """A sequence of images in the same imaging plane, produced by scanning optical microscopy"""
     namespace = DEFAULT_NAMESPACE
@@ -125,6 +126,42 @@ class ImageSequence(KGObject):
     )
 
     def __init__(self, name, frame_rate, generated_by, image_count=None, image_size=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class CranialWindow(KGObject):
+    """A sequence of images in the same imaging plane, produced by scanning optical microscopy"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/cranialwindow/v0.1.0"
+    type = ["prov:Entity", "nsg:CranialWindow"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "value": "schema:value",
+        "name": "schema:name",
+        "brainLocation": "nsg:brainLocation",
+	"windowType":"nsg:windowType",
+	"diameter":"nsg:diameter",
+	"fluorescenceLabeling":"nsg:fluorescenceLabeling",
+        "description": "schema:description",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
+        "minds": "https://schema.hbp.eu/"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("brain_location", BrainRegion, "brainRegion"),
+        Field("window_type", basestring, "windowType"),
+        Field("diameter", QuantitativeValue, "diameter"),
+        Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
+        Field("description", basestring, "description"),
+        Field("generated_by", "optophysiology.Craniotomy", "wasGeneratedBy")
+    )
+
+    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None, description=None, generated_by=None id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -204,6 +241,7 @@ class RegionOfInterest(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/regionofinterest/v0.1.0"
 
+
 class ROISelection(KGObject):
     """Process of selecting regions of interest, may be manual, semi-automated, or fully automated"""
     namespace = DEFAULT_NAMESPACE
@@ -270,6 +308,7 @@ class TimeSeriesExtraction(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
+
 
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy"""
