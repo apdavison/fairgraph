@@ -191,7 +191,7 @@ class ImageSequence(KGObject):
         Field("description", basestring, "description", required=False)
     )
 
-    def __init__(self, name, frame_rate, generated_by, image_count=None, image_size=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
+    def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
