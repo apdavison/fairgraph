@@ -183,7 +183,7 @@ class ImageSequence(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
-        Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy", required=True),
+        Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy"),
         Field("image_count", int, "ImageCount", required=False),
         Field("image_size", int, "ImageSize", required=False),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
