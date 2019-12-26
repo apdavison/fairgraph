@@ -417,7 +417,7 @@ class VisualStimulus(KGObject):
         Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, description=None, distribution=None id=None, instance=None):
+    def __init__(self, name, description=None, distribution=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
