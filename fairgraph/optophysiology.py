@@ -39,6 +39,7 @@ from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, Lic
 from .core import Subject, Person
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
+from .electrophysiology import Trace
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
