@@ -89,6 +89,19 @@ class Species(OntologyTerm):
     }
 
 
+class Shape(OntologyTerm):
+    """
+    Shape of a region of interest (ROI).
+    """
+    iri_map = {
+        "circle": "https://en.wiktionary.org/wiki/circle",
+        "square": "https://en.wiktionary.org/wiki/square",
+        "rectangle": "https://en.wiktionary.org/wiki/rectangle",
+        "ellipse": "https://en.wiktionary.org/wiki/ellipse",
+	"freeform": "https://en.wiktionary.org/wiki/free-form#English"
+    }
+
+
 class Strain(OntologyTerm):
     """
     An inbred sub-population within a species.
