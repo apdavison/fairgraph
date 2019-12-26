@@ -221,7 +221,7 @@ class ROISelection(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
-	Filed("license", License, "license")
+	Field("license", License, "license")
     )
 
     def __init__(self, image_sequence, regions, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
@@ -370,7 +370,7 @@ class MotionCorrection(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
-	Filed("license", License, "license")
+	Field("license", License, "license")
     )
 
     def __init__(self, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
