@@ -339,7 +339,7 @@ class MotionCorrection(KGObject):
     }
     fields = (
         Field("before", ImageSequence, "used", required=True),
-        Field("after", ImageSequence, "generated", required=True)
+        Field("after", ImageSequence, "generated", required=True),
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
