@@ -110,7 +110,7 @@ class TimeSeriesExtraction(KGObject):
 	Field("license", License, "license")
     )
 
-    def __init__(self, region_of_interest, trace, protocol=None, people=None, citationNone, code=None, license=None, id=None, instance=None):
+    def __init__(self, region_of_interest, trace, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
