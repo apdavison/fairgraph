@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, License
+from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, License, Shape
 from .core import Subject, Person
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -77,9 +77,34 @@ class ROISelection(KGObject):
 
 
 class RegionOfInterest(KGObject):
-    """Objects required for MEG Experiment"""
+    """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/regionofinterest/v0.1.0"
+    type = ["prov:Entity", "nsg:RegionOfInterest"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+	"position": "nsg:position",
+        "shape": "nsg:shape",
+	"description":"nsg:description",
+	"classification":"nsg:classification"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("position", (float, float), "position", required=True),
+        Field("shape", Shape, "shape", required=True),
+        Field("size", basestring, "size", required=True),
+	Field("classification", basestring, "classification"),
+	Field("description", basestring, "description")
+    )
+
+    def __init__(self, name, position, shape, size, classification=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class TimeSeriesExtraction(KGObject):
