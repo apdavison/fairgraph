@@ -44,7 +44,7 @@ from .utility import compact_uri, standard_context, as_list
 DEFAULT_NAMESPACE = "neuralactivity"
 
 class MEGObject(KGObject):
-    """Objects required for MEG Experiment"""
+    """Object specific to MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/megobject/v0.1.4"
     type = ["nsg:MEGObject", "prov:Entity"]
@@ -52,24 +52,17 @@ class MEGObject(KGObject):
         "schema": "http://schema.org/",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
-        "value": "schema:value",
-        "minValue": "schema:minValue",
-        "maxValue": "schema:maxValue",
-        "unitCode": "schema:unitCode",
-        "dataUnit": "nsg:dataUnit",
-        "unitText": "schema:unitText",
-        "unitCode": "schema:unitCode",
-        "description": "schema:description",
-        "label": "rdfs:label",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "providerId": "nsg:providerId"
+        "name": "schema:name",
+        "coordinateSystem": "nsg:coordinateSystem",
+        "coordinateUnits": "nsg:coordinateUnits",
+        "description": "schema:description"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("coordinate_system", basestring, "coordinateSystem", required=False),
-        Field("coordinate_units", basestring, "coordinateUnits", required=False),
-        Field("description", basestring, "description", required=False)
+        Field("coordinate_system", basestring, "coordinateSystem"),
+        Field("coordinate_units", basestring, "coordinateUnits"),
+        Field("description", basestring, "description")
     )
 
     def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
@@ -79,10 +72,10 @@ class MEGObject(KGObject):
 
 
 class Task(KGObject):
-    """Stimulus provided to Subject in MEGExperiment"""
+    """Stimulus provided to Subject in MEGExperiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/task/v0.1.2"
-    type = ["prov:Entity", "nsg:Task"]
+    type = ["prov:Activity", "nsg:Task"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -90,7 +83,6 @@ class Task(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
         "description": "schema:description",
-        "value": "schema:value",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -99,25 +91,23 @@ class Task(KGObject):
             "@type": "@id"},
         "mediaType": {
             "@id": "schema:mediaType"
-        },
-        "minds": "https://schema.hbp.eu/",
-        "partOf": "nsg:partOf"
+        }
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("cogatlasid", Distribution, "cogAtlastID", required=True),
-        Field("cogpoid", Distribution, "cogPIOD", required=True)
+        Field("cogatlasid", Distribution, "cogAtlastID"),
+        Field("cogpoid", Distribution, "cogPIOD")
     )
 
-    def __init__(self, name, description, cogatlasid, cogpoid, id=None, instance=None):
+    def __init__(self, name, description, cogatlasid=None, cogpoid=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
 
 
 class Device(KGObject):
-    """Stimulus provided to Subject in MEGExperiment"""
+    """Device used to collect recording in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/device/v0.1.2"
     type = ["prov:Entity", "nsg:Device"]
@@ -127,20 +117,17 @@ class Device(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "description": "schema:description",
-        "value": "schema:value",
-        "minds": "https://schema.hbp.eu/",
-        "partOf": "nsg:partOf"
+        "description": "schema:description"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("manufacturer", basestring, "manufacturer", required=True),
         Field("model_name", basestring, "modelName", required=True),
-        Field("software_version", basestring, "softwareVersion", required=True),
-        Field("serial_number", basestring, "serialNumber", required=True)
+        Field("software_version", basestring, "softwareVersion"),
+        Field("serial_number", basestring, "serialNumber")
     )
 
-    def __init__(self, name, manufacturer, model_name, software_version, serial_number, id=None, instance=None):
+    def __init__(self, name, manufacturer, model_name, software_version=None, serial_number=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -713,6 +700,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 
 
 class MEGExperiment(KGObject):
+    """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/megexperiment/v0.2.1"
     type = ["nsg:MEGExperiment", "prov:Activity"]
@@ -721,16 +709,19 @@ class MEGExperiment(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "label": "rdfs:label"
+        "name": "schema:name"
+	"device": "nsg:device",
+	"task": "nsg:task",
+	"megobject": "nsg:megobject",
+        "used": "prov:used"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-	Field("device", Device, "prov:used", required=False),
-	Field("Task", Task, "Task", required=False),
-	Field("sensors", MEGObject, "sensors", required=False),
-	Field("digitized_head_points", MEGObject, "digitizedHeadPoints", required=False),
-	Field("head_localization_coils", MEGObject, "headLocalizationCoils", required=False)
+	Field("device", Device, "prov:used"),
+	Field("Task", Task, "Task"),
+	Field("sensors", MEGObject, "sensors"),
+	Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
+	Field("head_localization_coils", MEGObject, "headLocalizationCoils")
     )
 
     def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points=None, head_localization_coils=None, id=None, instance=None):
