@@ -448,7 +448,7 @@ class VisualStimulation(KGObject):
         Field("protocol", basestring, "protocol"),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
-	Filed("license", License, "license", required=False)
+	Field("license", License, "license")
     )
 
     def __init__(self, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
