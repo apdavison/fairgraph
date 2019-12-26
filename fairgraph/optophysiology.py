@@ -107,7 +107,7 @@ class TimeSeriesExtraction(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
-	Filed("license", License, "license")
+	Field("license", License, "license")
     )
 
     def __init__(self, region_of_interest, trace, protocol=None, people=None, citationNone, code=None, license=None, id=None, instance=None):
