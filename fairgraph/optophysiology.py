@@ -451,7 +451,7 @@ class VisualStimulation(KGObject):
 	Filed("license", License, "license")
     )
 
-    def __init__(self, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation-None, code=None, license=None, id=None, instance=None):
+    def __init__(self, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
