@@ -219,7 +219,7 @@ class CranialWindow(KGObject):
         Field("generated_by", "optophysiology.Craniotomy", "wasGeneratedBy")
     )
 
-    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None, description=None, generated_by=None id=None, instance=None):
+    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None, description=None, generated_by=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
