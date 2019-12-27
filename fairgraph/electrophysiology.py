@@ -962,7 +962,7 @@ class QualifiedTraceGeneration(KGObject):
 
 
 class ImplantedBrainTissue(KGObject):
-    """docstring"""
+    """Brain tissure in which extracellular electrode was implantated."""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/implantedbraintissue/v0.1.0"
     type = ["nsg:ImplantedBrainTissue", "prov:Entity"]
@@ -971,13 +971,18 @@ class ImplantedBrainTissue(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "name": "schema:name",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "providerId": "nsg:providerId",
+        "name": "schema:name",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
     fields =  (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True)
     )
+
+    def __init__(self, name, subject, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     def resolve(self, client):
         if hasattr(self.subject, "resolve"):
@@ -995,29 +1000,26 @@ class ElectrodeImplantationActivity(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "generated": "prov:generated",
-        "brainLocation": "nsg:brainLocation",
-        "brainRegion": "nsg:brainRegion",
+        "implantedBrainTissue": "nsg:implantedBrainTissue",
         "used": "prov:used",
+        "generated": "prov:generated",
+	"brainRegion": "nsg:brainRegion",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
-        "label": "rdfs:label",
-        "value": "schema:value",
-        "unitCode": "schema:unitCode",
-        "anesthesia": "nsg:anesthesia"
+        "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
               multiple=True, required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
-        Field("start_time", datetime, "startedAtTime", required=False),
-        Field("end_time", datetime, "endedAtTime", required=False),
-        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location,
+    def __init__(self, subject, implanted_brain_tissues, brain_location=None,
                  start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1064,18 +1066,35 @@ class ElectrodeImplantationActivity(KGObject):
 
 
 class ExtracellularElectrodeExperiment(PatchClampExperiment):
-    """docstring"""
+    """
+    Stimulation of the neural tissue and recording of the responses with
+    an extracellular electrode.
+    """
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/stimulusexperiment/v0.1.4"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
+    context = {
+        "schema": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "used": "prov:used",
+	"stimulus_type": "nsg:stimulusType",
+        "wasGeneratedBy": "prov:wasGeneratedBy"
+    }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulus_type", StimulusType, "nsg:stimulusType"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True)
     )
+
+    def __init__(self, name, recorded_cell, stimulus_type=None, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     @classmethod
     def list(cls, client, size=100, api='nexus', **filters):
