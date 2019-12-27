@@ -107,6 +107,7 @@ class Strain(OntologyTerm):
     An inbred sub-population within a species.
     """
     iri_map = {
+	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
         "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",

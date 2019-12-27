@@ -152,7 +152,7 @@ class TimeSeriesExtraction(KGObject):
 
 
 class ImageSequence(KGObject):
-    """A sequence of images in the same imaging plane, produced by scanning optical microscopy"""
+    """A sequence of images in the same imaging plane, produced by scanning optical microscopy."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/imagesequence/v0.1.0"
     type = ["prov:Entity", "nsg:ImageSequence"]
@@ -198,7 +198,7 @@ class ImageSequence(KGObject):
 
 
 class ROISelection(KGObject):
-    """Process of selecting regions of interest, may be manual, semi-automated, or fully automated"""
+    """Process of selecting regions of interest, may be manual, semi-automated, or fully automated."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/roiselection/v0.1.0"
     type = ["prov:Activity", "nsg:ROISelection"]
@@ -298,7 +298,7 @@ class Craniotomy(KGObject):
 
 
 class TwoPhotonImaging(KGObject):
-    """Two-photon-excited fluorescence laser-scanning microscopy"""
+    """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/twophotonimaging/v0.1.0"
     type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
@@ -345,7 +345,7 @@ class TwoPhotonImaging(KGObject):
 
 
 class MotionCorrection(KGObject):
-    """Correction for x-y movement in image frames"""
+    """Correction for x-y movement in image frames."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/motioncorrection/v0.1.0"
     type = ["nsg:MotionCorrection", "prov:Activity"]
