@@ -713,7 +713,7 @@ class MEGExperiment(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name"
+        "name": "schema:name",
 	"device": "nsg:device",
 	"task": "nsg:task",
 	"megobject": "nsg:megobject",
