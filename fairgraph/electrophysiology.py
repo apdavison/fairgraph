@@ -124,14 +124,14 @@ class Device(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("manufacturer", basestring, "manufacturer", required=True),
-        Field("model_name", basestring, "modelName", required=True),
+        Field("manufacturer", basestring, "manufacturer"),
+        Field("model_name", basestring, "modelName"),
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, manufacturer, model_name, software_version=None, serial_number=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
