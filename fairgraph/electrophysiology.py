@@ -117,17 +117,21 @@ class Device(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "description": "schema:description"
+        "description": "schema:description",
+        "distribution": {
+        "@id": "schema:distribution",
+        "@type": "@id"}
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("manufacturer", basestring, "manufacturer", required=True),
         Field("model_name", basestring, "modelName", required=True),
         Field("software_version", basestring, "softwareVersion"),
-        Field("serial_number", basestring, "serialNumber")
+        Field("serial_number", basestring, "serialNumber"),
+        Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, manufacturer, model_name, software_version=None, serial_number=None, id=None, instance=None):
+    def __init__(self, name, manufacturer, model_name, software_version=None, serial_number=None, distribution=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
