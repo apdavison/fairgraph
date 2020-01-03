@@ -214,7 +214,6 @@ class Trace(KGObject):
 
 class MultiChannelMultiTrialRecording(Trace):
     """Multiple time series recorded during an experiment or simulation.
-
     Time series may be recorded from multiple ch
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
@@ -1233,7 +1232,7 @@ class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
     #_path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
     _path = "/electrophysiology/multitracegeneration/v0.2.2"
-    type = ["prov:Generation", "nsg:MultiTraceGeneration"]
+    type = ["prov:Generation", "nsg:QualifiedMultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -1252,7 +1251,6 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("name", basestring, "name", required=True),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment, MEGExperiment), "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
-        #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("channel_type", basestring, "channelType"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
 	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
