@@ -1232,7 +1232,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
     #_path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
-    path = DEFAULT_NAMESPACE + "/electrophysiology/multitracegeneration/v0.2.1"  # for nexus-int
+    _path = "/electrophysiology/multitracegeneration/v0.2.2"
     type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
