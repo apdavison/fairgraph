@@ -78,7 +78,7 @@ class RegionOfInterest(KGObject):
 class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/fluorescencetrace/v1.0.0"
+    _path = "/optophysiology/fluorescencetrace/v0.1.0"
     type = ["prov:Entity", "nsg:FluorescenceTrace"]
     context = {
         "schema": "http://schema.org/",
