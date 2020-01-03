@@ -1232,7 +1232,7 @@ class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
     #_path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
     _path = "/electrophysiology/multitracegeneration/v0.2.2"
-    type = ["prov:Generation", "nsg:QualifiedMultiTraceGeneration"]
+    type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
