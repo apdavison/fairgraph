@@ -233,7 +233,7 @@ class ROISelection(KGObject):
 class CranialWindow(KGObject):
     """A window (partially) through the skull."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/cranialwindow/v0.1.0"
+    _path = "/optophysiology/cranialwindow/v0.1.0"
     type = ["prov:Entity", "nsg:CranialWindow"]
     context = {
         "schema": "http://schema.org/",
@@ -416,7 +416,7 @@ class MotionCorrection(KGObject):
 class VisualStimulus(KGObject):
     """A generic visual stimulus."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/visualstimulus/v0.1.0"
+    _path = "/optophysiology/visualstimulus/v0.1.0"
     type = ["prov:Entity", "nsg:VisualStimulus"]
     context = {
         "schema": "http://schema.org/",
