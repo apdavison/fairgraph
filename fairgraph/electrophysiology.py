@@ -716,7 +716,11 @@ class MEGExperiment(KGObject):
 	"device": "nsg:device",
 	"task": "nsg:task",
 	"megobject": "nsg:megobject",
-        "used": "prov:used"
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -724,10 +728,14 @@ class MEGExperiment(KGObject):
 	Field("Task", Task, "Task"),
 	Field("sensors", MEGObject, "sensors"),
 	Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
-	Field("head_localization_coils", MEGObject, "headLocalizationCoils")
+	Field("head_localization_coils", MEGObject, "headLocalizationCoils"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True),
+        Field("protocol", basestring, "hadProtocol")
     )
 
-    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points=None, head_localization_coils=None, id=None, instance=None):
+    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points=None, head_localization_coils=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
