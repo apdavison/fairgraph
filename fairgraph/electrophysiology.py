@@ -992,11 +992,44 @@ class ImplantedBrainTissue(KGObject):
             self.subject = self.subject.resolve(client)
 
 
-class ElectrodeImplantationActivity(KGObject):
+class ElectrodePlacementActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/electrodeimplantation/v0.1.5"
-    type = ["nsg:ElectrodeImplantation", "prov:Activity"]
+    _path = "/experiment/electrodeplacement/v0.1.0"
+    type = ["nsg:ElectrodePlacement", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "device": "nsg:device",
+        "used": "prov:used",
+        "generated": "prov:generated",
+	"brainRegion": "nsg:brainRegion",
+        "wasAssociatedWith": "prov:wasAssociatedWith"
+    }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
+        Field("device", Device, "generated", multiple=True),
+        Field("people", Person, "wasAssociatedWith", multiple=True)
+    )
+    existence_query_fields = ("subject")
+
+    def __init__(self, subject, brain_location, device=None,
+                 people=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class ElectrodeImplantationActivity(ElectrodePlacementActivity):
+    """docstring"""
+    namespace = DEFAULT_NAMESPACE
+    #_path = "/experiment/electrodeimplantation/v0.1.5"
+    _path = "/experiment/electrodeplacement/v0.1.0"
+    type = ["nsg:ElectrodePlacement", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -1015,14 +1048,14 @@ class ElectrodeImplantationActivity(KGObject):
         Field("subject", Subject, "used", required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
               multiple=True, required=True),
-        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location=None,
+    def __init__(self, subject, implanted_brain_tissues, brain_location,
                  start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
