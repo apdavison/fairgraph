@@ -728,16 +728,18 @@ class MEGExperiment(KGObject):
         Field("name", basestring, "name", required=True),
 	Field("device", Device, "prov:used"),
 	Field("Task", Task, "wasInformedBy"),
-	Field("sensors", MEGObject, "sensors"),
-	Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
-	Field("head_localization_coils", MEGObject, "headLocalizationCoils"),
+	Field("sensors_coordinates", MEGObject, "sensorsCoordinates"),
+	Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
+	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
+	Field("digitized_head_points", boolean, "digitizedHeadPoints"),
+	Field("digitized_landmarks", boolean,  "digitizedLandmarks"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
         Field("protocol", basestring, "hadProtocol")
     )
 
-    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points=None, head_localization_coils=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, task=None, sensors_coordinates=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
