@@ -317,7 +317,9 @@ class QuantitativeValue(StructuredMetadata):
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
         "µA": "http://purl.obolibrary.org/obo/UO_0000038",
-        "nA": "https://en.wiktionary.org/wiki/nanoamp"
+        "nA": "https://en.wiktionary.org/wiki/nanoamp",
+	"Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	"kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
     }
 
     def __init__(self, value, unit_text, unit_code=None):
