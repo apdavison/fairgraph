@@ -120,6 +120,7 @@ class Device(KGObject):
         "description": "schema:description",
         "distribution": {
         "@id": "schema:distribution",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
         "@type": "@id"}
     }
     fields = (
@@ -128,10 +129,11 @@ class Device(KGObject):
         Field("model_name", basestring, "modelName"),
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
-        Field("distribution", Distribution, "distribution")
+        Field("distribution", Distribution, "distribution"),
+        Field("generated_by", "electrophysiology.ElectrodePlacementActivity", "wasGeneratedBy")
     )
 
-    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, generated_by=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
