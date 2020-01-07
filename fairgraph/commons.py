@@ -387,7 +387,8 @@ class QuantitativeValueRange(StructuredMetadata):
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	"Hz": "http://purl.obolibrary.org/obo/UO_0000106"
+	"Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	"kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
     }
 
     def __init__(self, min, max, unit_text, unit_code=None):
