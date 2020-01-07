@@ -252,7 +252,7 @@ class CranialWindow(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion"),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("window_type", basestring, "windowType"),
         Field("diameter", QuantitativeValue, "diameter"),
         Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
