@@ -144,6 +144,19 @@ class Handedness(OntologyTerm):
         "right":"http://dbpedia.org/ontology/handedness"
     }
 
+class ChannelType(OntologyTerm):
+    """
+    The handedness of an animal or person from whom/which data were obtained.
+    """
+    iri_map = {
+        "ECoG":"http://purl.obolibrary.org/obo/NCIT_C116664",
+        "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
+	"MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
+	"ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
+	"SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography",
+	"EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056"
+    }
+
 class BrainRegion(OntologyTerm):
     """
     A sub-structure or region with the brain.

@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType
+from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, ChannelType
 from .core import Subject, Person
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -239,11 +239,12 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("data_unit", basestring, "dataUnit", required=True,
               multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
+        Field("channel_type", ChannelType, "ChannelType"),
         Field("part_of", Dataset, "partOf")
     )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
-                 time_step, part_of=None, id=None, instance=None):
+                 time_step, channel_type=None, part_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
