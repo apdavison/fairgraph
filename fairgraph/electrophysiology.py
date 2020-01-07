@@ -714,7 +714,7 @@ class MEGExperiment(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
 	"device": "nsg:device",
-	"task": "nsg:task",
+	"wasInformedBy": "prov:wasInformedBy",
 	"megobject": "nsg:megobject",
         "used": "prov:used",
         "startedAtTime": "prov:startedAtTime",
@@ -725,7 +725,7 @@ class MEGExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
 	Field("device", Device, "prov:used"),
-	Field("Task", Task, "Task"),
+	Field("Task", Task, "wasInformedBy"),
 	Field("sensors", MEGObject, "sensors"),
 	Field("digitized_head_points", MEGObject, "digitizedHeadPoints"),
 	Field("head_localization_coils", MEGObject, "headLocalizationCoils"),
