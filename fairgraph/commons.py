@@ -173,7 +173,15 @@ class BrainRegion(OntologyTerm):
         "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
         "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
-        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751"
+        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
+	"frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+	"prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
+	"primary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0002436",
+	"visual cortex": "http://purl.obolibrary.org/obo/UBERON_0000411",
+	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
+	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
+	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384"
     }
 
 
