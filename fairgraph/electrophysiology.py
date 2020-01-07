@@ -65,7 +65,8 @@ class MEGObject(KGObject):
             "@type": "@id"},
         "mediaType": {
             "@id": "schema:mediaType"
-    }
+    }}
+
     fields = (
         Field("name", basestring, "name", required=True),
         Field("coordinate_system", Distribution, "coordinateSystem"),
