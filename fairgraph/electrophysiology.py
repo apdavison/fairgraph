@@ -56,11 +56,19 @@ class MEGObject(KGObject):
         "name": "schema:name",
         "coordinateSystem": "nsg:coordinateSystem",
         "coordinateUnits": "nsg:coordinateUnits",
-        "description": "schema:description"
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("coordinate_system", basestring, "coordinateSystem"),
+        Field("coordinate_system", Distribution, "coordinateSystem"),
         Field("coordinate_units", basestring, "coordinateUnits"),
         Field("description", basestring, "description")
     )
