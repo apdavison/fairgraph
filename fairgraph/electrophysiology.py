@@ -46,8 +46,8 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class MEGObject(KGObject):
     """Object specific to MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
-#    _path = "/electrophysiology/megobject/v0.1.0" #prod
-    _path = "/electrophysiology/megobject/v0.1.4" #int
+    _path = "/electrophysiology/megobject/v0.1.0" #prod
+#    _path = "/electrophysiology/megobject/v0.1.4" #int
     type = ["nsg:MEGObject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -84,8 +84,8 @@ class MEGObject(KGObject):
 class Task(KGObject):
     """Stimulus provided to Subject in MEGExperiment."""
     namespace = DEFAULT_NAMESPACE
-#    _path = "/electrophysiology/task/v0.1.0" # prod
-    _path = "/electrophysiology/task/v0.1.2" # int
+    _path = "/electrophysiology/task/v0.1.0" # prod
+#    _path = "/electrophysiology/task/v0.1.2" # int
     type = ["prov:Activity", "nsg:Task"]
     context = {
         "schema": "http://schema.org/",
@@ -120,8 +120,8 @@ class Task(KGObject):
 class Device(KGObject):
     """Device used to collect recording in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
-#    _path = "/electrophysiology/device/v0.1.0" # prod
-    _path = "/electrophysiology/device/v0.1.2" # int
+    _path = "/electrophysiology/device/v0.1.0" # prod
+#    _path = "/electrophysiology/device/v0.1.2" # int
     type = ["prov:Entity", "nsg:Device"]
     context = {
         "schema": "http://schema.org/",
@@ -232,8 +232,8 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    #_path =  "/electrophysiology/multitrace/v0.1.2"  # for nexus
-    path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.1"  # for nexus-int
+    _path =  "/electrophysiology/multitrace/v0.1.2"  # for nexus
+    #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.1"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
         Field("name", basestring, "name", required=True),
@@ -720,8 +720,8 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
-    #_path = "/electrophysiology/megexperiment/v0.1.0" # prod
-    _path = "/electrophysiology/megexperiment/v0.1.9" # int
+    _path = "/electrophysiology/megexperiment/v0.1.0" # prod
+    #_path = "/electrophysiology/megexperiment/v0.1.9" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -957,8 +957,8 @@ class PatchClampExperiment(KGObject):
 class QualifiedTraceGeneration(KGObject):
     """Additional information about the generation of a single-channel electrophysiology trace."""
     namespace = DEFAULT_NAMESPACE
-    #_path = "/electrophysiology/tracegeneration/v0.1.0" #nexus 
-    _path = "/electrophysiology/tracegeneration/v0.1.0" #nexus-int
+    _path = "/electrophysiology/tracegeneration/v0.1.0" #nexus 
+    #_path = "/electrophysiology/tracegeneration/v0.1.0" #nexus-int
     type = ["prov:Generation", "nsg:TraceGeneration"]
     context = {
         "schema": "http://schema.org/",
@@ -1054,8 +1054,8 @@ class ElectrodePlacementActivity(KGObject):
 class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    #_path = "/experiment/electrodeimplantation/v0.1.5"
-    _path = "/experiment/electrodeplacement/v0.1.0"
+    _path = "/experiment/electrodeimplantation/v0.1.5"
+    #_path = "/experiment/electrodeplacement/v0.1.0"
     type = ["nsg:ElectrodePlacement", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -1290,8 +1290,8 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
-    #_path = "/electrophysiology/multitracegeneration/v0.1.1" # for nexus
-    _path = "/electrophysiology/multitracegeneration/v0.2.3" # for int
+    _path = "/electrophysiology/multitracegeneration/v0.1.1" # for nexus
+    #_path = "/electrophysiology/multitracegeneration/v0.2.3" # for int
     type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
