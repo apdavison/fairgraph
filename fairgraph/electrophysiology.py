@@ -46,7 +46,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class MEGObject(KGObject):
     """Object specific to MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megobject/v0.1.4"
+    _path = "/electrophysiology/megobject/v0.1.0"
     type = ["nsg:MEGObject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -83,7 +83,7 @@ class MEGObject(KGObject):
 class Task(KGObject):
     """Stimulus provided to Subject in MEGExperiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/task/v0.1.2"
+    _path = "/electrophysiology/task/v0.1.0"
     type = ["prov:Activity", "nsg:Task"]
     context = {
         "schema": "http://schema.org/",
@@ -118,7 +118,7 @@ class Task(KGObject):
 class Device(KGObject):
     """Device used to collect recording in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/device/v0.1.2"
+    _path = "/electrophysiology/device/v0.1.0"
     type = ["prov:Entity", "nsg:Device"]
     context = {
         "schema": "http://schema.org/",
@@ -717,7 +717,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.2.1"
+    _path = "/electrophysiology/megexperiment/v0.1.0"
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
