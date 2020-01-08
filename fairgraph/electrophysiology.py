@@ -229,8 +229,8 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    #_path =  "/electrophysiology/multitrace/v0.1.1"  # for nexus
-    path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.1"  # for nexus-int
+    _path =  "/electrophysiology/multitrace/v0.1.2"  # for nexus
+    #path = DEFAULT_NAMESPACE + "/electrophysiology/multitrace/v0.3.1"  # for nexus-int
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
         Field("name", basestring, "name", required=True),
@@ -1285,8 +1285,8 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
-    #_path = "/electrophysiology/multitracegeneration/v0.1.0" # for nexus
-    _path = "/electrophysiology/multitracegeneration/v0.2.3"
+    _path = "/electrophysiology/multitracegeneration/v0.1.1" # for nexus
+    #_path = "/electrophysiology/multitracegeneration/v0.2.3" # for int
     type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
