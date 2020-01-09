@@ -39,6 +39,7 @@ from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, Cha
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
+from .optophysiology import CranialWindow, Craniotomy
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
