@@ -750,7 +750,7 @@ class MEGExperiment(KGObject):
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-        Field("protocol", basestring, "hadProtocol")
+        Field("protocol", Protocol, "hadProtocol")
     )
 
     def __init__(self, name, device=None, task=None, sensors_coordinates=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
