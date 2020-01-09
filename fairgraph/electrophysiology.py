@@ -36,7 +36,7 @@ from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, ChannelType
-from .core import Subject, Person
+from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
 
@@ -1034,17 +1034,19 @@ class ElectrodePlacementActivity(KGObject):
         "used": "prov:used",
         "generated": "prov:generated",
 	"brainRegion": "nsg:brainRegion",
-        "wasAssociatedWith": "prov:wasAssociatedWith"
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+	"hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("device", Device, "generated", multiple=True),
+	Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, brain_location, device=None,
+    def __init__(self, subject, brain_location, device=None, protocol=None,
                  people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1071,7 +1073,8 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "anesthesia": "nsg:anesthesia",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	"CranialWindow": "nsg:cranialWindow"
+	"CranialWindow": "nsg:cranialWindow",
+	"hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
@@ -1079,6 +1082,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
               multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
 	Field("cranial_window", CranialWindow, "cranialWindow"),
+	Field("protocol", Protocol, "hadProtocol"),
         Field("anesthesia", basestring, "anesthesia"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
@@ -1086,8 +1090,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location, cranial_window=None,
-                 start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, subject, implanted_brain_tissues, brain_location, cranial_window=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
