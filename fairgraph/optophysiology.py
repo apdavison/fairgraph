@@ -293,7 +293,7 @@ class Craniotomy(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, subject, cranial_window, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, subject, cranial_window, anesthesia=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
