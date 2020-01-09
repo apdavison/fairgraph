@@ -1068,6 +1068,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "generated": "prov:generated",
 	"brainRegion": "nsg:brainRegion",
         "startedAtTime": "prov:startedAtTime",
+        "anesthesia": "nsg:anesthesia",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
 	"CranialWindow": "nsg:cranialWindow"
@@ -1078,6 +1079,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
               multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
 	Field("cranial_window", CranialWindow, "cranialWindow"),
+        Field("anesthesia", basestring, "anesthesia"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
