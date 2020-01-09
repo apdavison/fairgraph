@@ -36,7 +36,7 @@ from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, License, Shape
-from .core import Subject, Person
+from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
 from .electrophysiology import Trace
@@ -51,7 +51,7 @@ class RegionOfInterest(KGObject):
     type = ["prov:Entity", "nsg:RegionOfInterest"]
     context = {
         "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
+        "prov": "http://www.w3.org/ns/pdrov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
@@ -129,7 +129,7 @@ class TimeSeriesExtraction(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "generated": "prov:generated",
         "used": "prov:used",
-	"protocol":"nsg:protocol",
+	"hadProtocol":"prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
 	"citation":"nsg:citation",
 	"code":"nsg:code",
@@ -138,7 +138,7 @@ class TimeSeriesExtraction(KGObject):
     fields = (
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
         Field("region_of_interest", RegionOfInterest, "used", required=True),
-        Field("protocol", basestring, "protocol"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
@@ -208,7 +208,7 @@ class ROISelection(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "generated": "prov:generated",
         "used": "prov:used",
-	"protocol":"nsg:protocol",
+	"hadProtocol":"prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
 	"citation":"nsg:citation",
 	"code":"nsg:code",
@@ -217,7 +217,7 @@ class ROISelection(KGObject):
     fields = (
         Field("image_sequence", ImageSequence, "used", required=True),
         Field("regions", RegionOfInterest, "generated", required=True),
-        Field("protocol", basestring, "protocol"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
@@ -322,7 +322,8 @@ class TwoPhotonImaging(KGObject):
         "imagingDepth": "nsg:imagingDepth",
         "startedAtTime": "prov:startedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-        "endedAtTime": "prov:endedAtTime"
+        "endedAtTime": "prov:endedAtTime",
+	"hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("cranial_window", CranialWindow, "used", required=True),
@@ -337,10 +338,11 @@ class TwoPhotonImaging(KGObject):
         Field("imaging_depth", QuantitativeValue, "imagingDepth"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
+	Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, cranial_window, image_sequence, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, cranial_window, image_sequence, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, start_time=None, end_time=None, protocol=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -359,7 +361,7 @@ class MotionCorrection(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "generated": "prov:generated",
         "used": "prov:used",
-	"protocol":"nsg:protocol",
+	"hadProtocol":"prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
 	"citation":"nsg:citation",
 	"code":"nsg:code",
@@ -368,7 +370,7 @@ class MotionCorrection(KGObject):
     fields = (
         Field("before", ImageSequence, "used", required=True),
         Field("after", ImageSequence, "generated", required=True),
-        Field("protocol", basestring, "protocol"),
+        Field("protocol", Protocol, "hadprotocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
@@ -462,7 +464,7 @@ class VisualStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "used": "prov:used",
-	"protocol":"nsg:protocol",
+	"protocol":"prov:hadProtocol",
         "value": "schema:value",
 	"citation":"nsg:citation",
 	"code":"nsg:code",
@@ -473,7 +475,7 @@ class VisualStimulation(KGObject):
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
-        Field("protocol", basestring, "protocol"),
+        Field("protocol", Protocol, "hadProtocol"),
 	Field("citation", basestring, "citation"),
 	Field("code", basestring, "code"),
 	Field("license", License, "license")
