@@ -280,12 +280,14 @@ class Craniotomy(KGObject):
         "used": "prov:used",
         "anesthesia": "nsg:anesthesia",
         "startedAtTime": "prov:startedAtTime",
-        "endedAtTime": "prov:endedAtTime"
+        "endedAtTime": "prov:endedAtTime",
+	"hadProtocol": "hadProtocol"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("cranial_window", CranialWindow, "generated", required=True),
         Field("anesthesia", basestring, "anesthesia"),
+	Field("protocol", Protocol, "hadProtocol"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
