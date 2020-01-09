@@ -1069,20 +1069,22 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
 	"brainRegion": "nsg:brainRegion",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
-        "wasAssociatedWith": "prov:wasAssociatedWith"
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+	"CranialWindow": "nsg:cranialWindow"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
               multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
+	Field("cranial_window", CranialWindow, "cranialWindow"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location,
+    def __init__(self, subject, implanted_brain_tissues, brain_location, cranial_window=None,
                  start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
