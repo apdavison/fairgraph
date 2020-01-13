@@ -332,7 +332,7 @@ class Dataset(MINDSObject):
                     })
                 else:
                     raise Exception("The only supported filters are by species, brain region, cell type "
-                                    "experimenter or lab. You specified {name}".format(name=name))
+                                    "experimenter or lab. You speccified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
