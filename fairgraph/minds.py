@@ -324,6 +324,12 @@ class Dataset(MINDSObject):
                         'op': 'eq',
                         'value': value.id
                     })
+                elif name == "method":
+                    filter_queries.append({
+                        'path': 'nsg:SpecimenGroup / nsg:Subject / nsg:Sample / schema:methods',
+                        'op': 'eq',
+                        'value': value.id
+                    })
                 else:
                     raise Exception("The only supported filters are by species, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
