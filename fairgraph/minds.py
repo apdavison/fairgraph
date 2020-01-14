@@ -324,20 +324,13 @@ class Dataset(MINDSObject):
                         'op': 'eq',
                         'value': value.id
                     })
-                elif name == "specimen_group":
+                elif name == "method":
                     filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group',
+                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject / sample / method',
                         'op': 'eq',
                         'value': value.name
                     })
-                    print("routing now to specimengroup")
-                elif name == "subject":
-                    filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject',
-                        'op': 'eq',
-                        'value': value.name
-                    })
-                    print("routing now to subject")
+                    print("routing now to method")
                 else:
                     raise Exception("The only supported filters are by species, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
