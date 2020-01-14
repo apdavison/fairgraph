@@ -281,10 +281,10 @@ class Dataset(MINDSObject):
         return [Method.from_kg_instance(inst, client) for inst in instances]
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="query",
+    def list(cls, client, size=100, from_index=0, api="nexus",
              scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        if api == "query":
+        if api == "nexus":
             context = {
                 'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
                 'prov': 'http://www.w3.org/ns/prov#'
@@ -348,8 +348,9 @@ class Dataset(MINDSObject):
             filter_query = {"query": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(PatchedCell, cls).list(client, size, from_index, api,
-                                                scope, resolved, **filters)
+            #return super(PatchedCell, cls).list(client, size, from_index, api,
+            #                                    scope, resolved, **filters)
+            return "api == query"
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
