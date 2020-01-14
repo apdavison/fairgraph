@@ -328,7 +328,7 @@ class Dataset(MINDSObject):
                     filter_queries.append({
                         'path': 'https://schema.hbp.eu/minds/specimen_group',
                         'op': 'eq',
-                        'value': value
+                        'value': value.name
                     })
                     print("routing now to specimengroup")
                 else:
@@ -344,7 +344,7 @@ class Dataset(MINDSObject):
                     "value": filter_queries
                 }
             filter_query = {"nexus": filter_query}
-            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
+            return KGQuery(cls, filter_query, context).resolve(client, api="query", size=size)
         elif api == "query":
             return super(Dataset, cls).list(client, size, from_index, api,
                                                 scope, resolved, **filters)
