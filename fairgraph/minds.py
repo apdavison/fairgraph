@@ -300,7 +300,7 @@ class Dataset(MINDSObject):
                     })
                 elif name in ("brain_region", "brain_location"):
                     filter_queries.append({
-                        "path": "nsg:brainLocation / nsg:brainRegion",
+                        "path": "nsg:brainRegion",
                         "op": "eq",
                         "value": value.iri
                     })
