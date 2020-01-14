@@ -326,10 +326,9 @@ class Dataset(MINDSObject):
                     })
                 elif name == "method":
                     filter_queries.append({
-                        #        collection      / patchedslice / patchclampactivity / person              / organization
                         "path": "nsg:brainRegion",
-                        'op': 'eq',
-                        'value': value.id
+                        "op": "eq",
+                        "value": value.iri
                     })
                     print("method entered")
                 else:
