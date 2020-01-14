@@ -327,7 +327,7 @@ class Dataset(MINDSObject):
                 elif name == "method":
                     filter_queries.append({
                         #        collection      / patchedslice / patchclampactivity / person
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / https://schema.hbp.eu/minds/subjects / https://schema.hbp.eu/minds/Sample / https://schema.hbp.eu/minds/methods',
+                        'path': 'minds.SpecimenGroup / minds.Subject / minds.Sample / minds.methods',
                         'op': 'eq',
                         'value': value.id
                     })
