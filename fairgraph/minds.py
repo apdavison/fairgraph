@@ -326,9 +326,9 @@ class Dataset(MINDSObject):
                     })
                 elif name == "specimen_group":
                     filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / name',
+                        'path': 'https://schema.hbp.eu/minds/specimen_group',
                         'op': 'eq',
-                        'value': value.id
+                        'value': value.name
                     })
                     print("routing now to specimengroup")
                 elif name == "method":
