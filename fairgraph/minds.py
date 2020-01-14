@@ -324,11 +324,20 @@ class Dataset(MINDSObject):
                         'op': 'eq',
                         'value': value.id
                     })
+                elif name == "method":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person              / organization
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+		    print("method entered")
                 else:
                     raise Exception("The only supported filters are by speccies, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
-                return client.list(cls, api="nexus", size=size)
+                #return client.list(cls, api="nexus", size=size)
+		return "no matches"
             elif len(filter_queries) == 1:
                 filter_query = filter_queries[0]
             else:
@@ -336,7 +345,7 @@ class Dataset(MINDSObject):
                     "op": "and",
                     "value": filter_queries
                 }
-            filter_query = {"nexus": filter_query}
+            filter_query = {"query": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
             return super(PatchedCell, cls).list(client, size, from_index, api,
