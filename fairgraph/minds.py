@@ -319,7 +319,7 @@ class Dataset(MINDSObject):
             return KGQuery(cls, filter_query, context).resolve(client, api="query", size=size)
         elif api == "query":
             return super(Dataset, cls).list(client, size, from_index, api,
-                                                scope, resolved, **filters, resolved=True)
+                                                scope, resolved=True, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
