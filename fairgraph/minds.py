@@ -297,9 +297,9 @@ class Dataset(MINDSObject):
                         "op": "eq",
                         "value": value.iri
                     })
-                elif name == "method":
+                elif name == "specimen_group":
                     filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject / sample / method',
+                        'path': 'https://schema.hbp.eu/minds/specimen_group',
                         'op': 'eq',
                         'value': value.name
                     }),
