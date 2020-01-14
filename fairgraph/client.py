@@ -99,7 +99,7 @@ class KGClient(object):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return [cls.from_kg_instance(instance, self, resolved=resolved)
-                for instance in instances]
+                for instance in instances], "routing to KGclient"
 
     def count(self, cls, api="query", scope="released"):
         """docstring"""
