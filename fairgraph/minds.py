@@ -281,10 +281,10 @@ class Dataset(MINDSObject):
         return [Method.from_kg_instance(inst, client) for inst in instances]
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="nexus",
+    def list(cls, client, size=100, from_index=0, api="query",
              scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
-        if api == "nexus":
+        if api == "query":
             context = {
                 'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
                 'prov': 'http://www.w3.org/ns/prov#'
@@ -324,15 +324,9 @@ class Dataset(MINDSObject):
                         'op': 'eq',
                         'value': value.id
                     })
-                elif name == "method":
-                    filter_queries.append({
-                        'path': 'nsg:SpecimenGroup / nsg:Subject / nsg:Sample / schema:methods',
-                        'op': 'eq',
-                        'value': value.id
-                    })
                 else:
-                    raise Exception("The only supported filters are by species, brain region, cell type "
-                                    "experimenter or lab. You speccified {name}".format(name=name))
+                    raise Exception("The only supported filters are by speccies, brain region, cell type "
+                                    "experimenter or lab. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
