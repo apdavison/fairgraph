@@ -337,7 +337,7 @@ class Dataset(MINDSObject):
                                     "experimenter or lab. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 #return client.list(cls, api="nexus", size=size)
-		return "no matches"
+                print("method entered")
             elif len(filter_queries) == 1:
                 filter_query = filter_queries[0]
             else:
