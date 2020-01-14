@@ -291,42 +291,15 @@ class Dataset(MINDSObject):
             }
             filter_queries = []
             for name, value in filters.items():
-                if name == "species":
-                    filter_queries.append({
-                        #        collection      / patchedslice / slice              / subject             / species
-                        'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
-                        'op': 'eq',
-                        'value': value.iri
-                    })
-                elif name in ("brain_region", "brain_location"):
+                if name in ("brain_region", "brain_location"):
                     filter_queries.append({
                         "path": "nsg:brainLocation / nsg:brainRegion",
                         "op": "eq",
                         "value": value.iri
                     })
-                elif name == "cell_type":
-                    filter_queries.append({
-                        'path': 'nsg:eType',
-                        'op': 'eq',
-                        'value': value.iri
-                    })
-                elif name == "experimenter":
-                    filter_queries.append({
-                        #        collection      / patchedslice / patchclampactivity / person
-                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
-                        'op': 'eq',
-                        'value': value.id
-                    })
-                elif name == "lab":
-                    filter_queries.append({
-                        #        collection      / patchedslice / patchclampactivity / person              / organization
-                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
-                        'op': 'eq',
-                        'value': value.id
-                    })
                 elif name == "method":
                     filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject / sample / method',
+                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject / method',
                         'op': 'eq',
                         'value': value.name
                     })
