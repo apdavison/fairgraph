@@ -327,7 +327,7 @@ class Dataset(MINDSObject):
                 elif name == "method":
                     filter_queries.append({
                         #        collection      / patchedslice / patchclampactivity / person              / organization
-                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        "path": "nsg:brainRegion",
                         'op': 'eq',
                         'value': value.id
                     })
