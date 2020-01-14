@@ -1020,7 +1020,7 @@ class KGQuery(object):
             if api == "nexus":
                 instances = client.query_nexus(
                     path=cls.path,
-                    filter=self.filter["nexus"],
+                    filter=self.filter,
                     context=self.context,
                     size=size
                 )
