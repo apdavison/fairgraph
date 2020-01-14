@@ -331,7 +331,7 @@ class Dataset(MINDSObject):
                         'op': 'eq',
                         'value': value.id
                     })
-		    print("method entered")
+                    print("method entered")
                 else:
                     raise Exception("The only supported filters are by speccies, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
