@@ -328,18 +328,9 @@ class Dataset(MINDSObject):
                     filter_queries.append({
                         'path': 'https://schema.hbp.eu/minds/specimen_group',
                         'op': 'eq',
-                        'value': value.name
+                        'value': value
                     })
                     print("routing now to specimengroup")
-                elif name == "method":
-                    filter_queries.append({
-                        #        collection      / patchedslice / patchclampactivity / person
-                        'path': 'https://schema.hbp.eu/minds/specimen_group / https://schema.hbp.eu/minds/subjects / https://schema.hbp.eu/minds/samples / https://schema.hbp.eu/minds/methods / http://schema.org/name',
-                        'op': 'eq',
-                        'value': value.id
-                    })
-                    print("routing now to minds")
-
                 else:
                     raise Exception("The only supported filters are by species, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
