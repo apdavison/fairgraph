@@ -280,6 +280,79 @@ class Dataset(MINDSObject):
         instances = client.query_kgquery(Method.path, "fgDatasets", filter=filter, scope=scope)
         return [Method.from_kg_instance(inst, client) for inst in instances]
 
+    @classmethod
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        if api == "nexus":
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
+            }
+            filter_queries = []
+            for name, value in filters.items():
+                if name == "species":
+                    filter_queries.append({
+                        #        collection      / patchedslice / slice              / subject             / species
+                        'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name in ("brain_region", "brain_location"):
+                    filter_queries.append({
+                        "path": "nsg:brainLocation / nsg:brainRegion",
+                        "op": "eq",
+                        "value": value.iri
+                    })
+                elif name == "cell_type":
+                    filter_queries.append({
+                        'path': 'nsg:eType',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                elif name == "experimenter":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                elif name == "lab":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person              / organization
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                elif name == "method":
+                    filter_queries.append({
+                        #        collection      / patchedslice / patchclampactivity / person              / organization
+                        'path': '^prov:hadMember / ^nsg:hasPart / ^prov:generated / prov:wasAssociatedWith / schema:affiliation',
+                        'op': 'eq',
+                        'value': value.id
+                    })
+                    print("routing now to minds")
+
+                else:
+                    raise Exception("The only supported filters are by species, brain region, cell type "
+                                    "experimenter or lab. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, api="nexus", size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
+        elif api == "query":
+            return super(PatchedCell, cls).list(client, size, from_index, api,
+                                                scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
+
 
 class EmbargoStatus(MINDSObject):
     """
