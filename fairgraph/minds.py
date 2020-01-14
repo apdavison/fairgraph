@@ -302,11 +302,10 @@ class Dataset(MINDSObject):
                         'path': 'https://schema.hbp.eu/minds/specimen_group / subject / sample / method',
                         'op': 'eq',
                         'value': value.name
-                    })
+                    }),
                     print("routing now to method")
                 else:
-                    raise Exception("The only supported filters are by species, brain region, cell type "
-                                    "experimenter or lab. You specified {name}".format(name=name))
+                    raise Exception("The only supported filters are by method or brain region. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
@@ -316,11 +315,11 @@ class Dataset(MINDSObject):
                     "op": "and",
                     "value": filter_queries
                 }
-            filter_query = {"nexus": filter_query}
+            filter_query = {"query": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="query", size=size)
         elif api == "query":
             return super(Dataset, cls).list(client, size, from_index, api,
-                                                scope, resolved, **filters)
+                                                scope, resolved, **filters, resolved=True)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
