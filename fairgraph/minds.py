@@ -327,7 +327,7 @@ class Dataset(MINDSObject):
                 elif name == "method":
                     filter_queries.append({
                         #        collection      / patchedslice / patchclampactivity / person
-                        'path': 'minds.SpecimenGroup / minds.Subject / minds.Sample / minds.methods',
+                        'path': 'SpecimenGroup / Subject / Sample',
                         'op': 'eq',
                         'value': value.id
                     })
