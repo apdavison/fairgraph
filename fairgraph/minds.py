@@ -355,7 +355,7 @@ class Dataset(MINDSObject):
             filter_query = {"nexus": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(PatchedCell, cls).list(client, size, from_index, api,
+            return super(Dataset, cls).list(client, size, from_index, api,
                                                 scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
