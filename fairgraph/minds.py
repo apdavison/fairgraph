@@ -331,6 +331,13 @@ class Dataset(MINDSObject):
                         'value': value.name
                     })
                     print("routing now to specimengroup")
+                elif name == "subject":
+                    filter_queries.append({
+                        'path': 'https://schema.hbp.eu/minds/specimen_group / subject',
+                        'op': 'eq',
+                        'value': value.name
+                    })
+                    print("routing now to subject")
                 else:
                     raise Exception("The only supported filters are by species, brain region, cell type "
                                     "experimenter or lab. You specified {name}".format(name=name))
