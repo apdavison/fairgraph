@@ -86,7 +86,6 @@ class FluorescenceTrace(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "dataUnit": "nsg:dataUnit",
         "timeStep": "nsg:timeStep",
         "value": "schema:value",
 	"description":"nsg:description",
@@ -106,7 +105,6 @@ class FluorescenceTrace(KGObject):
         Field("name", basestring, "name", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("generated_by", "optophysiology.TimeSeriesExtraction", "wasGeneratedBy"),
-        Field("data_unit", basestring, "dataUnit"),
         Field("description", basestring, "description"),
         Field("distribution", Distribution, "distribution")
     )
