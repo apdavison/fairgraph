@@ -291,21 +291,14 @@ class Dataset(MINDSObject):
             }
             filter_queries = []
             for name, value in filters.items():
-                if name in ("brain_region", "brain_location"):
+                if name == 'specimen_group':
                     filter_queries.append({
-                        "path": "nsg:brainLocation / nsg:brainRegion",
+                        "path": 'https://schema.hbp.eu/minds/specimen_group',
                         "op": "eq",
                         "value": value.iri
                     })
-                elif name == "specimen_group":
-                    filter_queries.append({
-                        'path': 'https://schema.hbp.eu/minds/specimen_group',
-                        'op': 'eq',
-                        'value': value.name
-                    }),
-                    print("routing now to method")
                 else:
-                    raise Exception("The only supported filters are by method or brain region. You specified {name}".format(name=name))
+                    raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
@@ -323,6 +316,43 @@ class Dataset(MINDSObject):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
+    @classmethod
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        if api == "nexus":
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
+            }
+            filter_queries = []
+            for name, value in filters.items():
+                if name == "species":
+                    filter_queries.append({
+                        #        collection      / patchedslice / slice              / subject             / species
+                        'path': '^prov:hadMember / ^nsg:hasPart / prov:wasRevisionOf / prov:wasDerivedFrom / nsg:species',
+                        'op': 'eq',
+                        'value': value.iri
+                    })
+                else:
+                    raise Exception("The only supported filters are by species, brain region, cell type "
+                                    "experimenter or lab. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, api="nexus", size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
+        elif api == "query":
+            return super(PatchedCell, cls).list(client, size, from_index, api,
+                                                scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
 class EmbargoStatus(MINDSObject):
     """
