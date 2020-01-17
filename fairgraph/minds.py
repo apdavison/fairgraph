@@ -295,7 +295,7 @@ class Dataset(MINDSObject):
                     filter_queries.append({
                         "path": 'https://schema.hbp.eu/minds/specimen_group',
                         "op": "eq",
-                        "value": value.iri
+                        "value": value.name
                     })
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
