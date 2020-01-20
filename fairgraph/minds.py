@@ -301,7 +301,7 @@ class Dataset(MINDSObject):
                     filter_queries.append({
                         "path": "nsg:specimenGroup",
                         "op": "eq",
-                        "value": value.name
+                        "value": value.value
                     })
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
