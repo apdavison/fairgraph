@@ -292,12 +292,26 @@ class Dataset(MINDSObject):
             filter_queries = []
             for name, value in filters.items():
                 if name == "specimen_group":
+                    print('a')
+                    filter_queries.append({
+                        "path": "https://schema.hbp.eu/minds/specimen_group",
+                        "op": "eq",
+                        "value": value.name
+                    })
+                elif name == "specimen_groupp":
+                    print('b')
                     filter_queries.append({
                         "path": "nsg:specimenGroup",
                         "op": "eq",
                         "value": value.name
                     })
-                    print('what?')
+                elif name == "specimen_grouppp":
+                    print('c')
+                    filter_queries.append({
+                        "path": SpecimenGroup,
+                        "op": "eq",
+                        "value": value.name
+                    })
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
