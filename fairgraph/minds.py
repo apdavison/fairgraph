@@ -297,6 +297,12 @@ class Dataset(MINDSObject):
                         "op": "eq",
                         "value": value.name
                     })
+                elif name == "specimen_groupp":
+                    filter_queries.append({
+                        "path": "nsg:specimenGroup",
+                        "op": "eq",
+                        "value": value.name
+                    })
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
