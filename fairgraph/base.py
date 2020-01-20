@@ -1016,14 +1016,14 @@ class KGQuery(object):
                     filter=self.filter["nexus"],
                     context=self.context,
                     size=size
-                )
+                ), print("routing through nexus")
             elif api == "query":
                 instances = client.query_kgquery(
                     path=cls.path,
                     query_id=cls.query_id,
                     filter=self.filter["query"],
                     size=size,
-                    scope=scope)
+                    scope=scope), print("routing through query")
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
