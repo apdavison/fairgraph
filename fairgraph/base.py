@@ -536,18 +536,13 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             elif api == "any":
-                if self.exists(client, "query"):
-                       response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
-                                                size=1, scope="latest")
-                       print(self.__class__.path)
-                       print(query_filter)
-                       print(response)
-                elif self.exists(client, "nexus"):
-                       response = client.query_nexus(self.__class__.path, query_filter, context)
+                if not self.exists(client, "query"):
+                    return self.exists(client, "nexus")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
+
             elif api == "query":
                 response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
                                                 size=1, scope="latest")
@@ -556,7 +551,6 @@ class KGObject(with_metaclass(Registry, object)):
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
             if response:
                 self.id = response[0].data["@id"]
-                print(self.id)
                 KGObject.save_cache[self.__class__][query_cache_key] = self.id
             return bool(response)
 
@@ -631,8 +625,7 @@ class KGObject(with_metaclass(Registry, object)):
         """docstring"""
         data = self._build_data(client)
 
-        if self.id:
-            # or self.exists(client, api="any"):
+        if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
                 # this can occur if updating a previously-saved object that has been constructed
@@ -1023,14 +1016,14 @@ class KGQuery(object):
                     filter=self.filter["nexus"],
                     context=self.context,
                     size=size
-                ), print("routing to nexus")
+                )
             elif api == "query":
                 instances = client.query_kgquery(
                     path=cls.path,
                     query_id=cls.query_id,
                     filter=self.filter["query"],
                     size=size,
-                    scope=scope), print("routing to query")
+                    scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
             objects.extend(cls.from_kg_instance(instance, client)
