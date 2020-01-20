@@ -303,12 +303,6 @@ class Dataset(MINDSObject):
                         "op": "eq",
                         "value": value.name
                     })
-                elif name == "specimen_grouppp":
-                    filter_queries.append({
-                        "path": SpecimenGroup,
-                        "op": "eq",
-                        "value": value.name
-                    })
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
@@ -323,7 +317,7 @@ class Dataset(MINDSObject):
             filter_query = {"nexus": filter_query}
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
-            return super(PatchedCell, cls).list(client, size, from_index, api,
+            return super(Dataset, cls).list(client, size, from_index, api,
                                                 scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
