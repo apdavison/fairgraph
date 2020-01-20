@@ -1017,7 +1017,6 @@ class KGQuery(object):
                     context=self.context,
                     size=size
                 )
-                print("routing to nexus")
             elif api == "query":
                 instances = client.query_kgquery(
                     path=cls.path,
