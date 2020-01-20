@@ -296,7 +296,7 @@ class Dataset(MINDSObject):
                     filter_queries.append({
                         "path": "https://schema.hbp.eu/minds/specimen_group",
                         "op": "eq",
-                        "value": value
+                        "value": value.name
                     })
                 elif name == "specimen_groupp":
                     print('b')
