@@ -291,7 +291,7 @@ class Dataset(MINDSObject):
             }
             filter_queries = []
             for name, value in filters.items():
-                if name == 'specimen_group':
+                if name == "specimen_group":
                     filter_queries.append({
                         "path": 'https://schema.hbp.eu/minds/specimen_group',
                         "op": "eq",
@@ -312,7 +312,7 @@ class Dataset(MINDSObject):
             return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
         elif api == "query":
             return super(Dataset, cls).list(client, size, from_index, api,
-                                                scope, resolved=True, **filters)
+                                                scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
