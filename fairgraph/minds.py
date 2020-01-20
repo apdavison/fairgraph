@@ -297,6 +297,7 @@ class Dataset(MINDSObject):
                         "op": "eq",
                         "value": value.name
                     })
+                    print('what?')
                 else:
                     raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
             if len(filter_queries) == 0:
