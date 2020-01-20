@@ -299,7 +299,7 @@ class Dataset(MINDSObject):
                     })
                 elif name == "specimen_groupp":
                     filter_queries.append({
-                        "path": "minds:Specimengroup",
+                        "path": nsg:specimenGroup,
                         "op": "eq",
                         "value": value.name
                     })
