@@ -155,8 +155,9 @@ class KGClient(object):
         if scope not in SCOPE_MAP:
             raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
+        url = quote_plus(template.format(start).encode("utf-8"))
         try:
-            response = self._kg_query_client.get(template.format(start))
+            response = self._kg_query_client.get(url)
         except HTTPError as err:
             if err.response.status_code == 403:
                 response = None
@@ -169,7 +170,8 @@ class KGClient(object):
             ]
             start += response["size"]
             while start < min(response["total"], size):
-                response = self._kg_query_client.get(template.format(start))
+                url = quote_plus(template.format(start).encode("utf-8"))
+                response = self._kg_query_client.get(url)
                 instances.extend([
                     Instance(path, data, Instance.path)
                     for data in response["results"]
