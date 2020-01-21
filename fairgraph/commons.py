@@ -119,6 +119,7 @@ class Strain(OntologyTerm):
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
         "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
         "129/Sv": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345673",
+        "ATJ/FVB.129P2-FMR1-mix": "https://www.jax.org/strain/004624"
         # 129/Sv is ambiguous
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
