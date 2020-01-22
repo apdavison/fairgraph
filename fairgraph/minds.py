@@ -291,17 +291,9 @@ class Dataset(MINDSObject):
             }
             filter_queries = []
             for name, value in filters.items():
-                if name == "specimen_group":
-                    print('a')
+                if name == "method":
                     filter_queries.append({
-                        "path": "https://schema.hbp.eu/minds/specimen_group",
-                        "op": "eq",
-                        "value": value.name
-                    })
-                elif name == "specimen_groupp":
-                    print('b')
-                    filter_queries.append({
-                        "path": "nsg:specimenGroup",
+                        "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
                         "op": "eq",
                         "value": value.name
                     })
