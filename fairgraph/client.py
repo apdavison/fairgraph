@@ -145,17 +145,18 @@ class KGClient(object):
         return instances
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
-        template = u"{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
+        template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
             path, query_id, size, SCOPE_MAP[scope])
         if filter:
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
-            template += u"&" + u"&".join(u"{}={}".format(k, v) for k, v in filter.items())
+            template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
         if scope not in SCOPE_MAP:
             raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
-        url = quote_plus(template.format(start).encode("utf-8"))
+        #url = quote_plus(template.format(start).encode("utf-8"))
+        url = template.format(start)
         try:
             response = self._kg_query_client.get(url)
         except HTTPError as err:
@@ -170,7 +171,8 @@ class KGClient(object):
             ]
             start += response["size"]
             while start < min(response["total"], size):
-                url = quote_plus(template.format(start).encode("utf-8"))
+                #url = quote_plus(template.format(start).encode("utf-8"))
+                url = template.format(start)
                 response = self._kg_query_client.get(url)
                 instances.extend([
                     Instance(path, data, Instance.path)
