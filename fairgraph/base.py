@@ -449,8 +449,6 @@ class KGObject(with_metaclass(Registry, object)):
                 filter_value = value.iri
             elif hasattr(value, "id"):
                 filter_value = value.id
-            elif hasattr(value, "name"):
-                filter_value = value.name
             else:
                 filter_value = value
             return filter_value
