@@ -87,13 +87,12 @@ def lookup_by_iri(iri):
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
+    print("QD", qd)
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
     cache_key = []
     for key in sorted(qd):
         value = qd[key]
-        print("test", key)
-        print(value)
         if isinstance(value, (list, tuple)):
             sub_key = []
             for sub_value in value:
@@ -532,7 +531,6 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             print("NOW WE GET OUT ANSWERs", self)
             query_filter = self._build_existence_query(api=api)
-            print("ID EXISTS", self.id)
             print(query_filter)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
