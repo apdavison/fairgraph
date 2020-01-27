@@ -1079,9 +1079,9 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     }
     fields = (
         Field("subject", Subject, "used", required=True),
-        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
-              multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
+        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
+              multiple=True),
 	Field("cranial_window", CranialWindow, "cranialWindow"),
 	Field("protocol", Protocol, "hadProtocol"),
         Field("anesthesia", basestring, "anesthesia"),
@@ -1091,7 +1091,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, implanted_brain_tissues, brain_location, cranial_window=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, subject, brain_location, implanted_brain_tissues=None, cranial_window=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
