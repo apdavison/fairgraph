@@ -506,20 +506,12 @@ class KGObject(with_metaclass(Registry, object)):
             print("API QUERY")
             query_parts = []
             for field in query_fields:
-                if field.id is not None:
-                    print("option id", field.id)
-                    query_parts.append({
-                        "path": standard_context[field.path],
-                        "op": "eq",
-                        "value": field.serialize(getattr(self, field.id), None)
-                    })
-                else:
-                    print("option name", field.name)
-                    query_parts.append({
+                print("option name", field.name)
+                query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
                         "value": field.serialize(getattr(self, field.name), None)
-                    })
+                })
             if len(query_fields) == 1:
                 return query_parts[0]
             else:
