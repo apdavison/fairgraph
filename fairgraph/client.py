@@ -104,7 +104,7 @@ class KGClient(object):
     def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
-            url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
+            url = "{}/data/{}/?size=1&deprecated=False".format(self.nexus_endpoint, cls.path)
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
             if scope not in SCOPE_MAP:
