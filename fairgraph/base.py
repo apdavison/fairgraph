@@ -506,7 +506,7 @@ class KGObject(with_metaclass(Registry, object)):
             print("API QUERY")
             query_parts = []
             for field in query_fields:
-		if field.name:
+                if field.name:
                     query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
