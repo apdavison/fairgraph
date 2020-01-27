@@ -549,7 +549,7 @@ class KGObject(with_metaclass(Registry, object)):
                 # not sure about the appropriate scope here
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
-            return bool(response)
+
 
     def get_context(self, client=None):
         context_urls = set()
