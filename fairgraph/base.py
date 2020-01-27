@@ -531,6 +531,7 @@ class KGObject(with_metaclass(Registry, object)):
             return True
         else:
             query_filter = self._build_existence_query(api=api)
+            print(query_filter)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
