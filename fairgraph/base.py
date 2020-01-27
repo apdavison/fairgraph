@@ -549,9 +549,6 @@ class KGObject(with_metaclass(Registry, object)):
                 # not sure about the appropriate scope here
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
-"""            if response:
-                self.id = response[0].data["@id"]
-                KGObject.save_cache[self.__class__][query_cache_key] = self.id"""
             return bool(response)
 
     def get_context(self, client=None):
