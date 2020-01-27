@@ -221,7 +221,10 @@ class Field(object):
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
             elif isinstance(value, (KGObject, KGProxy)):
-                return value.id
+                return {
+                    "@id": value.id,
+                    "@type": value.type
+                }
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             else:
