@@ -506,19 +506,19 @@ class KGObject(with_metaclass(Registry, object)):
             print("API QUERY")
             query_parts = []
             for field in query_fields:
-                if field.name:
-                    print("option name")
-                    query_parts.append({
-                        "path": standard_context[field.path],
-                        "op": "eq",
-                        "value": field.serialize(getattr(self, field.name), None)
-                    })
-                else:
-                    print("option other")
+                if field.id:
+                    print("option nid", field.id)
                     query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
                         "value": field.serialize(getattr(self, field.id), None)
+                    })
+                else:
+                    print("option name", field.name)
+                    query_parts.append({
+                        "path": standard_context[field.path],
+                        "op": "eq",
+                        "value": field.serialize(getattr(self, field.name), None)
                     })
             if len(query_fields) == 1:
                 return query_parts[0]
@@ -551,7 +551,6 @@ class KGObject(with_metaclass(Registry, object)):
         if self.id:
             return True
         else:
-            print("NOW WE GET OUT ANSWERs", self)
             query_filter = self._build_existence_query(api=api)
             print("Query filter should be same as QD", query_filter)
             query_cache_key = generate_cache_key(query_filter)
