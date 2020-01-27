@@ -221,6 +221,7 @@ class Field(object):
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
             elif isinstance(value, (KGObject, KGProxy)):
+                print("WHAT HAPPENS HERE")
                 return {
                     "@id": value.id,
                     "@type": value.type
