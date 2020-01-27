@@ -1089,7 +1089,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
-    existence_query_fields = ("subject")
+    existence_query_fields = ("subject",)
 
     def __init__(self, subject, brain_location, implanted_brain_tissues=None, cranial_window=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()

@@ -102,10 +102,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Johnson",
-                    "givenName": "Katherine",
+                    "familyName": "Armstrong",
+                    "givenName": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
-                    "email": "kjohnson@nasa.gov"
+                    "email": "neil.armstrong@nasa.gov"
                 },
                 {
                     "Person__affiliation": [],
@@ -113,10 +113,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "da Vinci",
-                    "givenName": "Leonardo",
+                    "familyName": "Brill",
+                    "givenName": "Yvonne",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
-                    "email": "leo@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/ec287baa-a2eb-4467-9101-fc7b8c56c3ba",
@@ -271,10 +271,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Johnson",
-                    "givenName": "Katherine",
+                    "familyName": "Whittle",
+                    "givenName": "Frank",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
-                    "email": "kjohnson@nasa.gov"
+                    "email": "unknown@example.com"
                 },
                 {
                     "Person__affiliation": [],
@@ -282,10 +282,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "da Vinci",
-                    "givenName": "Leonardo",
+                    "familyName": "Weber",
+                    "givenName": "Johanna",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
-                    "email": "leo@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/b79b91cb-ee29-40a8-baf6-01ba3e4e8083",
@@ -440,10 +440,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Johnson",
-                    "givenName": "Katherine",
+                    "familyName": "Borman",
+                    "givenName": "Frank",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
-                    "email": "kjohnson@nasa.gov"
+                    "email": "unknown@example.com"
                 },
                 {
                     "Person__affiliation": [],
@@ -451,10 +451,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "da Vinci",
-                    "givenName": "Leonardo",
+                    "familyName": "Chawla",
+                    "givenName": "Kalpana",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
-                    "email": "leo@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/4ca337ac-2d78-4c94-92ec-c9b4a7ef9b43",
@@ -609,10 +609,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Johnson",
-                    "givenName": "Katherine",
+                    "familyName": "Sikorsky",
+                    "givenName": "Igor",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a3e71091-ebf0-49ea-b95e-2159e6b0ed7f",
-                    "email": "kjohnson@nasa.gov"
+                    "email": "unknown@example.com"
                 },
                 {
                     "Person__affiliation": [],
@@ -620,10 +620,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "da Vinci",
-                    "givenName": "Leonardo",
+                    "familyName": "McGill",
+                    "givenName": "Elsie",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/198054f6-621a-4d33-8520-bc4e59e668a1",
-                    "email": "leo@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/dc70500b-dc6c-4060-9555-9141705bb784",
@@ -804,10 +804,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Weber",
-                    "givenName": "Johanna",
+                    "familyName": "da Vinci",
+                    "givenName": "Leonardo",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/226869e6-6879-48d1-9227-84febe0ef006",
@@ -992,10 +992,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Weber",
-                    "givenName": "Johanna",
+                    "familyName": "Johnson",
+                    "givenName": "Katherine",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/adcb02db-d38b-4718-b07e-6a6fe184e0e8",
@@ -1180,10 +1180,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Weber",
-                    "givenName": "Johanna",
+                    "familyName": "Armstrong",
+                    "givenName": "Neil",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "neil.armstrong@nasa.gov"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/5b55540c-3f41-4d42-946c-12629021c330",
@@ -1368,10 +1368,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Weber",
-                    "givenName": "Johanna",
+                    "familyName": "Brill",
+                    "givenName": "Yvonne",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/4e2eea27-b262-43ed-ad21-e233caa02fad",
@@ -1556,10 +1556,10 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Person",
                         "http://www.w3.org/ns/prov#Agent"
                     ],
-                    "familyName": "Weber",
-                    "givenName": "Johanna",
+                    "familyName": "Whittle",
+                    "givenName": "Frank",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/72544fd4-623d-43b2-89b7-26e95c8851d0",
@@ -1747,7 +1747,7 @@
                     "familyName": "Weber",
                     "givenName": "Johanna",
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/a611cbb4-82ab-4a50-b9a5-1c172dc9916c",
-                    "email": "weber@example.com"
+                    "email": "unknown@example.com"
                 }
             ],
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/wholecellpatchclamp/v0.1.0/e4b115d9-477c-4584-8102-b07ac0af5b04",

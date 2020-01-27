@@ -2,94 +2,58 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitrace/v0.1.0"
     },
-    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.0/fg",
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitrace/v0.1.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "distribution",
-            "relative_path": "http://schema.org/distribution",
             "filter": {
                 "op": "contains",
                 "parameter": "data_location"
-            }
+            },
+            "relative_path": "http://schema.org/distribution"
         },
         {
             "fieldname": "wasGeneratedBy",
-            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "generated_by"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy"
         },
         {
             "fieldname": "qualifiedGeneration",
-            "relative_path": "http://www.w3.org/ns/prov#qualifiedGeneration",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "generation_metadata"
-            }
-        },
-        {
-            "fieldname": "channelName",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/channelName",
-            "filter": {
-                "op": "contains",
-                "parameter": "channel_names"
-            }
-        },
-        {
-            "fieldname": "dataUnit",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/dataUnit",
-            "filter": {
-                "op": "contains",
-                "parameter": "data_unit"
-            }
-        },
-        {
-            "fieldname": "timeStep",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/timeStep",
-            "filter": {
-                "op": "contains",
-                "parameter": "time_step"
-            }
-        },
-        {
-            "fieldname": "partOf",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf",
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -98,10 +62,47 @@
                     "relative_path": "@type"
                 }
             ],
+            "relative_path": "http://www.w3.org/ns/prov#qualifiedGeneration"
+        },
+        {
+            "fieldname": "channelName",
+            "filter": {
+                "op": "contains",
+                "parameter": "channel_names"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/channelName"
+        },
+        {
+            "fieldname": "dataUnit",
+            "filter": {
+                "op": "contains",
+                "parameter": "data_unit"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/dataUnit"
+        },
+        {
+            "fieldname": "timeStep",
+            "filter": {
+                "op": "contains",
+                "parameter": "time_step"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/timeStep"
+        },
+        {
+            "fieldname": "partOf",
             "filter": {
                 "op": "contains",
                 "parameter": "part_of"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf"
         }
     ],
     "@context": {

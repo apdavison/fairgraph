@@ -296,7 +296,7 @@ class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
     object_cache = {}
     save_cache = defaultdict(dict)
-    query_id = "fg"
+    query_id = "fgSimple"
     query_id_resolved = "fgResolved"
     fields = []
     existence_query_fields = ["name"]
@@ -498,6 +498,8 @@ class KGObject(with_metaclass(Registry, object)):
                 if field.name == field_name:
                     query_fields.append(field)
                     break
+        if len(query_fields) < 1:
+            raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
             return {
                 field.name: field.serialize(getattr(self, field.name), None)
@@ -536,23 +538,26 @@ class KGObject(with_metaclass(Registry, object)):
                 self.id = self.save_cache[self.__class__][query_cache_key]
                 return True
             elif api == "any":
-                if not self.exists(client, "query"):
-                    return self.exists(client, "nexus")
+                if self.exists(client, "nexus"):
+                    return True
+                else:
+                    return self.exists(client, "query")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
                            "prov": "http://www.w3.org/ns/prov#"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
 
             elif api == "query":
-                response = client.query_kgquery(self.__class__.path, "fg", filter=query_filter,
+                response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
                                                 size=1, scope="latest")
                 # not sure about the appropriate scope here
             else:
                 raise ValueError("'api' must be 'nexus', 'query' or 'any'")
-'''         if response:
+            if response:
+                # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
                 self.id = response[0].data["@id"]
                 KGObject.save_cache[self.__class__][query_cache_key] = self.id
-            return bool(response)'''
+            return bool(response)
 
     def get_context(self, client=None):
         context_urls = set()
@@ -631,11 +636,14 @@ class KGObject(with_metaclass(Registry, object)):
                 # this can occur if updating a previously-saved object that has been constructed
                 # (e.g. in a script), rather than retrieved from Nexus
                 # since we don't know its current revision, we have to retrieve it
-                self.instance = client.instance_from_full_uri(self.id, use_cache=False)
+
+                # we have to use the Nexus API to get the revision number
+                self.instance = client.instance_from_full_uri(
+                    self.id, cls=self.__class__, api="nexus", use_cache=False)
 
         if self.instance:
             if self._update_needed(data):
-                logger.info("Updating {self!r}".format(self=self))
+                logger.info("Updating {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
@@ -643,7 +651,8 @@ class KGObject(with_metaclass(Registry, object)):
                                            standard_context)) == set(self.type)
                 self.instance = client.update_instance(self.instance)
             else:
-                logger.info("Not updating {self!r}, unchanged".format(self=self))
+                logger.info("Not updating {}(id={}), unchanged".format(self.__class__.__name__,
+                                                                       self.id))
         else:
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
@@ -651,10 +660,11 @@ class KGObject(with_metaclass(Registry, object)):
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
-            KGObject.object_cache[self.id] = self
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
             KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
+        logger.debug("Updating cache for object {}".format(self.id))
+        KGObject.object_cache[self.id] = self
 
     def delete(self, client):
         """Deprecate"""
@@ -673,7 +683,7 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             return None
 
-    def resolve(self, client):
+    def resolve(self, client, api="query"):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
@@ -747,6 +757,8 @@ class KGObject(with_metaclass(Registry, object)):
                 if top_level:
                     if field.name == "name":
                         field_definition["sort"] = True
+                        if field.required:
+                            field_definition["required"] = True
 
                 if any(issubclass(_type, KGObject) for _type in field.types):
 
@@ -842,9 +854,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def store_queries(cls, client):
-        for query_id, resolved in (("fg", False), ("fgResolved", True)):
-        #for query_id, resolved in (("fgResolved", True),):
-        #for query_id, resolved in (("fg", False),):
+        for query_id, resolved in (("fgSimple", False), ("fgResolved", True)):
             query_definition = cls.generate_query(query_id, client, resolved=resolved)
             path = "{}/{}".format(cls.path, query_id)
             try:
@@ -958,9 +968,10 @@ class KGProxy(object):
         # For consistency with KGQuery interface
         return [self.cls]
 
-    def resolve(self, client, api="query", scope="released"):
+    def resolve(self, client, api="query", scope="released", use_cache=True):
         """docstring"""
-        if self.id in KGObject.object_cache:
+        if use_cache and self.id in KGObject.object_cache:
+            logger.debug("Retrieving object {} from cache".format(self.id))
             return KGObject.object_cache[self.id]
         else:
             obj = self.cls.from_uri(self.id, client, api=api, scope=scope)

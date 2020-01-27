@@ -2,21 +2,24 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/brainslicing/v0.1.0"
     },
-    "http://schema.org/identifier": "neuralactivity/experiment/brainslicing/v0.1.0/fg",
+    "http://schema.org/identifier": "neuralactivity/experiment/brainslicing/v0.1.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "used",
-            "relative_path": "http://www.w3.org/ns/prov#used",
+            "filter": {
+                "op": "contains",
+                "parameter": "subject"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -25,14 +28,14 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "subject"
-            }
+            "relative_path": "http://www.w3.org/ns/prov#used"
         },
         {
             "fieldname": "generated",
-            "relative_path": "http://www.w3.org/ns/prov#generated",
+            "filter": {
+                "op": "contains",
+                "parameter": "slices"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -42,14 +45,14 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "slices"
-            }
+            "relative_path": "http://www.w3.org/ns/prov#generated"
         },
         {
             "fieldname": "brainRegion",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_location"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -59,42 +62,39 @@
                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "brain_location"
-            }
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
         },
         {
             "fieldname": "slicingPlane",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingPlane",
             "filter": {
                 "op": "contains",
                 "parameter": "slicing_plane"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingPlane"
         },
         {
             "fieldname": "slicingAngle",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingAngle",
             "filter": {
                 "op": "equals",
                 "parameter": "slicing_angle"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/slicingAngle"
         },
         {
             "fieldname": "solution",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution",
             "filter": {
                 "op": "contains",
                 "parameter": "cutting_solution"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution"
         },
         {
             "fieldname": "cuttingThickness",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/cuttingThickness",
             "filter": {
                 "op": "contains",
                 "parameter": "cutting_thickness"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/cuttingThickness"
         },
         {
             "fieldname": "startedAtTime",
@@ -102,7 +102,10 @@
         },
         {
             "fieldname": "wasAssociatedWith",
-            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+            "filter": {
+                "op": "contains",
+                "parameter": "people"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -112,10 +115,7 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "people"
-            }
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
         }
     ],
     "@context": {

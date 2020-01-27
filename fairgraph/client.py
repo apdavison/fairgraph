@@ -109,7 +109,7 @@ class KGClient(object):
         elif api == "query":
             if scope not in SCOPE_MAP:
                 raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
-            url = "{}/fg/instances?size=1&databaseScope={}".format(cls.path, SCOPE_MAP[scope])
+            url = "{}/{}/instances?size=1&databaseScope={}".format(cls.path, cls.query_id, SCOPE_MAP[scope])
             response = self._kg_query_client.get(url)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -117,6 +117,7 @@ class KGClient(object):
 
     def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         # Nexus API
+        logger.debug("Making Nexus query {} with filter {}".format(path, filter))
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
@@ -186,6 +187,7 @@ class KGClient(object):
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
+        logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance from cache")
             instance = self.cache[uri]
@@ -211,7 +213,7 @@ class KGClient(object):
                                                                     query_id,
                                                                     SCOPE_MAP[scope],
                                                                     uri))
-                if len(response["results"]) > 0:
+                if response and len(response["results"]) > 0:
                     instance = Instance(cls.path, response["results"][0], Instance.path)
                     self.cache[instance.data["@id"]] = instance
                     logger.debug("Retrieved instance from KG Query" + str(instance.data))
@@ -219,7 +221,7 @@ class KGClient(object):
                     logger.warning("Instance not found at {} using KG Query API".format(uri))
                     instance = None
             else:
-                raise NotImplementedError("Coming soon. For now, please use api='nexus'")
+                raise NotImplementedError("No query id available: cls={}".format(str(cls)))
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance

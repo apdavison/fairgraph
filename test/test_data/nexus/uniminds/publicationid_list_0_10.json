@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 79,
+    "total": 80,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/publicationid/v1.0.0/009512ad-a32b-4522-bae0-b17d1d198492",

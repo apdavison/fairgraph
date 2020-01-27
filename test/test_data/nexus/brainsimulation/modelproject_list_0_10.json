@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 739,
+    "total": 351,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d",
@@ -96,6 +96,15 @@
                     }
                 ],
                 "description": "Neural network with homogenous connectivity, expressing slow oscillations or asynchronous awake like regime. The models can be configured to run with static or plastic synapses or to switch between the two modes. Simulations with static synapses consume less memory.\n\nThe models can be configured to express Slow Wave Activity (SWA), Slow Oscillations (SO) or Asynchronous Awake like (AW) regimes, with static and plastic synapses, and different models of space dependent interconnects.\n\nAbstraction level. Single compartment point-like neurons, (membrane potential and fatigue variables), static or plastic (STDP) synapses, programmable distance dependent connectivity, instantaneous synaptic currents.\n\nScientific purposes: this set of models serves a set of scientific purposes, including:\n\n- a preliminary investigation of the interaction between SWA/SO and STDP causal plasticity. Follow this link for these configurations.\n- scalability studies and investigation of co-design techniques (software and interconnect architectures) for better scalability on large-scale distributed computing platforms\n- investigation of the impact of biologically realistic interconnects and neural and synaptic densities on the scaling of distributed simulations.\n- investigation of power consumption and real-rime issued in large scale cortical simulations\n\nFabrizio Capuani, Maurizio Mattia, Elena Pastorelli, Francesco Simula and Pier Stanislao Paolucci (2018) \"Multi-scale simulations of SWA, SO and AW regimes, with static and plastic synapses.\" https://collab.humanbrainproject.eu/#/collab/11175/nav/83589",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/9f4d1284-c5c1-43e9-b922-03bbb29de830",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [
                     {
                         "caption": "Fig. 1. Snapshot of a slow wave propagating on a 96x96 grid of cortical modules. The model includes a total of 11.5M neurons and 17.5G and executes on a distributed platform including 1024 Intel cores HPC",
@@ -120,7 +129,7 @@
                     ]
                 },
                 "private": false,
-                "nxv:rev": 3,
+                "nxv:rev": 42,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -202,14 +211,24 @@
                     }
                 ],
                 "description": "Single cell model optimized using BluePyOpt<br><br><strong>best\\_cell</strong> : <em>cell\\_seed4\\_0.hoc</em><br><strong>best\\_run</strong> : <em>seed4.pkl</em><br><strong>channels</strong> : <em>kdrb, na3, kmb, kap, hd, can, cal, cat, kdb, cagk, cacum, kca</em><br><strong>e-type</strong> : <em>bAC</em><br><strong>fitting\\_name</strong> : <em>bACnoljp</em><br><strong>morphology</strong> : <em>011017HP2</em>",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/275d75aa-5e80-49b3-b400-01dd0b265edf",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [
                     {
                         "caption": "Morphology",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/optimizations/CA1_int_bAC_011017HP2_20180110153901/011017HP2_morph.jpeg"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     },
                     {
                         "caption": "Responses",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_int_bAC_011017HP2_20180110153901/CA1_int_bAC_011017HP2_20180110153901_responses.png"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     }
                 ],
                 "modelOf": {
@@ -234,7 +253,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
                     "label": "Rattus norvegicus"
                 },
-                "nxv:rev": 16,
+                "nxv:rev": 17,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -309,6 +328,16 @@
                     }
                 ],
                 "description": "Passive Model\n\n Number = 1\n\n Size (MB) = <1\n\n Origin = Eyal et al 2016\n\n Dissemination level = public",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a86ebf71-bf38-4d3c-92a4-09e416677c89",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [],
                 "modelOf": {
                     "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
@@ -332,7 +361,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
                     "label": "Homo sapiens"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -407,14 +436,24 @@
                     }
                 ],
                 "description": "Single cell model optimized using BluePyOpt<br><br><strong>best\\_cell</strong> : <em>cell\\_seed2\\_0.hoc</em><br><strong>best\\_run</strong> : <em>seed1.pkl</em><br><strong>channels</strong> : <em>kdrb, na3, kmb, kap, hd, can, cal, cat, kdb, cagk, cacum, kca</em><br><strong>e-type</strong> : <em>cNAC</em><br><strong>fitting\\_name</strong> : <em>cNACnoljp</em><br><strong>morphology</strong> : <em>990611HP2</em>",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/59b6b654-5d0a-4d70-a7b9-f826bea893c4",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [
                     {
                         "caption": "Morphology",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/optimizations/CA1_int_cNAC_990611HP2_20180120155246/990611HP2_morph.jpeg"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     },
                     {
                         "caption": "Responses",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_int_cNAC_990611HP2_20180120155246/CA1_int_cNAC_990611HP2_20180120155246_responses.png"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     }
                 ],
                 "modelOf": {
@@ -439,7 +478,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
                     "label": "Rattus norvegicus"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -447,107 +486,6 @@
                     "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
                     "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/018429f5-56e0-4907-b8a1-99c5f731be03",
-            "source": {
-                "@context": [
-                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
-                    {
-                        "PLAComponents": "nsg:PLAComponents",
-                        "abstractionLevel": "nsg:abstractionLevel",
-                        "alias": "nsg:alias",
-                        "author": "schema:author",
-                        "brainRegion": "nsg:brainRegion",
-                        "celltype": "nsg:celltype",
-                        "collabID": "nsg:collabID",
-                        "dateCreated": "schema:dateCreated",
-                        "dcterms": "http://purl.org/dc/terms/",
-                        "description": "schema:description",
-                        "instances": "dcterms:hasPart",
-                        "label": "rdfs:label",
-                        "modelOf": "nsg:modelOf",
-                        "name": "schema:name",
-                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                        "oldUUID": "nsg:providerId",
-                        "organization": "nsg:organization",
-                        "owner": "nsg:owner",
-                        "partOf": "nsg:partOf",
-                        "private": "nsg:private",
-                        "prov": "http://www.w3.org/ns/prov#",
-                        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                        "schema": "http://schema.org/",
-                        "species": "nsg:species"
-                    }
-                ],
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/018429f5-56e0-4907-b8a1-99c5f731be03",
-                "@type": [
-                    "prov:Entity",
-                    "nsg:ModelProject"
-                ],
-                "abstractionLevel": {
-                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
-                    "label": "spiking neurons"
-                },
-                "alias": "Model_2019-10-14_17:01:17_integration_py3.7.2_superuser1",
-                "author": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/daa3bd93-cd05-469a-a07d-0d035f18ad5a",
-                        "@type": [
-                            "nsg:Person",
-                            "prov:Agent"
-                        ]
-                    }
-                ],
-                "brainRegion": {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0010011",
-                    "label": "basal ganglia"
-                },
-                "celltype": {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000120",
-                    "label": "granule cell"
-                },
-                "collabID": 52468,
-                "dateCreated": "2019-10-14T15:01:19.048976",
-                "dcterms:hasPart": [],
-                "description": "This is a test entry! Please ignore.",
-                "images": [
-                    {
-                        "caption": "NEURON Logo",
-                        "url": "http://www.neuron.yale.edu/neuron/sites/default/themes/xchameleon/logo.png"
-                    }
-                ],
-                "modelOf": {
-                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
-                    "label": "single cell"
-                },
-                "name": "IGNORE - Test Model - Model_2019-10-14_17:01:17_integration_py3.7.2_superuser1",
-                "organization": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2",
-                    "@type": "nsg:Organization"
-                },
-                "owner": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/daa3bd93-cd05-469a-a07d-0d035f18ad5a",
-                    "@type": [
-                        "nsg:Person",
-                        "prov:Agent"
-                    ]
-                },
-                "private": false,
-                "species": {
-                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
-                    "label": "Mus musculus"
-                },
-                "nxv:rev": 4,
-                "nxv:deprecated": true,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/018429f5-56e0-4907-b8a1-99c5f731be03/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/018429f5-56e0-4907-b8a1-99c5f731be03/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/018429f5-56e0-4907-b8a1-99c5f731be03"
                 }
             }
         },
@@ -615,14 +553,24 @@
                     }
                 ],
                 "description": "Single cell model optimized using BluePyOpt<br><br><strong>best\\_cell</strong> : <em>cell\\_seed2\\_0.hoc</em><br><strong>best\\_run</strong> : <em>seed2.pkl</em><br><strong>channels</strong> : <em>kdrb, na3, kmb, kap, hd, can, cal, cat, kdb, cagk, cacum, kca</em><br><strong>e-type</strong> : <em>cNAC</em><br><strong>fitting\\_name</strong> : <em>cNACnoljp</em><br><strong>morphology</strong> : <em>011023HP2</em>",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5c8f5103-4c94-4b7f-9dc5-74608a74b7ec",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [
                     {
                         "caption": "Morphology",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/hippocampus_optimization/optimizations/CA1_int_cNAC_011023HP2_20180118154613/011023HP2_morph.jpeg"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     },
                     {
                         "caption": "Responses",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1/models/CA1_int_cNAC_011023HP2_20180118154613/CA1_int_cNAC_011023HP2_20180118154613_responses.png"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     }
                 ],
                 "modelOf": {
@@ -647,7 +595,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
                     "label": "Rattus norvegicus"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -722,6 +670,16 @@
                     }
                 ],
                 "description": "This model is being used to demonstrate use of the Validation Service",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/8a63fe8e-7b8a-4a86-9968-08a79669dcfc",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [],
                 "modelOf": {
                     "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
@@ -745,7 +703,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
                     "label": "Rattus norvegicus"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -753,900 +711,6 @@
                     "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6/outgoing",
                     "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
                     "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6"
-                }
-            }
-        },
-        {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03301774-d824-4b6a-948b-3add37229afd",
-            "source": {
-                "@context": {
-                    "PLAComponents": "nsg:PLAComponents",
-                    "abstractionLevel": "nsg:abstractionLevel",
-                    "alias": "nsg:alias",
-                    "author": "schema:author",
-                    "brainRegion": "nsg:brainRegion",
-                    "celltype": "nsg:celltype",
-                    "collabID": "nsg:collabID",
-                    "dateCreated": "schema:dateCreated",
-                    "dcterms": "http://purl.org/dc/terms/",
-                    "description": "schema:description",
-                    "instances": "dcterms:hasPart",
-                    "label": "rdfs:label",
-                    "modelOf": "nsg:modelOf",
-                    "name": "schema:name",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                    "oldUUID": "nsg:providerId",
-                    "organization": "nsg:organization",
-                    "owner": "nsg:owner",
-                    "partOf": "nsg:partOf",
-                    "private": "nsg:private",
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/",
-                    "species": "nsg:species"
-                },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03301774-d824-4b6a-948b-3add37229afd",
-                "@type": [
-                    "prov:Entity",
-                    "nsg:ModelProject"
-                ],
-                "abstractionLevel": {
-                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
-                    "label": "spiking neurons: biophysical"
-                },
-                "author": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/c2aba1d5-7fe4-47b8-804c-cb6abd3492a1",
-                        "@type": [
-                            "nsg:Person",
-                            "prov:Agent"
-                        ]
-                    }
-                ],
-                "brainRegion": {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
-                    "label": "striatum"
-                },
-                "celltype": {
-                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
-                    "label": "medium spiny neuron (D2 type)"
-                },
-                "collabID": 6351,
-                "dateCreated": "2019-07-17T14:48:31.204171+00:00",
-                "dcterms:hasPart": [
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/6e17349e-c7ce-43fd-bc72-3334a3e8b204",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f538a7ac-eb7b-4f8c-8771-6d940fe92fd6",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a6f71cb5-3507-43aa-a616-a1caacb1a7d1",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/fbb737da-c945-4043-9f66-74ed087b5c83",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/725c9015-84b6-416b-8eb8-2938f98a5bd3",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ce9b6e72-7e1b-4ab8-9d78-0c062455b917",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9068678c-0c15-41ed-96e8-9f26eaf1e312",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ac9ad80e-f4d4-41fe-a5cb-14778b8b7075",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/8293c667-bfca-4f21-9140-96a0b2f9358c",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3f14ec1b-33c6-4c6d-b4e8-78bd85f1c9b8",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/75d35cc1-c4a5-4de6-b415-25a161c6bfcb",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/34846770-f8fe-4a72-920c-42a9961c8a6f",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/896e164b-a074-415d-af89-da459db54b1b",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9c5c3eb5-f1ef-4f46-aa53-64220dc123ee",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c06a3d91-2b5e-4a0e-a471-8a9f6f29ce54",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9873cf1f-ed83-458d-a6c5-40abacc436f3",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/704be599-aa08-44a9-bddc-7a1eb276eef5",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a0e50d55-5547-4f38-aa38-e21dec2802f4",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/d7d9a7da-add5-4268-8f60-326deea00bd6",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/51bbbaae-6ba8-4fa4-8066-368bcf50fa9e",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/71f8c5ca-8aca-4cfe-b9a4-366edd6852b3",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/28e82040-5775-4096-852a-cfe70d0362aa",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a0775d6d-cfee-4752-bcc2-9be6373c3269",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/cb042f64-4116-42e8-b0ba-09a74c214809",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/d6f88cf4-7e99-492e-a293-76860e66eb31",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ba3bfce7-1478-448f-a9a8-ccc5936d3dc9",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/003689bc-f4c1-4faf-9d89-03bf16e6769d",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/382014d0-ecb2-4fad-a4c4-8c185872edcc",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/7d528392-29ab-4851-ad30-7a26a70703a9",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/41988dde-8991-44a0-b03c-172e601a8ac1",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a93ee051-2cc0-40f3-8b4d-359128d457d4",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/8896a9d5-6a2c-4d6d-9443-c3ffdc400203",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b27641e3-5c60-4d3a-9e6d-2384864b0fad",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/fa1cc848-691f-436a-9bef-a8e0a75e8a8c",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/10342623-ff21-4e6c-937a-9f478cdfad9c",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/1b067d2c-8d83-4bb9-a0ff-747ba2d3ea7b",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/283c6ad6-88a1-4248-a81f-475bb0501de3",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3669fcf1-b85f-402b-bd42-04a34cc19dc8",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/59ecdd82-9926-4a4a-ac5c-7b47b5e88a12",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/167b9cc5-ef6b-49db-adfc-9a74729fbcb1",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9fe391f2-4ea9-45f3-a805-dc1e5c71e7da",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/4c7b3d4f-76e8-4fc0-bd72-384ae3aae644",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ba137e7c-029e-43cb-a1b0-6ccc11de4d44",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f58f1e15-8940-408c-bc76-74580295efd9",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/4ac433c2-bfc4-4a85-b875-08d7d9c7f544",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/7773abdc-ba84-41a5-bcd5-a9fba60d5ae8",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/d2fab978-658b-4c97-9d71-672c3039cef3",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ce1f99bf-c386-40ea-8eb8-eb413276029c",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/ffbd4a3d-6345-4f22-aaad-990a36037316",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9da683f6-481d-4624-8a6f-b5d67330faed",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/31ef6a3d-ded4-4812-a43f-0fb0d756e4a5",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/303943e9-79cc-4e27-90a3-cb86e0871d2f",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/4516a978-5f39-405b-bf61-f9760def1b85",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/48cf4788-9b54-46f7-8325-c2696931a86e",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/02fe488f-00bf-456a-b1aa-ef35528fdcc0",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f78316fe-e348-4ee5-92f0-89a9e4a9ed62",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/30fba789-73ce-49cb-a679-35e5ef7389b2",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/2b8f5116-0615-4725-a01c-a0921662fe0e",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/544ed9a6-0b88-499a-bc69-fae67542cd0b",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/4cab45ef-3141-455c-94a6-e57d1593598d",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/6d471e57-8f19-4739-ad55-3eb2d4a160b5",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/2e78192e-55a0-418f-a3a4-07a402dd8bca",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c3e4b080-280c-46f5-a66c-36210aa216a0",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a1fea4ca-b598-4129-836c-fa91316996cd",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3ef150ea-cfd5-4cd6-a61b-1693fbd9a8b9",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/58d0c05f-4b46-44da-af8b-65f14bb1ac33",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/914d958b-a925-43c3-ab89-79900fe21ab5",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b0d21459-2a06-46a1-bacf-6c3d154c7766",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b3abf936-2cf4-4fdf-a9ff-c245f9420c98",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/fdde2983-ef8f-4f93-a74f-819e6e11dca1",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/634e2002-6634-494e-92d2-7d44e50dd3f0",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c950e025-2eab-4c65-a8e9-9a0ef60d6285",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c8b379a8-b2ae-41b1-ada4-ffe4234bcb93",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/af5a117d-a7f3-4a53-9871-ec1113ad92a8",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5c56a4ef-7e75-4acb-b1d7-41a5fc3374c0",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/d4cad6cf-9adf-4367-9782-db13562d33a2",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/6041da43-87dd-4e70-9227-746167248f29",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c8bd62d4-1ada-485c-9d16-d9f458b5e3a1",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/91ea1dd0-bc28-4c3d-9495-81f88b501abc",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/1696b5b4-a50e-446f-900d-87ad2f8ac969",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/31bd720f-9cec-40b5-a65b-3d711c12db49",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f0495476-f194-4822-a491-dbba8bc5cfc9",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/12714731-90b9-433c-aecb-d7d78b272dd7",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5ed658e5-6499-4c87-bbc3-9ace680eb541",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5889f077-a3aa-4814-90f3-80203f47ec28",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/99a5d912-137b-4c9a-8296-319c66a05da6",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f19cae5f-a039-43ec-9edb-4b1824365222",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/cfe7d007-76e6-4164-9e36-b63ea681ab3f",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/6488073a-c501-407c-b600-fdb9edf39d9f",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/12d69001-5197-4d3b-9427-58c1187462c2",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/7da5962e-48ef-4c49-86b5-293cf3f53b54",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/e93a4c28-92ec-4e4b-bd06-10d9cd4590ab",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/d62ec172-998a-4f9c-83fd-4580fe61ee80",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/c92218eb-1e2a-41e0-a7b1-062a24db4a44",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/9bd1ee72-ba96-4cb2-900c-4e109ce4a711",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/365e643b-129d-4d53-b920-1a6b65c7b803",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b128e905-cbd2-4a4a-bb88-badccc1080db",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/1614fd00-f51b-40fd-ba9b-3a903c391539",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/a67e9a40-eb64-49a5-b6f0-8f52834662ac",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    },
-                    {
-                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/42705f2d-6e70-462c-82a0-c02d980967c0",
-                        "@type": [
-                            "prov:Entity",
-                            "nsg:MEModel",
-                            "nsg:ModelInstance"
-                        ]
-                    }
-                ],
-                "description": "This model is being used to demonstrate use of MorphoUnit validation test suite!",
-                "images": [],
-                "modelOf": {
-                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
-                    "label": "single cell"
-                },
-                "name": "msn_d2_morphologies",
-                "oldUUID": "25f0ab7b-33a3-48db-8375-7e31dc385c22",
-                "organization": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2",
-                    "@type": "nsg:Organization"
-                },
-                "owner": {
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/c2aba1d5-7fe4-47b8-804c-cb6abd3492a1",
-                    "@type": [
-                        "nsg:Person",
-                        "prov:Agent"
-                    ]
-                },
-                "private": false,
-                "species": {
-                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
-                    "label": "Mus musculus"
-                },
-                "nxv:rev": 3,
-                "nxv:deprecated": true,
-                "links": {
-                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03301774-d824-4b6a-948b-3add37229afd/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03301774-d824-4b6a-948b-3add37229afd/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03301774-d824-4b6a-948b-3add37229afd"
                 }
             }
         },
@@ -1713,6 +777,15 @@
                     }
                 ],
                 "description": "channel kinetics\n\n Number = 1\n\n Size (MB) = 0,002\n\n Dissemination level = public",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/964335af-9bc4-4b94-b294-ed3fc1590d56",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [],
                 "modelOf": {
                     "@id": "TODO",
@@ -1736,7 +809,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
                     "label": "Rattus norvegicus"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -1827,10 +900,36 @@
                     }
                 ],
                 "description": "Repaired morphology\n\n Number = 1\n\n Size (MB) = 1\n\n Dissemination level = public",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/cf7a8bd3-8a4a-414a-a8bc-6e9dc9c321b5",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/1934212c-1549-4cf0-aa58-23a949f5f735",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3b913b14-c833-4f84-b45d-93d469a1d4ce",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
                 "images": [
                     {
                         "caption": "WT-P270-20 (corrected)",
-                        "url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Lindroos_2018_MSN/images/WT-P270-20-14ak_1.03_SGA2-m12.png"
+                        "url": "https://object.cscs.ch/v1/AUTH_"
                     }
                 ],
                 "modelOf": {
@@ -1855,7 +954,7 @@
                     "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
                     "label": "Mus musculus"
                 },
-                "nxv:rev": 2,
+                "nxv:rev": 3,
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
@@ -1865,10 +964,240 @@
                     "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f"
                 }
             }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09",
+            "source": {
+                "@context": {
+                    "PLAComponents": "nsg:PLAComponents",
+                    "abstractionLevel": "nsg:abstractionLevel",
+                    "alias": "nsg:alias",
+                    "author": "schema:author",
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "collabID": "nsg:collabID",
+                    "dateCreated": "schema:dateCreated",
+                    "dcterms": "http://purl.org/dc/terms/",
+                    "description": "schema:description",
+                    "instances": "dcterms:hasPart",
+                    "label": "rdfs:label",
+                    "modelOf": "nsg:modelOf",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "oldUUID": "nsg:providerId",
+                    "organization": "nsg:organization",
+                    "owner": "nsg:owner",
+                    "partOf": "nsg:partOf",
+                    "private": "nsg:private",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ModelProject"
+                ],
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/c2aba1d5-7fe4-47b8-804c-cb6abd3492a1",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002435",
+                    "label": "striatum"
+                },
+                "celltype": {
+                    "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
+                    "label": "fast spiking interneuron"
+                },
+                "collabID": 7840,
+                "dateCreated": "2018-03-27T11:27:02.875432+00:00",
+                "dcterms:hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/556a7301-ff72-477d-9141-3e760ff9a720",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b5acf8df-fba9-46ab-80e9-354b5c4bd938",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
+                "description": "Repaired reconstructions\n\n Number = 47\n\n Size (MB) = 4\n\n Dissemination level = HBP internal",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/556a7301-ff72-477d-9141-3e760ff9a720",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    },
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b5acf8df-fba9-46ab-80e9-354b5c4bd938",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:MEModel",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
+                "images": [],
+                "modelOf": {
+                    "@id": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
+                    "label": "single cell"
+                },
+                "name": "Repaired morphologies FS",
+                "oldUUID": "b2be18d2-f5d9-4dee-b616-815364acf2ec",
+                "organization": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2",
+                    "@type": "nsg:Organization"
+                },
+                "owner": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/c2aba1d5-7fe4-47b8-804c-cb6abd3492a1",
+                    "@type": [
+                        "nsg:Person",
+                        "prov:Agent"
+                    ]
+                },
+                "private": false,
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                },
+                "nxv:rev": 5,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9",
+            "source": {
+                "@context": {
+                    "PLAComponents": "nsg:PLAComponents",
+                    "abstractionLevel": "nsg:abstractionLevel",
+                    "alias": "nsg:alias",
+                    "author": "schema:author",
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "collabID": "nsg:collabID",
+                    "dateCreated": "schema:dateCreated",
+                    "dcterms": "http://purl.org/dc/terms/",
+                    "description": "schema:description",
+                    "instances": "dcterms:hasPart",
+                    "label": "rdfs:label",
+                    "modelOf": "nsg:modelOf",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "oldUUID": "nsg:providerId",
+                    "organization": "nsg:organization",
+                    "owner": "nsg:owner",
+                    "partOf": "nsg:partOf",
+                    "private": "nsg:private",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:ModelProject"
+                ],
+                "author": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/a9b61732-5b92-4b60-8015-87d1e336540f",
+                        "@type": [
+                            "nsg:Person",
+                            "prov:Agent"
+                        ]
+                    }
+                ],
+                "brainRegion": {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0002037",
+                    "label": "cerebellum"
+                },
+                "celltype": {
+                    "@id": "http://purl.obolibrary.org/obo/CL_0000120",
+                    "label": "granule cell"
+                },
+                "collabID": 9136,
+                "dateCreated": "2018-03-27T14:11:51.323916+00:00",
+                "dcterms:hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/e7c7d45a-2d1a-4677-ab9f-5d98d2777aeb",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
+                "description": "channel kinetics\n\n Number = 1\n\n Size (MB) = 0,002\n\n Origin = D' Angelo et al., 2001\n\n Dissemination level = public",
+                "hasPart": [
+                    {
+                        "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/e7c7d45a-2d1a-4677-ab9f-5d98d2777aeb",
+                        "@type": [
+                            "prov:Entity",
+                            "nsg:ModelInstance"
+                        ]
+                    }
+                ],
+                "images": [],
+                "modelOf": {
+                    "@id": "TODO",
+                    "label": "subcellular"
+                },
+                "name": "Granule mono Kv channel",
+                "oldUUID": "adf3fb71-4523-4074-a6a4-b447b54f82c8",
+                "organization": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/organization/v0.1.0/321ed0f6-7926-4136-b99c-757ebad5cfe2",
+                    "@type": "nsg:Organization"
+                },
+                "owner": {
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/core/person/v0.1.0/a9b61732-5b92-4b60-8015-87d1e336540f",
+                    "@type": [
+                        "nsg:Person",
+                        "prov:Agent"
+                    ]
+                },
+                "private": false,
+                "species": {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                },
+                "nxv:rev": 3,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9"
+                }
+            }
         }
     ],
     "links": {
         "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/?fields=all"
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/?fields=all&size=10&deprecated=False"
     }
 }

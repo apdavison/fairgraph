@@ -31,8 +31,8 @@ except NameError:
 try:
     from urllib.parse import urlparse, quote_plus, parse_qs, urlencode
 except ImportError:  # Python 2
-    from urlparse import urlparse, parse_qs, urlencode
-    from urllib import quote_plus
+    from urlparse import urlparse, parse_qs
+    from urllib import quote_plus, urlencode
 
 import requests
 from tqdm import tqdm
@@ -46,9 +46,6 @@ from fairgraph.utility import in_notebook
 class MINDSObject(KGObject):
     """
     Base class for MINDS metadata
-
-    N.B. all MINDS objects have the same "fg" query ID, because the query url includes the namepsace/version/class path,
-    e.g. for the Activity class, the url is : https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg
     """
     namespace = "minds"
     context = [
@@ -195,7 +192,6 @@ class Dataset(MINDSObject):
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
-    query_id_resolved = "fgResolvedModified"
     accepted_terms_of_use = False
     fields = (
       Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=True),
@@ -208,7 +204,7 @@ class Dataset(MINDSObject):
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
       Field("external_datalink", basestring, "https://schema.hbp.eu/minds/external_datalink", required=False, multiple=False),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
       Field("release_date", datetime, "https://schema.hbp.eu/minds/release_date", required=False, multiple=False, strict=False),
       Field("component", "minds.PLAComponent", "https://schema.hbp.eu/minds/component", required=False, multiple=True),

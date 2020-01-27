@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 35,
+    "total": 36,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/options/ethicsauthority/v1.0.0/02200516-725c-4f58-a8e1-1f339de16f68",

@@ -339,6 +339,10 @@ class ModelScript(KGObject):
         else:
             return None
 
+    @code_location.setter
+    def code_location(self, value):
+        self.distribution = Distribution(location=value)
+
 
 class EModel(ModelInstance):
     """The electrical component of an :class:`MEModel`"""
@@ -504,7 +508,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         Field("celltype", CellType, "celltype", multiple=True),
         Field("test_type", basestring, "testType"),
         Field("age", Age, "age"),
-        Field("reference_data", KGObject, "referenceData"),
+        Field("reference_data", KGObject, "referenceData", multiple=True),  # to fix: should be a Collection
         Field("data_type", basestring, "dataType"),
         Field("recording_modality", basestring, "recordingModality"),
         Field("score_type", basestring, "scoreType"),
@@ -565,6 +569,7 @@ class ValidationScript(KGObject):  # or ValidationImplementation
         Field("version", basestring, "version"),
         Field("description", basestring, "description"),
         Field("parameters", basestring, "parameters"),
+        Field("test_class", basestring, "path"),
         Field("test_definition", ValidationTestDefinition, "implements"),
         Field("old_uuid", basestring, "oldUUID")
     )
@@ -657,7 +662,7 @@ class ValidationActivity(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp", datetime, "endedAtTime")
     )
-    existence_query_fields = ("timestamp")
+    existence_query_fields = ("timestamp",)
 
     @property
     def duration(self):

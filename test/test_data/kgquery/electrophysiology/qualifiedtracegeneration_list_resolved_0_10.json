@@ -669,7 +669,7 @@
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
                         }
                     ],
-                    "name": null,
+                    "name": "Spontaneous activity recording in hbp00011_Sub1_Samp1__ExpE1",
                     "PatchClampExperiment__nsg:stimulusType": [],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/515473f3-889d-4807-8391-c36a4685f593"
                 }
@@ -758,7 +758,7 @@
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
                         }
                     ],
-                    "name": null,
+                    "name": "Spontaneous activity recording in hbp00011_Sub1_Samp2__ExpE2",
                     "PatchClampExperiment__nsg:stimulusType": [],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
                 }

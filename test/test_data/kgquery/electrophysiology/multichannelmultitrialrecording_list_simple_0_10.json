@@ -36,7 +36,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub1epsp/samp1/hbp-00810_EPSP_sub1epsp_samp1__11giu057-EPSP.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -86,7 +86,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/EPSP/sub2epsp/samp1/hbp-00810_EPSP_sub2epsp_samp1__D4609045-EPSP.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",
@@ -136,7 +136,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF1/samp1/hbp-00810_GapFree_GF1_samp1__2505000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -189,7 +189,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF1/samp2/hbp-00810_GapFree_GF1_samp2__2505001.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -242,7 +242,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF2/samp1/hbp-00810_GapFree_GF2_samp1__2605001.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -295,7 +295,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/GapFree//GF2/samp2/hbp-00810_GapFree_GF2_samp1__2605004.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -348,7 +348,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV1m/samp1/hbp-00810_IV_IV1m_samp1__B4608015.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -402,7 +402,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV2r/samp1/hbp-00810_IV_IV2r_samp1__280916-0003.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -456,7 +456,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV5g/samp1/hbp-00810_IV_IV5g_samp1__0703000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [
@@ -509,7 +509,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "application/vnd-axon-abf",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/IV/IV6g/samp1/hbp-00810_IV_IV6g_samp1__1002000.abf"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": [

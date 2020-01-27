@@ -2,54 +2,24 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/fileassociation/v1.0.0"
     },
-    "http://schema.org/identifier": "uniminds/core/fileassociation/v1.0.0/fg",
+    "http://schema.org/identifier": "uniminds/core/fileassociation/v1.0.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/linkinginstance/from",
-            "relative_path": "https://schema.hbp.eu/linkinginstance/from",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "from"
-            }
-        },
-        {
-            "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
-            "filter": {
-                "op": "contains",
-                "parameter": "identifier"
-            }
-        },
-        {
-            "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
-            "filter": {
-                "op": "contains",
-                "parameter": "name"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/linkinginstance/to",
-            "relative_path": "https://schema.hbp.eu/linkinginstance/to",
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -58,10 +28,40 @@
                     "relative_path": "@type"
                 }
             ],
+            "relative_path": "https://schema.hbp.eu/linkinginstance/from"
+        },
+        {
+            "fieldname": "http://schema.org/identifier",
+            "filter": {
+                "op": "contains",
+                "parameter": "identifier"
+            },
+            "relative_path": "http://schema.org/identifier"
+        },
+        {
+            "fieldname": "http://schema.org/name",
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/linkinginstance/to",
             "filter": {
                 "op": "contains",
                 "parameter": "to"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/linkinginstance/to"
         }
     ],
     "@context": {

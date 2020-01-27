@@ -2,21 +2,24 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/person/v1.0.0"
     },
-    "http://schema.org/identifier": "uniminds/core/person/v1.0.0/fg",
+    "http://schema.org/identifier": "uniminds/core/person/v1.0.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/inference/alternatives",
-            "relative_path": "https://schema.hbp.eu/inference/alternatives",
+            "filter": {
+                "op": "contains",
+                "parameter": "alternatives"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -26,59 +29,56 @@
                     "relative_path": "@type"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "alternatives"
-            }
+            "relative_path": "https://schema.hbp.eu/inference/alternatives"
         },
         {
             "fieldname": "http://schema.org/email",
-            "relative_path": "http://schema.org/email",
             "filter": {
                 "op": "contains",
                 "parameter": "email"
-            }
+            },
+            "relative_path": "http://schema.org/email"
         },
         {
             "fieldname": "http://schema.org/familyName",
-            "relative_path": "http://schema.org/familyName",
             "filter": {
                 "op": "contains",
                 "parameter": "family_name"
-            }
+            },
+            "relative_path": "http://schema.org/familyName"
         },
         {
             "fieldname": "http://schema.org/givenName",
-            "relative_path": "http://schema.org/givenName",
             "filter": {
                 "op": "contains",
                 "parameter": "given_name"
-            }
+            },
+            "relative_path": "http://schema.org/givenName"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/orcid",
-            "relative_path": "https://schema.hbp.eu/uniminds/orcid",
             "filter": {
                 "op": "contains",
                 "parameter": "orcid"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/orcid"
         }
     ],
     "@context": {

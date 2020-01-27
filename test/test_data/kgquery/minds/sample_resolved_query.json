@@ -5,59 +5,62 @@
     "http://schema.org/identifier": "minds/experiment/sample/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/container_url",
-            "relative_path": "https://schema.hbp.eu/minds/container_url",
             "filter": {
                 "op": "contains",
                 "parameter": "container_url"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/container_url"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/weightPostFixation",
-            "relative_path": "https://schema.hbp.eu/minds/weightPostFixation",
             "filter": {
                 "op": "contains",
                 "parameter": "weight_post_fixation"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/weightPostFixation"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/weightPreFixation",
-            "relative_path": "https://schema.hbp.eu/minds/weightPreFixation",
             "filter": {
                 "op": "contains",
                 "parameter": "weight_pre_fixation"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/minds/weightPreFixation"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/methods",
-            "relative_path": "https://schema.hbp.eu/minds/methods",
+            "filter": {
+                "op": "contains",
+                "parameter": "methods"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -75,14 +78,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "methods"
-            }
+            "relative_path": "https://schema.hbp.eu/minds/methods"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/parcellationAtlas",
-            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas",
+            "filter": {
+                "op": "contains",
+                "parameter": "parcellation_atlas"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -99,14 +102,14 @@
                     "relative_path": "http://schema.org/name"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "parcellation_atlas"
-            }
+            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas"
         },
         {
             "fieldname": "https://schema.hbp.eu/minds/parcellationRegion",
-            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion",
+            "filter": {
+                "op": "contains",
+                "parameter": "parcellation_region"
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -133,7 +136,6 @@
                 },
                 {
                     "fieldname": "ParcellationRegion__https://schema.hbp.eu/minds/species",
-                    "relative_path": "https://schema.hbp.eu/minds/species",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -149,21 +151,19 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/species"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "parcellation_region"
-            }
+            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion"
         },
         {
             "fieldname": "https://schema.hbp.eu/brainviewer/reference",
-            "relative_path": "https://schema.hbp.eu/brainviewer/reference",
             "filter": {
                 "op": "contains",
                 "parameter": "reference"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/brainviewer/reference"
         }
     ],
     "@context": {

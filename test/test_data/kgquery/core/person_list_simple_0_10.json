@@ -14,7 +14,7 @@
             "familyName": "Armstrong",
             "givenName": "Neil",
             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/core/person/v0.1.0/986b9946-6aa5-40c5-9b3e-b7f7b4fc9289",
-            "email": "unknown@example.com"
+            "email": "neil.armstrong@nasa.gov"
         },
         {
             "affiliation": [],
@@ -116,7 +116,7 @@
             "email": "unknown@example.com"
         }
     ],
-    "total": 188,
+    "total": 196,
     "size": 10,
     "start": 0
 }

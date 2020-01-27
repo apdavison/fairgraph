@@ -51,7 +51,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub9r/samp1/hbp-00810_CC-step_sub9r_samp1__2112003.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub9r.samp1",
@@ -137,7 +137,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/VC-ramp/sub1vc/samp1/hbp-00810_VC-ramp_sub1vc_samp1__ramp15715b.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub1vc.samp1",
@@ -225,7 +225,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub11k/samp1/hbp-00810_CC-step_sub11k_samp1__17L14002.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub11k.samp1",
@@ -313,7 +313,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub2/samp1/hbp-00810_CC-step_sub2_samp1__10L14009.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub2.samp1",
@@ -401,7 +401,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub10k/samp1/hbp-00810_CC-step_sub10k_samp1__20G14024.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub10k.samp1",
@@ -489,7 +489,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub3/samp1/hbp-00810_CC-step_sub3_samp1__11L14011.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub3.samp1",
@@ -576,7 +576,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/cell-att/sub1-ca/samp1/hbp-00810_cell-att_sub1-ca_samp1__150616_0005.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub1-ca.samp1",
@@ -664,7 +664,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub16g/samp2/hbp-00810_CC-step_sub16g_samp2__1501030.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub16g.samp2",
@@ -750,7 +750,7 @@
                     "mV"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub1/samp1/hbp-00810_CC-step_sub1_samp1__A4608003.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub1.samp1",
@@ -838,7 +838,7 @@
                     "pA"
                 ],
                 "distribution": {
-                    "downloadURL": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Angelo_SGA1_1.2.4/hbp-00810/CC-step/sub3/samp2/hbp-00810_CC-step_sub3_samp2__11L14013.abf",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_",
                     "mediaType": "application/vnd-axon-abf"
                 },
                 "name": "Traces recorded in sub3.samp2",

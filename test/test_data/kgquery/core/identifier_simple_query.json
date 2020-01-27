@@ -2,14 +2,14 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/schemaorgsh/identifier/v0.1.0"
     },
-    "http://schema.org/identifier": "neuralactivity/schemaorgsh/identifier/v0.1.0/fg",
+    "http://schema.org/identifier": "neuralactivity/schemaorgsh/identifier/v0.1.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"

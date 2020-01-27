@@ -61,7 +61,19 @@
                     ],
                     "name": "Current-voltage relationships in sub1vc.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/96c2de01-e1f3-4a76-9951-c5336e059978"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/96c2de01-e1f3-4a76-9951-c5336e059978",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub1vc.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/54f2eb67-b6df-42fd-8b45-62a3b42582a9",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -129,7 +141,19 @@
                     ],
                     "name": "Current-voltage relationships in sub2vc.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/9f6a7e64-1de4-49cd-afa8-ef3d025dc73f"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/9f6a7e64-1de4-49cd-afa8-ef3d025dc73f",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub2vc.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e0856c8d-4c37-4d64-a65f-5d67c7facd86",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -208,7 +232,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV1m.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/3b818bb7-d0b2-4fac-8b4a-12adebbf60ba",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV1m.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/d49df5e7-3a1d-4df9-b48a-3e413948038f",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -287,7 +323,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV2r.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/776b812e-752e-4932-9bf5-cb7e82e6ea4b",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV2r.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5d57ceda-d18e-433c-92ce-0235e743da75",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -364,7 +412,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV5g.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/159c8e7a-4c99-4deb-9f93-f1d1c8db092a",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV5g.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/99588b84-eebe-4dc0-a847-12dcd4606379",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -441,7 +501,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV6g.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/b977e724-361c-4311-9b5f-e9d5243676f6",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV6g.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/6a7c7b9b-7ba6-4f12-950d-be25ffa6f247",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -518,7 +590,19 @@
                     ],
                     "name": "Voltage-clamp recording in IV7g.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/e9c64680-c4df-4964-9a86-e532864d0b07"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/e9c64680-c4df-4964-9a86-e532864d0b07",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "IV7g.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/45205f54-33ee-43a4-a2d4-0aef04a5e0e2",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -591,7 +675,19 @@
                     ],
                     "name": "Loose-cell attached recording in sub1-ca.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/240bf937-7a81-4ae1-877c-20968da7415d",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub1-ca.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/399c2061-856d-466d-be1b-41aa5c7b1bd0",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -674,7 +770,19 @@
                     ],
                     "name": "Loose-cell attached recording in sub1.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a0f57f60-7813-4d8f-a7e1-2e3b74d01b43"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/a0f57f60-7813-4d8f-a7e1-2e3b74d01b43",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub1.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/68b0b665-3503-4a0c-9bd7-af0176b7c7a9",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -757,7 +865,19 @@
                     ],
                     "name": "Loose-cell attached recording in sub10k.samp1",
                     "PatchClampExperiment__nsg:stimulusType": [],
-                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d2a34a4-539e-47f5-9175-f332098352a3"
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/7d2a34a4-539e-47f5-9175-f332098352a3",
+                    "ExtracellularElectrodeExperiment__nsg:stimulusType": [],
+                    "ExtracellularElectrodeExperiment__prov:used": [
+                        {
+                            "@type": [
+                                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/PatchedCell",
+                                "http://www.w3.org/ns/prov#Entity"
+                            ],
+                            "name": "sub10k.samp1",
+                            "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/e8d12d78-8a4f-4c9e-8475-ab3ad45ec6c7",
+                            "ImplantedBrainTissue__wasDerivedFrom": []
+                        }
+                    ]
                 }
             ],
             "@type": [
@@ -769,7 +889,7 @@
             "targetHoldingPotential": null
         }
     ],
-    "total": 49,
+    "total": 247,
     "size": 10,
     "start": 0
 }

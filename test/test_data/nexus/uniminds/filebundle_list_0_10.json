@@ -1,6 +1,6 @@
 {
     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
-    "total": 277,
+    "total": 280,
     "results": [
         {
             "resultId": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/filebundle/v1.0.0/00b31e9d-bbe1-4206-8776-0c9bc97d1c31",
@@ -61,7 +61,7 @@
                 "http://schema.org/description": "Active Models",
                 "http://schema.org/identifier": "6e1c525f0e3e4a2ba79462632ccc5f19",
                 "http://schema.org/name": "grc_kir.mod",
-                "http://schema.org/url": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/Granule_mono_comp/grc_kir.mod",
+                "http://schema.org/url": "https://object.cscs.ch:443/v1/A",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/71bfbf99-6e2b-41fd-aaa8-b72953035e23",
                     "@type": [
@@ -100,7 +100,7 @@
                 "http://schema.org/description": "repaired, corrected and regularized",
                 "http://schema.org/identifier": "a606c7e0a89c1b7417bbdca4e3004095",
                 "http://schema.org/name": "str-msn_d2-20170919-reg15",
-                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Morphology/str-msn_d2-20170919-reg15/",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/8a55685c-9d95-4eeb-8e72-6717d89bb9ea",
                     "@type": [
@@ -216,7 +216,7 @@
                 "http://schema.org/description": "Active Models",
                 "http://schema.org/identifier": "3560368f449ff0b371c8d52c238830cd",
                 "http://schema.org/name": "GRC_KCA.mod",
-                "http://schema.org/url": "https://object.cscs.ch:443/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/cerebellum_circuits/Granule_multi_comp/GRC_KCA.mod",
+                "http://schema.org/url": "https://object.cscs.ch:443/v1/A",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/3e8b2f3c-aa83-411a-aeb7-1f21c9e6134a",
                     "@type": [
@@ -254,7 +254,7 @@
                 ],
                 "http://schema.org/identifier": "fe34ddd2d23a39cc08ecfbd6b05e76e3",
                 "http://schema.org/name": "Migliore_2018_CA1",
-                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/Migliore_2018_CA1",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/957c161e-6bdb-448b-9b45-5ee0d60b5cd6",
                     "@type": [
@@ -293,7 +293,7 @@
                 "http://schema.org/description": "60d4ab4ee772d5475cde08770dad8491df90255a53bdc5763f98a86b",
                 "http://schema.org/identifier": "ed6b1e6d7602f99c28a249714a4fba62",
                 "http://schema.org/name": "code for Optimized single neuron model MSN D1, cell YJ150915_c6 @ msn_d1_all-6-20170524_hof_0",
-                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Optimisations/str-msn_d1-YJ150915_c6-WT-P270-20-20170524",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/474e69af-063c-401f-9946-6d863bc347c6",
                     "@type": [
@@ -370,7 +370,7 @@
                 "http://schema.org/description": "62f9bbfe2a9acf1a93e537828d18e5c87c2a5a6d90813816a95f368b",
                 "http://schema.org/identifier": "e8deb297fe0af7287f518811c9af6fdd",
                 "http://schema.org/name": "code for Optimized single neuron model MSN D2, cell YJ150915_c7 @ msn_d2_all-5-20170517_hof_7",
-                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/SGA1_basal_ganglia_private/data/Optimisations/str-msn_d2-YJ150915_c7-WT-P270-09-20170517/",
+                "http://schema.org/url": "https://object.cscs.ch/v1/AUTH_",
                 "https://schema.hbp.eu/uniminds/modelInstance": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/uniminds/core/modelinstance/v1.0.0/f675cd38-47b6-4bef-bcd4-f4e049bdb5cd",
                     "@type": [

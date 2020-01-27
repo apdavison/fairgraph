@@ -23601,7 +23601,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23653,7 +23653,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23705,7 +23705,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp3",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23757,7 +23757,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp4",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23859,7 +23859,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23911,7 +23911,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -23963,7 +23963,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp3",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24015,7 +24015,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp4",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24117,7 +24117,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub3/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24169,7 +24169,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub3/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24225,7 +24225,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2016-03-31",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030?prefix=hbp-00011",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "b9dc08ad567117caf30e6aeddbc6ca32",
@@ -24301,7 +24301,7 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                         "http://www.w3.org/ns/prov#Activity"
                     ],
-                    "name": null,
+                    "name": "Spontaneous activity recording in hbp00011_Sub1_Samp1__ExpE1",
                     "PatchClampExperiment__nsg:stimulusType": [],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/515473f3-889d-4807-8391-c36a4685f593"
                 }
@@ -24320,7 +24320,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "text/tab-separated-values",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp1/hbp-00011_Tg2576_Sub1_Samp1__expE1.txt"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",
@@ -24408,7 +24408,7 @@
                                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
                                 }
                             ],
-                            "name": null,
+                            "name": "Spontaneous activity recording in hbp00011_Sub1_Samp1__ExpE1",
                             "PatchClampExperiment__nsg:stimulusType": [],
                             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/515473f3-889d-4807-8391-c36a4685f593"
                         }
@@ -24601,7 +24601,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24653,7 +24653,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24705,7 +24705,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp3",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24757,7 +24757,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp4",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24859,7 +24859,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24911,7 +24911,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -24963,7 +24963,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp3",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -25015,7 +25015,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub2/Samp4",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -25117,7 +25117,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub3/Samp1",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -25169,7 +25169,7 @@
                                             ],
                                             "https://schema.hbp.eu/minds/weightPreFixation": null,
                                             "https://schema.hbp.eu/brainviewer/reference": null,
-                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub3/Samp2",
+                                            "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                                             "@type": "https://schema.hbp.eu/minds/Sample",
                                             "Sample__https://schema.hbp.eu/minds/parcellationRegion": [
                                                 {
@@ -25225,7 +25225,7 @@
                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf": null,
                     "https://schema.hbp.eu/minds/release_date": "2016-03-31",
                     "https://schema.hbp.eu/minds/datasetDOI": [],
-                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030?prefix=hbp-00011",
+                    "https://schema.hbp.eu/minds/container_url": "https://object.cscs.ch/v1/AUTH_",
                     "Dataset__https://schema.hbp.eu/minds/contributors": [
                         {
                             "http://schema.org/identifier": "b9dc08ad567117caf30e6aeddbc6ca32",
@@ -25301,7 +25301,7 @@
                         "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/StimulusExperiment",
                         "http://www.w3.org/ns/prov#Activity"
                     ],
-                    "name": null,
+                    "name": "Spontaneous activity recording in hbp00011_Sub1_Samp2__ExpE2",
                     "PatchClampExperiment__nsg:stimulusType": [],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
                 }
@@ -25320,7 +25320,7 @@
             "distribution": {
                 "http://schema.org/mediaType": "text/tab-separated-values",
                 "http://schema.org/downloadURL": {
-                    "@id": "https://object.cscs.ch/v1/AUTH_63ea6845b1d34ad7a43c8158d9572867/Cherubini_RUP_T1.1.6_nar030/hbp-00011/Tg2576/Sub1/Samp2/hbp-00011_Tg2576_Sub1_Samp2__expE2.txt"
+                    "@id": "https://object.cscs.ch/v1/AUTH_"
                 }
             },
             "dataUnit": "mV",
@@ -25408,7 +25408,7 @@
                                     "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance": null
                                 }
                             ],
-                            "name": null,
+                            "name": "Spontaneous activity recording in hbp00011_Sub1_Samp2__ExpE2",
                             "PatchClampExperiment__nsg:stimulusType": [],
                             "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/electrophysiology/stimulusexperiment/v0.1.0/2250158f-18bb-44da-9933-ceaf96d5882c"
                         }

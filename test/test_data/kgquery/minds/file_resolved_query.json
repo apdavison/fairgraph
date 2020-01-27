@@ -5,54 +5,54 @@
     "http://schema.org/identifier": "minds/core/file/v0.0.4/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "http://hbp.eu/minds#absolute_path",
-            "relative_path": "http://hbp.eu/minds#absolute_path",
             "filter": {
                 "op": "contains",
                 "parameter": "absolute_path"
-            }
+            },
+            "relative_path": "http://hbp.eu/minds#absolute_path"
         },
         {
             "fieldname": "http://hbp.eu/minds#byte_size",
-            "relative_path": "http://hbp.eu/minds#byte_size",
             "filter": {
                 "op": "equals",
                 "parameter": "byte_size"
-            }
+            },
+            "relative_path": "http://hbp.eu/minds#byte_size"
         },
         {
             "fieldname": "http://hbp.eu/minds#content_type",
-            "relative_path": "http://hbp.eu/minds#content_type",
             "filter": {
                 "op": "contains",
                 "parameter": "content_type"
-            }
+            },
+            "relative_path": "http://hbp.eu/minds#content_type"
         },
         {
             "fieldname": "http://hbp.eu/minds#hash",
-            "relative_path": "http://hbp.eu/minds#hash",
             "filter": {
                 "op": "contains",
                 "parameter": "hash"
-            }
+            },
+            "relative_path": "http://hbp.eu/minds#hash"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://hbp.eu/minds#last_modified",
@@ -60,20 +60,20 @@
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "http://hbp.eu/minds#relative_path",
-            "relative_path": "http://hbp.eu/minds#relative_path",
             "filter": {
                 "op": "contains",
                 "parameter": "relative_path"
-            }
+            },
+            "relative_path": "http://hbp.eu/minds#relative_path"
         }
     ],
     "@context": {

@@ -5,18 +5,21 @@
     "http://schema.org/identifier": "minds/core/fileassociation/v1.0.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/linkinginstance/from",
-            "relative_path": "https://schema.hbp.eu/linkinginstance/from",
+            "filter": {
+                "op": "contains",
+                "parameter": "from"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -57,31 +60,31 @@
                     "relative_path": "http://hbp.eu/minds#relative_path"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "from"
-            }
+            "relative_path": "https://schema.hbp.eu/linkinginstance/from"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/linkinginstance/to",
-            "relative_path": "https://schema.hbp.eu/linkinginstance/to",
+            "filter": {
+                "op": "contains",
+                "parameter": "to"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -91,7 +94,6 @@
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/activity",
-                    "relative_path": "https://schema.hbp.eu/minds/activity",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -110,7 +112,6 @@
                         },
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/ethicsApproval",
-                            "relative_path": "https://schema.hbp.eu/minds/ethicsApproval",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -128,7 +129,6 @@
                                 },
                                 {
                                     "fieldname": "EthicsApproval__https://schema.hbp.eu/minds/generatedBy",
-                                    "relative_path": "https://schema.hbp.eu/minds/generatedBy",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -145,13 +145,14 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/minds/generatedBy"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/ethicsApproval"
                         },
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/ethicsAuthority",
-                            "relative_path": "https://schema.hbp.eu/minds/ethicsAuthority",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -168,11 +169,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/ethicsAuthority"
                         },
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/methods",
-                            "relative_path": "https://schema.hbp.eu/minds/methods",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -189,11 +190,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/methods"
                         },
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/preparation",
-                            "relative_path": "https://schema.hbp.eu/minds/preparation",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -209,11 +210,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/preparation"
                         },
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/protocols",
-                            "relative_path": "https://schema.hbp.eu/minds/protocols",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -230,9 +231,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/protocols"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/activity"
                 },
                 {
                     "fieldname": "https://schema.hbp.eu/minds/containerUrlAsZIP",
@@ -272,7 +275,6 @@
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/component",
-                    "relative_path": "https://schema.hbp.eu/minds/component",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -297,11 +299,11 @@
                             "fieldname": "https://schema.hbp.eu/minds/component",
                             "relative_path": "https://schema.hbp.eu/minds/component"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/component"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/contributors",
-                    "relative_path": "https://schema.hbp.eu/minds/contributors",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -322,7 +324,8 @@
                             "fieldname": "https://schema.hbp.eu/minds/shortName",
                             "relative_path": "https://schema.hbp.eu/minds/shortName"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/contributors"
                 },
                 {
                     "fieldname": "https://schema.hbp.eu/minds/doireference",
@@ -330,7 +333,6 @@
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/embargo_status",
-                    "relative_path": "https://schema.hbp.eu/minds/embargo_status",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -346,11 +348,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/embargo_status"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/formats",
-                    "relative_path": "https://schema.hbp.eu/minds/formats",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -367,11 +369,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/formats"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/license",
-                    "relative_path": "https://schema.hbp.eu/minds/license",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -387,11 +389,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/license"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/modality",
-                    "relative_path": "https://schema.hbp.eu/minds/modality",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -408,11 +410,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/modality"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/owners",
-                    "relative_path": "https://schema.hbp.eu/minds/owners",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -433,11 +435,11 @@
                             "fieldname": "https://schema.hbp.eu/minds/shortName",
                             "relative_path": "https://schema.hbp.eu/minds/shortName"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/owners"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/parcellationAtlas",
-                    "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -454,11 +456,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/parcellationRegion",
-                    "relative_path": "https://schema.hbp.eu/minds/parcellationRegion",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -485,7 +487,6 @@
                         },
                         {
                             "fieldname": "ParcellationRegion__https://schema.hbp.eu/minds/species",
-                            "relative_path": "https://schema.hbp.eu/minds/species",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -501,9 +502,11 @@
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/species"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/parcellationRegion"
                 },
                 {
                     "fieldname": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf",
@@ -511,7 +514,6 @@
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/publications",
-                    "relative_path": "https://schema.hbp.eu/minds/publications",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -538,7 +540,6 @@
                         },
                         {
                             "fieldname": "Publication__https://schema.hbp.eu/minds/authors",
-                            "relative_path": "https://schema.hbp.eu/minds/authors",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -559,13 +560,14 @@
                                     "fieldname": "https://schema.hbp.eu/minds/shortName",
                                     "relative_path": "https://schema.hbp.eu/minds/shortName"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/authors"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/publications"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/reference_space",
-                    "relative_path": "https://schema.hbp.eu/minds/reference_space",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -582,11 +584,11 @@
                             "fieldname": "http://schema.org/name",
                             "relative_path": "http://schema.org/name"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/reference_space"
                 },
                 {
                     "fieldname": "Dataset__https://schema.hbp.eu/minds/specimen_group",
-                    "relative_path": "https://schema.hbp.eu/minds/specimen_group",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -605,7 +607,6 @@
                         },
                         {
                             "fieldname": "SpecimenGroup__https://schema.hbp.eu/minds/subjects",
-                            "relative_path": "https://schema.hbp.eu/minds/subjects",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -648,7 +649,6 @@
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/minds/age_category",
-                                    "relative_path": "https://schema.hbp.eu/minds/age_category",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -664,11 +664,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/minds/age_category"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/minds/samples",
-                                    "relative_path": "https://schema.hbp.eu/minds/samples",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -699,7 +699,6 @@
                                         },
                                         {
                                             "fieldname": "Sample__https://schema.hbp.eu/minds/methods",
-                                            "relative_path": "https://schema.hbp.eu/minds/methods",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -716,11 +715,11 @@
                                                     "fieldname": "http://schema.org/name",
                                                     "relative_path": "http://schema.org/name"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/minds/methods"
                                         },
                                         {
                                             "fieldname": "Sample__https://schema.hbp.eu/minds/parcellationAtlas",
-                                            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas",
                                             "fields": [
                                                 {
                                                     "relative_path": "@id"
@@ -736,11 +735,11 @@
                                                     "fieldname": "http://schema.org/name",
                                                     "relative_path": "http://schema.org/name"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/minds/parcellationAtlas"
                                         },
                                         {
                                             "fieldname": "Sample__https://schema.hbp.eu/minds/parcellationRegion",
-                                            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion",
                                             "ensure_order": true,
                                             "fields": [
                                                 {
@@ -767,7 +766,6 @@
                                                 },
                                                 {
                                                     "fieldname": "ParcellationRegion__https://schema.hbp.eu/minds/species",
-                                                    "relative_path": "https://schema.hbp.eu/minds/species",
                                                     "fields": [
                                                         {
                                                             "relative_path": "@id"
@@ -783,19 +781,21 @@
                                                             "fieldname": "http://schema.org/name",
                                                             "relative_path": "http://schema.org/name"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "relative_path": "https://schema.hbp.eu/minds/species"
                                                 }
-                                            ]
+                                            ],
+                                            "relative_path": "https://schema.hbp.eu/minds/parcellationRegion"
                                         },
                                         {
                                             "fieldname": "https://schema.hbp.eu/brainviewer/reference",
                                             "relative_path": "https://schema.hbp.eu/brainviewer/reference"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/minds/samples"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/minds/sex",
-                                    "relative_path": "https://schema.hbp.eu/minds/sex",
                                     "ensure_order": true,
                                     "fields": [
                                         {
@@ -812,11 +812,11 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/minds/sex"
                                 },
                                 {
                                     "fieldname": "Subject__https://schema.hbp.eu/minds/species",
-                                    "relative_path": "https://schema.hbp.eu/minds/species",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -832,17 +832,17 @@
                                             "fieldname": "http://schema.org/name",
                                             "relative_path": "http://schema.org/name"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "https://schema.hbp.eu/minds/species"
                                 }
-                            ]
+                            ],
+                            "relative_path": "https://schema.hbp.eu/minds/subjects"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://schema.hbp.eu/minds/specimen_group"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "to"
-            }
+            "relative_path": "https://schema.hbp.eu/linkinginstance/to"
         }
     ],
     "@context": {

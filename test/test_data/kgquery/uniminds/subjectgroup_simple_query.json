@@ -2,268 +2,254 @@
     "https://schema.hbp.eu/graphQuery/root_schema": {
         "@id": "https://nexus.humanbrainproject.org/v0/schemas/uniminds/core/subjectgroup/v1.0.0"
     },
-    "http://schema.org/identifier": "uniminds/core/subjectgroup/v1.0.0/fg",
+    "http://schema.org/identifier": "uniminds/core/subjectgroup/v1.0.0/fgSimple",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/ageRangeMax",
-            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMax",
             "filter": {
                 "op": "contains",
                 "parameter": "age_range_max"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMax"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/ageRangeMin",
-            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMin",
             "filter": {
                 "op": "contains",
                 "parameter": "age_range_min"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/ageRangeMin"
         },
         {
             "fieldname": "https://schema.hbp.eu/inference/alternatives",
-            "relative_path": "https://schema.hbp.eu/inference/alternatives",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "alternatives"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/inference/alternatives"
         },
         {
             "fieldname": "http://schema.org/description",
-            "relative_path": "http://schema.org/description",
             "filter": {
                 "op": "contains",
                 "parameter": "description"
-            }
+            },
+            "relative_path": "http://schema.org/description"
         },
         {
             "fieldname": "http://schema.org/identifier",
-            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            }
+            },
+            "relative_path": "http://schema.org/identifier"
         },
         {
             "fieldname": "http://schema.org/name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/numOfSubjects",
-            "relative_path": "https://schema.hbp.eu/uniminds/numOfSubjects",
             "filter": {
                 "op": "equals",
                 "parameter": "num_of_subjects"
-            }
+            },
+            "relative_path": "https://schema.hbp.eu/uniminds/numOfSubjects"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/ageCategory",
-            "relative_path": "https://schema.hbp.eu/uniminds/ageCategory",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "age_category"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/ageCategory"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/cellularTarget",
-            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "cellular_target"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/cellularTarget"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/brainStructure",
-            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "brain_structure"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/brainStructure"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/disability",
-            "relative_path": "https://schema.hbp.eu/uniminds/disability",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "disability"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/disability"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/genotype",
-            "relative_path": "https://schema.hbp.eu/uniminds/genotype",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "genotype"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/genotype"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/handedness",
-            "relative_path": "https://schema.hbp.eu/uniminds/handedness",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "handedness"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/handedness"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/publication",
-            "relative_path": "https://schema.hbp.eu/uniminds/publication",
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "publication"
-            }
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/publication"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/sex",
-            "relative_path": "https://schema.hbp.eu/uniminds/sex",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "sex"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/sex"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/species",
-            "relative_path": "https://schema.hbp.eu/uniminds/species",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "species"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/species"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/strain",
-            "relative_path": "https://schema.hbp.eu/uniminds/strain",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "strain"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/strain"
         },
         {
             "fieldname": "https://schema.hbp.eu/uniminds/studyTarget",
-            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget",
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
             "filter": {
                 "op": "contains",
                 "parameter": "study_target"
-            }
-        },
-        {
-            "fieldname": "https://schema.hbp.eu/uniminds/subjects",
-            "relative_path": "https://schema.hbp.eu/uniminds/subjects",
+            },
             "ensure_order": true,
             "fields": [
                 {
@@ -273,10 +259,24 @@
                     "relative_path": "@type"
                 }
             ],
+            "relative_path": "https://schema.hbp.eu/uniminds/studyTarget"
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/subjects",
             "filter": {
                 "op": "contains",
                 "parameter": "subjects"
-            }
+            },
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "relative_path": "https://schema.hbp.eu/uniminds/subjects"
         }
     ],
     "@context": {
