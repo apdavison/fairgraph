@@ -495,6 +495,7 @@ class KGObject(with_metaclass(Registry, object)):
     def _build_existence_query(self, api="query"):
         query_fields = []
         for field_name in self.existence_query_fields:
+            print("FIELD NAME", field name)
             for field in self.fields:
                 if field.name == field_name:
                     query_fields.append(field)
@@ -507,6 +508,7 @@ class KGObject(with_metaclass(Registry, object)):
                 for field in query_fields
             }
         elif api == "nexus":
+            print("API NEXUS")
             query_parts = []
             for field in query_fields:
                 query_parts.append({
