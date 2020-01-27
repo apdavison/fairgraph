@@ -530,8 +530,9 @@ class KGObject(with_metaclass(Registry, object)):
         if self.id:
             return True
         else:
+            print("NOW WE GET OUT ANSWERs", self)
             query_filter = self._build_existence_query(api=api)
-            print("ID EXISTS", self.@id)
+            print("ID EXISTS", self.id)
             print(query_filter)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
