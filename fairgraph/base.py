@@ -87,7 +87,6 @@ def lookup_by_iri(iri):
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
-    print("QD", qd)
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
     cache_key = []
@@ -221,7 +220,6 @@ class Field(object):
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
             elif isinstance(value, (KGObject, KGProxy)):
-                print("WHAT HAPPENS HERE")
                 return {
                     "@id": value.id,
                     "@type": value.type
@@ -495,7 +493,6 @@ class KGObject(with_metaclass(Registry, object)):
 
     def _build_existence_query(self, api="query"):
         query_fields = []
-        print("IS I", self)
         for field_name in self.existence_query_fields:
             for field in self.fields:
                 if field.name == field_name:
@@ -504,10 +501,8 @@ class KGObject(with_metaclass(Registry, object)):
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
-            print("API QUERY")
             query_parts = []
             for field in query_fields:
-                print("option name", field.name)
                 query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
@@ -521,7 +516,6 @@ class KGObject(with_metaclass(Registry, object)):
                     "value": query_parts
                 }
         elif api == "nexus":
-            print("API NEXUS")
             query_parts = []
             for field in query_fields:
                 query_parts.append({
@@ -545,7 +539,6 @@ class KGObject(with_metaclass(Registry, object)):
             return True
         else:
             query_filter = self._build_existence_query(api=api)
-            print("Query filter should be same as QD", query_filter)
             query_cache_key = generate_cache_key(query_filter)
             if query_cache_key in self.save_cache[self.__class__]:
                 # Because the KnowledgeGraph is only eventually consistent, an instance
