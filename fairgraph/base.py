@@ -514,7 +514,7 @@ class KGObject(with_metaclass(Registry, object)):
                         "op": "eq",
                         "value": field.serialize(getattr(self, field.name), None)
                     })
-                if field.id:
+                elif field.id:
                     query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
