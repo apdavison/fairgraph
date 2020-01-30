@@ -633,7 +633,7 @@ class PatchedCellCollection(KGObject):
     #recorded_from_class = "PatchedSlice"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("cells", PatchedCell, "hadMember", required=True),
+        Field("cells", PatchedCell, "hadMember", required=True, multiple=True),
         Field("slice", PatchedSlice, "^nsg:hasPart", reverse="recorded_cells")
     )
 
