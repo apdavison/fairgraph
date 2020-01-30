@@ -215,7 +215,7 @@ class Field(object):
 
     def serialize(self, value, client):
         def serialize_single(value):
-            print("HERHEHRE")
+            print(value, "HERHEHRE")
             if isinstance(value, (basestring, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
@@ -230,7 +230,7 @@ class Field(object):
             else:
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
-            print("HEREHERHEHER2")
+            print(value, "HEREHERHEHER2")
             if self.multiple:
                 value = [serialize_single(item) for item in value]
                 print("THEVALUEOFHERE",value)
