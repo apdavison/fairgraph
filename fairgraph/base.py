@@ -509,16 +509,11 @@ class KGObject(with_metaclass(Registry, object)):
             query_parts = []
             for field in query_fields:
                 if field.name:
+                    print("HERE", field.name)
                     query_parts.append({
                         "path": standard_context[field.path],
                         "op": "eq",
                         "value": field.serialize(getattr(self, field.name), None)
-                    })
-                elif field.id:
-                    query_parts.append({
-                        "path": standard_context[field.path],
-                        "op": "eq",
-                        "value": field.serialize(getattr(self, field.id), None)
                     })
             if len(query_fields) == 1:
                 return query_parts[0]
