@@ -104,6 +104,9 @@ def generate_cache_key(qd):
             print("tuple", tuple(sub_key))
         else:
             if not isinstance(value, (basestring, int, float)):
+                print("This should be dict", value)
+                print("This should be one", value['@id'])
+                print("This should be two", value['@type'])
                 value2 = value['@id']
                 print("value2",value)
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
