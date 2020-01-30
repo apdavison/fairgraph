@@ -87,14 +87,11 @@ def lookup_by_iri(iri):
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
-    print("QD", qd)
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
     cache_key = []
     for key in sorted(qd):
-        print("key", key)
         value = qd[key]
-        print("value",value)
         if isinstance(value, (list, tuple)):
             sub_key = []
             for sub_value in value:
@@ -102,8 +99,6 @@ def generate_cache_key(qd):
             cache_key.append(tuple(sub_key))
         else:
             if not isinstance(value, (basestring, int, float)):
-                #if valuevalue = value['@id']
-                #key = '@id'
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
@@ -506,20 +501,10 @@ class KGObject(with_metaclass(Registry, object)):
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
-            query_parts = []
-            for field in query_fields:
-                query_parts.append({
-                        "path": standard_context[field.path],
-                        "op": "eq",
-                        "value": field.serialize(getattr(self, field.name), None)
-                })
-            if len(query_fields) == 1:
-                return query_parts[0]
-            else:
-                return {
-                    "op": "and",
-                    "value": query_parts
-                }
+            return {
+                field.name: field.serialize(getattr(self, field.name), None)
+                for field in query_fields
+            }
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
