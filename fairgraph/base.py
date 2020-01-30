@@ -215,6 +215,7 @@ class Field(object):
 
     def serialize(self, value, client):
         def serialize_single(value):
+            print("HERHEHRE")
             if isinstance(value, (basestring, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
