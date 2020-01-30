@@ -508,11 +508,18 @@ class KGObject(with_metaclass(Registry, object)):
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
-                query_parts.append({
-                    "path": standard_context[field.path],
-                    "op": "eq",
-                    "value": field.serialize(getattr(self, field.name), None)
-                })
+                if field.name:
+                    query_parts.append({
+                        "path": standard_context[field.path],
+                        "op": "eq",
+                        "value": field.serialize(getattr(self, field.name), None)
+                    })
+                if field.id:
+                    query_parts.append({
+                        "path": standard_context[field.path],
+                        "op": "eq",
+                        "value": field.serialize(getattr(self, field.id), None)
+                    })
             if len(query_fields) == 1:
                 return query_parts[0]
             else:
@@ -525,7 +532,6 @@ class KGObject(with_metaclass(Registry, object)):
 
     def exists(self, client, api="query"):
         """Check if this object already exists in the KnowledgeGraph"""
-        print("self", self)
         if self.id:
             return True
         else:
