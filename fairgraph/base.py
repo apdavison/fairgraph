@@ -216,7 +216,6 @@ class Field(object):
     def serialize(self, value, client):
         def serialize_single(value):
             if isinstance(value, (basestring, int, float, dict)):
-                print("HEREHERHEHER")
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
@@ -233,6 +232,7 @@ class Field(object):
             print("HEREHERHEHER2")
             if self.multiple:
                 value = [serialize_single(item) for item in value]
+                print("THEVALUEOFHERE",value)
                 if len(value) == 1:
                     return value[0]
                 else:
