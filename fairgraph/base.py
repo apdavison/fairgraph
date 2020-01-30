@@ -106,8 +106,8 @@ def generate_cache_key(qd):
                 if valuevalue = value['@id']
                 key = '@id'
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
-                raise TypeError(errmsg.format(key, type(value)))"""
-            cache_key.append((key, value))
+                raise TypeError(errmsg.format(key, type(value)))
+            cache_key.append((key, value))"""
     return tuple(cache_key)
 
 
