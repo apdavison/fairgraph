@@ -503,6 +503,7 @@ class KGObject(with_metaclass(Registry, object)):
         if api in ("query", "any"):
             print("QUERY")
             print([field.name for field in query_fields])
+            print([field.serialize(getattr(self, field.name), None) for field in query_fields])
             return {
                 field.name: field.serialize(getattr(self, field.name), None)
                 for field in query_fields
