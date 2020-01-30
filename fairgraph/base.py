@@ -501,6 +501,8 @@ class KGObject(with_metaclass(Registry, object)):
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
+            print("QUERY")
+            print([field.name for field in query_fields])
             return {
                 field.name: field.serialize(getattr(self, field.name), None)
                 for field in query_fields
@@ -508,7 +510,6 @@ class KGObject(with_metaclass(Registry, object)):
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
-                print("FIELD", field)
                 query_parts.append({
                     "path": standard_context[field.path],
                     "op": "eq",
