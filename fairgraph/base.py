@@ -98,7 +98,7 @@ def generate_cache_key(qd):
         if isinstance(value, (list, tuple)):
             sub_key = []
             for sub_value in value:
-                print("subvalue", subvalue)
+                print("subvalue", sub_value)
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
             print("tuple", tuple(sub_key))
