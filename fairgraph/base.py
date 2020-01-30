@@ -525,6 +525,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     def exists(self, client, api="query"):
         """Check if this object already exists in the KnowledgeGraph"""
+        print("self", self)
         if self.id:
             return True
         else:
