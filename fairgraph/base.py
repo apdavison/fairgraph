@@ -107,9 +107,9 @@ def generate_cache_key(qd):
                 #value = value['@id']
                 #print("value2",value2)
                 sub_key = []
-                for sub_key in value:
-                    print("key test",sub_key)
-                    print("key item", value[sub_key])
+                for sub_value in value:
+                    print("key test",sub_value)
+                    print("key item", value[sub_value])
                     sub_key.append(generate_cache_key(sub_value))
                 #errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 #raise TypeError(errmsg.format(key, type(value)))
