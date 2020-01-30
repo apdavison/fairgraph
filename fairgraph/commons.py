@@ -115,6 +115,7 @@ class Strain(OntologyTerm):
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
         "B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
         "B6.129-Nlgn3/KftnkRbrc": "https://www.jax.org/strain/008475",
+        "B6.129-Nlgn3/J": "https://www.jax.org/strain/008475",
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
