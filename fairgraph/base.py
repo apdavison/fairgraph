@@ -213,27 +213,27 @@ class Field(object):
         """
         return not self.path.startswith("^")
 
-    def serialize(self, value, client):
+    def serialize(self, value, client, for_query=False):
         def serialize_single(value):
             if isinstance(value, (basestring, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
             elif isinstance(value, (KGObject, KGProxy)):
-                print("HERE IT IS")
-                return {
-                    "@id": value.id,
-                    "@type": value.type
-                }
+                if for_query:
+                    return value.id
+                else:
+                    return {
+                        "@id": value.id,
+                        "@type": value.type
+                    }
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             else:
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
-            print(value, "HEREHERHEHER2")
             if self.multiple:
                 value = [serialize_single(item) for item in value]
-                print("THEVALUEOFHERE",value)
                 if len(value) == 1:
                     return value[0]
                 else:
@@ -504,11 +504,8 @@ class KGObject(with_metaclass(Registry, object)):
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
-            print("QUERY")
-            print([field.name for field in query_fields])
-            print([field.serialize(getattr(self, field.name), None) for field in query_fields])
             return {
-                field.name: field.serialize(getattr(self, field.name), None)
+                field.name: field.serialize(getattr(self, field.name), None, for_query=True)
                 for field in query_fields
             }
         elif api == "nexus":
@@ -517,7 +514,7 @@ class KGObject(with_metaclass(Registry, object)):
                 query_parts.append({
                     "path": standard_context[field.path],
                     "op": "eq",
-                    "value": field.serialize(getattr(self, field.name), None)
+                    "value": field.serialize(getattr(self, field.name), None, for_query=True)
                 })
             if len(query_fields) == 1:
                 return query_parts[0]
