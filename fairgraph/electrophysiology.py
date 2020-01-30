@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, ChannelType
+from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -506,7 +506,7 @@ class BrainSlicingActivity(KGObject):
         Field("slicing_plane", basestring, "slicingPlane", required=False),
         Field("slicing_angle", float, "slicingAngle", required=False),
         Field("cutting_solution", basestring, "solution", required=False),
-        Field("cutting_thickness", (QuantitativeRange, QuantitativeValue), "cuttingThickness", required=False),
+        Field("cutting_thickness", (QuantitativeValueRange, QuantitativeValue), "cuttingThickness", required=False),
         Field("start_time", datetime, "startedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
