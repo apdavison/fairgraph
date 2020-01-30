@@ -506,7 +506,7 @@ class BrainSlicingActivity(KGObject):
         Field("slicing_plane", basestring, "slicingPlane", required=False),
         Field("slicing_angle", float, "slicingAngle", required=False),
         Field("cutting_solution", basestring, "solution", required=False),
-        Field("cutting_thickness", QuantitativeValue, "cuttingThickness", required=False),
+        Field("cutting_thickness", (QuantitativeRange, QuantitativeValue), "cuttingThickness", required=False),
         Field("start_time", datetime, "startedAtTime", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
     )
