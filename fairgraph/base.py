@@ -87,11 +87,14 @@ def lookup_by_iri(iri):
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
+    print("QD", qd)
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
     cache_key = []
     for key in sorted(qd):
+        print("key", key)
         value = qd[key]
+        print("value",value)
         if isinstance(value, (list, tuple)):
             sub_key = []
             for sub_value in value:
@@ -100,6 +103,7 @@ def generate_cache_key(qd):
         else:
             if not isinstance(value, (basestring, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
+		print("value", value)
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
     return tuple(cache_key)
