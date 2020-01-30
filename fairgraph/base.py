@@ -101,12 +101,12 @@ def generate_cache_key(qd):
                 print("subvalue", sub_value)
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
-        else:
+"""        else:
             if not isinstance(value, (basestring, int, float)):
-                value = value['@id']
+                if valuevalue = value['@id']
                 key = '@id'
-                #errmsg = "Expected a string, integer or float for key '{}', not a {}"
-                #raise TypeError(errmsg.format(key, type(value)))
+                errmsg = "Expected a string, integer or float for key '{}', not a {}"
+                raise TypeError(errmsg.format(key, type(value)))"""
             cache_key.append((key, value))
     return tuple(cache_key)
 
