@@ -103,7 +103,7 @@ def generate_cache_key(qd):
         else:
             if not isinstance(value, (basestring, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
-		print("value", value)
+                print("value", value)
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
     return tuple(cache_key)
