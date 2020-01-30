@@ -220,7 +220,7 @@ class Field(object):
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
             elif isinstance(value, (KGObject, KGProxy)):
-	        print("HERE IT IS")
+                print("HERE IT IS")
                 return {
                     "@id": value.id,
                     "@type": value.type
