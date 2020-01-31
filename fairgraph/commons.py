@@ -323,8 +323,8 @@ class StimulusType(OntologyTerm):
     iri_map = {
         "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
         "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
-	"Unknown" : "N/A",
-	
+	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+	"Unknown": "N/A"
     }
 
 
