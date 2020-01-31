@@ -722,7 +722,7 @@ class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/megexperiment/v0.1.0" # prod
-    #_path = "/electrophysiology/megexperiment/v0.1.9" # int
+    #_path = "/electrophysiology/megexperiment/v0.2.5" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
