@@ -104,7 +104,7 @@ class KGClient(object):
     def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
-            url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
+            url = "{}/data/{}/?size=1&deprecated=False".format(self.nexus_endpoint, cls.path)
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
             if scope not in SCOPE_MAP:
@@ -151,12 +151,14 @@ class KGClient(object):
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
-            template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
+            template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
         if scope not in SCOPE_MAP:
             raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
+        #url = quote_plus(template.format(start).encode("utf-8"))
+        url = template.format(start)
         try:
-            response = self._kg_query_client.get(template.format(start))
+            response = self._kg_query_client.get(url)
         except HTTPError as err:
             if err.response.status_code == 403:
                 response = None
@@ -169,7 +171,9 @@ class KGClient(object):
             ]
             start += response["size"]
             while start < min(response["total"], size):
-                response = self._kg_query_client.get(template.format(start))
+                #url = quote_plus(template.format(start).encode("utf-8"))
+                url = template.format(start)
+                response = self._kg_query_client.get(url)
                 instances.extend([
                     Instance(path, data, Instance.path)
                     for data in response["results"]

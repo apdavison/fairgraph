@@ -192,9 +192,10 @@ class Person(KGObject):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    def resolve(self, client, api="query"):
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.affiliation, "resolve"):
-            self.affiliation = self.affiliation.resolve(client, api=api)
+            self.affiliation = self.affiliation.resolve(client, api=api, use_cache=use_cache)
+        return self
 
     @classmethod
     def me(cls, client, api="query", allow_multiple=False):
