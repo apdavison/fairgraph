@@ -48,6 +48,7 @@ standard_context = {
     "version": "schema:version",
     "generatedAtTime": "prov:generatedAtTime",
     "isPartOf": "nsg:isPartOf",  # not sure about prefix,
+    "partOf": "nsg:partOf",
     "parameters": "nsg:parameters",
     "morphology": "nsg:morphology",
     "eModel": "nsg:eModel",
