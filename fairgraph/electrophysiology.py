@@ -743,7 +743,7 @@ class MEGExperiment(KGObject):
         Field("name", basestring, "name", required=True),
 	Field("device", Device, "prov:used"),
 	Field("Task", Task, "wasInformedBy"),
-	Field("sensors_coordinates", MEGObject, "sensorsCoordinates"),
+	Field("sensors", MEGObject, "sensors"),
 	Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
 	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
 	Field("digitized_head_points", bool, "digitizedHeadPoints"),
@@ -754,7 +754,7 @@ class MEGExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, device=None, task=None, sensors_coordinates=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
