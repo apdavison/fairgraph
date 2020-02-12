@@ -722,7 +722,7 @@ class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/megexperiment/v0.1.0" # prod
-    #_path = "/electrophysiology/megexperiment/v0.2.5" # int
+    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -744,17 +744,19 @@ class MEGExperiment(KGObject):
 	Field("device", Device, "prov:used"),
 	Field("Task", Task, "wasInformedBy"),
 	Field("sensors", MEGObject, "sensors"),
-	Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
-	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
-	Field("digitized_head_points", bool, "digitizedHeadPoints"),
-	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
+	#Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
+	#Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
+	#Field("digitized_head_points", bool, "digitizedHeadPoints"),
+	#Field("digitized_landmarks", bool,  "digitizedLandmarks"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, task=None, sensors=None, 
+#digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, 
+start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
