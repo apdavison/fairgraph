@@ -1157,11 +1157,12 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", ImplantedBrainTissue, "prov:used", required=True),
+        Field("recorded_cell", ImplantedBrainTissue, "prov:used",
+              required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
-              multiple=True)
+        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
+
 
     def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
         args = locals()
