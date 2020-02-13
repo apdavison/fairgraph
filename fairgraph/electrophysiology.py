@@ -468,12 +468,12 @@ class Slice(KGObject):  # should move to "core" module?
               "^prov:generated", reverse="slices")
     )
 
-    def resolve(self, client, api="query"):
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api)
+            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache),
         if hasattr(self.brain_slicing_activity, "resolve"):
-            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client, api=api)
-
+            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client, api=api, use_cache=use_cache)
+        return self
 
 class BrainSlicingActivity(KGObject):
     """The activity of cutting brain tissue into slices."""
@@ -550,16 +550,16 @@ class BrainSlicingActivity(KGObject):
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
-    def resolve(self, client, api="query"):
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api)
+            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
         for i, slice in enumerate(self.slices):
             if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client, api=api)
+                self.slices[i] = slice.resolve(client, api=api, use_cache=use_cache)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client, api=api)
-
+                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
+        return self
 
 class PatchedSlice(KGObject):
     """A slice that has been recorded from using patch clamp."""
@@ -1014,11 +1014,11 @@ class ImplantedBrainTissue(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-    def resolve(self, client):
+    
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
-
+            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
+        return self
 
 class ElectrodePlacementActivity(KGObject):
     """docstring"""
@@ -1126,16 +1126,16 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
-    def resolve(self, client):
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client)
+            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
         for i, slice in enumerate(self.slices):
             if hasattr(self.implanted_brain_tissues, "resolve"):
-                self.implanted_brain_tissues[i] = self.implanted_brain_tissues.resolve(client)
+                self.implanted_brain_tissues[i] = self.implanted_brain_tissues.resolve(client, api=api, use_cache=use_cache)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client)
-
+                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
+        return self
 
 class ExtracellularElectrodeExperiment(PatchClampExperiment):
     """

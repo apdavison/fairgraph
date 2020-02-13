@@ -299,11 +299,11 @@ class AbstractionLevel(OntologyTerm):
 class ModelScope(OntologyTerm):
     """docstring"""
     iri_map = {
-        "subcellular": "TODO",
+        "subcellular": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675",
         "subcellular: spine": "http://uri.neuinfo.org/nif/nifstd/sao1145756102",
         "subcellular: ion channel": "http://uri.neuinfo.org/nif/nifstd/nifext_2508",
         "subcellular: signalling": "http://uri.interlex.org/base/ilx_0503639",  # "biochemical processes", not ideal
-        "subcellular: molecular": "TODO",
+        "subcellular: molecular": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345676",
         "single cell": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
         "network": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010",
         "network: microcircuit":  "http://purl.obolibrary.org/obo/UBERON_0014778",  # "cell group", not ideal
