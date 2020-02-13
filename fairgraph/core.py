@@ -30,7 +30,7 @@ from datetime import date, datetime
 from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue, Handedness, Group
+from .commons import Address, Species, Strain, Transgenic, Sex, Age, QuantitativeValue, Handedness, Group
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
