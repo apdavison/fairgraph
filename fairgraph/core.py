@@ -60,6 +60,7 @@ class Subject(KGObject):
         "age": "nsg:age",  # change from nsg:age to "http://dbpedia.org/ontology/age" ?
         "period": "nsg:period",
         "sex": "nsg:sex",
+        "transgenic": "nsg:transgenic",
         "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
 	"group": "nsg:group",
@@ -69,6 +70,7 @@ class Subject(KGObject):
         Field("name", basestring, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
+        Field("transgenic", Transgenic, "transgenic"),
         Field("sex", Sex, "sex"),
         Field("handedness", Handedness, "handedness"),
         Field("age", Age, "age", required=True),
@@ -76,7 +78,7 @@ class Subject(KGObject):
 	Field("group", Group, "group")
     )
 
-    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, death_date=None, group=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, transgenic=None, death_date=None, group=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

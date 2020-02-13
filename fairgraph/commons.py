@@ -128,6 +128,14 @@ class Strain(OntologyTerm):
     }
 # use RRIDs
 
+class Transgenic(OntologyTerm):
+    """
+    Transgenic modification of the strain.
+    """
+    iri_map = {
+	"Fmr1KO": "https://www.jax.org/strain/003025",
+    }
+
 
 class Sex(OntologyTerm):
     """
