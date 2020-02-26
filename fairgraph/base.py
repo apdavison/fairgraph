@@ -1192,6 +1192,9 @@ def build_kg_object(cls, data, resolved=False, client=None):
             # note that if cls is None, then the class can be different for each list item
             # therefore we need to use a new variable kg_cls inside the loop
             if "@type" in item:
+                if 'https://schema.hbp.eu/Inference' in item["@type"]:  # temporary workaround
+                    item["@type"] = list(item["@type"])
+                    item["@type"].remove('https://schema.hbp.eu/Inference')
                 try:
                     kg_cls = lookup_type(item["@type"])
                 except KeyError:
