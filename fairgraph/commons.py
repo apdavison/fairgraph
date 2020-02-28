@@ -207,7 +207,8 @@ class BrainRegion(OntologyTerm):
 	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
 	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
 	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
-	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384"
+	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
+	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560"
     }
 
 
