@@ -1143,7 +1143,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     an extracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.5.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.6.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
     fields = (
