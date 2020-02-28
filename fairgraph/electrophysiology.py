@@ -1143,7 +1143,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     an extracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.4.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.5.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
     context = {
@@ -1159,12 +1159,12 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used",
               required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulus", StimulusType, "nsg:stimulusType"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
 
-    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+    def __init__(self, name, recorded_cell, stimulus=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
