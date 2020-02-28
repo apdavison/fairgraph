@@ -333,7 +333,8 @@ class StimulusType(OntologyTerm):
         "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
         "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
-	"Unknown": "N/A"
+	"Unknown": "N/A",
+	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000"
     }
 
 
