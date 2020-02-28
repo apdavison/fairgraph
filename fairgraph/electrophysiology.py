@@ -1143,45 +1143,17 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     an extracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.5.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.2.1"
+#    _path = "/electrophysiology/stimulusexperiment/v0.5.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
-    context = {
-        "schema": "http://schema.org/",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "used": "prov:used",
-	"stimulus_type": "nsg:stimulusType",
-        "wasGeneratedBy": "prov:wasGeneratedBy"
-    }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", (ImplantedBrainTissue, PatchedCell), "prov:used",
+        Field("recorded_cell", ImplantedBrainTissue, "prov:used",
               required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType"),
-        Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
-
-
-    def __init__(self, name, recorded_cell, stimulus=None, traces=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-    @classmethod
-    def list(cls, client, size=100, api='nexus', **filters):
-        """List all objects of this type in the Knowledge Graph"""
-        filter = {'path': 'prov:used / rdf:type',
-                  'op': 'eq',
-                  'value': "nsg:ImplantedBrainTissue"}
-        context = {
-            "nsg": cls.context["nsg"],
-            "prov": cls.context["prov"],
-            "rdf": 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-        }
-        # todo: what about filtering if api="query"
-        return client.list(cls, size=size, api=api, filter=filter, context=context)
 
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
