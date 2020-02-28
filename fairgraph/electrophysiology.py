@@ -1157,7 +1157,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", ImplantedBrainTissue, "prov:used",
+        Field("recorded_cell", (ImplantedBrainTissue, PatchedCell), "prov:used",
               required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
