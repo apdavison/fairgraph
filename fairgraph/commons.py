@@ -109,7 +109,7 @@ class Strain(OntologyTerm):
     iri_map = {
 	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
-        "C57BL/6": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345671",
+        "C57BL/6": "https://www.jax.org/strain/000664",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
         "C57BL/6J": "https://www.jax.org/strain/000664",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
@@ -206,12 +206,15 @@ class BrainRegion(OntologyTerm):
 	"prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
 	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
 	"primary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0002436",
+	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",
 	"visual cortex": "http://purl.obolibrary.org/obo/UBERON_0000411",
 	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
 	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
 	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
-	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560"
+	"secondary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0016634",
+	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",
+        "mesopontine tegmental anesthesia area": ""
     }
 
 
