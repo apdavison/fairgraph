@@ -340,7 +340,8 @@ class StimulusType(OntologyTerm):
         "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Unknown": "N/A",
-	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000"
+	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+        "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000"
     }
 
 
