@@ -133,6 +133,7 @@ class Genotype(OntologyTerm):
     Transgenic modification of the strain.
     """
     iri_map = {
+	"wild type": "http://purl.obolibrary.org/obo/GENO_0000511",
 	"Fmr1KO": "https://www.jax.org/strain/003025",
     }
 
