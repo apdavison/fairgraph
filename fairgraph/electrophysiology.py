@@ -1271,7 +1271,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/multitracegeneration/v0.2.3" # for nexus
+    _path = "/electrophysiology/multitracegeneration/v0.2.3" 
     type = ["nsg:MultiTraceGeneration", "prov:Generation"]
     context = {
         "schema": "http://schema.org/",
@@ -1296,7 +1296,6 @@ class QualifiedMultiTraceGeneration(KGObject):
 	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
 	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
     )
-
 
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
                  channel_type=None, holding_potential=None, sampling_frequency=None, power_line_frequency=None,
