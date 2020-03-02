@@ -1057,7 +1057,7 @@ class ElectrodePlacementActivity(KGObject):
 class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/electrodeimplantation/v0.1.5"
+    _path = "/experiment/electrodeplacement/v0.1.0"
     #_path = "/experiment/electrodeplacement/v0.1.0"
     type = ["nsg:ElectrodePlacement", "prov:Activity"]
     context = {
