@@ -128,7 +128,7 @@ class Strain(OntologyTerm):
     }
 # use RRIDs
 
-class Transgenic(OntologyTerm):
+class Genotype(OntologyTerm):
     """
     Transgenic modification of the strain.
     """

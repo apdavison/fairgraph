@@ -30,7 +30,7 @@ from datetime import date, datetime
 from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Transgenic, Sex, Age, QuantitativeValue, Handedness, Group
+from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -60,7 +60,7 @@ class Subject(KGObject):
         "age": "nsg:age",  # change from nsg:age to "http://dbpedia.org/ontology/age" ?
         "period": "nsg:period",
         "sex": "nsg:sex",
-        "transgenic": "nsg:transgenic",
+        "genotype": "nsg:genotype",
         "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
 	"group": "nsg:group",
@@ -70,7 +70,7 @@ class Subject(KGObject):
         Field("name", basestring, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
-        Field("transgenic", Transgenic, "transgenic"),
+        Field("genotype", Genotype, "genotype"),
         Field("sex", Sex, "sex"),
         Field("handedness", Handedness, "handedness"),
         Field("age", Age, "age", required=True),
