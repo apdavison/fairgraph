@@ -135,7 +135,8 @@ class Genotype(OntologyTerm):
     iri_map = {
 	"wild type": "http://purl.obolibrary.org/obo/GENO_0000511",
 	"Fmr1KO": "https://www.jax.org/strain/003025",
-        "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459"
+        "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459",
+        "IB2 - KO": "test"
     }
 
 
