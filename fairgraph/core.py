@@ -78,7 +78,7 @@ class Subject(KGObject):
 	Field("group", Group, "group")
     )
 
-    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, transgenic=None, death_date=None, group=None, id=None, instance=None):
+    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
