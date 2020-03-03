@@ -1033,12 +1033,14 @@ class ElectrodePlacementActivity(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "device": "nsg:device",
         "used": "prov:used",
+        "name": "schema:name",
         "generated": "prov:generated",
 	"brainRegion": "nsg:brainRegion",
         "wasAssociatedWith": "prov:wasAssociatedWith",
 	"hadProtocol": "prov:hadProtocol"
     }
     fields = (
+        Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("device", Device, "generated", multiple=True),
@@ -1047,7 +1049,7 @@ class ElectrodePlacementActivity(KGObject):
     )
     existence_query_fields = ("subject")
 
-    def __init__(self, subject, brain_location, device=None, protocol=None,
+    def __init__(self, name, subject, brain_location, device=None, protocol=None,
                  people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1077,6 +1079,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
 	"hadProtocol": "prov:hadProtocol"
     }
     fields = (
+        Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
@@ -1091,7 +1094,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
     )
     existence_query_fields = ("subject",)
 
-    def __init__(self, subject, brain_location, implanted_brain_tissues=None, device=None, cranial_window=None, protocol=None, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, subject, brain_location, implanted_brain_tissues=None, device=None, cranial_window=None, protocol=None, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
