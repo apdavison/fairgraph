@@ -73,12 +73,12 @@ class Subject(KGObject):
         Field("genotype", Genotype, "genotype"),
         Field("sex", Sex, "sex"),
         Field("handedness", Handedness, "handedness"),
-        Field("age", Age, "age", required=True),
+        Field("age", Age, "age"),
         Field("death_date", date, "deathDate"),
 	Field("group", Group, "group")
     )
 
-    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
+    def __init__(self, name, species, age=None, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
