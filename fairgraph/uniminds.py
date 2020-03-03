@@ -28,12 +28,7 @@ except NameError:
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.data import FileAssociation, CSCSFile
 from fairgraph.commons import QuantitativeValue
-
-try:
-    from .minds import MINDSObject
-except ImportError:
-    from minds import MINDSObject
-
+from fairgraph.minds import MINDSObject
 
 class UnimindsObject(MINDSObject):
     namespace = "uniminds"
@@ -430,7 +425,9 @@ class ModelInstance(UnimindsObject):
       Field("cellular_target", CellularTarget, "https://schema.hbp.eu/uniminds/cellularTarget", required=False, multiple=True),
       Field("contributor", Person, "https://schema.hbp.eu/uniminds/contributor", required=False, multiple=True),
       Field("custodian", Person, "https://schema.hbp.eu/uniminds/custodian", required=False, multiple=False),
-      Field("main_contact", Person, "https://schema.hbp.eu/uniminds/mainContact", required=False, multiple=False),
+      Field("main_contact", Person, "https://schema.hbp.eu/uniminds/mainContact", required=False, multiple=True),
+      Field("used_dataset", KGObject, "https://schema.hbp.eu/uniminds/usedDataset", required=False, multiple=True),
+      Field("produced_dataset", Dataset, "https://schema.hbp.eu/uniminds/producedDataset", required=False, multiple=True),
       Field("modelformat", ModelFormat, "https://schema.hbp.eu/uniminds/modelFormat", required=False, multiple=True),
       Field("modelscope", "uniminds.ModelScope", "https://schema.hbp.eu/uniminds/modelScope", required=False, multiple=False),
       Field("publication", "uniminds.Publication", "https://schema.hbp.eu/uniminds/publication", required=False, multiple=False),
