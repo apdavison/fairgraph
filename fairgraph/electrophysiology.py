@@ -1020,20 +1020,21 @@ class ImplantedBrainTissue(KGObject):
             self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
         return self
 
+
 class ElectrodePlacementActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/electrodeplacement/v0.1.0"
-    type = ["nsg:ElectrodePlacement", "prov:Activity"]
+    type = ["prov:Activity", "nsg:ElectrodePlacement"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "name": "schema:name",
         "device": "nsg:device",
         "used": "prov:used",
-        "name": "schema:name",
         "generated": "prov:generated",
 	"brainRegion": "nsg:brainRegion",
         "wasAssociatedWith": "prov:wasAssociatedWith",
