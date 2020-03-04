@@ -295,7 +295,7 @@ class PatchedCell(KGObject):
         Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", (QuantitativeValue, QuantitativeValueRange), "nsg:sealResistance"),
-        Field("pipette_resistance", (QuantitativeValue, QuantitativeValueRange), "nsg:pipetteResistance"),
+        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
         Field("liquid_junction_potential", (QuantitativeValue, QuantitativeValueRange), "nsg:liquidJunctionPotential"),
         Field("labeling_compound", basestring, "nsg:labelingCompound"),
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
