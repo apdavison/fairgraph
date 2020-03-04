@@ -238,7 +238,7 @@ class MultiChannelMultiTrialRecording(Trace):
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("data_location", Distribution, "distribution", required=True),
+        Field("data_location", Distribution, "distribution", required=True, multiple=True),
         Field("generated_by",
               ("electrophysiology.PatchClampExperiment",
                "electrophysiology.ExtracellularElectrodeExperiment",
