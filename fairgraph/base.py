@@ -511,6 +511,7 @@ class KGObject(with_metaclass(Registry, object)):
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
+		print(field.path)
                 query_parts.append({
                     "path": standard_context[field.path],
                     "op": "eq",
