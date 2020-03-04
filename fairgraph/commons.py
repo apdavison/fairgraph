@@ -240,6 +240,7 @@ class CellType(OntologyTerm):
         "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345670",
         "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
         "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
+        "L5 pyramidal cell": "http://uri.interlex.org/ilx_0107385",
         "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
         "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345671",
         "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373",
