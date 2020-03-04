@@ -342,9 +342,10 @@ class StimulusType(OntologyTerm):
         "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Unknown": "N/A",
+        "Sinusoidal current injections": "ElectroPhysiology Ontology (ICEPO)",
         "Pre-synaptic extracellular electrical stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
 	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-        "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000"
+        "Excitatory postsynaptic currents": "ElectroPhysiology Ontology (ICEPO)"
     }
 
 
