@@ -178,6 +178,7 @@ class BrainRegion(OntologyTerm):
     """
     iri_map = {
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
+        "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
         "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
         "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
         "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
