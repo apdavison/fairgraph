@@ -181,44 +181,46 @@ class BrainRegion(OntologyTerm):
     A sub-structure or region with the brain.
     """
     iri_map = {
-        "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
-        "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
-        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
-        "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
-        "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
-        "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
-        "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
-        "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
-        "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
         "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
-        "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
-        "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
+        "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
+        "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
         "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
-        "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
-        "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
-        "thalamocortical": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
-        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
-        # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
-        "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
-        "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
-        "8th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
+        "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
+        "dorsal cortex": "http://purl.obolibrary.org/obo/UBERON_0002577",
+	"frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
+        "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
+        "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
         "lobule 5 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004079",
         "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
         "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
-        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
-	"frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
+	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
 	"prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",        
+        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
+	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
 	"primary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0002436",
-	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",
-	"visual cortex": "http://purl.obolibrary.org/obo/UBERON_0000411",
 	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
-	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
-	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
-	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	"secondary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0016634",
-	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560"
+	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",
+        "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
+        "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
+        "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
+        "thalamocortical": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
+        "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
+        "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
+	"visual cortex": "http://purl.obolibrary.org/obo/UBERON_0000411",
+        "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
+
+        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
+        # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
+        "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
+        "8th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004"  # more specific term to be determined
     }
 
 
