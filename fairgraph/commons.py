@@ -139,7 +139,8 @@ class Genotype(OntologyTerm):
         "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459",
         "IB2-KO": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
         "Nlgn3KO/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:5439278",
-        "NL3R451C/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:3758949"
+        "NL3R451C/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:3758949",
+        "Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://www.jax.org/strain/025393"
     }
 
 
