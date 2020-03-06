@@ -122,7 +122,7 @@ class Strain(OntologyTerm):
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
 	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
-        "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml"
+        "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml",
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
         "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013"
