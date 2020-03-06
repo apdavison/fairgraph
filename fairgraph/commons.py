@@ -95,10 +95,10 @@ class Shape(OntologyTerm):
     """
     iri_map = {
         "circle": "https://en.wiktionary.org/wiki/circle",
-        "square": "https://en.wiktionary.org/wiki/square",
-        "rectangle": "https://en.wiktionary.org/wiki/rectangle",
         "ellipse": "https://en.wiktionary.org/wiki/ellipse",
-	"freeform": "https://en.wiktionary.org/wiki/free-form#English"
+	"freeform": "https://en.wiktionary.org/wiki/free-form#English",
+        "rectangle": "https://en.wiktionary.org/wiki/rectangle",
+        "square": "https://en.wiktionary.org/wiki/square"
     }
 
 
@@ -107,25 +107,25 @@ class Strain(OntologyTerm):
     An inbred sub-population within a species.
     """
     iri_map = {
-	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
-        "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
-        "C57BL/6": "https://www.jax.org/strain/000664",
-        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
-        "C57BL/6J": "https://www.jax.org/strain/000664",
-        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
-        "B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
-        "B6.129-Nlgn3/KftnkRbrc": "https://www.jax.org/strain/008475",
-        "B6.129-Nlgn3/J": "https://www.jax.org/strain/008475",
-        #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
-        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
-        #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
-        "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013",
         "129/Sv": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345673",
-        "ATJ/FVB.129P2-FMR1-mix": "https://www.jax.org/strain/004624",
-        "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml"
         # 129/Sv is ambiguous
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
+        #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
+        "ATJ/FVB.129P2-FMR1-mix": "https://www.jax.org/strain/004624",
+        "B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
+        "B6.129-Nlgn3/J": "https://www.jax.org/strain/008475",
+        "B6.129-Nlgn3/KftnkRbrc": "https://www.jax.org/strain/008475",
+        "C57BL/6": "https://www.jax.org/strain/000664",
+        "C57BL/6J": "https://www.jax.org/strain/000664",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
+        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
+	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
+        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
+        "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml"
+        "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
+        #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
+        "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013"
     }
 # use RRIDs
 
@@ -149,8 +149,8 @@ class Sex(OntologyTerm):
     The sex of an animal or person from whom/which data were obtained.
     """
     iri_map = {
-        "male": "schema:Male",
-        "female": "schema:Female"
+        "female": "schema:Female",
+        "male": "schema:Male"
     }
 
 
@@ -169,11 +169,11 @@ class ChannelType(OntologyTerm):
     """
     iri_map = {
         "ECoG":"http://purl.obolibrary.org/obo/NCIT_C116664",
-        "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
-	"MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
 	"ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
-	"SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography",
-	"EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056"
+        "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
+	"EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056",
+	"MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
+	"SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
     }
 
 class BrainRegion(OntologyTerm):
@@ -227,34 +227,34 @@ class BrainRegion(OntologyTerm):
 class CellType(OntologyTerm):
     """A type of neuron or glial cell."""
     iri_map = {
-        "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
-        "hippocampus CA1 basket cell": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
-        "hippocampus interneuron BP": "unknown",
-        "hippocampus CA1 bistratified cell": "unknown",
-        "hippocampus CA1 lacunosum moleculare neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
-        "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
-        "hippocampus CA3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao383526650",
-        "Purkinje cell": "http://purl.obolibrary.org/obo/CL_0000121",
-        "medium spiny neuron": "http://purl.obolibrary.org/obo/CL_1001474",
-        "interneuron": "http://purl.obolibrary.org/obo/CL_0000099",
-        "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
-        "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
-        "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
         "cerebellar granule cell": "http://purl.obolibrary.org/obo/CL_0001031",
-        "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
-        "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345670",
-        "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
-        "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
-        "L5 pyramidal cell": "http://uri.interlex.org/ilx_0107385",
-        "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
-        "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345671",
-        "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373",
-        "L4 Martinotti cell": "http://uri.neuinfo.org/nif/nifstd/nifext_55",
-        "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345672",
         "cholinergic interneuron": "http://uri.interlex.org/base/ilx_0490357",
+        "fast spiking interneuron": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345670",
+        "Golgi cell": "http://purl.obolibrary.org/obo/CL_0000119",
+        "granule cell": "http://purl.obolibrary.org/obo/CL_0000120",
+        "hippocampus CA1 basket cell": "http://uri.neuinfo.org/nif/nifstd/nlx_cell_091205",
+        "hippocampus CA1 bistratified cell": "unknown",
+        "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
+        "hippocampus CA1 lacunosum moleculare neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_92500",
+        "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+        "hippocampus CA3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao383526650",
+        "hippocampus interneuron BP": "unknown",
+        "interneuron": "http://purl.obolibrary.org/obo/CL_0000099",
+        "medium spiny neuron": "http://purl.obolibrary.org/obo/CL_1001474",
+        "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345672",
+        "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345671",
+        "not applicable": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345673",
+        "Purkinje cell": "http://purl.obolibrary.org/obo/CL_0000121",
+        "pyramidal cell": "http://purl.obolibrary.org/obo/CL_0000598",
+        "spiny stellate neuron": "http://uri.neuinfo.org/nif/nifstd/sao1236796660",
         "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
         "L2 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0383207",
-        "not applicable": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345673"
+        "L2/3 chandelier cell": "http://uri.interlex.org/base/ilx_0383200",
+        "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
+        "L4 Martinotti cell": "http://uri.neuinfo.org/nif/nifstd/nifext_55",
+        "L5 pyramidal cell": "http://uri.interlex.org/ilx_0107385",
+        "L5 tufted pyramidal cell": "http://uri.interlex.org/base/ilx_0738209",
+        "L6 inverted pyramidal cell": "http://uri.interlex.org/base/ilx_0381373"
     }
 
 
@@ -263,19 +263,19 @@ class AbstractionLevel(OntologyTerm):
     Level of abstraction for a neuroscience model, e.g.rate neurons, spiking neurons
     """
     iri_map = {
+        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674",
+        "population modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345671",
+        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
+        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
         "protein structure": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345670",
+        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
         "systems biology": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
         "systems biology: continuous": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000062",
         "systems biology: discrete": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000063",
         "systems biology: flux balance": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000624",
         "spiking neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
         "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
-        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
-        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
-        "population modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345671",
-        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
-        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
-        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674"
+        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018"
     }
 
 
@@ -322,14 +322,14 @@ class ModelScope(OntologyTerm):
     """docstring"""
     iri_map = {
         "subcellular": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675",
-        "subcellular: spine": "http://uri.neuinfo.org/nif/nifstd/sao1145756102",
         "subcellular: ion channel": "http://uri.neuinfo.org/nif/nifstd/nifext_2508",
-        "subcellular: signalling": "http://uri.interlex.org/base/ilx_0503639",  # "biochemical processes", not ideal
         "subcellular: molecular": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345676",
+        "subcellular: signalling": "http://uri.interlex.org/base/ilx_0503639",  # "biochemical processes", not ideal
+        "subcellular: spine": "http://uri.neuinfo.org/nif/nifstd/sao1145756102",
         "single cell": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000008",
         "network": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000010",
-        "network: microcircuit":  "http://purl.obolibrary.org/obo/UBERON_0014778",  # "cell group", not ideal
         "network: brain region": "http://purl.obolibrary.org/obo/UBERON_0002616",
+        "network: microcircuit":  "http://purl.obolibrary.org/obo/UBERON_0014778",  # "cell group", not ideal
         "network: whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955"
     }
 
@@ -343,14 +343,14 @@ class License(OntologyTerm):
 
 class StimulusType(OntologyTerm):
     iri_map = {
-        "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
-        "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
-	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
-	"Unknown": "N/A",
-        "Sinusoidal current injections": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-        "Pre-synaptic extracellular electrical stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
 	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-        "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000"
+	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
+        "Pre-synaptic extracellular electrical stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "Sinusoidal current injections": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+        "Step current": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "Unknown": "N/A"
     }
 
 
