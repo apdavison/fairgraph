@@ -181,6 +181,8 @@ class BrainRegion(OntologyTerm):
     A sub-structure or region with the brain.
     """
     iri_map = {
+        "anterolateral visual area": "http://purl.obolibrary.org/obo/UBERON_0035894",
+        "anteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035893",
         "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
         "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
         "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
@@ -198,6 +200,7 @@ class BrainRegion(OntologyTerm):
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
 	"motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
+        "posteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035900",
 	"prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
 	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",        
         "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
