@@ -660,6 +660,7 @@ class KGObject(with_metaclass(Registry, object)):
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
+            print(data)
             instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
