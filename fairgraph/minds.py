@@ -55,7 +55,7 @@ class MINDSObject(KGObject):
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "prov": "http://www.w3.org/ns/prov#",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "minds": 'https://schema.hbp.eu/',
+            "minds": 'https://schema.hbp.eu/minds/',
             "uniminds": 'https://schema.hbp.eu/uniminds/',
         }
     ]
