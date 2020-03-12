@@ -651,7 +651,7 @@ class KGObject(with_metaclass(Registry, object)):
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
                     print(self.instance.data)
-                    print("set",compact_uri(self.instance.data["@type"], standard_context)))
+                    print("set",compact_uri(self.instance.data["@type"], standard_context))
                     print("set self.type", set(self.type))
                     assert set(compact_uri(self.instance.data["@type"],
                                            standard_context)) == set(self.type)
