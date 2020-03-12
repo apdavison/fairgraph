@@ -653,7 +653,7 @@ class KGObject(with_metaclass(Registry, object)):
                     print("SELF", self)
                     print(self.instance.data)
                     print("set",compact_uri(self.instance.data["@type"], standard_context))
-                    print("set self.type", set(self.type))
+                    print("set self.type", self.type)
                     assert set(compact_uri(self.instance.data["@type"],
                                            standard_context)) == set(self.type)
                 self.instance = client.update_instance(self.instance)
