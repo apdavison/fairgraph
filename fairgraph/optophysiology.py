@@ -65,15 +65,15 @@ class RegionOfInterest(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("origin", Origin, "nsg:origin", required=True),
-        Field("x_coordinate", float, "nsg:x", required=True),
-        Field("y_coordinate", float, "nsg:y", required=True),
+        Field("x", float, "nsg:x", required=True),
+        Field("y", float, "nsg:y", required=True),
         Field("shape", Shape, "nsg:shape"),
         Field("size", basestring, "size"),
 	Field("classification", basestring, "classification"),
 	Field("description", basestring, "description")
     )
 
-    def __init__(self, name, origin, x_coordinate, y_coordinate, shape=None, size=None, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, origin, x, y, shape=None, size=None, classification=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
