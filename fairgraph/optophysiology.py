@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, License, Shape
+from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusType, License, Shape
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -55,21 +55,25 @@ class RegionOfInterest(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-	"position": "nsg:position",
+	"origin": "nsg:origin",
+        "x": "nsg:x",
+        "y": "nsg:y",
         "shape": "nsg:shape",
 	"description":"nsg:description",
 	"classification":"nsg:classification"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("position", (float, float), "position", required=True),
-        Field("shape", Shape, "shape"),
+        Field("origin", Origin, "nsg:origin", required=True),
+        Field("x-coordinate", X, "nsg:x", required=True),
+        Field("y-coordinate", Y, "nsg:y", required=True),
+        Field("shape", Shape, "nsg:shape"),
         Field("size", basestring, "size"),
 	Field("classification", basestring, "classification"),
 	Field("description", basestring, "description")
     )
 
-    def __init__(self, name, position, shape=None, size=None, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, origin, x, y, shape=None, size=None, classification=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
