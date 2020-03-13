@@ -47,7 +47,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.1.0"
+    _path = "/optophysiology/regionofinterest/v0.0.1"
     type = ["prov:Entity", "nsg:RegionOfInterest"]
     context = {
         "schema": "http://schema.org/",
