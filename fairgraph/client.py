@@ -234,9 +234,8 @@ class KGClient(object):
         instance = Instance(path, data, Instance.path)
         print(instance)
         print(instance.path)
+        print("TEST", self._nexus_client.instances.create(instance))
         entity = self._nexus_client.instances.create(instance)
-        print(entity)
-        print(entity.path)
         entity.data.update(data)
         return entity
 
