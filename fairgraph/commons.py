@@ -356,6 +356,13 @@ class StimulusType(OntologyTerm):
         "Unknown": "N/A"
     }
 
+class Origin(OntologyTerm):
+    iri_map = {
+        "centre": "http://www.FIXME.org/ephys_stimuli/0000001".
+        "bottom-left": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "top-right": "http://www.FIXME.org/ephys_stimuli/0000001"
+    }
+
 
 class QuantitativeValue(StructuredMetadata):
     """docstring"""
