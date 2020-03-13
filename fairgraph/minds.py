@@ -86,7 +86,7 @@ class Activity(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
-      Field("ethics_approval", "minds.EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=False),
+      Field("ethics_approval", "minds.EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=True),
       Field("ethics_authority", "minds.EthicsAuthority", "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=True),
       Field("methods", "minds.Method", "https://schema.hbp.eu/minds/methods", required=False, multiple=True),
       Field("preparation", "minds.Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=False),
