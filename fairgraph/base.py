@@ -229,6 +229,8 @@ class Field(object):
                     }
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
+            elif value is None:
+                return None
             else:
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
@@ -610,13 +612,13 @@ class KGObject(with_metaclass(Registry, object)):
                 return True
         return False
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         if self.fields:
             data = {}
             for field in self.fields:
                 if field.intrinsic:
                     value = getattr(self, field.name)
-                    if field.required or value is not None:
+                    if all_fields or field.required or value is not None:
                         serialized = field.serialize(value, client)
                         if field.path in data:
                             if isinstance(data[field.path], list):
@@ -631,7 +633,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     def save(self, client):
         """docstring"""
-        data = self._build_data(client)
+
 
         if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
@@ -645,6 +647,7 @@ class KGObject(with_metaclass(Registry, object)):
                     self.id, cls=self.__class__, api="nexus", use_cache=False)
 
         if self.instance:
+            data = self._build_data(client, all_fields=True)
             if self._update_needed(data):
                 logger.info("Updating - {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
@@ -657,6 +660,7 @@ class KGObject(with_metaclass(Registry, object)):
                 logger.info("Not updating {}(id={}), unchanged".format(self.__class__.__name__,
                                                                        self.id))
         else:
+            data = self._build_data(client)
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
