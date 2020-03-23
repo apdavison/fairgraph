@@ -130,8 +130,7 @@ class Device(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "description": "schema:description",
-        "@type": "@id"}
+        "description": "schema:description"
     }
     fields = (
         Field("name", basestring, "name", required=True),
