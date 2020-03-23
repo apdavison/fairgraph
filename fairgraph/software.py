@@ -157,7 +157,7 @@ class Software(KGObject):
                   instance=instance)
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["schema:name"] = self.name

@@ -110,9 +110,9 @@ class Trace(KGObject):
     def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
         return super(Trace, cls).from_kg_instance(instance, client, use_cache=use_cache)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(Trace, self)._build_data(client)
+        data = super(Trace, self)._build_data(client, all_fields=all_fields)
         if self.time_step:
             # not sure why we're using the _alt version here
             data["timeStep"] = self.time_step.to_jsonld_alt()
@@ -332,9 +332,9 @@ class PatchedCell(KGObject):
 
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(PatchedCell, self)._build_data(client)
+        data = super(PatchedCell, self)._build_data(client, all_fields=all_fields)
         data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
 
@@ -434,9 +434,9 @@ class BrainSlicingActivity(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(BrainSlicingActivity, self)._build_data(client)
+        data = super(BrainSlicingActivity, self)._build_data(client, all_fields=all_fields)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
@@ -561,16 +561,6 @@ class PatchedCellCollection(KGObject):
     #                id=D["@id"],
     #                instance=instance)
 
-    # def _build_data(self, client):
-    #     """docstring"""
-    #     data = {}
-    #     data["name"] = self.name
-    #     data["hadMember"] = [{
-    #         "@type": lookup(self.member_class).type,
-    #         "@id": cell.id
-    #     } for cell in self.cells]
-    #     return data
-
 
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """A patch clamp recording session."""
@@ -685,9 +675,9 @@ class PatchClampExperiment(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(PatchClampExperiment, self)._build_data(client)
+        data = super(PatchClampExperiment, self)._build_data(client, all_fields=all_fields)
         data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
@@ -849,9 +839,9 @@ class ElectrodeImplantationActivity(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(ElectrodeImplantationActivity, self)._build_data(client)
+        data = super(ElectrodeImplantationActivity, self)._build_data(client, all_fields=all_fields)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data

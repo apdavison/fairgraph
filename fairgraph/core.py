@@ -283,7 +283,7 @@ class Protocol(KGObject):
                    KGProxy(Identifier, D["schema:identifier"]),
                    D["@id"], instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name
@@ -400,7 +400,7 @@ class Collection(KGObject):
     #                id=D["@id"],
     #                instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name

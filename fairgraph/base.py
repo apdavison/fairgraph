@@ -466,9 +466,13 @@ class KGObject(with_metaclass(Registry, object)):
             if filters:
                 for field in cls.fields:
                     if field.name in filters:
-                        filter_queries.append({
+                        if field.path.startswith("http"):
+                            path = field.path
+                        else:
                             #"path": cls.context[field.path],  # todo: fix contexts
-                            "path": standard_context[field.path],
+                            path = standard_context[field.path],
+                        filter_queries.append({
+                            "path": path,
                             "op": "eq",
                             "value": get_filter_value(filters, field)
                         })
