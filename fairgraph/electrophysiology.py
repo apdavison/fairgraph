@@ -131,9 +131,6 @@ class Device(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
         "description": "schema:description",
-        "distribution": {
-        "@id": "schema:distribution",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
         "@type": "@id"}
     }
     fields = (
@@ -234,7 +231,7 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    _path =  "/electrophysiology/multitrace/v0.2.0"  
+    _path =  "/electrophysiology/multitrace/v0.2.0"
     type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
     fields = (
         Field("name", basestring, "name", required=True),
@@ -958,7 +955,7 @@ class PatchClampExperiment(KGObject):
 class QualifiedTraceGeneration(KGObject):
     """Additional information about the generation of a single-channel electrophysiology trace."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/tracegeneration/v0.1.0" #nexus 
+    _path = "/electrophysiology/tracegeneration/v0.1.0" #nexus
     #_path = "/electrophysiology/tracegeneration/v0.1.0" #nexus-int
     type = ["prov:Generation", "nsg:TraceGeneration"]
     context = {
@@ -1014,7 +1011,7 @@ class ImplantedBrainTissue(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-    
+
     def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
@@ -1274,7 +1271,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/multitracegeneration/v0.2.3" 
+    _path = "/electrophysiology/multitracegeneration/v0.2.3"
     type = ["nsg:MultiTraceGeneration", "prov:Generation"]
     context = {
         "schema": "http://schema.org/",
