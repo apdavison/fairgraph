@@ -513,8 +513,12 @@ class KGObject(with_metaclass(Registry, object)):
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
+                if field.path.startswith("http"):
+                    path = field.path
+                else:
+                    path = standard_context[field.path]
                 query_parts.append({
-                    "path": standard_context[field.path],
+                    "path": path,
                     "op": "eq",
                     "value": field.serialize(getattr(self, field.name), None, for_query=True)
                 })
