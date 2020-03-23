@@ -55,8 +55,8 @@ class KGClient(object):
 
     def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
-                 kg_query_endpoint="https://kg.humanbrainproject.org/query",
-                 release_endpoint="https://kg.humanbrainproject.org/api/releases",
+                 kg_query_endpoint="https://kg.humanbrainproject.eu/query",
+                 release_endpoint="https://kg.humanbrainproject.eu/api/releases",
                  idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
         if token is None:
             if oauth_token_handler:

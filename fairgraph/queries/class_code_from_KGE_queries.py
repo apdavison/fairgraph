@@ -234,11 +234,11 @@ def transform_KGE_query_to_dict(namespace, cls, cls_version):
     """
     Requirements:
     for all the NAMESPACES, you have generated a query using the builder in the Knowledge graph Editor
-    https://kg.humanbrainproject.org/editor/query-builder
+    https://kg.humanbrainproject.eu/editor/query-builder
 
     For each namespace (e.g. "Dataset"), you have saved the query in the KGE with the "fg-KGE" suffix
     i.e. for the "Dataset" namespace, the query can be found at:
-    https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-KGE
+    https://kg.humanbrainproject.eu/query/minds/core/dataset/v1.0.0/fg-KGE
     """
 
     r=requests.get(query_url(namespace, cls_version)+'-KGE',
