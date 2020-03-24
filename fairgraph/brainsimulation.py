@@ -111,7 +111,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("description", basestring, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", int, "collabID"),
+        Field("collab_id", (int, basestring), "collabID"),
         Field("alias", basestring, "alias"),
         Field("organization", Organization, "organization", multiple=True),
         Field("pla_components", basestring, "PLAComponents", multiple=True),
