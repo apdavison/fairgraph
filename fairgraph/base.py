@@ -214,7 +214,6 @@ class Field(object):
         return not self.path.startswith("^")
 
     def serialize(self, value, client, for_query=False):
-        print("TEST", self, value)
         def serialize_single(value):
             if isinstance(value, (basestring, int, float, dict)):
                 return value
@@ -231,7 +230,6 @@ class Field(object):
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             else:
-                print("TEST", self, value, type(value))
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
             if self.multiple:
@@ -506,7 +504,6 @@ class KGObject(with_metaclass(Registry, object)):
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         if api in ("query", "any"):
-            print("TESTER", field, field.name, "SELF", self)
             return {
                 field.name: field.serialize(getattr(self, field.name), None, for_query=True)
                 for field in query_fields
