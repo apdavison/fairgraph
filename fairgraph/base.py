@@ -230,6 +230,7 @@ class Field(object):
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             else:
+                print("TEST", value, type(value))
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
             if self.multiple:
