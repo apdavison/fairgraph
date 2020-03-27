@@ -139,7 +139,7 @@ class Device(KGObject):
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description", required=True),
+        Field("description", basestring, "description"),
         Field("generated_by", "electrophysiology.ElectrodePlacementActivity", "wasGeneratedBy")
     )
 
