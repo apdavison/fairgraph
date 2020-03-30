@@ -139,7 +139,7 @@ class Device(KGObject):
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description"))
+        Field("description", basestring, "description")
     )
 
     def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, description=None, generated_by=None, id=None, instance=None):
