@@ -499,7 +499,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("authors", Person, "author", multiple=True, required=True),
-        Field("description", basestring, "description", required=False),
+        Field("description", basestring, "description", required=True),
         Field("date_created", (date, datetime), "dateCreated", required=True),
         Field("alias", basestring, "alias"),
         Field("brain_region", BrainRegion, "brainRegion", multiple=True),
