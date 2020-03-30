@@ -139,8 +139,7 @@ class Device(KGObject):
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description"),
-        Field("generated_by", "electrophysiology.ElectrodePlacementActivity", "wasGeneratedBy")
+        Field("description", basestring, "description"))
     )
 
     def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, description=None, generated_by=None, id=None, instance=None):
@@ -1044,7 +1043,6 @@ class ElectrodePlacementActivity(KGObject):
 	Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
-    existence_query_fields = ("subject")
 
     def __init__(self, name, subject, brain_location, device=None, protocol=None,
                  people=None, id=None, instance=None):
@@ -1089,52 +1087,12 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
-    existence_query_fields = ("subject",)
 
     def __init__(self, name, subject, brain_location, implanted_brain_tissues=None, device=None, cranial_window=None, protocol=None, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
 
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        D = instance.data
-        for otype in as_list(cls.type):
-            if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], standard_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-        args = {}
-        for field in cls.fields:
-            if field.name == "brain_location":
-                data_item = D.get("brainLocation", {}).get("brainRegion")
-            elif field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = super(ElectrodeImplantationActivity, self)._build_data(client)
-        if "brainRegion" in data:
-            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
-        return data
-
-    def resolve(self, client, api="query", use_cache=True):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
-        for i, slice in enumerate(self.slices):
-            if hasattr(self.implanted_brain_tissues, "resolve"):
-                self.implanted_brain_tissues[i] = self.implanted_brain_tissues.resolve(client, api=api, use_cache=use_cache)
-        for i, person in enumerate(self.people):
-            if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
-        return self
 
 class ExtracellularElectrodeExperiment(PatchClampExperiment):
     """
