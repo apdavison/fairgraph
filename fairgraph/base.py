@@ -497,7 +497,9 @@ class KGObject(with_metaclass(Registry, object)):
     def _build_existence_query(self, api="query"):
         query_fields = []
         for field_name in self.existence_query_fields:
+            print("field name", field_name)
             for field in self.fields:
+                print("field", field, field.name)
                 if field.name == field_name:
                     query_fields.append(field)
                     break
