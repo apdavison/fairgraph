@@ -385,6 +385,7 @@ class MotionCorrection(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "name": "schema:name",
         "generated": "prov:generated",
         "used": "prov:used",
     	"hadProtocol":"prov:hadProtocol",
@@ -394,14 +395,15 @@ class MotionCorrection(KGObject):
     	"license":"nsg:license"
         }
     fields = (
+        Field("name", basestring, "name", required=True),
         Field("before", ImageSequence, "used", required=True),
         Field("after", ImageSequence, "generated", required=True),
         Field("protocol", Protocol, "hadprotocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-	Field("citation", basestring, "citation"),
-	Field("code", basestring, "code"),
-	Field("license", License, "license")
-    )
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+        )
 
     def __init__(self, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
