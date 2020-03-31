@@ -64,7 +64,7 @@ class Position(KGObject):
         Field("ycoordinate", float, "y")
         )
 
-    def __init__(self, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
+    def __init__(self, name, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
