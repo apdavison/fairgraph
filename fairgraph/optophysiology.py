@@ -58,7 +58,7 @@ class Position(KGObject):
         "ycoordinate": "nsg:y"
         }
     fields = (
-        #Field("name", basestring, "name", required=True),
+        Field("name", basestring, "name", required=True),
         Field("origin", basestring, "origin"),
         Field("xcoordinate", float, "x"),
         Field("ycoordinate", float, "y")
