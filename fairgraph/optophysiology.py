@@ -405,7 +405,7 @@ class MotionCorrection(KGObject):
     	Field("license", License, "license")
         )
 
-    def __init__(self, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
