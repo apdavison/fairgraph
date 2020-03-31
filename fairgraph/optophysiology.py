@@ -231,7 +231,7 @@ class ImageSequence(KGObject):
 class ROISelection(KGObject):
     """Process of selecting regions of interest, may be manual, semi-automated, or fully automated."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/roiselection/v0.1.0"
+    _path = "/optophysiology/roiselection/v0.2.0"
     type = ["prov:Activity", "nsg:ROISelection"]
     context = {
         "schema": "http://schema.org/",
@@ -239,21 +239,21 @@ class ROISelection(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "generated": "prov:generated",
         "used": "prov:used",
-	"hadProtocol":"prov:hadProtocol",
+	    "hadProtocol":"p  rov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	"citation":"nsg:citation",
-	"code":"nsg:code",
-	"license":"nsg:license"
-    }
+    	"citation":"nsg:citation",
+    	"code":"nsg:code",
+    	"license":"nsg:license"
+        }
     fields = (
         Field("image_sequence", ImageSequence, "used", required=True),
         Field("regions", RegionOfInterest, "generated", required=True),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-	Field("citation", basestring, "citation"),
-	Field("code", basestring, "code"),
-	Field("license", License, "license")
-    )
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+        )
 
     def __init__(self, image_sequence, regions, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
