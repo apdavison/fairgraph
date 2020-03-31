@@ -143,7 +143,7 @@ class FluorescenceTrace(KGObject):
 class TimeSeriesExtraction(KGObject):
     """Process of transforming the series of fluorescence responses within a Region of Interest into a ΔF/F signal"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/timeseriesextraction/v0.1.0"
+    _path = "/optophysiology/timeseriesextraction/v0.2.0"
     type = ["prov:Activity", "nsg:TimeSeriesExtraction"]
     context = {
         "schema": "http://schema.org/",
