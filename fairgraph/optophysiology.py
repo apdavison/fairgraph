@@ -161,7 +161,7 @@ class TimeSeriesExtraction(KGObject):
 class ImageSequence(KGObject):
     """A sequence of images in the same imaging plane, produced by scanning optical microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/imagesequence/v0.1.0"
+    _path = "/optophysiology/imagesequence/v0.2.0"
     type = ["prov:Entity", "nsg:ImageSequence"]
     context = {
             "schema": "http://schema.org/",
