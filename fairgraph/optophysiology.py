@@ -55,17 +55,17 @@ class Position(KGObject):
         "name": "schema:name",
     	"origin": "nsg:origin",
         "position":"nsg:position",
-        "x-coordinate": "nsg:x",
-        "y-coordinate": "nsg:y"
+        "xcoordinate": "nsg:x",
+        "ycoordinate": "nsg:y"
         }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("origin", basestring, "origin"),
-        Field("x-coordinate", float, "x"),
-        Field("y-coordinate", float, "y")
+        Field("xcoordinate", float, "x"),
+        Field("ycoordinate", float, "y")
         )
 
-    def __init__(self, name, origin=None, "x-coordinate"=None, "y-coordinate"=None, id=None, instance=None):
+    def __init__(self, name, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
