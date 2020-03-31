@@ -45,7 +45,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 
 class Position(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.8.0"
+    _path = "/optophysiology/position/v0.1.0"
     type = ["prov:Entity", "nsg:Position"]
     context = {
         "schema": "http://schema.org/",
@@ -54,18 +54,17 @@ class Position(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
     	"origin": "nsg:origin",
-        "position":"nsg:position",
         "xcoordinate": "nsg:x",
         "ycoordinate": "nsg:y"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        #Field("name", basestring, "name", required=True),
         Field("origin", basestring, "origin"),
         Field("xcoordinate", float, "x"),
         Field("ycoordinate", float, "y")
         )
 
-    def __init__(self, name, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
+    def __init__(self, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
