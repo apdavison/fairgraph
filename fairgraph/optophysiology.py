@@ -484,24 +484,27 @@ class VisualStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "used": "prov:used",
-	"protocol":"prov:hadProtocol",
+        "name": "schema:name",
+	       "protocol":"prov:hadProtocol",
         "value": "schema:value",
-	"citation":"nsg:citation",
-	"code":"nsg:code",
-	"license":"nsg:license"
-    }
+    	"citation":"nsg:citation",
+    	"code":"nsg:code",
+    	"license":"nsg:license"
+        }
+
     fields = (
+        Field("name", basestring, "name", required=True),
         Field("visual_stimulus", VisualStimulus, "used", required=True),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
         Field("protocol", Protocol, "hadProtocol"),
-	Field("citation", basestring, "citation"),
-	Field("code", basestring, "code"),
-	Field("license", License, "license")
-    )
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+        )
 
-    def __init__(self, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
