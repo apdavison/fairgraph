@@ -127,25 +127,31 @@ class TimeSeriesExtraction(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "generated": "prov:generated",
-        "used": "prov:used",
-	"hadProtocol":"prov:hadProtocol",
-        "wasAssociatedWith": "prov:wasAssociatedWith",
-	"citation":"nsg:citation",
-	"code":"nsg:code",
-	"license":"nsg:license"
-    }
+        "name": "schema:name",
+        "timeStep": "nsg:timeStep",
+        "value": "schema:value",
+        "description": "schema:description",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
     fields = (
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
         Field("region_of_interest", RegionOfInterest, "used", required=True),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-	Field("citation", basestring, "citation"),
-	Field("code", basestring, "code"),
-	Field("license", License, "license")
-    )
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+        )
 
-    def __init__(self, region_of_interest, fluorescence_trace, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, fluorescence_trace, region_of_interest, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -157,29 +163,30 @@ class ImageSequence(KGObject):
     _path = "/optophysiology/imagesequence/v0.1.0"
     type = ["prov:Entity", "nsg:ImageSequence"]
     context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "value": "schema:value",
-        "name": "schema:name",
-	"frameRate":"nsg:frameRate",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
-	"imageCount":"nsg:imageCount",
-	"imageSize":"imageSize",
-        "brainLocation": "nsg:brainLocation",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        },
-        "description": "schema:description",
-        "minds": "https://schema.hbp.eu/"
-    }
+            "schema": "http://schema.org/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "name": "schema:name",
+            "frameRate": "nsg:frameRate",
+            "imageCount": "nsg:imageCount",
+            "imageSize": "nsg:imageSize",
+            "brainLocation": "nsg:brainLocation",
+            "value": "schema:value",
+            "description": "schema:description",
+            "wasGeneratedBy": "prov:wasGeneratedBy",
+            "distribution": {
+                "@id": "schema:distribution",
+                "@type": "@id"},
+            "downloadURL": {
+                "@id": "schema:downloadURL",
+                "@type": "@id"},
+            "mediaType": {
+                "@id": "schema:mediaType"
+            },
+            "minds": "https://schema.hbp.eu/"
+            }
+
     fields = (
         Field("name", basestring, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
