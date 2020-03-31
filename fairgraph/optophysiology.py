@@ -313,26 +313,41 @@ class TwoPhotonImaging(KGObject):
     _path = "/optophysiology/twophotonimaging/v0.2.0"
     type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "generated": "prov:generated",
-        "used": "prov:used",
-        "value": "schema:value",
-        "microscope": "nsg:microscope",
-        "brainState": "nsg:brainState",
-        "anesthesia": "nsg:anesthesia",
-        "laser": "nsg:laser",
-        "excitationWavelength": "nsg:excitationWavelength",
-        "laserPower": "nsg:laserPower",
-        "collectionWavelength": "nsg:collectionWavelength",
-        "imagingDepth": "nsg:imagingDepth",
-        "startedAtTime": "prov:startedAtTime",
-        "wasAssociatedWith": "prov:wasAssociatedWith",
-        "endedAtTime": "prov:endedAtTime",
-	"hadProtocol": "prov:hadProtocol"
-    }
+            "schema": "http://schema.org/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "name": "schema:name",
+            "brainLocation": "nsg:brainLocation",
+            "value": "schema:value",
+            "description": "schema:description",
+            "wasGeneratedBy": "prov:wasGeneratedBy",
+            "distribution": {
+                "@id": "schema:distribution",
+                "@type": "@id"},
+            "downloadURL": {
+                "@id": "schema:downloadURL",
+                "@type": "@id"},
+            "mediaType": {
+                "@id": "schema:mediaType"
+            },
+            "minds": "https://schema.hbp.eu/",
+                    "generated": "prov:generated",
+            "used": "prov:used",
+            "startedAtTime": "prov:startedAtTime",
+            "endedAtTime": "prov:endedAtTime",
+                    "hadProtocol": "prov:hadProtocol",
+            "wasAssociatedWith": "prov:wasAssociatedWith",
+            "microscope": "nsg:microscope",
+            "brainState": "nsg:brainState",
+            "anesthesia": "nsg:anesthesia",
+            "imagingDepth": "nsg:imagingDepth",
+            "laser": "nsg:laser",
+            "laserPower": "nsg:laserPower",
+            "excitationWavelength": "nsg:excitationWavelength",
+            "collectionWavelength": "nsg:collectionWavelength"
+            }
+
     fields = (
         Field("cranial_window", CranialWindow, "used", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
