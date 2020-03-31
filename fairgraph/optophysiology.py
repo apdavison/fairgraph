@@ -46,7 +46,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.3.0"
+    _path = "/optophysiology/regionofinterest/v0.5.0"
     type = ["prov:Entity", "nsg:RegionOfInterest"]
     context = {
         "schema": "http://schema.org/",
@@ -65,16 +65,16 @@ class RegionOfInterest(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("position", basestring, "origin"),
-        Field("x-coordinate", float, "x"),
-        Field("y-coordinate", float, "y"),
-        Field("shape", Shape, "shape"),
-        Field("size", basestring, "size"),
+        #Field("position", basestring, "origin"),
+        #Field("x-coordinate", float, "x"),
+        #Field("y-coordinate", float, "y"),
+        #Field("shape", Shape, "shape"),
+        #Field("size", basestring, "size"),
     	Field("classification", basestring, "classification"),
     	Field("description", basestring, "description")
         )
 
-    def __init__(self, name, position=None, x=None, y=None, shape=None, size=None, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, classification=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
