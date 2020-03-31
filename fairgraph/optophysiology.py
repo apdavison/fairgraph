@@ -73,7 +73,7 @@ class Position(KGObject):
 class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.8.0"
+    _path = "/optophysiology/regionofinterest/v0.9.0"
     type = ["prov:Entity", "nsg:RegionOfInterest"]
     context = {
         "schema": "http://schema.org/",
