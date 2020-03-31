@@ -311,12 +311,14 @@ class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/twophotonimaging/v0.2.0"
-    type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
+    #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
+    type = ["prov:Activity", "nsg:TwoPhotonImaging"]
     context = {
             "schema": "http://schema.org/",
             "prov": "http://www.w3.org/ns/prov#",
-            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "name": "schema:name",
             "brainLocation": "nsg:brainLocation",
             "value": "schema:value",
