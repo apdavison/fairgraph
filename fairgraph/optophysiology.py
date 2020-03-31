@@ -55,17 +55,18 @@ class RegionOfInterest(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
     	"origin": "nsg:origin",
-        "x": "nsg:x",
-        "y": "nsg:y",
-        "shape": "nsg:shape",
+        "position":"nsg:position",
+        "x-coordinate": "nsg:x",
+        "y-coordinate": "nsg:y",
+        "shape": "nsg:geometry",
     	"description":"nsg:description",
     	"classification":"nsg:classification"
         }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("origin", basestring, "origin"),
-        Field("x", float, "x"),
-        Field("y", float, "y"),
+        Field("x-coordinate", float, "x"),
+        Field("y-coordinate", float, "y"),
         Field("shape", Shape, "shape"),
         Field("size", basestring, "size"),
     	Field("classification", basestring, "classification"),
