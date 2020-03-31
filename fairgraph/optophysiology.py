@@ -310,7 +310,7 @@ class Craniotomy(KGObject):
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/twophotonimaging/v0.1.0"
+    _path = "/optophysiology/twophotonimaging/v0.2.0"
     type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     context = {
         "schema": "http://schema.org/",
