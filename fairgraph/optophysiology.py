@@ -166,6 +166,7 @@ class TimeSeriesExtraction(KGObject):
         }
         }
     fields = (
+        Field("name", basestring, "name", required=True),
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
         Field("region_of_interest", RegionOfInterest, "used", required=True),
         Field("protocol", Protocol, "hadProtocol"),
@@ -175,7 +176,7 @@ class TimeSeriesExtraction(KGObject):
     	Field("license", License, "license")
         )
 
-    def __init__(self, fluorescence_trace, region_of_interest, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, fluorescence_trace, region_of_interest, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
