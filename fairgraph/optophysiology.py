@@ -81,17 +81,18 @@ class RegionOfInterest(KGObject):
 class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/fluorescencetrace/v0.2.0"
+    _path = "/optophysiology/fluorescencetrace/v0.3.0"
     type = ["prov:Entity", "nsg:FluorescenceTrace"]
     context = {
         "schema": "http://schema.org/",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
         "timeStep": "nsg:timeStep",
         "value": "schema:value",
-	"description":"nsg:description",
+        "description": "schema:description",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
