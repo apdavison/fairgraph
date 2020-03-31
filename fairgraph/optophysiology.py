@@ -377,7 +377,7 @@ class TwoPhotonImaging(KGObject):
 class MotionCorrection(KGObject):
     """Correction for x-y movement in image frames."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/motioncorrection/v0.1.0"
+    _path = "/optophysiology/motioncorrection/v0.2.0"
     type = ["nsg:MotionCorrection", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -387,12 +387,12 @@ class MotionCorrection(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "generated": "prov:generated",
         "used": "prov:used",
-	"hadProtocol":"prov:hadProtocol",
-        "wasAssociatedWith": "prov:wasAssociatedWith",
-	"citation":"nsg:citation",
-	"code":"nsg:code",
-	"license":"nsg:license"
-    }
+    	"hadProtocol":"prov:hadProtocol",
+            "wasAssociatedWith": "prov:wasAssociatedWith",
+    	"citation":"nsg:citation",
+    	"code":"nsg:code",
+    	"license":"nsg:license"
+        }
     fields = (
         Field("before", ImageSequence, "used", required=True),
         Field("after", ImageSequence, "generated", required=True),
