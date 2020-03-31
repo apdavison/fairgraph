@@ -74,7 +74,7 @@ class RegionOfInterest(KGObject):
     	Field("description", basestring, "description")
         )
 
-    def __init__(self, name, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, shape=None, classification=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
