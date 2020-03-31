@@ -141,6 +141,7 @@ class TimeSeriesExtraction(KGObject):
         "mediaType": {
             "@id": "schema:mediaType"
         }
+        }
     fields = (
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
         Field("region_of_interest", RegionOfInterest, "used", required=True),
