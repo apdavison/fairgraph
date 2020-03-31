@@ -43,11 +43,10 @@ from .utility import compact_uri, standard_context, as_list
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
-class RegionOfInterest(KGObject):
-    """A region of interest within an image sequence."""
+class Position(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.6.0"
-    type = ["prov:Entity", "nsg:RegionOfInterest"]
+    _path = "/optophysiology/regionofinterest/v0.7.0"
+    type = ["prov:Entity", "nsg:Position"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -57,7 +56,33 @@ class RegionOfInterest(KGObject):
     	"origin": "nsg:origin",
         "position":"nsg:position",
         "x-coordinate": "nsg:x",
-        "y-coordinate": "nsg:y",
+        "y-coordinate": "nsg:y"
+        }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("origin", basestring, "origin"),
+        Field("x-coordinate", float, "x"),
+        Field("y-coordinate", float, "y")
+        )
+
+    def __init__(self, name, origin=None, "x-coordinate"=None, "y-coordinate"=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class RegionOfInterest(KGObject):
+    """A region of interest within an image sequence."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/regionofinterest/v0.7.0"
+    type = ["prov:Entity", "nsg:RegionOfInterest"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "position":"nsg:position",
         "shape": "nsg:geometry",
     	"description":"nsg:description",
     	"classification":"nsg:classification"
@@ -65,16 +90,13 @@ class RegionOfInterest(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        #Field("position", basestring, "origin"),
-        #Field("x-coordinate", float, "x"),
-        #Field("y-coordinate", float, "y"),
+        Field("position", Position, "position"),
         Field("shape", basestring, "shape"),
-        #Field("size", basestring, "size"),
     	Field("classification", basestring, "classification"),
     	Field("description", basestring, "description")
         )
 
-    def __init__(self, name, shape=None, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, position= None, shape=None, classification=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
