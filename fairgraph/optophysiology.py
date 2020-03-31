@@ -151,19 +151,14 @@ class TimeSeriesExtraction(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "timeStep": "nsg:timeStep",
         "value": "schema:value",
-        "description": "schema:description",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        }
+        "used": "prov:used",
+        "generated": "prov:generated",
+	    "hadProtocol":"p  rov:hadProtocol",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+    	"citation":"nsg:citation",
+    	"code":"nsg:code",
+    	"license":"nsg:license"
         }
     fields = (
         Field("name", basestring, "name", required=True),
