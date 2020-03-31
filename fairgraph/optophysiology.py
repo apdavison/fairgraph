@@ -46,7 +46,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.0.2"
+    _path = "/optophysiology/regionofinterest/v0.3.0"
     type = ["prov:Entity", "nsg:RegionOfInterest"]
     context = {
         "schema": "http://schema.org/",
@@ -54,23 +54,23 @@ class RegionOfInterest(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-	"origin": "nsg:origin",
+    	"origin": "nsg:origin",
         "x": "nsg:x",
         "y": "nsg:y",
         "shape": "nsg:shape",
-	"description":"nsg:description",
-	"classification":"nsg:classification"
-    }
+    	"description":"nsg:description",
+    	"classification":"nsg:classification"
+        }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("origin", Origin, "nsg:origin", required=True),
+        Field("origin", Origin, "origin", required=True),
         Field("x", float, "x", required=True),
         Field("y", float, "y", required=True),
-        Field("shape", Shape, "nsg:shape"),
+        Field("shape", Shape, "shape"),
         Field("size", basestring, "size"),
-	Field("classification", basestring, "classification"),
-	Field("description", basestring, "description")
-    )
+    	Field("classification", basestring, "classification"),
+    	Field("description", basestring, "description")
+        )
 
     def __init__(self, name, origin, x, y, shape=None, size=None, classification=None, description=None, id=None, instance=None):
         args = locals()
@@ -192,8 +192,8 @@ class ImageSequence(KGObject):
         Field("name", basestring, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
         Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy"),
-        Field("image_count", int, "ImageCount", required=False),
-        Field("image_size", int, "ImageSize", required=False),
+        Field("image_count", int, "imageCount", required=False),
+        Field("image_size", int, "imageSize", required=False),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("distribution", Distribution, "distribution", required=False),
         Field("description", basestring, "description", required=False)
@@ -409,7 +409,7 @@ class MotionCorrection(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-        
+
 
 class VisualStimulus(KGObject):
     """A generic visual stimulus."""
