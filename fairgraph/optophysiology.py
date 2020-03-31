@@ -65,7 +65,7 @@ class RegionOfInterest(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("origin", basestring, "origin"),
+        Field("position", basestring, "origin"),
         Field("x-coordinate", float, "x"),
         Field("y-coordinate", float, "y"),
         Field("shape", Shape, "shape"),
