@@ -334,11 +334,11 @@ class TwoPhotonImaging(KGObject):
                 "@id": "schema:mediaType"
             },
             "minds": "https://schema.hbp.eu/",
-                    "generated": "prov:generated",
+            "generated": "prov:generated",
             "used": "prov:used",
             "startedAtTime": "prov:startedAtTime",
             "endedAtTime": "prov:endedAtTime",
-                    "hadProtocol": "prov:hadProtocol",
+            "hadProtocol": "prov:hadProtocol",
             "wasAssociatedWith": "prov:wasAssociatedWith",
             "microscope": "nsg:microscope",
             "brainState": "nsg:brainState",
@@ -378,7 +378,7 @@ class MotionCorrection(KGObject):
     """Correction for x-y movement in image frames."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/motioncorrection/v0.2.0"
-    type = ["nsg:MotionCorrection", "prov:Activity"]
+    type = ["prov:Activity", "nsg:MotionCorrection"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -388,8 +388,8 @@ class MotionCorrection(KGObject):
         "name": "schema:name",
         "generated": "prov:generated",
         "used": "prov:used",
-    	"hadProtocol":"prov:hadProtocol",
-            "wasAssociatedWith": "prov:wasAssociatedWith",
+        "hadProtocol": "prov:hadProtocol",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
     	"citation":"nsg:citation",
     	"code":"nsg:code",
     	"license":"nsg:license"
@@ -409,41 +409,7 @@ class MotionCorrection(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        D = instance.data
-        if resolved:
-            D = cls._fix_keys(D)
-        for otype in as_list(cls.type):
-            if otype not in D["@type"]:
-                compacted_types = compact_uri(D["@type"], standard_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-        args = {}
-        for field in cls.fields:
-            if field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
-
-    def _build_data(self, client):
-        """docstring"""
-        data = super(MotionCorrection, self)._build_data(client)
-
-    def resolve(self, client, api="query"):
-        if hasattr(self.before, "resolve"):
-            self.before = self.before.resolve(client, api=api)
-        if hasattr(self.after, "resolve"):
-            self.after = self.after.resolve(client, api=api)
-        for i, person in enumerate(self.people):
-            if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client, api=api)
-
+        
 
 class VisualStimulus(KGObject):
     """A generic visual stimulus."""
