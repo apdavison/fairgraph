@@ -82,7 +82,7 @@ class RegionOfInterest(KGObject):
 class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/fluorescencetrace/v0.1.0"
+    _path = "/optophysiology/fluorescencetrace/v0.2.0"
     type = ["prov:Entity", "nsg:FluorescenceTrace"]
     context = {
         "schema": "http://schema.org/",
@@ -487,5 +487,3 @@ class VisualStimulation(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-
