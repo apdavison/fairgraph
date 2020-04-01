@@ -472,7 +472,7 @@ class VisualStimulus(KGObject):
 class VisualStimulation(KGObject):
     """Presentation of a visual stimulus to the subject of the experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/visualstimulation/v0.1.1"
+    _path = "/optophysiology/visualstimulation/v0.1.0"
     type = ["prov:Activity", "nsg:VisualStimulation"]
     context = {
         "schema": "http://schema.org/",
