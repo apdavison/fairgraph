@@ -376,6 +376,7 @@ class QuantitativeValue(StructuredMetadata):
 	"years": "http://purl.obolibrary.org/obo/UO_0000036",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
+        "mm": "http://purl.obolibrary.org/obo/UO_0000016",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
 	"s": "http://purl.obolibrary.org/obo/UO_0000010",

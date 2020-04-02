@@ -116,6 +116,7 @@ class FluorescenceTrace(KGObject):
         "value": "schema:value",
         "description": "schema:description",
         "wasGeneratedBy": "prov:wasGeneratedBy",
+        "fluorescenceLabeling": "nsg: fluorescenceLabeling",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -129,6 +130,7 @@ class FluorescenceTrace(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
+        Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
         Field("generated_by", "optophysiology.TimeSeriesExtraction", "wasGeneratedBy"),
         Field("description", basestring, "description"),
         Field("distribution", Distribution, "distribution")
@@ -386,7 +388,8 @@ class TwoPhotonImaging(KGObject):
         Field("imaging_depth", QuantitativeValue, "imagingDepth"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
-	Field("protocol", Protocol, "hadProtocol"),
+	    Field("protocol", Protocol, "hadProtocol"),
+        Field("distribution", Distribution, "distribution", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
