@@ -141,7 +141,8 @@ class Genotype(OntologyTerm):
         "Nlgn3KO/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:5439278",
         "NL3R451C/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:3758949",
         "Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://www.jax.org/strain/025393",
-        "Cre/tdTomato": "https://www.jax.org/strain/007909"
+        "Cre/tdTomato": "https://www.jax.org/strain/007909",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://www.jax.org/strain/025393"
     }
 
 
@@ -203,7 +204,7 @@ class BrainRegion(OntologyTerm):
 	"parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
         "posteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035900",
 	"prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
-	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",        
+	"prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",
         "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
 	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
