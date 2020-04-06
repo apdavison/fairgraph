@@ -391,12 +391,12 @@ class TwoPhotonImaging(KGObject):
         Field("imaging_depth", QuantitativeValue, "imagingDepth"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
+        Field("distribution", Distribution, "distribution"),
 	    Field("protocol", Protocol, "hadProtocol"),
-        Field("distribution", Distribution, "distribution", required=False),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, name, cranial_window=None, slice=None, image_sequence, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, start_time=None, end_time=None, protocol=None, distribution=None, people=None, id=None, instance=None):
+    def __init__(self, name, cranial_window=None, slice=None, image_sequence, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, start_time=None, end_time=None, distribution=None, protocol=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
