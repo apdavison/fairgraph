@@ -39,9 +39,6 @@ from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusT
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-import fairgraph.electrophysiology
-#from .electrophysiology import Slice
-#from .electrophysiology import Trace
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -335,6 +332,27 @@ class Craniotomy(KGObject):
         KGObject.__init__(self, **args)
 
 
+class Slice(KGObject):  # should move to "core" module?
+    """A brain slice."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/slice/v0.1.0"
+    type = ["nsg:Slice", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId",
+        "wasDerivedFrom": "prov:wasDerivedFrom"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
+              "^prov:generated", reverse="slices")
+    )
+
+
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
@@ -382,7 +400,7 @@ class TwoPhotonImaging(KGObject):
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
         Field("cranial_window", CranialWindow, "used"),
-        Field("slice", fairgraph.electrophysiology.Slice, "used"),
+        Field("slice", Slice, "used"),
         Field("microscope", basestring, "microscope"),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
