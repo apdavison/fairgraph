@@ -399,7 +399,7 @@ class TwoPhotonImaging(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
-        Field("target", (CranialWindow, Slice), "used"),
+        Field("target", (Slice, CranialWindow), "used"),
         Field("microscope", basestring, "microscope"),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
