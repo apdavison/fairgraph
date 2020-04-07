@@ -596,7 +596,7 @@ class ElectrophysiologicalStimulation(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("electrophysiological_stimulus", VisualStimulus, "used", required=True),
+        Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
         Field("stimulus_type", StimulusType, "stimulusType"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
