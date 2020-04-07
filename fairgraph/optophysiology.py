@@ -536,7 +536,7 @@ class VisualStimulation(KGObject):
 class ElectrophysiologicalStimulus(KGObject):
     """A generic electrophysiological stimulus."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/electrophysiologicalstimulus/v0.1.0"
+    _path = "/optophysiology/electrophysiologicalstimulus/v0.2.0"
     type = ["prov:Entity", "nsg:ElectrophysiolgicalStimulus"]
     context = {
         "schema": "http://schema.org/",
@@ -559,11 +559,11 @@ class ElectrophysiologicalStimulus(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description"),
+        Field("description", basestring, "description", required=True),
         Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, description=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, description, distribution=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
