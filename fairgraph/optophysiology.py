@@ -144,7 +144,7 @@ class FluorescenceTrace(KGObject):
 class TimeSeriesExtraction(KGObject):
     """Process of transforming the series of fluorescence responses within a Region of Interest into a ΔF/F signal"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/timeseriesextraction/v0.2.0"
+    _path = "/optophysiology/timeseriesextraction/v0.3.0"
     type = ["prov:Activity", "nsg:TimeSeriesExtraction"]
     context = {
         "schema": "http://schema.org/",
@@ -164,7 +164,7 @@ class TimeSeriesExtraction(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
-        Field("region_of_interest", RegionOfInterest, "used", required=True),
+        Field("region_of_interest", RegionOfInterest, "used"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
     	Field("citation", basestring, "citation"),
@@ -172,7 +172,7 @@ class TimeSeriesExtraction(KGObject):
     	Field("license", License, "license")
         )
 
-    def __init__(self, name, fluorescence_trace, region_of_interest, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, fluorescence_trace, region_of_interest=None, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -468,8 +468,9 @@ class VisualStimulus(KGObject):
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "value": "schema:value",
         "name": "schema:name",
         "description": "schema:description",
@@ -504,8 +505,9 @@ class VisualStimulation(KGObject):
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
 	       "protocol":"prov:hadProtocol",
@@ -579,8 +581,9 @@ class ElectrophysiologicalStimulation(KGObject):
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
 	    "protocol":"prov:hadProtocol",
