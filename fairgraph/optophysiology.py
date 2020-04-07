@@ -596,6 +596,7 @@ class ElectrophysiologicalStimulation(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
+        Field("electrophysiological_stimulus", VisualStimulus, "used", required=True),
         Field("stimulus_type", StimulusType, "stimulusType"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
@@ -603,7 +604,7 @@ class ElectrophysiologicalStimulation(KGObject):
     	Field("license", License, "license")
         )
 
-    def __init__(self, name, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, electrophysiological_stimulus, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
