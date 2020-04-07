@@ -356,7 +356,7 @@ class Slice(KGObject):  # should move to "core" module?
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/twophotonimaging/v0.6.0"
+    _path = "/optophysiology/twophotonimaging/v0.7.0"
     #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     type = ["prov:Activity", "nsg:TwoPhotonImaging"]
     context = {
@@ -399,8 +399,7 @@ class TwoPhotonImaging(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
-        Field("cranial_window", CranialWindow, "used"),
-        Field("slice", Slice, "used"),
+        Field("target", (CranialWindow, Slice), "used"),
         Field("microscope", basestring, "microscope"),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
