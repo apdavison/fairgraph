@@ -382,7 +382,7 @@ class TwoPhotonImaging(KGObject):
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
         Field("cranial_window", CranialWindow, "used"),
-        Field("slice", electrophysiology.Slice, "used"),
+        Field("slice", fairgraph.electrophysiology.Slice, "used"),
         Field("microscope", basestring, "microscope"),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
