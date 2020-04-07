@@ -534,10 +534,10 @@ class VisualStimulation(KGObject):
 
 
 class ElectrophysiologicalStimulus(KGObject):
-    """A generic visual stimulus."""
+    """A generic electrophysiological stimulus."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/electrophysiologicalstimulus/v0.1.0"
-    type = ["prov:Entity", "nsg:VisualStimulus"]
+    type = ["prov:Entity", "nsg:ElectrophysiolgicalStimulus"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
