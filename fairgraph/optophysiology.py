@@ -537,12 +537,14 @@ class ElectrophysiologicalStimulus(KGObject):
     """A generic electrophysiological stimulus."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/electrophysiologicalstimulus/v0.2.0"
-    type = ["prov:Entity", "nsg:ElectrophysiolgicalStimulus"]
+    type = ["prov:Entity", "nsg:ElectrophysiologicalStimulus"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "name": "schema:name",
         "value": "schema:value",
         "name": "schema:name",
         "description": "schema:description",
