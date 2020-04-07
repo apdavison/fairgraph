@@ -356,7 +356,7 @@ class Slice(KGObject):  # should move to "core" module?
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/twophotonimaging/v0.7.0"
+    _path = "/optophysiology/twophotonimaging/v0.8.0"
     #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     type = ["prov:Activity", "nsg:TwoPhotonImaging"]
     context = {
