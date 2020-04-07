@@ -576,7 +576,7 @@ class ElectrophysiologicalStimulus(KGObject):
 class ElectrophysiologicalStimulation(KGObject):
     """Use of an electrophysiological stimulus in the experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/electrophysiologicalstimulation/v0.2.0"
+    _path = "/optophysiology/electrophysiologicalstimulation/v0.6.0"
     type = ["prov:Activity", "nsg:ElectrophysiologicalStimulation"]
     context = {
         "schema": "http://schema.org/",
