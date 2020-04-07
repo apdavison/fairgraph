@@ -37,9 +37,11 @@ from datetime import datetime
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusType, License, Shape
 from .core import Subject, Person, Protocol
-import .electrophysiology
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
+import fairgraph.electrophysiology
+#from .electrophysiology import Slice
+#from .electrophysiology import Trace
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
