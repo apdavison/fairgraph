@@ -103,7 +103,7 @@ class RegionOfInterest(KGObject):
 class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/fluorescencetrace/v0.3.0"
+    _path = "/optophysiology/fluorescencetrace/v0.1.0"
     type = ["prov:Entity", "nsg:FluorescenceTrace"]
     context = {
         "schema": "http://schema.org/",
@@ -181,7 +181,7 @@ class TimeSeriesExtraction(KGObject):
 class ImageSequence(KGObject):
     """A sequence of images in the same imaging plane, produced by scanning optical microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/imagesequence/v0.4.0"
+    _path = "/optophysiology/imagesequence/v0.1.0"
     type = ["prov:Entity", "nsg:ImageSequence"]
     context = {
             "schema": "http://schema.org/",
@@ -356,7 +356,7 @@ class Slice(KGObject):  # should move to "core" module?
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/twophotonimaging/v0.8.0"
+    _path = "/optophysiology/twophotonimaging/v0.1.0"
     #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     type = ["prov:Activity", "nsg:TwoPhotonImaging"]
     context = {
@@ -537,7 +537,7 @@ class VisualStimulation(KGObject):
 class ElectrophysiologicalStimulus(KGObject):
     """A generic electrophysiological stimulus."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/electrophysiologicalstimulus/v0.2.0"
+    _path = "/optophysiology/electrophysiologicalstimulus/v0.1.0"
     type = ["prov:Entity", "nsg:ElectrophysiologicalStimulus"]
     context = {
         "schema": "http://schema.org/",
@@ -575,7 +575,7 @@ class ElectrophysiologicalStimulus(KGObject):
 class ElectrophysiologicalStimulation(KGObject):
     """Use of an electrophysiological stimulus in the experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/electrophysiologicalstimulation/v0.6.0"
+    _path = "/optophysiology/electrophysiologicalstimulation/v0.1.0"
     type = ["prov:Activity", "nsg:ElectrophysiologicalStimulation"]
     context = {
         "schema": "http://schema.org/",
