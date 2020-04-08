@@ -821,16 +821,15 @@ class KGObject(with_metaclass(Registry, object)):
                     ]
 
                 # here we add a filter for top-level fields
-                if datetime not in field.types:
-                    if field.types[0] in (int, float, bool):
-                        op = "equals"
-                    else:
-                        op = "contains"
-                    if top_level:
-                        field_definition["filter"] = {  # don't filter on datetime,  ...
-                            "op": op,
-                            "parameter": field.name
-                        }
+                if field.types[0] in (int, float, bool, datetime, date):
+                    op = "equals"
+                else:
+                    op = "contains"
+                if top_level:
+                    field_definition["filter"] = {  # don't filter on datetime,  ...
+                        "op": op,
+                        "parameter": field.name
+                    }
 
                 fields.append(field_definition)
 
@@ -1036,6 +1035,7 @@ class KGQuery(object):
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000, api="query", scope="released", use_cache=True):
+        # todo: add from_index argument?
         objects = []
         for cls in self.classes:
             if api == "nexus":
