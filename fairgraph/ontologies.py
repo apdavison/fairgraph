@@ -74,3 +74,47 @@ class Organism(KGObject):
 
     def save(self, client):
         raise Exception("This class is read-only")
+
+
+class ParcellationRegion(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/parcellationregion/v1.0.1"
+    type = ["https://schema.hbp.eu/ontologies/Parcellationregion"]
+    context = {}
+    fields = [
+        Field("abbrev", basestring, "http://uri.neuinfo.org/nif/nifstd/readable/abbrev", multiple=True),
+        #Field("abbreviation", basestring, "https://schema.hbp.eu/ontologies/abbreviation", multiple=True),
+        Field("altLabel", basestring, "http://www.w3.org/2004/02/skos/core#altLabel"),
+        Field("bibliographicCitation", basestring, "http://purl.org/dc/terms/bibliographicCitation"),
+        Field("artifactVersion", basestring, "http://uri.interlex.org/tgbugs/uris/readable/artifactVersion"),
+        Field("category", basestring, "https://schema.hbp.eu/ontologies/category"),
+        Field("contributor", basestring, "http://purl.org/dc/elements/1.1/contributor", multiple=True),
+        Field("date", basestring, "http://purl.org/dc/elements/1.1/date"), # datetime
+        Field("dateCopyrighted", basestring, "http://purl.org/dc/terms/dateCopyrighted"),  # datetime
+        Field("definingCitation", basestring, "http://uri.neuinfo.org/nif/nifstd/readable/definingCitation", multiple=True),
+        Field("definition_skos", basestring, "http://www.w3.org/2004/02/skos/core#definition", multiple=True),
+        Field("definition", basestring, "https://schema.hbp.eu/ontologies/definition", multiple=True),
+        Field("hasAlternativeId", basestring, "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId", multiple=True),
+        Field("hasBroadSynonym", basestring, "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym", multiple=True),
+        Field("hasDbXref", basestring, "http://www.geneontology.org/formats/oboInOwl#hasDbXref", multiple=True),
+        Field("hasExactSynonym", basestring, "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym", multiple=True),
+        Field("hasNarrowSynonym", basestring, "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym", multiple=True),
+        Field("hasOBONamespace", basestring, "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace", multiple=True),
+        Field("hasRelatedSynonym", basestring, "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym", multiple=True),
+        #Field("hasWeirdParenValue", basestring, "http://uri.interlex.org/berman/uris/readable/hasWeirdParenValue"),
+        Field("IAO_0000115", basestring, "http://purl.obolibrary.org/obo/IAO_0000115", multiple=True),
+        Field("IAO_0000116", basestring, "http://purl.obolibrary.org/obo/IAO_0000116", multiple=True),
+        Field("IAO_0000232", basestring, "http://purl.obolibrary.org/obo/IAO_0000232", multiple=True),
+        Field("identifier", basestring, "http://schema.org/identifier"),
+        Field("label", basestring, "http://www.w3.org/2000/01/rdf-schema#label", multiple=True),
+        Field("prefLabel", basestring, "http://www.w3.org/2004/02/skos/core#prefLabel", multiple=True),
+        Field("synonym_nif", basestring, "http://uri.neuinfo.org/nif/nifstd/readable/synonym", multiple=True),
+        Field("synonym", basestring, "https://schema.hbp.eu/ontologies/synonym", multiple=True),
+        Field("types", basestring, "https://schema.hbp.eu/ontologies/types", multiple=True),
+        Field("alternateOf", KGObject, "http://www.w3.org/ns/prov#alternateOf", multiple=True),
+        Field("subclassof", "ontologies.ParcellationRegion", "https://schema.hbp.eu/ontologies/subclassof", multiple=True),
+        Field("superclassof", "ontologies.ParcellationRegion", "^https://schema.hbp.eu/ontologies/subclassof", reverse="subclassof"),
+    ]
+
+    def save(self, client):
+        raise Exception("This class is read-only")
