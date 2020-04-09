@@ -72,6 +72,17 @@ class Group(OntologyTerm):
     }
 
 
+class CultureType(OntologyTerm):
+    """
+    The type of cell culture used
+    """
+    iri_map = {
+        "primary": "http://purl.obolibrary.org/obo/OBI_0001910",
+        "secondary": "http://purl.obolibrary.org/obo/OBI_0001905",
+        "cell line": "http://purl.obolibrary.org/obo/CLO_0000031"
+    }
+
+
 class Species(OntologyTerm):
     """
     The species of an experimental subject, expressed with the binomial nomenclature.

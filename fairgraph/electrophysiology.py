@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange
+from .commons import QuantitativeValue, CultureType, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -470,6 +470,34 @@ class Slice(KGObject):  # should move to "core" module?
             self.brain_slicing_activity = self.brain_slicing_activity.resolve(client, api=api, use_cache=use_cache)
         return self
 
+
+class CellCulture(KGObject):  # should move to "core" module?
+    """A cell culture."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/cellculture/v0.1.0"
+    type = ["nsg:CellCulture", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "providerId": "nsg:providerId",
+        "wasDerivedFrom": "prov:wasDerivedFrom"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("culturing_activity", "electrophysiology.CellCultureActivity",
+              "^prov:generated", reverse="cell_culture")
+    )
+
+    def __init__(self, name, subject, culturing_activity=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
 class BrainSlicingActivity(KGObject):
     """The activity of cutting brain tissue into slices."""
     namespace = DEFAULT_NAMESPACE
@@ -555,6 +583,95 @@ class BrainSlicingActivity(KGObject):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
         return self
+
+
+class CulturingActivity(KGObject):
+    """The activity of preparing a cell culture from whole brain."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/culturingactivity/v0.1.0"
+    type = ["nsg:CulturingActivity", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "generated": "prov:generated",
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime",
+        "label": "rdfs:label",
+        "value": "schema:value",
+        "unitCode": "schema:unitCode",
+        "brainLocation": "nsg:brainLocation",
+        "hemisphere": "nsg:hemisphere",
+        "age": "nsg:age",
+        "solution": "nsg:solution"
+        "cultureType": "nsg:cultureType",
+    }
+    fields = (
+        Field("subject", Subject, "used", required=True),
+        Field("cell_culture", CellCulture, "generated", required=True),
+        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
+        Field("culture_type", CultureType, "cultureType"),
+        Field("culture_age", Age, "age"),
+        Field("hemisphere", basestring, "hemisphere"),
+        Field("culture_solution", basestring, "solution"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+    )
+    existence_query_fields = ("subject",)  # can only slice a brain once...
+
+    def __init__(self, subject, cell_culture, brain_location=None, culture_type=None, culture_age=None,
+                 hemisphere=None, culture_solution=None, start_time=None, end_time=None, people=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+        for otype in as_list(cls.type):
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                data_item = D.get("brainLocation", {}).get("brainRegion")
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
+
+    def _build_data(self, client):
+        """docstring"""
+        data = super(BrainSlicingActivity, self)._build_data(client)
+        if "brainRegion" in data:
+            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
+        return data
+
+    def resolve(self, client, api="query", use_cache=True):
+        if hasattr(self.subject, "resolve"):
+            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
+        for i, slice in enumerate(self.slices):
+            if hasattr(slice, "resolve"):
+                self.slices[i] = slice.resolve(client, api=api, use_cache=use_cache)
+        for i, person in enumerate(self.people):
+            if hasattr(person, "resolve"):
+                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
+        return self
+
 
 class PatchedSlice(KGObject):
     """A slice that has been recorded from using patch clamp."""
