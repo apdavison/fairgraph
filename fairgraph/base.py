@@ -684,6 +684,8 @@ class KGObject(with_metaclass(Registry, object)):
     def delete(self, client):
         """Deprecate"""
         client.delete_instance(self.instance)
+        if self.id in KGObject.object_cache:
+            KGObject.object_cache.pop(self.id)
 
     @classmethod
     def by_name(cls, name, client, match="equals", all=False, api="query",
