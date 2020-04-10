@@ -814,12 +814,12 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     fields = (
         Field("name", basestring, "name", required=True),
         Field("slice_or_culture", (CellCulture, Slice), "used", required=True),
-        Field("recorded_slice", PatchedSlice, "generated", required=True),
+        Field("recorded_slice", PatchedSlice, "generated"),
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, name, slice_or_culture, recorded_slice, protocol=None, people=None,
+    def __init__(self, name, slice_or_culture, recorded_slice=None, protocol=None, people=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
