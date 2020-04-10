@@ -474,7 +474,7 @@ class Slice(KGObject):  # should move to "core" module?
 class CellCulture(KGObject):  # should move to "core" module?
     """A cell culture."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/cellculture/v0.1.0"
+    _path = "/experiment/cellculture/v0.1.0"
     type = ["nsg:CellCulture", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
