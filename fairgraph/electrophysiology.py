@@ -606,8 +606,8 @@ class CulturingActivity(KGObject):
         "brainLocation": "nsg:brainLocation",
         "hemisphere": "nsg:hemisphere",
         "age": "nsg:age",
-        "solution": "nsg:solution"
-        "cultureType": "nsg:cultureType",
+        "solution": "nsg:solution",
+        "cultureType": "nsg:cultureType"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
