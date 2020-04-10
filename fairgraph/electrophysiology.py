@@ -604,6 +604,7 @@ class CulturingActivity(KGObject):
         "value": "schema:value",
         "unitCode": "schema:unitCode",
         "brainLocation": "nsg:brainLocation",
+        "brainRegion": "nsg:brainRegion",
         "hemisphere": "nsg:hemisphere",
         "age": "nsg:age",
         "solution": "nsg:solution",
