@@ -656,7 +656,7 @@ class CulturingActivity(KGObject):
 
     def _build_data(self, client):
         """docstring"""
-        data = super(BrainSlicingActivity, self)._build_data(client)
+        data = super(CulturingActivity, self)._build_data(client)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
