@@ -799,7 +799,7 @@ class PatchedCellCollection(KGObject):
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """A patch clamp recording session."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/wholecellpatchclamp/v0.3.0"
+    _path = "/experiment/wholecellpatchclamp/v0.2.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
     #generates_class = "PatchedSlice"
     context = {
