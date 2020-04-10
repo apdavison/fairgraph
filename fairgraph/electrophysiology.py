@@ -664,9 +664,6 @@ class CulturingActivity(KGObject):
     def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
             self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
-        for i, slice in enumerate(self.slices):
-            if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client, api=api, use_cache=use_cache)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
