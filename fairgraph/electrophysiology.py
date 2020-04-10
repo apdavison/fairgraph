@@ -799,7 +799,7 @@ class PatchedCellCollection(KGObject):
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """A patch clamp recording session."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/wholecellpatchclamp/v0.1.0"
+    _path = "/experiment/wholecellpatchclamp/v0.2.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
     #generates_class = "PatchedSlice"
     context = {
@@ -813,13 +813,13 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("slice", Slice, "used", required=True),
+        Field("slice_or_culture", (CellCulture, Slice), "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated", required=True),
         Field("protocol", basestring, "protocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, name, slice, recorded_slice, protocol=None, people=None,
+    def __init__(self, name, slice_or_culture, recorded_slice, protocol=None, people=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
