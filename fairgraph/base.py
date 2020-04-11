@@ -615,7 +615,8 @@ class KGObject(with_metaclass(Registry, object)):
     def _update_needed(self, data):
         for key, value in data.items():
             if key not in self.instance.data:
-                return True
+                if value is not None:
+                    return True
             elif self.instance.data[key] != value:
                 return True
         return False
