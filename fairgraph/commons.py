@@ -203,7 +203,7 @@ class BrainRegion(OntologyTerm):
         "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "dorsal cortex": "http://purl.obolibrary.org/obo/UBERON_0002577",
-	"frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
+	   "frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
         "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
         "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
@@ -391,16 +391,16 @@ class QuantitativeValue(StructuredMetadata):
         "nm": "http://purl.obolibrary.org/obo/UO_0000018",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	"s": "http://purl.obolibrary.org/obo/UO_0000010",
+	    "s": "http://purl.obolibrary.org/obo/UO_0000010",
         "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
         "µA": "http://purl.obolibrary.org/obo/UO_0000038",
         "nA": "https://en.wiktionary.org/wiki/nanoamp",
-	"Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	"kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
-    }
+	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
+        }
 
     def __init__(self, value, unit_text, unit_code=None):
         if not isinstance(value, (int, float)):
@@ -465,6 +465,7 @@ class QuantitativeValueRange(StructuredMetadata):
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
         "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
+        "DIV": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C19481",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
