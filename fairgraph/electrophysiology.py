@@ -588,7 +588,7 @@ class BrainSlicingActivity(KGObject):
 class CulturingActivity(KGObject):
     """The activity of preparing a cell culture from whole brain."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/culturingactivity/v0.1.0"
+    _path = "/experiment/culturingactivity/v0.2.0"
     type = ["nsg:CulturingActivity", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -602,7 +602,6 @@ class CulturingActivity(KGObject):
         "endedAtTime": "prov:endedAtTime",
         "label": "rdfs:label",
         "value": "schema:value",
-        "unitCode": "schema:unitCode",
         "brainLocation": "nsg:brainLocation",
         "brainRegion": "nsg:brainRegion",
         "hemisphere": "nsg:hemisphere",
@@ -615,7 +614,7 @@ class CulturingActivity(KGObject):
         Field("cell_culture", CellCulture, "generated", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("culture_type", CultureType, "cultureType"),
-        Field("culture_age", Age, "age"),
+        Field("culture_age", QuantitativeValueRange, "age"),
         Field("hemisphere", basestring, "hemisphere"),
         Field("culture_solution", basestring, "solution"),
         Field("start_time", datetime, "startedAtTime"),
