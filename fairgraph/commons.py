@@ -221,7 +221,7 @@ class BrainRegion(OntologyTerm):
     	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
     	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
     	"primary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0002436",
-        "retina": "http://purl.obolibrary.org/obo/UBERON_0000966"
+        "retina": "http://purl.obolibrary.org/obo/UBERON_0000966",
     	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
     	"secondary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0016634",
     	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",

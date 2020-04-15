@@ -459,9 +459,11 @@ class Slice(KGObject):  # should move to "core" module?
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("provider_id", basestring, "providerId"),
         Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
               "^prov:generated", reverse="slices")
     )
+
 
     def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.subject, "resolve"):
