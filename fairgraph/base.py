@@ -229,6 +229,8 @@ class Field(object):
                     }
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
+            elif value is None:
+                return None
             else:
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
@@ -464,9 +466,13 @@ class KGObject(with_metaclass(Registry, object)):
             if filters:
                 for field in cls.fields:
                     if field.name in filters:
-                        filter_queries.append({
+                        if field.path.startswith("http"):
+                            path = field.path
+                        else:
                             #"path": cls.context[field.path],  # todo: fix contexts
-                            "path": standard_context[field.path],
+                            path = standard_context[field.path],
+                        filter_queries.append({
+                            "path": path,
                             "op": "eq",
                             "value": get_filter_value(filters, field)
                         })
@@ -511,8 +517,12 @@ class KGObject(with_metaclass(Registry, object)):
         elif api == "nexus":
             query_parts = []
             for field in query_fields:
+                if field.path.startswith("http"):
+                    path = field.path
+                else:
+                    path = standard_context[field.path]
                 query_parts.append({
-                    "path": standard_context[field.path],
+                    "path": path,
                     "op": "eq",
                     "value": field.serialize(getattr(self, field.name), None, for_query=True)
                 })
@@ -605,18 +615,19 @@ class KGObject(with_metaclass(Registry, object)):
     def _update_needed(self, data):
         for key, value in data.items():
             if key not in self.instance.data:
-                return True
+                if value is not None:
+                    return True
             elif self.instance.data[key] != value:
                 return True
         return False
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         if self.fields:
             data = {}
             for field in self.fields:
                 if field.intrinsic:
                     value = getattr(self, field.name)
-                    if field.required or value is not None:
+                    if all_fields or field.required or value is not None:
                         serialized = field.serialize(value, client)
                         if field.path in data:
                             if isinstance(data[field.path], list):
@@ -631,7 +642,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     def save(self, client):
         """docstring"""
-        data = self._build_data(client)
+
 
         if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
@@ -645,18 +656,20 @@ class KGObject(with_metaclass(Registry, object)):
                     self.id, cls=self.__class__, api="nexus", use_cache=False)
 
         if self.instance:
+            data = self._build_data(client, all_fields=True)
             if self._update_needed(data):
                 logger.info("Updating - {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
-                    assert set(compact_uri(self.instance.data["@type"],
-                                           standard_context)) == set(self.type)
+                    instance_type = compact_uri(self.instance.data["@type"], standard_context)
+                    assert set(instance_type) == set(self.type), "{} != {}".format(set(instance_type), set(self.type))
                 self.instance = client.update_instance(self.instance)
             else:
                 logger.info("Not updating {}(id={}), unchanged".format(self.__class__.__name__,
                                                                        self.id))
         else:
+            data = self._build_data(client)
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
@@ -672,6 +685,8 @@ class KGObject(with_metaclass(Registry, object)):
     def delete(self, client):
         """Deprecate"""
         client.delete_instance(self.instance)
+        if self.id in KGObject.object_cache:
+            KGObject.object_cache.pop(self.id)
 
     @classmethod
     def by_name(cls, name, client, match="equals", all=False, api="query",
@@ -809,16 +824,15 @@ class KGObject(with_metaclass(Registry, object)):
                     ]
 
                 # here we add a filter for top-level fields
-                if datetime not in field.types:
-                    if field.types[0] in (int, float, bool):
-                        op = "equals"
-                    else:
-                        op = "contains"
-                    if top_level:
-                        field_definition["filter"] = {  # don't filter on datetime,  ...
-                            "op": op,
-                            "parameter": field.name
-                        }
+                if field.types[0] in (int, float, bool, datetime, date):
+                    op = "equals"
+                else:
+                    op = "contains"
+                if top_level:
+                    field_definition["filter"] = {  # don't filter on datetime,  ...
+                        "op": op,
+                        "parameter": field.name
+                    }
 
                 fields.append(field_definition)
 
@@ -1024,6 +1038,7 @@ class KGQuery(object):
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000, api="query", scope="released", use_cache=True):
+        # todo: add from_index argument?
         objects = []
         for cls in self.classes:
             if api == "nexus":

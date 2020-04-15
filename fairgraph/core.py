@@ -90,7 +90,7 @@ class Organization(KGObject):
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/organization/v0.1.0"
-    type = "nsg:Organization"
+    type = ["nsg:Organization"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -287,7 +287,7 @@ class Protocol(KGObject):
                    KGProxy(Identifier, D["schema:identifier"]),
                    D["@id"], instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name
@@ -316,7 +316,7 @@ class Protocol(KGObject):
 class Identifier(KGObject):
     namespace = "nexus"
     _path = "/schemaorgsh/identifier/v0.1.0"
-    type = "schema:Identifier"
+    type = ["schema:Identifier"]
 
 
 class Material(object):
@@ -404,7 +404,7 @@ class Collection(KGObject):
     #                id=D["@id"],
     #                instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name

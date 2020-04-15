@@ -8,7 +8,7 @@ Fairgraph uses queries to interact with the Knowledge Graph database. For speed 
 
 The means that all queries used by fairgraph will be constructed and uploaded on the KG server. For example, the query with argument "XXX" looking either for a name containing "XXX" or for the ID of a dataset being "XXX" is stored at the following address:
 
-https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg_name_contains_id_equals
+https://kg.humanbrainproject.eu/query/minds/core/dataset/v1.0.0/fg_name_contains_id_equals
 
 So for each new faigraph function relying on a new query. The query needs to be added. This is performed in the following two steps procedure:
 
@@ -67,32 +67,32 @@ $ python build_KG_queries.py
 The output should look like this:
 
 ```
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg 
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg_name_contains_id_equals 
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/agecategory/v1.0.0/fg 
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/core/agecategory/v1.0.0/fg_name_contains_id_equals 
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/ethics/approval/v1.0.0/fg 
-Successfully stored the query at https://kg.humanbrainproject.org/query/minds/ethics/approval/v1.0.0/fg_name_contains_id_equals 
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/core/activity/v1.0.0/fg
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/core/activity/v1.0.0/fg_name_contains_id_equals
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/core/agecategory/v1.0.0/fg
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/core/agecategory/v1.0.0/fg_name_contains_id_equals
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/ethics/approval/v1.0.0/fg
+Successfully stored the query at https://kg.humanbrainproject.eu/query/minds/ethics/approval/v1.0.0/fg_name_contains_id_equals
 [...]
 ```
 
 <!-- # 2) Integrating Knowledge graph queries into fairgraph -->
 
-<!-- We use the features of the [HBP Knowledge Graph editor](https://kg.humanbrainproject.org/editor) to build the queries and the namespace properties (e.g. its classes) within fairgraph. -->
+<!-- We use the features of the [HBP Knowledge Graph editor](https://kg.humanbrainproject.eu/editor) to build the queries and the namespace properties (e.g. its classes) within fairgraph. -->
 
 <!-- Vocabulary: -->
 
 <!-- - "Namespaces" refer to the different root schema considered: "Minds", "Uniminds", "Neuralactivity", ... They are associated to a given "Version". -->
 <!-- - "Classes" refer to the different schemas of a given namespace: e.g. for the minds schema: "Dataset", "Person", ... -->
 <!--  - "Attributes" are the properties of the entries of a given class. E.g. a Dataset has the attributes: "name", "contributors", "identifier", ... -->
- 
+
 <!-- All those objects need to be included into "faigraph". We detail here the procedure to do this. -->
 
 <!-- ## 1) Build a general query with the KG editor for a given Namespace and a given Class of interest -->
 
 <!-- Let's build a general query for the case of the "Minds" namespace for the "Dataset" class. -->
 
-<!-- Within the [Knowledge Graph editor](https://kg.humanbrainproject.org/editor), we select the [query-builder](https://kg.humanbrainproject.org/editor/query-builder). -->
+<!-- Within the [Knowledge Graph editor](https://kg.humanbrainproject.eu/editor), we select the [query-builder](https://kg.humanbrainproject.eu/editor/query-builder). -->
 
 <!-- We scroll over the root schema to find the "Minds" namepsace, and then we select the "Dataset" class within the "Minds" namespace. -->
 
@@ -111,7 +111,7 @@ Successfully stored the query at https://kg.humanbrainproject.org/query/minds/et
 
 <!-- The stored query should therefore appear in the following address: -->
 
-<!-- https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Minds-Dataset-KGE -->
+<!-- https://kg.humanbrainproject.eu/query/minds/core/dataset/v1.0.0/fg-Minds-Dataset-KGE -->
 
 <!-- ## 2) Repeat for all Namespaces and Classes of interest -->
 
@@ -200,21 +200,21 @@ Successfully stored the query at https://kg.humanbrainproject.org/query/minds/et
 
 <!-- For the above [config.py](./config.py) the list is: -->
 
-<!-- https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity -->
+<!-- https://kg.humanbrainproject.eu/query/minds/core/activity/v1.0.0/fg-Activity -->
 
-<!-- https://kg.humanbrainproject.org/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals -->
-
-<!-- ... -->
-
-<!-- https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_contributors_contains  -->
-
-<!-- https://kg.humanbrainproject.org/query/minds/core/dataset/v1.0.0/fg-Dataset_id_equals  -->
+<!-- https://kg.humanbrainproject.eu/query/minds/core/activity/v1.0.0/fg-Activity_name_contains_id_equals -->
 
 <!-- ... -->
 
-<!-- https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person  -->
+<!-- https://kg.humanbrainproject.eu/query/minds/core/dataset/v1.0.0/fg-Dataset_contributors_contains  -->
 
-<!-- https://kg.humanbrainproject.org/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals  -->
+<!-- https://kg.humanbrainproject.eu/query/minds/core/dataset/v1.0.0/fg-Dataset_id_equals  -->
+
+<!-- ... -->
+
+<!-- https://kg.humanbrainproject.eu/query/uniminds/core/person/v1.0.0/fg-Person  -->
+
+<!-- https://kg.humanbrainproject.eu/query/uniminds/core/person/v1.0.0/fg-Person_name_contains_id_equals  -->
 
 
 <!-- ## 6) Check that the fairgraph import works -->
@@ -222,4 +222,3 @@ Successfully stored the query at https://kg.humanbrainproject.org/query/minds/et
 <!-- [...] -->
 
 <!-- maybe build the properties of the classes wrt the "field" entries of the KGE generated queries -->
-

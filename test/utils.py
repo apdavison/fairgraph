@@ -91,7 +91,7 @@ class MockHttpClient(HttpClient):
                         raise NotImplementedError("todo")
                     data = deepcopy(data)  # don't want to mess with the cache
                     data["results"] = results
-            elif parts.netloc == "kg.humanbrainproject.org":
+            elif parts.netloc == "kg.humanbrainproject.eu":
                 if "species" in parts.query:   # api="query"
                     query = parse_qs(parts.query)
                     if "species" in query:

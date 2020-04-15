@@ -56,7 +56,7 @@ class KGClient(object):
     def __init__(self, token=None,
                  nexus_endpoint="https://nexus.humanbrainproject.eu/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.eu/query",
-                 release_endpoint="https://kg.humanbrainproject.org/api/releases",
+                 release_endpoint="https://kg.humanbrainproject.eu/api/releases",
                  idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
         if token is None:
             if oauth_token_handler:
@@ -193,18 +193,20 @@ class KGClient(object):
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
         if use_cache and uri in self.cache:
-            logger.debug("Retrieving instance from cache")
+            logger.debug("Retrieving instance {} from cache".format(uri))
             instance = self.cache[uri]
         elif api == "nexus":
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             if instance and instance.data and "@id" in instance.data:
-                self.cache[instance.data["@id"]] = instance
-                logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
+                if deprecated is False and instance.data["nxv:deprecated"]:
+                    instance = None
+                    logger.debug("Not returning deprecated instance")
+                else:
+                    self.cache[instance.data["@id"]] = instance
+                    logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
             else:
-                instance = None
-            if instance and deprecated is False and instance.data["nxv:deprecated"]:
                 instance = None
         elif api == "query":
             if cls and hasattr(cls, "query_id") and cls.query_id is not None:
@@ -246,8 +248,10 @@ class KGClient(object):
 
     def delete_instance(self, instance):
         self._nexus_client.instances.delete(instance)
-        if instance.id in self.cache:
-            self.cache.pop(instance.id)
+        logger.debug("Deleting instance {}".format(instance.id))
+        if instance.data["@id"] in self.cache:
+            logger.debug("Removing {} from cache".format(instance.data["@id"]))
+            self.cache.pop(instance.data["@id"])
 
     def by_name(self, cls, name, match="equals", all=False,
                 api="query", scope="released", resolved=False):
