@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, CultureType, Age, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange
+from .commons import QuantitativeValue, MorphologyType, CultureType, Age, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
@@ -277,29 +277,44 @@ class PatchedCell(KGObject):
         "brainLocation": "nsg:brainLocation",
         "brainRegion": "nsg:brainRegion",
         "eType": "nsg:eType",
-        "labelingCompound": "nsg:labelingCompound"
+        "labelingCompound": "nsg:labelingCompound",
+        "liquidJunctionPotential": "nsg:liquidJunctionPotential",
+        "startMembranePotential": "nsg:startMembranePotential",
+        "endMembranePotential": "nsg:endMembranePotential",
+        "chlorideReversalPotential": "nsg:chlorideReversalPotential",
+        "pipetteResistance": "nsg:pipetteResistance",
+        "sealResistance": "nsg:sealResistance",
+        "pipetteNumber": "nsg:pipetteNumber",
+        "solution": "nsg:solution",
+        "description" : "schema:description"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember",
               reverse="cells"),
+        Field("putative_cell_type", CellType, "eType", required=False),
         Field("cell_type", CellType, "eType", required=False),
+        Field("morphology_type", MorphologyType, "morphologyType"),
         Field("experiments", "electrophysiology.PatchClampExperiment",
               "^prov:used", reverse="recorded_cell", multiple=True),
-        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        Field("pipette_id", (basestring, int), "pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
-        Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
-        Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
-        Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
-        Field("labeling_compound", basestring, "nsg:labelingCompound"),
-        Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
+        Field("seal_resistance", QuantitativeValue, "sealResistance"),
+        Field("pipette_resistance", QuantitativeValue, "pipetteResistance"),
+        Field("liquid_junction_potential", QuantitativeValue, "liquidJunctionPotential"),
+        Field("start_membrane_potential", QuantitativeValue, "startMembranePotential"),
+        Field("end_membrane_potential", QuantitativeValue, "endMembranePotential"),
+        Field("pipette_solution", basestring, "solution"),
+        Field("labeling_compound", basestring, "labelingCompound"),
+        Field("reversal_potential_cl", QuantitativeValue, "chlorideReversalPotential"),
+        Field("description", basestring, "description")
     )
 
-    def __init__(self, name, brain_location, collection=None, cell_type=None, experiments=None,
-                 pipette_id=None, seal_resistance=None, pipette_resistance=None,
-                 liquid_junction_potential=None, labeling_compound=None,
-                 reversal_potential_cl=None, id=None, instance=None):
+    def __init__(self, name, brain_location, collection=None, putative_cell_type=None, cell_type=None, morphology_type=None, experiments=None,
+                 pipette_id=None, seal_resistance=None, pipette_resistance=None, start_membrane_potential=None, end_membrane_potential=None,
+                 pipette_solution=None, liquid_junction_potential=None, labeling_compound=None,
+                 reversal_potential_cl=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -514,6 +529,7 @@ class BrainSlicingActivity(KGObject):
         "generated": "prov:generated",
         "used": "prov:used",
         "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime",
         "label": "rdfs:label",
         "value": "schema:value",
         "unitCode": "schema:unitCode",
@@ -522,23 +538,26 @@ class BrainSlicingActivity(KGObject):
         "slicingPlane": "nsg:slicingPlane",
         "solution": "nsg:solution",
         "slicingAngle": "nsg:slicingAngle",
+        "hemisphere": "nsg:hemisphere",
         "cuttingThickness": "nsg:cuttingThickness"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("slices", Slice, "generated", multiple=True, required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
-        Field("slicing_plane", basestring, "slicingPlane", required=False),
-        Field("slicing_angle", float, "slicingAngle", required=False),
-        Field("cutting_solution", basestring, "solution", required=False),
-        Field("cutting_thickness", (QuantitativeValueRange, QuantitativeValue), "cuttingThickness", required=False),
-        Field("start_time", datetime, "startedAtTime", required=False),
-        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+        Field("brain_location", BrainRegion, "brainLocation", multiple=True),
+        Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
+        Field("slicing_plane", basestring, "slicingPlane"), # Sagittal, Para-sagittal, Coronal, Horizontal
+        Field("slicing_angle", float, "slicingAngle"),
+        Field("cutting_solution", basestring, "solution"),
+        Field("cutting_thickness", (QuantitativeValueRange, QuantitativeValue), "cuttingThickness"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject",)  # can only slice a brain once...
 
-    def __init__(self, subject, slices, brain_location=None, slicing_plane=None, slicing_angle=None,
-                 cutting_solution=None, cutting_thickness=None, start_time=None, people=None,
+    def __init__(self, subject, slices, brain_location=None, hemisphere=None, slicing_plane=None, slicing_angle=None,
+                 cutting_solution=None, cutting_thickness=None, start_time=None, end_time=None, people=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -614,14 +633,14 @@ class CulturingActivity(KGObject):
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("cell_culture", CellCulture, "generated", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
+        Field("brain_location", BrainRegion, "brainLocation", multiple=True),
         Field("culture_type", CultureType, "cultureType"),
         Field("culture_age", QuantitativeValueRange, "age"),
-        Field("hemisphere", basestring, "hemisphere"),
+        Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
         Field("culture_solution", basestring, "solution"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
-        Field("people", Person, "wasAssociatedWith", multiple=True, required=False)
+        Field("people", Person, "wasAssociatedWith", multiple=True)
     )
     existence_query_fields = ("subject",)  # can only slice a brain once...
 
@@ -683,9 +702,12 @@ class PatchedSlice(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "dcterms": "http://purl.org/dc/terms/",
         "name": "schema:name",
-        "brainRegion": "nsg:BrainRegion",
         "hasPart": "nsg:hasPart",
-        "wasRevisionOf": "prov:wasRevisionOf"
+        "wasRevisionOf": "prov:wasRevisionOf",
+        "brainRegion": "nsg:brainRegion",
+        "brainlocation": "nsg:brainLocation",
+        "solution": "nsg:solution",
+        "description": "schema:description"
     }
     #collection_class = "PatchedCellCollection"
     #recording_activity_class = "PatchClampActivity"
@@ -695,10 +717,13 @@ class PatchedSlice(KGObject):
         Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart",
               required=True),
         Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated",
-              reverse="recorded_slice")
+              reverse="recorded_slice"),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
+        Field("bath_solution", QuantitativeValue, "solution"),
+        Field("description", basestring, "description")
     )
 
-    def __init__(self, name, slice, recorded_cells, recording_activity=None,
+    def __init__(self, name, slice, recorded_cells, recording_activity=None, brain_location=None, bath_solution=None, description = None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -842,13 +867,13 @@ class MEGExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-	Field("device", Device, "prov:used"),
-	Field("Task", Task, "wasInformedBy"),
-	Field("sensors", MEGObject, "sensors"),
+    	Field("device", Device, "prov:used"),
+    	Field("Task", Task, "wasInformedBy"),
+    	Field("sensors", MEGObject, "sensors"),
         Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
-	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
-	Field("digitized_head_points", bool, "digitizedHeadPoints"),
-	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
+    	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
+    	Field("digitized_head_points", bool, "digitizedHeadPoints"),
+    	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
@@ -1073,7 +1098,15 @@ class QualifiedTraceGeneration(KGObject):
         "label": "rdfs:label",
         "value": "schema:value",
         "unitCode": "schema:unitCode",
-        "targetHoldingPotential": "nsg:targetHoldingPotential"
+        "targetHoldingPotential": "nsg:targetHoldingPotential",
+        "repetition" : "nsg:repetition",
+        "at_time" : "nsg:atTime",
+        "providerExperimentId" : "nsg:providerExperimentId",
+        "providerExperimentName" : "nsg:providerExperimentName",
+        "measuredHoldingPotential" : "nsg:measuredHoldingPotential",
+        "inputResistance" : "nsg:inputResistance",
+        "seriesResistance" : "nsg:seriesResistance",
+        "compensationCurrent" : "nsg:compensationCurrent"
     }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -1081,13 +1114,22 @@ class QualifiedTraceGeneration(KGObject):
               (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
               "activity", required=True),
         Field("sweep", int, "sweep", multiple=True, required=True),
+        Field("repetition", int, "repetition"),
+        Field("at_time", datetime, "atTime"),
+        Field("provider_experiment_id", basestring, "providerExperimentId"),
+        Field("provider_experiment_name", basestring, "providerExperimentName"),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
-        Field("holding_potential", QuantitativeValue, "targetHoldingPotential")
+        Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
+        Field("measured_holding_potential", QuantitativeValue, "measuredHoldingPotential"),
+        Field("input_resistance", QuantitativeValue, "inputResistance"),
+        Field("series_resistance", QuantitativeValue, "seriesResistance"),
+        Field("compensation_current", QuantitativeValue, "compensationCurrent")
     )
 
     def __init__(self, name, stimulus_experiment, sweep, #traces=None,
-                 holding_potential=None,
-                 id=None, instance=None):
+                 repetition= None, at_time=None, provider_experiment_id =None, provider_experiment_name=None,
+                 holding_potential=None, measured_holding_potential=None, input_resistance=None,
+                 series_resistance=None, compensation_current=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1146,7 +1188,7 @@ class ElectrodePlacementActivity(KGObject):
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("device", Device, "generated", multiple=True),
-	Field("protocol", Protocol, "hadProtocol"),
+	    Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
@@ -1356,9 +1398,9 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("sweeps", int, "sweep", multiple=True, required=True),
         Field("channel_type", basestring, "channelType"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
-	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
-	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
-    )
+    	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
+    	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
+        )
 
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
                  channel_type=None, holding_potential=None, sampling_frequency=None, power_line_frequency=None,
