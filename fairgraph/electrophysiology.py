@@ -656,7 +656,7 @@ class CulturingActivity(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    def _build_data(self, client, all_fields=False)):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = super(CulturingActivity, self)._build_data(client, all_fields=all_fields)
         if "brainRegion" in data:
