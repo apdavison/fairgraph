@@ -544,7 +544,7 @@ class BrainSlicingActivity(KGObject):
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("slices", Slice, "generated", multiple=True, required=True),
-        Field("brain_location", BrainRegion, "brainLocation", multiple=True),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
         Field("slicing_plane", basestring, "slicingPlane"), # Sagittal, Para-sagittal, Coronal, Horizontal
         Field("slicing_angle", float, "slicingAngle"),
@@ -633,7 +633,7 @@ class CulturingActivity(KGObject):
     fields = (
         Field("subject", Subject, "used", required=True),
         Field("cell_culture", CellCulture, "generated", required=True),
-        Field("brain_location", BrainRegion, "brainLocation", multiple=True),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("culture_type", CultureType, "cultureType"),
         Field("culture_age", QuantitativeValueRange, "age"),
         Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
