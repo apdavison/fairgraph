@@ -113,6 +113,15 @@ class Shape(OntologyTerm):
     }
 
 
+class MorphologyType(OntologyTerm):
+    """
+    The morphology of the cell used for recording.
+    """
+    iri_map = {
+        "bipolar": "http://purl.obolibrary.org/obo/FMA_67282"
+    }
+
+
 class Strain(OntologyTerm):
     """
     An inbred sub-population within a species.
