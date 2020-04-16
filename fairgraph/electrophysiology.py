@@ -48,7 +48,6 @@ class MEGObject(KGObject):
     """Object specific to MEG Experiment"""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/megobject/v0.1.0" #prod
-#    _path = "/electrophysiology/megobject/v0.1.4" #int
     type = ["nsg:MEGObject", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -56,7 +55,6 @@ class MEGObject(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "coordinateSystem": "nsg:coordinateSystem",
         "coordinateUnits": "nsg:coordinateUnits",
         "description": "schema:description",
         "distribution": {
@@ -71,7 +69,7 @@ class MEGObject(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("coordinate_system", Distribution, "coordinateSystem"),
+        Field("coordinate_system", Distribution, "distribution"),
         Field("coordinate_units", basestring, "coordinateUnits"),
         Field("description", basestring, "description")
     )
@@ -83,7 +81,7 @@ class MEGObject(KGObject):
 
 
 class Task(KGObject):
-    """Stimulus provided to Subject in MEGExperiment."""
+    """Stimulus provided to subject in MEGExperiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/task/v0.1.0" # prod
 #    _path = "/electrophysiology/task/v0.1.2" # int
@@ -108,8 +106,8 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("cogatlasid", Distribution, "cogAtlastID"),
-        Field("cogpoid", Distribution, "cogPIOD")
+        Field("cogatlasid", Distribution, "distribution"),
+        Field("cogpoid", Distribution, "distribution")
     )
 
     def __init__(self, name, description, cogatlasid=None, cogpoid=None, id=None, instance=None):
@@ -121,16 +119,29 @@ class Task(KGObject):
 class Device(KGObject):
     """Device used to collect recording in MEGExperiment"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/device/v0.1.0" # prod
-#    _path = "/electrophysiology/device/v0.1.2" # int
-    type = ["prov:Entity", "nsg:Device"]
+    _path = "/electrophysiology/device/v0.1.0"
+    type = ["nsg:Device", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "description": "schema:description"
+        "description": "schema:description",
+        "manufacturer" : "nsg:manufacturer",
+        "modelName" : "nsg:modelName",
+        "softwareVersion" : "nsg:softwareVersion",
+        "serialNumber" : "nsg:serialNumber",
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
     }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -187,7 +198,8 @@ class Trace(KGObject):
             "@id": "schema:mediaType"
         },
         "minds": "https://schema.hbp.eu/",
-        "partOf": "nsg:partOf"  # todo: add to nsg
+        "partOf": "nsg:partOf",  # todo: add to nsg
+        "retrievalDate" : "nsg:retrievalDate"
     }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -200,11 +212,12 @@ class Trace(KGObject):
         # add type for units, to allow checking?
         Field("data_unit", basestring, "dataUnit", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
-        Field("part_of", Dataset, "partOf")
-    )
+        Field("part_of", Dataset, "partOf"),
+        Field("retrieval_date", datetime, "retrievalDate")
+            )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
-                 time_step, part_of=None, id=None, instance=None):
+                 time_step, part_of=None, retrieval_date=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -249,7 +262,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("channel_type", ChannelType, "ChannelType"),
         Field("part_of", Dataset, "partOf")
-    )
+        )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
                  time_step, channel_type=None, part_of=None, id=None, instance=None):
@@ -824,19 +837,24 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
         "used": "prov:used",
+        "hadProtocol": "prov:hadProtocol",
         "generated": "prov:generated",
-        "wasAssociatedWith": "prov:wasAssociatedWith"
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("slice_or_culture", (CellCulture, Slice), "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated"),
-        Field("protocol", basestring, "protocol"),
-        Field("people", Person, "wasAssociatedWith", multiple=True)
+        Field("protocol", basestring, "hadProtocol"),
+        Field("people", Person, "wasAssociatedWith", multiple=True),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime")
     )
 
     def __init__(self, name, slice_or_culture, recorded_slice=None, protocol=None, people=None,
-                 id=None, instance=None):
+                 start_time=None, end_time=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -847,7 +865,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.1.0" # prod
+    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
@@ -856,9 +874,13 @@ class MEGExperiment(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-	"device": "nsg:device",
-	"wasInformedBy": "prov:wasInformedBy",
-	"megobject": "nsg:megobject",
+    	"device": "nsg:device",
+        "sensors": "nsg:sensors",
+    	"wasInformedBy": "prov:wasInformedBy",
+    	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
+        "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
+    	"digitizedHeadPoints": "nsg:digitizedHeadPoints",
+    	"digitizedLandmarks": "nsg:digitizedLandmarks",
         "used": "prov:used",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -867,8 +889,8 @@ class MEGExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-    	Field("device", Device, "prov:used"),
-    	Field("Task", Task, "wasInformedBy"),
+    	Field("device", Device, "used"),
+    	Field("task", Task, "wasInformedBy"),
     	Field("sensors", MEGObject, "sensors"),
         Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
@@ -970,18 +992,29 @@ class PatchClampExperiment(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "label": "rdfs:label"
+        "label": "rdfs:label",
+        "used": "prov:used",
+        "stimulusType" : "nsg:stimulusType",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "hadProtocol": "prov:hadProtocol"
     }
     #recorded_cell_class = "PatchedCell"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=False),
+        Field("recorded_cell", PatchedCell, "used", required=True),
+        Field("stimulus", StimulusType, "stimulusType", required=False),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
-              multiple=True, reverse="generated_by")
+              multiple=True, reverse="generated_by"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True),
+        Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, recorded_cell, stimulus=None, traces=None, id=None, instance=None):
+    def __init__(self, name, recorded_cell, stimulus=None, traces=None,
+    start_time=None, end_time=None, people=None, protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1136,7 +1169,7 @@ class QualifiedTraceGeneration(KGObject):
 
 
 class ImplantedBrainTissue(KGObject):
-    """Brain tissure in which extracellular electrode was implantated."""
+    """Brain tissue in which extracellular electrode was implanted."""
     namespace = DEFAULT_NAMESPACE
     _path = "/core/implantedbraintissue/v0.1.0"
     type = ["nsg:ImplantedBrainTissue", "prov:Entity"]
@@ -1179,15 +1212,15 @@ class ElectrodePlacementActivity(KGObject):
         "device": "nsg:device",
         "used": "prov:used",
         "generated": "prov:generated",
-	"brainRegion": "nsg:brainRegion",
+	    "brainRegion": "nsg:brainRegion",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	"hadProtocol": "prov:hadProtocol"
+	    "hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
-        Field("device", Device, "generated", multiple=True),
+        Field("device", Device, "generated"),
 	    Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
@@ -1213,30 +1246,31 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "implantedBrainTissue": "nsg:implantedBrainTissue",
         "used": "prov:used",
         "generated": "prov:generated",
-	"brainRegion": "nsg:brainRegion",
+	    "brainRegion": "nsg:brainRegion",
         "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime",
         "anesthesia": "nsg:anesthesia",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	"CranialWindow": "nsg:cranialWindow",
-	"hadProtocol": "prov:hadProtocol"
-    }
+	    "CranialWindow": "nsg:cranialWindow",
+	    "hadProtocol": "prov:hadProtocol"
+       }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
-        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated",
-              multiple=True),
-        Field("device", Device, "generated", multiple=True),
-	Field("cranial_window", CranialWindow, "cranialWindow"),
-	Field("protocol", Protocol, "hadProtocol"),
+        Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True),
+        Field("device", Device, "generated"),
+    	Field("cranial_window", CranialWindow, "cranialWindow"),
+    	Field("protocol", Protocol, "hadProtocol"),
         Field("anesthesia", basestring, "anesthesia"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, name, subject, brain_location, implanted_brain_tissues=None, device=None, cranial_window=None, protocol=None, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, subject, brain_location, implanted_brain_tissues=None, device=None, cranial_window=None,
+    protocol=None, anesthesia=None, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1259,6 +1293,10 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
+    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     """A cell recorded intracellularly with a sharp electrode."""
@@ -1387,9 +1425,12 @@ class QualifiedMultiTraceGeneration(KGObject):
         "sweep": "nsg:sweep",
         "activity": "prov:activity",
         "label": "rdfs:label",
+        "channelType": "nsg:channelType",
         "value": "schema:value",
         "unitCode": "schema:unitCode",
-        "targetHoldingPotential": "nsg:targetHoldingPotential"
+        "targetHoldingPotential": "nsg:targetHoldingPotential",
+        "samplingFrequency": "nsg:samplingFrequency",
+        "powerLineFrequency": "nsg:powerLineFrequency"
     }
 
     fields = (
