@@ -828,7 +828,7 @@ class PatchedCellCollection(KGObject):
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """A patch clamp recording session."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/wholecellpatchclamp/v0.2.0"
+    _path = "/experiment/wholecellpatchclamp/v0.3.0"
     type = ["nsg:WholeCellPatchClamp", "prov:Activity"]
     #generates_class = "PatchedSlice"
     context = {
@@ -845,7 +845,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("slice_or_culture", (CellCulture, Slice), "used", required=True),
+        Field("slice_or_culture", (CellCulture, Slice, CranialWindow), "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated"),
         Field("protocol", basestring, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
