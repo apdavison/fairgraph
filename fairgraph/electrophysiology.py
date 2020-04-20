@@ -1008,8 +1008,8 @@ class PatchClampExperiment(KGObject):
     #recorded_cell_class = "PatchedCell"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", PatchedCell, "used", required=True),
-        Field("stimulus", StimulusType, "stimulusType", required=False),
+        Field("recorded_cell", PatchedCell, "prov:used", required=True),
+        Field("stimulus", StimulusType, "stimulusType"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
