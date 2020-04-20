@@ -1009,7 +1009,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "stimulusType"),
+        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -1018,7 +1018,7 @@ class PatchClampExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, recorded_cell, stimulus=None, traces=None,
+    def __init__(self, name, recorded_cell, stimulus, traces=None,
     start_time=None, end_time=None, people=None, protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
