@@ -154,7 +154,7 @@ class Device(KGObject):
         Field("distribution", Distribution, "distribution"),
         Field("description", basestring, "description"),
         Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
-        Field("experiment", MEGExperiment, "^prov:used", reverse="device")
+        Field("experiment", "electrophysiology.MEGExperiment", "^prov:used", reverse="device")
     )
 
     def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
