@@ -39,7 +39,6 @@ from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusT
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-from .electrophysiology import ElectrodeImplantationActivity, PatchClampActivity
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -296,7 +295,7 @@ class CranialWindow(KGObject):
         Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
         Field("description", basestring, "description"),
         Field("generated_by", "Craniotomy", "^prov:generated", reverse="cranial_window"),
-        Field("activity", ("optophysiology.TwoPhotonImaging", ElectrodeImplantationActivity, PatchClampActivity),"^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
+        Field("activity", ("optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeImplantationActivity", "electrophysiology.PatchClampActivity"),"^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
     )
 
     def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None,
