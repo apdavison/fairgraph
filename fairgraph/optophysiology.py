@@ -497,7 +497,7 @@ class VisualStimulus(KGObject):
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description"),
         Field("distribution", Distribution, "distribution"),
-        Field("stimulation", VisualStimulation, "^prov:used", reverse="stimulus")
+        Field("stimulation", "optophysiology.VisualStimulation", "^prov:used", reverse="stimulus")
     )
 
     def __init__(self, name, description=None, distribution=None, stimulation=None, id=None, instance=None):
@@ -575,7 +575,7 @@ class ElectrophysiologicalStimulus(KGObject):
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
         Field("distribution", Distribution, "distribution"),
-        Field("stimulation", ElectrophysiologicalStimulation, "^prov:used", reverse="stimulus")
+        Field("stimulation", "optophysiology.ElectrophysiologicalStimulation", "^prov:used", reverse="stimulus")
     )
 
     def __init__(self, name, description, distribution=None, stimulation=None, id=None, instance=None):
