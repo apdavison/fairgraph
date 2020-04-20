@@ -267,7 +267,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("channel_type", ChannelType, "ChannelType"),
         Field("part_of", Dataset, "partOf")
-        )
+    )
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel_names, data_unit,
                  time_step, channel_type=None, part_of=None, id=None, instance=None):
@@ -1448,7 +1448,7 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
     	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
     	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
-        )
+    )
 
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,
                  channel_type=None, holding_potential=None, sampling_frequency=None, power_line_frequency=None,

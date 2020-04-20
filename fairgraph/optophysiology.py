@@ -139,7 +139,7 @@ class TimeSeriesExtraction(KGObject):
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
-        )
+    )
 
     def __init__(self, name, fluorescence_trace, region_of_interest=None, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
@@ -222,7 +222,7 @@ class RegionOfInterest(KGObject):
     	Field("description", basestring, "description"),
         Field("selection", "optophysiology.ROISelection","^prov:generated", reverse="regions"),
         Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
-        )
+    )
 
     def __init__(self, name, position= None, shape=None, classification=None,
     description=None, selection=None, time_series=None, id=None, instance=None):
@@ -259,7 +259,7 @@ class ROISelection(KGObject):
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
-        )
+    )
 
     def __init__(self, name, image_sequence, regions, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
@@ -460,7 +460,7 @@ class MotionCorrection(KGObject):
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
-        )
+    )
 
     def __init__(self, name, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
@@ -539,7 +539,7 @@ class VisualStimulation(KGObject):
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
-        )
+    )
 
     def __init__(self, name, stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
@@ -613,7 +613,7 @@ class ElectrophysiologicalStimulation(KGObject):
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
-        )
+    )
 
     def __init__(self, name, electrophysiological_stimulus, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
