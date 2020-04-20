@@ -212,6 +212,7 @@ class BrainRegion(OntologyTerm):
         "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
         "dorsal cortex": "http://purl.obolibrary.org/obo/UBERON_0002577",
+        "dorsal striatum": "http://purl.obolibrary.org/obo/UBERON_0005382",
 	    "frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
         "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
         "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",

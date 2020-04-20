@@ -43,9 +43,10 @@ from .utility import compact_uri, standard_context, as_list
 DEFAULT_NAMESPACE = "neuralactivity"
 
 class Position(KGObject):
+    """Location within a coordinate system."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/position/v0.1.0"
-    type = ["prov:Entity", "nsg:Position"]
+    type = ["nsg:Position", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -53,7 +54,7 @@ class Position(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
     	"origin": "nsg:origin",
-        "xcoordinate": "nsg:x",
+        "x": "nsg:x",
         "ycoordinate": "nsg:y"
         }
     fields = (
