@@ -1189,7 +1189,7 @@ class ImplantedBrainTissue(KGObject):
     fields =  (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("implantation_activity", ElectrodeImplantationActivity, "^prov:generated", reverse="implanted_brain_tissues"),
+        Field("implantation_activity", "electrophysiology.ElectrodeImplantationActivity", "^prov:generated", reverse="implanted_brain_tissues"),
         Field("experiment", "ExtracellularElectrodeExperiment", "^prov:used", reverse="recorded_cell"),
     )
 
