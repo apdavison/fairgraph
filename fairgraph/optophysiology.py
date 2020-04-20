@@ -59,12 +59,12 @@ class Position(KGObject):
         }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("origin", basestring, "origin"),
+        Field("origin", basestring, "origin", required=True),
         Field("xcoordinate", float, "x"),
         Field("ycoordinate", float, "y")
         )
 
-    def __init__(self, name, origin=None, xcoordinate=None, ycoordinate=None, id=None, instance=None):
+    def __init__(self, name, origin, xcoordinate=None, ycoordinate=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -74,7 +74,7 @@ class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/regionofinterest/v0.9.0"
-    type = ["prov:Entity", "nsg:RegionOfInterest"]
+    type = ["nsg:RegionOfInterest", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -105,7 +105,7 @@ class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/fluorescencetrace/v0.1.0"
-    type = ["prov:Entity", "nsg:FluorescenceTrace"]
+    type = ["nsg:FluorescenceTrace", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -195,6 +195,7 @@ class ImageSequence(KGObject):
             "imageSize": "nsg:imageSize",
             "brainLocation": "nsg:brainLocation",
             "value": "schema:value",
+            "extent": "nsg:extent",
             "description": "schema:description",
             "wasGeneratedBy": "prov:wasGeneratedBy",
             "distribution": {
@@ -215,12 +216,14 @@ class ImageSequence(KGObject):
         Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy"),
         Field("image_count", int, "imageCount", required=False),
         Field("image_size", int, "imageSize", required=False),
+        Field("extent", QuantitativeValue, "extent"),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("distribution", Distribution, "distribution", required=False),
         Field("description", basestring, "description", required=False)
     )
 
-    def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
+    def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None,
+    extent=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -236,9 +239,9 @@ class ROISelection(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "generated": "prov:generated",
         "name": "schema:name",
         "used": "prov:used",
+        "generated": "prov:generated",
 	    "hadProtocol":"p  rov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
     	"citation":"nsg:citation",
@@ -275,6 +278,7 @@ class CranialWindow(KGObject):
         "value": "schema:value",
         "name": "schema:name",
         "brainLocation": "nsg:brainLocation",
+        "brainRegion": "nsg:brainRegion",
     	"windowType":"nsg:windowType",
     	"diameter":"nsg:diameter",
     	"fluorescenceLabeling":"nsg:fluorescenceLabeling",
@@ -314,14 +318,14 @@ class Craniotomy(KGObject):
         "anesthesia": "nsg:anesthesia",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
-	"hadProtocol": "hadProtocol"
+	    "hadProtocol": "hadProtocol"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("cranial_window", CranialWindow, "generated", required=True),
         Field("anesthesia", basestring, "anesthesia"),
-	Field("protocol", Protocol, "hadProtocol"),
+	    Field("protocol", Protocol, "hadProtocol"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
@@ -471,10 +475,10 @@ class VisualStimulus(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "minds": "https://schema.hbp.eu/",
         "value": "schema:value",
         "name": "schema:name",
         "description": "schema:description",
-        "minds": "https://schema.hbp.eu/",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -510,7 +514,10 @@ class VisualStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
-	       "protocol":"prov:hadProtocol",
+        "interstimulusInterval": "nsg:interstimulusInterval",
+        "refreshRate": "nsg:refreshRate",
+        "backgroundLuminance": "nsg:backgroundLuminance",
+	    "hadProtocol":"prov:hadProtocol",
         "value": "schema:value",
     	"citation":"nsg:citation",
     	"code":"nsg:code",
@@ -519,7 +526,7 @@ class VisualStimulation(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("visual_stimulus", VisualStimulus, "used", required=True),
+        Field("stimulus", VisualStimulus, "used", required=True),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
@@ -529,7 +536,7 @@ class VisualStimulation(KGObject):
     	Field("license", License, "license")
         )
 
-    def __init__(self, name, visual_stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -546,11 +553,9 @@ class ElectrophysiologicalStimulus(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "name": "schema:name",
-        "value": "schema:value",
+        "minds": "https://schema.hbp.eu/",
         "name": "schema:name",
         "description": "schema:description",
-        "minds": "https://schema.hbp.eu/",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -586,12 +591,12 @@ class ElectrophysiologicalStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
-	    "protocol":"prov:hadProtocol",
+	    "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
-    	"citation":"nsg:citation",
-    	"code":"nsg:code",
-    	"stimulusType":"nsg:stimulusType",
-    	"license":"nsg:license"
+    	"citation": "nsg:citation",
+    	"code": "nsg:code",
+    	"stimulusType": "nsg:stimulusType",
+    	"license": "nsg:license"
         }
 
     fields = (
