@@ -211,7 +211,7 @@ class ImageSequence(KGObject):
             }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        #Field("name", basestring, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
         Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy"),
         Field("image_count", int, "imageCount", required=False),
