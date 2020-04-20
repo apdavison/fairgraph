@@ -153,7 +153,7 @@ class Device(KGObject):
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
         Field("description", basestring, "description"),
-        Field("placement_activity", (ElectrodePlacementActivity, ElectrodeImplantationActivity), "^prov:generated", reverse="device"),
+        Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
         Field("experiment", MEGExperiment, "^prov:used", reverse="device")
     )
 
