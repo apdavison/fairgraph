@@ -524,7 +524,7 @@ class CellCulture(KGObject):  # should move to "core" module?
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("culturing_activity", "electrophysiology.CellCultureActivity",
               "^prov:generated", reverse="cell_culture"),
-        Field("experiment", (PatchClampActivity), "^prov:used", reverse="recorded_tissue")
+        Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
     )
 
     def __init__(self, name, subject, culturing_activity=None, experiment=None,
