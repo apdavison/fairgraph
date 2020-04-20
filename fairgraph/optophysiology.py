@@ -92,10 +92,13 @@ class RegionOfInterest(KGObject):
         Field("position", Position, "position"),
         Field("shape", basestring, "shape"),
     	Field("classification", basestring, "classification"),
-    	Field("description", basestring, "description")
+    	Field("description", basestring, "description"),
+        Field("selection", ROISelection,"^prov:generated", reverse="regions"),
+        Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
         )
 
-    def __init__(self, name, position= None, shape=None, classification=None, description=None, id=None, instance=None):
+    def __init__(self, name, position= None, shape=None, classification=None,
+    description=None, selection=None, time_series=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -115,7 +118,6 @@ class FluorescenceTrace(KGObject):
         "timeStep": "nsg:timeStep",
         "value": "schema:value",
         "description": "schema:description",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
         "fluorescenceLabeling": "nsg: fluorescenceLabeling",
         "distribution": {
             "@id": "schema:distribution",
@@ -131,12 +133,12 @@ class FluorescenceTrace(KGObject):
         Field("name", basestring, "name", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
-        Field("generated_by", "optophysiology.TimeSeriesExtraction", "wasGeneratedBy"),
+        Field("time_series", "TimeSeriesExtraction", "^prov:generated", reverse="fluorescence_trace"),
         Field("description", basestring, "description"),
         Field("distribution", Distribution, "distribution")
     )
 
-    def __init__(self, name, time_step, fluorescence_labeling, generated_by=None, description=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, time_step, fluorescence_labeling, time_series=None, description=None, distribution=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -213,17 +215,18 @@ class ImageSequence(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
-        Field("generated_by", "optophysiology.TwoPhotoImaging", "wasGeneratedBy"),
+        Field("generated_by", "TwoPhotonImaging", "^prov:generated", reverse="image_sequence"),
         Field("image_count", int, "imageCount", required=False),
         Field("image_size", int, "imageSize", required=False),
         Field("extent", QuantitativeValue, "extent"),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
+        Field("correction_activity", MotionCorrection, "^prov:used", reverse=["before","after"]),
         Field("distribution", Distribution, "distribution", required=False),
         Field("description", basestring, "description", required=False)
     )
 
     def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None,
-    extent=None, brain_location=None, distribution=None, description=None, id=None, instance=None):
+    extent=None, brain_location=None, correction_activity=None, distribution=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -283,7 +286,6 @@ class CranialWindow(KGObject):
     	"diameter":"nsg:diameter",
     	"fluorescenceLabeling":"nsg:fluorescenceLabeling",
         "description": "schema:description",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
         "minds": "https://schema.hbp.eu/"
         }
     fields = (
@@ -293,10 +295,12 @@ class CranialWindow(KGObject):
         Field("diameter", QuantitativeValue, "diameter"),
         Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
         Field("description", basestring, "description"),
-        Field("generated_by", "optophysiology.Craniotomy", "wasGeneratedBy")
+        Field("generated_by", "Craniotomy", "^prov:generated", reverse="cranial_window"),
+        Field("activity", (TwoPhotonImaging, ElectrodeImplantationActivity, PatchClampActivity),"^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
     )
 
-    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None, description=None, generated_by=None, id=None, instance=None):
+    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None,
+    description=None, generated_by=None, activity=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -353,8 +357,9 @@ class Slice(KGObject):  # should move to "core" module?
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
-              "^prov:generated", reverse="slices")
+        Field("provider_id", basestring, "providerId"),
+        Field("brain_slicing_activity", "BrainSlicingActivity", "^prov:generated", reverse="slices"),
+        Field("activity", (PatchClampActivity, TwoPhotonImaging), "^prov:used", reverse=["recorded_tissue","target"])
     )
 
 
@@ -492,10 +497,11 @@ class VisualStimulus(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description"),
-        Field("distribution", Distribution, "distribution")
+        Field("distribution", Distribution, "distribution"),
+        Field("stimulation", VisualStimulation, "^prov:used", reverse="stimulus")
     )
 
-    def __init__(self, name, description=None, distribution=None, id=None, instance=None):
+    def __init__(self, name, description=None, distribution=None, stimulation=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -569,10 +575,11 @@ class ElectrophysiologicalStimulus(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("distribution", Distribution, "distribution")
+        Field("distribution", Distribution, "distribution"),
+        Field("stimulation", ElectrophysiologicalStimulation, "^prov:used", reverse="stimulus")
     )
 
-    def __init__(self, name, description, distribution=None, id=None, instance=None):
+    def __init__(self, name, description, distribution=None, stimulation=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

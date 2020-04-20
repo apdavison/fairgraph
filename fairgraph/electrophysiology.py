@@ -92,6 +92,7 @@ class Task(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
+        "wasInformedBy": "nsg: wasInformedBy",
         "description": "schema:description",
         "distribution": {
             "@id": "schema:distribution",
@@ -106,11 +107,12 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
+        Field("experiment", MEGExperiment, "wasInformedBy"),
         Field("cogatlasid", Distribution, "distribution"),
         Field("cogpoid", Distribution, "distribution")
     )
 
-    def __init__(self, name, description, cogatlasid=None, cogpoid=None, id=None, instance=None):
+    def __init__(self, name, description, experiment=None, cogatlasid=None, cogpoid=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -150,10 +152,13 @@ class Device(KGObject):
         Field("software_version", basestring, "softwareVersion"),
         Field("serial_number", basestring, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description")
+        Field("description", basestring, "description"),
+        Field("placement_activity", (ElectrodePlacementActivity, ElectrodeImplantationActivity), "^prov:generated", reverse="device"),
+        Field("experiment", MEGExperiment, "^prov:used", reverse="device")
     )
 
-    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None, distribution=None, description=None, generated_by=None, id=None, instance=None):
+    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
+    distribution=None, description=None, placement_activity=None, experiment=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -488,8 +493,8 @@ class Slice(KGObject):  # should move to "core" module?
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("provider_id", basestring, "providerId"),
-        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity",
-              "^prov:generated", reverse="slices")
+        Field("brain_slicing_activity", "BrainSlicingActivity", "^prov:generated", reverse="slices"),
+        Field("activity", (PatchClampActivity, TwoPhotonImaging), "^prov:used", reverse=["recorded_tissue","target"])
     )
 
 
@@ -518,10 +523,11 @@ class CellCulture(KGObject):  # should move to "core" module?
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("culturing_activity", "electrophysiology.CellCultureActivity",
-              "^prov:generated", reverse="cell_culture")
+              "^prov:generated", reverse="cell_culture"),
+        Field("experiment", (PatchClampActivity), "^prov:used", reverse="recorded_tissue")
     )
 
-    def __init__(self, name, subject, culturing_activity=None,
+    def __init__(self, name, subject, culturing_activity=None, experiment=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -727,9 +733,9 @@ class PatchedSlice(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
-        Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart",
+        Field("recorded_cells", "PatchedCellCollection", "hasPart",
               required=True),
-        Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated",
+        Field("recording_activity", "PatchClampActivity", "^prov:generated",
               reverse="recorded_slice"),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("bath_solution", QuantitativeValue, "solution"),
@@ -845,7 +851,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("slice_or_culture", (CellCulture, Slice, CranialWindow), "used", required=True),
+        Field("recorded_tissue", (CellCulture, Slice, CranialWindow), "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated"),
         Field("protocol", basestring, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
@@ -853,7 +859,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         Field("end_time", datetime, "endedAtTime")
     )
 
-    def __init__(self, name, slice_or_culture, recorded_slice=None, protocol=None, people=None,
+    def __init__(self, name, recorded_tissue, recorded_slice=None, protocol=None, people=None,
                  start_time=None, end_time=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -876,7 +882,6 @@ class MEGExperiment(KGObject):
         "name": "schema:name",
     	"device": "nsg:device",
         "sensors": "nsg:sensors",
-    	"wasInformedBy": "prov:wasInformedBy",
     	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
         "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
     	"digitizedHeadPoints": "nsg:digitizedHeadPoints",
@@ -890,7 +895,7 @@ class MEGExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
-    	Field("task", Task, "wasInformedBy"),
+    	Field("task", Task, "^prov:wasInformedBy"),
     	Field("sensors", MEGObject, "sensors"),
         Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
@@ -1183,10 +1188,12 @@ class ImplantedBrainTissue(KGObject):
     }
     fields =  (
         Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True)
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("implantation_activity", ElectrodeImplantationActivity, "^prov:generated", reverse="implanted_brain_tissues"),
+        Field("experiment", "ExtracellularElectrodeExperiment", "^prov:used", reverse="recorded_cell"),
     )
 
-    def __init__(self, name, subject, id=None, instance=None):
+    def __init__(self, name, subject, implantation_activity=None, experiment=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
