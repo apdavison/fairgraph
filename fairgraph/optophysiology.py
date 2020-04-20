@@ -186,7 +186,7 @@ class ImageSequence(KGObject):
         Field("image_size", int, "imageSize", required=False),
         Field("extent", QuantitativeValue, "extent"),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
-        Field("correction_activity", MotionCorrection, "^prov:used", reverse=["before","after"]),
+        Field("correction_activity", "optophysiology.MotionCorrection", "^prov:used", reverse=["before","after"]),
         Field("distribution", Distribution, "distribution", required=False),
         Field("description", basestring, "description", required=False)
     )
