@@ -70,40 +70,6 @@ class Position(KGObject):
         KGObject.__init__(self, **args)
 
 
-class RegionOfInterest(KGObject):
-    """A region of interest within an image sequence."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/regionofinterest/v0.9.0"
-    type = ["nsg:RegionOfInterest", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "position":"nsg:position",
-        "shape": "nsg:geometry",
-    	"description":"nsg:description",
-    	"classification":"nsg:classification"
-        }
-
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("position", Position, "position"),
-        Field("shape", basestring, "shape"),
-    	Field("classification", basestring, "classification"),
-    	Field("description", basestring, "description"),
-        Field("selection", ROISelection,"^prov:generated", reverse="regions"),
-        Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
-        )
-
-    def __init__(self, name, position= None, shape=None, classification=None,
-    description=None, selection=None, time_series=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
 class FluorescenceTrace(KGObject):
     """A time series representing the ΔF/F signal within a region of interest"""
     namespace = DEFAULT_NAMESPACE
@@ -227,6 +193,39 @@ class ImageSequence(KGObject):
 
     def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None,
     extent=None, brain_location=None, correction_activity=None, distribution=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+class RegionOfInterest(KGObject):
+    """A region of interest within an image sequence."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/regionofinterest/v0.9.0"
+    type = ["nsg:RegionOfInterest", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "position":"nsg:position",
+        "shape": "nsg:geometry",
+    	"description":"nsg:description",
+    	"classification":"nsg:classification"
+        }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("position", Position, "position"),
+        Field("shape", basestring, "shape"),
+    	Field("classification", basestring, "classification"),
+    	Field("description", basestring, "description"),
+        Field("selection", "optophysiology.ROISelection","^prov:generated", reverse="regions"),
+        Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
+        )
+
+    def __init__(self, name, position= None, shape=None, classification=None,
+    description=None, selection=None, time_series=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
