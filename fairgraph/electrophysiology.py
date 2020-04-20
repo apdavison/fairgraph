@@ -85,7 +85,7 @@ class Task(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/task/v0.1.0" # prod
 #    _path = "/electrophysiology/task/v0.1.2" # int
-    type = ["prov:Activity", "nsg:Task"]
+    type = ["nsg:Task", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -174,7 +174,7 @@ class Trace(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/trace/v0.1.0"
     # v1.0.0 now exists - check differences
-    type = ["prov:Entity", "nsg:Trace"]
+    type = ["nsg:Trace", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -248,7 +248,7 @@ class MultiChannelMultiTrialRecording(Trace):
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
     _path =  "/electrophysiology/multitrace/v0.2.0"
-    type = ["prov:Entity", "nsg:MultiChannelMultiTrialRecording"]
+    type = ["nsg:MultiChannelMultiTrialRecording", "prov:Entity"]
     fields = (
         Field("name", basestring, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True, multiple=True),
@@ -1208,7 +1208,7 @@ class ElectrodePlacementActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/electrodeplacement/v0.1.0"
-    type = ["prov:Activity", "nsg:ElectrodePlacement"]
+    type = ["nsg:ElectrodePlacement", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",

@@ -148,7 +148,7 @@ class TimeSeriesExtraction(KGObject):
     """Process of transforming the series of fluorescence responses within a Region of Interest into a ΔF/F signal"""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/timeseriesextraction/v0.1.0"
-    type = ["prov:Activity", "nsg:TimeSeriesExtraction"]
+    type = ["nsg:TimeSeriesExtraction", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -185,7 +185,7 @@ class ImageSequence(KGObject):
     """A sequence of images in the same imaging plane, produced by scanning optical microscopy."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/imagesequence/v0.1.0"
-    type = ["prov:Entity", "nsg:ImageSequence"]
+    type = ["nsg:ImageSequence", "prov:Entity"]
     context = {
             "schema": "http://schema.org/",
             "prov": "http://www.w3.org/ns/prov#",
@@ -236,7 +236,7 @@ class ROISelection(KGObject):
     """Process of selecting regions of interest, may be manual, semi-automated, or fully automated."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/roiselection/v0.2.0"
-    type = ["prov:Activity", "nsg:ROISelection"]
+    type = ["nsg:ROISelection", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -272,7 +272,7 @@ class CranialWindow(KGObject):
     """A window (partially) through the skull."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/cranialwindow/v0.1.0"
-    type = ["prov:Entity", "nsg:CranialWindow"]
+    type = ["nsg:CranialWindow", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -310,7 +310,7 @@ class Craniotomy(KGObject):
     """Surgical procedure to give optical access through the skull to the brain (dura)."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/craniotomy/v0.1.0"
-    type = ["prov:Activity", "nsg:Craniotomy"]
+    type = ["nsg:Craniotomy", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "name": "schema:name",
@@ -368,7 +368,7 @@ class TwoPhotonImaging(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/twophotonimaging/v0.1.0"
     #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
-    type = ["prov:Activity", "nsg:TwoPhotonImaging"]
+    type = ["nsg:TwoPhotonImaging", "prov:Activity"]
     context = {
             "schema": "http://schema.org/",
             "prov": "http://www.w3.org/ns/prov#",
@@ -436,7 +436,7 @@ class MotionCorrection(KGObject):
     """Correction for x-y movement in image frames."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/motioncorrection/v0.2.0"
-    type = ["prov:Activity", "nsg:MotionCorrection"]
+    type = ["nsg:MotionCorrection", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -473,7 +473,7 @@ class VisualStimulus(KGObject):
     """A generic visual stimulus."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/visualstimulus/v0.1.0"
-    type = ["prov:Entity", "nsg:VisualStimulus"]
+    type = ["nsg:VisualStimulus", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -511,7 +511,7 @@ class VisualStimulation(KGObject):
     """Presentation of a visual stimulus to the subject of the experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/visualstimulation/v0.1.0"
-    type = ["prov:Activity", "nsg:VisualStimulation"]
+    type = ["nsg:VisualStimulation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -552,7 +552,7 @@ class ElectrophysiologicalStimulus(KGObject):
     """A generic electrophysiological stimulus."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/electrophysiologicalstimulus/v0.1.0"
-    type = ["prov:Entity", "nsg:ElectrophysiologicalStimulus"]
+    type = ["nsg:ElectrophysiologicalStimulus", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -589,7 +589,7 @@ class ElectrophysiologicalStimulation(KGObject):
     """Use of an electrophysiological stimulus in the experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/optophysiology/electrophysiologicalstimulation/v0.1.0"
-    type = ["prov:Activity", "nsg:ElectrophysiologicalStimulation"]
+    type = ["nsg:ElectrophysiologicalStimulation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
