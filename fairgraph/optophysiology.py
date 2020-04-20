@@ -295,7 +295,7 @@ class CranialWindow(KGObject):
         Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
         Field("description", basestring, "description"),
         Field("generated_by", "Craniotomy", "^prov:generated", reverse="cranial_window"),
-        Field("activity", ("optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeImplantationActivity", PatchClampActivity, TwoPhotonImaging"electrophysiology.PatchClampActivity"),"^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
+        Field("activity", ("optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeImplantationActivity", "electrophysiology.PatchClampActivity"), "^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
     )
 
     def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None,
