@@ -133,7 +133,7 @@ class TimeSeriesExtraction(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
-        Field("region_of_interest", RegionOfInterest, "used"),
+        Field("region_of_interest", "optophysiology.RegionOfInterest", "used"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
     	Field("citation", basestring, "citation"),
