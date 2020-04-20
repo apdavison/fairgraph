@@ -107,7 +107,7 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("experiment", MEGExperiment, "wasInformedBy"),
+        Field("experiment", "electrophysiology.MEGExperiment", "wasInformedBy"),
         Field("cogatlasid", Distribution, "distribution"),
         Field("cogpoid", Distribution, "distribution")
     )
