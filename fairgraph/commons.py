@@ -561,7 +561,7 @@ class Size(StructuredMetadata):
         return not self.__eq__(other)
 
     def to_jsonld(self, client=None):
-        return {'height': self.height.to_jsonld(),
+        return {'height': self.height,
                 'width': self.width}
 
 
