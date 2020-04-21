@@ -140,7 +140,7 @@ class Strain(OntologyTerm):
         "C57BL/6J": "https://www.jax.org/strain/000664",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
-	"Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
+	    "Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml",
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
@@ -154,8 +154,8 @@ class Genotype(OntologyTerm):
     Transgenic modification of the strain.
     """
     iri_map = {
-	"wild type": "http://purl.obolibrary.org/obo/GENO_0000511",
-	"Fmr1KO": "https://www.jax.org/strain/003025",
+	    "wild type": "http://purl.obolibrary.org/obo/GENO_0000511",
+	    "Fmr1KO": "https://www.jax.org/strain/003025",
         "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459",
         "IB2-KO": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
         "Nlgn3KO/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:5439278",
@@ -191,11 +191,11 @@ class ChannelType(OntologyTerm):
     """
     iri_map = {
         "ECoG":"http://purl.obolibrary.org/obo/NCIT_C116664",
-	"ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
+	    "ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
         "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
-	"EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056",
-	"MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
-	"SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
+	    "EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056",
+	    "MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
+	    "SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
     }
 
 class BrainRegion(OntologyTerm):
@@ -371,8 +371,8 @@ class License(OntologyTerm):
 class StimulusType(OntologyTerm):
     iri_map = {
         "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-	"Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-	"Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+	    "Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+	    "Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
         "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
         "Pre-synaptic extracellular electrical stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
         "Sinusoidal current injections": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
@@ -395,7 +395,7 @@ class QuantitativeValue(StructuredMetadata):
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
         "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
-	"years": "http://purl.obolibrary.org/obo/UO_0000036",
+	    "years": "http://purl.obolibrary.org/obo/UO_0000036",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
         "mm": "http://purl.obolibrary.org/obo/UO_0000016",
@@ -481,8 +481,8 @@ class QuantitativeValueRange(StructuredMetadata):
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	"Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	"kHz": "http://purl.obolibrary.org/obo/NCIT_C67279",
+	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279",
         "MOhm": "http://purl.obolibrary.org/obo/NCIT_C42554"
     }
 
