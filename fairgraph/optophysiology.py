@@ -183,7 +183,7 @@ class ImageSequence(KGObject):
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
         Field("generated_by", "TwoPhotonImaging", "^prov:generated", reverse="image_sequence"),
         Field("image_count", int, "imageCount", required=False),
-        Field("image_size", int, "imageSize", required=False),
+        Field("image_size", Size, "imageSize", required=False),
         Field("extent", QuantitativeValue, "extent"),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("correction_activity", "optophysiology.MotionCorrection", "^prov:used", reverse=["before","after"]),
