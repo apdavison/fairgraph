@@ -942,9 +942,9 @@ class MEGExperiment(KGObject):
         obj = cls(id=D["@id"], instance=instance, **args)
         return obj
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(MEGExperiment, self)._build_data(client)
+        data = super(MEGExperiment, self)._build_data(client, all_fields=all_fields)
         data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
