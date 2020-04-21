@@ -536,35 +536,6 @@ class QuantitativeValueRange(StructuredMetadata):
         return cls(float(data["minValue"]), data["maxValue"], unit_text, unit_code)
 
 
-class Size(StructuredMetadata):
-    context = {
-        "value": "http://schema.org/value"
-    }
-    fields = (
-        Field("height", (int, float, QuantitativeValue), "value", required=True),
-        Field("width", (int, float, QuantitativeValue), "value", required=True)
-    )
-    def __init__(self, height, width):
-        self.height = height
-        self.width = width
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.height!r}, {self.width!r})'.format(self=self))
-
-    def __eq__(self, other):
-        return (isinstance(other, self.__class__)
-                and self.height == other.height
-                and self.width == other.width)
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def to_jsonld(self, client=None):
-        return {'height': self.height,
-                'width': self.width}
-
-
 class Age(StructuredMetadata):
     allowed_periods = [
         "Pre-natal",
