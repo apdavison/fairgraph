@@ -907,6 +907,7 @@ class MEGExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
+
     def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1292,6 +1293,17 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     _path = "/electrophysiology/stimulusexperiment/v0.3.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
+    context = {
+        "schema": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "prov": "http://www.w3.org/ns/prov#",
+        "used": "prov:used",
+	"stimulus_type": "nsg:stimulusType",
+        "wasGeneratedBy": "prov:wasGeneratedBy"
+    }
+
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used",
