@@ -536,7 +536,7 @@ class QuantitativeValueRange(StructuredMetadata):
         return cls(float(data["minValue"]), data["maxValue"], unit_text, unit_code)
 
 
-class SizeValue(StructuredMetadata):
+class Size(StructuredMetadata):
     context = {
         "value": "http://schema.org/value"
     }
