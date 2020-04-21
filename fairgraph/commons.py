@@ -544,6 +544,9 @@ class Size(StructuredMetadata):
         Field("height", (int, float, QuantitativeValue), "value", required=True),
         Field("width", (int, float, QuantitativeValue), "value", required=True)
     )
+    def __init__(self, height, width):
+        self.height = height
+        self.width = width
 
 
 class Age(StructuredMetadata):
