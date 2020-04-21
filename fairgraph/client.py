@@ -54,9 +54,9 @@ class KGClient(object):
     """docstring"""
 
     def __init__(self, token=None,
-                 nexus_endpoint="https://nexus.humanbrainproject.org/v0",
-                 kg_query_endpoint="https://kg.humanbrainproject.org/query",
-                 release_endpoint="https://kg.humanbrainproject.org/api/releases",
+                 nexus_endpoint="https://nexus.humanbrainproject.eu/v0",
+                 kg_query_endpoint="https://kg.humanbrainproject.eu/query",
+                 release_endpoint="https://kg.humanbrainproject.eu/api/releases",
                  idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
         if token is None:
             if oauth_token_handler:
@@ -104,7 +104,7 @@ class KGClient(object):
     def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
-            url = "{}/data/{}/?size=1".format(self.nexus_endpoint, cls.path)
+            url = "{}/data/{}/?size=1&deprecated=False".format(self.nexus_endpoint, cls.path)
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
             if scope not in SCOPE_MAP:
@@ -151,12 +151,14 @@ class KGClient(object):
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
-            template += "&" + "&".join("{}={}".format(k, v) for k, v in filter.items())
+            template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
         if scope not in SCOPE_MAP:
             raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
+        #url = quote_plus(template.format(start).encode("utf-8"))
+        url = template.format(start)
         try:
-            response = self._kg_query_client.get(template.format(start))
+            response = self._kg_query_client.get(url)
         except HTTPError as err:
             if err.response.status_code == 403:
                 response = None
@@ -169,7 +171,9 @@ class KGClient(object):
             ]
             start += response["size"]
             while start < min(response["total"], size):
-                response = self._kg_query_client.get(template.format(start))
+                #url = quote_plus(template.format(start).encode("utf-8"))
+                url = template.format(start)
+                response = self._kg_query_client.get(url)
                 instances.extend([
                     Instance(path, data, Instance.path)
                     for data in response["results"]
@@ -189,18 +193,20 @@ class KGClient(object):
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
         if use_cache and uri in self.cache:
-            logger.debug("Retrieving instance from cache")
+            logger.debug("Retrieving instance {} from cache".format(uri))
             instance = self.cache[uri]
         elif api == "nexus":
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
                                 data=self._instance_repo._http_client.get(uri),
                                 root_path=Instance.path)
             if instance and instance.data and "@id" in instance.data:
-                self.cache[instance.data["@id"]] = instance
-                logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
+                if deprecated is False and instance.data["nxv:deprecated"]:
+                    instance = None
+                    logger.debug("Not returning deprecated instance")
+                else:
+                    self.cache[instance.data["@id"]] = instance
+                    logger.debug("Retrieved instance from KG Nexus" + str(instance.data))
             else:
-                instance = None
-            if instance and deprecated is False and instance.data["nxv:deprecated"]:
                 instance = None
         elif api == "query":
             if cls and hasattr(cls, "query_id") and cls.query_id is not None:
@@ -242,8 +248,10 @@ class KGClient(object):
 
     def delete_instance(self, instance):
         self._nexus_client.instances.delete(instance)
-        if instance.id in self.cache:
-            self.cache.pop(instance.id)
+        logger.debug("Deleting instance {}".format(instance.id))
+        if instance.data["@id"] in self.cache:
+            logger.debug("Removing {} from cache".format(instance.data["@id"]))
+            self.cache.pop(instance.data["@id"])
 
     def by_name(self, cls, name, match="equals", all=False,
                 api="query", scope="released", resolved=False):
@@ -275,6 +283,8 @@ class KGClient(object):
                     query_id = cls.query_id_resolved
                 else:
                     query_id = cls.query_id
+                    print("TEST CLS", cls)
+                    print("TEST", cls.path)
                 response = self._kg_query_client.get(
                     "{}/{}{}/instances?databaseScope={}&name={}".format(
                         cls.path,

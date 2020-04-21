@@ -30,7 +30,7 @@ from datetime import date, datetime
 from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue, Handedness, Group
+from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -60,6 +60,7 @@ class Subject(KGObject):
         "age": "nsg:age",  # change from nsg:age to "http://dbpedia.org/ontology/age" ?
         "period": "nsg:period",
         "sex": "nsg:sex",
+        "genotype": "nsg:genotype",
         "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
 	"group": "nsg:group",
@@ -69,14 +70,15 @@ class Subject(KGObject):
         Field("name", basestring, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
+        Field("genotype", Genotype, "genotype"),
         Field("sex", Sex, "sex"),
         Field("handedness", Handedness, "handedness"),
-        Field("age", Age, "age", required=True),
+        Field("age", Age, "age"),
         Field("death_date", date, "deathDate"),
 	Field("group", Group, "group")
     )
 
-    def __init__(self, name, species, age, sex=None, handedness=None, strain=None, death_date=None, group=None, id=None, instance=None):
+    def __init__(self, name, species, age=None, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -88,7 +90,7 @@ class Organization(KGObject):
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/organization/v0.1.0"
-    type = "nsg:Organization"
+    type = ["nsg:Organization"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -194,9 +196,10 @@ class Person(KGObject):
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
-    def resolve(self, client, api="query"):
+    def resolve(self, client, api="query", use_cache=True):
         if hasattr(self.affiliation, "resolve"):
-            self.affiliation = self.affiliation.resolve(client, api=api)
+            self.affiliation = self.affiliation.resolve(client, api=api, use_cache=use_cache)
+        return self
 
     @classmethod
     def me(cls, client, api="query", allow_multiple=False):
@@ -284,7 +287,7 @@ class Protocol(KGObject):
                    KGProxy(Identifier, D["schema:identifier"]),
                    D["@id"], instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name
@@ -313,7 +316,7 @@ class Protocol(KGObject):
 class Identifier(KGObject):
     namespace = "nexus"
     _path = "/schemaorgsh/identifier/v0.1.0"
-    type = "schema:Identifier"
+    type = ["schema:Identifier"]
 
 
 class Material(object):
@@ -401,7 +404,7 @@ class Collection(KGObject):
     #                id=D["@id"],
     #                instance=instance)
 
-    def _build_data(self, client):
+    def _build_data(self, client, all_fields=False):
         """docstring"""
         data = {}
         data["name"] = self.name

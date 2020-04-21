@@ -12,7 +12,7 @@ def query_url(namespace, cls_version,
               extension=''):
     """
     """
-    url = 'https://kg.humanbrainproject.org/query/%s/%s/fg' %\
+    url = 'https://kg.humanbrainproject.eu/query/%s/%s/fg' %\
           (namespace.lower(), cls_version)
     return url+extension
 
@@ -66,7 +66,7 @@ def upload_faigraph_query(query_string, namespace, cls_version,
                    data = open('temp.json', 'r'),
                    headers={'Content-Type':'application/json',
                             'Authorization': 'Bearer {}'.format(access_token)})
-    
+
     if r.ok:
         print('Successfully stored the query at %s ' % query_url(namespace, cls_version, extension))
     else:
@@ -89,4 +89,3 @@ if __name__=='__main__':
                     filtered_query = format_query(namespace, cls, query=query)
                     upload_faigraph_query(filtered_query, Namespace, cls._path[1:], extension='_'+query['query_name'])
                 n+=1
-        

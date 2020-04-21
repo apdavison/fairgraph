@@ -111,7 +111,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("description", basestring, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", int, "collabID"),
+        Field("collab_id", (int, basestring), "collabID"),
         Field("alias", basestring, "alias"),
         Field("organization", Organization, "organization", multiple=True),
         Field("pla_components", basestring, "PLAComponents", multiple=True),
@@ -500,7 +500,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("authors", Person, "author", multiple=True, required=True),
-        Field("description", basestring, "description", required=False),
+        Field("description", basestring, "description", required=True),
         Field("date_created", (date, datetime), "dateCreated", required=True),
         Field("alias", basestring, "alias"),
         Field("brain_region", BrainRegion, "brainRegion", multiple=True),

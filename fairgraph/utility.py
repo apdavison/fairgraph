@@ -39,6 +39,8 @@ standard_context = {
     "minds": "https://schema.hbp.eu/minds/",
     "uniminds": "https://schema.hbp.eu/uniminds/",
     "name": "schema:name",
+    "http://schema.org/name": "schema:name",
+    "http://schema.org/description": "schema:description",
     "description": "schema:description",
     "brainRegion": "nsg:brainRegion",
     "species": "nsg:species",

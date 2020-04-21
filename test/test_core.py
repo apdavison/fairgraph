@@ -77,7 +77,7 @@ class TestOrganization(BaseTestKG):
                 "addressCountry": "France"
             },
             "parentOrganization": {
-                "@type": "nsg:Organization",
+                "@type": ["nsg:Organization"],
                 "@id": "http://fake_uuid_00481be7a1"
             }
         }

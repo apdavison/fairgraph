@@ -91,7 +91,7 @@ class MockHttpClient(HttpClient):
                         raise NotImplementedError("todo")
                     data = deepcopy(data)  # don't want to mess with the cache
                     data["results"] = results
-            elif parts.netloc == "kg.humanbrainproject.org":
+            elif parts.netloc == "kg.humanbrainproject.eu":
                 if "species" in parts.query:   # api="query"
                     query = parse_qs(parts.query)
                     if "species" in query:
@@ -283,11 +283,11 @@ class BaseTestKG(object):
             cls.__module__.split(".")[1], cls.__name__.lower())
         with open(test_data) as fp:
             expected = json.load(fp)
-        assert not jsondiff(generated, expected)
+        assert not jsondiff(generated, expected), jsondiff(generated, expected)
 
         generated = cls.generate_query("fgSimple", kg_client, resolved=False)
         #key = "{}_{}_simple_query".format(cls.__module__.split(".")[1], cls.__name__.lower())
         test_data = test_data.replace("resolved", "simple")
         with open(test_data) as fp:
             expected = json.load(fp)
-        assert not jsondiff(generated, expected)
+        assert not jsondiff(generated, expected), jsondiff(generated, expected)
