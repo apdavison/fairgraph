@@ -656,7 +656,7 @@ class KGObject(with_metaclass(Registry, object)):
                     self.id, cls=self.__class__, api="nexus", use_cache=False)
 
         if self.instance:
-            data = self._build_data(client, all_fields=True)
+            data = self._build_data(client)
             if self._update_needed(data):
                 logger.info("Updating - {}(id={})".format(self.__class__.__name__, self.id))
                 self.instance.data.update(data)
