@@ -243,7 +243,7 @@ class Trace(KGObject):
 
 class MultiChannelMultiTrialRecording(Trace):
     """Multiple time series recorded during an experiment or simulation.
-    Time series may be recorded from multiple ch
+    Time series may be recorded from multiple channels.
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE

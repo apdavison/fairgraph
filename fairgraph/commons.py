@@ -536,6 +536,16 @@ class QuantitativeValueRange(StructuredMetadata):
         return cls(float(data["minValue"]), data["maxValue"], unit_text, unit_code)
 
 
+class SizeValue(StructuredMetadata):
+    context = {
+        "value": "http://schema.org/value"
+    }
+    fields = (
+        Field("height", (int, float, QuantitativeValue), "value", required=True),
+        Field("width", (int, float, QuantitativeValue), "value", required=True)
+    )
+
+
 class Age(StructuredMetadata):
     allowed_periods = [
         "Pre-natal",
