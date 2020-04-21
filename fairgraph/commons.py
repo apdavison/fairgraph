@@ -548,6 +548,22 @@ class Size(StructuredMetadata):
         self.height = height
         self.width = width
 
+    def __repr__(self):
+        return ('{self.__class__.__name__}('
+                '{self.height!r}, {self.width!r})'.format(self=self))
+
+    def __eq__(self, other):
+        return (isinstance(other, self.__class__)
+                and self.height == other.height
+                and self.width == other.width)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def to_jsonld(self, client=None):
+        return {'height': self.height.to_jsonld(),
+                'width': self.width}
+
 
 class Age(StructuredMetadata):
     allowed_periods = [
