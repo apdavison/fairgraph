@@ -100,6 +100,7 @@ standard_context = {
     "givenName": "schema:givenName",
     "email": "schema:email",
     "affiliation": "schema:affiliation",
+    "organization": "nsg:organization",
 }
 
 
