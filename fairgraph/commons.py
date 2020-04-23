@@ -138,6 +138,7 @@ class Strain(OntologyTerm):
         "B6.129-Nlgn3/KftnkRbrc": "https://www.jax.org/strain/008475",
         "C57BL/6": "https://www.jax.org/strain/000664",
         "C57BL/6J": "https://www.jax.org/strain/000664",
+        "C57BL6/SJL": "https://www.jax.org/strain/100012",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
 	    "Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
