@@ -733,9 +733,9 @@ class PatchedSlice(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
-        Field("recorded_cells", PatchedCellCollection, "hasPart",
+        Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart",
               required=True),
-        Field("recording_activity", PatchClampActivity, "^prov:generated",
+        Field("recording_activity", "electrophysiology.PatchClampActivity", "^prov:generated",
               reverse="recorded_slice"),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("bath_solution", QuantitativeValue, "solution"),
