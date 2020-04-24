@@ -81,7 +81,7 @@ class Sensor(KGObject):
 
 
 class Task(KGObject):
-    """Stimulus provided to subject in MEGExperiment."""
+    """Stimulus provided to subject in ElectrodeArrayExperiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/task/v0.1.0" # prod
 #    _path = "/electrophysiology/task/v0.1.2" # int
@@ -107,7 +107,7 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("experiment", ("electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "wasInformedBy"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "wasInformedBy"),
         Field("cogatlasid", Distribution, "distribution"),
         Field("cogpoid", Distribution, "distribution")
     )
@@ -119,7 +119,7 @@ class Task(KGObject):
 
 
 class Device(KGObject):
-    """Device used to collect recording in MEGExperiment"""
+    """Device used to collect recording in ElectrodeArrayExperiment"""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/device/v0.1.0"
     type = ["nsg:Device", "prov:Entity"]
@@ -154,7 +154,7 @@ class Device(KGObject):
         Field("distribution", Distribution, "distribution"),
         Field("description", basestring, "description"),
         Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
-        Field("experiment", ("electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
     )
 
     def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
@@ -255,7 +255,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("generated_by",
               ("electrophysiology.PatchClampExperiment",
                "electrophysiology.ExtracellularElectrodeExperiment",
-               "electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment",
+               "electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment",
                "electrophysiology.ECoGExperiment"),
               "wasGeneratedBy", required=True),
         Field("generation_metadata",
@@ -873,7 +873,7 @@ class ElectrodeArrayExperiment(KGObject):
     """Electrode array experiment (EEG, ECoG, MEG, ERP)."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
-    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
+    #_path = "/electrophysiology/ElectrodeArrayExperiment/v0.3.3" # int
     type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -946,7 +946,7 @@ class ElectrodeArrayExperiment(KGObject):
 
     def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(MEGExperiment, self)._build_data(client, all_fields=all_fields)
+        data = super(ElectrodeArrayExperiment, self)._build_data(client, all_fields=all_fields)
         data["nsg:stimulus"] = {"nsg:stimulusType": data.pop("nsg:stimulusType", None)}
         return data
 
@@ -989,7 +989,7 @@ class ECoGExperiment(ElectrodeArrayExperiment):
     """Electrocorticography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
-    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
+    #_path = "/electrophysiology/ElectrodeArrayExperiment/v0.3.3" # int
     type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
 
 
@@ -997,7 +997,7 @@ class EEGExperiment(ElectrodeArrayExperiment):
     """Electroencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
-    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
+    #_path = "/electrophysiology/ElectrodeArrayExperiment/v0.3.3" # int
     type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
 
 
@@ -1471,7 +1471,7 @@ class QualifiedMultiTraceGeneration(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment, MEGExperiment), "activity", required=True),
+        Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment, ElectrodeArrayExperiment), "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
         Field("channel_type", basestring, "channelType"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
