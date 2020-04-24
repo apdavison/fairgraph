@@ -44,11 +44,11 @@ from .optophysiology import CranialWindow, Craniotomy
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
-class MEGObject(KGObject):
-    """Object specific to MEG Experiment"""
+class Sensor(KGObject):
+    """Object specific to sensors used in electrode array experiments"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megobject/v0.1.0" #prod
-    type = ["nsg:MEGObject", "prov:Entity"]
+    _path = "/electrophysiology/Sensor/v0.1.0" #prod
+    type = ["nsg:Sensor", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -107,7 +107,7 @@ class Task(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("description", basestring, "description", required=True),
-        Field("experiment", "electrophysiology.MEGExperiment", "wasInformedBy"),
+        Field("experiment", ("electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "wasInformedBy"),
         Field("cogatlasid", Distribution, "distribution"),
         Field("cogpoid", Distribution, "distribution")
     )
@@ -154,7 +154,7 @@ class Device(KGObject):
         Field("distribution", Distribution, "distribution"),
         Field("description", basestring, "description"),
         Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
-        Field("experiment", "electrophysiology.MEGExperiment", "^prov:used", reverse="device")
+        Field("experiment", ("electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
     )
 
     def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
@@ -255,7 +255,8 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("generated_by",
               ("electrophysiology.PatchClampExperiment",
                "electrophysiology.ExtracellularElectrodeExperiment",
-               "electrophysiology.MEGExperiment"),
+               "electrophysiology.MEGExperiment", "electrophysiology.EEGExperiment",
+               "electrophysiology.ECoGExperiment"),
               "wasGeneratedBy", required=True),
         Field("generation_metadata",
               "electrophysiology.QualifiedMultiTraceGeneration",
@@ -896,9 +897,9 @@ class MEGExperiment(KGObject):
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
     	Field("task", Task, "^prov:wasInformedBy"),
-    	Field("sensors", MEGObject, "sensors"),
-        Field("digitized_head_points_coordinates", MEGObject, "digitizedHeadPointsCoordinates"),
-    	Field("head_localization_coils_coordinates", MEGObject, "headLocalizationCoilsCoordinates"),
+    	Field("sensors", Sensor, "sensors"),
+        Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
+    	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
     	Field("digitized_head_points", bool, "digitizedHeadPoints"),
     	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
         Field("start_time", datetime, "startedAtTime"),
@@ -982,6 +983,52 @@ class MEGExperiment(KGObject):
             }
         }
         return KGQuery(Dataset, filter, context)
+
+
+class ECoGExperiment(MEGExperiment):
+    """Electrocorticography experiment."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
+    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
+    type = ["nsg:MEGExperiment", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+    	"device": "nsg:device",
+        "sensors": "nsg:sensors",
+    	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
+        "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
+    	"digitizedHeadPoints": "nsg:digitizedHeadPoints",
+    	"digitizedLandmarks": "nsg:digitizedLandmarks",
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "hadProtocol": "prov:hadProtocol"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+    	Field("device", Device, "used"),
+    	Field("task", Task, "^prov:wasInformedBy"),
+    	Field("sensors", Sensor, "sensors"),
+        Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
+    	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
+    	Field("digitized_head_points", bool, "digitizedHeadPoints"),
+    	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
+        Field("start_time", datetime, "startedAtTime"),
+        Field("end_time", datetime, "endedAtTime"),
+        Field("people", Person, "wasAssociatedWith", multiple=True),
+        Field("protocol", Protocol, "hadProtocol")
+    )
+
+
+    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class PatchClampExperiment(KGObject):
