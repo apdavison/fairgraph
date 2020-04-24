@@ -991,44 +991,6 @@ class ECoGExperiment(MEGExperiment):
     _path = "/electrophysiology/megexperiment/v0.2.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-    	"device": "nsg:device",
-        "sensors": "nsg:sensors",
-    	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
-        "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
-    	"digitizedHeadPoints": "nsg:digitizedHeadPoints",
-    	"digitizedLandmarks": "nsg:digitizedLandmarks",
-        "used": "prov:used",
-        "startedAtTime": "prov:startedAtTime",
-        "endAtTime": "prov:endedAtTime",
-        "wasAssociatedWith": "prov:wasAssociatedWith",
-        "hadProtocol": "prov:hadProtocol"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-    	Field("device", Device, "used"),
-    	Field("task", Task, "^prov:wasInformedBy"),
-    	Field("sensors", Sensor, "sensors"),
-        Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
-    	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
-    	Field("digitized_head_points", bool, "digitizedHeadPoints"),
-    	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
-        Field("start_time", datetime, "startedAtTime"),
-        Field("end_time", datetime, "endedAtTime"),
-        Field("people", Person, "wasAssociatedWith", multiple=True),
-        Field("protocol", Protocol, "hadProtocol")
-    )
-
-
-    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
 
 
 class PatchClampExperiment(KGObject):
