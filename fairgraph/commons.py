@@ -195,6 +195,7 @@ class ChannelType(OntologyTerm):
 	    "ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
         "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
 	    "EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056",
+        "ERP":"http://purl.bioontology.org/ontology/SNOMEDCT/251630008",
 	    "MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
 	    "SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
     }
@@ -404,7 +405,7 @@ class QuantitativeValue(StructuredMetadata):
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
 	    "s": "http://purl.obolibrary.org/obo/UO_0000010",
-        "MΩ": "https://en.wiktionary.org/wiki/megaohm",
+        "c": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
