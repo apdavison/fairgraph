@@ -869,12 +869,12 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     # todo: custom exists(), based on slice not on name
 
 
-class MEGExperiment(KGObject):
-    """Magnetoencephalography experiment."""
+class ElectrodeArrayExperiment(KGObject):
+    """Electrode array experiment (EEG, ECoG, MEG, ERP)."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
-    type = ["nsg:MEGExperiment", "prov:Activity"]
+    type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -964,7 +964,7 @@ class MEGExperiment(KGObject):
             return client.list(cls, size=size, api=api, filter=filter, context=context)
         elif api == "query":
             # todo: what about filtering if api="query"
-            return super(MEGExperiment, cls).list(client, size, from_index, api,
+            return super(ElectrodeArrayExperiment, cls).list(client, size, from_index, api,
                                                          scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -985,20 +985,20 @@ class MEGExperiment(KGObject):
         return KGQuery(Dataset, filter, context)
 
 
-class ECoGExperiment(MEGExperiment):
+class ECoGExperiment(ElectrodeArrayExperiment):
     """Electrocorticography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
-    type = ["nsg:MEGExperiment", "prov:Activity"]
+    type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
 
 
-class EEGExperiment(MEGExperiment):
+class EEGExperiment(ElectrodeArrayExperiment):
     """Electroencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
-    type = ["nsg:MEGExperiment", "prov:Activity"]
+    type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
 
 
 class PatchClampExperiment(KGObject):
