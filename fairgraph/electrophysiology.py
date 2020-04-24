@@ -872,7 +872,7 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
 class MEGExperiment(KGObject):
     """Magnetoencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
+    _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
     context = {
@@ -988,7 +988,7 @@ class MEGExperiment(KGObject):
 class ECoGExperiment(MEGExperiment):
     """Electrocorticography experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
+    _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
 
@@ -996,7 +996,7 @@ class ECoGExperiment(MEGExperiment):
 class EEGExperiment(MEGExperiment):
     """Electroencephalography experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
+    _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/megexperiment/v0.3.3" # int
     type = ["nsg:MEGExperiment", "prov:Activity"]
 
