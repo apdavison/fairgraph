@@ -993,6 +993,14 @@ class ECoGExperiment(MEGExperiment):
     type = ["nsg:MEGExperiment", "prov:Activity"]
 
 
+class EEGExperiment(MEGExperiment):
+    """Electroencephalography experiment."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/megexperiment/v0.2.0" # prod
+    #_path = "/electrophysiology/megexperiment/v0.3.3" # int
+    type = ["nsg:MEGExperiment", "prov:Activity"]
+
+
 class PatchClampExperiment(KGObject):
     """
     Stimulation of the neural tissue and recording of the responses during a patch clamp
