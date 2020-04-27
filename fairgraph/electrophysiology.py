@@ -47,7 +47,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class Sensor(KGObject):
     """Object specific to sensors used in electrode array experiments"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/Sensor/v0.1.0" #prod
+    _path = "/electrophysiology/sensor/v0.1.0" #prod
     type = ["nsg:Sensor", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
