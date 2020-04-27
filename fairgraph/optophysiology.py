@@ -321,7 +321,7 @@ class Craniotomy(KGObject):
         "anesthesia": "nsg:anesthesia",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
-	    "hadProtocol": "hadProtocol",
+        "hadProtocol": "prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
