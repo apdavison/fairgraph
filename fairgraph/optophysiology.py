@@ -315,12 +315,14 @@ class Craniotomy(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
         "generated": "prov:generated",
         "used": "prov:used",
         "anesthesia": "nsg:anesthesia",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
-	    "hadProtocol": "hadProtocol"
+	    "hadProtocol": "hadProtocol",
+        "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
         Field("name", basestring, "name", required=True),
