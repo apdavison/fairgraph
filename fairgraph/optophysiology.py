@@ -308,7 +308,7 @@ class CranialWindow(KGObject):
 class Craniotomy(KGObject):
     """Surgical procedure to give optical access through the skull to the brain (dura)."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/craniotomy/v0.1.0"
+    _path = "/optophysiology/craniotomy/v0.2.0"
     type = ["nsg:Craniotomy", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
