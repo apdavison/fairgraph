@@ -470,7 +470,7 @@ class KGObject(with_metaclass(Registry, object)):
                             path = field.path
                         else:
                             #"path": cls.context[field.path],  # todo: fix contexts
-                            path = standard_context[field.path],
+                            path = standard_context[field.path]
                         filter_queries.append({
                             "path": path,
                             "op": "eq",
