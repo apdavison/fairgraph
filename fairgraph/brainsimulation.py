@@ -507,7 +507,7 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         Field("celltype", CellType, "celltype", multiple=True),
         Field("test_type", basestring, "testType"),
         Field("age", Age, "age"),
-        Field("reference_data", KGObject, "referenceData", multiple=True),  # to fix: should be a Collection
+        Field("reference_data", KGObject, "referenceData", multiple=True),  # to fix: should be a Collection?
         Field("data_type", basestring, "dataType"),
         Field("recording_modality", basestring, "recordingModality"),
         Field("score_type", basestring, "scoreType"),
@@ -661,7 +661,7 @@ class ValidationActivity(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp", datetime, "endedAtTime")
     )
-    existence_query_fields = ("timestamp",)
+    existence_query_fields = ("timestamp",)  # todo: add model_instance and test_script
 
     @property
     def duration(self):

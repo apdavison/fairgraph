@@ -5,89 +5,90 @@
     "http://schema.org/identifier": "modelvalidation/simulation/modelvalidation/v0.2.0/fgSimple",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "modelUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "model_instance"
-            },
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            }
         },
         {
             "fieldname": "testUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "test_script"
-            },
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            }
         },
         {
             "fieldname": "dataUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "reference_data"
-            },
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            }
         },
         {
             "fieldname": "startedAtTime",
-            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "timestamp"
+            }
         },
         {
             "fieldname": "generated",
+            "relative_path": "http://www.w3.org/ns/prov#generated",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "result"
-            },
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#generated"
+            }
         },
         {
             "fieldname": "wasAssociatedWith",
-            "filter": {
-                "op": "contains",
-                "parameter": "started_by"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -96,11 +97,18 @@
                     "relative_path": "@type"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+            "filter": {
+                "op": "contains",
+                "parameter": "started_by"
+            }
         },
         {
             "fieldname": "endedAtTime",
-            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "end_timestamp"
+            }
         }
     ],
     "@context": {

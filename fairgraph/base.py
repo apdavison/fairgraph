@@ -741,6 +741,9 @@ class KGObject(with_metaclass(Registry, object)):
     @classmethod
     def generate_query(cls, query_id, client, resolved=False, top_level=True,
                        field_names_used=None, parents=None):
+        # todo: don't include "alternatives" fields in resolved queries,
+        #       at it makes the queries really large
+        #       such connections can always be resolved manually
         #print(cls, top_level, field_names_used)
         if top_level:
             fields = [{

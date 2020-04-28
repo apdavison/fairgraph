@@ -626,7 +626,11 @@
         },
         {
             "fieldname": "startedAtTime",
-            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "timestamp"
+            }
         },
         {
             "fieldname": "generated",
@@ -767,7 +771,11 @@
         },
         {
             "fieldname": "endedAtTime",
-            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "end_timestamp"
+            }
         }
     ],
     "@context": {

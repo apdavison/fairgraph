@@ -748,7 +748,11 @@
         },
         {
             "fieldname": "dateCreated",
-            "relative_path": "http://schema.org/dateCreated"
+            "relative_path": "http://schema.org/dateCreated",
+            "filter": {
+                "op": "equals",
+                "parameter": "timestamp"
+            }
         },
         {
             "fieldname": "hadMember",

@@ -279,6 +279,7 @@
         {
             "fieldname": "https://schema.hbp.eu/uniminds/custodian",
             "relative_path": "https://schema.hbp.eu/uniminds/custodian",
+            "ensure_order": true,
             "fields": [
                 {
                     "relative_path": "@id"
@@ -410,19 +411,6 @@
                 },
                 {
                     "relative_path": "@type"
-                },
-                {
-                    "fieldname": "Dataset__https://schema.hbp.eu/inference/alternatives",
-                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
-                    "ensure_order": true,
-                    "fields": [
-                        {
-                            "relative_path": "@id"
-                        },
-                        {
-                            "relative_path": "@type"
-                        }
-                    ]
                 },
                 {
                     "fieldname": "http://schema.org/description",
@@ -1142,6 +1130,18 @@
                                 {
                                     "fieldname": "http://schema.org/name",
                                     "relative_path": "http://schema.org/name"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "FileBundle__https://schema.hbp.eu/uniminds/modelInstance",
+                            "relative_path": "https://schema.hbp.eu/uniminds/modelInstance",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
                                 }
                             ]
                         }
@@ -7315,6 +7315,43 @@
             "filter": {
                 "op": "contains",
                 "parameter": "study_target"
+            }
+        },
+        {
+            "fieldname": "https://schema.hbp.eu/uniminds/embargoStatus",
+            "relative_path": "https://schema.hbp.eu/uniminds/embargoStatus",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "EmbargoStatus__https://schema.hbp.eu/inference/alternatives",
+                    "relative_path": "https://schema.hbp.eu/inference/alternatives",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "http://schema.org/identifier",
+                    "relative_path": "http://schema.org/identifier"
+                },
+                {
+                    "fieldname": "http://schema.org/name",
+                    "relative_path": "http://schema.org/name"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "embargo_status"
             }
         }
     ],
