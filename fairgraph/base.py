@@ -391,7 +391,9 @@ class KGObject(with_metaclass(Registry, object)):
         This feels like a kludge, and I'd be happy to find a better solution.
         """
         prefix = cls.__name__ + "__"
-        for key in data:
+        for key in list(data):
+            # need to use list() in previous line to avoid
+            # "dictionary keys changed during iteration" error in Python 3.8+
             if key.startswith(prefix):
                 fixed_key = key.replace(prefix, "")
                 data[fixed_key] = data.pop(key)
