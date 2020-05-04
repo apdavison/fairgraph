@@ -1312,24 +1312,24 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     recorded_cell_class = "ImplantedBrainTissue"
     context = {
         "schema": "http://schema.org/",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
         "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
-	"stimulus_type": "nsg:stimulusType",
+        "name": "schema:name",
+	    "stimulus_type": "nsg:stimulusType",
         "wasGeneratedBy": "prov:wasGeneratedBy"
     }
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", ImplantedBrainTissue, "prov:used",
-              required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
-    def __init__(self, name, recorded_cell, stimulus, traces=None, id=None, instance=None):
+    def __init__(self, name, stimulus, recorded_cell=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
