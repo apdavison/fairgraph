@@ -1268,7 +1268,6 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "implantedBrainTissue": "nsg:implantedBrainTissue",
         "used": "prov:used",
         "generated": "prov:generated",
 	    "brainRegion": "nsg:brainRegion",
@@ -1325,7 +1324,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
-        Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
+        Field("recorded_cell", (ImplantedBrainTissue, PatchedCell), "prov:used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
