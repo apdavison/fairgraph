@@ -1306,25 +1306,30 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     an extracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.3.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "ImplantedBrainTissue"
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "used": "prov:used",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-	    "stimulus_type": "nsg:stimulusType",
+        "label": "rdfs:label",
+        "used": "prov:used",
+        "stimulusType" : "nsg:stimulusType",
+        "startedAtTime": "prov:startedAtTime",
+        "endAtTime": "prov:endedAtTime",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "hadProtocol": "prov:hadProtocol",
         "wasGeneratedBy": "prov:wasGeneratedBy"
     }
+
 
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
-        Field("recorded_cell", (ImplantedBrainTissue, PatchedCell), "prov:used"),
+        Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
