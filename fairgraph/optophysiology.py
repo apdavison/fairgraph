@@ -270,7 +270,7 @@ class ROISelection(KGObject):
 class CranialWindow(KGObject):
     """A window (partially) through the skull."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/cranialwindow/v0.1.0"
+    _path = "/optophysiology/cranialwindow/v0.1.1"
     type = ["nsg:CranialWindow", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",

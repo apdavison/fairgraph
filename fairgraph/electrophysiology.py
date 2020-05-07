@@ -1007,7 +1007,7 @@ class PatchClampExperiment(KGObject):
     recording session.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.1.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.3.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -1417,7 +1417,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     a sharp intracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.2.1"
+    _path = "/electrophysiology/stimulusexperiment/v0.3.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
     fields = (
