@@ -36,12 +36,12 @@ logger = logging.getLogger("fairgraph")
 DEFAULT_NAMESPACE = "modelvalidation"
 
 
-class AnalysisActivity(KGObject):
+class Analysis(KGObject):
     """
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisactivity/v0.1.0" # to do: move from 'simulation' to 'dataanalysis'
-    type = ["prov:Activity", "nsg:Activity", "nsg:AnalysisActivity"]
+    type = ["prov:Activity", "nsg:Activity", "nsg:Analysis"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
@@ -100,13 +100,15 @@ class AnalysisConfiguration(KGObject):
 
     def __init__(self,
                  name,
-                 description='',
+                 description=None,
+                 identifier=None,
                  config_file=None,
                  id=None, instance=None):
 
         super(AnalysisConfiguration, self).__init__(
             name=name,
             description=description,
+            identifier=identifier,
             config_file=config_file,
             id=id,
             instance=instance)
@@ -135,87 +137,87 @@ class AnalysisConfiguration(KGObject):
 
 
 class AnalysisResult(KGObject):
-    """
+    """The result of a data analysis.
+
+    For example a graph, a histogram, etc. The result is expected to be stored either in a local
+    file or in a web-accessible location with a direct URL.
+
+    Note that local results files smaller than 1 MB in size will be uploaded and stored within
+    the Knowledge Graph. Larger files must be stored elsewhere.
     """
     namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/analysisresult/v1.0.0"
     type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
-    _path = "/simulation/analysisresult/v0.1.2"
-    context = {"schema": "http://schema.org/",
-               "name": "schema:name",
-               "identifier": "schema:identifier",
-               "description": "schema:description",
-               "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-               "variable": "nsg:variable",
-               "dataType": "nsg:dataType",
-               "distribution": "nsg:distribution",
-               "prov": "http://www.w3.org/ns/prov#",
-               "startedAtTime": "prov:startedAtTime",
-               "wasDerivedFrom":"prov:wasDerivedFrom",
-               "wasGeneratedBy": "prov:wasGeneratedBy"}
-    fields = (Field("name", basestring, "name", required=True),
-              Field("description", basestring, "description"),
-              Field("identifier", basestring, "identifier"),
-              Field("report_file", (Distribution, basestring), "distribution", multiple=True),
-              Field("variable", basestring, "variable", multiple=True),
-              Field("data_type", basestring, "dataType", multiple=True),
-              Field("generated_by", AnalysisActivity, "wasGeneratedBy", multiple=True), # SHOULD BE SET UP  BY THE ACTIVITY
-              Field("derived_from", KGObject, "wasDerivedFrom", multiple=True), # SHOULD BE SET UP BY THE ACTIVITY (NOT YET)
-              Field("timestamp", datetime,  "startedAtTime"))
+    context = [
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "wasDerivedFrom": "prov:wasDerivedFrom",
+            "generatedAtTime": "prov:generatedAtTime",
+            "wasAttributedTo": "prov:wasAttributedTo",
+            "wasGeneratedBy": "prov:wasGeneratedBy",
+        }
+    ]
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("result_file", (Distribution, basestring), "distribution"),
+        Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
+        Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("attributed_to", Person, "wasAttributedTo"),
+        Field("generated_by", Analysis, "wasGeneratedBy"),
+        Field("description", basestring, "description")
+    )
+    existence_query_fields = ("name", "timestamp")
 
-    def __init__(self,
-                 name,
-                 description=None,
-                 identifier=None,
-                 report_file=None,
-                 variable=None,
-                 data_type = None,
-                 generated_by=None,
-                 derived_from=None,
-                 timestamp=None,
-                 id=None, instance=None):
-
+    def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
+                 attributed_to=None, generated_by=None,
+                 description=None, id=None, instance=None):
         super(AnalysisResult, self).__init__(
-            name=name,
-            description=description,
-            identifier=identifier,
-            report_file=report_file,
-            variable=variable,
-            data_type=data_type,
-            generated_by=generated_by,
-            derived_from=derived_from,
-            timestamp=timestamp,
-            id=id,
-            instance=instance)
+            name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
+            attributed_to=attributed_to, generated_by=generated_by,
+            description=description, id=id, instance=instance
+        )
         self._file_to_upload = None
-        if isinstance(report_file, basestring):
-            if report_file.startswith("http"):
-                self.report_file = Distribution(location=report_file)
-            elif os.path.isfile(report_file):
-                self._file_to_upload = report_file
-                self.report_file = None
-        elif report_file is not None:
-            for rf in as_list(self.report_file):
+        if isinstance(result_file, basestring):
+            if result_file.startswith("http"):
+                self.result_file = Distribution(location=result_file)
+            elif os.path.isfile(result_file):
+                self._file_to_upload = result_file
+                self.result_file = None
+        elif result_file is not None:
+            for rf in as_list(self.result_file):
                 assert isinstance(rf, Distribution)
-        else:
-            print('/!\ Need to provide a "report_file" argument, either a string path to a file (local or public on the web) or a Distribution object')
 
     def save(self, client):
         super(AnalysisResult, self).save(client)
         if self._file_to_upload:
             self.upload_attachment(self._file_to_upload, client)
 
-    def add_provenance_from_activity(self, activity, client):
-        """
-        provenance setting should be called within the activity construction
-        """
-        self.generated_by = activity.resolve(client)
-        # self.derived_from = activity.input_data #.resolve(client)
-
     def upload_attachment(self, file_path, client):
-        upload_attachment(self, file_path, client)
+        assert os.path.isfile(file_path)
+        statinfo = os.stat(file_path)
+        if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:
+            raise Exception(
+                "File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
+        # todo, use the Nexus HTTP client directly for the following
+        headers = client._nexus_client._http_client.auth_client.get_headers()
+        content_type, encoding = mimetypes.guess_type(file_path, strict=False)
+        response = requests.put("{}/attachment?rev={}".format(self.id, self.rev or 1),
+                                headers=headers,
+                                files={
+                                    "file": (os.path.basename(file_path),
+                                             open(file_path, "rb"),
+                                             content_type)
+        })
+        if response.status_code < 300:
+            logger.info("Added attachment {} to {}".format(file_path, self.id))
+            self._file_to_upload = None
+            self.result_file = Distribution.from_jsonld(response.json()["distribution"][0])
+        else:
+            raise Exception(str(response.content))
 
     def download(self, local_directory, client):
-          for rf in as_list(self.report_file):
+        for rf in as_list(self.result_file):
             rf.download(local_directory, client)
 
 
@@ -245,12 +247,14 @@ class AnalysisScript(KGObject):
                  script_file=None,
                  code_format=None,
                  license=None,
+                 identifier=None,
                  id=None,
                  instance=None):
         super(AnalysisScript, self).__init__(name=name,
                                              script_file=script_file,
                                              code_format=code_format,
                                              license=license,
+                                             identifier=identifier,
                                              id=id,
                                              instance=instance)
         self._file_to_upload = None
