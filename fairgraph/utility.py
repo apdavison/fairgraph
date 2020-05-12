@@ -104,7 +104,8 @@ standard_context = {
     "email": "schema:email",
     "affiliation": "schema:affiliation",
     "organization": "nsg:organization",
-    "partOf": "nsg:partOf"
+    "partOf": "nsg:partOf",
+    "identifier": "schema:identifier",
 }
 
 
