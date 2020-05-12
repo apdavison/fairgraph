@@ -433,8 +433,21 @@ class ModelInstance(UnimindsObject):
       Field("modelscope", "uniminds.ModelScope", "https://schema.hbp.eu/uniminds/modelScope", required=False, multiple=False),
       Field("publication", "uniminds.Publication", "https://schema.hbp.eu/uniminds/publication", required=False, multiple=False),
       Field("study_target", "uniminds.StudyTarget", "https://schema.hbp.eu/uniminds/studyTarget", required=False, multiple=True),
-      Field("embargo_status", "uniminds.EmbargoStatus", "https://schema.hbp.eu/uniminds/embargoStatus", required=False, multiple=False))
+      Field("embargo_status", "uniminds.EmbargoStatus", "https://schema.hbp.eu/uniminds/embargoStatus", required=False, multiple=False),
+      Field("alternate_of", ["brainsimulation.ModelInstance", "brainsimulation.MEModel"], "^prov:alternateOf",
+            reverse="alternate_of")
+    )
     existence_query_fields = ["identifier"]
+
+    def contributor_names(self, client, api="query"):
+        names = []
+        for person in as_list(self.contributor):
+            person = person.resolve(client, api=api)
+            if person:
+                names.append(person.name)
+            else:
+                pass  # todo: warning
+        return ", ".join(names)
 
 
 class ModelScope(UnimindsOption):
