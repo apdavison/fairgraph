@@ -30,6 +30,9 @@ except NameError:
 from pyld import jsonld
 
 
+ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
+
+
 standard_context = {
     # workaround. Need to implement context handling properly
     "dcterms": "http://purl.org/dc/terms/",
@@ -101,6 +104,7 @@ standard_context = {
     "email": "schema:email",
     "affiliation": "schema:affiliation",
     "organization": "nsg:organization",
+    "partOf": "nsg:partOf"
 }
 
 

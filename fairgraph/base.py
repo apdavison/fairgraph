@@ -32,6 +32,7 @@ except ImportError:  # Python 2
 import logging
 from uuid import UUID
 from dateutil import parser as date_parser
+import mimetypes
 from six import with_metaclass
 from requests.exceptions import HTTPError
 try:
@@ -46,10 +47,12 @@ except ImportError:
     have_tabulate = False
 from pyxus.resources.entity import Instance
 from .errors import ResourceExistsError
-from .utility import compact_uri, expand_uri, standard_context, namespace_from_id, as_list
+from .utility import (compact_uri, expand_uri, standard_context, namespace_from_id, as_list,
+                      ATTACHMENT_SIZE_LIMIT)
 
 
 logger = logging.getLogger("fairgraph")
+mimetypes.init()
 
 
 registry = {
@@ -1260,3 +1263,27 @@ def build_kg_object(cls, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
+
+
+# An upload function used by all entity classes -> to be moved in "utils"
+def upload_attachment(cls, file_path, client):
+    assert os.path.isfile(file_path)
+    statinfo = os.stat(file_path)
+    if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:
+        raise Exception("File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
+    # todo, use the Nexus HTTP client directly for the following
+    headers = client._nexus_client._http_client.auth_client.get_headers()
+    content_type, encoding = mimetypes.guess_type(file_path, strict=False)
+    response = requests.put("{}/attachment?rev={}".format(cls.id, cls.rev or 1),
+                            headers=headers,
+                            files={
+                                "file": (os.path.basename(file_path),
+                                        open(file_path, "rb"),
+                                        content_type)
+                            })
+    if response.status_code < 300:
+        logger.info("Added attachment {} to {}".format(file_path, cls.id))
+        cls._file_to_upload = None
+        cls.report_file = Distribution.from_jsonld(response.json()["distribution"][0])
+    else:
+        raise Exception(str(response.content))

@@ -26,7 +26,6 @@ import os.path
 import logging
 from datetime import datetime, date
 import mimetypes
-from itertools import chain
 import sys
 import inspect
 from dateutil import parser as date_parser
@@ -42,7 +41,7 @@ mimetypes.init()
 
 DEFAULT_NAMESPACE = "modelvalidation"
 
-ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
+from .utility import ATTACHMENT_SIZE_LIMIT
 
 
 class HasAliasMixin(object):
