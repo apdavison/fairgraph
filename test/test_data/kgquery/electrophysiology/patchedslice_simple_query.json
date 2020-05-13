@@ -55,6 +55,39 @@
                 }
             ],
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart"
+        },
+        {
+            "fieldname": "brainRegion",
+            "filter": {
+                "op": "contains",
+                "parameter": "brain_location"
+            },
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "fieldname": "label",
+                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                }
+            ],
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+        },
+        {
+            "fieldname": "solution",
+            "filter": {
+                "op": "contains",
+                "parameter": "bath_solution"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution"
+        },
+        {
+            "fieldname": "description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            },
+            "relative_path": "http://schema.org/description"
         }
     ],
     "@context": {

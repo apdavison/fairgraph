@@ -397,29 +397,33 @@ class Origin(OntologyTerm):
     }
 
 
+unit_codes = {
+    "days": "http://purl.obolibrary.org/obo/UO_0000033",
+    "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
+    "months": "http://purl.obolibrary.org/obo/UO_0000035",
+    "years": "http://purl.obolibrary.org/obo/UO_0000036",
+    "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
+    "µm": "http://purl.obolibrary.org/obo/UO_0000017",
+    "mm": "http://purl.obolibrary.org/obo/UO_0000016",
+    "nm": "http://purl.obolibrary.org/obo/UO_0000018",
+    "mV": "http://purl.obolibrary.org/obo/UO_0000247",
+    "ms": "http://purl.obolibrary.org/obo/UO_0000028",
+    "s": "http://purl.obolibrary.org/obo/UO_0000010",
+    "MΩ": "https://en.wiktionary.org/wiki/megaohm",
+    "Mohm": "https://en.wiktionary.org/wiki/megaohm",
+    "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
+    "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
+    "µA": "http://purl.obolibrary.org/obo/UO_0000038",
+    "nA": "https://en.wiktionary.org/wiki/nanoamp",
+    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
+}
+
+
 class QuantitativeValue(StructuredMetadata):
     """docstring"""
-    unit_codes = {
-        "days": "http://purl.obolibrary.org/obo/UO_0000033",
-        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
-        "months": "http://purl.obolibrary.org/obo/UO_0000035",
-	    "years": "http://purl.obolibrary.org/obo/UO_0000036",
-        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
-        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mm": "http://purl.obolibrary.org/obo/UO_0000016",
-        "nm": "http://purl.obolibrary.org/obo/UO_0000018",
-        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
-        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	    "s": "http://purl.obolibrary.org/obo/UO_0000010",
-        "c": "https://en.wiktionary.org/wiki/megaohm",
-        "Mohm": "https://en.wiktionary.org/wiki/megaohm",
-        "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
-        "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
-        "µA": "http://purl.obolibrary.org/obo/UO_0000038",
-        "nA": "https://en.wiktionary.org/wiki/nanoamp",
-	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
-        }
+    type = ("nsg:QuantitativeValue",)
+    unit_codes = unit_codes
 
     def __init__(self, value, unit_text, unit_code=None):
         if not isinstance(value, (int, float)):
@@ -480,19 +484,8 @@ class QuantitativeValue(StructuredMetadata):
 
 class QuantitativeValueRange(StructuredMetadata):
     """docstring"""
-    unit_codes = {
-        "days": "http://purl.obolibrary.org/obo/UO_0000033",
-        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
-        "months": "http://purl.obolibrary.org/obo/UO_0000035",
-        "DIV": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C19481",
-        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
-        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
-        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279",
-        "MOhm": "http://purl.obolibrary.org/obo/NCIT_C42554"
-    }
+    type = ("nsg:QuantitativeValueRange",)
+    unit_codes = unit_codes
 
     def __init__(self, min, max, unit_text, unit_code=None):
         if not isinstance(min, (int, float)):
@@ -507,6 +500,15 @@ class QuantitativeValueRange(StructuredMetadata):
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
+
+    def __eq__(self, other):
+        return (self.min == other.min
+                and self.max == other.max
+                and self.unit_text == other.unit_text
+                and self.unit_code == other.unit_code)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def to_jsonld(self, client=None):
         return {

@@ -81,28 +81,57 @@
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
                         },
                         {
-                            "fieldname": "nsg:pipetteNumber",
+                            "fieldname": "PatchedCell__morphologyType",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ],
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/morphologyType"
+                        },
+                        {
+                            "fieldname": "pipetteNumber",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
                         },
                         {
-                            "fieldname": "nsg:sealResistance",
+                            "fieldname": "sealResistance",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
                         },
                         {
-                            "fieldname": "nsg:pipetteResistance",
+                            "fieldname": "pipetteResistance",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
                         },
                         {
-                            "fieldname": "nsg:liquidJunctionPotential",
+                            "fieldname": "liquidJunctionPotential",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
                         },
                         {
-                            "fieldname": "nsg:labelingCompound",
+                            "fieldname": "startMembranePotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/startMembranePotential"
+                        },
+                        {
+                            "fieldname": "endMembranePotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/endMembranePotential"
+                        },
+                        {
+                            "fieldname": "solution",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution"
+                        },
+                        {
+                            "fieldname": "labelingCompound",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
                         },
                         {
-                            "fieldname": "nsg:chlorideReversalPotential",
+                            "fieldname": "chlorideReversalPotential",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
+                        },
+                        {
+                            "fieldname": "description",
+                            "relative_path": "http://schema.org/description"
                         }
                     ],
                     "relative_path": "http://www.w3.org/ns/prov#used"
@@ -119,6 +148,83 @@
                         }
                     ],
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"
+                },
+                {
+                    "fieldname": "startedAtTime",
+                    "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+                },
+                {
+                    "fieldname": "endedAtTime",
+                    "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+                },
+                {
+                    "fieldname": "PatchClampExperiment__wasAssociatedWith",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "familyName",
+                            "relative_path": "http://schema.org/familyName"
+                        },
+                        {
+                            "fieldname": "givenName",
+                            "relative_path": "http://schema.org/givenName"
+                        },
+                        {
+                            "fieldname": "email",
+                            "relative_path": "http://schema.org/email"
+                        },
+                        {
+                            "fieldname": "Person__affiliation",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "address",
+                                    "relative_path": "http://schema.org/address"
+                                },
+                                {
+                                    "fieldname": "Organization__parentOrganization",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        }
+                                    ],
+                                    "relative_path": "http://schema.org/parentOrganization"
+                                }
+                            ],
+                            "relative_path": "http://schema.org/affiliation"
+                        }
+                    ],
+                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+                },
+                {
+                    "fieldname": "PatchClampExperiment__hadProtocol",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        }
+                    ],
+                    "relative_path": "http://www.w3.org/ns/prov#hadProtocol"
                 },
                 {
                     "fieldname": "IntraCellularSharpElectrodeExperiment__prov:used",
@@ -211,12 +317,76 @@
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep"
         },
         {
+            "fieldname": "repetition",
+            "filter": {
+                "op": "equals",
+                "parameter": "repetition"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/repetition"
+        },
+        {
+            "fieldname": "atTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "at_time"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/atTime"
+        },
+        {
+            "fieldname": "providerExperimentId",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_experiment_id"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentId"
+        },
+        {
+            "fieldname": "providerExperimentName",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_experiment_name"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentName"
+        },
+        {
             "fieldname": "targetHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "holding_potential"
             },
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential"
+        },
+        {
+            "fieldname": "measuredHoldingPotential",
+            "filter": {
+                "op": "contains",
+                "parameter": "measured_holding_potential"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/measuredHoldingPotential"
+        },
+        {
+            "fieldname": "inputResistance",
+            "filter": {
+                "op": "contains",
+                "parameter": "input_resistance"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/inputResistance"
+        },
+        {
+            "fieldname": "seriesResistance",
+            "filter": {
+                "op": "contains",
+                "parameter": "series_resistance"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/seriesResistance"
+        },
+        {
+            "fieldname": "compensationCurrent",
+            "filter": {
+                "op": "contains",
+                "parameter": "compensation_current"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/compensationCurrent"
         }
     ],
     "@context": {

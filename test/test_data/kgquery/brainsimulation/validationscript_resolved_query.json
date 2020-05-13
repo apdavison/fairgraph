@@ -5,76 +5,79 @@
     "http://schema.org/identifier": "modelvalidation/simulation/validationscript/v0.1.0/fgResolved",
     "fields": [
         {
-            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            }
+            },
+            "relative_path": "@id"
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
-            "relative_path": "http://schema.org/name",
-            "sort": true,
-            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            }
+            },
+            "sort": true,
+            "relative_path": "http://schema.org/name",
+            "required": true
         },
         {
             "fieldname": "dateCreated",
-            "relative_path": "http://schema.org/dateCreated",
             "filter": {
                 "op": "equals",
                 "parameter": "date_created"
-            }
+            },
+            "relative_path": "http://schema.org/dateCreated"
         },
         {
             "fieldname": "repository",
-            "relative_path": "http://schema.org/codeRepository",
             "filter": {
                 "op": "contains",
                 "parameter": "repository"
-            }
+            },
+            "relative_path": "http://schema.org/codeRepository"
         },
         {
             "fieldname": "version",
-            "relative_path": "http://schema.org/version",
             "filter": {
                 "op": "contains",
                 "parameter": "version"
-            }
+            },
+            "relative_path": "http://schema.org/version"
         },
         {
             "fieldname": "description",
-            "relative_path": "http://schema.org/description",
             "filter": {
                 "op": "contains",
                 "parameter": "description"
-            }
+            },
+            "relative_path": "http://schema.org/description"
         },
         {
             "fieldname": "parameters",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/parameters",
             "filter": {
                 "op": "contains",
                 "parameter": "parameters"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/parameters"
         },
         {
             "fieldname": "path",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/path",
             "filter": {
                 "op": "contains",
                 "parameter": "test_class"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/path"
         },
         {
             "fieldname": "implements",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/implements",
+            "filter": {
+                "op": "contains",
+                "parameter": "test_definition"
+            },
             "fields": [
                 {
                     "relative_path": "@id"
@@ -88,7 +91,6 @@
                 },
                 {
                     "fieldname": "ValidationTestDefinition__author",
-                    "relative_path": "http://schema.org/author",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -111,7 +113,6 @@
                         },
                         {
                             "fieldname": "Person__affiliation",
-                            "relative_path": "http://schema.org/affiliation",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -129,7 +130,6 @@
                                 },
                                 {
                                     "fieldname": "Organization__parentOrganization",
-                                    "relative_path": "http://schema.org/parentOrganization",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -137,11 +137,14 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ]
+                                    ],
+                                    "relative_path": "http://schema.org/parentOrganization"
                                 }
-                            ]
+                            ],
+                            "relative_path": "http://schema.org/affiliation"
                         }
-                    ]
+                    ],
+                    "relative_path": "http://schema.org/author"
                 },
                 {
                     "fieldname": "description",
@@ -157,7 +160,6 @@
                 },
                 {
                     "fieldname": "ValidationTestDefinition__brainRegion",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -166,11 +168,11 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
                 },
                 {
                     "fieldname": "ValidationTestDefinition__species",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -179,11 +181,11 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species"
                 },
                 {
                     "fieldname": "ValidationTestDefinition__celltype",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/celltype",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -192,7 +194,8 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/celltype"
                 },
                 {
                     "fieldname": "testType",
@@ -200,7 +203,6 @@
                 },
                 {
                     "fieldname": "age",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
                     "fields": [
                         {
                             "fieldname": "value",
@@ -210,11 +212,11 @@
                             "fieldname": "period",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age"
                 },
                 {
                     "fieldname": "ValidationTestDefinition__referenceData",
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/referenceData",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -223,7 +225,8 @@
                         {
                             "relative_path": "@type"
                         }
-                    ]
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/referenceData"
                 },
                 {
                     "fieldname": "dataType",
@@ -246,18 +249,15 @@
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId"
                 }
             ],
-            "filter": {
-                "op": "contains",
-                "parameter": "test_definition"
-            }
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/implements"
         },
         {
             "fieldname": "oldUUID",
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId",
             "filter": {
                 "op": "contains",
                 "parameter": "old_uuid"
-            }
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId"
         }
     ],
     "@context": {

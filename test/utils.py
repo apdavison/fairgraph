@@ -30,7 +30,8 @@ from pyxus.resources.repository import (ContextRepository, DomainRepository,
                                         SchemaRepository)
 import fairgraph.client
 from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
-from fairgraph.commons import QuantitativeValue, OntologyTerm, Age, Address, Species
+from fairgraph.commons import (QuantitativeValue, QuantitativeValueRange,
+                               OntologyTerm, Age, Address, Species)
 
 
 test_data_lookup = {}
@@ -192,6 +193,11 @@ def generate_random_object(cls, all_fields=True):
                 # todo: subclass QV so we can specify the required dimensionality in `fields`
                 value = QuantitativeValue(random.uniform(-10, 10),
                                           random.choice(list(QuantitativeValue.unit_codes)))
+            elif obj_type == QuantitativeValueRange:
+                # todo: subclass QVR so we can specify the required dimensionality in `fields`
+                min = random.uniform(-10, 10)
+                value = QuantitativeValueRange(min, min + random.uniform(1, 10),
+                                               random.choice(list(QuantitativeValue.unit_codes)))
             elif issubclass(obj_type, OntologyTerm):
                 value = obj_type(random.choice(list(obj_type.iri_map)))
             elif obj_type == datetime:

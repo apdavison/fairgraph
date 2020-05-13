@@ -30,6 +30,7 @@
                 "op": "contains",
                 "parameter": "cells"
             },
+            "ensure_order": true,
             "fields": [
                 {
                     "relative_path": "@id"

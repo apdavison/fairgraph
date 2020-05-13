@@ -30,6 +30,7 @@
                 "op": "contains",
                 "parameter": "cells"
             },
+            "ensure_order": true,
             "fields": [
                 {
                     "relative_path": "@id"
@@ -68,28 +69,57 @@
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
                 },
                 {
-                    "fieldname": "nsg:pipetteNumber",
+                    "fieldname": "PatchedCell__morphologyType",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/morphologyType"
+                },
+                {
+                    "fieldname": "pipetteNumber",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
                 },
                 {
-                    "fieldname": "nsg:sealResistance",
+                    "fieldname": "sealResistance",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
                 },
                 {
-                    "fieldname": "nsg:pipetteResistance",
+                    "fieldname": "pipetteResistance",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
                 },
                 {
-                    "fieldname": "nsg:liquidJunctionPotential",
+                    "fieldname": "liquidJunctionPotential",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
                 },
                 {
-                    "fieldname": "nsg:labelingCompound",
+                    "fieldname": "startMembranePotential",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/startMembranePotential"
+                },
+                {
+                    "fieldname": "endMembranePotential",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/endMembranePotential"
+                },
+                {
+                    "fieldname": "solution",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution"
+                },
+                {
+                    "fieldname": "labelingCompound",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
                 },
                 {
-                    "fieldname": "nsg:chlorideReversalPotential",
+                    "fieldname": "chlorideReversalPotential",
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
+                },
+                {
+                    "fieldname": "description",
+                    "relative_path": "http://schema.org/description"
                 }
             ],
             "relative_path": "http://www.w3.org/ns/prov#hadMember"

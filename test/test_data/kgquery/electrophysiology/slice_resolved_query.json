@@ -68,6 +68,19 @@
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain"
                 },
                 {
+                    "fieldname": "Subject__genotype",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype"
+                },
+                {
                     "fieldname": "Subject__sex",
                     "fields": [
                         {
@@ -79,6 +92,19 @@
                         }
                     ],
                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex"
+                },
+                {
+                    "fieldname": "Subject__handedness",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness"
                 },
                 {
                     "fieldname": "age",
@@ -97,9 +123,30 @@
                 {
                     "fieldname": "deathDate",
                     "relative_path": "http://schema.org/deathDate"
+                },
+                {
+                    "fieldname": "Subject__group",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "fieldname": "label",
+                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                        }
+                    ],
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group"
                 }
             ],
             "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+        },
+        {
+            "fieldname": "providerId",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_id"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId"
         }
     ],
     "@context": {

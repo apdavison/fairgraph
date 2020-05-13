@@ -23,3 +23,6 @@ import re
 from .client import KGClient
 
 __version__ = "0.5.2.dev"
+
+from . import (base, brainsimulation, client, commons, core, data, electrophysiology,
+               errors, minds, optophysiology, software, uniminds, utility)

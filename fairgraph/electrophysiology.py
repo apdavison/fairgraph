@@ -266,7 +266,7 @@ class MultiChannelMultiTrialRecording(Trace):
         Field("data_unit", basestring, "dataUnit", required=True,
               multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
-        Field("channel_type", ChannelType, "ChannelType"),
+        Field("channel_type", ChannelType, "channelType"),
         Field("part_of", Dataset, "partOf")
     )
 
@@ -305,14 +305,15 @@ class PatchedCell(KGObject):
         "sealResistance": "nsg:sealResistance",
         "pipetteNumber": "nsg:pipetteNumber",
         "solution": "nsg:solution",
-        "description" : "schema:description"
+        "description" : "schema:description",
+        "morphologyType": "nsg:morphologyType"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember",
               reverse="cells"),
-        Field("putative_cell_type", CellType, "eType", required=False),
+        #Field("putative_cell_type", CellType, "eType", required=False),  # interferes with cell_type, need a different identifier
         Field("cell_type", CellType, "eType", required=False),
         Field("morphology_type", MorphologyType, "morphologyType"),
         Field("experiments", "electrophysiology.PatchClampExperiment",
@@ -495,7 +496,9 @@ class Slice(KGObject):  # should move to "core" module?
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("provider_id", basestring, "providerId"),
         Field("brain_slicing_activity",  "electrophysiology.BrainSlicingActivity", "^prov:generated", reverse="slices"),
-        Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
+        #Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
+        #  support for multiple reverses not implemented
+        Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse="recorded_tissue")
     )
 
 
@@ -1156,7 +1159,7 @@ class QualifiedTraceGeneration(KGObject):
         "unitCode": "schema:unitCode",
         "targetHoldingPotential": "nsg:targetHoldingPotential",
         "repetition" : "nsg:repetition",
-        "at_time" : "nsg:atTime",
+        "atTime" : "nsg:atTime",
         "providerExperimentId" : "nsg:providerExperimentId",
         "providerExperimentName" : "nsg:providerExperimentName",
         "measuredHoldingPotential" : "nsg:measuredHoldingPotential",
@@ -1276,7 +1279,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "anesthesia": "nsg:anesthesia",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	    "CranialWindow": "nsg:cranialWindow",
+	    "cranialWindow": "nsg:cranialWindow",
 	    "hadProtocol": "prov:hadProtocol"
        }
     fields = (
@@ -1371,7 +1374,7 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("slice", Slice, "used", required=True),
+        Field("recorded_tissue", (CellCulture, Slice, CranialWindow), "used", required=True),
         Field("recorded_slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
               "generated", required=True),
         Field("protocol", basestring, "protocol"),
@@ -1417,7 +1420,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     a sharp intracellular electrode.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.3.0"
+    _path = "/electrophysiology/stimulusexperiment/v0.2.1"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
     fields = (

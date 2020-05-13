@@ -39,6 +39,14 @@
                 }
             ],
             "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+        },
+        {
+            "fieldname": "providerId",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_id"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId"
         }
     ],
     "@context": {

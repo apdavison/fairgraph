@@ -37,6 +37,7 @@
                 "op": "contains",
                 "parameter": "ethics_approval"
             },
+            "ensure_order": true,
             "fields": [
                 {
                     "relative_path": "@id"
