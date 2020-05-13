@@ -30,7 +30,7 @@ from datetime import date, datetime
 from dateutil import parser as date_parser
 from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Sex, Age, QuantitativeValue
+from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -38,7 +38,6 @@ DEFAULT_NAMESPACE = None
 
 
 logger = logging.getLogger("fairgraph")
-
 
 class Subject(KGObject):
     """The individual organism that is the subject of an experimental study."""
@@ -61,20 +60,25 @@ class Subject(KGObject):
         "age": "nsg:age",  # change from nsg:age to "http://dbpedia.org/ontology/age" ?
         "period": "nsg:period",
         "sex": "nsg:sex",
+        "genotype": "nsg:genotype",
+        "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
+	"group": "nsg:group",
         "providerId": "nsg:providerId"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
+        Field("genotype", Genotype, "genotype"),
         Field("sex", Sex, "sex"),
-        Field("age", Age, "age", required=True),
-        Field("death_date", date, "deathDate")
+        Field("handedness", Handedness, "handedness"),
+        Field("age", Age, "age"),
+        Field("death_date", date, "deathDate"),
+	Field("group", Group, "group")
     )
 
-    def __init__(self, name, species, age, sex=None, strain=None,
-                 death_date=None, id=None, instance=None):
+    def __init__(self, name, species, age=None, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

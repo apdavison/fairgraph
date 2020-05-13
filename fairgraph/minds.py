@@ -55,7 +55,7 @@ class MINDSObject(KGObject):
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "prov": "http://www.w3.org/ns/prov#",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "minds": 'https://schema.hbp.eu/',
+            "minds": 'https://schema.hbp.eu/minds/',
             "uniminds": 'https://schema.hbp.eu/uniminds/',
         }
     ]
@@ -86,7 +86,7 @@ class Activity(MINDSObject):
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),
-      Field("ethics_approval", "minds.EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=False),
+      Field("ethics_approval", "minds.EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=True),
       Field("ethics_authority", "minds.EthicsAuthority", "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=True),
       Field("methods", "minds.Method", "https://schema.hbp.eu/minds/methods", required=False, multiple=True),
       Field("preparation", "minds.Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=False),
@@ -275,6 +275,42 @@ class Dataset(MINDSObject):
         }
         instances = client.query_kgquery(Method.path, "fgDatasets", filter=filter, scope=scope)
         return [Method.from_kg_instance(inst, client) for inst in instances]
+
+    @classmethod
+    def list(cls, client, size=100, from_index=0, api="query",
+             scope="released", resolved=False, **filters):
+        """List all objects of this type in the Knowledge Graph"""
+        if api == "nexus":
+            context = {
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
+            }
+            filter_queries = []
+            for name, value in filters.items():
+                if name == "method":
+                    filter_queries.append({
+                        "path": "minds:specimen_group / minds:subjects / minds:samples / minds:methods / schema:name",
+                        "op": "eq",
+                        "value": value.name
+                    })
+                else:
+                    raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
+            if len(filter_queries) == 0:
+                return client.list(cls, api="nexus", size=size)
+            elif len(filter_queries) == 1:
+                filter_query = filter_queries[0]
+            else:
+                filter_query = {
+                    "op": "and",
+                    "value": filter_queries
+                }
+            filter_query = {"nexus": filter_query}
+            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
+        elif api == "query":
+            return super(Dataset, cls).list(client, size, from_index, api,
+                                                scope, resolved, **filters)
+        else:
+            raise ValueError("'api' must be either 'nexus' or 'query'")
 
 
 class EmbargoStatus(MINDSObject):
@@ -494,7 +530,7 @@ class Sample(MINDSObject):
     A sample of neural tissue.
     """
     _path = "/experiment/sample/v1.0.0"
-    type = ["https://schema.hbp.eu/minds/Sample"]
+    type = ["minds:Sample"]
     fields = (
       # Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
       Field("container_url", basestring, "https://schema.hbp.eu/minds/container_url", required=False, multiple=False),

@@ -103,6 +103,14 @@
                 }
             ],
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/partOf"
+        },
+        {
+            "fieldname": "retrievalDate",
+            "filter": {
+                "op": "equals",
+                "parameter": "retrieval_date"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/retrievalDate"
         }
     ],
     "@context": {

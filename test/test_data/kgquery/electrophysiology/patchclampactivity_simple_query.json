@@ -1,8 +1,8 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.1.0"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/experiment/wholecellpatchclamp/v0.3.0"
     },
-    "http://schema.org/identifier": "neuralactivity/experiment/wholecellpatchclamp/v0.1.0/fgSimple",
+    "http://schema.org/identifier": "neuralactivity/experiment/wholecellpatchclamp/v0.3.0/fgSimple",
     "fields": [
         {
             "filter": {
@@ -28,7 +28,7 @@
             "fieldname": "used",
             "filter": {
                 "op": "contains",
-                "parameter": "slice"
+                "parameter": "recorded_tissue"
             },
             "fields": [
                 {
@@ -57,12 +57,12 @@
             "relative_path": "http://www.w3.org/ns/prov#generated"
         },
         {
-            "fieldname": "protocol",
+            "fieldname": "hadProtocol",
             "filter": {
                 "op": "contains",
                 "parameter": "protocol"
             },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/protocol"
+            "relative_path": "http://www.w3.org/ns/prov#hadProtocol"
         },
         {
             "fieldname": "wasAssociatedWith",
@@ -80,6 +80,22 @@
                 }
             ],
             "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+        },
+        {
+            "fieldname": "startedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "start_time"
+            },
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+        },
+        {
+            "fieldname": "endedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "end_time"
+            },
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
         }
     ],
     "@context": {

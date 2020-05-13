@@ -15,7 +15,8 @@
                     "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
                     "prov": "http://www.w3.org/ns/prov#",
                     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "schema": "http://schema.org/"
+                    "schema": "http://schema.org/",
+                    "chlorideReversalPotential": "nsg:chlorideReversalPotential"
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/153ec151-b1ae-417b-96b5-4ce9950a3c56",
                 "@type": [
@@ -33,7 +34,7 @@
                     "label": "hippocampus CA1 pyramidal cell"
                 },
                 "name": "hbp00014_Sub2_Samp3__ExpB6",
-                "nsg:chlorideReversalPotential": {
+                "chlorideReversalPotential": {
                     "@type": "nsg:QuantitativeValue",
                     "label": "mV",
                     "unitCode": {

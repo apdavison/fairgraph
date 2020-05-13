@@ -175,7 +175,8 @@ class ModelInstance(KGObject):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {"oldUUID": "nsg:providerId",
-         "generatedAtTime": "prov:generatedAtTime"}
+         "generatedAtTime": "prov:generatedAtTime",
+         "alternateOf": "prov:alternateOf"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -191,13 +192,14 @@ class ModelInstance(KGObject):
         Field("part_of", KGObject, "isPartOf"),
         Field("description", basestring, "description"),
         Field("parameters", basestring, "parameters"),
-        Field("old_uuid", basestring, "oldUUID")
+        Field("old_uuid", basestring, "oldUUID"),
+        Field("alternate_of", KGObject, "alternateOf")
     )
 
     def __init__(self, name, main_script, version, timestamp=None,
                  brain_region=None, species=None, model_of=None, release=None,
                  part_of=None, description=None, parameters=None,
-                 old_uuid=None, id=None, instance=None):
+                 old_uuid=None, alternate_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -236,7 +238,8 @@ class MEModel(ModelInstance):
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
         {"oldUUID": "nsg:providerId",
-         "generatedAtTime": "prov:generatedAtTime"}
+         "generatedAtTime": "prov:generatedAtTime",
+         "alternateOf": "prov:alternateOf"}
     ]
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
@@ -249,7 +252,7 @@ class MEModel(ModelInstance):
     def __init__(self, name, e_model, morphology, main_script, version, timestamp=None, #project,
                  brain_region=None, species=None, model_of=None,
                  release=None, part_of=None, description=None, parameters=None,
-                 old_uuid=None, id=None, instance=None):
+                 old_uuid=None, alternate_of=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

@@ -1,8 +1,8 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.1.0"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/neuralactivity/electrophysiology/multitracegeneration/v0.2.3"
     },
-    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitracegeneration/v0.1.0/fgSimple",
+    "http://schema.org/identifier": "neuralactivity/electrophysiology/multitracegeneration/v0.2.3/fgSimple",
     "fields": [
         {
             "filter": {
@@ -49,12 +49,36 @@
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep"
         },
         {
+            "fieldname": "channelType",
+            "filter": {
+                "op": "contains",
+                "parameter": "channel_type"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/channelType"
+        },
+        {
             "fieldname": "targetHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "holding_potential"
             },
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential"
+        },
+        {
+            "fieldname": "samplingFrequency",
+            "filter": {
+                "op": "contains",
+                "parameter": "sampling_frequency"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/samplingFrequency"
+        },
+        {
+            "fieldname": "powerLineFrequency",
+            "filter": {
+                "op": "contains",
+                "parameter": "power_line_frequency"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/powerLineFrequency"
         }
     ],
     "@context": {

@@ -49,12 +49,76 @@
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep"
         },
         {
+            "fieldname": "repetition",
+            "filter": {
+                "op": "equals",
+                "parameter": "repetition"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/repetition"
+        },
+        {
+            "fieldname": "atTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "at_time"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/atTime"
+        },
+        {
+            "fieldname": "providerExperimentId",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_experiment_id"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentId"
+        },
+        {
+            "fieldname": "providerExperimentName",
+            "filter": {
+                "op": "contains",
+                "parameter": "provider_experiment_name"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentName"
+        },
+        {
             "fieldname": "targetHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "holding_potential"
             },
             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential"
+        },
+        {
+            "fieldname": "measuredHoldingPotential",
+            "filter": {
+                "op": "contains",
+                "parameter": "measured_holding_potential"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/measuredHoldingPotential"
+        },
+        {
+            "fieldname": "inputResistance",
+            "filter": {
+                "op": "contains",
+                "parameter": "input_resistance"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/inputResistance"
+        },
+        {
+            "fieldname": "seriesResistance",
+            "filter": {
+                "op": "contains",
+                "parameter": "series_resistance"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/seriesResistance"
+        },
+        {
+            "fieldname": "compensationCurrent",
+            "filter": {
+                "op": "contains",
+                "parameter": "compensation_current"
+            },
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/compensationCurrent"
         }
     ],
     "@context": {
