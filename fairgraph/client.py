@@ -54,7 +54,7 @@ class KGClient(object):
     """docstring"""
 
     def __init__(self, token=None,
-                 nexus_endpoint="https://nexus.humanbrainproject.org/v0",
+                 nexus_endpoint="https://nexus.humanbrainproject.eu/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.eu/query",
                  release_endpoint="https://kg.humanbrainproject.eu/api/releases",
                  idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
@@ -283,6 +283,8 @@ class KGClient(object):
                     query_id = cls.query_id_resolved
                 else:
                     query_id = cls.query_id
+                    print("TEST CLS", cls)
+                    print("TEST", cls.path)
                 response = self._kg_query_client.get(
                     "{}/{}{}/instances?databaseScope={}&name={}".format(
                         cls.path,
