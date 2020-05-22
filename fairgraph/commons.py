@@ -208,6 +208,7 @@ class BrainRegion(OntologyTerm):
     iri_map = {
         "anterolateral visual area": "http://purl.obolibrary.org/obo/UBERON_0035894",
         "anteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035893",
+        "barrel cortex": "http://purl.obolibrary.org/obo/UBERON_0010415",
         "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
         "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
         "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
@@ -226,6 +227,7 @@ class BrainRegion(OntologyTerm):
         "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
 	    "motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
 	    "parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
+        "perirhinal cortex": "http://purl.obolibrary.org/obo/UBERON_0006083",
         "posteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035900",
         "prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
         "prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",
@@ -240,6 +242,7 @@ class BrainRegion(OntologyTerm):
     	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",
         "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
         "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
+        "stratum pyramidale": "http://purl.obolibrary.org/obo/UBERON_0002313",
         "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
         "thalamocortical": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
         "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
