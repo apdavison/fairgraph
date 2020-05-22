@@ -107,7 +107,7 @@ class Shape(OntologyTerm):
     iri_map = {
         "circle": "https://en.wiktionary.org/wiki/circle",
         "ellipse": "https://en.wiktionary.org/wiki/ellipse",
-	"freeform": "https://en.wiktionary.org/wiki/free-form#English",
+	    "freeform": "https://en.wiktionary.org/wiki/free-form#English",
         "rectangle": "https://en.wiktionary.org/wiki/rectangle",
         "square": "https://en.wiktionary.org/wiki/square"
     }
@@ -142,6 +142,7 @@ class Strain(OntologyTerm):
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
         "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
 	    "Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
+        "lister hooded": "https://www.criver.com/products-services/find-model/lister-hooded-rat?region=3671",
         "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
         "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml",
         "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
@@ -304,13 +305,7 @@ class AbstractionLevel(OntologyTerm):
         "systems biology: flux balance": "http://www.ebi.ac.uk/sbo/main/display?sboId=SBO:0000624",
         "spiking neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
         "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
-        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
-        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
-        "population modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345671",
-        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
-        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
-        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674",
-        "algorithm": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675"
+        "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018"
     }
 
 
@@ -397,33 +392,29 @@ class Origin(OntologyTerm):
     }
 
 
-unit_codes = {
-    "days": "http://purl.obolibrary.org/obo/UO_0000033",
-    "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
-    "months": "http://purl.obolibrary.org/obo/UO_0000035",
-    "years": "http://purl.obolibrary.org/obo/UO_0000036",
-    "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
-    "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-    "mm": "http://purl.obolibrary.org/obo/UO_0000016",
-    "nm": "http://purl.obolibrary.org/obo/UO_0000018",
-    "mV": "http://purl.obolibrary.org/obo/UO_0000247",
-    "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-    "s": "http://purl.obolibrary.org/obo/UO_0000010",
-    "MΩ": "https://en.wiktionary.org/wiki/megaohm",
-    "Mohm": "https://en.wiktionary.org/wiki/megaohm",
-    "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
-    "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
-    "µA": "http://purl.obolibrary.org/obo/UO_0000038",
-    "nA": "https://en.wiktionary.org/wiki/nanoamp",
-    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
-}
-
-
 class QuantitativeValue(StructuredMetadata):
     """docstring"""
-    type = ("nsg:QuantitativeValue",)
-    unit_codes = unit_codes
+    unit_codes = {
+        "days": "http://purl.obolibrary.org/obo/UO_0000033",
+        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
+        "months": "http://purl.obolibrary.org/obo/UO_0000035",
+	    "years": "http://purl.obolibrary.org/obo/UO_0000036",
+        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
+        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
+        "mm": "http://purl.obolibrary.org/obo/UO_0000016",
+        "nm": "http://purl.obolibrary.org/obo/UO_0000018",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
+        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
+	    "s": "http://purl.obolibrary.org/obo/UO_0000010",
+        "c": "https://en.wiktionary.org/wiki/megaohm",
+        "Mohm": "https://en.wiktionary.org/wiki/megaohm",
+        "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
+        "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
+        "µA": "http://purl.obolibrary.org/obo/UO_0000038",
+        "nA": "https://en.wiktionary.org/wiki/nanoamp",
+	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
+        }
 
     def __init__(self, value, unit_text, unit_code=None):
         if not isinstance(value, (int, float)):
@@ -484,8 +475,19 @@ class QuantitativeValue(StructuredMetadata):
 
 class QuantitativeValueRange(StructuredMetadata):
     """docstring"""
-    type = ("nsg:QuantitativeValueRange",)
-    unit_codes = unit_codes
+    unit_codes = {
+        "days": "http://purl.obolibrary.org/obo/UO_0000033",
+        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
+        "months": "http://purl.obolibrary.org/obo/UO_0000035",
+        "DIV": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C19481",
+        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
+        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
+        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
+        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
+	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279",
+        "MOhm": "http://purl.obolibrary.org/obo/NCIT_C42554"
+    }
 
     def __init__(self, min, max, unit_text, unit_code=None):
         if not isinstance(min, (int, float)):
@@ -500,15 +502,6 @@ class QuantitativeValueRange(StructuredMetadata):
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
-
-    def __eq__(self, other):
-        return (self.min == other.min
-                and self.max == other.max
-                and self.unit_text == other.unit_text
-                and self.unit_code == other.unit_code)
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
 
     def to_jsonld(self, client=None):
         return {
