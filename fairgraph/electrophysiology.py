@@ -80,44 +80,6 @@ class Sensor(KGObject):
         KGObject.__init__(self, **args)
 
 
-class Task(KGObject):
-    """Stimulus provided to subject in ElectrodeArrayExperiment."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/task/v0.1.0" # prod
-#    _path = "/electrophysiology/task/v0.1.2" # int
-    type = ["nsg:Task", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "wasInformedBy": "nsg: wasInformedBy",
-        "description": "schema:description",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        }
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description", required=True),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "wasInformedBy"),
-        Field("cogatlasid", Distribution, "distribution"),
-        Field("cogpoid", Distribution, "distribution")
-    )
-
-    def __init__(self, name, description, experiment=None, cogatlasid=None, cogpoid=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
 class Device(KGObject):
     """Device used to collect recording in ElectrodeArrayExperiment"""
     namespace = DEFAULT_NAMESPACE
@@ -899,7 +861,7 @@ class ElectrodeArrayExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
-    	Field("task", Task, "^prov:wasInformedBy"),
+        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
     	Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
@@ -912,7 +874,7 @@ class ElectrodeArrayExperiment(KGObject):
     )
 
 
-    def __init__(self, name, device=None, task=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, stimulus=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1025,12 +987,13 @@ class PatchClampExperiment(KGObject):
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "hadProtocol": "prov:hadProtocol"
-    }
+        }
     #recorded_cell_class = "PatchedCell"
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulus_type", StimulusType, "stimulusType", required=True),
+        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -1039,7 +1002,7 @@ class PatchClampExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, recorded_cell, stimulus, traces=None,
+    def __init__(self, name, recorded_cell, stimulus_type, stimulus=None, traces=None,
     start_time=None, end_time=None, people=None, protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1331,12 +1294,13 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulus_type", StimulusType, "stimulusType", required=True),
+        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
-    def __init__(self, name, stimulus, recorded_cell=None, traces=None, id=None, instance=None):
+    def __init__(self, name, stimulus_type, stimulus=None, recorded_cell=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1556,6 +1520,7 @@ class VisualStimulation(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
+        "wasInformedBy": "nsg:wasInformedBy",
         "name": "schema:name",
         "interstimulusInterval": "nsg:interstimulusInterval",
         "refreshRate": "nsg:refreshRate",
@@ -1570,6 +1535,7 @@ class VisualStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", VisualStimulus, "used", required=True),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
@@ -1579,7 +1545,7 @@ class VisualStimulation(KGObject):
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -1634,6 +1600,7 @@ class ElectrophysiologicalStimulation(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
+        "wasInformedBy": "nsg:wasInformedBy",
         "name": "schema:name",
 	    "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
@@ -1646,6 +1613,7 @@ class ElectrophysiologicalStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("stimulus_type", StimulusType, "stimulusType"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
@@ -1653,7 +1621,93 @@ class ElectrophysiologicalStimulation(KGObject):
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, electrophysiological_stimulus, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, electrophysiological_stimulus, experiment=None, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class BehavioralStimulus(KGObject):
+    """A generic behavioral stimulus."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/behavioralstimulus/v0.1.0"
+    type = ["nsg:BehavioralStimulus", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "minds": "https://schema.hbp.eu/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("description", basestring, "description", required=True),
+        Field("distribution", Distribution, "distribution"),
+        Field("stimulation", "optophysiology.BehavioralStimulation", "^prov:used", reverse="stimulus")
+    )
+
+    def __init__(self, name, description, distribution=None, stimulation=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class BehavioralStimulation(KGObject):
+    """Use of an behavioral stimulus in the experiment."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/behavioralstimulation/v0.1.0"
+    type = ["nsg:BehavioralStimulation", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "used": "prov:used",
+        "name": "schema:name",
+	    "hadProtocol": "prov:hadProtocol",
+        "value": "schema:value",
+    	"citation": "nsg:citation",
+    	"code": "nsg:code",
+    	"stimulusType": "nsg:stimulusType",
+    	"license": "nsg:license",
+        "wasInformedBy" : "nsg:wasInformedBy",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
+        }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("behavioral_stimulus", BehavioralStimulus, "used", required=True),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
+        Field("CogPOID", Distribution, "distribution"),
+        Field("CogAtlasID", Distribution, "distribution"),
+        Field("protocol", Protocol, "hadProtocol"),
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+    )
+
+    def __init__(self, name, behavioral_stimulus, experiment=None, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
