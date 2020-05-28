@@ -1504,3 +1504,156 @@ def use_namespace(namespace):
     """Set the namespace for all classes in this module."""
     for cls in list_kg_classes():
         cls.namespace = namespace
+
+
+class VisualStimulus(KGObject):
+    """A generic visual stimulus."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/visualstimulus/v0.1.0"
+    type = ["nsg:VisualStimulus", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "minds": "https://schema.hbp.eu/",
+        "value": "schema:value",
+        "name": "schema:name",
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("description", basestring, "description"),
+        Field("distribution", Distribution, "distribution"),
+        Field("stimulation", "optophysiology.VisualStimulation", "^prov:used", reverse="stimulus")
+    )
+
+    def __init__(self, name, description=None, distribution=None, stimulation=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class VisualStimulation(KGObject):
+    """Presentation of a visual stimulus to the subject of the experiment."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/visualstimulation/v0.1.0"
+    type = ["nsg:VisualStimulation", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "used": "prov:used",
+        "name": "schema:name",
+        "interstimulusInterval": "nsg:interstimulusInterval",
+        "refreshRate": "nsg:refreshRate",
+        "backgroundLuminance": "nsg:backgroundLuminance",
+	    "hadProtocol":"prov:hadProtocol",
+        "value": "schema:value",
+    	"citation":"nsg:citation",
+    	"code":"nsg:code",
+    	"license":"nsg:license"
+        }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("stimulus", VisualStimulus, "used", required=True),
+        Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
+        Field("refresh_rate", QuantitativeValue, "refreshRate"),
+        Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
+        Field("protocol", Protocol, "hadProtocol"),
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+    )
+
+    def __init__(self, name, stimulus, interstimulus_interval=None, refresh_rate=None, background_luminance=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class ElectrophysiologicalStimulus(KGObject):
+    """A generic electrophysiological stimulus."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/electrophysiologicalstimulus/v0.1.0"
+    type = ["nsg:ElectrophysiologicalStimulus", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "minds": "https://schema.hbp.eu/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("description", basestring, "description", required=True),
+        Field("distribution", Distribution, "distribution"),
+        Field("stimulation", "optophysiology.ElectrophysiologicalStimulation", "^prov:used", reverse="stimulus")
+    )
+
+    def __init__(self, name, description, distribution=None, stimulation=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
+class ElectrophysiologicalStimulation(KGObject):
+    """Use of an electrophysiological stimulus in the experiment."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/optophysiology/electrophysiologicalstimulation/v0.1.0"
+    type = ["nsg:ElectrophysiologicalStimulation", "prov:Activity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "used": "prov:used",
+        "name": "schema:name",
+	    "hadProtocol": "prov:hadProtocol",
+        "value": "schema:value",
+    	"citation": "nsg:citation",
+    	"code": "nsg:code",
+    	"stimulusType": "nsg:stimulusType",
+    	"license": "nsg:license"
+        }
+
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
+        Field("stimulus_type", StimulusType, "stimulusType"),
+        Field("protocol", Protocol, "hadProtocol"),
+    	Field("citation", basestring, "citation"),
+    	Field("code", basestring, "code"),
+    	Field("license", License, "license")
+    )
+
+    def __init__(self, name, electrophysiological_stimulus, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
