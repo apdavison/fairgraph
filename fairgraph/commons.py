@@ -183,8 +183,8 @@ class Handedness(OntologyTerm):
     The handedness of an animal or person from whom/which data were obtained.
     """
     iri_map = {
-        "left":"http://dbpedia.org/ontology/handedness",
-        "right":"http://dbpedia.org/ontology/handedness"
+        "left":"https://scicrunch.org/scicrunch/interlex/view/ilx_0106154?searchTerm=left",
+        "right":"https://scicrunch.org/scicrunch/interlex/view/ilx_0110142?searchTerm=right"
     }
 
 class ChannelType(OntologyTerm):
@@ -206,54 +206,54 @@ class BrainRegion(OntologyTerm):
     A sub-structure or region with the brain.
     """
     iri_map = {
-        "anterolateral visual area": "http://purl.obolibrary.org/obo/UBERON_0035894",
-        "anteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035893",
-        "barrel cortex": "http://purl.obolibrary.org/obo/UBERON_0010415",
-        "basal ganglia": "http://purl.obolibrary.org/obo/UBERON_0010011",
-        "brainstem": "http://purl.obolibrary.org/obo/UBERON_0002298",
-        "CA3 field of hippocampus": "http://purl.obolibrary.org/obo/UBERON_0003883",
-        "cerebellum": "http://purl.obolibrary.org/obo/UBERON_0002037",
-        "cerebral cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
-        "cortex": "http://purl.obolibrary.org/obo/UBERON_0016529",
-        "dorsal cortex": "http://purl.obolibrary.org/obo/UBERON_0002577",
-        "dorsal striatum": "http://purl.obolibrary.org/obo/UBERON_0005382",
-	    "frontal association cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
-        "hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",  # Ammon's horn
-        "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
-        "hippocampal formation": "http://purl.obolibrary.org/obo/UBERON_0002421",
-        "lobule 5 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004079",
-        "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
-        "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
-        "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
-	    "motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
-	    "parietal association area": "http://purl.obolibrary.org/obo/UBERON_0035886",
-        "perirhinal cortex": "http://purl.obolibrary.org/obo/UBERON_0006083",
-        "posteromedial visual area": "http://purl.obolibrary.org/obo/UBERON_0035900",
-        "prefrontal cortex": "http://purl.obolibrary.org/obo/UBERON_0000451",
-        "prelimbic cortex": "http://purl.obolibrary.org/obo/UBERON_0013560",
-        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
-        "primary auditory cortex": "http://purl.obolibrary.org/obo/UBERON_0034751",
-    	"primary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0001384",
-    	"primary somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008933",
-    	"primary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0002436",
-        "retina": "http://purl.obolibrary.org/obo/UBERON_0000966",
-    	"retrosplenial cortex": "http://purl.obolibrary.org/obo/UBERON_0013531",
-    	"secondary motor cortex": "http://purl.obolibrary.org/obo/UBERON_0016634",
-    	"secondary visual cortex": "http://purl.obolibrary.org/obo/UBERON_0022232",
-        "somatosensory cortex": "http://purl.obolibrary.org/obo/UBERON_0008930",
-        "spinal cord": "http://purl.obolibrary.org/obo/UBERON_0002240",
-        "stratum pyramidale": "http://purl.obolibrary.org/obo/UBERON_0002313",
-        "striatum": "http://purl.obolibrary.org/obo/UBERON_0002435",
-        "thalamocortical": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
-        "thalamus": "http://purl.obolibrary.org/obo/UBERON_0001897",
-        "ventral hippocampus": "http://purl.obolibrary.org/obo/UBERON_0001954",   # how to distinguish this? Question for Tier 2 folks?
-	    "visual cortex": "http://purl.obolibrary.org/obo/UBERON_0000411",
-        "whole brain": "http://purl.obolibrary.org/obo/UBERON_0000955",
-        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",
+        "anterolateral visual area": "https://scicrunch.org/scicrunch/interlex/view/ilx_0735646?searchTerm=anterolateral%20visual%20area",
+        "anteromedial visual area": "https://scicrunch.org/scicrunch/interlex/view/ilx_0733890?searchTerm=anteromedial%20visual%20area",
+        "barrel cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101097?searchTerm=barrel%20cortex",
+        "basal ganglia": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101102?searchTerm=basal%20ganglia",
+        "brainstem": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101444?searchTerm=brainstem",
+        "CA3 field of hippocampus": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101534?searchTerm=CA3%20field%20of%20hippocampus",
+        "cerebellum": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101963?searchTerm=cerebellum",
+        "cerebral cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101978?searchTerm=cerebral%20cortex",
+        "cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0727230?searchTerm=cortex",
+        "dorsal cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0103432?searchTerm=dorsal%20cortex",
+        "dorsal striatum": "https://scicrunch.org/scicrunch/interlex/view/ilx_0103481?searchTerm=dorsal%20striatum",
+	    "frontal association cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109209?searchTerm=frontal%20association%20cortex",
+        "hippocampus": "https://scicrunch.org/scicrunch/interlex/view/ilx_0105021?searchTerm=CA3%20hippocampus",  # Ammon's horn
+        "hippocampus CA1": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101520?searchTerm=CA1",
+        "hippocampus CA3": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101534?searchTerm=CA3%20field%20of%20hippocampus",
+        "hippocampal formation": "https://scicrunch.org/scicrunch/interlex/view/ilx_0105009?searchTerm=hippocampal%20formation",
+        "lobule 5 of the cerebellar vermis": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112399?searchTerm=cerebellar%20vermis9",
+        "lobule 6 of the cerebellar vermis": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112400?searchTerm=cerebellar%20vermis",
+        "lobule 7 of the cerebellar vermis": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112401?searchTerm=cerebellar%20vermis",
+        "lobule 8 of the cerebellar vermis": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112404?searchTerm=cerebellar%20vermis",
+	    "motor cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0107119?searchTerm=motor%20cortex",
+	    "parietal association area": "https://scicrunch.org/scicrunch/interlex/view/ilx_0103503?searchTerm=parietal%20association%20area",
+        "perirhinal cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0108747?searchTerm=perirhinal%20cortex",
+        "posteromedial visual area": "https://scicrunch.org/scicrunch/interlex/view/ilx_0734159?searchTerm=posteromedial%20visual%20area",
+        "prefrontal cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109209?searchTerm=prefrontal%20cortex",
+        "prelimbic cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0106685?searchTerm=prelimbic%20cortex",
+        "primary auditory cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0443027?searchTerm=primary%20auditory%20cortex",
+    	"primary motor cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109278?searchTerm=primary%20motor%20cortex",
+    	"primary somatosensory cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109333?searchTerm=primary%20somatosensory%20cortex",
+    	"primary visual cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112514?searchTerm=primary%20visual%20cortex",
+        "retina": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109993?searchTerm=retina",
+    	"retrosplenial cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0728007?searchTerm=retrosplenial%20cortex",
+    	"secondary motor cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0109222?searchTerm=secondary%20motor%20cortex",
+    	"secondary visual cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0727119?searchTerm=secondary%20visual%20cortex",
+        "somatosensory cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0110752?searchTerm=somatosensory%20cortex",
+        "spinal cord": "https://scicrunch.org/scicrunch/interlex/view/ilx_0110909?searchTerm=spinal%20cord",
+        "stratum pyramidale": "https://scicrunch.org/scicrunch/interlex/view/ilx_0111081?searchTerm=stratum%20pyramidale",
+        "striatum": "https://scicrunch.org/scicrunch/interlex/view/ilx_0111098?searchTerm=striatum",
+        "thalamocortical": "https://scicrunch.org/scicrunch/interlex/view/ilx_0738230?searchTerm=thalamus",
+        "thalamus": "https://scicrunch.org/scicrunch/interlex/view/ilx_0111657?searchTerm=thalamus",
+        "ventral hippocampus": "https://scicrunch.org/scicrunch/interlex/view/ilx_0105021?searchTerm=ventral%20hippocampus",   # how to distinguish this? Question for Tier 2 folks?
+	    "visual cortex": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112513?searchTerm=visual%20cortex",
+        "whole brain": "https://scicrunch.org/scicrunch/interlex/view/ilx_0101431?searchTerm=http%2F%2Fpurl.obolibrary.org%2Fobo%2FUBERON_0000955",
+        "5th cerebellar lobule": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112399?searchTerm=cerebellar%20vermis9",
         # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
-        "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
-        "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004",  # more specific term to be determined
-        "8th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004004"  # more specific term to be determined
+        "6th cerebellar lobule": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112400?searchTerm=cerebellar%20vermis",  # more specific term to be determined
+        "7th cerebellar lobule": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112401?searchTerm=cerebellar%20vermis",  # more specific term to be determined
+        "8th cerebellar lobule": "https://scicrunch.org/scicrunch/interlex/view/ilx_0112404?searchTerm=cerebellar%20vermis"  # more specific term to be determined
     }
 
 
