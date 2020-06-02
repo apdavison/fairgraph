@@ -127,27 +127,27 @@ class Strain(OntologyTerm):
     An inbred sub-population within a species.
     """
     iri_map = {
-        "129/Sv": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345673",
+        "129/Sv": "https://dknet.org/data/record/nlx_154697-1/MGI:5656185/resolver?q=129%2FSv&l=129%2FSv&i=5d422cf50fbc3b6016f5437e",
         # 129/Sv is ambiguous
         # could be https://www.jax.org/strain/002448 or https://www.jax.org/strain/000691 or other
         # see http://www.informatics.jax.org/mgihome/nomen/strain_129.shtml
         #"Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=70508",
-        "ATJ/FVB.129P2-FMR1-mix": "https://www.jax.org/strain/004624",
-        "B6.129-Nlgn3<tm4Sud>/J": "https://www.jax.org/strain/023398",
-        "B6.129-Nlgn3/J": "https://www.jax.org/strain/008475",
-        "B6.129-Nlgn3/KftnkRbrc": "https://www.jax.org/strain/008475",
-        "C57BL/6": "https://www.jax.org/strain/000664",
-        "C57BL/6J": "https://www.jax.org/strain/000664",
-        "C57BL6/SJL": "https://www.jax.org/strain/100012",
-        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://www.jax.org/strain/024276",
-        "C57BL/6J X SJL": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345672",
-	    "Del(5Gtf2i-Fkbp6)1Vcam": "http://www.informatics.jax.org/allele/MGI:5555958",
-        "lister hooded": "https://www.criver.com/products-services/find-model/lister-hooded-rat?region=3671",
-        "Sprague-Dawley": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0000681",
-        "SWR": "http://www.informatics.jax.org/inbred_strains/mouse/docs/SWR.shtml",
-        "Tg2576": "http://www.hbp.FIXME.org/hbp_strain_ontology/12345670",
+        "ATJ/FVB.129P2-FMR1-mix": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:004624/resolver?q=%2A&l=&filter[]=Catalog%20Number:004624&i=5d422ff90fbc3b6016f6f089",
+        "B6.129-Nlgn3<tm4Sud>/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:023398/resolver?q=%2A&l=&filter[]=Catalog%20Number:023398&i=5d42266e0fbc3b6016f1c113",
+        "B6.129-Nlgn3/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:008475/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:008475&i=5d422c170fbc3b6016f4cb08",
+        "B6.129-Nlgn3/KftnkRbrc": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:008475/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:008475&i=5d422c170fbc3b6016f4cb08",
+        "C57BL/6": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
+        "C57BL/6J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
+        "C57BL6/SJL": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:100012/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:100012&i=5d422f510fbc3b6016f6939a",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:024276/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:024276&i=5d4232230fbc3b6016f81e3a",
+        "C57BL/6J X SJL": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:100012/resolver?q=%2A&l=&filter[]=Catalog%20Number:100012&i=5d422f510fbc3b6016f6939a",
+	    "Del(5Gtf2i-Fkbp6)1Vcam": "https://dknet.org/data/record/nlx_154697-1/MGI:5662390/resolver?q=Del%285Gtf2i-Fkbp6%291Vcam&l=Del%285Gtf2i-Fkbp6%291Vcam&i=5d4233580fbc3b6016f8c3f2",
+        "lister hooded": "https://dknet.org/data/record/nlx_154697-1/RGD_2312466/resolver?q=lister%20hooded&l=lister%20hooded&i=5d422c300fbc3b6016f4d849",
+        "Sprague-Dawley": "https://dknet.org/data/record/nlx_154697-1/MGI:5651135/resolver?q=Sprague-Dawley&l=Sprague-Dawley&i=5d422b8e0fbc3b6016f4825a",
+        "SWR": "https://dknet.org/data/record/nlx_154697-1/MGI:2159803/resolver?q=SWR&l=SWR&i=5d422e420fbc3b6016f5fcaa",
+        "Tg2576": "https://dknet.org/data/record/nlx_154697-1/MGI:3029285/resolver?q=Tg%28APPSWE%292576Kha&l=Tg%28APPSWE%292576Kha&i=5d4235df0fbc3b6016fa16fb",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
-        "Wistar": "https://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=RS:0001013"
+        "Wistar": "https://dknet.org/data/record/nlx_154697-1/RGD_12879431/resolver?q=%22Wistar%20Rat%22&l=%22Wistar%20Rat%22&i=5d4228f20fbc3b6016f318fa"
     }
 # use RRIDs
 
