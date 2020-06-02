@@ -183,8 +183,8 @@ class Handedness(OntologyTerm):
     The handedness of an animal or person from whom/which data were obtained.
     """
     iri_map = {
-        "left":"https://scicrunch.org/scicrunch/interlex/view/ilx_0106154?searchTerm=left",
-        "right":"https://scicrunch.org/scicrunch/interlex/view/ilx_0110142?searchTerm=right"
+        "left":"http://uri.interlex.org/ilx_0106154",
+        "right":"http://uri.interlex.org/ilx_0110142"
     }
 
 class ChannelType(OntologyTerm):
