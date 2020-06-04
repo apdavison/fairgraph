@@ -321,6 +321,7 @@ class KGClient(object):
         """Release the node with the given uri"""
         path = Instance.extract_id_from_url(uri, self._instance_repo.path)
         print(path)
+        print(self)
         response = self._release_client.put(path)
         print(response)
         if response.status_code not in (200, 201):
