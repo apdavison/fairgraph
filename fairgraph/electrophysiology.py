@@ -993,7 +993,7 @@ class PatchClampExperiment(KGObject):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
         Field("stimulus_type", StimulusType, "stimulusType", required=True),
-        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
+        Field("stimulation", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -1002,7 +1002,7 @@ class PatchClampExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, recorded_cell, stimulus_type, stimulus=None, traces=None,
+    def __init__(self, name, recorded_cell, stimulus_type, stimulation=None, traces=None,
     start_time=None, end_time=None, people=None, protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -1295,12 +1295,12 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_type", StimulusType, "stimulusType", required=True),
-        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
+        Field("stimulation", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
         Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
-    def __init__(self, name, stimulus_type, stimulus=None, recorded_cell=None, traces=None, id=None, instance=None):
+    def __init__(self, name, stimulus_type, stimulation=None, recorded_cell=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
