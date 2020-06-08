@@ -1701,13 +1701,14 @@ class BehavioralStimulation(KGObject):
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("CogPOID", Distribution, "distribution"),
         Field("CogAtlasID", Distribution, "distribution"),
+        Field("protocols_doi", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, behavioral_stimulus, experiment=None, stimulus_type=None, citation=None, protocol=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, behavioral_stimulus, experiment=None, cogpoid=None, cogatlasid=None, protocol_doi=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
