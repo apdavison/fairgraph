@@ -5,47 +5,45 @@
     "http://schema.org/identifier": "modelvalidation/simulation/analysisresult/v1.0.0/fgResolved",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            },
-            "sort": true,
-            "relative_path": "http://schema.org/name",
-            "required": true
+            }
         },
         {
             "fieldname": "distribution",
+            "relative_path": "http://schema.org/distribution",
             "filter": {
                 "op": "contains",
                 "parameter": "result_file"
-            },
-            "relative_path": "http://schema.org/distribution"
+            }
         },
         {
             "fieldname": "generatedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#generatedAtTime",
             "filter": {
                 "op": "equals",
                 "parameter": "timestamp"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#generatedAtTime"
+            }
         },
         {
             "fieldname": "wasDerivedFrom",
-            "filter": {
-                "op": "contains",
-                "parameter": "derived_from"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
+            "ensure_order": true,
             "fields": [
                 {
                     "relative_path": "@id"
@@ -54,14 +52,14 @@
                     "relative_path": "@type"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+            "filter": {
+                "op": "contains",
+                "parameter": "derived_from"
+            }
         },
         {
             "fieldname": "wasAttributedTo",
-            "filter": {
-                "op": "contains",
-                "parameter": "attributed_to"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasAttributedTo",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -83,6 +81,7 @@
                 },
                 {
                     "fieldname": "Person__affiliation",
+                    "relative_path": "http://schema.org/affiliation",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -100,6 +99,7 @@
                         },
                         {
                             "fieldname": "Organization__parentOrganization",
+                            "relative_path": "http://schema.org/parentOrganization",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -107,21 +107,19 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ],
-                            "relative_path": "http://schema.org/parentOrganization"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://schema.org/affiliation"
+                    ]
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasAttributedTo"
+            "filter": {
+                "op": "contains",
+                "parameter": "attributed_to"
+            }
         },
         {
             "fieldname": "wasGeneratedBy",
-            "filter": {
-                "op": "contains",
-                "parameter": "generated_by"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -143,6 +141,7 @@
                 },
                 {
                     "fieldname": "Analysis__dataUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -151,11 +150,11 @@
                         {
                             "relative_path": "@type"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#used"
+                    ]
                 },
                 {
                     "fieldname": "Analysis__scriptUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -184,11 +183,11 @@
                             "fieldname": "license",
                             "relative_path": "http://schema.org/license"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#used"
+                    ]
                 },
                 {
                     "fieldname": "Analysis__configUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -213,8 +212,7 @@
                             "fieldname": "distribution",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/distribution"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#used"
+                    ]
                 },
                 {
                     "fieldname": "startedAtTime",
@@ -226,6 +224,7 @@
                 },
                 {
                     "fieldname": "Analysis__generated",
+                    "relative_path": "http://www.w3.org/ns/prov#generated",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -234,11 +233,11 @@
                         {
                             "relative_path": "@type"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#generated"
+                    ]
                 },
                 {
                     "fieldname": "Analysis__wasAssociatedWith",
+                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -260,6 +259,7 @@
                         },
                         {
                             "fieldname": "Person__affiliation",
+                            "relative_path": "http://schema.org/affiliation",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -277,6 +277,7 @@
                                 },
                                 {
                                     "fieldname": "Organization__parentOrganization",
+                                    "relative_path": "http://schema.org/parentOrganization",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -284,25 +285,25 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ],
-                                    "relative_path": "http://schema.org/parentOrganization"
+                                    ]
                                 }
-                            ],
-                            "relative_path": "http://schema.org/affiliation"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+                    ]
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy"
+            "filter": {
+                "op": "contains",
+                "parameter": "generated_by"
+            }
         },
         {
             "fieldname": "description",
+            "relative_path": "http://schema.org/description",
             "filter": {
                 "op": "contains",
                 "parameter": "description"
-            },
-            "relative_path": "http://schema.org/description"
+            }
         }
     ],
     "@context": {
