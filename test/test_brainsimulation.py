@@ -10,8 +10,9 @@ from pyxus.resources.entity import Instance
 from fairgraph.base import KGQuery, KGProxy, as_list, Distribution, KGObject
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
 from fairgraph.brainsimulation import (
-    ModelScript, ModelProject, ModelInstance, MEModel, Morphology, EModel, AnalysisResult,
-    ValidationTestDefinition, ValidationScript, ValidationResult, ValidationActivity
+    ModelScript, ModelProject, ModelInstance, MEModel, Morphology, EModel,
+    ValidationTestDefinition, ValidationScript, ValidationResult, ValidationActivity,
+    Simulation,  SimulationOutput, SimulationConfiguration
 )
 from fairgraph.core import Person, use_namespace as use_core_namespace
 
@@ -22,7 +23,6 @@ use_core_namespace("modelvalidation")
 
 
 test_data_lookup.update({
-    "/v0/data/modelvalidation/simulation/analysisresult/v1.0.0/": "test/test_data/nexus/brainsimulation/analysisresult_list_0_10.json",
     "/v0/data/modelvalidation/simulation/emodel/v0.1.1/": "test/test_data/nexus/brainsimulation/emodel_list_0_10.json",
     "/v0/data/modelvalidation/simulation/memodel/v0.1.2/": "test/test_data/nexus/brainsimulation/memodel_list_0_10.json",
     "/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/": "test/test_data/nexus/brainsimulation/modelinstance_list_0_10.json",
@@ -33,6 +33,9 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/validationresult/v0.1.0/": "test/test_data/nexus/brainsimulation/validationresult_list_0_10.json",
     "/v0/data/modelvalidation/simulation/validationscript/v0.1.0/": "test/test_data/nexus/brainsimulation/validationscript_list_0_10.json",
     "/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/": "test/test_data/nexus/brainsimulation/validationtestdefinition_list_0_10.json",
+    "/v0/data/modelvalidation/simulation/simulationactivity/v0.1.0/": "test/test_data/nexus/brainsimulation/simulation_list_0_10.json",
+    "/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationoutput_list_0_10.json",
+    "/v0/data/modelvalidation/simulation/simulationconfiguration/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationconfiguration_list_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.0/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.0/fgSimple/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
 
@@ -167,35 +170,6 @@ class TestEModel(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
-class TestAnalysisResult(BaseTestKG):
-    class_under_test = AnalysisResult
-
-    def test_list_nexus(self, kg_client):
-        cls = self.class_under_test
-        objects = cls.list(kg_client, api="nexus", size=10)
-        assert len(objects) == 10, len(objects)
-
-    def test_existence_query(self, kg_client):
-        obj = AnalysisResult("foo", timestamp=datetime(2000, 1, 1))
-        expected = {
-            "op": "and",
-            "value": [
-                {
-                    "path": "schema:name",
-                    "op": "eq",
-                    "value": "foo"
-                },
-                {
-                    "path": "prov:generatedAtTime",
-                    "op": "eq",
-                    "value": "2000-01-01T00:00:00"
-                }
-            ]
-        }
-        generated = obj._build_existence_query(api="nexus")
-        assert expected == generated
-
-
 class TestValidationTestDefinition(BaseTestKG):
     class_under_test = ValidationTestDefinition
 
@@ -225,6 +199,33 @@ class TestValidationResult(BaseTestKG):
 
 class TestValidationActivity(BaseTestKG):
     class_under_test = ValidationActivity
+
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+
+class TestSimulation(BaseTestKG):
+    class_under_test = Simulation
+
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+
+class TestSimulationOutput(BaseTestKG):
+    class_under_test = SimulationOutput
+
+    def test_list_nexus(self, kg_client):
+        cls = self.class_under_test
+        objects = cls.list(kg_client, api="nexus", size=10)
+        assert len(objects) == 10, len(objects)
+
+
+class TestSimulationConfiguration(BaseTestKG):
+    class_under_test = SimulationConfiguration
 
     def test_list_nexus(self, kg_client):
         cls = self.class_under_test

@@ -1,0 +1,328 @@
+{
+    "https://schema.hbp.eu/graphQuery/root_schema": {
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisresult/v1.0.0"
+    },
+    "http://schema.org/identifier": "modelvalidation/simulation/analysisresult/v1.0.0/fgResolved",
+    "fields": [
+        {
+            "relative_path": "@id",
+            "filter": {
+                "op": "equals",
+                "parameter": "id"
+            }
+        },
+        {
+            "relative_path": "@type"
+        },
+        {
+            "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "required": true,
+            "filter": {
+                "op": "contains",
+                "parameter": "name"
+            }
+        },
+        {
+            "fieldname": "distribution",
+            "relative_path": "http://schema.org/distribution",
+            "filter": {
+                "op": "contains",
+                "parameter": "result_file"
+            }
+        },
+        {
+            "fieldname": "generatedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#generatedAtTime",
+            "filter": {
+                "op": "equals",
+                "parameter": "timestamp"
+            }
+        },
+        {
+            "fieldname": "wasDerivedFrom",
+            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "derived_from"
+            }
+        },
+        {
+            "fieldname": "wasAttributedTo",
+            "relative_path": "http://www.w3.org/ns/prov#wasAttributedTo",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "familyName",
+                    "relative_path": "http://schema.org/familyName"
+                },
+                {
+                    "fieldname": "givenName",
+                    "relative_path": "http://schema.org/givenName"
+                },
+                {
+                    "fieldname": "email",
+                    "relative_path": "http://schema.org/email"
+                },
+                {
+                    "fieldname": "Person__affiliation",
+                    "relative_path": "http://schema.org/affiliation",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "address",
+                            "relative_path": "http://schema.org/address"
+                        },
+                        {
+                            "fieldname": "Organization__parentOrganization",
+                            "relative_path": "http://schema.org/parentOrganization",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "attributed_to"
+            }
+        },
+        {
+            "fieldname": "wasGeneratedBy",
+            "relative_path": "http://www.w3.org/ns/prov#wasGeneratedBy",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                },
+                {
+                    "fieldname": "name",
+                    "relative_path": "http://schema.org/name"
+                },
+                {
+                    "fieldname": "description",
+                    "relative_path": "http://schema.org/description"
+                },
+                {
+                    "fieldname": "identifier",
+                    "relative_path": "http://schema.org/identifier"
+                },
+                {
+                    "fieldname": "Analysis__dataUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "Analysis__scriptUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "identifier",
+                            "relative_path": "http://schema.org/identifier"
+                        },
+                        {
+                            "fieldname": "distribution",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/distribution"
+                        },
+                        {
+                            "fieldname": "code_format",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/code_format"
+                        },
+                        {
+                            "fieldname": "license",
+                            "relative_path": "http://schema.org/license"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "Analysis__configUsed",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "description",
+                            "relative_path": "http://schema.org/description"
+                        },
+                        {
+                            "fieldname": "identifier",
+                            "relative_path": "http://schema.org/identifier"
+                        },
+                        {
+                            "fieldname": "distribution",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/distribution"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "startedAtTime",
+                    "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+                },
+                {
+                    "fieldname": "endedAtTime",
+                    "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+                },
+                {
+                    "fieldname": "Analysis__generated",
+                    "relative_path": "http://www.w3.org/ns/prov#generated",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        }
+                    ]
+                },
+                {
+                    "fieldname": "Analysis__wasAssociatedWith",
+                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "familyName",
+                            "relative_path": "http://schema.org/familyName"
+                        },
+                        {
+                            "fieldname": "givenName",
+                            "relative_path": "http://schema.org/givenName"
+                        },
+                        {
+                            "fieldname": "email",
+                            "relative_path": "http://schema.org/email"
+                        },
+                        {
+                            "fieldname": "Person__affiliation",
+                            "relative_path": "http://schema.org/affiliation",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "address",
+                                    "relative_path": "http://schema.org/address"
+                                },
+                                {
+                                    "fieldname": "Organization__parentOrganization",
+                                    "relative_path": "http://schema.org/parentOrganization",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "generated_by"
+            }
+        },
+        {
+            "fieldname": "description",
+            "relative_path": "http://schema.org/description",
+            "filter": {
+                "op": "contains",
+                "parameter": "description"
+            }
+        }
+    ],
+    "@context": {
+        "fieldname": {
+            "@type": "@id",
+            "@id": "fieldname"
+        },
+        "schema": "http://schema.org/",
+        "@vocab": "https://schema.hbp.eu/graphQuery/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "merge": {
+            "@type": "@id",
+            "@id": "merge"
+        },
+        "query": "https://schema.hbp.eu/myQuery/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "relative_path": {
+            "@type": "@id",
+            "@id": "relative_path"
+        }
+    }
+}

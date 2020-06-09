@@ -26,7 +26,6 @@ import os.path
 import logging
 from datetime import datetime, date
 import mimetypes
-from itertools import chain
 import sys
 import inspect
 from dateutil import parser as date_parser
@@ -42,7 +41,7 @@ mimetypes.init()
 
 DEFAULT_NAMESPACE = "modelvalidation"
 
-ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
+from .utility import ATTACHMENT_SIZE_LIMIT
 
 
 class HasAliasMixin(object):
@@ -380,92 +379,6 @@ class EModel(ModelInstance):
         KGObject.__init__(self, **args)
 
 
-
-class AnalysisResult(KGObject):
-    """The result of a data analysis.
-
-    For example a graph, a histogram, etc. The result is expected to be stored either in a local
-    file or in a web-accessible location with a direct URL.
-
-    Note that local results files smaller than 1 MB in size will be uploaded and stored within
-    the Knowledge Graph. Larger files must be stored elsewhere.
-    """
-    namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/analysisresult/v1.0.0"
-    type = ["prov:Entity", "nsg:Entity", "nsg:AnalysisResult"]
-    context = [
-        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
-        "{{base}}/contexts/nexus/core/resource/v0.3.0",
-        {
-            "wasDerivedFrom": "prov:wasDerivedFrom",
-            "generatedAtTime": "prov:generatedAtTime",
-            "wasAttributedTo": "prov:wasAttributedTo",
-            #"wasGeneratedBy": "prov:wasGeneratedBy",
-        }
-    ]
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("result_file", (Distribution, basestring), "distribution"),
-        Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
-        Field("derived_from", KGObject, "wasDerivedFrom"),
-        Field("attributed_to", Person, "wasAttributedTo"),
-        #Field("generated_by", Analysis, "wasGeneratedBy"),
-        Field("description", basestring, "description")
-    )
-    existence_query_fields = ("name", "timestamp")
-
-    def __init__(self, name, result_file=None, timestamp=None, derived_from=None,
-                 attributed_to=None, #generated_by=None,
-                 description=None, id=None, instance=None):
-        super(AnalysisResult, self).__init__(
-            name=name, result_file=result_file, timestamp=timestamp, derived_from=derived_from,
-            attributed_to=attributed_to, #generated_by=generated_by,
-            description=description, id=id, instance=instance
-        )
-        self._file_to_upload = None
-        if isinstance(result_file, basestring):
-            if result_file.startswith("http"):
-                self.result_file = Distribution(location=result_file)
-            elif os.path.isfile(result_file):
-                self._file_to_upload = result_file
-                self.result_file = None
-        elif result_file is not None:
-            for rf in as_list(self.result_file):
-                assert isinstance(rf, Distribution)
-
-    def save(self, client):
-        super(AnalysisResult, self).save(client)
-        if self._file_to_upload:
-            self.upload_attachment(self._file_to_upload, client)
-
-    def upload_attachment(self, file_path, client):
-        assert os.path.isfile(file_path)
-        statinfo = os.stat(file_path)
-        if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:
-            raise Exception(
-                "File is too large to store directly in the KnowledgeGraph, please upload it to a Swift container")
-        # todo, use the Nexus HTTP client directly for the following
-        headers = client._nexus_client._http_client.auth_client.get_headers()
-        content_type, encoding = mimetypes.guess_type(file_path, strict=False)
-        response = requests.put("{}/attachment?rev={}".format(self.id, self.rev or 1),
-                                headers=headers,
-                                files={
-                                    "file": (os.path.basename(file_path),
-                                             open(file_path, "rb"),
-                                             content_type)
-        })
-        if response.status_code < 300:
-            logger.info("Added attachment {} to {}".format(file_path, self.id))
-            self._file_to_upload = None
-            self.result_file = Distribution.from_jsonld(response.json()["distribution"][0])
-        else:
-            raise Exception(str(response.content))
-
-    def download(self, local_directory, client):
-        for rf in as_list(self.result_file):
-            rf.download(local_directory, client)
-
-
 class ValidationTestDefinition(KGObject, HasAliasMixin):
     """Definition of a model validation test.
 
@@ -719,6 +632,187 @@ class ValidationActivity(KGObject):
                   id=D["@id"],
                   instance=instance)
         return obj
+
+
+class Simulation(KGObject):
+    """
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/simulationactivity/v0.1.0"
+    type = ["prov:Activity", "nsg:Simulation"]
+    context = [
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "schema": "http://schema.org/",
+            "name": "schema:name",
+            "identifier": "schema:identifier",
+            "description": "schema:description",
+            "prov": "http://www.w3.org/ns/prov#",
+            "generated": "prov:generated",
+            "used": "prov:used",
+            "modelUsed": "prov:used",
+            "configUsed": "prov:used",
+            "startedAtTime": "prov:startedAtTime",
+            "endedAtTime": "prov:endedAtTime",
+            "wasAssociatedWith": "prov:wasAssociatedWith",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "referenceData": "nsg:referenceData"
+        }
+    ]
+    fields = (
+        Field("name", basestring, "name"),
+        Field("description", basestring, "description"),
+        Field("identifier", basestring, "identifier"),
+        Field("model_instance", (ModelInstance, MEModel), "modelUsed"),
+        Field("config", "brainsimulation.SimulationConfiguration", "configUsed", multiple=True),
+        Field("timestamp", datetime,  "startedAtTime"),
+        Field("result", "brainsimulation.SimulationOutput", "generated", multiple=True),
+        Field("started_by", Person, "wasAssociatedWith"),
+        Field("end_timestamp",  datetime, "endedAtTime")
+    )
+
+
+class SimulationConfiguration(KGObject):
+    """
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/simulationconfiguration/v0.1.0"
+    type = ["prov:Entity", "nsg:Entity", "nsg:SimulationConfiguration"]
+    context = {"schema": "http://schema.org/",
+               "name": "schema:name",
+               "description": "schema:description",
+               "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("identifier", basestring, "identifier"),
+        Field("description", basestring, "description"),
+        Field("config_file", (Distribution, basestring), "distribution")
+    )
+
+    def __init__(self,
+                 name,
+                 config_file=None,
+                 description=None,
+                 identifier=None,
+                 id=None, instance=None):
+
+        super(SimulationConfiguration, self).__init__(
+            name=name,
+            config_file=config_file,
+            description=description,
+            identifier=identifier,
+            id=id,
+            instance=instance)
+        self._file_to_upload = None
+        if isinstance(config_file, basestring):
+            if config_file.startswith("http"):
+                self.config_file = Distribution(location=config_file)
+            elif os.path.isfile(config_file):
+                self._file_to_upload = config_file
+                self.config_file = None
+        elif config_file is not None:
+            for rf in as_list(self.config_file):
+                assert isinstance(rf, Distribution)
+
+    def save(self, client):
+        super(SimulationConfiguration, self).save(client)
+        if self._file_to_upload:
+            self.upload_attachment(self._file_to_upload, client)
+
+    def upload_attachment(self, file_path, client):
+        upload_attachment(self, file_path, client)
+
+    def download(self, local_directory, client):
+        for rf in as_list(self.config_file):
+            rf.download(local_directory, client)
+
+
+class SimulationOutput(KGObject):
+    """
+    """
+    namespace = DEFAULT_NAMESPACE
+    type = ["prov:Entity", "nsg:Entity", "nsg:SimulationOutput"]
+    _path = "/simulation/simulationresult/v0.1.0"
+    context = {"schema": "http://schema.org/",
+               "name": "schema:name",
+               "identifier": "schema:identifier",
+               "description": "schema:description",
+               "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+               "variable": "nsg:variable",
+               "target": "nsg:target",
+               "brainRegion": "nsg:brainRegion",
+               "species": "nsg:species",
+               "celltype": "nsg:celltype",
+               "dataType": "nsg:dataType",
+               "prov": "http://www.w3.org/ns/prov#",
+               "startedAtTime": "prov:startedAtTime",
+               "wasGeneratedBy": "prov:wasGeneratedBy"}
+    fields = (Field("name", basestring, "name", required=True),
+              Field("description", basestring, "description"),
+              Field("identifier", basestring, "identifier"),
+              Field("result_file", (Distribution, basestring), "distribution"),
+              Field("generated_by", Simulation, "wasGeneratedBy"),
+              Field("derived_from", KGObject, "wasDerivedFrom", multiple=True),  # SHOULD BE SET UP  BY THE ACTIVITY
+              Field("target", basestring, "target"),
+              Field("data_type", basestring, "dataType"),
+              Field("timestamp", datetime,  "startedAtTime"),
+              Field("brain_region", BrainRegion, "brainRegion"),
+              Field("species", Species, "species"),
+              Field("celltype", CellType, "celltype"))
+
+    def __init__(self,
+                 name,
+                 identifier=None,
+                 result_file=None,
+                 generated_by=None,
+                 derived_from=None,
+                 data_type = None,
+                 variable=None,
+                 target=None,
+                 description=None,
+                 timestamp=None,
+                 brain_region=None, species=None, celltype=None,
+                 id=None, instance=None):
+
+        super(SimulationOutput, self).__init__(
+            name=name,
+            identifier=identifier,
+            result_file=result_file,
+            generated_by=generated_by,
+            derived_from=derived_from,
+            data_type=data_type,
+            variable=variable,
+            target=target,
+            description=description,
+            timestamp=timestamp,
+            brain_region=brain_region,
+            species=species,
+            celltype=celltype,
+            id=id,
+            instance=instance)
+        self._file_to_upload = None
+        if isinstance(result_file, basestring):
+            if result_file.startswith("http"):
+                self.result_file = Distribution(location=result_file)
+            elif os.path.isfile(result_file):
+                self._file_to_upload = result_file
+                self.result_file = None
+        elif result_file is not None:
+            for rf in as_list(self.result_file):
+                assert isinstance(rf, Distribution)
+
+    def save(self, client):
+        super(SimulationOutput, self).save(client)
+        if self._file_to_upload:
+            self.upload_attachment(self._file_to_upload, client)
+
+    def upload_attachment(self, file_path, client):
+        upload_attachment(self, file_path, client)
+
+    def download(self, local_directory, client):
+        for rf in as_list(self.result_file):
+            rf.download(local_directory, client)
 
 
 def list_kg_classes():
