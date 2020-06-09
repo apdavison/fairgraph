@@ -41,7 +41,7 @@ class Analysis(KGObject):
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/simulation/analysisactivity/v0.1.0" # to do: move from 'simulation' to 'dataanalysis'
-    type = ["prov:Activity", "nsg:Activity", "nsg:Analysis"]
+    type = ["prov:Activity", "nsg:Activity", "nsg:AnalysisActivity"]  # todo: update schema, the latter should be "nsg:Analysis"
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",
@@ -162,10 +162,11 @@ class AnalysisResult(KGObject):
         Field("name", basestring, "name", required=True),
         Field("result_file", (Distribution, basestring), "distribution"),
         Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
-        Field("derived_from", KGObject, "wasDerivedFrom"),
+        Field("derived_from", KGObject, "wasDerivedFrom", multiple=True),
         Field("attributed_to", Person, "wasAttributedTo"),
         Field("generated_by", Analysis, "wasGeneratedBy"),
-        Field("description", basestring, "description")
+        Field("description", basestring, "description"),
+        #Field("data_type", basestring, "dataType", multiple=True),
     )
     existence_query_fields = ("name", "timestamp")
 
@@ -219,6 +220,21 @@ class AnalysisResult(KGObject):
     def download(self, local_directory, client):
         for rf in as_list(self.result_file):
             rf.download(local_directory, client)
+
+    def _build_data(self, client, all_fields=False):
+        # workaround for what seems to be a bug in Nexus when derivedFrom is another AnalysisResult
+        data = super(AnalysisResult, self)._build_data(client, all_fields=all_fields)
+        if isinstance(self.derived_from, AnalysisResult):
+            data["wasDerivedFrom"]["name"] = self.derived_from.name
+        elif isinstance(self.derived_from, list):
+            if len(self.derived_from) == 1:
+                data["wasDerivedFrom"]["name"] = self.derived_from[0].name
+            else:
+                for i, item in enumerate(self.derived_from):
+                    if isinstance(item, AnalysisResult):
+                        data["wasDerivedFrom"][i]["name"] = item.name
+        return data
+
 
 
 class AnalysisScript(KGObject):

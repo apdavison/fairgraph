@@ -1109,7 +1109,7 @@ class Distribution(StructuredMetadata):
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.location!r})'.format(self=self))
+                '{self.location!r}, digest="{self.digest}")'.format(self=self))
 
     def __eq__(self, other):
         if isinstance(other, Distribution):
