@@ -351,13 +351,13 @@ class Protocol(KGObject):
             }
         if self.date_published:
             data["schema:datePublished"] = self.date_published
-        if self.identifier:
+"""        if self.identifier:
             if self.identifier.id is None:
                 self.identifier.save(client)
             data["schema:identifier"] = {
                 "@type": self.identifier.type,
                 "@id": self.identifier.id
-            }
+            }"""
         return data
 
 
