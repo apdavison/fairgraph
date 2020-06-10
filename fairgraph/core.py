@@ -282,6 +282,12 @@ class Material(object):
                    KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
 
 
+class Identifier(KGObject):
+    namespace = "nexus"
+    _path = "/schemaorgsh/identifier/v0.1.0"
+    type = ["schema:Identifier"]
+
+    
 class Protocol(KGObject):
     """
     An experimental protocol.
@@ -296,17 +302,19 @@ class Protocol(KGObject):
         "name": "schema:name",
         "material":"nsg:material",
         "person":"nsg:person",
-        "deathDate": "schema:deathDate"
+        "deathDate": "schema:deathDate",
+        "identifier": "nsg:identifier"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("steps", basestring, "steps", required=True),
         Field("materials", Material, "material", multiple=True),
         Field("author", Person, "person", multiple=True),
-        Field("date_published", date, "datePublished")
+        Field("date_published", date, "datePublished"),
+        Field("identifer", Identifier, "identifier")
         )
 
-    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
+    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, identifer=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -353,12 +361,6 @@ class Protocol(KGObject):
                 "@id": self.identifier.id
             }
         return data
-
-
-class Identifier(KGObject):
-    namespace = "nexus"
-    _path = "/schemaorgsh/identifier/v0.1.0"
-    type = ["schema:Identifier"]
 
 
 class Collection(KGObject):
