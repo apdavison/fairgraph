@@ -287,7 +287,7 @@ class Identifier(KGObject):
     _path = "/schemaorgsh/identifier/v0.1.0"
     type = ["schema:Identifier"]
 
-    
+
 class Protocol(KGObject):
     """
     An experimental protocol.
