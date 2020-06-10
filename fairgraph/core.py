@@ -244,6 +244,44 @@ class Person(KGObject):
             return person
 
 
+class Material(object):
+    """Metadata about a chemical product or other material used in an experimental protocol."""
+
+    def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
+        self.name = name
+        self.molar_weight = molar_weight
+        self.formula = formula
+        self.stock_keeping_unit = stock_keeping_unit
+        self.identifier = identifier
+        self.vendor = vendor
+
+    def to_jsonld(self, client=None):
+        return {
+            "nsg:reagentName": self.name,
+            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
+            "nsg:reagentLinearFormula": self.formula,
+            "schema:sku": self.stock_keeping_unit,
+            "schema:identifier": {
+                "@id": self.identifier.id,
+            },
+            "nsg:reagentVendor": {
+                "@type": self.vendor.type,
+                "@id": self.vendor.id
+            }
+        }
+
+    @classmethod
+    def from_jsonld(cls, data):
+        if data is None:
+            return None
+        return cls(data["name"],
+                   QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
+                   data["nsg:reagentLinearFormula"],
+                   data["schema:sku"],
+                   KGProxy(Identifier, data["schema:identifier"]["@id"]),
+                   KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
+
+
 class Protocol(KGObject):
     """
     An experimental protocol.
@@ -321,44 +359,6 @@ class Identifier(KGObject):
     namespace = "nexus"
     _path = "/schemaorgsh/identifier/v0.1.0"
     type = ["schema:Identifier"]
-
-
-class Material(object):
-    """Metadata about a chemical product or other material used in an experimental protocol."""
-
-    def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
-        self.name = name
-        self.molar_weight = molar_weight
-        self.formula = formula
-        self.stock_keeping_unit = stock_keeping_unit
-        self.identifier = identifier
-        self.vendor = vendor
-
-    def to_jsonld(self, client=None):
-        return {
-            "nsg:reagentName": self.name,
-            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
-            "nsg:reagentLinearFormula": self.formula,
-            "schema:sku": self.stock_keeping_unit,
-            "schema:identifier": {
-                "@id": self.identifier.id,
-            },
-            "nsg:reagentVendor": {
-                "@type": self.vendor.type,
-                "@id": self.vendor.id
-            }
-        }
-
-    @classmethod
-    def from_jsonld(cls, data):
-        if data is None:
-            return None
-        return cls(data["name"],
-                   QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
-                   data["nsg:reagentLinearFormula"],
-                   data["schema:sku"],
-                   KGProxy(Identifier, data["schema:identifier"]["@id"]),
-                   KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
 
 
 class Collection(KGObject):
