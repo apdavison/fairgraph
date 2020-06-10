@@ -75,7 +75,7 @@ class Subject(KGObject):
         Field("handedness", Handedness, "handedness"),
         Field("age", Age, "age"),
         Field("death_date", date, "deathDate"),
-	Field("group", Group, "group")
+	    Field("group", Group, "group")
     )
 
     def __init__(self, name, species, age=None, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
@@ -254,20 +254,24 @@ class Protocol(KGObject):
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "prov": "http://www.w3.org/ns/prov#",
         "name": "schema:name",
-        "prov": "http://www.w3.org/ns/prov#"
+        "material":"nsg:material",
+        "person":"nsg:person",
+        "deathDate": "schema:deathDate"
     }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("steps", basestring, "steps", required=True),
+        Field("materials", Material, "material", mulitple=True),
+        Field("author", Person, "person", multiple=True),
+        Field("date_published", date, "datePublished")
+        )
 
-    def __init__(self, name, steps, materials, author,
-                 date_published, identifier, id=None, instance=None):
-        self.name = name
-        self.steps = steps
-        self.materials = materials
-        self.author = author
-        self.date_published = date_published
-        self.identifier = identifier
-        self.id = id
-        self.instance = instance
+    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
