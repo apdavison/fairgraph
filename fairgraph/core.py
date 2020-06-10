@@ -303,7 +303,7 @@ class Protocol(KGObject):
         "material":"nsg:material",
         "person":"nsg:person",
         "deathDate": "schema:deathDate",
-        "identifier": "nsg:identifier"
+        "identifier": "schema:Identifier"
     }
     fields = (
         Field("name", basestring, "name", required=True),
