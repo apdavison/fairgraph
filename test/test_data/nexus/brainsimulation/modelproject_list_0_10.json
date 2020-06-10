@@ -3,7 +3,7 @@
     "total": 351,
     "results": [
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d",
             "source": {
                 "@context": [
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
@@ -34,7 +34,7 @@
                         "species": "nsg:species"
                     }
                 ],
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -84,7 +84,7 @@
                     "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
                     "label": "cerebral cortex"
                 },
-                "collabID": 27874,
+                "collabID": "27874",
                 "dateCreated": "2018-10-05T12:32:57.340188+00:00",
                 "dcterms:hasPart": [
                     {
@@ -133,15 +133,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/003d6cbe-dbf6-46e0-8662-b983cfd2dd7d"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9",
             "source": {
                 "@context": [
                     "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
@@ -172,7 +172,7 @@
                         "species": "nsg:species"
                     }
                 ],
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -198,7 +198,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000099",
                     "label": "interneuron"
                 },
-                "collabID": 9821,
+                "collabID": "9821",
                 "dateCreated": "2018-03-29T14:16:10.447116+00:00",
                 "dcterms:hasPart": [
                     {
@@ -257,15 +257,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01284a1d-6fd3-4cc0-8fa7-41eada65d9d9"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01477467-2a10-4f23-bda0-e8c9e3fe149b",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01477467-2a10-4f23-bda0-e8c9e3fe149b",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -293,7 +293,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01477467-2a10-4f23-bda0-e8c9e3fe149b",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01477467-2a10-4f23-bda0-e8c9e3fe149b",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -315,7 +315,7 @@
                     "@id": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
                     "label": "L2/3 pyramidal cell"
                 },
-                "collabID": 9747,
+                "collabID": "9747",
                 "dateCreated": "2018-03-28T10:48:18.470899+00:00",
                 "dcterms:hasPart": [
                     {
@@ -365,15 +365,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01477467-2a10-4f23-bda0-e8c9e3fe149b/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01477467-2a10-4f23-bda0-e8c9e3fe149b/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/01477467-2a10-4f23-bda0-e8c9e3fe149b"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01477467-2a10-4f23-bda0-e8c9e3fe149b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01477467-2a10-4f23-bda0-e8c9e3fe149b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/01477467-2a10-4f23-bda0-e8c9e3fe149b"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0154c5a8-05e4-4261-9ab3-d70d7faa10a3",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -401,7 +401,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0154c5a8-05e4-4261-9ab3-d70d7faa10a3",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -423,7 +423,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000099",
                     "label": "interneuron"
                 },
-                "collabID": 9821,
+                "collabID": "9821",
                 "dateCreated": "2018-03-29T14:20:48.736266+00:00",
                 "dcterms:hasPart": [
                     {
@@ -482,15 +482,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0154c5a8-05e4-4261-9ab3-d70d7faa10a3"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0154c5a8-05e4-4261-9ab3-d70d7faa10a3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0154c5a8-05e4-4261-9ab3-d70d7faa10a3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0154c5a8-05e4-4261-9ab3-d70d7faa10a3"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/02bcd89f-5362-430d-b35f-c449955eb2ce",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/02bcd89f-5362-430d-b35f-c449955eb2ce",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -518,7 +518,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/02bcd89f-5362-430d-b35f-c449955eb2ce",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/02bcd89f-5362-430d-b35f-c449955eb2ce",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -540,7 +540,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000099",
                     "label": "interneuron"
                 },
-                "collabID": 9821,
+                "collabID": "9821",
                 "dateCreated": "2018-03-29T14:18:53.410791+00:00",
                 "dcterms:hasPart": [
                     {
@@ -599,15 +599,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/02bcd89f-5362-430d-b35f-c449955eb2ce/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/02bcd89f-5362-430d-b35f-c449955eb2ce/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/02bcd89f-5362-430d-b35f-c449955eb2ce"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/02bcd89f-5362-430d-b35f-c449955eb2ce/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/02bcd89f-5362-430d-b35f-c449955eb2ce/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/02bcd89f-5362-430d-b35f-c449955eb2ce"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0327c2ee-253a-420e-9f3e-e886d7faf3a6",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -635,7 +635,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0327c2ee-253a-420e-9f3e-e886d7faf3a6",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -657,7 +657,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000598",
                     "label": "pyramidal cell"
                 },
-                "collabID": 2270,
+                "collabID": "2270",
                 "dateCreated": "2017-12-18T14:57:35.294446+00:00",
                 "dcterms:hasPart": [
                     {
@@ -707,15 +707,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0327c2ee-253a-420e-9f3e-e886d7faf3a6"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0327c2ee-253a-420e-9f3e-e886d7faf3a6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0327c2ee-253a-420e-9f3e-e886d7faf3a6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0327c2ee-253a-420e-9f3e-e886d7faf3a6"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0345e689-cf2c-4c11-aafe-c1ee0cef2f33",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0345e689-cf2c-4c11-aafe-c1ee0cef2f33",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -743,7 +743,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0345e689-cf2c-4c11-aafe-c1ee0cef2f33",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0345e689-cf2c-4c11-aafe-c1ee0cef2f33",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -765,7 +765,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000120",
                     "label": "granule cell"
                 },
-                "collabID": 9136,
+                "collabID": "9136",
                 "dateCreated": "2018-03-27T15:53:19.133354+00:00",
                 "dcterms:hasPart": [
                     {
@@ -813,15 +813,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0345e689-cf2c-4c11-aafe-c1ee0cef2f33/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0345e689-cf2c-4c11-aafe-c1ee0cef2f33/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/0345e689-cf2c-4c11-aafe-c1ee0cef2f33"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0345e689-cf2c-4c11-aafe-c1ee0cef2f33/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0345e689-cf2c-4c11-aafe-c1ee0cef2f33/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/0345e689-cf2c-4c11-aafe-c1ee0cef2f33"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -849,7 +849,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -871,7 +871,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_1001474",
                     "label": "medium spiny neuron"
                 },
-                "collabID": 9475,
+                "collabID": "9475",
                 "dateCreated": "2018-03-27T11:47:16.227655+00:00",
                 "dcterms:hasPart": [
                     {
@@ -958,15 +958,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/03aa0cfc-a1a2-471f-8ca5-0f03d6a6849f"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04574a25-97ee-4abc-af9b-895c717d2a09",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -994,7 +994,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04574a25-97ee-4abc-af9b-895c717d2a09",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -1016,7 +1016,7 @@
                     "@id": "http://www.hbp.FIXME.org/hbp_taxonomy_ontology/1234567",
                     "label": "fast spiking interneuron"
                 },
-                "collabID": 7840,
+                "collabID": "7840",
                 "dateCreated": "2018-03-27T11:27:02.875432+00:00",
                 "dcterms:hasPart": [
                     {
@@ -1082,15 +1082,15 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04574a25-97ee-4abc-af9b-895c717d2a09"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04574a25-97ee-4abc-af9b-895c717d2a09/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04574a25-97ee-4abc-af9b-895c717d2a09/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04574a25-97ee-4abc-af9b-895c717d2a09"
                 }
             }
         },
         {
-            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9",
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04e6a0b0-550a-412a-affa-b851209134e9",
             "source": {
                 "@context": {
                     "PLAComponents": "nsg:PLAComponents",
@@ -1118,7 +1118,7 @@
                     "schema": "http://schema.org/",
                     "species": "nsg:species"
                 },
-                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9",
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04e6a0b0-550a-412a-affa-b851209134e9",
                 "@type": [
                     "prov:Entity",
                     "nsg:ModelProject"
@@ -1140,7 +1140,7 @@
                     "@id": "http://purl.obolibrary.org/obo/CL_0000120",
                     "label": "granule cell"
                 },
-                "collabID": 9136,
+                "collabID": "9136",
                 "dateCreated": "2018-03-27T14:11:51.323916+00:00",
                 "dcterms:hasPart": [
                     {
@@ -1188,16 +1188,16 @@
                 "nxv:deprecated": false,
                 "links": {
                     "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9/incoming",
-                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9/outgoing",
-                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.0",
-                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/04e6a0b0-550a-412a-affa-b851209134e9"
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04e6a0b0-550a-412a-affa-b851209134e9/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04e6a0b0-550a-412a-affa-b851209134e9/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/modelproject/v0.1.1",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/04e6a0b0-550a-412a-affa-b851209134e9"
                 }
             }
         }
     ],
     "links": {
         "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
-        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/?fields=all&size=10&deprecated=False"
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/?fields=all&size=10&deprecated=False"
     }
 }

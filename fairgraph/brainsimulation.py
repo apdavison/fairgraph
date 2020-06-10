@@ -73,8 +73,7 @@ class ModelProject(KGObject, HasAliasMixin):
     parameterization of a model - see :class:`ModelInstance` and :class:`ModelScript`
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/modelproject/v0.1.0"
-    #path = DEFAULT_NAMESPACE + "/simulation/modelproject/v0.1.1"
+    _path = "/simulation/modelproject/v0.1.1"
     type = ["prov:Entity", "nsg:ModelProject"]
     context = {
         "name": "schema:name",
@@ -110,7 +109,7 @@ class ModelProject(KGObject, HasAliasMixin):
         Field("description", basestring, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", (int, basestring), "collabID"),
+        Field("collab_id", basestring, "collabID"),
         Field("alias", basestring, "alias"),
         Field("organization", Organization, "organization", multiple=True),
         Field("pla_components", basestring, "PLAComponents", multiple=True),

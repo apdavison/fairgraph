@@ -26,7 +26,7 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/emodel/v0.1.1/": "test/test_data/nexus/brainsimulation/emodel_list_0_10.json",
     "/v0/data/modelvalidation/simulation/memodel/v0.1.2/": "test/test_data/nexus/brainsimulation/memodel_list_0_10.json",
     "/v0/data/modelvalidation/simulation/modelinstance/v0.1.1/": "test/test_data/nexus/brainsimulation/modelinstance_list_0_10.json",
-    "/v0/data/modelvalidation/simulation/modelproject/v0.1.0/": "test/test_data/nexus/brainsimulation/modelproject_list_0_10.json",
+    "/v0/data/modelvalidation/simulation/modelproject/v0.1.1/": "test/test_data/nexus/brainsimulation/modelproject_list_0_10.json",
     "/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/": "test/test_data/nexus/brainsimulation/modelscript_list_0_10.json",
     "/v0/data/modelvalidation/simulation/morphology/v0.1.1/": "test/test_data/nexus/brainsimulation/morphology_list_0_10.json",
     "/v0/data/modelvalidation/simulation/modelvalidation/v0.2.0/": "test/test_data/nexus/brainsimulation/validationactivity_list_0_10.json",
@@ -36,8 +36,8 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/simulationactivity/v0.1.0/": "test/test_data/nexus/brainsimulation/simulation_list_0_10.json",
     "/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationoutput_list_0_10.json",
     "/v0/data/modelvalidation/simulation/simulationconfiguration/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationconfiguration_list_0_10.json",
-    "/query/modelvalidation/simulation/modelproject/v0.1.0/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
-    "/query/modelvalidation/simulation/modelproject/v0.1.0/fgSimple/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
+    "/query/modelvalidation/simulation/modelproject/v0.1.1/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
+    "/query/modelvalidation/simulation/modelproject/v0.1.1/fgSimple/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
 
     "/query/neuralactivity/core/person/v0.1.0/fgSimple/instances": "test/test_data/kgquery/core/person_list_simple_0_10.json",
 })
