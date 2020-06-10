@@ -301,7 +301,7 @@ class Protocol(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("steps", basestring, "steps", required=True),
-        Field("materials", Material, "material", mulitple=True),
+        Field("materials", Material, "material", multiple=True),
         Field("author", Person, "person", multiple=True),
         Field("date_published", date, "datePublished")
         )
