@@ -302,26 +302,24 @@ class Protocol(KGObject):
         "name": "schema:name",
         "material":"nsg:material",
         "person":"nsg:person",
-        "deathDate": "schema:deathDate",
-        "identifier": "schema:Identifier"
+        "deathDate": "schema:deathDate"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("steps", basestring, "steps", required=True),
         Field("materials", Material, "material", multiple=True),
         Field("author", Person, "person", multiple=True),
-        Field("date_published", date, "datePublished"),
-        Field("identifer", Identifier, "identifier")
+        Field("date_published", date, "datePublished")
         )
 
-    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, identifer=None, id=None, instance=None):
+    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.identifier!r}, {self.id})'.format(self=self))
+                '{self.name!r}, {self.id})'.format(self=self))
 
     @classmethod
     @cache
