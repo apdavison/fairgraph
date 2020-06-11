@@ -303,15 +303,7 @@ class Step(KGObject):
         "stepIdentifier": "nsg: stepIdentifier",
         "previousStepIdentifier": "nsg: previousStepIdentifier",
         "sequenceNumber": "nsg: sequenceNumber",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        },
+        "identifier": "schema: identifier",
         "description": "schema:description"
     }
     fields = (
@@ -319,7 +311,7 @@ class Step(KGObject):
         Field("step_identifier", (basestring, int), "stepIdentifier"),
         Field("previous_step_identifer", (basestring, int), "previousStepIdentifier"),
         Field("sequence_number", int, "sequenceNumber"),
-        Field("doi", Distribution, "distribution"),
+        Field("doi", Identifier, "identifier"), # doi
         Field("description", basestring, "description")
         )
     def __init__(self, name, step_identifier=None, previous_step_identifer=None,
@@ -334,7 +326,7 @@ class Protocol(KGObject):
     An experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/protocol/v0.1.0"
+    _path = "/commons/protocol/v0.1.0"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -361,8 +353,7 @@ class Protocol(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("version", (basestring, int), "version"),
-        Field("identifier", Identifier, "identifier"),
-        Field("doi", Distribution, "distribution"),
+        Field("identifier", Identifier, "identifier"), # DOI
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
         Field("steps", Step, "hasPart", multiple=True),
