@@ -28,7 +28,7 @@ except NameError:
     basestring = str
 from datetime import date, datetime
 from dateutil import parser as date_parser
-from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field
+from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field, Distribution
 from .errors import ResourceExistsError
 from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 
