@@ -293,29 +293,27 @@ class Step(KGObject):
     A step in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/step/v0.1.0"
+    _path = "/core/step/v0.1.1"
     type = ["nsg:Step", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
-        "stepIdentifier": "nsg: stepIdentifier",
-        "previousStepIdentifier": "nsg: previousStepIdentifier",
+        "stepId": "nsg: stepId",
+        "previousStepId": "nsg: previousStepId",
         "sequenceNumber": "nsg: sequenceNumber",
         "identifier": "schema: identifier",
         "description": "schema:description"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("step_identifier", (basestring, int), "stepIdentifier"),
-        Field("previous_step_identifer", (basestring, int), "previousStepIdentifier"),
+        Field("step_id", (basestring, int), "stepId", required=True),
+        Field("previous_step_id", (basestring, int), "previousStepId"),
         Field("sequence_number", int, "sequenceNumber"),
-        Field("doi", Identifier, "identifier"), # doi
+        Field("identifer", Identifier, "identifier"), # doi
         Field("description", basestring, "description")
         )
-    def __init__(self, name, step_identifier=None, previous_step_identifer=None,
-                        sequence_number=None, doi=None, description=None, id=None, instance=None):
+    def __init__(self, name, step_id=None, previous_step_id=None,
+                        sequence_number=None, identifier=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
