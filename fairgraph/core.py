@@ -353,7 +353,7 @@ class Protocol(KGObject):
         },
         "numberOfSteps": "nsg:numberOfSteps",
         "hasPart": "nsg:hasPart",
-        "identifier": "nsg: identifier",
+        "identifier": "schema: identifier",
         "material":"nsg:material",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "datePublished": "nsg:datePublished"
@@ -361,7 +361,7 @@ class Protocol(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("version", (basestring, int), "version"),
-        Field("identifier", basestring, "identifier"),
+        Field("identifier", Identifier, "identifier"),
         Field("doi", Distribution, "distribution"),
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
