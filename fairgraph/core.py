@@ -377,7 +377,6 @@ class Protocol(KGObject):
         D = instance.data
         assert 'nsg:Protocol' in D["@type"]
         return cls(D["name"],
-                   D["nsg:steps"],
                    [Material.from_jsonld(material) for material in D["nsg:materials"]],
                    KGProxy(Person, D["schema:author"]),
                    D["schema:datePublished"],
@@ -389,7 +388,6 @@ class Protocol(KGObject):
         """docstring"""
         data = {}
         data["name"] = self.name
-        data["nsg:steps"] = self.steps
         if self.materials:
             data["nsg:materials"] = [material.to_jsonld() for material in self.materials]
         if self.author:
