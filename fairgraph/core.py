@@ -288,6 +288,47 @@ class Identifier(KGObject):
     type = ["schema:Identifier"]
 
 
+class Step(KGObject):
+    """
+    A step in an experimental protocol.
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/step/v0.1.0"
+    type = ["nsg:Step", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "name": "schema:name",
+        "stepIdentifier": "nsg: stepIdentifier",
+        "previousStepIdentifier": "nsg: previousStepIdentifier",
+        "sequenceNumber": "nsg: sequenceNumber",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        },
+        "description": "schema:description"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("step_identifier", (basestring, int), "stepIdentifier"),
+        Field("previous_step_identifer", (basestring, int), "previousStepIdentifier"),
+        Field("sequence_number", int, "sequenceNumber"),
+        Field("doi", Distribution, "distribution"),
+        Field("description", basestring, "description")
+        )
+    def __init__(self, name, step_identifier=None, previous_step_identifer=None,
+                        sequence_number=None, doi=None, description=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
 class Protocol(KGObject):
     """
     An experimental protocol.
@@ -300,19 +341,36 @@ class Protocol(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
         "name": "schema:name",
+        "version" : "nsg:version",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        },
+        "numberOfSteps": "nsg:numberOfSteps",
+        "hasPart": "nsg:hasPart",
         "material":"nsg:material",
-        "person":"nsg:person",
-        "deathDate": "schema:deathDate"
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "datePublished": "nsg:datePublished"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("steps", basestring, "steps", required=True),
+        Field("version", (basestring, int), "version"),
+        Field("doi", Distribution, "distribution"),
+        Field("distribution", Distribution, "distribution"), # external link
+        Field("number_of_steps", int, "numberOfSteps"),
+        Field("steps", Step, "hasPart", multiple=True),
         Field("materials", Material, "material", multiple=True),
-        Field("author", Person, "person", multiple=True),
+        Field("author", Person, "wasAssociatedWith", multiple=True),
         Field("date_published", date, "datePublished")
         )
 
-    def __init__(self, name, steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
+    def __init__(self, name, version=None, doi=None, distribution=None, number_of_steps=None,
+    steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -332,7 +390,8 @@ class Protocol(KGObject):
                    [Material.from_jsonld(material) for material in D["nsg:materials"]],
                    KGProxy(Person, D["schema:author"]),
                    D["schema:datePublished"],
-                   KGProxy(Identifier, D["schema:identifier"]),
+                   #KGProxy(Identifier, D["schema:identifier"]),
+                   KGProxy(Name, D["schema:name"]),
                    D["@id"], instance=instance)
 
     def _build_data(self, client, all_fields=False):

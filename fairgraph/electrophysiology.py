@@ -524,7 +524,8 @@ class BrainSlicingActivity(KGObject):
         "solution": "nsg:solution",
         "slicingAngle": "nsg:slicingAngle",
         "hemisphere": "nsg:hemisphere",
-        "cuttingThickness": "nsg:cuttingThickness"
+        "cuttingThickness": "nsg:cuttingThickness",
+        "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
