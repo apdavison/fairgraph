@@ -35,7 +35,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, MorphologyType, CultureType, Age, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange, License
+from .commons import QuantitativeValue, MorphologyType, Age, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange, License
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list

@@ -27,7 +27,7 @@ except NameError:
 from datetime import datetime
 
 from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License
+from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list
 
