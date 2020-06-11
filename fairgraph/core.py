@@ -299,20 +299,20 @@ class Step(KGObject):
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
-        "stepId": "nsg: stepId",
-        "previousStepId": "nsg: previousStepId",
-        "sequenceNumber": "nsg: sequenceNumber",
-        "identifier": "schema: identifier",
+        "name": "schema:name",
+        "previousStepName": "nsg:previousStepName",
+        "sequenceNumber": "nsg:sequenceNumber",
+        "identifier": "schema:identifier",
         "description": "schema:description"
     }
     fields = (
-        Field("step_id", (basestring, int), "stepId", required=True),
-        Field("previous_step_id", (basestring, int), "previousStepId"),
+        Field("name", (basestring, int), "stepName", required=True),
+        Field("previous_step_name", (basestring, int), "previousStepName"),
         Field("sequence_number", int, "sequenceNumber"),
         Field("identifer", Identifier, "identifier"), # doi
         Field("description", basestring, "description")
         )
-    def __init__(self, name, step_id=None, previous_step_id=None,
+    def __init__(self, name, step_name=None, previous_step_name=None,
                         sequence_number=None, identifier=None, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
