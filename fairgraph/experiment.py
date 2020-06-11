@@ -413,14 +413,13 @@ class VisualStimulation(KGObject):
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
-        Field("protocols_doi", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocols_doi=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -490,14 +489,13 @@ class ElectrophysiologicalStimulation(KGObject):
         Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
         Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("stimulus_type", StimulusType, "stimulusType"),
-        Field("protocols_doi", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, electrophysiological_stimulus, experiment=None, stimulus_type=None, protocols_doi=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, electrophysiological_stimulus, experiment=None, stimulus_type=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -577,14 +575,13 @@ class BehavioralStimulation(KGObject):
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("CogPOID", Distribution, "distribution"),
         Field("CogAtlasID", Distribution, "distribution"),
-        Field("protocols_doi", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
     	Field("license", License, "license")
     )
 
-    def __init__(self, name, behavioral_stimulus, experiment=None, cogpoid=None, cogatlasid=None, protocol_doi=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, behavioral_stimulus, experiment=None, cogpoid=None, cogatlasid=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
