@@ -306,7 +306,7 @@ class Step(KGObject):
         "description": "schema:description"
     }
     fields = (
-        Field("name", (basestring, int), "stepName", required=True),
+        Field("name", (basestring, int), "name", required=True),
         Field("previous_step_name", (basestring, int), "previousStepName"),
         Field("sequence_number", int, "sequenceNumber"),
         Field("identifer", Identifier, "identifier"), # doi
