@@ -39,9 +39,10 @@ from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusT
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-from .electrophysiology import VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation
+from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation
 
 DEFAULT_NAMESPACE = "neuralactivity"
+
 
 class Position(KGObject):
     """Location within a coordinate system."""
@@ -198,6 +199,7 @@ class ImageSequence(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
+
 class RegionOfInterest(KGObject):
     """A region of interest within an image sequence."""
     namespace = DEFAULT_NAMESPACE
@@ -268,102 +270,6 @@ class ROISelection(KGObject):
         KGObject.__init__(self, **args)
 
 
-class CranialWindow(KGObject):
-    """A window (partially) through the skull."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/cranialwindow/v0.1.1"
-    type = ["nsg:CranialWindow", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "value": "schema:value",
-        "name": "schema:name",
-        "brainLocation": "nsg:brainLocation",
-        "brainRegion": "nsg:brainRegion",
-    	"windowType":"nsg:windowType",
-    	"diameter":"nsg:diameter",
-    	"fluorescenceLabeling":"nsg:fluorescenceLabeling",
-        "description": "schema:description",
-        "minds": "https://schema.hbp.eu/"
-        }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
-        Field("window_type", basestring, "windowType"),
-        Field("diameter", QuantitativeValue, "diameter"),
-        Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
-        Field("description", basestring, "description"),
-        Field("generated_by", "Craniotomy", "^prov:generated", reverse="cranial_window"),
-        Field("activity", ("optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeImplantationActivity", "electrophysiology.PatchClampActivity"), "^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
-    )
-
-    def __init__(self, name, brain_location=None, window_type=None, diameter=None, fluorescence_labeling=None,
-    description=None, generated_by=None, activity=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
-class Craniotomy(KGObject):
-    """Surgical procedure to give optical access through the skull to the brain (dura)."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/craniotomy/v0.2.0"
-    type = ["nsg:Craniotomy", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "generated": "prov:generated",
-        "used": "prov:used",
-        "anesthesia": "nsg:anesthesia",
-        "startedAtTime": "prov:startedAtTime",
-        "endedAtTime": "prov:endedAtTime",
-        "hadProtocol": "prov:hadProtocol",
-        "wasAssociatedWith": "prov:wasAssociatedWith"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "used", required=True),
-        Field("cranial_window", CranialWindow, "generated", required=True),
-        Field("anesthesia", basestring, "anesthesia"),
-	    Field("protocol", Protocol, "hadProtocol"),
-        Field("start_time", datetime, "startedAtTime"),
-        Field("end_time", datetime, "endedAtTime"),
-        Field("people", Person, "wasAssociatedWith", multiple=True)
-    )
-
-    def __init__(self, name, subject, cranial_window, anesthesia=None, protocol=None, start_time=None, end_time=None, people=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
-class Slice(KGObject):  # should move to "core" module?
-    """A brain slice."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/core/slice/v0.1.0"
-    type = ["nsg:Slice", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "providerId": "nsg:providerId",
-        "wasDerivedFrom": "prov:wasDerivedFrom"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("provider_id", basestring, "providerId"),
-        Field("brain_slicing_activity", "BrainSlicingActivity", "^prov:generated", reverse="slices"),
-        Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
-    )
-
-
 class TwoPhotonImaging(KGObject):
     """Two-photon-excited fluorescence laser-scanning microscopy."""
     namespace = DEFAULT_NAMESPACE
@@ -431,7 +337,6 @@ class TwoPhotonImaging(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
 
 
 class MotionCorrection(KGObject):
