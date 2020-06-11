@@ -353,6 +353,7 @@ class Protocol(KGObject):
         },
         "numberOfSteps": "nsg:numberOfSteps",
         "hasPart": "nsg:hasPart",
+        "identifier": "nsg: identifier",
         "material":"nsg:material",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "datePublished": "nsg:datePublished"
@@ -360,6 +361,7 @@ class Protocol(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("version", (basestring, int), "version"),
+        Field("identifier", basestring, "identifier"),
         Field("doi", Distribution, "distribution"),
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
@@ -369,7 +371,7 @@ class Protocol(KGObject):
         Field("date_published", date, "datePublished")
         )
 
-    def __init__(self, name, version=None, doi=None, distribution=None, number_of_steps=None,
+    def __init__(self, name, version=None, identifier=None, doi=None, distribution=None, number_of_steps=None,
     steps=None, materials=None, author=None, date_published=None, id=None, instance=None):
         args = locals()
         args.pop("self")
