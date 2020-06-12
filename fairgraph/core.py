@@ -273,7 +273,7 @@ class Material(KGObject):
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
-        Field("identifier", Identifier, "identifier"),
+        Field("identifier", basestring, "identifier"),
         Field("vendor", Organization, "vendor")
         )
 
