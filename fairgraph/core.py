@@ -252,13 +252,30 @@ class Material(object):
     _path = "/core/materials/v0.1.0"
     type = ["nsg:Materials", "prov:Entity"]
 
-    def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
-        self.name = name
-        self.molar_weight = molar_weight
-        self.formula = formula
-        self.stock_keeping_unit = stock_keeping_unit
-        self.identifier = identifier
-        self.vendor = vendor
+    context = {
+        "schema": "http://schema.org/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "reagentName": "nsg:reagentName",
+        "reagentMolarWeight": "nsg:reagentMolarWeight",
+        "reagentLinearFormula": "nsg:reagentLinearFormula",
+        "stockKeepingUnit": "schema:sku",
+        "identifier": "schema:identifier",
+        "vendor": "nsg:reagentVendor"
+    }
+    fields = (
+        Field("name", basestring, "reagentName", required=True),
+        Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
+        Field("formula", basestring, "reagentLinearFormula"),
+        Field("stock_keeping_unit", basestring, "stockKeepingUnit"), # doi
+        Field("identifier", Identifier, "identifier"),
+        Field("vendor", basestring, "vendor")
+        )
+    def __init__(self, name, molar_weight=None, formula=None,
+                        stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
     def to_jsonld(self, client=None):
         return {
