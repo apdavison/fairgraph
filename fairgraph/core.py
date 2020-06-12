@@ -248,9 +248,10 @@ class Identifier(KGObject):
     """
     A landing page describing the dataset.
     """
-    namespace = "nexus"
+    namespace = DEFAULT_NAMESPACE
     _path = "/schemaorgsh/identifier/v0.1.0"
     type = ["schema:Identifier"]
+
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -273,7 +274,6 @@ class Material(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/core/materials/v0.1.0"
     type = ["nsg:Materials", "prov:Entity"]
-
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -293,6 +293,7 @@ class Material(KGObject):
         Field("identifier", Identifier, "identifier"),
         Field("vendor", Organization, "vendor")
         )
+
     def __init__(self, name, molar_weight=None, formula=None,
                         stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
         args = locals()
@@ -324,6 +325,7 @@ class Step(KGObject):
         Field("identifer", Identifier, "identifier"), # doi
         Field("description", basestring, "description")
         )
+
     def __init__(self, name, step_name=None, previous_step_name=None,
                         sequence_number=None, identifier=None, description=None, id=None, instance=None):
         args = locals()
