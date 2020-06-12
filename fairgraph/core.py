@@ -363,48 +363,6 @@ class Protocol(KGObject):
         args.pop("self")
         KGObject.__init__(self, **args)
 
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.identifier!r}, {self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        """docstring"""
-        D = instance.data
-        assert 'nsg:Protocol' in D["@type"]
-        return cls(D["name"],
-                   [Material.from_jsonld(material) for material in D["nsg:materials"]],
-                   KGProxy(Person, D["schema:author"]),
-                   D["schema:datePublished"],
-                   #KGProxy(Identifier, D["schema:identifier"]),
-                   KGProxy(Name, D["schema:identifier"]),
-                   D["@id"], instance=instance)
-
-    def _build_data(self, client, all_fields=False):
-        """docstring"""
-        data = {}
-        data["name"] = self.name
-        if self.materials:
-            data["nsg:materials"] = [material.to_jsonld() for material in list(self.materials)]
-        if self.author:
-            if self.author.id is None:
-                self.author.save(client)
-            data["schema:author"] = {
-                "@type": self.author.type,
-                "@id": self.author.id
-            }
-        if self.date_published:
-            data["schema:datePublished"] = self.date_published
-        if self.identifier:
-            if self.identifier.id is None:
-                self.identifier.save(client)
-            data["schema:identifier"] = {
-                "@type": self.identifier.type,
-                "@id": self.identifier.id
-            }
-        return data
-
 
 class Collection(KGObject):
     """A collection of other metadata objects"""
