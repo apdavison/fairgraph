@@ -255,13 +255,15 @@ class Identifier(KGObject):
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name"
+        "name": "schema:name",
+        "description": "schema:description"
     }
     fields = (
-        Field("name", basestring, "name", required=True)
+        Field("name", basestring, "name", required=True),
+        Field("description", basestring, "description")
     )
 
-    def __init__(self, name, id=None, instance=None):
+    def __init__(self, name, description=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
