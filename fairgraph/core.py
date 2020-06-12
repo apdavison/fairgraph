@@ -270,7 +270,7 @@ class Material(KGObject):
         "vendor": "nsg:reagentVendor"
     }
     fields = (
-        Field("name", basestring, "reagentName", required=True),
+        Field("name", basestring, "name", required=True),
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "stockKeepingUnit"), # doi
