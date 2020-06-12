@@ -275,7 +275,7 @@ class Material(KGObject):
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
         Field("identifier", Identifier, "identifier"),
-        Field("vendor", basestring, "vendor")
+        Field("vendor", Organization, "vendor")
         )
     def __init__(self, name, molar_weight=None, formula=None,
                         stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
