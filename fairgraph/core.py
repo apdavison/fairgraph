@@ -262,7 +262,7 @@ class Material(KGObject):
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
-        "reagentName": "nsg:reagentName",
+        "name": "schema: name",
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
         "stockKeepingUnit": "schema:sku",
