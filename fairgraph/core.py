@@ -248,22 +248,6 @@ class Identifier(KGObject):
     namespace = "nexus"
     _path = "/schemaorgsh/identifier/v0.1.0"
     type = ["schema:Identifier"]
-    context = {
-        "schema": "http://schema.org/",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "identifier": "schema:identifier",
-        "name": "schema:name"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("identifier", basestring, "identifier")
-        )
-
-    def __init__(self, name, identifier=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
 
 
 class Material(KGObject):
@@ -321,7 +305,7 @@ class Step(KGObject):
         Field("name", (basestring, int), "name", required=True),
         Field("previous_step_name", (basestring, int), "previousStepName"),
         Field("sequence_number", int, "sequenceNumber"),
-        Field("identifer", Identifier, "identifier"), # doi
+        Field("identifier", basestring, "identifier"), # doi
         Field("description", basestring, "description")
         )
 
@@ -364,7 +348,7 @@ class Protocol(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("version", (basestring, int), "version"),
-        Field("identifier", Identifier, "identifier"), # DOI
+        Field("identifier", basestring, "identifier"), # DOI
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
         Field("steps", Step, "hasPart", multiple=True),
