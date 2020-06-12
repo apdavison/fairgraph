@@ -262,7 +262,7 @@ class Material(KGObject):
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema: name",
+        "reagentName": "nsg: reagentName",
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
         "stockKeepingUnit": "schema:sku",
@@ -270,14 +270,14 @@ class Material(KGObject):
         "vendor": "nsg:reagentVendor"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("reagent_name", basestring, "reagentName", required=True),
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "stockKeepingUnit"), # doi
         Field("identifier", Identifier, "identifier"),
         Field("vendor", basestring, "vendor")
         )
-    def __init__(self, name, molar_weight=None, formula=None,
+    def __init__(self, reagent_name, molar_weight=None, formula=None,
                         stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
         args = locals()
         args.pop("self")
