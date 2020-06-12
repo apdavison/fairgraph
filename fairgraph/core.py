@@ -256,7 +256,7 @@ class Identifier(KGObject):
         "name": "schema:name"
     }
     fields = (
-        Field("identifier", basestring, "identifier")
+        Field("identifier", basestring, "identifier"),
         )
     existence_query_fields = ("identifier")
 
