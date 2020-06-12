@@ -386,7 +386,7 @@ class Protocol(KGObject):
         data = {}
         data["name"] = self.name
         if self.materials:
-            data["nsg:materials"] = [material.to_jsonld() for material in self.materials]
+            data["nsg:materials"] = [material.to_jsonld() for material in list(self.materials)]
         if self.author:
             if self.author.id is None:
                 self.author.save(client)
