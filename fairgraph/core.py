@@ -244,6 +244,12 @@ class Person(KGObject):
             return person
 
 
+class Identifier(KGObject):
+    namespace = "nexus"
+    _path = "/schemaorgsh/identifier/v0.1.0"
+    type = ["schema:Identifier"]
+
+
 class Material(object):
     """
     Metadata about a chemical product or other material used in an experimental protocol.
@@ -302,12 +308,6 @@ class Material(object):
                    data["schema:sku"],
                    KGProxy(Identifier, data["schema:identifier"]["@id"]),
                    KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
-
-
-class Identifier(KGObject):
-    namespace = "nexus"
-    _path = "/schemaorgsh/identifier/v0.1.0"
-    type = ["schema:Identifier"]
 
 
 class Step(KGObject):
