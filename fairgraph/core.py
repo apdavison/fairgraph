@@ -256,11 +256,11 @@ class Identifier(KGObject):
         "name": "schema:name"
     }
     fields = (
-        Field("identifier", basestring, "identifier"),
+        Field("name", basestring, "name", required=True),
+        Field("identifier", basestring, "identifier")
         )
-    existence_query_fields = ("identifier")
 
-    def __init__(self, identifier=None, id=None, instance=None):
+    def __init__(self, name, identifier=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
