@@ -255,7 +255,7 @@ class Identifier(KGObject):
         "identifier": "schema:identifier"
     }
     fields = (
-        Field("identifier", basestring, "identifier")
+        Field("identifier", basestring, "identifier"),
         )
 
     def __init__(self, identifier=None, id=None, instance=None):
