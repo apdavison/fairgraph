@@ -250,7 +250,7 @@ class Identifier(KGObject):
     type = ["schema:Identifier"]
 
 
-class Material(object):
+class Material(KGObject):
     """
     Metadata about a chemical product or other material used in an experimental protocol.
     """
@@ -282,32 +282,6 @@ class Material(object):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
-
-    def to_jsonld(self, client=None):
-        return {
-            "nsg:reagentName": self.name,
-            "nsg:reagentMolarWeight": self.molar_weight.to_jsonld(),
-            "nsg:reagentLinearFormula": self.formula,
-            "schema:sku": self.stock_keeping_unit,
-            "schema:identifier": {
-                "@id": self.identifier.id,
-            },
-            "nsg:reagentVendor": {
-                "@type": self.vendor.type,
-                "@id": self.vendor.id
-            }
-        }
-
-    @classmethod
-    def from_jsonld(cls, data):
-        if data is None:
-            return None
-        return cls(data["name"],
-                   QuantitativeValue.from_jsonld(data["nsg:reagentMolarWeight"]),
-                   data["nsg:reagentLinearFormula"],
-                   data["schema:sku"],
-                   KGProxy(Identifier, data["schema:identifier"]["@id"]),
-                   KGProxy(Organization, data["nsg:reagentVendor"]["@id"]))
 
 
 class Step(KGObject):
