@@ -312,8 +312,8 @@ class KGObject(with_metaclass(Registry, object)):
 
     def __init__(self, id=None, instance=None, **properties):
         if self.fields:
-            print(len(self.fields))
             print(self.fields)
+            print(len(self.fields))
             for field in self.fields:
                 try:
                     value = properties[field.name]
