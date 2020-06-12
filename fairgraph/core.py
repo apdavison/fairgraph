@@ -277,7 +277,7 @@ class Material(KGObject):
         Field("identifier", Identifier, "identifier"),
         Field("vendor", basestring, "vendor")
         )
-    def __init__(self, reagent_name, molar_weight=None, formula=None,
+    def __init__(self, name, molar_weight=None, formula=None,
                         stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
         args = locals()
         args.pop("self")
