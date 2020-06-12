@@ -245,7 +245,12 @@ class Person(KGObject):
 
 
 class Material(object):
-    """Metadata about a chemical product or other material used in an experimental protocol."""
+    """
+    Metadata about a chemical product or other material used in an experimental protocol.
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/core/materials/v0.1.0"
+    type = ["nsg:Materials", "prov:Entity"]
 
     def __init__(self, name, molar_weight, formula, stock_keeping_unit, identifier, vendor):
         self.name = name
@@ -324,7 +329,7 @@ class Protocol(KGObject):
     An experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/protocol/v0.1.2"
+    _path = "/core/protocol/v0.1.6"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
