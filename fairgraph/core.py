@@ -262,7 +262,7 @@ class Material(KGObject):
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "prov": "http://www.w3.org/ns/prov#",
-        "reagentName": "nsg: reagentName",
+        "name": "schema: name",
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
         "reagentSKU": "schema:sku",
@@ -270,7 +270,7 @@ class Material(KGObject):
         "vendor": "nsg:reagentVendor"
     }
     fields = (
-        Field("name", basestring, "reagentName", required=True),
+        Field("name", basestring, "name", required=True),
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
