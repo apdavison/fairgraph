@@ -245,9 +245,25 @@ class Person(KGObject):
 
 
 class Identifier(KGObject):
+    """
+    A landing page describing the dataset.
+    """
     namespace = "nexus"
     _path = "/schemaorgsh/identifier/v0.1.0"
     type = ["schema:Identifier"]
+    context = {
+        "schema": "http://schema.org/",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True)
+    )
+
+    def __init__(self, name, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
 
 
 class Material(KGObject):
