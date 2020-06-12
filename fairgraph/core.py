@@ -265,15 +265,15 @@ class Material(KGObject):
         "reagentName": "nsg: reagentName",
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
-        "stockKeepingUnit": "schema:sku",
+        "reagentSKU": "schema:sku",
         "identifier": "schema:identifier",
         "vendor": "nsg:reagentVendor"
     }
     fields = (
-        Field("reagent_name", basestring, "reagentName", required=True),
+        Field("name", basestring, "reagentName", required=True),
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
-        Field("stock_keeping_unit", basestring, "stockKeepingUnit"), # doi
+        Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
         Field("identifier", Identifier, "identifier"),
         Field("vendor", basestring, "vendor")
         )
