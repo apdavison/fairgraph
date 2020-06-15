@@ -30,7 +30,6 @@ from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Fi
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list
-from .electrophysiology import ElectrodeArrayExperiment, EEGExperiment, ECoGExperiment, PatchClampExperiment, ExtracellularElectrodeExperiment
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -395,7 +394,6 @@ class VisualStimulation(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
-        "wasInformedBy": "nsg:wasInformedBy",
         "name": "schema:name",
         "interstimulusInterval": "nsg:interstimulusInterval",
         "refreshRate": "nsg:refreshRate",
@@ -410,7 +408,7 @@ class VisualStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", VisualStimulus, "used", required=True),
-        Field("experiment", (ElectrodeArrayExperiment, EEGExperiment, ECoGExperiment, PatchClampExperiment, ExtracellularElectrodeExperiment, "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
@@ -475,7 +473,6 @@ class ElectrophysiologicalStimulation(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
-        "wasInformedBy": "nsg:wasInformedBy",
         "name": "schema:name",
 	    "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
@@ -488,7 +485,7 @@ class ElectrophysiologicalStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
-        Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
+        Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
         Field("stimulus_type", StimulusType, "stimulusType"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
@@ -558,7 +555,6 @@ class BehavioralStimulation(KGObject):
     	"code": "nsg:code",
     	"stimulusType": "nsg:stimulusType",
     	"license": "nsg:license",
-        "wasInformedBy" : "nsg:wasInformedBy",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -573,7 +569,7 @@ class BehavioralStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("behavioral_stimulus", BehavioralStimulus, "used", required=True),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
         Field("CogPOID", Distribution, "distribution"),
         Field("CogAtlasID", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),

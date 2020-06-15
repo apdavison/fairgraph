@@ -612,6 +612,7 @@ class ElectrodeArrayExperiment(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
     	"device": "nsg:device",
+        "wasInformedBy": "nsg:wasInformedBy",
         "sensors": "nsg:sensors",
     	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
         "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
@@ -626,7 +627,7 @@ class ElectrodeArrayExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
-        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
+        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
     	Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
@@ -747,6 +748,7 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label",
         "used": "prov:used",
+        "wasInformedBy": "nsg:wasInformedBy",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
@@ -756,7 +758,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulation", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
+        Field("stimulation", (VisualStimulation", BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -1049,6 +1051,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
         "stimulusType" : "nsg:stimulusType",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
+        "wasInformedBy": "nsg:wasInformedBy",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "hadProtocol": "prov:hadProtocol",
         "wasGeneratedBy": "prov:wasGeneratedBy"
@@ -1058,8 +1061,8 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_type", StimulusType, "stimulusType", required=True),
-        Field("stimulation", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
-        Field("recorded_cell", ImplantedBrainTissue, "prov:used"),
+        Field("stimulation", (VisualStimulation", BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("recorded_cell", ImplantedBrainTissue, "used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
