@@ -255,8 +255,8 @@ class Material(KGObject):
     Metadata about a chemical product or other material used in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/materials/v0.1.1"
-    type = ["nsg:Materials", "prov:Entity"]
+    _path = "/core/material/v0.1.1"
+    type = ["nsg:Material", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -265,7 +265,7 @@ class Material(KGObject):
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
         "reagentSKU": "schema:sku",
-        "identifier": "schema:identifier",
+        "reagentURL": "nsg:reagentURL",
         "vendor": "nsg:reagentVendor"
     }
     fields = (
@@ -273,12 +273,12 @@ class Material(KGObject):
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
-        Field("identifier", basestring, "identifier"),
+        Field("reagent_URL", basestring, "reagentURL"),
         Field("vendor", Organization, "vendor")
         )
 
     def __init__(self, name, molar_weight=None, formula=None,
-                        stock_keeping_unit=None, identifier=None, vendor=None, id=None, instance=None):
+                        stock_keeping_unit=None, reagent_URL=None, vendor=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -340,7 +340,7 @@ class Protocol(KGObject):
         },
         "numberOfSteps": "nsg:numberOfSteps",
         "hasPart": "nsg:hasPart",
-        "identifier": "schema: identifier",
+        "identifier": "nsg:identifier",
         "material":"nsg:material",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "datePublished": "nsg:datePublished"
