@@ -758,7 +758,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "prov:used", required=True),
-        Field("stimulation", (VisualStimulation", BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -1061,7 +1061,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_type", StimulusType, "stimulusType", required=True),
-        Field("stimulation", (VisualStimulation", BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("recorded_cell", ImplantedBrainTissue, "used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )

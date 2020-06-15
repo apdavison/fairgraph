@@ -298,6 +298,7 @@ class TwoPhotonImaging(KGObject):
             },
             "minds": "https://schema.hbp.eu/",
             "generated": "prov:generated",
+            "wasInformedBy": "nsg:wasInformedBy",
             "used": "prov:used",
             "startedAtTime": "prov:startedAtTime",
             "endedAtTime": "prov:endedAtTime",
@@ -316,7 +317,7 @@ class TwoPhotonImaging(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
-        Field("stimulus", ("electrophysiology.VisualStimulation", "electrophysiology.BehavioralStimulation", "electrophysiology.ElectrophysiologicalStimulation"), "^prov:wasInformedBy"),
+        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("target", (Slice, CranialWindow), "used"),
         Field("microscope", basestring, "microscope"),
         Field("brain_state", basestring, "brainState"),
