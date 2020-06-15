@@ -39,7 +39,7 @@ from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusT
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation
+from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
