@@ -30,6 +30,7 @@ from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Fi
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list
+from .electrophysiology import ElectrodeArrayExperiment, EEGExperiment, ECoGExperiment, PatchClampExperiment, ExtracellularElectrodeExperiment
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -409,7 +410,7 @@ class VisualStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", VisualStimulus, "used", required=True),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
+        Field("experiment", (ElectrodeArrayExperiment, EEGExperiment, ECoGExperiment, PatchClampExperiment, ExtracellularElectrodeExperiment, "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "wasInformedBy"),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
