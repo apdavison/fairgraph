@@ -27,6 +27,7 @@ except ImportError:  # Python 2
     from urllib import quote_plus
 from requests.exceptions import HTTPError
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
+from openid_http_client.auth_client.simple_refresh_token_client import SimpleRefreshTokenClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
@@ -57,18 +58,28 @@ class KGClient(object):
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.eu/query",
                  release_endpoint="https://kg.humanbrainproject.eu/api/releases",
-                 idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api"):
-        if token is None:
-            if oauth_token_handler:
-                token = oauth_token_handler.get_token()
-            else:
-                try:
-                    token = os.environ["HBP_AUTH_TOKEN"]
-                except KeyError:
-                    raise AuthenticationError("No token provided.")
+                 idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api",
+                 oidc_host="https://services.humanbrainproject.eu/oidc",
+                 client_id=None,
+                 client_secret=None,
+                 refresh_token=None):
+
+        if client_id and client_secret and refresh_token:
+            auth_client = SimpleRefreshTokenClient(oidc_host, client_secret,
+                                                   client_id, refresh_token)
+        else:
+            if token is None:
+                if oauth_token_handler:
+                    token = oauth_token_handler.get_token()
+                else:
+                    try:
+                        token = os.environ["HBP_AUTH_TOKEN"]
+                    except KeyError:
+                        raise AuthenticationError("No token provided.")
+            auth_client = AccessTokenClient(token)
+
         ep = urlparse(nexus_endpoint)
         self.nexus_endpoint = nexus_endpoint
-        auth_client = AccessTokenClient(token)
         self._nexus_client = NexusClient(scheme=ep.scheme, host=ep.netloc, prefix=ep.path[1:],
                                          alternative_namespace=nexus_endpoint,
                                          auth_client=auth_client)
