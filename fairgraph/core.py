@@ -255,7 +255,7 @@ class Material(KGObject):
     Metadata about a chemical product or other material used in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/material/v0.1.1"
+    _path = "/core/material/v0.1.2"
     type = ["nsg:Material", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
