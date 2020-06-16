@@ -39,7 +39,7 @@ from .commons import QuantitativeValue, MorphologyType, Age, BrainRegion, CellTy
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus
+from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus, Device
 
 
 DEFAULT_NAMESPACE = "neuralactivity"
@@ -76,52 +76,6 @@ class Sensor(KGObject):
     )
 
     def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
-class Device(KGObject):
-    """Device used to collect recording in ElectrodeArrayExperiment"""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/device/v0.1.0"
-    type = ["nsg:Device", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "description": "schema:description",
-        "manufacturer" : "nsg:manufacturer",
-        "modelName" : "nsg:modelName",
-        "softwareVersion" : "nsg:softwareVersion",
-        "serialNumber" : "nsg:serialNumber",
-        "description": "schema:description",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        }
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("manufacturer", basestring, "manufacturer"),
-        Field("model_name", basestring, "modelName"),
-        Field("software_version", basestring, "softwareVersion"),
-        Field("serial_number", basestring, "serialNumber"),
-        Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description"),
-        Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
-    )
-
-    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
-    distribution=None, description=None, placement_activity=None, experiment=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -611,7 +565,6 @@ class ElectrodeArrayExperiment(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-    	"device": "nsg:device",
         "wasInformedBy": "nsg:wasInformedBy",
         "sensors": "nsg:sensors",
     	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
@@ -627,6 +580,7 @@ class ElectrodeArrayExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
+	Field("implanted_brain_tissues", ImplantedBrainTissue, "use", multiple=True),
         Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
     	Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
@@ -640,7 +594,7 @@ class ElectrodeArrayExperiment(KGObject):
     )
 
 
-    def __init__(self, name, device=None, stimulus=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulus=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -757,7 +711,8 @@ class PatchClampExperiment(KGObject):
     #recorded_cell_class = "PatchedCell"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", PatchedCell, "prov:used", required=True),
+        Field("recorded_cell", PatchedCell, "used", required=True),
+	Field("acquisition_device", Device, "used"),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
@@ -767,7 +722,7 @@ class PatchClampExperiment(KGObject):
         Field("protocol", Protocol, "hadProtocol")
     )
 
-    def __init__(self, name, recorded_cell, stimulation=None, traces=None,
+    def __init__(self, name, recorded_cell, acquisition_device=None, stimulation=None, traces=None,
     start_time=None, end_time=None, people=None, protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -965,7 +920,6 @@ class ElectrodePlacementActivity(KGObject):
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "name": "schema:name",
-        "device": "nsg:device",
         "used": "prov:used",
         "generated": "prov:generated",
 	    "brainRegion": "nsg:brainRegion",

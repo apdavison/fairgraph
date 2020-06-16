@@ -34,6 +34,52 @@ from .utility import compact_uri, standard_context, as_list
 DEFAULT_NAMESPACE = "neuralactivity"
 
 
+class Device(KGObject):
+    """Device used to collect recording in ElectrodeArrayExperiment"""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/electrophysiology/device/v0.1.0"
+    type = ["nsg:Device", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "manufacturer" : "nsg:manufacturer",
+        "modelName" : "nsg:modelName",
+        "softwareVersion" : "nsg:softwareVersion",
+        "serialNumber" : "nsg:serialNumber",
+        "description": "schema:description",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        }
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("manufacturer", basestring, "manufacturer"),
+        Field("model_name", basestring, "modelName"),
+        Field("software_version", basestring, "softwareVersion"),
+        Field("serial_number", basestring, "serialNumber"),
+        Field("distribution", Distribution, "distribution"),
+        Field("description", basestring, "description"),
+        Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
+    )
+
+    def __init__(self, name, manufacturer=None, model_name=None, software_version=None, serial_number=None,
+    distribution=None, description=None, placement_activity=None, experiment=None, id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
 class CranialWindow(KGObject):
     """A window (partially) through the skull."""
     namespace = DEFAULT_NAMESPACE

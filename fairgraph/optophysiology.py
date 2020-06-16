@@ -39,7 +39,7 @@ from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusT
 from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
-from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus
+from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus, Device
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -304,7 +304,7 @@ class TwoPhotonImaging(KGObject):
             "endedAtTime": "prov:endedAtTime",
             "hadProtocol": "prov:hadProtocol",
             "wasAssociatedWith": "prov:wasAssociatedWith",
-            "microscope": "nsg:microscope",
+            "device": "nsg:device",
             "brainState": "nsg:brainState",
             "anesthesia": "nsg:anesthesia",
             "imagingDepth": "nsg:imagingDepth",
@@ -319,7 +319,7 @@ class TwoPhotonImaging(KGObject):
         Field("image_sequence", ImageSequence, "generated", required=True),
         Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("target", (Slice, CranialWindow), "used"),
-        Field("microscope", basestring, "microscope"),
+        Field("microscope", Device, "device),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
         Field("laser", basestring, "laser"),
