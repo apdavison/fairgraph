@@ -533,7 +533,7 @@ class ValidationResult(KGObject):
         Field("timestamp", (date, datetime), "dateCreated"),
         Field("additional_data", KGObject, "hadMember", multiple=True),
         Field("old_uuid", basestring, "oldUUID"),
-        Field("collab_id", (int, basestring), "collabID"),
+        Field("collab_id", basestring, "collabID"),
         Field("hash", basestring, "hash")
     )
 
