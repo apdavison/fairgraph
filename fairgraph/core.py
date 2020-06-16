@@ -255,7 +255,7 @@ class Material(KGObject):
     Metadata about a chemical product or other material used in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/material/v0.1.2"
+    _path = "/core/material/v0.1.0"
     type = ["nsg:Material", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -289,7 +289,7 @@ class Step(KGObject):
     A step in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/step/v0.1.1"
+    _path = "/core/step/v0.1.0"
     type = ["nsg:Step", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -321,7 +321,7 @@ class Protocol(KGObject):
     An experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/protocol/v0.1.6"
+    _path = "/core/protocol/v0.1.2"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
