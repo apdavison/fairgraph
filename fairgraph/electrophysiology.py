@@ -569,6 +569,7 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label",
         "used": "prov:used",
+	"device": "nsg:device",
         "wasInformedBy": "nsg:wasInformedBy",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -579,7 +580,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "used", required=True),
-	Field("acquisition_device", Device, "used"),
+	Field("acquisition_device", Device, "device"),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
