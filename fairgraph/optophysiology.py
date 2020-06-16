@@ -319,7 +319,7 @@ class TwoPhotonImaging(KGObject):
         Field("image_sequence", ImageSequence, "generated", required=True),
         Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("target", (Slice, CranialWindow), "used"),
-        Field("microscope", Device, "device),
+        Field("microscope", Device, "device"),
         Field("brain_state", basestring, "brainState"),
         Field("anesthesia", basestring, "anesthesia"),
         Field("laser", basestring, "laser"),
