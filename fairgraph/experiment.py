@@ -585,7 +585,7 @@ class BehavioralStimulus(KGObject):
 class BehavioralStimulation(KGObject):
     """Use of an behavioral stimulus in the experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/behavioralstimulation/v0.1.0"
+    _path = "/experiment/behavioralstimulation/v0.1.1"
     type = ["nsg:BehavioralStimulation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
