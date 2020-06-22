@@ -142,6 +142,7 @@ class Strain(OntologyTerm):
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:024276/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:024276&i=5d4232230fbc3b6016f81e3a",
         "C57BL/6J X SJL": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:100012/resolver?q=%2A&l=&filter[]=Catalog%20Number:100012&i=5d422f510fbc3b6016f6939a",
 	    "Del(5Gtf2i-Fkbp6)1Vcam": "https://dknet.org/data/record/nlx_154697-1/MGI:5662390/resolver?q=Del%285Gtf2i-Fkbp6%291Vcam&l=Del%285Gtf2i-Fkbp6%291Vcam&i=5d4233580fbc3b6016f8c3f2",
+        "Del(5Gtf2i-Fkbp6)1Vcam/Vcam": "https://dknet.org/data/record/nlx_154697-1/MGI:5662390/resolver?q=Del%285Gtf2i-Fkbp6%291Vcam&l=Del%285Gtf2i-Fkbp6%291Vcam&i=5d4233580fbc3b6016f8c3f2",
         "lister hooded": "https://dknet.org/data/record/nlx_154697-1/RGD_2312466/resolver?q=lister%20hooded&l=lister%20hooded&i=5d422c300fbc3b6016f4d849",
         "Sprague-Dawley": "https://dknet.org/data/record/nlx_154697-1/MGI:5651135/resolver?q=Sprague-Dawley&l=Sprague-Dawley&i=5d422b8e0fbc3b6016f4825a",
         "SWR": "https://dknet.org/data/record/nlx_154697-1/MGI:2159803/resolver?q=SWR&l=SWR&i=5d422e420fbc3b6016f5fcaa",
