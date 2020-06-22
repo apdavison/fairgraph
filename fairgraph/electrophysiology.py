@@ -581,7 +581,7 @@ class PatchClampExperiment(KGObject):
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "used", required=True),
 	Field("acquisition_device", Device, "device"),
-        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
         Field("start_time", datetime, "startedAtTime"),
@@ -803,8 +803,8 @@ class ElectrodeArrayExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
-	Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
-        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+	    Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
+        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple = True),
     	Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
@@ -1014,7 +1014,7 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus_type", StimulusType, "stimulusType", required=True),
-        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("recorded_cell", ImplantedBrainTissue, "used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
