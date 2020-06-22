@@ -548,7 +548,7 @@ class ElectrophysiologicalStimulation(KGObject):
 class BehavioralStimulus(KGObject):
     """A generic behavioral stimulus."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/optophysiology/behavioralstimulus/v0.1.0"
+    _path = "/experiment/behavioralstimulus/v0.1.0"
     type = ["nsg:BehavioralStimulus", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -585,7 +585,7 @@ class BehavioralStimulus(KGObject):
 class BehavioralStimulation(KGObject):
     """Use of an behavioral stimulus in the experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/behavioralstimulation/v0.1.0"
+    _path = "/experiment/behavioralstimulation/v0.1.0"
     type = ["nsg:BehavioralStimulation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -616,8 +616,6 @@ class BehavioralStimulation(KGObject):
         Field("name", basestring, "name", required=True),
         Field("behavioral_stimulus", BehavioralStimulus, "used", required=True),
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
-        Field("CogPOID", Distribution, "distribution"),
-        Field("CogAtlasID", Distribution, "distribution"),
         Field("protocol", Protocol, "hadProtocol"),
     	Field("citation", basestring, "citation"),
     	Field("code", basestring, "code"),
