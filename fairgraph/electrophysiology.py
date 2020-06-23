@@ -580,7 +580,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "used", required=True),
-	Field("acquisition_device", Device, "device"),
+	    Field("acquisition_device", Device, "device"),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
@@ -1013,13 +1013,12 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("stimulus_type", StimulusType, "stimulusType", required=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("recorded_cell", ImplantedBrainTissue, "used"),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
-    def __init__(self, name, stimulus_type, stimulation=None, recorded_cell=None, traces=None, id=None, instance=None):
+    def __init__(self, name, stimulation=None, recorded_cell=None, traces=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
