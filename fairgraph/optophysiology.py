@@ -317,7 +317,7 @@ class TwoPhotonImaging(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
-        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("target", (Slice, CranialWindow), "used"),
         Field("microscope", Device, "device"),
         Field("brain_state", basestring, "brainState"),
@@ -334,7 +334,7 @@ class TwoPhotonImaging(KGObject):
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
-    def __init__(self, name, image_sequence=None, stimulus=None, target=None, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, distribution=None, start_time=None, end_time=None, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, image_sequence=None, stimulation=None, target=None, microscope=None, brain_state=None, anesthesia=None, laser=None, excitation_wavelength=None, power_at_objective=None, collection_wavelength=None, imaging_depth=None, distribution=None, start_time=None, end_time=None, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

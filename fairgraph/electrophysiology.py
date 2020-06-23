@@ -804,7 +804,7 @@ class ElectrodeArrayExperiment(KGObject):
         Field("name", basestring, "name", required=True),
     	Field("device", Device, "used"),
 	    Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
-        Field("stimulus", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple = True),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple = True),
     	Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
     	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
@@ -817,7 +817,7 @@ class ElectrodeArrayExperiment(KGObject):
     )
 
 
-    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulus=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulation=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
