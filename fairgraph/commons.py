@@ -23,6 +23,7 @@ try:
     basestring
 except NameError:
     basestring = str
+import requests
 from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
 
 
@@ -374,6 +375,16 @@ class License(OntologyTerm):
         "GNU General Public License 2 or later": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
         "CeCILL v2": "http://www.cecill.info/licences/Licence_CeCILL_V2-en.html"
     }
+
+    @classmethod
+    def initialize(cls):
+        spdx_url = "https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json"
+        response = requests.get(spdx_url)
+        if response.status_code != 200:
+            raise Exception("Unable to retrieve license list")
+        license_data = response.json()
+        for entry in license_data["licenses"]:
+            cls.iri_map[entry["name"]] = entry["seeAlso"][0]
 
 
 class StimulusType(OntologyTerm):
