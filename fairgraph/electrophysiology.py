@@ -28,19 +28,17 @@ Coming soon:
 
 import sys
 import inspect
+from datetime import datetime
+from .base import KGObject, KGQuery, cache, Field, Distribution
+from .commons import QuantitativeValue, MorphologyType, BrainRegion, CellType, StimulusType, ChannelType
+from .core import Subject, Person, Protocol
+from .minds import Dataset
+from .utility import compact_uri, standard_context, as_list
+from .experiment import CranialWindow, Slice, CellCulture, VisualStimulation, ElectrophysiologicalStimulation, BehavioralStimulation, Device
 try:
     basestring
 except NameError:
     basestring = str
-from datetime import datetime
-
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, MorphologyType, Age, BrainRegion, CellType, StimulusType, ChannelType, QuantitativeValueRange, License
-from .core import Subject, Person, Protocol
-from .minds import Dataset
-from .utility import compact_uri, standard_context, as_list
-from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus, Device
-
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -135,8 +133,7 @@ class Trace(KGObject):
         Field("data_unit", basestring, "dataUnit", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("part_of", Dataset, "partOf"),
-        Field("retrieval_date", datetime, "retrievalDate")
-            )
+        Field("retrieval_date", datetime, "retrievalDate"))
 
     def __init__(self, name, data_location, generated_by, generation_metadata, channel, data_unit,
                  time_step, part_of=None, retrieval_date=None, id=None, instance=None):
@@ -164,7 +161,7 @@ class MultiChannelMultiTrialRecording(Trace):
     If you have a file containing only a single recording from a single channel,
     you may instead use :class:`Trace`."""
     namespace = DEFAULT_NAMESPACE
-    _path =  "/electrophysiology/multitrace/v0.2.0"
+    _path = "/electrophysiology/multitrace/v0.2.0"
     type = ["nsg:MultiChannelMultiTrialRecording", "prov:Entity"]
     fields = (
         Field("name", basestring, "name", required=True),
@@ -301,8 +298,7 @@ class PatchedCell(KGObject):
                         'value': value.id
                     })
                 else:
-                    raise Exception("The only supported filters are by species, brain region, cell type "
-                                    "experimenter or lab. You specified {name}".format(name=name))
+                    raise Exception(f"The only supported filters are by species, brain region, cell type, experimenter or lab. You specified {name}")
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
@@ -368,7 +364,7 @@ class PatchedCell(KGObject):
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
@@ -427,7 +423,7 @@ class PatchedSlice(KGObject):
         Field("description", basestring, "description")
     )
 
-    def __init__(self, name, slice, recorded_cells, recording_activity=None, brain_location=None, bath_solution=None, description = None,
+    def __init__(self, name, slice, recorded_cells, recording_activity=None, brain_location=None, bath_solution=None, description=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -477,12 +473,7 @@ class PatchedCellCollection(KGObject):
         Field("slice", PatchedSlice, "^nsg:hasPart", reverse="recorded_cells")
     )
 
-    def __init__(self,
-	name,
-	cells,
-	slice=None,
-	id=None,
-	instance=None):
+    def __init__(self, name,cells, slice=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -569,7 +560,7 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label",
         "used": "prov:used",
-	"device": "nsg:device",
+	    "device": "nsg:device",
         "wasInformedBy": "nsg:wasInformedBy",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -580,7 +571,7 @@ class PatchClampExperiment(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("recorded_cell", PatchedCell, "used", required=True),
-	    Field("acquisition_device", Device, "device"),
+        Field("acquisition_device", Device, "device"),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("traces", (Trace, MultiChannelMultiTrialRecording), "^prov:wasGeneratedBy",
               multiple=True, reverse="generated_by"),
@@ -629,7 +620,7 @@ class PatchClampExperiment(KGObject):
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
         args = {}
         for field in cls.fields:
             if field.name == "stimulus":
@@ -737,7 +728,7 @@ class QualifiedTraceGeneration(KGObject):
     )
 
     def __init__(self, name, stimulus_experiment, sweep, #traces=None,
-                 repetition= None, at_time=None, provider_experiment_id =None, provider_experiment_name=None,
+                 repetition=None, at_time=None, provider_experiment_id=None, provider_experiment_name=None,
                  holding_potential=None, measured_holding_potential=None, input_resistance=None,
                  series_resistance=None, compensation_current=None, id=None, instance=None):
         args = locals()
@@ -755,10 +746,9 @@ class ImplantedBrainTissue(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "name": "schema:name",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
-    fields =  (
+    fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("implantation_activity", "electrophysiology.ElectrodeImplantationActivity", "^prov:generated", reverse="implanted_brain_tissues"),
@@ -791,10 +781,10 @@ class ElectrodeArrayExperiment(KGObject):
         "name": "schema:name",
         "wasInformedBy": "nsg:wasInformedBy",
         "sensors": "nsg:sensors",
-    	"digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
+        "digitizedHeadPointsCoordinates": "nsg:digitizedHeadPointsCoordinates",
         "headLocalizationCoilsCoordinates": "nsg:headLocalizationCoilsCoordinates",
-    	"digitizedHeadPoints": "nsg:digitizedHeadPoints",
-    	"digitizedLandmarks": "nsg:digitizedLandmarks",
+        "digitizedHeadPoints": "nsg:digitizedHeadPoints",
+        "digitizedLandmarks": "nsg:digitizedLandmarks",
         "used": "prov:used",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -803,14 +793,14 @@ class ElectrodeArrayExperiment(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-    	Field("device", Device, "used"),
-	    Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
-        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple = True),
-    	Field("sensors", Sensor, "sensors"),
+        Field("device", Device, "used"),
+        Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
+        Field("sensors", Sensor, "sensors"),
         Field("digitized_head_points_coordinates", Sensor, "digitizedHeadPointsCoordinates"),
-    	Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
-    	Field("digitized_head_points", bool, "digitizedHeadPoints"),
-    	Field("digitized_landmarks", bool,  "digitizedLandmarks"),
+        Field("head_localization_coils_coordinates", Sensor, "headLocalizationCoilsCoordinates"),
+        Field("digitized_head_points", bool, "digitizedHeadPoints"),
+        Field("digitized_landmarks", bool, "digitizedLandmarks"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
@@ -818,7 +808,7 @@ class ElectrodeArrayExperiment(KGObject):
     )
 
 
-    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulation=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points= False, digitized_landmarks = False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulation=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points=False, digitized_landmarks=False, start_time=None, end_time=None, people=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -835,7 +825,7 @@ class ElectrodeArrayExperiment(KGObject):
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
         args = {}
         for field in cls.fields:
             if field.name == "stimulus":
@@ -874,7 +864,7 @@ class ElectrodeArrayExperiment(KGObject):
         elif api == "query":
             # todo: what about filtering if api="query"
             return super(ElectrodeArrayExperiment, cls).list(client, size, from_index, api,
-                                                         scope, resolved, **filters)
+            scope, resolved, **filters)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
 
@@ -922,16 +912,16 @@ class ElectrodePlacementActivity(KGObject):
         "name": "schema:name",
         "used": "prov:used",
         "generated": "prov:generated",
-	    "brainRegion": "nsg:brainRegion",
+        "brainRegion": "nsg:brainRegion",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	    "hadProtocol": "prov:hadProtocol"
+        "hadProtocol": "prov:hadProtocol"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("device", Device, "generated"),
-	    Field("protocol", Protocol, "hadProtocol"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 
@@ -961,8 +951,8 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "anesthesia": "nsg:anesthesia",
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-	    "cranialWindow": "nsg:cranialWindow",
-	    "hadProtocol": "prov:hadProtocol"
+        "cranialWindow": "nsg:cranialWindow",
+        "hadProtocol": "prov:hadProtocol"
        }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -970,8 +960,8 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True),
         Field("device", Device, "generated"),
-    	Field("cranial_window", CranialWindow, "cranialWindow"),
-    	Field("protocol", Protocol, "hadProtocol"),
+        Field("cranial_window", CranialWindow, "cranialWindow"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("anesthesia", basestring, "anesthesia"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
@@ -1166,8 +1156,8 @@ class QualifiedMultiTraceGeneration(KGObject):
         Field("sweeps", int, "sweep", multiple=True, required=True),
         Field("channel_type", basestring, "channelType"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
-    	Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
-    	Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
+        Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
+        Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
     )
 
     def __init__(self, name, stimulus_experiment, sweeps, #traces=None,

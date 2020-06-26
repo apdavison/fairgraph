@@ -22,15 +22,13 @@ from __future__ import unicode_literals
 import sys
 import inspect
 import logging
+from datetime import date
+from .base import KGObject, KGQuery, as_list, Field, Distribution
+from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 try:
     basestring
 except NameError:
     basestring = str
-from datetime import date, datetime
-from dateutil import parser as date_parser
-from .base import KGObject, KGProxy, KGQuery, cache, as_list, Field, Distribution
-from .errors import ResourceExistsError
-from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -146,7 +144,7 @@ class Person(KGObject):
 
     @property
     def full_name(self):
-        return '{self.given_name} {self.family_name}'.format(self=self)
+        return f'{self.given_name} {self.family_name}'
 
     @classmethod
     def list(cls, client, size=100, api="query", scope="released", resolved=False, **filters):
@@ -176,9 +174,7 @@ class Person(KGObject):
                         "value": value
                     })
                 else:
-                    raise ValueError(
-                        "The only supported filters are by first (given) name, "
-                        "last (family) name or email. You specified {name}".format(name=name))
+                    raise ValueError(f"The only supported filters are by first (given) name, last (family) name or email. You specified {name}")
             if len(filter_queries) == 0:
                 return client.list(cls, size=size)
             elif len(filter_queries) == 1:

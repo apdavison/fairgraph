@@ -25,15 +25,18 @@ from datetime import datetime, date
 import warnings
 from copy import copy
 from io import BytesIO
-try:
-    from collections.abc import Iterable, Mapping
-except ImportError:  # Python 2
-    from collections import Iterable, Mapping
 import logging
 from uuid import UUID
 from dateutil import parser as date_parser
 from six import with_metaclass
 from requests.exceptions import HTTPError
+from pyxus.resources.entity import Instance
+from .errors import ResourceExistsError
+from .utility import compact_uri, expand_uri, standard_context, namespace_from_id, as_list
+try:
+    from collections.abc import Iterable, Mapping
+except ImportError:  # Python 2
+    from collections import Iterable, Mapping
 try:
     basestring
 except NameError:
@@ -44,9 +47,6 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
-from pyxus.resources.entity import Instance
-from .errors import ResourceExistsError
-from .utility import compact_uri, expand_uri, standard_context, namespace_from_id, as_list
 
 
 logger = logging.getLogger("fairgraph")
@@ -82,13 +82,13 @@ def lookup_by_iri(iri):
     for cls in registry["names"].values():
         if hasattr(cls, "iri_map") and iri in cls.iri_map.values():
             return cls
-    raise ValueError("Can't resolve iri '{}'".format(iri))
+    raise ValueError(f"Can't resolve iri '{iri}'")
 
 
 def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
     if not isinstance(qd, dict):
-        raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
+        raise TypeError(f"generate_cache_key expects a query dict. You provided '{qd}'")
     cache_key = []
     for key in sorted(qd):
         value = qd[key]
@@ -99,8 +99,8 @@ def generate_cache_key(qd):
             cache_key.append(tuple(sub_key))
         else:
             if not isinstance(value, (basestring, int, float)):
-                errmsg = "Expected a string, integer or float for key '{}', not a {}"
-                raise TypeError(errmsg.format(key, type(value)))
+                errmsg = f"Expected a string, integer or float for key '{key}', not a {type(value)}"
+                raise TypeError(errmsg)
             cache_key.append((key, value))
     return tuple(cache_key)
 
@@ -132,11 +132,9 @@ class Registry(type):
                 if type_.__module__ == "builtins":
                     return type_.__name__
                 else:
-                    return "~{}.{}".format(type_.__module__, type_.__name__)
+                    return f"~{type_.__module__}.{type_.__name__}")
             for field in self.fields:
-                doc = "{} : {}\n    {}".format(field.name,
-                                               ", ".join(gen_path(t) for t in field.types),
-                                               field.doc)
+                doc = f"{field.name} : {", ".join(gen_path(t) for t in field.types)}\n    {field.doc}"
                 field_docs.append(doc)
         return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
     __doc__ = property(_get_doc)
@@ -169,8 +167,7 @@ class Field(object):
         self.doc = doc
 
     def __repr__(self):
-        return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
-            self.name, self._types, self.path, self.required, self.multiple)
+        return f"Field(name='{self.name}', types={self._types}, path='{self.path}', required={self.required}, multiple={self.multiple})"
 
     @property
     def types(self):
@@ -189,11 +186,9 @@ class Field(object):
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         if item is None and self.required:
-                            errmsg = "Field '{}' is required but was not provided.".format(
-                                     self.name)
+                            errmsg = f"Field '{self.name}' is required but was not provided."
                         else:
-                            errmsg = "Field '{}' should be of type {}, not {}".format(
-                                     self.name, self.types, type(item))
+                            errmsg = f"Field '{self.name}' should be of type {self.types}, not {type(item)}"
                         if self.strict_mode:
                             raise ValueError(errmsg)
                         else:
@@ -317,7 +312,7 @@ class KGObject(with_metaclass(Registry, object)):
                     value = properties[field.name]
                 except KeyError:
                     if field.required:
-                        raise ValueError("Field '{}' is required.".format(field.name))
+                        raise ValueError(f"Field '{field.name}' is required.")
                     value = None
                 if value is None:
                     value = field.default
@@ -332,8 +327,8 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             for key, value in properties.items():
                 if key not in self.property_names:
-                    errmsg = "{name} got an unexpected keyword argument '{key}'"
-                    raise TypeError(errmsg.format(name=self.__class__.__name__, key=key))
+                    errmsg = f"{self.__class__.__name__} got an unexpected keyword argument '{key}'"
+                    raise TypeError(errmsg)
                 else:
                     setattr(self, key, value)
 
@@ -342,13 +337,12 @@ class KGObject(with_metaclass(Registry, object)):
 
     def __repr__(self):
         if self.fields:
-            template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
+            template_parts = (f"{field.name}={{self.{field.name}!r}}"
                               for field in self.fields if getattr(self, field.name) is not None)
-            template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
-            return template.format(self=self)
+            template = f"{self.__class__.__name__}(" + ", ".join(template_parts) + f", id={self.id})"
+            return template
         else:  # temporary, while converting all classes to use fields
-            return ('{self.__class__.__name__}('
-                    '{self.name!r} {self.id!r})'.format(self=self))
+            return (f'{self.__class__.__name__}({self.name!r} {self.id!r})')
 
     @classmethod
     def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
@@ -362,7 +356,7 @@ class KGObject(with_metaclass(Registry, object)):
                         # todo: profile - move compaction outside loop?
                         compacted_types = compact_uri(D["@type"], standard_context)
                         if otype not in compacted_types:
-                            print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                            print(f"Warning: type mismatch {otype} - {compacted_types}")
             else:
                 print("Warning: type information not available")
             args = {}
@@ -413,13 +407,13 @@ class KGObject(with_metaclass(Registry, object)):
     @classmethod
     def from_uuid(cls, uuid, client, deprecated=False, api="query",
                   scope="released", resolved=False):
-        logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
+        logger.info(f"Attempting to retrieve {cls.__name__} with uuid {uuid}")
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
         try:
             val = UUID(uuid, version=4)  # check validity of uuid
         except ValueError as err:
-            raise ValueError("{} - {}".format(err, uuid))
+            raise ValueError(f"{err} - {uuid}")
         uri = cls.uri_from_uuid(uuid, client)
         return cls.from_uri(uri, client, deprecated=deprecated, api=api,
                             scope=scope, resolved=resolved)
@@ -438,7 +432,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def uri_from_uuid(cls, uuid, client):
-        return "{}/data/{}/{}".format(client.nexus_endpoint, cls.path, uuid)
+        return f"{client.nexus_endpoint}/data/{cls.path}/{uuid}"
 
     @classmethod
     def list(cls, client, size=100, from_index=0, api="query",
@@ -451,7 +445,7 @@ class KGObject(with_metaclass(Registry, object)):
                 if isinstance(value, basestring) and issubclass(field.types[0], OntologyTerm):
                     value = field.types[0](value)
                 else:
-                    raise TypeError("{} must be of type {}".format(field.name, field.types))
+                    raise TypeError(f"{field.name} must be of type {field.types}")
             if hasattr(value, "iri"):
                 filter_value = value.iri
             elif hasattr(value, "id"):
@@ -510,7 +504,7 @@ class KGObject(with_metaclass(Registry, object)):
                     query_fields.append(field)
                     break
         if len(query_fields) < 1:
-            raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
+            raise Exception(f"Empty existence query for class {self.__class__.__name__}")
         if api in ("query", "any"):
             return {
                 field.name: field.serialize(getattr(self, field.name), None, for_query=True)
@@ -660,19 +654,18 @@ class KGObject(with_metaclass(Registry, object)):
         if self.instance:
             data = self._build_data(client, all_fields=True)
             if self._update_needed(data):
-                logger.info("Updating - {}(id={})".format(self.__class__.__name__, self.id))
+                logger.info(f"Updating - {self.__class__.__name__}(id={self.id})")
                 self.instance.data.update(data)
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
                     instance_type = compact_uri(self.instance.data["@type"], standard_context)
-                    assert set(instance_type) == set(self.type), "{} != {}".format(set(instance_type), set(self.type))
+                    assert set(instance_type) == set(self.type), f"{set(instance_type)} != {set(self.type)}")
                 self.instance = client.update_instance(self.instance)
             else:
-                logger.info("Not updating {}(id={}), unchanged".format(self.__class__.__name__,
-                                                                       self.id))
+                logger.info(f"Not updating {self.__class__.__name__}(id={self.id}), unchanged")
         else:
             data = self._build_data(client)
-            logger.info("Creating instance with data {}".format(data))
+            logger.info(f"Creating instance with data {data}")
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
             instance = client.create_new_instance(self.__class__.path, data)
@@ -681,7 +674,7 @@ class KGObject(with_metaclass(Registry, object)):
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
             KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
-        logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
+        logger.debug(f"Updating cache for object {self.id}. Current state: {self._build_data(client)}")
         KGObject.object_cache[self.id] = self
 
     def delete(self, client):
@@ -718,7 +711,7 @@ class KGObject(with_metaclass(Registry, object)):
                 if field.name == field_name:
                     field.strict_mode = value
                     return
-            raise ValueError("No such field: {}".format(field_name))
+            raise ValueError(f"No such field: {field_name}")
         else:
             for field in cls.fields:
                 field.strict_mode = value
@@ -786,7 +779,7 @@ class KGObject(with_metaclass(Registry, object)):
                 if any(issubclass(_type, KGObject) for _type in field.types):
 
                     if not top_level and field.path in field_names_used:
-                        field_definition["fieldname"] = "{}__{}".format(cls.__name__, field.path)
+                        field_definition["fieldname"] = f"{cls.__name__}__{field.path}"
                     if field.multiple:
                         field_definition["ensure_order"] = True
 
@@ -811,7 +804,7 @@ class KGObject(with_metaclass(Registry, object)):
                         field_definition["fields"] = list(subfield_map.values())
                 elif any(issubclass(_type, OntologyTerm) for _type in field.types):
                     if not top_level and field.path in field_names_used:
-                        field_definition["fieldname"] = "{}__{}".format(cls.__name__, field.path)
+                        field_definition["fieldname"] = f"{cls.__name__}__{field.path}"
                     field_definition["fields"] = [
                         {"relative_path": "@id"},
                         {
@@ -846,9 +839,9 @@ class KGObject(with_metaclass(Registry, object)):
         if top_level:
             query = {
                 "https://schema.hbp.eu/graphQuery/root_schema": {
-                    "@id": "{}/schemas/{}".format(client.nexus_endpoint, cls.path)
+                    "@id": f"{client.nexus_endpoint}/schemas/{cls.path}"
                 },
-                "http://schema.org/identifier": "{}/{}".format(cls.path, query_id),
+                "http://schema.org/identifier": f"{cls.path}/{query_id}",
                 "fields": fields,
                 "@context": {
                     "fieldname": {
@@ -878,19 +871,18 @@ class KGObject(with_metaclass(Registry, object)):
     def store_queries(cls, client):
         for query_id, resolved in (("fgSimple", False), ("fgResolved", True)):
             query_definition = cls.generate_query(query_id, client, resolved=resolved)
-            path = "{}/{}".format(cls.path, query_id)
+            path = f"{cls.path}/{query_id}"
             try:
                 client.store_query(path, query_definition)
             except HTTPError as err:
                 if err.response.status_code == 401:
-                    warnings.warn("Unable to store query to {} with id '{}': {}".format(
-                        path, query_id, err.response.text))
+                    warnings.warn(f"Unable to store query to {path} with id '{query_id}': {err.response.text}")
                 else:
                     raise
 
     @classmethod
     def retrieve_query(cls, query_id, client):
-        path = "{}/{}".format(cls.path, query_id)
+        path = f"{cls.path}/{query_id}"
         return client.retrieve_query(path)
 
     def is_released(self, client):
@@ -914,7 +906,7 @@ class MockKGObject(KGObject):
         self.type = type
 
     def __repr__(self):
-        return 'MockKGObject({}, {})'.format(self.type, self.id)
+        return f'MockKGObject({self.type}, {self.id})'
 
 
 def cache(f):
@@ -945,11 +937,10 @@ class OntologyTerm(StructuredMetadata):
         self.iri = iri or self.iri_map.get(label)
         if strict:
             if self.iri is None:
-                raise ValueError("No IRI found for label {}".format(label))
+                raise ValueError(f"No IRI found for label {label}")
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.label!r}, {self.iri!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.label!r}, {self.iri!r})')
 
     def __eq__(self, other):
         return (self.__class__ == other.__class__
@@ -995,7 +986,7 @@ class KGProxy(object):
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
             if obj:
-                logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
+                logger.debug(f"Retrieving object {self.id} from cache. Status: {obj._build_data(client)}")
             return obj
         else:
             obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
@@ -1003,8 +994,7 @@ class KGProxy(object):
             return obj
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.cls!r}, {self.id!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.cls!r}, {self.id!r})')
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.cls == other.cls and self.id == other.id
@@ -1039,8 +1029,7 @@ class KGQuery(object):
         self.context = context
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.classes!r}, {self.filter!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.classes!r}, {self.filter!r})')
 
     def resolve(self, client, size=10000, api="query", scope="released", use_cache=True):
         # todo: add from_index argument?
@@ -1105,8 +1094,7 @@ class Distribution(StructuredMetadata):
         self.original_file_name = original_file_name
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.location!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.location!r})')
 
     def __eq__(self, other):
         if isinstance(other, Distribution):
@@ -1223,7 +1211,7 @@ def build_kg_object(cls, data, resolved=False, client=None):
                 kg_cls = lookup_by_iri(item["@id"])
             # todo: add lookup by @id
             else:
-                raise ValueError("Cannot determine type. Item was: {}".format(item))
+                raise ValueError(f"Cannot determine type. Item was: {item}")
         else:
             kg_cls = cls
 
@@ -1242,7 +1230,7 @@ def build_kg_object(cls, data, resolved=False, client=None):
                         obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
                     except (ValueError, KeyError) as err:
                         # to add: emit a warning
-                        logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
+                        logger.warning(f"Error in building {kg_cls.__name__}: {err}")
                         obj = KGProxy(kg_cls, item["@id"]).resolve(
                             client,
                             api=item.get("fg:api", "query"))

@@ -19,11 +19,11 @@
 
 
 import collections
+from .base import OntologyTerm, StructuredMetadata, Field
 try:
     basestring
 except NameError:
     basestring = str
-from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
 
 
 class Address(StructuredMetadata):
@@ -33,8 +33,7 @@ class Address(StructuredMetadata):
         self.country = country
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.locality!r}, {self.country!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.locality!r}, {self.country!r})')
 
     def __eq__(self, other):
         return (isinstance(other, self.__class__)
@@ -427,8 +426,7 @@ class QuantitativeValue(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.value!r} {self.unit_text!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.value!r} {self.unit_text!r})')
 
     def __eq__(self, other):
         return (self.value == other.value
@@ -503,8 +501,7 @@ class QuantitativeValueRange(StructuredMetadata):
         self.unit_code = unit_code or self.unit_codes[unit_text]
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.min!r}-{self.max!r} {self.unit_text!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.min!r}-{self.max!r} {self.unit_text!r})')
 
     def to_jsonld(self, client=None):
         return {
@@ -559,12 +556,11 @@ class Age(StructuredMetadata):
     def __init__(self, value, period):
         self.value = value
         if period not in Age.allowed_periods:
-            raise ValueError("period must be one of {}".format(allowed_periods))
+            raise ValueError(f"period must be one of {allowed_periods}")
         self.period = period
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.value!r}, {self.period!r})'.format(self=self))
+        return (f'{self.__class__.__name__}({self.value!r}, {self.period!r})')
 
     def __eq__(self, other):
         return (isinstance(other, self.__class__)

@@ -28,18 +28,15 @@ Coming soon:
 
 import sys
 import inspect
+from datetime import datetime
+from .base import KGObject, Field, Distribution
+from .commons import QuantitativeValue, BrainRegion, License
+from .core import Person, Protocol
+from .experiment import CranialWindow, Slice, VisualStimulation, ElectrophysiologicalStimulation, BehavioralStimulation, Device
 try:
     basestring
 except NameError:
     basestring = str
-from datetime import datetime
-
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, BrainRegion, Origin, CellType, StimulusType, License, Shape
-from .core import Subject, Person, Protocol
-from .minds import Dataset
-from .utility import compact_uri, standard_context, as_list
-from .experiment import Craniotomy, CranialWindow, Slice, CellCulture, BrainSlicingActivity, CulturingActivity, VisualStimulus, VisualStimulation, ElectrophysiologicalStimulus, ElectrophysiologicalStimulation,  BehavioralStimulation,  BehavioralStimulus, Device
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -55,7 +52,7 @@ class Position(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-    	"origin": "nsg:origin",
+        "origin": "nsg:origin",
         "x": "nsg:x",
         "ycoordinate": "nsg:y"
         }
@@ -126,11 +123,11 @@ class TimeSeriesExtraction(KGObject):
         "value": "schema:value",
         "used": "prov:used",
         "generated": "prov:generated",
-	    "hadProtocol":"p  rov:hadProtocol",
+        "hadProtocol":"p  rov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-    	"citation":"nsg:citation",
-    	"code":"nsg:code",
-    	"license":"nsg:license"
+        "citation":"nsg:citation",
+        "code":"nsg:code",
+        "license":"nsg:license"
         }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -138,9 +135,9 @@ class TimeSeriesExtraction(KGObject):
         Field("region_of_interest", "optophysiology.RegionOfInterest", "used"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, fluorescence_trace, region_of_interest=None, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
@@ -155,20 +152,20 @@ class ImageSequence(KGObject):
     _path = "/optophysiology/imagesequence/v0.1.0"
     type = ["nsg:ImageSequence", "prov:Entity"]
     context = {
-            "schema": "http://schema.org/",
-            "prov": "http://www.w3.org/ns/prov#",
-            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "name": "schema:name",
-            "frameRate": "nsg:frameRate",
-            "imageCount": "nsg:imageCount",
-            "imageSize": "nsg:imageSize",
-            "brainLocation": "nsg:brainLocation",
-            "value": "schema:value",
-            "extent": "nsg:extent",
-            "description": "schema:description",
-            "wasGeneratedBy": "prov:wasGeneratedBy",
-            "distribution": {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "frameRate": "nsg:frameRate",
+        "imageCount": "nsg:imageCount",
+        "imageSize": "nsg:imageSize",
+        "brainLocation": "nsg:brainLocation",
+        "value": "schema:value",
+        "extent": "nsg:extent",
+        "description": "schema:description",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
+        "distribution": {
                 "@id": "schema:distribution",
                 "@type": "@id"},
             "downloadURL": {
@@ -176,7 +173,7 @@ class ImageSequence(KGObject):
                 "@type": "@id"},
             "mediaType": {
                 "@id": "schema:mediaType"
-            },
+                },
             "minds": "https://schema.hbp.eu/"
             }
 
@@ -188,7 +185,7 @@ class ImageSequence(KGObject):
         Field("image_size", int, "imageSize", required=False), # assumed square
         Field("extent", QuantitativeValue, "extent"),
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
-        Field("correction_activity", "optophysiology.MotionCorrection", "^prov:used", reverse=["before","after"]),
+        Field("correction_activity", "optophysiology.MotionCorrection", "^prov:used", reverse=["before", "after"]),
         Field("distribution", Distribution, "distribution", required=False),
         Field("description", basestring, "description", required=False)
     )
@@ -211,23 +208,23 @@ class RegionOfInterest(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "position":"nsg:position",
+        "position": "nsg:position",
         "shape": "nsg:geometry",
-    	"description":"nsg:description",
-    	"classification":"nsg:classification"
+        "description": "nsg:description",
+        "classification": "nsg:classification"
         }
 
     fields = (
         Field("name", basestring, "name", required=True),
         Field("position", Position, "position"),
         Field("shape", basestring, "shape"),
-    	Field("classification", basestring, "classification"),
-    	Field("description", basestring, "description"),
+        Field("classification", basestring, "classification"),
+        Field("description", basestring, "description"),
         Field("selection", "optophysiology.ROISelection","^prov:generated", reverse="regions"),
         Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
     )
 
-    def __init__(self, name, position= None, shape=None, classification=None,
+    def __init__(self, name, position=None, shape=None, classification=None,
     description=None, selection=None, time_series=None, id=None, instance=None):
         args = locals()
         args.pop("self")
@@ -247,11 +244,11 @@ class ROISelection(KGObject):
         "name": "schema:name",
         "used": "prov:used",
         "generated": "prov:generated",
-	    "hadProtocol":"p  rov:hadProtocol",
+        "hadProtocol": "prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-    	"citation":"nsg:citation",
-    	"code":"nsg:code",
-    	"license":"nsg:license"
+        "citation": "nsg:citation",
+        "code": "nsg:code",
+        "license": "nsg:license"
         }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -259,9 +256,9 @@ class ROISelection(KGObject):
         Field("regions", RegionOfInterest, "generated", required=True),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, image_sequence, regions, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):
@@ -277,41 +274,41 @@ class TwoPhotonImaging(KGObject):
     #type = ["prov:ExperimentalActivity", "nsg:TwoPhotonImaging"]
     type = ["nsg:TwoPhotonImaging", "prov:Activity"]
     context = {
-            "schema": "http://schema.org/",
-            "prov": "http://www.w3.org/ns/prov#",
-            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "xsd": "http://www.w3.org/2001/XMLSchema#",
-            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-            "name": "schema:name",
-            "brainLocation": "nsg:brainLocation",
-            "value": "schema:value",
-            "description": "schema:description",
-            "wasGeneratedBy": "prov:wasGeneratedBy",
-            "distribution": {
-                "@id": "schema:distribution",
-                "@type": "@id"},
-            "downloadURL": {
-                "@id": "schema:downloadURL",
-                "@type": "@id"},
-            "mediaType": {
-                "@id": "schema:mediaType"
-            },
-            "minds": "https://schema.hbp.eu/",
-            "generated": "prov:generated",
-            "wasInformedBy": "nsg:wasInformedBy",
-            "used": "prov:used",
-            "startedAtTime": "prov:startedAtTime",
-            "endedAtTime": "prov:endedAtTime",
-            "hadProtocol": "prov:hadProtocol",
-            "wasAssociatedWith": "prov:wasAssociatedWith",
-            "device": "nsg:device",
-            "brainState": "nsg:brainState",
-            "anesthesia": "nsg:anesthesia",
-            "imagingDepth": "nsg:imagingDepth",
-            "laser": "nsg:laser",
-            "laserPower": "nsg:laserPower",
-            "excitationWavelength": "nsg:excitationWavelength",
-            "collectionWavelength": "nsg:collectionWavelength"
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "name": "schema:name",
+        "brainLocation": "nsg:brainLocation",
+        "value": "schema:value",
+        "description": "schema:description",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        },
+        "minds": "https://schema.hbp.eu/",
+        "generated": "prov:generated",
+        "wasInformedBy": "nsg:wasInformedBy",
+        "used": "prov:used",
+        "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime",
+        "hadProtocol": "prov:hadProtocol",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "device": "nsg:device",
+        "brainState": "nsg:brainState",
+        "anesthesia": "nsg:anesthesia",
+        "imagingDepth": "nsg:imagingDepth",
+        "laser": "nsg:laser",
+        "laserPower": "nsg:laserPower",
+        "excitationWavelength": "nsg:excitationWavelength",
+        "collectionWavelength": "nsg:collectionWavelength"
             }
 
     fields = (
@@ -330,7 +327,7 @@ class TwoPhotonImaging(KGObject):
         Field("distribution", Distribution, "distribution"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
-	    Field("protocol", Protocol, "hadProtocol"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
     )
 

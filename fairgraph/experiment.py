@@ -18,18 +18,15 @@ Metadata for entities that are used in multiple experimental contexts (e.g. in b
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
-import inspect
+from datetime import datetime
+from .base import KGObject, cache, Field, Distribution
+from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
+from .core import Subject, Person, Protocol
+from .utility import compact_uri, standard_context, as_list
 try:
     basestring
 except NameError:
     basestring = str
-from datetime import datetime
-
-from .base import KGObject, KGProxy, KGQuery, cache, lookup, build_kg_object, Field, Distribution
-from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
-from .core import Subject, Person, Protocol
-from .utility import compact_uri, standard_context, as_list
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -50,7 +47,6 @@ class Device(KGObject):
         "modelName" : "nsg:modelName",
         "softwareVersion" : "nsg:softwareVersion",
         "serialNumber" : "nsg:serialNumber",
-        "description": "schema:description",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -94,9 +90,9 @@ class CranialWindow(KGObject):
         "name": "schema:name",
         "brainLocation": "nsg:brainLocation",
         "brainRegion": "nsg:brainRegion",
-    	"windowType":"nsg:windowType",
-    	"diameter":"nsg:diameter",
-    	"fluorescenceLabeling":"nsg:fluorescenceLabeling",
+        "windowType":"nsg:windowType",
+        "diameter":"nsg:diameter",
+        "fluorescenceLabeling":"nsg:fluorescenceLabeling",
         "description": "schema:description",
         "minds": "https://schema.hbp.eu/"
         }
@@ -171,7 +167,7 @@ class Slice(KGObject):  # should move to "core" module?
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("provider_id", basestring, "providerId"),
-        Field("brain_slicing_activity",  "electrophysiology.BrainSlicingActivity", "^prov:generated", reverse="slices"),
+        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated", reverse="slices"),
         #Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
         #  support for multiple reverses not implemented
         Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse="recorded_tissue")
@@ -273,7 +269,7 @@ class BrainSlicingActivity(KGObject):
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
@@ -361,7 +357,7 @@ class CulturingActivity(KGObject):
                 # todo: profile - move compaction outside loop?
                 compacted_types = compact_uri(D["@type"], standard_context)
                 if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
         args = {}
         for field in cls.fields:
             if field.name == "brain_location":
@@ -444,11 +440,11 @@ class VisualStimulation(KGObject):
         "interstimulusInterval": "nsg:interstimulusInterval",
         "refreshRate": "nsg:refreshRate",
         "backgroundLuminance": "nsg:backgroundLuminance",
-	    "hadProtocol":"prov:hadProtocol",
+        "hadProtocol":"prov:hadProtocol",
         "value": "schema:value",
-    	"citation":"nsg:citation",
-    	"code":"nsg:code",
-    	"license":"nsg:license"
+        "citation":"nsg:citation",
+        "code":"nsg:code",
+        "license":"nsg:license"
         }
 
     fields = (
@@ -459,9 +455,9 @@ class VisualStimulation(KGObject):
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
         Field("protocol", Protocol, "hadProtocol"),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
@@ -520,23 +516,23 @@ class ElectrophysiologicalStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
-	    "hadProtocol": "prov:hadProtocol",
+        "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
-    	"citation": "nsg:citation",
-    	"code": "nsg:code",
-    	"stimulusType": "nsg:stimulusType",
-    	"license": "nsg:license"
+        "citation": "nsg:citation",
+        "code": "nsg:code",
+        "stimulusType": "nsg:stimulusType",
+        "license": "nsg:license"
         }
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("electrophysiological_stimulus", ElectrophysiologicalStimulus, "used", required=True),
+        Field("stimulus", ElectrophysiologicalStimulus, "used", required=True),
         Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
         Field("stimulus_type", StimulusType, "stimulusType"),
         Field("protocol", Protocol, "hadProtocol"),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, electrophysiological_stimulus, experiment=None, stimulus_type=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
@@ -595,12 +591,12 @@ class BehavioralStimulation(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "name": "schema:name",
-	    "hadProtocol": "prov:hadProtocol",
+        "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
-    	"citation": "nsg:citation",
-    	"code": "nsg:code",
-    	"stimulusType": "nsg:stimulusType",
-    	"license": "nsg:license",
+        "citation": "nsg:citation",
+        "code": "nsg:code",
+        "stimulusType": "nsg:stimulusType",
+        "license": "nsg:license",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -614,12 +610,12 @@ class BehavioralStimulation(KGObject):
 
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("behavioral_stimulus", BehavioralStimulus, "used", required=True),
+        Field("stimulus", BehavioralStimulus, "used", required=True),
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
         Field("protocol", Protocol, "hadProtocol"),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, behavioral_stimulus, experiment=None, cogpoid=None, cogatlasid=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):

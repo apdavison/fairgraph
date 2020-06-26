@@ -83,7 +83,7 @@ class KGClient(object):
         """docstring"""
         if api == "nexus":
             organization, domain, schema, version = cls.path.split("/")
-            subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
+            subpath = f"/{organization}/{domain}/{schema}/{version}"
             instances = self.query_nexus(subpath, filter, context, from_index, size, deprecated)
         elif api == "query":
             if hasattr(cls, "query_id") and cls.query_id is not None:
@@ -104,12 +104,12 @@ class KGClient(object):
     def count(self, cls, api="query", scope="released"):
         """docstring"""
         if api == "nexus":
-            url = "{}/data/{}/?size=1&deprecated=False".format(self.nexus_endpoint, cls.path)
+            url = f"{self.nexus_endpoint}/data/{cls.path}/?size=1&deprecated=False"
             response = self._nexus_client._http_client.get(url)
         elif api == "query":
             if scope not in SCOPE_MAP:
-                raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
-            url = "{}/{}/instances?size=1&databaseScope={}".format(cls.path, cls.query_id, SCOPE_MAP[scope])
+                raise ValueError(f"'scope' must be either '{"' or '".join(list(SCOPE_MAP))}'")
+            url = f"{cls.path}/{cls.query_id}/instances?size=1&databaseScope={SCOPE_MAP[scope]}"
             response = self._kg_query_client.get(url)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
@@ -117,7 +117,7 @@ class KGClient(object):
 
     def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         # Nexus API
-        logger.debug("Making Nexus query {} with filter {}".format(path, filter))
+        logger.debug(f"Making Nexus query {path} with filter {filter}")
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
@@ -145,15 +145,14 @@ class KGClient(object):
         return instances
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
-        template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
-            path, query_id, size, SCOPE_MAP[scope])
+        template = f"{path}/{query_id}/instances?start={{}}&size={size}&databaseScope={SCOPE_MAP[scope]}"
         if filter:
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
         if scope not in SCOPE_MAP:
-            raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
+            raise ValueError(f"'scope' must be either '{"' or '".join(list(SCOPE_MAP))}'")
         start = from_index
         #url = quote_plus(template.format(start).encode("utf-8"))
         url = template.format(start)
@@ -191,9 +190,9 @@ class KGClient(object):
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
-        logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
+        logger.debug(f"Retrieving instance from {uri}, api='{api}' use_cache={use_cache}")
         if use_cache and uri in self.cache:
-            logger.debug("Retrieving instance {} from cache".format(uri))
+            logger.debug(f"Retrieving instance {uri} from cache")
             instance = self.cache[uri]
         elif api == "nexus":
             instance = Instance(Instance.extract_id_from_url(uri, self._instance_repo.path),
@@ -215,19 +214,16 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}/instances?databaseScope={}&id={}".format(cls.path,
-                                                                    query_id,
-                                                                    SCOPE_MAP[scope],
-                                                                    uri))
+                    f"{cls.path}/{query_id}/instances?databaseScope={SCOPE_MAP[scope]}&id={uri}")
                 if response and len(response["results"]) > 0:
                     instance = Instance(cls.path, response["results"][0], Instance.path)
                     self.cache[instance.data["@id"]] = instance
                     logger.debug("Retrieved instance from KG Query" + str(instance.data))
                 else:
-                    logger.warning("Instance not found at {} using KG Query API".format(uri))
+                    logger.warning(f"Instance not found at {uri} using KG Query API")
                     instance = None
             else:
-                raise NotImplementedError("No query id available: cls={}".format(str(cls)))
+                raise NotImplementedError(f"No query id available: cls={str(cls)}")
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
@@ -248,9 +244,9 @@ class KGClient(object):
 
     def delete_instance(self, instance):
         self._nexus_client.instances.delete(instance)
-        logger.debug("Deleting instance {}".format(instance.id))
+        logger.debug(f"Deleting instance {instance.id}")
         if instance.data["@id"] in self.cache:
-            logger.debug("Removing {} from cache".format(instance.data["@id"]))
+            logger.debug(f"Removing {instance.data["@id"]} from cache")
             self.cache.pop(instance.data["@id"])
 
     def by_name(self, cls, name, match="equals", all=False,
@@ -265,7 +261,7 @@ class KGClient(object):
             "nexus": ("equals")
         }
         if match not in valid_match_methods[api]:
-            raise ValueError("'match' must be one of {}".format(valid_match_methods[api]))
+            raise ValueError(f"'match' must be one of {valid_match_methods[api]}")
 
         if api == "nexus":
             op = {"equals": "eq", "contains": "in"}[match]
@@ -284,12 +280,7 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    "{}/{}{}/instances?databaseScope={}&name={}".format(
-                        cls.path,
-                        query_id,
-                        match == "contains" and "_name_contains" or "",  # workaround
-                        SCOPE_MAP[scope],
-                        name))
+                    f"{cls.path}/{query_id}{match == "contains" and "_name_contains" or ""}/instances?databaseScope={SCOPE_MAP[scope]}&name={name}")
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]
             else:
@@ -325,14 +316,14 @@ class KGClient(object):
         response = self._release_client.put(path)
         print(response)
         if response.status_code not in (200, 201):
-            raise Exception("Can't release node with id {}".format(uri))
+            raise Exception(f"Can't release node with id {uri}")
 
     def unrelease(self, uri):
         """Unrelease the node with the given uri"""
         path = Instance.extract_id_from_url(uri, self._instance_repo.path)
         response = self._release_client.delete(path)
         if response.status_code not in (200, 204):
-            raise Exception("Can't unrelease node with id {}".format(uri))
+            raise Exception(f"Can't unrelease node with id {uri}")
 
     def user_info(self):
         return self._idm_client.get("user/me")
