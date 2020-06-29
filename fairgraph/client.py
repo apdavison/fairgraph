@@ -280,7 +280,7 @@ class KGClient(object):
                 else:
                     query_id = cls.query_id
                 response = self._kg_query_client.get(
-                    f"{cls.path}/{query_id}{match == "contains" and "_name_contains" or ""}/instances?databaseScope={SCOPE_MAP[scope]}&name={name}")
+                    f"{cls.path}/{query_id}{match == 'contains' and '_name_contains' or ''}/instances?databaseScope={SCOPE_MAP[scope]}&name={name}")
                 instances = [Instance(cls.path, result, Instance.path)
                              for result in response["results"]]
             else:
