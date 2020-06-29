@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from fairgraph import KGClient
-from fairgraph.brainsimulation import AnalysisResult
+from fairgraph.analysis import AnalysisResult
 
 import pytest
 

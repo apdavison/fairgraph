@@ -1,0 +1,480 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 42,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/016085d7-0c29-4c2c-a41c-3d1ebec92a6a",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/016085d7-0c29-4c2c-a41c-3d1ebec92a6a",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Spiking results of toy model#<built-in method now of type object at 0x10add0648> run in demo notebook",
+                "distribution": {"downloadURL": "http://example.com/spike_long_run.npz"},
+                "name": "spike results of toy model#<built-in method now of type object at 0x10add0648> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/016085d7-0c29-4c2c-a41c-3d1ebec92a6a/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/016085d7-0c29-4c2c-a41c-3d1ebec92a6a/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/016085d7-0c29-4c2c-a41c-3d1ebec92a6a"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Spiking results of toy model#<built-in method now of type object at 0x7f71e15deca0> run in demo notebook",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 140717
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "b7da24f026e1790b758ae9ff31839dc0bf138e27130fd97ee35b50a3ff6e3d46"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b/attachment",
+                        "mediaType": "text/plain; charset=UTF-8",
+                        "originalFileName": "spike_long_run.npz"
+                    }
+                ],
+                "name": "spike results of toy model#<built-in method now of type object at 0x7f71e15deca0> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0ba26900-af77-44da-88c7-8498bda86e8b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0cc8d709-256f-4a6a-b259-53672c65dad1",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0cc8d709-256f-4a6a-b259-53672c65dad1",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network simulation data",
+                "description": "Intracellular data of model run in faigraph-demo notebook",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
+                },
+                "name": "Vm results of toy model#<built-in method now of type object at 0x1077d3648> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0cc8d709-256f-4a6a-b259-53672c65dad1/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0cc8d709-256f-4a6a-b259-53672c65dad1/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/0cc8d709-256f-4a6a-b259-53672c65dad1"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Spiking results of toy model#<built-in method now of type object at 0x7fb791e89ca0> run in demo notebook",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 140717
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "b7da24f026e1790b758ae9ff31839dc0bf138e27130fd97ee35b50a3ff6e3d46"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f/attachment",
+                        "mediaType": "text/plain; charset=UTF-8",
+                        "originalFileName": "spike_long_run.npz"
+                    }
+                ],
+                "name": "spike results of toy model#<built-in method now of type object at 0x7fb791e89ca0> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/12ca91a4-bf20-4060-a27c-40135bd3cc6f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/210cb913-3c76-4d05-a052-26cc2e7def80",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/210cb913-3c76-4d05-a052-26cc2e7def80",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Intracelular data of toy model#<built-in method now of type object at 0x7fc4fd846ca0> run in demo notebook",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
+                },
+                "name": "Vm results of toy model#<built-in method now of type object at 0x7fc4fd846ca0> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/210cb913-3c76-4d05-a052-26cc2e7def80/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/210cb913-3c76-4d05-a052-26cc2e7def80/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/210cb913-3c76-4d05-a052-26cc2e7def80"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Spiking results of toy model#<built-in method now of type object at 0x7f5f1667bca0> run in demo notebook",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 140717
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "b7da24f026e1790b758ae9ff31839dc0bf138e27130fd97ee35b50a3ff6e3d46"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3/attachment",
+                        "mediaType": "text/plain; charset=UTF-8",
+                        "originalFileName": "spike_long_run.npz"
+                    }
+                ],
+                "name": "spike results of toy model#<built-in method now of type object at 0x7f5f1667bca0> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 2,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bc50215-d18a-4e4e-9268-01c3707100f3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bd0faae-7f43-4522-828d-64278c938ddf",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bd0faae-7f43-4522-828d-64278c938ddf",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Intracelular data of toy model#<built-in method now of type object at 0x101d66648> run in demo notebook",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
+                },
+                "name": "Vm results of toy model#<built-in method now of type object at 0x101d66648> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bd0faae-7f43-4522-828d-64278c938ddf/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bd0faae-7f43-4522-828d-64278c938ddf/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2bd0faae-7f43-4522-828d-64278c938ddf"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2ec9377d-e168-4626-959d-422a009fe46b",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2ec9377d-e168-4626-959d-422a009fe46b",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Intracelular data of toy model#<built-in method now of type object at 0x1024ce648> run in demo notebook",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
+                },
+                "name": "Vm results of toy model#<built-in method now of type object at 0x1024ce648> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2ec9377d-e168-4626-959d-422a009fe46b/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2ec9377d-e168-4626-959d-422a009fe46b/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/2ec9377d-e168-4626-959d-422a009fe46b"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/34f0453e-da3f-4513-81b7-9b365e75bd1d",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/34f0453e-da3f-4513-81b7-9b365e75bd1d",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Spiking results of toy model#<built-in method now of type object at 0x10b87c648> run in demo notebook",
+                "distribution": {"downloadURL": "http://example.com/spike_long_run.npz"},
+                "name": "spike results of toy model#<built-in method now of type object at 0x10b87c648> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/34f0453e-da3f-4513-81b7-9b365e75bd1d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/34f0453e-da3f-4513-81b7-9b365e75bd1d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/34f0453e-da3f-4513-81b7-9b365e75bd1d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/3a22c4c3-c48c-4b74-a7ef-f301d6becf34",
+            "source": {
+                "@context": {
+                    "brainRegion": "nsg:brainRegion",
+                    "celltype": "nsg:celltype",
+                    "dataType": "nsg:dataType",
+                    "description": "schema:description",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "prov": "http://www.w3.org/ns/prov#",
+                    "schema": "http://schema.org/",
+                    "species": "nsg:species",
+                    "startedAtTime": "prov:startedAtTime",
+                    "target": "nsg:target",
+                    "variable": "nsg:variable",
+                    "wasGeneratedBy": "prov:wasGeneratedBy"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/3a22c4c3-c48c-4b74-a7ef-f301d6becf34",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:SimulationResult"
+                ],
+                "dataType": "network activity data",
+                "description": "Intracelular data of toy model#<built-in method now of type object at 0x7f5f1667bca0> run in demo notebook",
+                "distribution": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                    "downloadURL": "https://object.cscs.ch/v1/AUTH_"
+                },
+                "name": "Vm results of toy model#<built-in method now of type object at 0x7f5f1667bca0> in demo notebook",
+                "target": "soma",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/3a22c4c3-c48c-4b74-a7ef-f301d6becf34/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/3a22c4c3-c48c-4b74-a7ef-f301d6becf34/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationresult/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/3a22c4c3-c48c-4b74-a7ef-f301d6becf34"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

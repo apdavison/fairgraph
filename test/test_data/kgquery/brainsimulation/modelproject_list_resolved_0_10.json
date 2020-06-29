@@ -218,8 +218,8 @@
             ],
             "name": "Active model HL2/3 0603Cell03",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/19ee2756-b9c0-45c9-b027-10579e15165d",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/19ee2756-b9c0-45c9-b027-10579e15165d",
             "PLAComponents": null
         },
         {
@@ -440,8 +440,8 @@
             ],
             "name": "Active model HL2/3 0603Cell08",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/32ed233a-3f8a-42df-bfa8-45c7b28f6167",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/32ed233a-3f8a-42df-bfa8-45c7b28f6167",
             "PLAComponents": null
         },
         {
@@ -662,8 +662,8 @@
             ],
             "name": "Active model HL2/3 0603Cell11",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/a81c0155-a8d1-43ae-82d6-dae4e3bb6f30",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/a81c0155-a8d1-43ae-82d6-dae4e3bb6f30",
             "PLAComponents": null
         },
         {
@@ -884,8 +884,8 @@
             ],
             "name": "Active model HL2/3 1303Cell03",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/240dcfda-55b7-421e-b593-d29ea6b6fe88",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/240dcfda-55b7-421e-b593-d29ea6b6fe88",
             "PLAComponents": null
         },
         {
@@ -1106,8 +1106,8 @@
             ],
             "name": "Active model HL2/3 1303Cell06",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/2f14c756-48fe-49be-a897-479c9cd0af16",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/2f14c756-48fe-49be-a897-479c9cd0af16",
             "PLAComponents": null
         },
         {
@@ -1328,8 +1328,8 @@
             ],
             "name": "Active model HL2/3 1503Cell05",
             "alias": null,
-            "collabID": 1655.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/16f2bdb7-6aec-4c29-b2d0-0d35db3b682a",
+            "collabID": "1655",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/16f2bdb7-6aec-4c29-b2d0-0d35db3b682a",
             "PLAComponents": null
         },
         {
@@ -1545,8 +1545,8 @@
             "organization": [],
             "name": "AdEx Neuron Models with PyNN",
             "alias": "AdEx Models",
-            "collabID": 5359.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/13abca24-af13-4cae-8be8-878856e7952c",
+            "collabID": "5359",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/13abca24-af13-4cae-8be8-878856e7952c",
             "PLAComponents": null
         },
         {
@@ -1628,8 +1628,8 @@
             ],
             "name": "Astrocyte-Neuron Interaction model",
             "alias": null,
-            "collabID": 1571.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/11dfe94d-b46a-4bb2-8700-020680754e53",
+            "collabID": "1571",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/11dfe94d-b46a-4bb2-8700-020680754e53",
             "PLAComponents": null
         },
         {
@@ -1883,8 +1883,8 @@
             "organization": [],
             "name": "Brunel 2000",
             "alias": "brunel-2000",
-            "collabID": 5196.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/08d6d619-97b1-42ac-b68e-9dc831ccb1cd",
+            "collabID": "5196",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/08d6d619-97b1-42ac-b68e-9dc831ccb1cd",
             "PLAComponents": null
         },
         {
@@ -2560,8 +2560,8 @@
             "organization": [],
             "name": "CA1_Bianchi",
             "alias": null,
-            "collabID": 343.0,
-            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.0/4a21411a-da0b-4cc3-bdd0-30a74ebaab4c",
+            "collabID": "343",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/modelproject/v0.1.1/4a21411a-da0b-4cc3-bdd0-30a74ebaab4c",
             "PLAComponents": null
         }
     ],

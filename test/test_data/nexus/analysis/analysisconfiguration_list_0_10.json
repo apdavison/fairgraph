@@ -1,0 +1,357 @@
+{
+    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/search/v0.1.0",
+    "total": 15,
+    "results": [
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/22b56556-32c3-452a-8760-4aad59f8a2e6",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/22b56556-32c3-452a-8760-4aad59f8a2e6",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "description": "",
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration 3",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/22b56556-32c3-452a-8760-4aad59f8a2e6/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/22b56556-32c3-452a-8760-4aad59f8a2e6/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/22b56556-32c3-452a-8760-4aad59f8a2e6"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/23435257-d781-4af6-829b-e81b292e855f",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/23435257-d781-4af6-829b-e81b292e855f",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x1073ee648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/23435257-d781-4af6-829b-e81b292e855f/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/23435257-d781-4af6-829b-e81b292e855f/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/23435257-d781-4af6-829b-e81b292e855f"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2a9dd213-c183-424a-a114-822266bf0bf3",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2a9dd213-c183-424a-a114-822266bf0bf3",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x11063c648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2a9dd213-c183-424a-a114-822266bf0bf3/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2a9dd213-c183-424a-a114-822266bf0bf3/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2a9dd213-c183-424a-a114-822266bf0bf3"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2c8e3eab-1d71-4bce-a73d-c5b6595d3996",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2c8e3eab-1d71-4bce-a73d-c5b6595d3996",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x101240648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2c8e3eab-1d71-4bce-a73d-c5b6595d3996/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2c8e3eab-1d71-4bce-a73d-c5b6595d3996/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/2c8e3eab-1d71-4bce-a73d-c5b6595d3996"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/4c33c932-6fe1-4ae2-9d64-1e7ea6487be4",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/4c33c932-6fe1-4ae2-9d64-1e7ea6487be4",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x100990648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/4c33c932-6fe1-4ae2-9d64-1e7ea6487be4/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/4c33c932-6fe1-4ae2-9d64-1e7ea6487be4/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/4c33c932-6fe1-4ae2-9d64-1e7ea6487be4"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "description": "schema:description",
+                        "distribution": "nsg:distribution",
+                        "identifier": "schema:identifier",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "schema": "http://schema.org/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "description": "",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 153
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "39f0b196c81e8ac27d5eaf3e3f7be4de1b06c99510504a35bfd71122190d1984"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48/attachment",
+                        "mediaType": "application/json",
+                        "originalFileName": "config_file.json"
+                    }
+                ],
+                "name": "parameter configuration 2",
+                "nxv:rev": 12,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/5afcfa73-b075-431d-af1c-ef3eb0273f48"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/721357f8-8d23-48e6-8130-1c930b019824",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/721357f8-8d23-48e6-8130-1c930b019824",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x107617648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/721357f8-8d23-48e6-8130-1c930b019824/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/721357f8-8d23-48e6-8130-1c930b019824/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/721357f8-8d23-48e6-8130-1c930b019824"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/7eeba1d9-4fbf-47e7-b36c-9b9bffaf8005",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/7eeba1d9-4fbf-47e7-b36c-9b9bffaf8005",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "distribution": {"downloadURL": "http://example.com/config_file.json"},
+                "name": "parameter configuration of toy analysis#<built-in method now of type object at 0x10df82648> in demo notebook",
+                "nxv:rev": 1,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/7eeba1d9-4fbf-47e7-b36c-9b9bffaf8005/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/7eeba1d9-4fbf-47e7-b36c-9b9bffaf8005/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/7eeba1d9-4fbf-47e7-b36c-9b9bffaf8005"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d",
+            "source": {
+                "@context": [
+                    "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0",
+                    {
+                        "description": "schema:description",
+                        "distribution": "nsg:distribution",
+                        "name": "schema:name",
+                        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                        "schema": "http://schema.org/"
+                    }
+                ],
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "description": "",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 153
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "39f0b196c81e8ac27d5eaf3e3f7be4de1b06c99510504a35bfd71122190d1984"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d/attachment",
+                        "mediaType": "application/json",
+                        "originalFileName": "config_file.json"
+                    }
+                ],
+                "name": "parameter configuration of toy analysis in demo notebook",
+                "nxv:rev": 49,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/89ae038f-8e6a-4d77-937a-899bae31f97d"
+                }
+            }
+        },
+        {
+            "resultId": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20",
+            "source": {
+                "@context": {
+                    "description": "schema:description",
+                    "distribution": "nsg:distribution",
+                    "identifier": "schema:identifier",
+                    "name": "schema:name",
+                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+                    "schema": "http://schema.org/"
+                },
+                "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20",
+                "@type": [
+                    "prov:Entity",
+                    "nsg:Entity",
+                    "nsg:AnalysisConfiguration"
+                ],
+                "description": "configuration corresponding to standard settings",
+                "distribution": [
+                    {
+                        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/distribution/v0.1.0",
+                        "contentSize": {
+                            "unit": "byte",
+                            "value": 92
+                        },
+                        "digest": {
+                            "algorithm": "SHA-256",
+                            "value": "fddb176f2c749bfe56d7fa144b71dfbc3a6eace330a65876483da8931182b965"
+                        },
+                        "downloadURL": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20/attachment",
+                        "mediaType": "application/json",
+                        "originalFileName": "spike_detection_parameters.json"
+                    }
+                ],
+                "name": "Parameter configuration for firing frequency analyis",
+                "nxv:rev": 7,
+                "nxv:deprecated": false,
+                "links": {
+                    "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+                    "incoming": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20/incoming",
+                    "outgoing": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20/outgoing",
+                    "schema": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/analysisconfiguration/v0.1.0",
+                    "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/8c78de60-e80e-4126-aacc-9b017a9dac20"
+                }
+            }
+        }
+    ],
+    "links": {
+        "@context": "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/links/v0.2.0",
+        "self": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/analysisconfiguration/v0.1.0/?fields=all&size=10&deprecated=False"
+    }
+}

@@ -5,7 +5,7 @@ Script to retrieve/update test data
 import os.path
 from itertools import cycle
 import json
-from fairgraph import KGClient, core, brainsimulation, electrophysiology, minds, uniminds
+from fairgraph import KGClient, core, brainsimulation, electrophysiology, minds, uniminds, analysis
 
 core.use_namespace("neuralactivity")
 
@@ -92,7 +92,7 @@ def fix_fields(data):
     return data
 
 
-for module in (core, brainsimulation, electrophysiology, minds, uniminds):
+for module in (core, brainsimulation, electrophysiology, minds, uniminds, analysis:
     for cls in module.list_kg_classes():
         save_nexus_query_result(module, cls)
         for label in ("simple", "resolved"):
