@@ -659,7 +659,7 @@ class KGObject(with_metaclass(Registry, object)):
                 self.instance.data["@context"] = self.get_context(client)
                 if "@type" in self.instance.data:
                     instance_type = compact_uri(self.instance.data["@type"], standard_context)
-                    assert set(instance_type) == set(self.type), f"{set(instance_type)} != {set(self.type)}")
+                    assert set(instance_type) == set(self.type), f"{set(instance_type)} != {set(self.type)}"
                 self.instance = client.update_instance(self.instance)
             else:
                 logger.info(f"Not updating {self.__class__.__name__}(id={self.id}), unchanged")
