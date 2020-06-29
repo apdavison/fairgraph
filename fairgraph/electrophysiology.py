@@ -54,8 +54,6 @@ class Sensor(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "coordinateUnits": "nsg:coordinateUnits",
-        "description": "schema:description",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -64,7 +62,10 @@ class Sensor(KGObject):
             "@type": "@id"},
         "mediaType": {
             "@id": "schema:mediaType"
-    }}
+            },
+        "coordinateUnits": "nsg:coordinateUnits",
+        "description": "schema:description"
+    }
 
     fields = (
         Field("name", basestring, "name", required=True),
@@ -95,19 +96,8 @@ class Trace(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "minds": "https://schema.hbp.eu/",
         "name": "schema:name",
-        "providerId": "nsg:providerId",
-        "description": "schema:description",
-        "channel": "nsg:channel",
-        "channelName": "nsg:channelName",
-        "projectName": "nsg:projectName",
-        "dataUnit": "nsg:dataUnit",
-        "timeStep": "nsg:timeStep",
-        "value": "schema:value",
-        "unitText": "schema:unitText",
-        "unitCode": "schema:unitCode",
-        "qualifiedGeneration": "prov:qualifiedGeneration",
-        "wasGeneratedBy": "prov:wasGeneratedBy",
         "distribution": {
             "@id": "schema:distribution",
             "@type": "@id"},
@@ -117,8 +107,19 @@ class Trace(KGObject):
         "mediaType": {
             "@id": "schema:mediaType"
         },
-        "minds": "https://schema.hbp.eu/",
+        "wasGeneratedBy": "prov:wasGeneratedBy",
+        "qualifiedGeneration": "prov:qualifiedGeneration",
+        "channel": "nsg:channel",
+        "dataUnit": "nsg:dataUnit",
+        "timeStep": "nsg:timeStep",
         "partOf": "nsg:partOf",  # todo: add to nsg
+        "providerId": "nsg:providerId",
+        "channelName": "nsg:channelName",
+        "projectName": "nsg:projectName",
+        "timeStep": "nsg:timeStep",
+        "value": "schema:value",
+        "unitText": "schema:unitText",
+        "unitCode": "schema:unitCode",
         "retrievalDate" : "nsg:retrievalDate"
     }
     fields = (
@@ -402,8 +403,8 @@ class PatchedSlice(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "dcterms": "http://purl.org/dc/terms/",
         "name": "schema:name",
-        "hasPart": "nsg:hasPart",
         "wasRevisionOf": "prov:wasRevisionOf",
+        "hasPart": "nsg:hasPart",
         "brainRegion": "nsg:brainRegion",
         "brainlocation": "nsg:brainLocation",
         "solution": "nsg:solution",

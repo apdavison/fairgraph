@@ -42,7 +42,6 @@ class Device(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "description": "schema:description",
         "manufacturer" : "nsg:manufacturer",
         "modelName" : "nsg:modelName",
         "softwareVersion" : "nsg:softwareVersion",
@@ -54,7 +53,8 @@ class Device(KGObject):
             "@id": "schema:downloadURL",
             "@type": "@id"},
         "mediaType": {
-            "@id": "schema:mediaType"
+            "@id": "schema:mediaType",
+        "description": "schema:description"
         }
     }
     fields = (
@@ -86,6 +86,7 @@ class CranialWindow(KGObject):
         "prov": "http://www.w3.org/ns/prov#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "minds": "https://schema.hbp.eu/",
         "value": "schema:value",
         "name": "schema:name",
         "brainLocation": "nsg:brainLocation",
@@ -93,8 +94,7 @@ class CranialWindow(KGObject):
         "windowType":"nsg:windowType",
         "diameter":"nsg:diameter",
         "fluorescenceLabeling":"nsg:fluorescenceLabeling",
-        "description": "schema:description",
-        "minds": "https://schema.hbp.eu/"
+        "description": "schema:description"
         }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -125,12 +125,12 @@ class Craniotomy(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "generated": "prov:generated",
         "used": "prov:used",
+        "generated": "prov:generated",
         "anesthesia": "nsg:anesthesia",
+        "hadProtocol": "prov:hadProtocol",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
-        "hadProtocol": "prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
@@ -158,8 +158,8 @@ class Slice(KGObject):  # should move to "core" module?
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
         "providerId": "nsg:providerId",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
@@ -189,9 +189,8 @@ class CellCulture(KGObject):  # should move to "core" module?
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
-        "name": "schema:name",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "providerId": "nsg:providerId",
+        "name": "schema:name",
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
     fields = (
@@ -222,18 +221,18 @@ class BrainSlicingActivity(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "generated": "prov:generated",
         "used": "prov:used",
-        "startedAtTime": "prov:startedAtTime",
-        "endedAtTime": "prov:endedAtTime",
         "label": "rdfs:label",
         "value": "schema:value",
         "unitCode": "schema:unitCode",
         "brainLocation": "nsg:brainLocation",
         "brainRegion": "nsg:brainRegion",
-        "slicingPlane": "nsg:slicingPlane",
-        "solution": "nsg:solution",
-        "slicingAngle": "nsg:slicingAngle",
         "hemisphere": "nsg:hemisphere",
+        "slicingPlane": "nsg:slicingPlane",
+        "slicingAngle": "nsg:slicingAngle",
+        "solution": "nsg:solution",
         "cuttingThickness": "nsg:cuttingThickness",
+        "startedAtTime": "prov:startedAtTime",
+        "endedAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
@@ -312,18 +311,17 @@ class CulturingActivity(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "generated": "prov:generated",
         "used": "prov:used",
+        "generated": "prov:generated",
+        "brainRegion": "nsg:brainRegion",
+        "brainLocation": "nsg:brainLocation",
+        "cultureType": "nsg:cultureType",
+        "age": "nsg:age",
+        "hemisphere": "nsg:hemisphere",
+        "solution": "nsg:solution",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
-        "label": "rdfs:label",
-        "value": "schema:value",
-        "brainLocation": "nsg:brainLocation",
-        "brainRegion": "nsg:brainRegion",
-        "hemisphere": "nsg:hemisphere",
-        "age": "nsg:age",
-        "solution": "nsg:solution",
-        "cultureType": "nsg:cultureType"
+        "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
         Field("subject", Subject, "used", required=True),
@@ -441,7 +439,6 @@ class VisualStimulation(KGObject):
         "refreshRate": "nsg:refreshRate",
         "backgroundLuminance": "nsg:backgroundLuminance",
         "hadProtocol":"prov:hadProtocol",
-        "value": "schema:value",
         "citation":"nsg:citation",
         "code":"nsg:code",
         "license":"nsg:license"
@@ -450,7 +447,7 @@ class VisualStimulation(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", VisualStimulus, "used", required=True),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
@@ -460,7 +457,8 @@ class VisualStimulation(KGObject):
         Field("license", License, "license")
     )
 
-    def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None, background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, experiment=None, interstimulus_interval=None, refresh_rate=None,
+    background_luminance=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -514,28 +512,27 @@ class ElectrophysiologicalStimulation(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "used": "prov:used",
         "name": "schema:name",
+        "used": "prov:used",
         "hadProtocol": "prov:hadProtocol",
         "value": "schema:value",
         "citation": "nsg:citation",
         "code": "nsg:code",
-        "stimulusType": "nsg:stimulusType",
         "license": "nsg:license"
         }
 
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", ElectrophysiologicalStimulus, "used", required=True),
-        Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
-        Field("stimulus_type", StimulusType, "stimulusType"),
+        Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("citation", basestring, "citation"),
         Field("code", basestring, "code"),
         Field("license", License, "license")
     )
 
-    def __init__(self, name, stimulus, experiment=None, stimulus_type=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, experiment=None, protocol=None, citation=None,
+    code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -589,36 +586,25 @@ class BehavioralStimulation(KGObject):
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "used": "prov:used",
         "name": "schema:name",
+        "used": "prov:used",
         "hadProtocol": "prov:hadProtocol",
-        "value": "schema:value",
         "citation": "nsg:citation",
         "code": "nsg:code",
-        "stimulusType": "nsg:stimulusType",
-        "license": "nsg:license",
-        "distribution": {
-            "@id": "schema:distribution",
-            "@type": "@id"},
-        "downloadURL": {
-            "@id": "schema:downloadURL",
-            "@type": "@id"},
-        "mediaType": {
-            "@id": "schema:mediaType"
-        }
+        "license": "nsg:license"
         }
 
     fields = (
         Field("name", basestring, "name", required=True),
         Field("stimulus", BehavioralStimulus, "used", required=True),
-        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("citation", basestring, "citation"),
         Field("code", basestring, "code"),
         Field("license", License, "license")
     )
 
-    def __init__(self, name, behavioral_stimulus, experiment=None, cogpoid=None, cogatlasid=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
+    def __init__(self, name, stimulus, experiment=None, protocol=None, citation=None, code=None, license=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
