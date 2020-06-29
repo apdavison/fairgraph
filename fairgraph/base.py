@@ -337,7 +337,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     def __repr__(self):
         if self.fields:
-            template_parts = (f"{field.name}={{self.{field.name}!r}}"
+            template_parts = (f"{field.name}={self.field.name!r}"
                               for field in self.fields if getattr(self, field.name) is not None)
             template = f"{self.__class__.__name__}(" + ", ".join(template_parts) + f", id={self.id})"
             return template
