@@ -246,7 +246,7 @@ class KGClient(object):
         self._nexus_client.instances.delete(instance)
         logger.debug(f"Deleting instance {instance.id}")
         if instance.data["@id"] in self.cache:
-            logger.debug(f"Removing {instance.data["@id"]} from cache")
+            logger.debug(f"Removing {instance.data['@id']} from cache")
             self.cache.pop(instance.data["@id"])
 
     def by_name(self, cls, name, match="equals", all=False,
