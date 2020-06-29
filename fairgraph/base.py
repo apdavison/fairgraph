@@ -132,9 +132,9 @@ class Registry(type):
                 if type_.__module__ == "builtins":
                     return type_.__name__
                 else:
-                    return f"~{type_.__module__}.{type_.__name__}")
+                    return f"~{type_.__module__}.{type_.__name__}"
             for field in self.fields:
-                doc = f"{field.name} : {", ".join(gen_path(t) for t in field.types)}\n    {field.doc}"
+                doc = f"{field.name} : {', '.join(gen_path(t) for t in field.types)}\n    {field.doc}"
                 field_docs.append(doc)
         return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
     __doc__ = property(_get_doc)
