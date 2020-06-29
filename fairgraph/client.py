@@ -109,7 +109,7 @@ class KGClient(object):
         elif api == "query":
             if scope not in SCOPE_MAP:
                 raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
-            url = "{}/{}/instances?size=1&databaseScope={}".format(cls.path, cls.query_id, SCOPE_MAP[scope])
+            url = f"{cls.path}/{cls.query_id}/instances?size=1&databaseScope={SCOPE_MAP[scope]}"
             response = self._kg_query_client.get(url)
         else:
             raise ValueError("'api' must be either 'nexus' or 'query'")
