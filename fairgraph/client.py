@@ -152,7 +152,7 @@ class KGClient(object):
                     filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
         if scope not in SCOPE_MAP:
-            raise ValueError(f"'scope' must be either '{"' or '".join(list(SCOPE_MAP))}'")
+            raise ValueError(f"'scope' must be either '{' or '.join(list(SCOPE_MAP))}'")
         start = from_index
         #url = quote_plus(template.format(start).encode("utf-8"))
         url = template.format(start)
