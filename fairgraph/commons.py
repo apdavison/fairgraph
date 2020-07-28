@@ -288,7 +288,7 @@ class CellType(OntologyTerm):
         "Purkinje cell": "http://uri.interlex.org/ilx_0101974",
         "pyramidal cell": "http://uri.interlex.org/ilx_0107385",
         "spiny stellate neuron": "http://uri.interlex.org/ilx_0107391",
-	"striatal neurons": "http://uri.interlex.org/base/ilx_0111098",
+	"striatal neuron": "http://uri.interlex.org/base/ilx_0111098",
         "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
         "L2 inverted pyramidal cell": "http://uri.interlex.org/ilx_0102369",
         "L2/3 chandelier cell": "http://uri.interlex.org/ilx_0107356",
