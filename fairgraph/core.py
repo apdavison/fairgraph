@@ -286,7 +286,7 @@ class Step(KGObject):
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/step/v0.1.0"
-    type = ["nsg:Step", "prov:Entity"]
+    type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
@@ -295,18 +295,44 @@ class Step(KGObject):
         "previousStepName": "nsg:previousStepName",
         "sequenceNumber": "nsg:sequenceNumber",
         "identifier": "schema:identifier",
-        "description": "schema:description"
+        "description": "schema:description",
+        "version" : "nsg:version",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+        },
+        "numberOfSteps": "nsg:numberOfSteps",
+        "hasPart": "nsg:hasPart",
+        "material":"nsg:material",
+        "wasAssociatedWith": "prov:wasAssociatedWith",
+        "datePublished": "nsg:datePublished"
     }
     fields = (
         Field("name", (basestring, int), "name", required=True),
         Field("previous_step_name", (basestring, int), "previousStepName"),
         Field("sequence_number", int, "sequenceNumber"),
         Field("identifier", basestring, "identifier"), # doi
-        Field("description", basestring, "description")
+        Field("description", basestring, "description"),
+
+        Field("version", (basestring, int), "version"),
+        Field("distribution", Distribution, "distribution"), # external link
+        Field("number_of_steps", int, "numberOfSteps"),
+        Field("steps", Step, "hasPart", multiple=True),
+        Field("materials", Material, "material", multiple=True),
+        Field("author", Person, "wasAssociatedWith", multiple=True),
+        Field("date_published", date, "datePublished")
         )
 
     def __init__(self, name, step_name=None, previous_step_name=None,
-                        sequence_number=None, identifier=None, description=None, id=None, instance=None):
+                        sequence_number=None, identifier=None, description=None,
+			version=None, distribution=None, number_of_steps=None, 				
+			steps=None, materials=None, author=None, date_published=None,							
+			id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
