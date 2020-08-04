@@ -347,7 +347,7 @@ class Protocol(KGObject):
         Field("identifier", basestring, "identifier"), # DOI
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
-        Field("steps", Protocol, "hasPart", multiple=True),
+        Field("steps", Step, "hasPart", multiple=True),
         Field("materials", Material, "material", multiple=True),
         Field("author", Person, "wasAssociatedWith", multiple=True),
         Field("date_published", date, "datePublished")
