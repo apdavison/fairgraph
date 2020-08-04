@@ -322,8 +322,7 @@ class Step(KGObject):
         )
 
     def __init__(self, name, previous_step_name=None, sequence_number=None, 
-			identifier=None, version=None, distribution=None, 
-			distribution=None, number_of_steps=None, 				
+			identifier=None, version=None, distribution=None, 			
 			description=None, materials=None, author=None,						
 			id=None, instance=None):
         args = locals()
