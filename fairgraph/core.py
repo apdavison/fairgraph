@@ -318,14 +318,11 @@ class Step(KGObject):
         Field("sequence_number", int, "sequenceNumber"),
         Field("identifier", basestring, "identifier"), # doi
         Field("description", basestring, "description"),
-
         Field("version", (basestring, int), "version"),
         Field("distribution", Distribution, "distribution"), # external link
-        Field("number_of_steps", int, "numberOfSteps"),
         Field("steps", basestring, "hasPart", multiple=True),
         Field("materials", Material, "material", multiple=True),
         Field("author", Person, "wasAssociatedWith", multiple=True),
-        Field("date_published", date, "datePublished")
         )
 
     def __init__(self, name, step_name=None, previous_step_name=None,
