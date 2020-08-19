@@ -60,7 +60,7 @@ class LabeledCell(KGObject):
     fields = (
         Field("name", basestring, "name", required=True),
         Field("project_name", basestring, "projectName"),
-        Field("brain_location", BrainRegion, "brainRegion"),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("morphology_type", MorphologyType, "mType"),
         Field("location_in_slice", Position, "position"), #change to 3Dvector
         Field("spatial_cell_name", basestring, "spatialCellName"),
