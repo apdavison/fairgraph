@@ -123,6 +123,29 @@ class MorphologyType(OntologyTerm):
     }
 
 
+class SomaType(OntologyTerm):
+    """
+    The type of soma of a reconstructed cell.
+    """
+    iri_map = {
+        "3D": "http://www.hbp.FIXME.org/",
+        "2D contour": "http://www.hbp.FIXME.org/",
+        "1 point": "http://www.hbp.FIXME.org/",
+        "3 point": "http://www.hbp.FIXME.org/"
+    }
+
+
+class ObjectiveType(OntologyTerm):
+    """
+    The type of objective used for microscopy.
+    """
+    iri_map = {
+        "dry": "http://www.hbp.FIXME.org/",
+        "oil": "http://www.hbp.FIXME.org/",
+        "water": "http://www.hbp.FIXME.org/"
+    }
+
+
 class Strain(OntologyTerm):
     """
     An inbred sub-population within a species.
@@ -145,6 +168,7 @@ class Strain(OntologyTerm):
         "C57BL/6": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
         "C57BL/6J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
         "C57Bl/6J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
+        "C57BL/6J efo:EFO_0000606": "http://www.ebi.ac.uk/efo/EFO_0000606",
         "C57BL6/SJL": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:100012/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:100012&i=5d422f510fbc3b6016f6939a",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.5Dkim/J":"https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:024276/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:024276&i=5d4232230fbc3b6016f81e3a",
         "C57BL/6J X SJL": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:100012/resolver?q=%2A&l=&filter[]=Catalog%20Number:100012&i=5d422f510fbc3b6016f6939a",
