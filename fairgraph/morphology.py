@@ -181,8 +181,8 @@ class ReconstructedCell(KGObject):
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion"),
-        Field("axon_projection", BrainRegion, "brainRegion"),
+        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
+        Field("axon_projection", BrainRegion, "brainRegion", multiple=True),
         Field("morphology_type", MorphologyType, "mType"),
         Field("soma_type", SomaType, "somaType")
         )
