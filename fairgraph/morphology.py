@@ -83,7 +83,7 @@ class LabeledCellCollection(KGObject):
     """A collection of labeled cells."""
     namespace = DEFAULT_NAMESPACE
     _path = "/morphology/labeledcellcollection/v0.1.0"
-    type = ["nsg:Collection"]
+    type = ["nsg:LabeledCellCollection"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
