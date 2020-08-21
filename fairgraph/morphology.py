@@ -175,13 +175,13 @@ class ReconstructedCell(KGObject):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "brainRegion": "nsg:brainRegion",
+        "brainLocation": "nsg:brainLocation",
         "mType": "nsg:mType",
         "somaType": "nsg:somaType"
     }
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
+        Field("soma_brain_location", BrainRegion, "brainLocation", multiple=True),
         Field("axon_projection", BrainRegion, "brainRegion", multiple=True),
         Field("morphology_type", MorphologyType, "mType"),
         Field("soma_type", SomaType, "somaType")
