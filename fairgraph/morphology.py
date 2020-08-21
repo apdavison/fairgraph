@@ -216,7 +216,7 @@ class FixationStainingMounting(KGObject):
         Field("fixation_method", basestring, "fixationMethod"),
         Field("stain", basestring, "stain"),
         Field("mounting_media", basestring, "mountingMedia"),
-        Field("slice_used", PatchedSlice, "used"),
+        Field("slice_used", Slice, "used"),
         Field("slice_generated", FixedStainedSlice, "generated")
     )
 
