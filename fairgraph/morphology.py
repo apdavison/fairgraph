@@ -187,7 +187,7 @@ class ReconstructedCell(KGObject):
         Field("soma_type", SomaType, "somaType")
         )
 
-    def __init__(self, name, brain_location, axon_projection=None, morphology_type=None,
+    def __init__(self, name, soma_brain_location, axon_projection=None, morphology_type=None,
     soma_type=None, id=None, instance=None):
         args = locals()
         args.pop("self")
