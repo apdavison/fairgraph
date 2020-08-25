@@ -64,8 +64,8 @@ class LabeledCell(KGObject):
         Field("morphology_type", MorphologyType, "mType"),
         Field("location_in_slice", Position, "position"), #change to 3Dvector
         Field("spatial_cell_name", basestring, "spatialCellName"),
-        Field("reconstruction_requested", bool, "reconstructionRequested"),
-        Field("reconstructable", basestring, "reconstructable"),
+        Field("reconstruction_requested", bool, "reconstructionRequested"), # indicates if reconstruction the cell has been requested or not
+        Field("reconstructable", bool, "reconstructable"), #indicates if the cell can be reconstructed or not
         Field("patched_cell", PatchedCell, "wasRevisionOf"),
         Field("collection", "morphology.LabeledCellCollection", "^prov:hadMember",
               reverse="labeled_cell") #chance reverse when labeledcellcollationmade
