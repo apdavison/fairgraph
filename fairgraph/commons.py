@@ -119,7 +119,8 @@ class MorphologyType(OntologyTerm):
     The morphology of the cell used for recording.
     """
     iri_map = {
-        "bipolar": "http://purl.obolibrary.org/obo/FMA_67282"
+        "bipolar": "http://purl.obolibrary.org/obo/FMA_67282",
+        "pyramidal cell": "http://uri.interlex.org/ilx_0107385"
     }
 
 
