@@ -167,7 +167,7 @@ class AnnotatedSlice(KGObject):
 class ReconstructedCell(KGObject):
     """A reconstructed cell."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/reconstructedcell/v0.1.3"
+    _path = "/morphology/reconstructedcell/v0.1.4"
     type = ["nsg:ReconstructedCell", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
