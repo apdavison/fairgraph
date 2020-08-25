@@ -38,7 +38,7 @@ DEFAULT_NAMESPACE = "neuralactivity"
 class LabeledCell(KGObject):
     """A labeled cell used in a morphology study."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/labeledcell/v0.1.0"
+    _path = "/morphology/labeledcell/v0.1.1"
     type = ["nsg:LabeledCell", "prov:Entity"]
     query_id = "fgModified"
     query_id_resolved = "fgResolvedModified"
@@ -61,9 +61,9 @@ class LabeledCell(KGObject):
         Field("name", basestring, "name", required=True),
         Field("project_name", basestring, "projectName"),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
-        Field("morphology_type", MorphologyType, "mType"),
+        Field("morphology_type", MorphologyType, "mType"), # specifies the coordinates of the location of the cell in the slice
         Field("location_in_slice", Position, "position"), #change to 3Dvector
-        Field("spatial_cell_name", basestring, "spatialCellName"),
+        Field("spatial_cell_name", basestring, "spatialCellName"), # spatial cell name given during the annotation process
         Field("reconstruction_requested", bool, "reconstructionRequested"), # indicates if reconstruction the cell has been requested or not
         Field("reconstructable", bool, "reconstructable"), #indicates if the cell can be reconstructed or not
         Field("patched_cell", PatchedCell, "wasRevisionOf"),
@@ -82,7 +82,7 @@ class LabeledCell(KGObject):
 class LabeledCellCollection(KGObject):
     """A collection of labeled cells."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/labeledcellcollection/v0.1.0"
+    _path = "/morphology/labeledcellcollection/v0.1.1"
     type = ["nsg:Collection"]
     context = {
         "schema": "http://schema.org/",
@@ -112,7 +112,7 @@ class LabeledCellCollection(KGObject):
 class FixedStainedSlice(KGObject):
     """An fixed, stained slice from a morphology experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/fixedstainedslice/v0.1.0"
+    _path = "/morphology/fixedstainedslice/v0.1.1/"
     type = ["nsg:FixedStainedSlice", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -136,7 +136,7 @@ class FixedStainedSlice(KGObject):
 class AnnotatedSlice(KGObject):
     """An annotated slice from a morphology experiment."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/annotatedslice/v0.1.0"
+    _path = "/morphology/annotatedslice/v0.1.1/"
     type = ["nsg:AnnotatedSlice", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -167,7 +167,7 @@ class AnnotatedSlice(KGObject):
 class ReconstructedCell(KGObject):
     """A reconstructed cell."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/reconstructedcell/v0.1.0"
+    _path = "/morphology/reconstructedcell/v0.1.3"
     type = ["nsg:ReconstructedCell", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
@@ -197,7 +197,7 @@ class ReconstructedCell(KGObject):
 class FixationStainingMounting(KGObject):
     """Fixing, Staining and Mounting activities description"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/fixationstainingmounting/v0.1.0"
+    _path = "morphology/fixationstainingmounting/v0.1.1"
     type = ["nsg:FixationStainingMounting", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -230,7 +230,7 @@ class FixationStainingMounting(KGObject):
 class AcquisitionAnnotation(KGObject):
     """Acquisition and annotation activity"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/acquisitionannotation/v0.1.0"
+    _path = "/morphology/acquisitionannotation/v0.1.1"
     type = ["nsg:AcquisitionAnnotation", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
@@ -259,7 +259,7 @@ class AcquisitionAnnotation(KGObject):
 class Reconstruction(KGObject):
     """Reconstruction activity"""
     namespace = DEFAULT_NAMESPACE
-    _path = "/morphology/reconstruction/v0.1.0"
+    _path = "/morphology/reconstruction/v0.1.2"
     type = ["nsg:Reconstruction", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
