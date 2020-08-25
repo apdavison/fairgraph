@@ -197,7 +197,7 @@ class ReconstructedCell(KGObject):
 class FixationStainingMounting(KGObject):
     """Fixing, Staining and Mounting activities description"""
     namespace = DEFAULT_NAMESPACE
-    _path = "morphology/fixationstainingmounting/v0.1.1"
+    _path = "/morphology/fixationstainingmounting/v0.1.1"
     type = ["nsg:FixationStainingMounting", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
