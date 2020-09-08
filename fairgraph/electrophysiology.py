@@ -508,6 +508,35 @@ class PatchedCellCollection(KGObject):
     #                instance=instance)
 
 
+class CellCulture(KGObject):  # should move to "core" module?
+    """A cell culture."""
+    namespace = DEFAULT_NAMESPACE
+    _path = "/experiment/cellculture/v0.1.0"
+    type = ["nsg:CellCulture", "prov:Entity"]
+    context = {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#",
+        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "name": "schema:name",
+        "wasDerivedFrom": "prov:wasDerivedFrom",
+        "hadMember": "prov:hadMember"
+    }
+    fields = (
+        Field("name", basestring, "name", required=True),
+        Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("cells", PatchedCell, "hadMember", multiple=True),
+        Field("culturing_activity", "electrophysiology.CellCultureActivity",
+              "^prov:generated", reverse="cell_culture"),
+        Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
+    )
+
+    def __init__(self, name, subject, cells=None, culturing_activity=None, experiment=None,
+                 id=None, instance=None):
+        args = locals()
+        args.pop("self")
+        KGObject.__init__(self, **args)
+
+
 class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
     """A patch clamp recording session."""
     namespace = DEFAULT_NAMESPACE
@@ -1181,35 +1210,6 @@ def use_namespace(namespace):
     """Set the namespace for all classes in this module."""
     for cls in list_kg_classes():
         cls.namespace = namespace
-
-
-class CellCulture(KGObject):  # should move to "core" module?
-    """A cell culture."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/cellculture/v0.1.0"
-    type = ["nsg:CellCulture", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "wasDerivedFrom": "prov:wasDerivedFrom",
-        "hadMember": "prov:hadMember"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("cells", PatchedCell, "hadMember", multiple=True),
-        Field("culturing_activity", "electrophysiology.CellCultureActivity",
-              "^prov:generated", reverse="cell_culture"),
-        Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
-    )
-
-    def __init__(self, name, subject, cells=None, culturing_activity=None, experiment=None,
-                 id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
 
 
 class CulturingActivity(KGObject):
