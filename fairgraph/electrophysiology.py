@@ -899,6 +899,8 @@ class EEGExperiment(ElectrodeArrayExperiment):
     _path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #_path = "/electrophysiology/ElectrodeArrayExperiment/v0.3.3" # int
     type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
+
+
 class ElectrodePlacementActivity(KGObject):
     """docstring"""
     namespace = DEFAULT_NAMESPACE
