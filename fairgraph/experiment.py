@@ -23,7 +23,6 @@ from .base import KGObject, cache, Field, Distribution
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list
-from .electrophysiology import PatchedCell
 try:
     basestring
 except NameError:
