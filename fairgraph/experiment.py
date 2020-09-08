@@ -191,17 +191,19 @@ class CellCulture(KGObject):  # should move to "core" module?
         "prov": "http://www.w3.org/ns/prov#",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
         "name": "schema:name",
-        "wasDerivedFrom": "prov:wasDerivedFrom"
+        "wasDerivedFrom": "prov:wasDerivedFrom",
+        "hadMember": "prov:hadMember"
     }
     fields = (
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
+        Field("cells", PatchedCell, "hadMember", multiple=True),
         Field("culturing_activity", "electrophysiology.CellCultureActivity",
               "^prov:generated", reverse="cell_culture"),
         Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
     )
 
-    def __init__(self, name, subject, culturing_activity=None, experiment=None,
+    def __init__(self, name, subject, cells=None, culturing_activity=None, experiment=None,
                  id=None, instance=None):
         args = locals()
         args.pop("self")
