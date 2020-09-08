@@ -285,7 +285,7 @@ class Step(KGObject):
     A step in an experimental protocol.
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/core/step/v0.1.0"
+    _path = "/core/protocol/v0.1.2"
     type = ["nsg:Protocol", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
