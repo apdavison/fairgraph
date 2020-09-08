@@ -22,6 +22,7 @@ from datetime import datetime
 from .base import KGObject, cache, Field, Distribution
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
+from .electrophysiology import PatchedCell
 from .utility import compact_uri, standard_context, as_list
 try:
     basestring
