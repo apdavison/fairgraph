@@ -22,7 +22,6 @@ from datetime import datetime
 from .base import KGObject, cache, Field, Distribution
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
-from .electrophysiology import PatchedCell
 from .utility import compact_uri, standard_context, as_list
 try:
     basestring
@@ -182,35 +181,6 @@ class Slice(KGObject):  # should move to "core" module?
         return self
 
 
-class CellCulture(KGObject):  # should move to "core" module?
-    """A cell culture."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/cellculture/v0.1.0"
-    type = ["nsg:CellCulture", "prov:Entity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "name": "schema:name",
-        "wasDerivedFrom": "prov:wasDerivedFrom",
-        "hadMember": "prov:hadMember"
-    }
-    fields = (
-        Field("name", basestring, "name", required=True),
-        Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("cells", PatchedCell, "hadMember", multiple=True),
-        Field("culturing_activity", "electrophysiology.CellCultureActivity",
-              "^prov:generated", reverse="cell_culture"),
-        Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
-    )
-
-    def __init__(self, name, subject, cells=None, culturing_activity=None, experiment=None,
-                 id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-
 class BrainSlicingActivity(KGObject):
     """The activity of cutting brain tissue into slices."""
     namespace = DEFAULT_NAMESPACE
@@ -297,90 +267,6 @@ class BrainSlicingActivity(KGObject):
         for i, slice in enumerate(self.slices):
             if hasattr(slice, "resolve"):
                 self.slices[i] = slice.resolve(client, api=api, use_cache=use_cache)
-        for i, person in enumerate(self.people):
-            if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
-        return self
-
-
-class CulturingActivity(KGObject):
-    """The activity of preparing a cell culture from whole brain."""
-    namespace = DEFAULT_NAMESPACE
-    _path = "/experiment/culturingactivity/v0.2.0"
-    type = ["nsg:CulturingActivity", "prov:Activity"]
-    context = {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#",
-        "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "used": "prov:used",
-        "generated": "prov:generated",
-        "brainRegion": "nsg:brainRegion",
-        "brainLocation": "nsg:brainLocation",
-        "cultureType": "nsg:cultureType",
-        "age": "nsg:age",
-        "hemisphere": "nsg:hemisphere",
-        "solution": "nsg:solution",
-        "startedAtTime": "prov:startedAtTime",
-        "endedAtTime": "prov:endedAtTime",
-        "wasAssociatedWith": "prov:wasAssociatedWith"
-    }
-    fields = (
-        Field("subject", Subject, "used", required=True),
-        Field("cell_culture", CellCulture, "generated", required=True),
-        Field("brain_location", BrainRegion, "brainRegion", multiple=True),
-        Field("culture_type", CultureType, "cultureType"),
-        Field("culture_age", QuantitativeValueRange, "age"),
-        Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
-        Field("culture_solution", basestring, "solution"),
-        Field("start_time", datetime, "startedAtTime"),
-        Field("end_time", datetime, "endedAtTime"),
-        Field("people", Person, "wasAssociatedWith", multiple=True)
-    )
-    existence_query_fields = ("subject",)  # can only slice a brain once...
-
-    def __init__(self, subject, cell_culture, brain_location=None, culture_type=None, culture_age=None,
-                 hemisphere=None, culture_solution=None, start_time=None, end_time=None, people=None,
-                 id=None, instance=None):
-        args = locals()
-        args.pop("self")
-        KGObject.__init__(self, **args)
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, resolved=False):
-        D = instance.data
-        if resolved:
-            D = cls._fix_keys(D)
-        for otype in as_list(cls.type):
-            if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], standard_context)
-                if otype not in compacted_types:
-                    print(f"Warning: type mismatch {otype} - {compacted_types}")
-        args = {}
-        for field in cls.fields:
-            if field.name == "brain_location":
-                data_item = D.get("brainLocation", {}).get("brainRegion")
-            elif field.intrinsic:
-                data_item = D.get(field.path)
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize(data_item, client)
-        obj = cls(id=D["@id"], instance=instance, **args)
-        return obj
-
-    def _build_data(self, client, all_fields=False):
-        """docstring"""
-        data = super(CulturingActivity, self)._build_data(client, all_fields=all_fields)
-        if "brainRegion" in data:
-            data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
-        return data
-
-    def resolve(self, client, api="query", use_cache=True):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
         for i, person in enumerate(self.people):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
