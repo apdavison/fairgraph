@@ -158,15 +158,12 @@ class KGClient(object):
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
             path, query_id, size, SCOPE_MAP[scope])
-        print("template", template)
         if filter:
-            print("filtr yes")
             for key, value in filter.items():
                 print("key,val",key, value)
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
-            print("template 2", template)
         if scope not in SCOPE_MAP:
             raise ValueError("'scope' must be either '{}'".format("' or '".join(list(SCOPE_MAP))))
         start = from_index
@@ -180,7 +177,6 @@ class KGClient(object):
             else:
                 raise
         if response and "results" in response:
-            print("results")
             instances = [
                 Instance(path, data, Instance.path)
                 for data in response["results"]

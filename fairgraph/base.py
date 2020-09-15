@@ -1053,18 +1053,14 @@ class KGQuery(object):
                 )
                 print(instances)
             elif api == "query":
-                print('api is query')
                 instances = client.query_kgquery(
                     path=cls.path,
                     query_id=cls.query_id,
                     filter=self.filter["query"],
                     size=size,
                     scope=scope)
-                print('test', cls.path, cls.query_id, 'test')
-                print('instances', instances)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
-        print("client", client)    
         objects.extend(cls.from_kg_instance(instance, client)
                            for instance in instances)
         for obj in objects:
