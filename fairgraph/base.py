@@ -1060,7 +1060,7 @@ class KGQuery(object):
                     filter=self.filter["query"],
                     size=size,
                     scope=scope)
-		print('test', cls.path, cls.query_id, 'test')
+                print('test', cls.path, cls.query_id, 'test')
                 print('instances', instances)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
