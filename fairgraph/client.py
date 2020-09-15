@@ -160,6 +160,7 @@ class KGClient(object):
             path, query_id, size, SCOPE_MAP[scope])
         print("template", template)
         if filter:
+            print("filtr yes")
             for key, value in filter.items():
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
