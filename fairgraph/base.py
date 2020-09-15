@@ -1064,7 +1064,8 @@ class KGQuery(object):
                 print('instances', instances)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
-            objects.extend(cls.from_kg_instance(instance, client)
+        print("client", client)    
+        objects.extend(cls.from_kg_instance(instance, client)
                            for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
