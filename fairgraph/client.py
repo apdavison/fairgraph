@@ -158,6 +158,7 @@ class KGClient(object):
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(
             path, query_id, size, SCOPE_MAP[scope])
+        print("template", template)
         if filter:
             for key, value in filter.items():
                 if hasattr(value, "iri"):
