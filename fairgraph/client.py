@@ -160,7 +160,6 @@ class KGClient(object):
             path, query_id, size, SCOPE_MAP[scope])
         if filter:
             for key, value in filter.items():
-                print("key,val",key, value)
                 if hasattr(value, "iri"):
                     filter[key] = value.iri
             template += "&" + "&".join("{}={}".format(k, quote_plus(v.encode("utf-8"))) for k, v in filter.items())
