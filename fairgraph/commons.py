@@ -194,6 +194,7 @@ class Genotype(OntologyTerm):
         "BAC_cck/dsred":"http://www.hbp.FIXME.org/",
         "BAC_PV/eGFP": "http://www.hbp.FIXME.org/",
         "Cre/tdTomato": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:007909/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:007909&i=5d422e850fbc3b6016f6225c",
+        "Cr/IRES_cre//Gt(ROSA)26Sor_CAG/LSL_ZsGreen1": "http://www.hbp.FIXME.org/",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:025393/resolver?q=%2A&l=&filter[]=Catalog%20Number:025393&i=5d4228390fbc3b6016f2b6a3",
 	"Fmr1KO": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:003025/resolver?q=%2A&l=&filter[]=Catalog%20Number:003025&i=5d422b9b0fbc3b6016f48946",
         "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459",
