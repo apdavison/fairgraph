@@ -180,7 +180,8 @@ class Strain(OntologyTerm):
         "SWR": "https://dknet.org/data/record/nlx_154697-1/MGI:2159803/resolver?q=SWR&l=SWR&i=5d422e420fbc3b6016f5fcaa",
         "Tg2576": "https://dknet.org/data/record/nlx_154697-1/MGI:3029285/resolver?q=Tg%28APPSWE%292576Kha&l=Tg%28APPSWE%292576Kha&i=5d4235df0fbc3b6016fa16fb",
         #"Wistar":  "https://rgd.mcw.edu/rgdweb/report/strain/main.html?id=13508588",
-        "Wistar": "https://dknet.org/data/record/nlx_154697-1/RGD_12879431/resolver?q=%22Wistar%20Rat%22&l=%22Wistar%20Rat%22&i=5d4228f20fbc3b6016f318fa"
+        "Wistar": "https://dknet.org/data/record/nlx_154697-1/RGD_12879431/resolver?q=%22Wistar%20Rat%22&l=%22Wistar%20Rat%22&i=5d4228f20fbc3b6016f318fa",
+        "BAC_cck/dsred onFVB/ANT": "http://www.hbp.FIXME.org/"
     }
 # use RRIDs
 
