@@ -164,6 +164,7 @@ class Strain(OntologyTerm):
         "BAC_cck/dsred//BAC_pva/gfp (TgTg) - FVB/AntF1": "http://www.hbp.FIXME.org/",
         "BAC_cck/dsred on FVB/ANT":"http://www.hbp.FIXME.org/",
         "BAC_PV/eGFP on FVB/ANT": "http://www.hbp.FIXME.org/",
+        "BAC_PV/eGFP onFVB/ANT": "http://www.hbp.FIXME.org/",
         "BAC_pva/gfp (2) - FVB/AntFx": "http://www.hbp.FIXME.org/",
         "Bl6": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
         "C57BL/6": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:000664/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:000664&i=5d4227790fbc3b6016f250e8",
