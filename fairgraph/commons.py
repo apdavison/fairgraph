@@ -311,7 +311,8 @@ class AbstractionLevel(OntologyTerm):
         "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
         "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
         "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674",
-        "algorithm": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675"
+        "algorithm": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675",
+        "statistical model": "http://dbpedia.org/page/Statistical_model"
     }
 
 
