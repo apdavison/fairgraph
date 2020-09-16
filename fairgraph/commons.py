@@ -192,6 +192,7 @@ class Genotype(OntologyTerm):
     """
     iri_map = {
         "BAC_cck/dsred":"http://www.hbp.FIXME.org/",
+        "BAC_cck/dsred//BAC_pva/gfp (TgTg)":"http://www.hbp.FIXME.org/",
         "BAC_PV/eGFP": "http://www.hbp.FIXME.org/",
         "BAC_pva/gfp (2)": "http://www.hbp.FIXME.org/",
         "Cre/tdTomato": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:007909/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:007909&i=5d422e850fbc3b6016f6225c",
