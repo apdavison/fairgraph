@@ -190,15 +190,16 @@ class Genotype(OntologyTerm):
     Transgenic modification of the strain.
     """
     iri_map = {
-	    "wild type": "https://dknet.org/data/record/nlx_154697-1/MGI:5649737/resolver?q=wild%20type&l=wild%20type&i=5d4223a00fbc3b6016f04b3f",
-	    "Fmr1KO": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:003025/resolver?q=%2A&l=&filter[]=Catalog%20Number:003025&i=5d422b9b0fbc3b6016f48946",
+        "BAC_cck/dsred":"http://www.hbp.FIXME.org/",
+        "Cre/tdTomato": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:007909/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:007909&i=5d422e850fbc3b6016f6225c",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:025393/resolver?q=%2A&l=&filter[]=Catalog%20Number:025393&i=5d4228390fbc3b6016f2b6a3",
+	"Fmr1KO": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:003025/resolver?q=%2A&l=&filter[]=Catalog%20Number:003025&i=5d422b9b0fbc3b6016f48946",
         "GlyT2-GFP":"http://www.informatics.jax.org/allele/MGI:3835459",
         "IB2-KO": "http://www.hbp.FIXME.org/hbp_brain_region_ontology/1234567",
         "Nlgn3KO/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:5439278",
         "NL3R451C/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:3758949",
         "Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:025393/resolver?q=%2A&l=&filter[]=Catalog%20Number:025393&i=5d4228390fbc3b6016f2b6a3",
-        "Cre/tdTomato": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:007909/resolver?q=%2A&l=%2A&filter[]=Catalog%20Number:007909&i=5d422e850fbc3b6016f6225c",
-        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:025393/resolver?q=%2A&l=&filter[]=Catalog%20Number:025393&i=5d4228390fbc3b6016f2b6a3"
+	"wild type": "https://dknet.org/data/record/nlx_154697-1/MGI:5649737/resolver?q=wild%20type&l=wild%20type&i=5d4223a00fbc3b6016f04b3f"
     }
 
 
