@@ -799,9 +799,8 @@ class ImplantedBrainTissue(KGObject):
 class ElectrodeArrayExperiment(KGObject):
     """Electrode array experiment (EEG, ECoG, MEG, ERP)."""
     namespace = DEFAULT_NAMESPACE
-    _path = "/electrophysiology/stimulusexperiment/v0.3.1"
+    _path = "/electrophysiology/electrodearrayexperiment/v0.1.0"
     type = ["nsg:StimulusExperiment", "prov:Activity"]
-    #_path = "/electrophysiology/electrodearrayexperiment/v0.1.0" # prod
     #type = ["nsg:ElectrodeArrayExperiment", "prov:Activity"]
     context = {
         "schema": "http://schema.org/",
