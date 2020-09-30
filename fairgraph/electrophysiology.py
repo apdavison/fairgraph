@@ -590,7 +590,7 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label",
         "used": "prov:used",
-	    "device": "nsg:device",
+	"device": "nsg:device",
         "wasInformedBy": "nsg:wasInformedBy",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
