@@ -261,7 +261,15 @@ class Material(KGObject):
         "reagentMolarWeight": "nsg:reagentMolarWeight",
         "reagentLinearFormula": "nsg:reagentLinearFormula",
         "reagentSKU": "schema:sku",
-        "reagentURL": "nsg:reagentURL",
+        "distribution": {
+            "@id": "schema:distribution",
+            "@type": "@id"},
+        "downloadURL": {
+            "@id": "schema:downloadURL",
+            "@type": "@id"},
+        "mediaType": {
+            "@id": "schema:mediaType"
+            },
         "vendor": "nsg:reagentVendor"
     }
     fields = (
@@ -269,12 +277,12 @@ class Material(KGObject):
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
         Field("formula", basestring, "reagentLinearFormula"),
         Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
-        Field("reagent_URL", basestring, "reagentURL"),
+        Field("reagent_distribution", Distribution, "distribution"),
         Field("vendor", Organization, "vendor")
         )
 
     def __init__(self, name, molar_weight=None, formula=None,
-                        stock_keeping_unit=None, reagent_URL=None, vendor=None, id=None, instance=None):
+                        stock_keeping_unit=None, reagent_distribution=None, vendor=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
