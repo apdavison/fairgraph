@@ -23,6 +23,12 @@ import sys
 import inspect
 import os
 from datetime import datetime
+import requests
+from tqdm import tqdm
+from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
+from fairgraph.data import FileAssociation, CSCSFile
+from fairgraph.commons import QuantitativeValue
+from fairgraph.utility import in_notebook
 try:
     basestring
 except NameError:
@@ -33,14 +39,6 @@ try:
 except ImportError:  # Python 2
     from urlparse import urlparse, parse_qs
     from urllib import quote_plus, urlencode
-
-import requests
-from tqdm import tqdm
-
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
-from fairgraph.data import FileAssociation, CSCSFile
-from fairgraph.commons import QuantitativeValue
-from fairgraph.utility import in_notebook
 
 
 class MINDSObject(KGObject):
@@ -245,7 +243,7 @@ class Dataset(MINDSObject):
         response = requests.get(url)
         if response.status_code not in (200, 204):
             raise IOError(
-                "Unable to download dataset. Response code {}".format(response.status_code))
+                f"Unable to download dataset. Response code {response.status_code}")
         contents = response.json()
         total_data_size = sum(item["bytes"] for item in contents) // 1024
         progress_bar = tqdm(total=total_data_size)
@@ -264,8 +262,7 @@ class Dataset(MINDSObject):
                     progress_bar.update(entry["bytes"] // 1024)
                 else:
                     raise IOError(
-                        "Unable to download file '{}'. Response code {}".format(
-                            local_path, response2.status_code))
+                        f"Unable to download file '{local_path}'. Response code {response2.status_code}")
         progress_bar.close()
 
     def methods(self, client, api="query", scope="released"):
@@ -294,7 +291,7 @@ class Dataset(MINDSObject):
                         "value": value.name
                     })
                 else:
-                    raise Exception("The only supported filters are by specimen group. You specified {name}".format(name=name))
+                    raise Exception(f"The only supported filters are by specimen group. You specified {name}")
             if len(filter_queries) == 0:
                 return client.list(cls, api="nexus", size=size)
             elif len(filter_queries) == 1:
