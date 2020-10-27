@@ -590,7 +590,7 @@ class PatchClampExperiment(KGObject):
         "name": "schema:name",
         "label": "rdfs:label",
         "used": "prov:used",
-	"device": "nsg:device",
+        "device": "nsg:device",
         "wasInformedBy": "nsg:wasInformedBy",
         "startedAtTime": "prov:startedAtTime",
         "endAtTime": "prov:endedAtTime",
@@ -976,7 +976,7 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "used": "prov:used",
         "generated": "prov:generated",
-	    "brainRegion": "nsg:brainRegion",
+        "brainRegion": "nsg:brainRegion",
         "startedAtTime": "prov:startedAtTime",
         "endedAtTime": "prov:endedAtTime",
         "anesthesia": "nsg:anesthesia",
@@ -1293,4 +1293,3 @@ class CulturingActivity(KGObject):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
         return self
-

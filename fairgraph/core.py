@@ -37,6 +37,7 @@ DEFAULT_NAMESPACE = None
 
 logger = logging.getLogger("fairgraph")
 
+
 class Subject(KGObject):
     """The individual organism that is the subject of an experimental study."""
     namespace = DEFAULT_NAMESPACE
@@ -61,7 +62,7 @@ class Subject(KGObject):
         "genotype": "nsg:genotype",
         "handedness": "nsg:handedness",
         "deathDate": "schema:deathDate",
-	"group": "nsg:group",
+        "group": "nsg:group",
         "providerId": "nsg:providerId"
     }
     fields = (
@@ -73,7 +74,7 @@ class Subject(KGObject):
         Field("handedness", Handedness, "handedness"),
         Field("age", Age, "age"),
         Field("death_date", date, "deathDate"),
-	    Field("group", Group, "group")
+        Field("group", Group, "group")
     )
 
     def __init__(self, name, species, age=None, sex=None, handedness=None, strain=None, genotype=None, death_date=None, group=None, id=None, instance=None):
@@ -329,10 +330,10 @@ class Step(KGObject):
         Field("author", Person, "wasAssociatedWith", multiple=True),
         )
 
-    def __init__(self, name, previous_step_name=None, sequence_number=None, 
-			identifier=None, version=None, distribution=None, 			
-			description=None, materials=None, author=None,						
-			id=None, instance=None):
+    def __init__(self, name, previous_step_name=None, sequence_number=None,
+                 identifier=None, version=None, distribution=None,
+                 description=None, materials=None, author=None,
+                 id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)

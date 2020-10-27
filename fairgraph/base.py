@@ -110,9 +110,11 @@ def generate_cache_key(qd):
 
 docstring_template = """
 {base}
+
 Args
 ----
 {args}
+
 """
 
 
@@ -1051,7 +1053,6 @@ class KGQuery(object):
                     context=self.context,
                     size=size
                 )
-                print(instances)
             elif api == "query":
                 instances = client.query_kgquery(
                     path=cls.path,
@@ -1061,7 +1062,7 @@ class KGQuery(object):
                     scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
-        objects.extend(cls.from_kg_instance(instance, client)
+            objects.extend(cls.from_kg_instance(instance, client)
                            for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
@@ -1187,8 +1188,10 @@ class Distribution(StructuredMetadata):
 def build_kg_object(cls, data, resolved=False, client=None):
     """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
+
     This takes care of the JSON-LD quirk that you get a list if there are multiple
     objects, but you get the object directly if there is only one.
+
     Returns `None` if data is None.
     """
     if data is None:

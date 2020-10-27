@@ -353,9 +353,9 @@ class MotionCorrection(KGObject):
         "used": "prov:used",
         "hadProtocol": "prov:hadProtocol",
         "wasAssociatedWith": "prov:wasAssociatedWith",
-    	"citation":"nsg:citation",
-    	"code":"nsg:code",
-    	"license":"nsg:license"
+        "citation":"nsg:citation",
+        "code":"nsg:code",
+        "license":"nsg:license"
         }
     fields = (
         Field("name", basestring, "name", required=True),
@@ -363,9 +363,9 @@ class MotionCorrection(KGObject):
         Field("after", ImageSequence, "generated", required=True),
         Field("protocol", Protocol, "hadprotocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-    	Field("citation", basestring, "citation"),
-    	Field("code", basestring, "code"),
-    	Field("license", License, "license")
+        Field("citation", basestring, "citation"),
+        Field("code", basestring, "code"),
+        Field("license", License, "license")
     )
 
     def __init__(self, name, before, after, protocol=None, people=None, citation=None, code=None, license=None, id=None, instance=None):

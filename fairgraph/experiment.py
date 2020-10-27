@@ -138,7 +138,7 @@ class Craniotomy(KGObject):
         Field("subject", Subject, "used", required=True),
         Field("cranial_window", CranialWindow, "generated", required=True),
         Field("anesthesia", basestring, "anesthesia"),
-	Field("protocol", Protocol, "hadProtocol"),
+        Field("protocol", Protocol, "hadProtocol"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)

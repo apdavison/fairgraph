@@ -108,7 +108,7 @@ class Shape(OntologyTerm):
     iri_map = {
         "circle": "https://en.wiktionary.org/wiki/circle",
         "ellipse": "https://en.wiktionary.org/wiki/ellipse",
-	    "freeform": "https://en.wiktionary.org/wiki/free-form#English",
+        "freeform": "https://en.wiktionary.org/wiki/free-form#English",
         "rectangle": "https://en.wiktionary.org/wiki/rectangle",
         "square": "https://en.wiktionary.org/wiki/square"
     }
@@ -204,7 +204,7 @@ class Genotype(OntologyTerm):
         "Nlgn3KO/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:5439278",
         "NL3R451C/Y; hemizygous": "http://www.informatics.jax.org/allele/MGI:3758949",
         "Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "https://dknet.org/data/record/nlx_154697-1/IMSR_JAX:025393/resolver?q=%2A&l=&filter[]=Catalog%20Number:025393&i=5d4228390fbc3b6016f2b6a3",
-	    "wild type": "https://dknet.org/data/record/nlx_154697-1/MGI:5649737/resolver?q=wild%20type&l=wild%20type&i=5d4223a00fbc3b6016f04b3f",
+        "wild type": "https://dknet.org/data/record/nlx_154697-1/MGI:5649737/resolver?q=wild%20type&l=wild%20type&i=5d4223a00fbc3b6016f04b3f",
         "6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J": "http://www.hbp.FIXME.org/"
     }
 
@@ -230,16 +230,16 @@ class Handedness(OntologyTerm):
 
 class ChannelType(OntologyTerm):
     """
-    The handedness of an animal or person from whom/which data were obtained.
+    The recording method used.
     """
     iri_map = {
-        "ECoG":"http://purl.obolibrary.org/obo/NCIT_C116664",
-	    "ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
-        "EEG":"http://purl.obolibrary.org/obo/NCIT_C38054",
-	    "EMG" : "http://purl.obolibrary.org/obo/NCIT_C38056",
-        "ERP":"http://purl.bioontology.org/ontology/SNOMEDCT/251630008",
-	    "MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
-	    "SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
+        "ECoG": "http://purl.obolibrary.org/obo/NCIT_C116664",
+        "ECG": "http://purl.obolibrary.org/obo/NCIT_C38054",
+        "EEG": "http://purl.obolibrary.org/obo/NCIT_C38054",
+        "EMG": "http://purl.obolibrary.org/obo/NCIT_C38056",
+        "ERP": "http://purl.bioontology.org/ontology/SNOMEDCT/251630008",
+        "MEG": "http://purl.obolibrary.org/obo/NCIT_C16811",
+        "SEEG": "https://en.wikipedia.org/wiki/Stereoelectroencephalography"
     }
 
 class BrainRegion(OntologyTerm):
@@ -258,7 +258,7 @@ class BrainRegion(OntologyTerm):
         "cortex": "http://uri.interlex.org/ilx_0727230",
         "dorsal cortex": "http://uri.interlex.org/ilx_0103432",
         "dorsal striatum": "http://uri.interlex.org/ilx_0103481",
-	    "frontal association cortex": "http://uri.interlex.org/ilx_0109209",
+        "frontal association cortex": "http://uri.interlex.org/ilx_0109209",
         "hippocampus": "http://uri.interlex.org/ilx_0105021",  # Ammon's horn
         "hippocampus CA1": "http://uri.interlex.org/ilx_0101520",
         "hippocampus CA3": "http://uri.interlex.org/ilx_0101534",
@@ -267,20 +267,20 @@ class BrainRegion(OntologyTerm):
         "lobule 6 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112400",
         "lobule 7 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112401",
         "lobule 8 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112404",
-	    "motor cortex": "http://uri.interlex.org/ilx_0107119",
-	    "parietal association area": "http://uri.interlex.org/ilx_0103503",
+        "motor cortex": "http://uri.interlex.org/ilx_0107119",
+        "parietal association area": "http://uri.interlex.org/ilx_0103503",
         "perirhinal cortex": "http://uri.interlex.org/ilx_0108747",
         "posteromedial visual area": "http://uri.interlex.org/ilx_0734159",
         "prefrontal cortex": "http://uri.interlex.org/ilx_0109209",
         "prelimbic cortex": "http://uri.interlex.org/ilx_0106685",
         "primary auditory cortex": "http://uri.interlex.org/ilx_0443027",
-    	"primary motor cortex": "http://uri.interlex.org/ilx_0109278",
-    	"primary somatosensory cortex": "http://uri.interlex.org/ilx_0109333",
-    	"primary visual cortex": "http://uri.interlex.org/ilx_0112514",
+        "primary motor cortex": "http://uri.interlex.org/ilx_0109278",
+        "primary somatosensory cortex": "http://uri.interlex.org/ilx_0109333",
+        "primary visual cortex": "http://uri.interlex.org/ilx_0112514",
         "retina": "http://uri.interlex.org/ilx_0109993",
-    	"retrosplenial cortex": "http://uri.interlex.org/ilx_0728007",
-    	"secondary motor cortex": "http://uri.interlex.org/ilx_0109222",
-    	"secondary visual cortex": "http://uri.interlex.org/ilx_0727119",
+        "retrosplenial cortex": "http://uri.interlex.org/ilx_0728007",
+        "secondary motor cortex": "http://uri.interlex.org/ilx_0109222",
+        "secondary visual cortex": "http://uri.interlex.org/ilx_0727119",
         "somatosensory cortex": "http://uri.interlex.org/ilx_0110752",
         "spinal cord": "http://uri.interlex.org/ilx_0110909",
         "stratum pyramidale": "http://uri.interlex.org/ilx_0111081",
@@ -288,13 +288,12 @@ class BrainRegion(OntologyTerm):
         "thalamocortical": "http://uri.interlex.org/ilx_0738230",
         "thalamus": "http://uri.interlex.org/ilx_0111657",
         "ventral hippocampus": "http://uri.interlex.org/ilx_0105021",   # how to distinguish this? Question for Tier 2 folks?
-	    "visual cortex": "http://uri.interlex.org/ilx_0112513",
+        "visual cortex": "http://uri.interlex.org/ilx_0112513",
         "whole brain": "http://uri.interlex.org/ilx_0101431",
         "5th cerebellar lobule": "http://uri.interlex.org/ilx_0112399",
-        # more specific term to be determined: http://purl.obolibrary.org/obo/UBERON_0024001 or http://purl.obolibrary.org/obo/UBERON_0004079 ?
-        "6th cerebellar lobule": "http://uri.interlex.org/ilx_0112400",  # more specific term to be determined
-        "7th cerebellar lobule": "http://uri.interlex.org/ilx_0112401",  # more specific term to be determined
-        "8th cerebellar lobule": "http://uri.interlex.org/ilx_0112404"  # more specific term to be determined
+        "6th cerebellar lobule": "http://uri.interlex.org/ilx_0112400",
+        "7th cerebellar lobule": "http://uri.interlex.org/ilx_0112401",
+        "8th cerebellar lobule": "http://uri.interlex.org/ilx_0112404"
     }
 
 
@@ -320,7 +319,7 @@ class CellType(OntologyTerm):
         "Purkinje cell": "http://uri.interlex.org/ilx_0101974",
         "pyramidal cell": "http://uri.interlex.org/ilx_0107385",
         "spiny stellate neuron": "http://uri.interlex.org/ilx_0107391",
-	"striatal neuron": "http://uri.interlex.org/base/ilx_0111098",
+        "striatal neuron": "http://uri.interlex.org/base/ilx_0111098",
         "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
         "L2 inverted pyramidal cell": "http://uri.interlex.org/ilx_0102369",
         "L2/3 chandelier cell": "http://uri.interlex.org/ilx_0107356",
@@ -435,8 +434,8 @@ class License(OntologyTerm):
 class StimulusType(OntologyTerm):
     iri_map = {
         "Excitatory postsynaptic currents": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-	    "Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
-	    "Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
+        "Excitatory postsynaptic potentials": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
+        "Mossy Fiber Stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
         "No stimulus (spontaneous activity)": "http://www.FIXME.org/ephys_stimuli/0000000",
         "Pre-synaptic extracellular electrical stimulation": "http://www.FIXME.org/ephys_stimuli/0000001",
         "Sinusoidal current injections": "http://ontologies.humanbrainproject.eu/ephys_stimuli/0001000",
@@ -453,29 +452,32 @@ class Origin(OntologyTerm):
     }
 
 
-class QuantitativeValue(StructuredMetadata):
-    """docstring"""
-    unit_codes = {
+unit_codes = {
         "days": "http://purl.obolibrary.org/obo/UO_0000033",
         "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
         "months": "http://purl.obolibrary.org/obo/UO_0000035",
-	    "years": "http://purl.obolibrary.org/obo/UO_0000036",
+        "years": "http://purl.obolibrary.org/obo/UO_0000036",
         "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
         "µm": "http://purl.obolibrary.org/obo/UO_0000017",
         "mm": "http://purl.obolibrary.org/obo/UO_0000016",
         "nm": "http://purl.obolibrary.org/obo/UO_0000018",
         "mV": "http://purl.obolibrary.org/obo/UO_0000247",
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	    "s": "http://purl.obolibrary.org/obo/UO_0000010",
+        "s": "http://purl.obolibrary.org/obo/UO_0000010",
         "c": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
         "µA": "http://purl.obolibrary.org/obo/UO_0000038",
         "nA": "https://en.wiktionary.org/wiki/nanoamp",
-	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
-        }
+        "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
+        "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279"
+    }
+
+
+class QuantitativeValue(StructuredMetadata):
+    """docstring"""
+    unit_codes = unit_codes
 
     def __init__(self, value, unit_text, unit_code=None):
         if not isinstance(value, (int, float)):
@@ -535,19 +537,7 @@ class QuantitativeValue(StructuredMetadata):
 
 class QuantitativeValueRange(StructuredMetadata):
     """docstring"""
-    unit_codes = {
-        "days": "http://purl.obolibrary.org/obo/UO_0000033",
-        "weeks": "http://purl.obolibrary.org/obo/UO_0000034",
-        "months": "http://purl.obolibrary.org/obo/UO_0000035",
-        "DIV": "http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C19481",
-        "degrees": "http://purl.obolibrary.org/obo/UO_0000185",
-        "µm": "http://purl.obolibrary.org/obo/UO_0000017",
-        "mV": "http://purl.obolibrary.org/obo/UO_0000247",
-        "ms": "http://purl.obolibrary.org/obo/UO_0000028",
-	    "Hz": "http://purl.obolibrary.org/obo/UO_0000106",
-	    "kHz": "http://purl.obolibrary.org/obo/NCIT_C67279",
-        "MOhm": "http://purl.obolibrary.org/obo/NCIT_C42554"
-    }
+    unit_codes = unit_codes
 
     def __init__(self, min, max, unit_text, unit_code=None):
         if not isinstance(min, (int, float)):
@@ -561,6 +551,15 @@ class QuantitativeValueRange(StructuredMetadata):
 
     def __repr__(self):
         return (f'{self.__class__.__name__}({self.min!r}-{self.max!r} {self.unit_text!r})')
+
+    def __eq__(self, other):
+        return (self.min == other.min
+                and self.max == other.max
+                and self.unit_text == other.unit_text
+                and self.unit_code == other.unit_code)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def to_jsonld(self, client=None):
         return {
