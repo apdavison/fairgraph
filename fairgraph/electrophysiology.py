@@ -596,7 +596,7 @@ class PatchClampExperiment(KGObject):
         "endAtTime": "prov:endedAtTime",
         "wasAssociatedWith": "prov:wasAssociatedWith",
         "hadProtocol": "prov:hadProtocol"
-        }
+    }
     #recorded_cell_class = "PatchedCell"
     fields = (
         Field("name", basestring, "name", required=True),

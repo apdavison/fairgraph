@@ -250,7 +250,7 @@ class AnalysisScript(KGObject):
                "license": "schema:license",
                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
                "distribution": "nsg:distribution",
-               "code_format": "nsg:code_format"}
+               "code_format": "nsg:code_format"}  # todo: add version field
     fields = (
         Field("name", basestring, "name", required=True),
         Field("identifier", basestring, "identifier"),
