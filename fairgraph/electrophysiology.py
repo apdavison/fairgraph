@@ -1186,7 +1186,7 @@ class QualifiedTraceGeneration(KGObject):
     )
 
     def __init__(self, name, stimulus_experiment, sweep, #traces=None,
-                 repetition= None, at_time=None, provider_experiment_id =None, provider_experiment_name=None,
+                 repetition= None, at_time=None, provider_experiment_id=None, provider_experiment_name=None,
                  holding_potential=None, measured_holding_potential=None, input_resistance=None,
                  series_resistance=None, compensation_current=None, id=None, instance=None):
         args = locals()
