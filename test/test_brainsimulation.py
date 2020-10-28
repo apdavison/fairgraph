@@ -38,8 +38,10 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/simulationconfiguration/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationconfiguration_list_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.1/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.1/fgSimple/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_simple_0_10.json",
+    "/query/modelvalidation/simulation/memodel/v0.1.2/fgSimple/instances": "test/test_data/kgquery/brainsimulation/memodel_list_simple_0_10.json",
 
     "/query/neuralactivity/core/person/v0.1.0/fgSimple/instances": "test/test_data/kgquery/core/person_list_simple_0_10.json",
+
 })
 
 

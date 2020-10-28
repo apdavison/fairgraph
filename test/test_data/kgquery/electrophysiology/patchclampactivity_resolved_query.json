@@ -5,31 +5,28 @@
     "http://schema.org/identifier": "neuralactivity/experiment/wholecellpatchclamp/v0.3.0/fgResolved",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            },
-            "sort": true,
-            "relative_path": "http://schema.org/name",
-            "required": true
+            }
         },
         {
             "fieldname": "used",
-            "filter": {
-                "op": "contains",
-                "parameter": "recorded_tissue"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#used",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -43,6 +40,7 @@
                 },
                 {
                     "fieldname": "CellCulture__wasDerivedFrom",
+                    "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -56,6 +54,7 @@
                         },
                         {
                             "fieldname": "Subject__species",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -64,11 +63,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species"
+                            ]
                         },
                         {
                             "fieldname": "Subject__strain",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -77,11 +76,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain"
+                            ]
                         },
                         {
                             "fieldname": "Subject__genotype",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -90,11 +89,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype"
+                            ]
                         },
                         {
                             "fieldname": "Subject__sex",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -103,11 +102,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex"
+                            ]
                         },
                         {
                             "fieldname": "Subject__handedness",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -116,11 +115,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness"
+                            ]
                         },
                         {
                             "fieldname": "age",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
                             "fields": [
                                 {
                                     "fieldname": "value",
@@ -130,8 +129,7 @@
                                     "fieldname": "period",
                                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age"
+                            ]
                         },
                         {
                             "fieldname": "deathDate",
@@ -139,6 +137,7 @@
                         },
                         {
                             "fieldname": "Subject__group",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -147,14 +146,96 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+                    ]
+                },
+                {
+                    "fieldname": "CellCulture__hadMember",
+                    "relative_path": "http://www.w3.org/ns/prov#hadMember",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "PatchedCell__brainRegion",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "PatchedCell__eType",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "pipetteNumber",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteNumber"
+                        },
+                        {
+                            "fieldname": "sealResistance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sealResistance"
+                        },
+                        {
+                            "fieldname": "pipetteResistance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/pipetteResistance"
+                        },
+                        {
+                            "fieldname": "liquidJunctionPotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/liquidJunctionPotential"
+                        },
+                        {
+                            "fieldname": "startMembranePotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/startMembranePotential"
+                        },
+                        {
+                            "fieldname": "endMembranePotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/endMembranePotential"
+                        },
+                        {
+                            "fieldname": "solution",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/solution"
+                        },
+                        {
+                            "fieldname": "labelingCompound",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound"
+                        },
+                        {
+                            "fieldname": "chlorideReversalPotential",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
+                        },
+                        {
+                            "fieldname": "description",
+                            "relative_path": "http://schema.org/description"
+                        }
+                    ]
                 },
                 {
                     "fieldname": "Slice__wasDerivedFrom",
+                    "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -168,6 +249,7 @@
                         },
                         {
                             "fieldname": "Subject__species",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -176,11 +258,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species"
+                            ]
                         },
                         {
                             "fieldname": "Subject__strain",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -189,11 +271,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain"
+                            ]
                         },
                         {
                             "fieldname": "Subject__genotype",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -202,11 +284,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype"
+                            ]
                         },
                         {
                             "fieldname": "Subject__sex",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -215,11 +297,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex"
+                            ]
                         },
                         {
                             "fieldname": "Subject__handedness",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -228,11 +310,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness"
+                            ]
                         },
                         {
                             "fieldname": "age",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
                             "fields": [
                                 {
                                     "fieldname": "value",
@@ -242,8 +324,7 @@
                                     "fieldname": "period",
                                     "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age"
+                            ]
                         },
                         {
                             "fieldname": "deathDate",
@@ -251,6 +332,7 @@
                         },
                         {
                             "fieldname": "Subject__group",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -259,11 +341,9 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+                    ]
                 },
                 {
                     "fieldname": "providerId",
@@ -271,6 +351,7 @@
                 },
                 {
                     "fieldname": "CranialWindow__brainRegion",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -279,8 +360,7 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                    ]
                 },
                 {
                     "fieldname": "windowType",
@@ -299,14 +379,14 @@
                     "relative_path": "http://schema.org/description"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            "filter": {
+                "op": "contains",
+                "parameter": "recorded_tissue"
+            }
         },
         {
             "fieldname": "generated",
-            "filter": {
-                "op": "contains",
-                "parameter": "recorded_slice"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#generated",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -320,6 +400,7 @@
                 },
                 {
                     "fieldname": "PatchedSlice__wasRevisionOf",
+                    "relative_path": "http://www.w3.org/ns/prov#wasRevisionOf",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -333,6 +414,7 @@
                         },
                         {
                             "fieldname": "Slice__wasDerivedFrom",
+                            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -346,6 +428,7 @@
                                 },
                                 {
                                     "fieldname": "Subject__species",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -354,11 +437,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/species"
+                                    ]
                                 },
                                 {
                                     "fieldname": "Subject__strain",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -367,11 +450,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/strain"
+                                    ]
                                 },
                                 {
                                     "fieldname": "Subject__genotype",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -380,11 +463,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/genotype"
+                                    ]
                                 },
                                 {
                                     "fieldname": "Subject__sex",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -393,11 +476,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sex"
+                                    ]
                                 },
                                 {
                                     "fieldname": "Subject__handedness",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -406,11 +489,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/handedness"
+                                    ]
                                 },
                                 {
                                     "fieldname": "age",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age",
                                     "fields": [
                                         {
                                             "fieldname": "value",
@@ -420,8 +503,7 @@
                                             "fieldname": "period",
                                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/age"
+                                    ]
                                 },
                                 {
                                     "fieldname": "deathDate",
@@ -429,6 +511,7 @@
                                 },
                                 {
                                     "fieldname": "Subject__group",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -437,21 +520,19 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/group"
+                                    ]
                                 }
-                            ],
-                            "relative_path": "http://www.w3.org/ns/prov#wasDerivedFrom"
+                            ]
                         },
                         {
                             "fieldname": "providerId",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#wasRevisionOf"
+                    ]
                 },
                 {
                     "fieldname": "PatchedSlice__hasPart",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -465,6 +546,7 @@
                         },
                         {
                             "fieldname": "PatchedCellCollection__hadMember",
+                            "relative_path": "http://www.w3.org/ns/prov#hadMember",
                             "ensure_order": true,
                             "fields": [
                                 {
@@ -479,6 +561,7 @@
                                 },
                                 {
                                     "fieldname": "PatchedCell__brainRegion",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -487,11 +570,11 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                                    ]
                                 },
                                 {
                                     "fieldname": "PatchedCell__eType",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -500,21 +583,7 @@
                                             "fieldname": "label",
                                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                         }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
-                                },
-                                {
-                                    "fieldname": "PatchedCell__morphologyType",
-                                    "fields": [
-                                        {
-                                            "relative_path": "@id"
-                                        },
-                                        {
-                                            "fieldname": "label",
-                                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                                        }
-                                    ],
-                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/morphologyType"
+                                    ]
                                 },
                                 {
                                     "fieldname": "pipetteNumber",
@@ -556,14 +625,13 @@
                                     "fieldname": "description",
                                     "relative_path": "http://schema.org/description"
                                 }
-                            ],
-                            "relative_path": "http://www.w3.org/ns/prov#hadMember"
+                            ]
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart"
+                    ]
                 },
                 {
                     "fieldname": "PatchedSlice__brainRegion",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -572,8 +640,7 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                    ]
                 },
                 {
                     "fieldname": "solution",
@@ -584,22 +651,22 @@
                     "relative_path": "http://schema.org/description"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#generated"
+            "filter": {
+                "op": "contains",
+                "parameter": "recorded_slice"
+            }
         },
         {
             "fieldname": "hadProtocol",
+            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
             "filter": {
                 "op": "contains",
                 "parameter": "protocol"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#hadProtocol"
+            }
         },
         {
             "fieldname": "wasAssociatedWith",
-            "filter": {
-                "op": "contains",
-                "parameter": "people"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
             "ensure_order": true,
             "fields": [
                 {
@@ -622,6 +689,7 @@
                 },
                 {
                     "fieldname": "Person__affiliation",
+                    "relative_path": "http://schema.org/affiliation",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -639,6 +707,7 @@
                         },
                         {
                             "fieldname": "Organization__parentOrganization",
+                            "relative_path": "http://schema.org/parentOrganization",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -646,30 +715,31 @@
                                 {
                                     "relative_path": "@type"
                                 }
-                            ],
-                            "relative_path": "http://schema.org/parentOrganization"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://schema.org/affiliation"
+                    ]
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+            "filter": {
+                "op": "contains",
+                "parameter": "people"
+            }
         },
         {
             "fieldname": "startedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime",
             "filter": {
                 "op": "equals",
                 "parameter": "start_time"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+            }
         },
         {
             "fieldname": "endedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime",
             "filter": {
                 "op": "equals",
                 "parameter": "end_time"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+            }
         }
     ],
     "@context": {

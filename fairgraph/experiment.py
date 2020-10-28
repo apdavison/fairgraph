@@ -167,7 +167,7 @@ class Slice(KGObject):  # should move to "core" module?
         Field("name", basestring, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("provider_id", basestring, "providerId"),
-        Field("brain_slicing_activity", "electrophysiology.BrainSlicingActivity", "^prov:generated", reverse="slices"),
+        Field("brain_slicing_activity", "experiment.BrainSlicingActivity", "^prov:generated", reverse="slices"),
         #Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
         #  support for multiple reverses not implemented
         Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse="recorded_tissue")

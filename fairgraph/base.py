@@ -78,7 +78,10 @@ def lookup(class_name):
 
 
 def lookup_type(class_type, client=None):
-    return registry['types'][tuple(class_type)]
+    if isinstance(class_type, str):
+        return registry['types'][class_type]
+    else:
+        return registry['types'][tuple(class_type)]
 
 
 def lookup_by_iri(iri):

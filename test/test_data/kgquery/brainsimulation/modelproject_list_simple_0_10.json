@@ -468,7 +468,7 @@
             ],
             "celltype": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "@id": "http://uri.interlex.org/ilx_0107385",
                     "label": "pyramidal cell"
                 }
             ],
@@ -703,7 +703,7 @@
             ],
             "celltype": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "@id": "http://uri.interlex.org/ilx_0107385",
                     "label": "pyramidal cell"
                 }
             ],

@@ -118,9 +118,11 @@ class MorphologyType(OntologyTerm):
     """
     The morphology of the cell used for recording.
     """
+    # problem that the iri_map clashes with CellType iri_map
+    # so need to improve iri-lookup
     iri_map = {
         "bipolar": "http://purl.obolibrary.org/obo/FMA_67282",
-        "pyramidal cell": "http://uri.interlex.org/ilx_0107385"
+        #"pyramidal cell": "http://uri.interlex.org/ilx_0107385"
     }
 
 
@@ -260,13 +262,13 @@ class BrainRegion(OntologyTerm):
         "dorsal striatum": "http://uri.interlex.org/ilx_0103481",
         "frontal association cortex": "http://uri.interlex.org/ilx_0109209",
         "hippocampus": "http://uri.interlex.org/ilx_0105021",  # Ammon's horn
-        "hippocampus CA1": "http://uri.interlex.org/ilx_0101520",
+        "hippocampus CA1": "http://purl.obolibrary.org/obo/UBERON_0003881",
         "hippocampus CA3": "http://uri.interlex.org/ilx_0101534",
         "hippocampal formation": "http://uri.interlex.org/ilx_0105009",
-        "lobule 5 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112399",
-        "lobule 6 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112400",
-        "lobule 7 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112401",
-        "lobule 8 of the cerebellar vermis": "http://uri.interlex.org/ilx_0112404",
+        "lobule 5 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004079",
+        "lobule 6 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004080",
+        "lobule 7 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004081",
+        "lobule 8 of the cerebellar vermis": "http://purl.obolibrary.org/obo/UBERON_0004082",
         "motor cortex": "http://uri.interlex.org/ilx_0107119",
         "parietal association area": "http://uri.interlex.org/ilx_0103503",
         "perirhinal cortex": "http://uri.interlex.org/ilx_0108747",
@@ -290,10 +292,10 @@ class BrainRegion(OntologyTerm):
         "ventral hippocampus": "http://uri.interlex.org/ilx_0105021",   # how to distinguish this? Question for Tier 2 folks?
         "visual cortex": "http://uri.interlex.org/ilx_0112513",
         "whole brain": "http://uri.interlex.org/ilx_0101431",
-        "5th cerebellar lobule": "http://uri.interlex.org/ilx_0112399",
-        "6th cerebellar lobule": "http://uri.interlex.org/ilx_0112400",
-        "7th cerebellar lobule": "http://uri.interlex.org/ilx_0112401",
-        "8th cerebellar lobule": "http://uri.interlex.org/ilx_0112404"
+        "5th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004079",
+        "6th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004080",
+        "7th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004081",
+        "8th cerebellar lobule": "http://purl.obolibrary.org/obo/UBERON_0004082"
     }
 
 
@@ -309,9 +311,9 @@ class CellType(OntologyTerm):
         "hippocampus CA1 bistratified cell": "unknown",
         "hippocampus CA1 ivy neuron": "http://uri.neuinfo.org/nif/nifstd/nlx_35220",
         "hippocampus CA1 lacunosum moleculare neuron": "http://uri.interlex.org/ilx_0105027",
-        "hippocampus CA1 pyramidal cell": "http://uri.interlex.org/ilx_0105031",
+        "hippocampus CA1 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
         "hippocampus CA3 pyramidal cell": "http://uri.interlex.org/ilx_0105046",
-        "interneuron": "http://uhttp://uri.interlex.org/ilx_0107385ri.interlex.org/ilx_0105593",
+        "interneuron": "http://uri.interlex.org/ilx_0105593",
         "medium spiny neuron": "http://purl.obolibrary.org/obo/CL_1001474",
         "medium spiny neuron (D1 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345672",
         "medium spiny neuron (D2 type)": "http://www.hbp.FIXME.org/hbp_celltype_ontology/12345671",
@@ -323,10 +325,10 @@ class CellType(OntologyTerm):
         "L1 neurogliaform cell": "http://uri.interlex.org/base/ilx_0383196",
         "L2 inverted pyramidal cell": "http://uri.interlex.org/ilx_0102369",
         "L2/3 chandelier cell": "http://uri.interlex.org/ilx_0107356",
-        "L2/3 pyramidal cell": "http://uri.interlex.org/ilx_0107385",
+        "L2/3 pyramidal cell": "http://uri.neuinfo.org/nif/nifstd/nifext_49",
         "L4 Martinotti cell": "http://uri.interlex.org/ilx_0107375",
         "L5 pyramidal cell": "http://uri.interlex.org/ilx_0107385",
-        "L5 tufted pyramidal cell": "http://uri.interlex.org/ilx_0107385",
+        "L5 tufted pyramidal cell": "http://uri.interlex.org/ilx_0107376",
         "L6 inverted pyramidal cell": "http://uri.interlex.org/ilx_0102369"
     }
 
@@ -465,6 +467,7 @@ unit_codes = {
         "ms": "http://purl.obolibrary.org/obo/UO_0000028",
         "s": "http://purl.obolibrary.org/obo/UO_0000010",
         "c": "https://en.wiktionary.org/wiki/megaohm",
+        "MΩ": "https://en.wiktionary.org/wiki/megaohm",
         "Mohm": "https://en.wiktionary.org/wiki/megaohm",
         "GΩ": "https://en.wiktionary.org/wiki/gigaohm",
         "Gohm": "https://en.wiktionary.org/wiki/gigaohm",
@@ -477,6 +480,7 @@ unit_codes = {
 
 class QuantitativeValue(StructuredMetadata):
     """docstring"""
+    type = "nsg:QuantitativeValue"
     unit_codes = unit_codes
 
     def __init__(self, value, unit_text, unit_code=None):
@@ -499,7 +503,7 @@ class QuantitativeValue(StructuredMetadata):
 
     def to_jsonld(self, client=None):
         return {
-            "@type": "nsg:QuantitativeValue",  # needs 'nsg:' prefix, no?
+            "@type": "nsg:QuantitativeValue",
             "value": self.value,
             "label": self.unit_text,
             "unitCode": {"@id": self.unit_code}
@@ -537,6 +541,7 @@ class QuantitativeValue(StructuredMetadata):
 
 class QuantitativeValueRange(StructuredMetadata):
     """docstring"""
+    type = "nsg:QuantitativeValueRange"
     unit_codes = unit_codes
 
     def __init__(self, min, max, unit_text, unit_code=None):

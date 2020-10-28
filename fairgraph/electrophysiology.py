@@ -230,7 +230,7 @@ class PatchedCell(KGObject):
               reverse="cells"),
         #Field("putative_cell_type", CellType, "eType", required=False),  # interferes with cell_type, need a different identifier
         Field("cell_type", CellType, "eType", required=False),
-        Field("morphology_type", MorphologyType, "morphologyType"),
+        #Field("morphology_type", MorphologyType, "morphologyType"),
         Field("experiments", "electrophysiology.PatchClampExperiment",
               "^prov:used", reverse="recorded_cell", multiple=True),
         Field("pipette_id", (basestring, int), "pipetteNumber"),
@@ -660,6 +660,12 @@ class PatchClampExperiment(KGObject):
                     data_item = D["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"]
                 else:
                     data_item = None
+            elif field.name == "recorded_cell":  # hack, to be fixed properly by resolving contexts
+                if field.path in D:
+                    assert field.path == "used"
+                    data_item = D.get(field.path)
+                else:
+                    data_item = D.get("prov:used")
             elif field.intrinsic:
                 data_item = D.get(field.path)
             else:
@@ -1130,9 +1136,9 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
     fields = (
         Field("name", basestring, "name", required=True),
-        Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "prov:used",
+        Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "used",
               required=True),
-        Field("stimulus", StimulusType, "nsg:stimulusType", required=True),
+        Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 

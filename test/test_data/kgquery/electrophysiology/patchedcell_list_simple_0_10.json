@@ -20,19 +20,19 @@
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
             "brainRegion": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
                     "label": "5th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
                     "label": "6th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
                     "label": "7th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
                     "label": "8th cerebellar lobule"
                 }
             ],
@@ -58,19 +58,19 @@
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
             "brainRegion": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
                     "label": "5th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
                     "label": "6th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
                     "label": "7th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
                     "label": "8th cerebellar lobule"
                 }
             ],
@@ -96,19 +96,19 @@
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
             "brainRegion": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
                     "label": "5th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
                     "label": "6th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
                     "label": "7th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
                     "label": "8th cerebellar lobule"
                 }
             ],
@@ -134,19 +134,19 @@
             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/labelingCompound": null,
             "brainRegion": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004079",
                     "label": "5th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004080",
                     "label": "6th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004081",
                     "label": "7th cerebellar lobule"
                 },
                 {
-                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004004",
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0004082",
                     "label": "8th cerebellar lobule"
                 }
             ],

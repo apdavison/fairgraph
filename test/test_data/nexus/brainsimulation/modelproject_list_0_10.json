@@ -195,7 +195,7 @@
                     "label": "hippocampus"
                 },
                 "celltype": {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000099",
+                    "@id": "http://uri.interlex.org/ilx_0105593",
                     "label": "interneuron"
                 },
                 "collabID": "9821",
@@ -420,7 +420,7 @@
                     "label": "hippocampus"
                 },
                 "celltype": {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000099",
+                    "@id": "http://uri.interlex.org/ilx_0105593",
                     "label": "interneuron"
                 },
                 "collabID": "9821",
@@ -537,7 +537,7 @@
                     "label": "hippocampus"
                 },
                 "celltype": {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000099",
+                    "@id": "http://uri.interlex.org/ilx_0105593",
                     "label": "interneuron"
                 },
                 "collabID": "9821",
@@ -654,7 +654,7 @@
                     "label": "hippocampus"
                 },
                 "celltype": {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "@id": "http://uri.interlex.org/ilx_0107385",
                     "label": "pyramidal cell"
                 },
                 "collabID": "2270",

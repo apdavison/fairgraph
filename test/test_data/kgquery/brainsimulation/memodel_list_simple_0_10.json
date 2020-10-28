@@ -1,0 +1,618 @@
+{
+    "databaseScope": "INFERRED",
+    "results": [
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/975faa79-8b4a-41ec-a41c-5a1d391ade8f"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": "self.soma.gnabar_hh = 0.06  #uS/cm2\nself.soma.gkbar_hh = 0.036  #uS/cm2",
+            "oldUUID": "68179991-5c74-4dc9-95c2-90d2c494f50d",
+            "isPartOf": [],
+            "version": "activeCell_gnabar_0.06",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/6ea8e263-54cf-4b5e-8845-9adc37368f34"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                }
+            ],
+            "name": "MEModel for Active Model @ activeCell_gnabar_0.06",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/86c1acea-3cd8-4195-8029-8654f03fb2c1",
+            "generatedAtTime": "2019-10-29T09:27:59.452205+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/7fa30aa9-1ad9-4540-9cce-9d5c2fa21e1d"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.neuinfo.org/nif/nifstd/sao830368389",
+                    "label": "hippocampus CA1 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/897a97e0-8f31-4c62-bb08-f7fa11f2115a"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": "self.soma.gnabar_hh = 0.12  #uS/cm2\nself.soma.gkbar_hh = 0.036  #uS/cm2",
+            "oldUUID": "712faf69-a304-4f0f-9d72-3d9a9987d17b",
+            "isPartOf": [],
+            "version": "activeCell_gnabar_0.12",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/f2cb2dcd-e24d-4ec9-b571-711bb03a9026"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10090",
+                    "label": "Mus musculus"
+                }
+            ],
+            "name": "MEModel for Active Model @ activeCell_gnabar_0.12",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/f7a4117a-a7a0-4d05-8774-98c3ee847c37",
+            "generatedAtTime": "2019-10-29T09:27:52.487814+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/190bf0b1-4b9f-44c5-aff2-c99ae8f8869f"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/39d0956c-8fda-416f-bf86-4140845febc7"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "b161481b-44c4-4542-b289-09a40df8aa0b",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/7399e833-bfc6-4a46-89a3-856a48ef33bb"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 0603Cell03 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/283a1b0d-4769-4e27-a6e0-b8a44715492e",
+            "generatedAtTime": "2019-02-18T09:07:51.795524+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/57faf7ee-d44d-46b4-b6d4-1ad45732de41"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/babaae73-1cd7-4288-bbe9-98fe13df0630"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "8834bf84-b819-4ab0-9ca0-bc5a556887e3",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/f2959e37-95ff-490b-a673-8a6a2823fc03"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 0603Cell08 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/5a730c73-d07a-4a31-8490-955142360bf3",
+            "generatedAtTime": "2019-02-18T09:22:45.099317+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/7d7b4a21-ab72-4ea9-ba2c-020b9a2bfec0"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/9bb7a0aa-c6bc-4765-be7b-3b3d04db1348"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "f42ce1b9-611b-4862-a495-b7ebf99c5daa",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/2cce419e-b668-43c9-a900-0a27a9ccbcd6"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 0603Cell11 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/334f812f-8bb9-488c-b40a-3e280d251f2b",
+            "generatedAtTime": "2019-02-18T09:28:22.665896+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/743d918f-3f56-4d4e-a9b5-36db272f4bc2"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/1c4ac6a0-1792-49eb-801f-dd00fc5d0ce8"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "505b0cbd-a4a5-47da-b6ae-b23bead3408b",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/911e14ba-448e-4646-95a5-244a325ca59d"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 1303Cell03 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/91b97cdf-2273-40de-9c22-4586a36b5455",
+            "generatedAtTime": "2019-02-18T09:31:20.872748+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/6147ae7e-c9aa-4e9f-8931-c516b0406b8e"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/bf859589-c53f-4b45-b0dd-37e6f20aa063"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "4a100a55-ed0d-4f1b-82a2-44e56f5f5362",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/2454d400-9af0-47cb-b9c4-a9dea1532cde"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 1303Cell06 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/aa464676-0236-4b53-9481-7e485beb877d",
+            "generatedAtTime": "2019-02-18T09:41:05.825134+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/2d4bc355-b461-48a0-8a49-2b42b19463b1"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "L2/3 pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/e88e1c87-2a0d-4cbe-b5ad-8e26f8ddcd9a"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "7f4a24c7-bf2d-4118-a321-62166a3dcd3f",
+            "isPartOf": [],
+            "version": "1.3",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/ec795e1c-5e30-4ed6-83a3-376ae9bd1e6c"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "label": "Homo sapiens"
+                }
+            ],
+            "name": "MEModel for Active model HL2/3 1503Cell05 @ 1.3",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/407aeee9-16f4-4bf4-b684-589143022418",
+            "generatedAtTime": "2019-02-18T09:35:53.187609+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/eda38202-3ac6-4aa7-9c53-a55aefd4b30e"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/f7d286b3-4ce8-457c-b368-5a44d840c888"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "fd139a8c-107d-47da-bcfc-781c62f35610",
+            "isPartOf": [],
+            "version": "1.0",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0016529",
+                    "label": "cerebral cortex"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/ef7b1118-edf7-4970-869f-1292bafc50cc"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                }
+            ],
+            "name": "MEModel for AdEx Neuron Models with PyNN @ 1.0",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/3e9b0bb4-58c9-44ba-b653-0d398e78cd68",
+            "generatedAtTime": "2017-09-26T11:24:56.749221+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/72c770f1-f7d2-4b07-b9f1-34c45a792ae0"
+                }
+            ],
+            "parameters": null
+        },
+        {
+            "modelOf": [
+                {
+                    "@id": "http://uri.interlex.org/ilx_0107385",
+                    "label": "pyramidal cell"
+                }
+            ],
+            "morphology": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Morphology"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/morphology/v0.1.1/0d8995fe-451b-4794-b0f3-369dd32d6672"
+                }
+            ],
+            "@type": [
+                "http://www.w3.org/ns/prov#Entity",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/MEModel",
+                "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/ModelInstance"
+            ],
+            "release": null,
+            "description": null,
+            "oldUUID": "af5ae60a-eff3-4c09-bed7-f6f004a051b0",
+            "isPartOf": [],
+            "version": "a583351ea1ddc95506f5e04bcb93f0ffb69c972c",
+            "brainRegion": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/UBERON_0001954",
+                    "label": "hippocampus"
+                }
+            ],
+            "eModel": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModel"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodel/v0.1.1/1cd91a1e-94c5-4656-88ec-b2357a1c866c"
+                }
+            ],
+            "species": [
+                {
+                    "@id": "http://purl.obolibrary.org/obo/NCBITaxon_10116",
+                    "label": "Rattus norvegicus"
+                }
+            ],
+            "name": "MEModel for CA1_Bianchi @ a583351ea1ddc95506f5e04bcb93f0ffb69c972c",
+            "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/849513d4-8ee9-4c2a-9ecb-83b1ac2d1c19",
+            "generatedAtTime": "2017-09-24T20:59:48.109021+00:00",
+            "mainModelScript": [
+                {
+                    "@type": [
+                        "http://www.w3.org/ns/prov#Entity",
+                        "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/EModelScript"
+                    ],
+                    "@id": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/emodelscript/v0.1.0/9cc7780f-dd30-45db-947a-618f2efe66ec"
+                }
+            ],
+            "parameters": "{}"
+        }
+    ],
+    "total": 635,
+    "size": 10,
+    "start": 0
+}

@@ -149,7 +149,10 @@ def expand_uri(uri_list, context, client=None):
 
 
 def compact_uri(uri_list, context):
-    return tuple(as_list(jsonld.compact({"@type": uri_list}, context)["@type"]))
+    if isinstance(uri_list, str):
+        return jsonld.compact({"@type": uri_list}, context)["@type"]
+    else:
+        return tuple(as_list(jsonld.compact({"@type": uri_list}, context)["@type"]))
 
 
 def namespace_from_id(id):

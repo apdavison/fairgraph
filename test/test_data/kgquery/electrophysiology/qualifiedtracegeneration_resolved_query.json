@@ -5,31 +5,28 @@
     "http://schema.org/identifier": "neuralactivity/electrophysiology/tracegeneration/v0.1.0/fgResolved",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            },
-            "sort": true,
-            "relative_path": "http://schema.org/name",
-            "required": true
+            }
         },
         {
             "fieldname": "activity",
-            "filter": {
-                "op": "contains",
-                "parameter": "stimulus_experiment"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#activity",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -42,7 +39,8 @@
                     "relative_path": "http://schema.org/name"
                 },
                 {
-                    "fieldname": "PatchClampExperiment__prov:used",
+                    "fieldname": "PatchClampExperiment__used",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -56,6 +54,7 @@
                         },
                         {
                             "fieldname": "PatchedCell__brainRegion",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -64,11 +63,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                            ]
                         },
                         {
                             "fieldname": "PatchedCell__eType",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -77,21 +76,7 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
-                        },
-                        {
-                            "fieldname": "PatchedCell__morphologyType",
-                            "fields": [
-                                {
-                                    "relative_path": "@id"
-                                },
-                                {
-                                    "fieldname": "label",
-                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                                }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/morphologyType"
+                            ]
                         },
                         {
                             "fieldname": "pipetteNumber",
@@ -133,21 +118,1158 @@
                             "fieldname": "description",
                             "relative_path": "http://schema.org/description"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#used"
+                    ]
                 },
                 {
-                    "fieldname": "PatchClampExperiment__nsg:stimulusType",
+                    "fieldname": "PatchClampExperiment__device",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/device",
                     "fields": [
                         {
                             "relative_path": "@id"
                         },
                         {
-                            "fieldname": "label",
-                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "manufacturer",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/manufacturer"
+                        },
+                        {
+                            "fieldname": "modelName",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/modelName"
+                        },
+                        {
+                            "fieldname": "softwareVersion",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/softwareVersion"
+                        },
+                        {
+                            "fieldname": "serialNumber",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/serialNumber"
+                        },
+                        {
+                            "fieldname": "distribution",
+                            "relative_path": "http://schema.org/distribution"
+                        },
+                        {
+                            "fieldname": "description",
+                            "relative_path": "http://schema.org/description"
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"
+                    ]
+                },
+                {
+                    "fieldname": "PatchClampExperiment__wasInformedBy",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/wasInformedBy",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "interstimulusInterval",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/interstimulusInterval"
+                        },
+                        {
+                            "fieldname": "refreshRate",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/refreshRate"
+                        },
+                        {
+                            "fieldname": "backgroundLuminance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/backgroundLuminance"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "citation",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/citation"
+                        },
+                        {
+                            "fieldname": "code",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/code"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "fieldname": "startedAtTime",
@@ -159,6 +1281,7 @@
                 },
                 {
                     "fieldname": "PatchClampExperiment__wasAssociatedWith",
+                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
                     "ensure_order": true,
                     "fields": [
                         {
@@ -181,6 +1304,7 @@
                         },
                         {
                             "fieldname": "Person__affiliation",
+                            "relative_path": "http://schema.org/affiliation",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -198,6 +1322,7 @@
                                 },
                                 {
                                     "fieldname": "Organization__parentOrganization",
+                                    "relative_path": "http://schema.org/parentOrganization",
                                     "fields": [
                                         {
                                             "relative_path": "@id"
@@ -205,29 +1330,336 @@
                                         {
                                             "relative_path": "@type"
                                         }
-                                    ],
-                                    "relative_path": "http://schema.org/parentOrganization"
+                                    ]
                                 }
-                            ],
-                            "relative_path": "http://schema.org/affiliation"
+                            ]
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+                    ]
                 },
                 {
                     "fieldname": "PatchClampExperiment__hadProtocol",
+                    "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
                     "fields": [
                         {
                             "relative_path": "@id"
                         },
                         {
                             "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "version",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                        },
+                        {
+                            "fieldname": "identifier",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                        },
+                        {
+                            "fieldname": "distribution",
+                            "relative_path": "http://schema.org/distribution"
+                        },
+                        {
+                            "fieldname": "numberOfSteps",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                        },
+                        {
+                            "fieldname": "Protocol__hasPart",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                            "ensure_order": true,
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "previousStepName",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                },
+                                {
+                                    "fieldname": "sequenceNumber",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "http://schema.org/identifier"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "Step__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Step__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "Protocol__material",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                            "ensure_order": true,
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/ name"
+                                },
+                                {
+                                    "fieldname": "reagentMolarWeight",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                },
+                                {
+                                    "fieldname": "reagentLinearFormula",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                },
+                                {
+                                    "fieldname": "reagentSKU",
+                                    "relative_path": "http://schema.org/sku"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "Material__vendor",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "address",
+                                            "relative_path": "http://schema.org/address"
+                                        },
+                                        {
+                                            "fieldname": "Organization__parentOrganization",
+                                            "relative_path": "http://schema.org/parentOrganization",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "Protocol__wasAssociatedWith",
+                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                            "ensure_order": true,
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "familyName",
+                                    "relative_path": "http://schema.org/familyName"
+                                },
+                                {
+                                    "fieldname": "givenName",
+                                    "relative_path": "http://schema.org/givenName"
+                                },
+                                {
+                                    "fieldname": "email",
+                                    "relative_path": "http://schema.org/email"
+                                },
+                                {
+                                    "fieldname": "Person__affiliation",
+                                    "relative_path": "http://schema.org/affiliation",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "address",
+                                            "relative_path": "http://schema.org/address"
+                                        },
+                                        {
+                                            "fieldname": "Organization__parentOrganization",
+                                            "relative_path": "http://schema.org/parentOrganization",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "datePublished",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#hadProtocol"
+                    ]
                 },
                 {
-                    "fieldname": "IntraCellularSharpElectrodeExperiment__prov:used",
+                    "fieldname": "IntraCellularSharpElectrodeExperiment__used",
+                    "relative_path": "http://www.w3.org/ns/prov#used",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -241,6 +1673,7 @@
                         },
                         {
                             "fieldname": "IntraCellularSharpElectrodeRecordedCell__brainRegion",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -249,11 +1682,11 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                            ]
                         },
                         {
                             "fieldname": "IntraCellularSharpElectrodeRecordedCell__eType",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                             "fields": [
                                 {
                                     "relative_path": "@id"
@@ -262,8 +1695,7 @@
                                     "fieldname": "label",
                                     "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                                 }
-                            ],
-                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
+                            ]
                         },
                         {
                             "fieldname": "nsg:pipetteNumber",
@@ -289,104 +1721,1204 @@
                             "fieldname": "nsg:chlorideReversalPotential",
                             "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential"
                         }
-                    ],
-                    "relative_path": "http://www.w3.org/ns/prov#used"
+                    ]
                 },
                 {
-                    "fieldname": "IntraCellularSharpElectrodeExperiment__nsg:stimulusType",
+                    "fieldname": "IntraCellularSharpElectrodeExperiment__wasInformedBy",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/wasInformedBy",
+                    "ensure_order": true,
                     "fields": [
                         {
                             "relative_path": "@id"
                         },
                         {
-                            "fieldname": "label",
-                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "name",
+                            "relative_path": "http://schema.org/name"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "interstimulusInterval",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/interstimulusInterval"
+                        },
+                        {
+                            "fieldname": "refreshRate",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/refreshRate"
+                        },
+                        {
+                            "fieldname": "backgroundLuminance",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/backgroundLuminance"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "citation",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/citation"
+                        },
+                        {
+                            "fieldname": "code",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/code"
+                        },
+                        {
+                            "fieldname": "VisualStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "BehavioralStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__used",
+                            "relative_path": "http://www.w3.org/ns/prov#used",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "description",
+                                    "relative_path": "http://schema.org/description"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__hadProtocol",
+                            "relative_path": "http://www.w3.org/ns/prov#hadProtocol",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "version",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                },
+                                {
+                                    "fieldname": "identifier",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/identifier"
+                                },
+                                {
+                                    "fieldname": "distribution",
+                                    "relative_path": "http://schema.org/distribution"
+                                },
+                                {
+                                    "fieldname": "numberOfSteps",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/numberOfSteps"
+                                },
+                                {
+                                    "fieldname": "Protocol__hasPart",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/hasPart",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/name"
+                                        },
+                                        {
+                                            "fieldname": "previousStepName",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/previousStepName"
+                                        },
+                                        {
+                                            "fieldname": "sequenceNumber",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sequenceNumber"
+                                        },
+                                        {
+                                            "fieldname": "identifier",
+                                            "relative_path": "http://schema.org/identifier"
+                                        },
+                                        {
+                                            "fieldname": "version",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/version"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "description",
+                                            "relative_path": "http://schema.org/description"
+                                        },
+                                        {
+                                            "fieldname": "Step__material",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/ name"
+                                                },
+                                                {
+                                                    "fieldname": "reagentMolarWeight",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                                },
+                                                {
+                                                    "fieldname": "reagentLinearFormula",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                                },
+                                                {
+                                                    "fieldname": "reagentSKU",
+                                                    "relative_path": "http://schema.org/sku"
+                                                },
+                                                {
+                                                    "fieldname": "distribution",
+                                                    "relative_path": "http://schema.org/distribution"
+                                                },
+                                                {
+                                                    "fieldname": "Material__vendor",
+                                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fieldname": "Step__wasAssociatedWith",
+                                            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                            "ensure_order": true,
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "familyName",
+                                                    "relative_path": "http://schema.org/familyName"
+                                                },
+                                                {
+                                                    "fieldname": "givenName",
+                                                    "relative_path": "http://schema.org/givenName"
+                                                },
+                                                {
+                                                    "fieldname": "email",
+                                                    "relative_path": "http://schema.org/email"
+                                                },
+                                                {
+                                                    "fieldname": "Person__affiliation",
+                                                    "relative_path": "http://schema.org/affiliation",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        },
+                                                        {
+                                                            "fieldname": "name",
+                                                            "relative_path": "http://schema.org/name"
+                                                        },
+                                                        {
+                                                            "fieldname": "address",
+                                                            "relative_path": "http://schema.org/address"
+                                                        },
+                                                        {
+                                                            "fieldname": "Organization__parentOrganization",
+                                                            "relative_path": "http://schema.org/parentOrganization",
+                                                            "fields": [
+                                                                {
+                                                                    "relative_path": "@id"
+                                                                },
+                                                                {
+                                                                    "relative_path": "@type"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__material",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/material",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "name",
+                                            "relative_path": "http://schema.org/ name"
+                                        },
+                                        {
+                                            "fieldname": "reagentMolarWeight",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentMolarWeight"
+                                        },
+                                        {
+                                            "fieldname": "reagentLinearFormula",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentLinearFormula"
+                                        },
+                                        {
+                                            "fieldname": "reagentSKU",
+                                            "relative_path": "http://schema.org/sku"
+                                        },
+                                        {
+                                            "fieldname": "distribution",
+                                            "relative_path": "http://schema.org/distribution"
+                                        },
+                                        {
+                                            "fieldname": "Material__vendor",
+                                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/reagentVendor",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "Protocol__wasAssociatedWith",
+                                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                                    "ensure_order": true,
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        },
+                                        {
+                                            "fieldname": "familyName",
+                                            "relative_path": "http://schema.org/familyName"
+                                        },
+                                        {
+                                            "fieldname": "givenName",
+                                            "relative_path": "http://schema.org/givenName"
+                                        },
+                                        {
+                                            "fieldname": "email",
+                                            "relative_path": "http://schema.org/email"
+                                        },
+                                        {
+                                            "fieldname": "Person__affiliation",
+                                            "relative_path": "http://schema.org/affiliation",
+                                            "fields": [
+                                                {
+                                                    "relative_path": "@id"
+                                                },
+                                                {
+                                                    "relative_path": "@type"
+                                                },
+                                                {
+                                                    "fieldname": "name",
+                                                    "relative_path": "http://schema.org/name"
+                                                },
+                                                {
+                                                    "fieldname": "address",
+                                                    "relative_path": "http://schema.org/address"
+                                                },
+                                                {
+                                                    "fieldname": "Organization__parentOrganization",
+                                                    "relative_path": "http://schema.org/parentOrganization",
+                                                    "fields": [
+                                                        {
+                                                            "relative_path": "@id"
+                                                        },
+                                                        {
+                                                            "relative_path": "@type"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldname": "datePublished",
+                                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/datePublished"
+                                }
+                            ]
+                        },
+                        {
+                            "fieldname": "ElectrophysiologicalStimulation__license",
+                            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/license",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "fieldname": "label",
+                                    "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
+                                }
+                            ]
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/stimulusType"
+                    ]
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#activity"
+            "filter": {
+                "op": "contains",
+                "parameter": "stimulus_experiment"
+            }
         },
         {
             "fieldname": "sweep",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep",
             "filter": {
                 "op": "equals",
                 "parameter": "sweep"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/sweep"
+            }
         },
         {
             "fieldname": "repetition",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/repetition",
             "filter": {
                 "op": "equals",
                 "parameter": "repetition"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/repetition"
+            }
         },
         {
             "fieldname": "atTime",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/atTime",
             "filter": {
                 "op": "equals",
                 "parameter": "at_time"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/atTime"
+            }
         },
         {
             "fieldname": "providerExperimentId",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentId",
             "filter": {
                 "op": "contains",
                 "parameter": "provider_experiment_id"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentId"
+            }
         },
         {
             "fieldname": "providerExperimentName",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentName",
             "filter": {
                 "op": "contains",
                 "parameter": "provider_experiment_name"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerExperimentName"
+            }
         },
         {
             "fieldname": "targetHoldingPotential",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "holding_potential"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/targetHoldingPotential"
+            }
         },
         {
             "fieldname": "measuredHoldingPotential",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/measuredHoldingPotential",
             "filter": {
                 "op": "contains",
                 "parameter": "measured_holding_potential"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/measuredHoldingPotential"
+            }
         },
         {
             "fieldname": "inputResistance",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/inputResistance",
             "filter": {
                 "op": "contains",
                 "parameter": "input_resistance"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/inputResistance"
+            }
         },
         {
             "fieldname": "seriesResistance",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/seriesResistance",
             "filter": {
                 "op": "contains",
                 "parameter": "series_resistance"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/seriesResistance"
+            }
         },
         {
             "fieldname": "compensationCurrent",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/compensationCurrent",
             "filter": {
                 "op": "contains",
                 "parameter": "compensation_current"
-            },
-            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/compensationCurrent"
+            }
         }
     ],
     "@context": {

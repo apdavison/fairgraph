@@ -1348,7 +1348,7 @@
             ],
             "celltype": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "@id": "http://uri.interlex.org/ilx_0107385",
                     "label": "pyramidal cell"
                 }
             ],
@@ -1407,7 +1407,7 @@
                             ],
                             "Morphology__modelOf": [
                                 {
-                                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                                    "@id": "http://uri.interlex.org/ilx_0107385",
                                     "label": "pyramidal cell"
                                 }
                             ],
@@ -1426,14 +1426,14 @@
                     "version": "1.0",
                     "ModelInstance__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
                     "MEModel__isPartOf": [],
                     "MEModel__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
@@ -1903,7 +1903,7 @@
             ],
             "celltype": [
                 {
-                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                    "@id": "http://uri.interlex.org/ilx_0107385",
                     "label": "pyramidal cell"
                 }
             ],
@@ -1962,7 +1962,7 @@
                             ],
                             "Morphology__modelOf": [
                                 {
-                                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                                    "@id": "http://uri.interlex.org/ilx_0107385",
                                     "label": "pyramidal cell"
                                 }
                             ],
@@ -1981,14 +1981,14 @@
                     "version": "ef803269550cb350dd457191156c00e28d67b529",
                     "ModelInstance__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
                     "MEModel__isPartOf": [],
                     "MEModel__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
@@ -2097,7 +2097,7 @@
                             ],
                             "Morphology__modelOf": [
                                 {
-                                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                                    "@id": "http://uri.interlex.org/ilx_0107385",
                                     "label": "pyramidal cell"
                                 }
                             ],
@@ -2116,14 +2116,14 @@
                     "version": "ef803269550cb350dd457191156c00e28d67b529*",
                     "ModelInstance__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
                     "MEModel__isPartOf": [],
                     "MEModel__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
@@ -2232,7 +2232,7 @@
                             ],
                             "Morphology__modelOf": [
                                 {
-                                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                                    "@id": "http://uri.interlex.org/ilx_0107385",
                                     "label": "pyramidal cell"
                                 }
                             ],
@@ -2251,14 +2251,14 @@
                     "version": "a583351ea1ddc95506f5e04bcb93f0ffb69c972c",
                     "ModelInstance__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
                     "MEModel__isPartOf": [],
                     "MEModel__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
@@ -2367,7 +2367,7 @@
                             ],
                             "Morphology__modelOf": [
                                 {
-                                    "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                                    "@id": "http://uri.interlex.org/ilx_0107385",
                                     "label": "pyramidal cell"
                                 }
                             ],
@@ -2386,14 +2386,14 @@
                     "version": "a583351ea1ddc95506f5e04bcb93f0ffb69c972c*",
                     "ModelInstance__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],
                     "MEModel__isPartOf": [],
                     "MEModel__modelOf": [
                         {
-                            "@id": "http://purl.obolibrary.org/obo/CL_0000598",
+                            "@id": "http://uri.interlex.org/ilx_0107385",
                             "label": "pyramidal cell"
                         }
                     ],

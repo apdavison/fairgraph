@@ -5,31 +5,28 @@
     "http://schema.org/identifier": "neuralactivity/experiment/patchedcellcollection/v0.1.0/fgResolved",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
+            "required": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            },
-            "sort": true,
-            "relative_path": "http://schema.org/name",
-            "required": true
+            }
         },
         {
             "fieldname": "hadMember",
-            "filter": {
-                "op": "contains",
-                "parameter": "cells"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#hadMember",
             "ensure_order": true,
             "fields": [
                 {
@@ -44,6 +41,7 @@
                 },
                 {
                     "fieldname": "PatchedCell__brainRegion",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -52,11 +50,11 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/brainRegion"
+                    ]
                 },
                 {
                     "fieldname": "PatchedCell__eType",
+                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType",
                     "fields": [
                         {
                             "relative_path": "@id"
@@ -65,21 +63,7 @@
                             "fieldname": "label",
                             "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
                         }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/eType"
-                },
-                {
-                    "fieldname": "PatchedCell__morphologyType",
-                    "fields": [
-                        {
-                            "relative_path": "@id"
-                        },
-                        {
-                            "fieldname": "label",
-                            "relative_path": "http://www.w3.org/2000/01/rdf-schema#label"
-                        }
-                    ],
-                    "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/morphologyType"
+                    ]
                 },
                 {
                     "fieldname": "pipetteNumber",
@@ -122,7 +106,10 @@
                     "relative_path": "http://schema.org/description"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#hadMember"
+            "filter": {
+                "op": "contains",
+                "parameter": "cells"
+            }
         }
     ],
     "@context": {
