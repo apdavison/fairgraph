@@ -1,91 +1,88 @@
 {
     "https://schema.hbp.eu/graphQuery/root_schema": {
-        "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationactivity/v0.1.0"
+        "@id": "https://nexus.humanbrainproject.org/v0/schemas/modelvalidation/simulation/simulationactivity/v0.3.0"
     },
-    "http://schema.org/identifier": "modelvalidation/simulation/simulationactivity/v0.1.0/fgSimple",
+    "http://schema.org/identifier": "modelvalidation/simulation/simulationactivity/v0.3.0/fgSimple",
     "fields": [
         {
+            "relative_path": "@id",
             "filter": {
                 "op": "equals",
                 "parameter": "id"
-            },
-            "relative_path": "@id"
+            }
         },
         {
             "relative_path": "@type"
         },
         {
             "fieldname": "name",
+            "relative_path": "http://schema.org/name",
+            "sort": true,
             "filter": {
                 "op": "contains",
                 "parameter": "name"
-            },
-            "sort": true,
-            "relative_path": "http://schema.org/name"
+            }
         },
         {
             "fieldname": "description",
+            "relative_path": "http://schema.org/description",
             "filter": {
                 "op": "contains",
                 "parameter": "description"
-            },
-            "relative_path": "http://schema.org/description"
+            }
         },
         {
             "fieldname": "identifier",
+            "relative_path": "http://schema.org/identifier",
             "filter": {
                 "op": "contains",
                 "parameter": "identifier"
-            },
-            "relative_path": "http://schema.org/identifier"
+            }
         },
         {
             "fieldname": "modelUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "model_instance"
-            },
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            }
         },
         {
             "fieldname": "configUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
             "filter": {
                 "op": "contains",
                 "parameter": "config"
-            },
-            "ensure_order": true,
-            "fields": [
-                {
-                    "relative_path": "@id"
-                },
-                {
-                    "relative_path": "@type"
-                }
-            ],
-            "relative_path": "http://www.w3.org/ns/prov#used"
+            }
         },
         {
             "fieldname": "startedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#startedAtTime",
             "filter": {
                 "op": "equals",
                 "parameter": "timestamp"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#startedAtTime"
+            }
         },
         {
             "fieldname": "generated",
-            "filter": {
-                "op": "contains",
-                "parameter": "result"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#generated",
             "ensure_order": true,
             "fields": [
                 {
@@ -95,14 +92,14 @@
                     "relative_path": "@type"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#generated"
+            "filter": {
+                "op": "contains",
+                "parameter": "result"
+            }
         },
         {
             "fieldname": "wasAssociatedWith",
-            "filter": {
-                "op": "contains",
-                "parameter": "started_by"
-            },
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
             "fields": [
                 {
                     "relative_path": "@id"
@@ -111,15 +108,66 @@
                     "relative_path": "@type"
                 }
             ],
-            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith"
+            "filter": {
+                "op": "contains",
+                "parameter": "started_by"
+            }
         },
         {
             "fieldname": "endedAtTime",
+            "relative_path": "http://www.w3.org/ns/prov#endedAtTime",
             "filter": {
                 "op": "equals",
                 "parameter": "end_timestamp"
-            },
-            "relative_path": "http://www.w3.org/ns/prov#endedAtTime"
+            }
+        },
+        {
+            "fieldname": "envUsed",
+            "relative_path": "http://www.w3.org/ns/prov#used",
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "computing_environment"
+            }
+        },
+        {
+            "fieldname": "status",
+            "relative_path": "http://schema.org/actionStatus",
+            "filter": {
+                "op": "contains",
+                "parameter": "status"
+            }
+        },
+        {
+            "fieldname": "resourceUsage",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/resourceUsage",
+            "filter": {
+                "op": "equals",
+                "parameter": "resource_usage"
+            }
+        },
+        {
+            "fieldname": "tags",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/tags",
+            "filter": {
+                "op": "contains",
+                "parameter": "tags"
+            }
+        },
+        {
+            "fieldname": "providerId",
+            "relative_path": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/providerId",
+            "filter": {
+                "op": "contains",
+                "parameter": "job_id"
+            }
         }
     ],
     "@context": {

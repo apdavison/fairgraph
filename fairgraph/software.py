@@ -3,7 +3,7 @@
 Metadata about, or related to, software
 """
 
-# Copyright 2018-2019 CNRS and Universität Trier
+# Copyright 2018-2020 CNRS and Universität Trier
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@ Metadata about, or related to, software
 # limitations under the License.
 
 
+import sys
 import logging
-import datetime
+from datetime import date
+import inspect
 from dateutil import parser as date_parser
-from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, OntologyTerm
+from .base import KGObject, Field, IRI, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, OntologyTerm
 from .core import Organization, Person
 from .commons import License
 
@@ -60,190 +62,137 @@ class ProgrammingLanguage(OntologyTerm):
     }
 
 
+class SoftwareFeatureCategory(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/software/softwarefeaturecategory/v1.0.0"
+    type = ["hbpsc:Softwarefeaturecategory"]
+
+    context = {
+        "schema": "http://schema.org/",
+        "hbpsc": "https://schema.hbp.eu/softwarecatalog/",
+        "name": "schema:name",
+        "identifier": "schema:identifier",
+        "description": "schema:description",
+        "parentCategory": "schema:parentCategory"
+    }
+
+    fields = (
+        Field("identifier", str, "identifier"),
+        Field("name", str, "name", required=True),
+        Field("description", str, "description"),
+        Field("parent", "software.SoftwareFeatureCategory", "parentCategory")
+    )
+
+
+class SoftwareFeature(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/software/softwarefeature/v1.0.0"
+    type = ["hbpsc:Softwarefeature"]
+
+    context = {
+        "schema": "http://schema.org/",
+        "hbpsc": "https://schema.hbp.eu/softwarecatalog/",
+        "name": "schema:name",
+        "identifier": "schema:identifier",
+        "description": "schema:description",
+        "category": "schema:category"
+    }
+
+    fields = (
+        Field("name", str, "name", required=True),
+        Field("description", str, "name"),
+        Field("category", SoftwareFeatureCategory, "category"),
+        Field("identifier", str, "identifier")
+    )
+
+
+class Keyword(KGObject):
+    namespace = DEFAULT_NAMESPACE
+    _path = "/options/keyword/v1.0.0"
+    type = ["hbpsc:Keyword"]
+
+    context = {
+        "schema": "http://schema.org/",
+        "hbpsc": "https://schema.hbp.eu/softwarecatalog/",
+        "name": "schema:name",
+        "identifier": "schema:identifier"
+    }
+
+    fields = (
+        Field("name", str, "name", required=True),
+        Field("identifier", str, "identifier")
+    )
+
+
 class Software(KGObject):
     namespace = DEFAULT_NAMESPACE
-    _path = "/software/software/v0.1.1"
-    type = ["prov:Entity", "nsg:Software"]
+    _path = "/software/software/v1.0.0"
+    type = ["hbpsc:Software"]
 
     context = {
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+        "hbpsc": "https://schema.hbp.eu/softwarecatalog/",
         "prov": "http://www.w3.org/ns/prov#",
-        "schema": "http://schema.org/"
+        "schema": "http://schema.org/",
+        "name": "schema:name",
+        "description": "schema:description",
+        "citation": "schema:citation",
+        "dateCreated": "schema:dateCreated",
+        "applicationCategory": "schema:applicationCategory",
+        "license": "schema:license",
+        "operatingSystem": "schema:operatingSystem",
+        "releaseNotes": "schema:releaseNotes",
+        "softwareRequirements": "schema:softwareRequirements",
+        "headline": "schema:headline",
+        "wasAttributedTo": "prov:wasAttributedTo",
+        "copyrightHolder": "schema:copyrightHolder",
+        "url": "schema:url",
+        "documentation": "schema:documentation",
+        "softwareHelp": "schema:softwareHelp",
+        "programmingLanguage": "schema:programmingLanguage",
+        "funder": "schema:funder",
+        "hasPart": "schema:hasPart",
+        "isAccessibleForFree": "schema:isAccessibleForFree",
+        "image": "schema:image",
+        "keywords": "schema:keywords",
+        "version": "schema:version",
+        "feature": "schema:feature",
+        "code": "schema:code",
+        "author": "schema:author",
     }
 
-    def __init__(self, name, version, summary=None, description=None, identifier=None,
-                 citation=None, license=None, release_date=None, previous_version=None,
-                 contributors=None, project=None, image=None, download_url=None,
-                 access_url=None, categories=None, subcategories=None,
-                 operating_system=None, release_notes=None, requirements=None, copyright=None,
-                 components=None, part_of=None,
-                 funding=None, languages=None, features=None, keywords=None, is_free=None,
-                 homepage=None, documentation=None, help=None, id=None, instance=None):
-        self.name = name
-        self.version = version
-        self.summary = summary
-        self.description = description
-        self.identifier = identifier
-        self.citation = citation
-        self.license = license
-        self.release_date = release_date
-        self.previous_version = previous_version
-        self.contributors = contributors
-        self.project = project
-        self.image = image
-        self.download_url = download_url
-        self.access_url = access_url
-        self.categories = categories
-        self.subcategories = subcategories
-        self.operating_system = operating_system
-        self.release_notes = release_notes
-        self.requirements = requirements
-        self.copyright = copyright
-        self.components = components
-        self.part_of = part_of
-        self.funding = funding
-        self.languages = languages
-        self.features = features
-        self.keywords = keywords
-        self.is_free = is_free
-        self.homepage = homepage
-        self.documentation = documentation
-        self.help = help
-        self.id = id
-        self.instance = instance
-
-    def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.name!r}, {self.version!r}, '
-                '{self.id})'.format(self=self))
-
-    @classmethod
-    @cache
-    def from_kg_instance(cls, instance, client, use_cache=True, resolved=False):
-        D = instance.data
-        assert 'nsg:Software' in D["@type"]
-        obj = cls(name=D["schema:name"],
-                  version=D["schema:version"],
-                  summary=D.get("schema:headline"),
-                  description=D.get("schema:description"),
-                  #identifier=build_kg_object(Identifier, D .get("schema:identifier")),  # todo: implement commons.Identifier
-                  citation=D.get("schema:citation"),
-                  license=build_kg_object(License, D.get("schema:license")),
-                  release_date=date_parser.parse(D.get("schema:dateCreated"))
-                               if "schema:dateCreated" in D else None,
-                  previous_version=build_kg_object(Software, D.get("prov:wasRevisionOf")),
-                  contributors=build_kg_object(Person, D.get("prov:wasAttributedTo")),
-                  #project=D.get(""),  # todo: add link to SoftwareProject to schema?
-                  image=D["schema:image"]["@id"] if "schema:image" in D else None,
-                  download_url=D["schema:distribution"].get("schema:downloadURL") if "schema:distribution" in D else None,
-                  access_url=D["schema:distribution"].get("schema:accessURL") if "schema:distribution" in D else None,
-                  categories=build_kg_object(SoftwareCategory, D.get("schema:applicationCategory")),
-                  subcategories=build_kg_object(SoftwareCategory, D.get("schema:applicationSubCategory")),
-                  operating_system=build_kg_object(OperatingSystem, D.get("schema:operatingSystem")),
-                  release_notes=D.get("schema:releaseNotes"),  # should probably contain ["@id"] ?
-                  requirements=D.get("schema:softwareRequirements"),
-                  copyright=build_kg_object(Organization, D.get("schema:copyrightHolder")),
-                  components=build_kg_object(Software, D.get("schema:hasPart")),
-                  part_of=build_kg_object(Software, D.get("schema:partOf")),
-                  funding=build_kg_object(Organization, D.get("schema:funder")),
-                  languages=build_kg_object(ProgrammingLanguage, D.get("schema:programmingLanguage")),
-                  #features=build_kg_object(SoftwareFeature, D.get("schema:feature")),  # todo: implement SoftwareFeature
-                  keywords=D.get("schema:keywords"),
-                  is_free=D.get("schema:isAccessibleForFree"),
-                  homepage=D["schema:url"]["@id"] if "schema:url" in D else None,
-                  documentation=D["schema:documentation"]["@id"] if "schema:documentation" in D else None,
-                  help=D["schema:softwareHelp"]["@id"] if "schema:softwareHelp" in D else None,
-                  id=D.get("@id"),
-                  instance=instance)
-        return obj
-
-    def _build_data(self, client, all_fields=False):
-        """docstring"""
-        data = {}
-        data["schema:name"] = self.name
-        data["schema:version"] = self.version
-        if self.summary:
-            data["schema:headline"] = self.summary
-        if self.description:
-            data["schema:description"] = self.description
-        if self.identifier:
-            data["schema:identifier"] = self.identifier.to_jsonld()
-        if self.citation:
-            data["schema:citation"] = self.citation
-        if self.license:
-            data["schema:license"] = self.license.to_jsonld()
-        if self.release_date:
-            data["schema:dateCreated"] = self.release_date.isoformat()
-            data["schema:copyrightYear"] = self.release_date.year
-        if self.previous_version:
-            data["prov:wasRevisionOf"] = {
-                "@id": self.previous_version.id,
-                "@type": self.previous_version.type
-            }
-        if self.contributors:
-            data["prov:wasAttributedTo"] = [{
-                    "@id": person.id,
-                    "@type": person.type
-                } for person in as_list(self.contributors)]
-        if self.image:
-            data["schema:image"] = {"@id": self.image}
-        if self.download_url:
-            data["schema:distribution"] = {
-                "schema:downloadURL": {"@id": self.download_url}
-            }
-        if self.access_url:
-            if "schema:distribution" not in data:
-                data["schema:distribution"] = {}
-            data["schema:distribution"]["schema:accessURL"] = {"@id": self.access_url}
-        if self.categories:
-            data["schema:applicationCategory"] = [cat.to_jsonld() for cat in as_list(self.categories)]
-        if self.subcategories:
-            data["schema:applicationSubCategory"] = [cat.to_jsonld() for cat in as_list(self.subcategories)]
-        if self.operating_system:
-            data["schema:operatingSystem"] = [os.to_jsonld()
-                                              for os in as_list(self.operating_system)]
-        if self.release_notes:
-            data["schema:releaseNotes"] = self.release_notes
-        if self.requirements:
-            data["schema:softwareRequirements"] = self.requirements
-        if self.copyright:
-            data["schema:copyrightHolder"] = {
-                "@id": self.copyright.id,
-                "@type": self.copyright.type
-            }
-        if self.components:
-            data["schema:hasPart"] = [{
-                    "@id": part.id,
-                    "@type": part.type
-                } for part in as_list(self.components)]
-        if self.part_of:
-            data["schema:partOf"] = [{
-                    "@id": parent.id,
-                    "@type": parent.type
-                } for parent in as_list(self.part_of)]
-        if self.funding:
-            data["schema:funder"] = [{
-                    "@id": org.id,
-                    "@type": org.type
-                } for org in as_list(self.funding)]
-        if self.languages:
-            data["schema:programmingLanguage"] = [lang.to_jsonld() for lang in as_list(self.languages)]
-        if self.features:
-            data["schema:feature"] = [{
-                    "@id": feature.id,
-                    "@type": feature.type
-                } for feature in as_list(self.features)]
-        if self.keywords:
-            data["schema:keywords"] = self.keywords
-        if self.is_free:
-            data["schema:isAccessibleForFree"] = self.is_free
-        if self.homepage:
-            data["schema:url"] = {"@id": self.homepage}
-        if self.documentation:
-            data["schema:documentation"] = {"@id": self.documentation}
-        if self.help:
-            data["schema:softwareHelp"] = {"@id": self.help}
-        return data
+    fields = (
+        Field("name", str, "name", required=True),
+        Field("description", str, "description"),
+        Field("citation", str, "citation"),
+        Field("release_date", date, "dateCreated"),
+        Field("categories", SoftwareCategory, "applicationCategory"),
+        Field("license", License, "license", multiple=True),
+        Field("operating_system", OperatingSystem, "operatingSystem", multiple=True),
+        Field("release_notes", IRI, "releaseNotes"),
+        #Field("screenshots")
+        Field("requirements", str, "softwareRequirements"),
+        Field("summary", str, "headline"),
+        Field("contributors", Person, "author", multiple=True), #"wasAttributedTo"),
+        Field("copyright", [Person, Organization], "copyrightHolder"),
+        Field("homepage", IRI, "url"),
+        Field("documentation", IRI, "documentation"),
+        Field("help", IRI, "softwareHelp"),
+        Field("source_code", IRI, "code"),
+        Field("programming_languages", ProgrammingLanguage, "programmingLanguage", multiple=True),
+        Field("funding", Organization, "funder", multiple=True),
+        Field("components", "software.Software", "hasPart"),
+        Field("is_free", bool, "isAccessibleForFree"),
+        #Field("image", IRI, "image", multiple=True),
+        Field("keywords", Keyword, "keywords", multiple=True),  # todo: add Keyword class
+        Field("version", str, "version", required=True),
+        #Field("device"),
+        Field("features", SoftwareFeature, "feature", multiple=True),
+        #Field("input_formats", str, ),
+        #Field("output_formats", str),
+        #Field("languages"),
+        #Field("project", SoftwareProject, )
+    )
 
 
 def list_kg_classes():

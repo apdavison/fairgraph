@@ -48,7 +48,7 @@ class TestSoftware(object):
             funding=[Organization("CNRS"), Organization("Human Brain Project")],
             languages=ProgrammingLanguage("Python"),
             features=None,
-            keywords="simulation, neuroscience",
+            #keywords="simulation, neuroscience",
             is_free=True,
             homepage="https://neuralensemble.org/PyNN/",
             documentation="http://neuralensemble.org/docs/PyNN/",
@@ -57,36 +57,34 @@ class TestSoftware(object):
         software_release = Software(**input_data)
         kg_data = software_release._build_data(client=None)
         assert kg_data == {
-            'schema:name': input_data["name"],
-            'schema:version': input_data["version"],
-            'schema:headline': input_data["summary"],
-            'schema:description': input_data["description"],
-            'schema:citation': input_data["citation"],
-            'schema:license': {'@id': input_data["license"].iri, 'label': input_data["license"].label},
-            'schema:dateCreated': '2019-03-22',
-            'schema:copyrightYear': input_data["release_date"].year,
-            'prov:wasAttributedTo': [
-                {'@id': None, '@type': ['nsg:Person', 'prov:Agent']}
-            ],
-            'schema:image': {'@id': input_data["image"]},
-            'schema:distribution': {
-                'schema:downloadURL': {"@id": input_data["download_url"]},
-                'schema:accessURL': {"@id": input_data["access_url"]}
-            },
-            'schema:operatingSystem': [
+            'name': input_data["name"],
+            'version': input_data["version"],
+            'headline': input_data["summary"],
+            'description': input_data["description"],
+            'citation': input_data["citation"],
+            'license': {'@id': input_data["license"].iri, 'label': input_data["license"].label},
+            'dateCreated': '2019-03-22',
+            #'copyrightYear': input_data["release_date"].year,
+            'author': {'@id': None, '@type': ['nsg:Person', 'prov:Agent']},
+            #'image': {'@id': input_data["image"]},
+            #'distribution': {
+            #    'downloadURL': {"@id": input_data["download_url"]},
+            #    'accessURL': {"@id": input_data["access_url"]}
+            #},
+            'operatingSystem': [
                 {'@id': os.iri, 'label': os.label}
                 for os in input_data["operating_system"]
             ],
-            'schema:releaseNotes': input_data["release_notes"],
-            'schema:softwareRequirements': input_data["requirements"],
-            'schema:copyrightHolder': {'@id': None, '@type': ['nsg:Organization']},
-            'schema:funder': [{'@id': None, '@type': ['nsg:Organization']}, {'@id': None, '@type': ['nsg:Organization']}],
-            'schema:programmingLanguage': [{'@id': input_data["languages"].iri, 'label': input_data["languages"].label}],
-            'schema:keywords': input_data["keywords"],
-            'schema:isAccessibleForFree': input_data["is_free"],
-            'schema:url': {'@id': input_data["homepage"]},
-            'schema:documentation': {'@id': input_data["documentation"]},
-            'schema:softwareHelp': {'@id': input_data["help"]}
+            'releaseNotes': {'@id': input_data["release_notes"]},
+            'softwareRequirements': input_data["requirements"],
+            'copyrightHolder': {'@id': None, '@type': ['nsg:Organization']},
+            'funder': [{'@id': None, '@type': ['nsg:Organization']}, {'@id': None, '@type': ['nsg:Organization']}],
+            #'programmingLanguage': [{'@id': input_data["languages"].iri, 'label': input_data["languages"].label}],
+            #'keywords': input_data["keywords"],
+            'isAccessibleForFree': input_data["is_free"],
+            'url': {'@id': input_data["homepage"]},
+            'documentation': {'@id': input_data["documentation"]},
+            'softwareHelp': {'@id': input_data["help"]}
         }
 
     def test_from_instance(self):
@@ -97,97 +95,100 @@ class TestSoftware(object):
                     "dbpedia": "http://dbpedia.org/resource/",
                     "wd": "http://www.wikidata.org/entity/",
                     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "label": "rdfs:label"
+                    "label": "rdfs:label",
+                    "schema": "http://schema.org/",
+                    "hbpsc": "https://schema.hbp.eu/softwarecatalog/"
                 },
                 "https://nexus-int.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
             ],
             "@id": "https://nexus-int.humanbrainproject.org/v0/data/softwarecatalog/software/software/v0.1.1/beb9546e-c801-4159-ab3f-5678a5f75f33",
             "@type": [
-                "nsg:Software",
+                "hbpsc:Software",
                 "nsg:Entity"
             ],
-            "nsg:providerId": "doi:10.5281/zenodo.1400175",
-            "schema:applicationCategory": [
+            "providerId": "doi:10.5281/zenodo.1400175",
+            "applicationCategory": [
                 {
                     "@id": "https://www.wikidata.org/wiki/Q166142",
                     "label": "application"
                 }
             ],
-            "schema:applicationSubCategory": [
+            "applicationSubCategory": [
                 {
                     "@id": "https://www.wikidata.org/wiki/Q184148",
                     "label": "plug-in"
                 }
             ],
-            "schema:citation": "Linssen, Charl et al. (2018). NEST 2.16.0. Zenodo. 10.5281/zenodo.1400175",
-            "schema:code": {
+            "citation": "Linssen, Charl et al. (2018). NEST 2.16.0. Zenodo. 10.5281/zenodo.1400175",
+            "code": {
                 "@id": "https://github.com/nest/nest-simulator"
             },
-            "schema:copyrightYear": 2018,
-            "schema:dateCreated": "2018-08-21",
-            "schema:description": "NEST is a highly scalable simulator for networks of point or few-compartment spiking neuron models. It includes multiple synaptic plasticity models, gap junctions, and the capacity to define complex network structure.",
-            "schema:device": [
+            "copyrightYear": 2018,
+            "dateCreated": "2018-08-21",
+            "description": "NEST is a highly scalable simulator for networks of point or few-compartment spiking neuron models. It includes multiple synaptic plasticity models, gap junctions, and the capacity to define complex network structure.",
+            "device": [
                 {
                     "@id": "https://www.wikidata.org/wiki/Q5082128",
                     "label": "mobile device"
                 }
             ],
-            "schema:documentation": {
+            "documentation": {
                 "@id": "http://www.nest-simulator.org/documentation/"
             },
-            "schema:encodingFormat": [
+            "encodingFormat": [
                 {
                     "@id": "https://www.wikidata.org/wiki/Q28865",
                     "label": "Python"
                 }
             ],
-            "schema:headline": "NEST is a highly scalable simulator for networks of point or few-compartment spiking neuron models. It includes multiple synaptic plasticity models, gap junctions, and the capacity to define complex network structure.",
-            "schema:identifier": [
+            "headline": "NEST is a highly scalable simulator for networks of point or few-compartment spiking neuron models. It includes multiple synaptic plasticity models, gap junctions, and the capacity to define complex network structure.",
+            "identifier": [
                 {
-                    "schema:propertyID": "doi",
-                    "schema:value": "10.5281/zenodo.1400175"
+                    "propertyID": "doi",
+                    "value": "10.5281/zenodo.1400175"
                 },
                 {
                     "@id": "https://doi.org/10.5281/zenodo.1400175"
                 }
             ],
-            "schema:image": {
+            "image": {
                 "@id": "http://www.nest-simulator.org/wp-content/uploads/nest-simulated-www-320.png"
             },
-            "schema:isAccessibleForFree": true,
-            "schema:keywords": "simulation, NEST",
-            "schema:programmingLanguage": [
+            "isAccessibleForFree": true,
+            "programmingLanguage": [
                 {
                     "@id": "https://www.wikidata.org/wiki/Q28865",
                     "label": "Python"
                 }
             ],
-            "schema:license": {
+            "license": {
                 "@id": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
                 "label": "GNU General Public License 2 or later (http://www.nest-simulator.org/license/)"
             },
-            "schema:name": "NEST v2.16.0",
-            "schema:operatingSystem": [
+            "name": "NEST v2.16.0",
+            "operatingSystem": [
                 {
                     "@id": "http://dbpedia.org/resource/Linux",
                     "label": "Linux"
                 }
             ],
-            "schema:releaseNotes": "https://github.com/nest/nest-simulator/releases/tag/v2.16.0",
-            "schema:screenshot": {
+            "releaseNotes": {
+                "@id": "https://github.com/nest/nest-simulator/releases/tag/v2.16.0"
+            },
+            "screenshot": {
                 "@id": "http://www.nest-simulator.org/wp-content/uploads/nest-simulated-www-320.png"
             },
-            "schema:softwareHelp": {
+            "softwareHelp": {
                 "@id": "http://www.nest-simulator.org/community/"
             },
-            "schema:softwareRequirements": "libreadline, gsl, ...",
-            "schema:url": {
+            "softwareRequirements": "libreadline, gsl, ...",
+            "url": {
                 "@id": "http://www.nest-simulator.org/"
             },
-            "schema:version": "2.16.0"
+            "version": "2.16.0"
         }
         """)
         instance = MockInstance(instance_data)
         software_release = Software.from_kg_instance(instance, client=None, use_cache=False)
-        assert software_release.name == instance_data["schema:name"]
+        assert software_release.name == instance_data["name"]
         assert software_release.operating_system == OperatingSystem("Linux")

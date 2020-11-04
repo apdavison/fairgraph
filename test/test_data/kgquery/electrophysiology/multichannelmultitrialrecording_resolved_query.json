@@ -13982,6 +13982,7 @@
                         {
                             "fieldname": "Activity__https://schema.hbp.eu/minds/preparation",
                             "relative_path": "https://schema.hbp.eu/minds/preparation",
+                            "ensure_order": true,
                             "fields": [
                                 {
                                     "relative_path": "@id"

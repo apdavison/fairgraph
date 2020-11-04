@@ -35,6 +35,7 @@ from .base import (KGObject, cache, KGProxy, build_kg_object, Distribution, as_l
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
 from .core import Organization, Person, Age, Collection
 from .utility import compact_uri, standard_context
+from .computing import ComputingEnvironment
 
 
 logger = logging.getLogger("fairgraph")
@@ -638,7 +639,7 @@ class Simulation(KGObject):
     """
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/simulationactivity/v0.1.0"
+    _path = "/simulation/simulationactivity/v0.3.0"
     type = ["prov:Activity", "nsg:Simulation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -653,11 +654,16 @@ class Simulation(KGObject):
             "used": "prov:used",
             "modelUsed": "prov:used",
             "configUsed": "prov:used",
+            "envUsed": "prov:used",
             "startedAtTime": "prov:startedAtTime",
             "endedAtTime": "prov:endedAtTime",
             "wasAssociatedWith": "prov:wasAssociatedWith",
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-            "referenceData": "nsg:referenceData"
+            "referenceData": "nsg:referenceData",
+            "tags": "nsg:tags",
+            "resourceUsage": "nsg:resourceUsage",
+            "status": "schema:actionStatus",
+            "providerId": "nsg:providerId"
         }
     ]
     fields = (
@@ -669,9 +675,15 @@ class Simulation(KGObject):
         Field("timestamp", datetime,  "startedAtTime"),
         Field("result", "brainsimulation.SimulationOutput", "generated", multiple=True),
         Field("started_by", Person, "wasAssociatedWith"),
-        Field("end_timestamp",  datetime, "endedAtTime")
-        # todo: add environment
+        Field("end_timestamp",  datetime, "endedAtTime"),
+        Field("computing_environment", ComputingEnvironment, "envUsed", required=False),
+        Field("status", basestring, "status"),
+        # should probably restrict to the enum https://schema.org/ActionStatusType
+        Field("resource_usage", float, "resourceUsage"),
+        Field("tags", str,  "tags", multiple=True),
+        Field("job_id", str, "providerId")
     )
+    existence_query_fields = ("start_time", "model_instance", "simulation_config", "computing_environment")
 
 
 class SimulationConfiguration(KGObject):
