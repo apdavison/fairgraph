@@ -87,7 +87,7 @@ class Activity(MINDSObject):
       Field("ethics_approval", "minds.EthicsApproval", "https://schema.hbp.eu/minds/ethicsApproval", required=False, multiple=True),
       Field("ethics_authority", "minds.EthicsAuthority", "https://schema.hbp.eu/minds/ethicsAuthority", required=False, multiple=True),
       Field("methods", "minds.Method", "https://schema.hbp.eu/minds/methods", required=False, multiple=True),
-      Field("preparation", "minds.Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=False),
+      Field("preparation", "minds.Preparation", "https://schema.hbp.eu/minds/preparation", required=False, multiple=True),
       Field("protocols", "minds.Protocol", "https://schema.hbp.eu/minds/protocols", required=False, multiple=True))
 
 
@@ -200,7 +200,7 @@ class Dataset(MINDSObject):
 
       Field("dataset_doi", basestring, "https://schema.hbp.eu/minds/datasetDOI", required=False, multiple=True),
       Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("external_datalink", basestring, "https://schema.hbp.eu/minds/external_datalink", required=False, multiple=False),
+      Field("external_datalink", basestring, "https://schema.hbp.eu/minds/external_datalink", required=False, multiple=True),
       Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
       Field("name", basestring, "http://schema.org/name", required=True, multiple=False),
       #Field("associated_with", Person, "http://www.w3.org/ns/prov#qualifiedAssociation", required=False, multiple=False),

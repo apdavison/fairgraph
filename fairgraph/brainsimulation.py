@@ -30,7 +30,8 @@ import sys
 import inspect
 from dateutil import parser as date_parser
 import requests
-from .base import KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, Field, IRI
+from .base import (KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery,
+                   Field, IRI, upload_attachment)
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
 from .core import Organization, Person, Age, Collection
 from .utility import compact_uri, standard_context
@@ -669,6 +670,7 @@ class Simulation(KGObject):
         Field("result", "brainsimulation.SimulationOutput", "generated", multiple=True),
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp",  datetime, "endedAtTime")
+        # todo: add environment
     )
 
 
