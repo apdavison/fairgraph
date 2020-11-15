@@ -51,7 +51,8 @@ mimetypes.init()
 
 registry = {
     'names': {},
-    'types': {}
+    'types': {},
+    'paths': {}
 }
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
@@ -60,6 +61,12 @@ registry = {
 def register_class(target_class):
     name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
     registry['names'][name] = target_class
+    try:
+        registry['paths'][target_class.path] = target_class
+    except AttributeError:  # base classes do not have a namespace / path
+        pass
+    except ValueError:  # core classes do not have a namespace set
+        pass            # we may want to register the path when the namespace is set
     if hasattr(target_class, 'type'):
         if isinstance(target_class.type, str):
             registry['types'][target_class.type] = target_class
@@ -83,6 +90,14 @@ def lookup_by_iri(iri):
         if hasattr(cls, "iri_map") and iri in cls.iri_map.values():
             return cls
     raise ValueError("Can't resolve iri '{}'".format(iri))
+
+
+def lookup_by_id(id):
+    parts = urlparse(id)
+    path_parts = parts.path.split("/")
+    assert path_parts[2] == "data"
+    path = "/".join(path_parts[3:-1])
+    return registry["paths"][path]
 
 
 def generate_cache_key(qd):
