@@ -3,7 +3,7 @@ Metadata for entities that are used in multiple contexts (e.g. in both electroph
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,10 +25,7 @@ import logging
 from datetime import date
 from .base import KGObject, KGQuery, as_list, Field, Distribution
 from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 DEFAULT_NAMESPACE = None
 # core is used everywhere, so it makes no sense to set a default namespace
@@ -66,7 +63,7 @@ class Subject(KGObject):
         "providerId": "nsg:providerId"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("species", Species, "species", required=True),
         Field("strain", Strain, "strain"),
         Field("genotype", Genotype, "genotype"),
@@ -100,7 +97,7 @@ class Organization(KGObject):
         "addressCountry": "schema:addressCountry",
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("address", Address, "address"),
         Field("parent", "core.Organization", "parentOrganization")
     )
@@ -129,9 +126,9 @@ class Person(KGObject):
         "affiliation": "schema:affiliation"
     }
     fields = (
-        Field("family_name", basestring, "familyName", required=True, doc="Family name / surname"),
-        Field("given_name", basestring, "givenName", required=True, doc="Given name"),
-        Field("email", basestring, "email", doc="e-mail address"),
+        Field("family_name", str, "familyName", required=True, doc="Family name / surname"),
+        Field("given_name", str, "givenName", required=True, doc="Given name"),
+        Field("email", str, "email", doc="e-mail address"),
         Field("affiliation", Organization, "affiliation",
               doc="Organization to which person belongs")
     )
@@ -274,10 +271,10 @@ class Material(KGObject):
         "vendor": "nsg:reagentVendor"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("molar_weight", QuantitativeValue, "reagentMolarWeight"),
-        Field("formula", basestring, "reagentLinearFormula"),
-        Field("stock_keeping_unit", basestring, "reagentSKU"), # doi
+        Field("formula", str, "reagentLinearFormula"),
+        Field("stock_keeping_unit", str, "reagentSKU"), # doi
         Field("reagent_distribution", Distribution, "distribution"),
         Field("vendor", Organization, "vendor")
         )
@@ -319,13 +316,13 @@ class Step(KGObject):
         "wasAssociatedWith": "prov:wasAssociatedWith",
     }
     fields = (
-        Field("name", (basestring, int), "name", required=True),
-        Field("previous_step_name", (basestring, int), "previousStepName"),
+        Field("name", (str, int), "name", required=True),
+        Field("previous_step_name", (str, int), "previousStepName"),
         Field("sequence_number", int, "sequenceNumber"),
-        Field("identifier", basestring, "identifier"), # doi
-        Field("version", (basestring, int), "version"),
+        Field("identifier", str, "identifier"), # doi
+        Field("version", (str, int), "version"),
         Field("distribution", Distribution, "distribution"), # external link
-        Field("description", basestring, "description"),
+        Field("description", str, "description"),
         Field("materials", Material, "material", multiple=True),
         Field("author", Person, "wasAssociatedWith", multiple=True),
         )
@@ -369,9 +366,9 @@ class Protocol(KGObject):
         "datePublished": "nsg:datePublished"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("version", (basestring, int), "version"),
-        Field("identifier", basestring, "identifier"), # DOI
+        Field("name", str, "name", required=True),
+        Field("version", (str, int), "version"),
+        Field("identifier", str, "identifier"), # DOI
         Field("distribution", Distribution, "distribution"), # external link
         Field("number_of_steps", int, "numberOfSteps"),
         Field("steps", Step, "hasPart", multiple=True),
@@ -401,7 +398,7 @@ class Collection(KGObject):
         "hadMember": "prov:hadMember"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("members", KGObject, "hadMember", required=True, multiple=True)
     )
 

@@ -11,7 +11,7 @@ Coming soon:
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,10 +33,7 @@ from .base import KGObject, Field, Distribution
 from .commons import QuantitativeValue, BrainRegion, License
 from .core import Person, Protocol
 from .experiment import CranialWindow, Slice, VisualStimulation, ElectrophysiologicalStimulation, BehavioralStimulation, Device
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -57,8 +54,8 @@ class Position(KGObject):
         "ycoordinate": "nsg:y"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("origin", basestring, "origin", required=True),
+        Field("name", str, "name", required=True),
+        Field("origin", str, "origin", required=True),
         Field("xcoordinate", float, "x"),
         Field("ycoordinate", float, "y")
         )
@@ -95,11 +92,11 @@ class FluorescenceTrace(KGObject):
         }
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
-        Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
+        Field("fluorescence_labeling", str, "fluorescenceLabeling"),
         Field("time_series", "TimeSeriesExtraction", "^prov:generated", reverse="fluorescence_trace"),
-        Field("description", basestring, "description"),
+        Field("description", str, "description"),
         Field("distribution", Distribution, "distribution")
     )
 
@@ -130,13 +127,13 @@ class TimeSeriesExtraction(KGObject):
         "license":"nsg:license"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("fluorescence_trace", FluorescenceTrace, "generated", required=True),
         Field("region_of_interest", "optophysiology.RegionOfInterest", "used"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 
@@ -178,7 +175,7 @@ class ImageSequence(KGObject):
             }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("frame_rate", QuantitativeValue, "FrameRate", required=True),
         Field("generated_by", "TwoPhotonImaging", "^prov:generated", reverse="image_sequence"),
         Field("image_count", int, "imageCount", required=False),
@@ -187,7 +184,7 @@ class ImageSequence(KGObject):
         Field("brain_location", BrainRegion, "brainRegion", required=False, multiple=True),
         Field("correction_activity", "optophysiology.MotionCorrection", "^prov:used", reverse=["before", "after"]),
         Field("distribution", Distribution, "distribution", required=False),
-        Field("description", basestring, "description", required=False)
+        Field("description", str, "description", required=False)
     )
 
     def __init__(self, name, frame_rate, generated_by=None, image_count=None, image_size=None,
@@ -215,11 +212,11 @@ class RegionOfInterest(KGObject):
         }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("position", Position, "position"),
-        Field("shape", basestring, "shape"),
-        Field("classification", basestring, "classification"),
-        Field("description", basestring, "description"),
+        Field("shape", str, "shape"),
+        Field("classification", str, "classification"),
+        Field("description", str, "description"),
         Field("selection", "optophysiology.ROISelection","^prov:generated", reverse="regions"),
         Field("time_series", TimeSeriesExtraction,"^prov:used", reverse="region_of_interest"),
     )
@@ -251,13 +248,13 @@ class ROISelection(KGObject):
         "license": "nsg:license"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("image_sequence", ImageSequence, "used", required=True),
         Field("regions", RegionOfInterest, "generated", required=True),
         Field("protocol", Protocol, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 
@@ -312,14 +309,14 @@ class TwoPhotonImaging(KGObject):
             }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("image_sequence", ImageSequence, "generated", required=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy"),
         Field("target", (Slice, CranialWindow), "used"),
         Field("microscope", Device, "device"),
-        Field("brain_state", basestring, "brainState"),
-        Field("anesthesia", basestring, "anesthesia"),
-        Field("laser", basestring, "laser"),
+        Field("brain_state", str, "brainState"),
+        Field("anesthesia", str, "anesthesia"),
+        Field("laser", str, "laser"),
         Field("excitation_wavelength", QuantitativeValue, "excitationWavelength"),
         Field("power_at_objective", QuantitativeValue, "laserPower"),
         Field("collection_wavelength", QuantitativeValue, "collectionWavelength"),
@@ -358,13 +355,13 @@ class MotionCorrection(KGObject):
         "license":"nsg:license"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("before", ImageSequence, "used", required=True),
         Field("after", ImageSequence, "generated", required=True),
         Field("protocol", Protocol, "hadprotocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 

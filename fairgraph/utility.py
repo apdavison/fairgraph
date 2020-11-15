@@ -3,7 +3,7 @@
 
 """
 
-# Copyright 2019 CNRS
+# Copyright 2019-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,15 +18,7 @@
 # limitations under the License.
 
 from pyld import jsonld
-try:
-    from urllib.parse import urlparse, quote_plus
-except ImportError:  # Python 2
-    from urlparse import urlparse
-    from urllib import quote_plus
-try:
-    basestring
-except NameError:
-    basestring = str
+from urllib.parse import urlparse, quote_plus
 
 
 ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
@@ -114,7 +106,7 @@ standard_context = {
 def as_list(obj):
     if obj is None:
         return []
-    elif isinstance(obj, (dict, basestring)):
+    elif isinstance(obj, (dict, str)):
         return [obj]
     try:
         L = list(obj)

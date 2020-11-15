@@ -2,7 +2,7 @@
 Metadata for morphology experiments.
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,10 +28,7 @@ from .utility import compact_uri, standard_context, as_list
 from .experiment import Slice
 from .electrophysiology import PatchedCell,  PatchedSlice
 from .optophysiology import Position
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -58,12 +55,12 @@ class LabeledCell(KGObject):
         "reconstructable": "nsg:reconstructable"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("project_name", basestring, "projectName"),
+        Field("name", str, "name", required=True),
+        Field("project_name", str, "projectName"),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("morphology_type", MorphologyType, "mType"), # specifies the coordinates of the location of the cell in the slice
         Field("location_in_slice", Position, "position"), #change to 3Dvector
-        Field("spatial_cell_name", basestring, "spatialCellName"), # spatial cell name given during the annotation process
+        Field("spatial_cell_name", str, "spatialCellName"), # spatial cell name given during the annotation process
         Field("reconstruction_requested", bool, "reconstructionRequested"), # indicates if reconstruction the cell has been requested or not
         Field("reconstructable", bool, "reconstructable"), #indicates if the cell can be reconstructed or not
         Field("patched_cell", PatchedCell, "wasRevisionOf"),
@@ -94,7 +91,7 @@ class LabeledCellCollection(KGObject):
     }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("cells", LabeledCell, "hadMember", required=True, multiple=True),
         Field("slice", "morphology.AnnotatedSlice", "^nsg:hasPart", reverse="recorded_cells") # chcek reverse
     )
@@ -123,7 +120,7 @@ class FixedStainedSlice(KGObject):
         "wasRevisionOf": "prov:wasRevisionOf"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("patched_slice", PatchedSlice, "wasRevisionOf")
     )
 
@@ -150,9 +147,9 @@ class AnnotatedSlice(KGObject):
         "wasRevisionOf": "prov:wasRevisionOf"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("annotation_angle", QuantitativeValue, "annotationAngle"),
-        Field("annotator_comment", basestring, "annotatorComment"),
+        Field("annotator_comment", str, "annotatorComment"),
         Field("cell_collection", LabeledCellCollection, "hasPart"),
         Field("fixed_stained_slice", FixedStainedSlice, "wasRevisionOf")
     )
@@ -180,7 +177,7 @@ class ReconstructedCell(KGObject):
         "somaType": "nsg:somaType"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("soma_brain_location", BrainRegion, "brainLocation", multiple=True),
         Field("axon_projection", BrainRegion, "brainRegion", multiple=True),
         Field("morphology_type", MorphologyType, "mType"),
@@ -212,10 +209,10 @@ class FixationStainingMounting(KGObject):
         "generated": "prov:generated"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("fixation_method", basestring, "fixationMethod"),
-        Field("stain", basestring, "stain"),
-        Field("mounting_media", basestring, "mountingMedia"),
+        Field("name", str, "name", required=True),
+        Field("fixation_method", str, "fixationMethod"),
+        Field("stain", str, "stain"),
+        Field("mounting_media", str, "mountingMedia"),
         Field("slice_used", Slice, "used"),
         Field("slice_generated", FixedStainedSlice, "generated")
     )
@@ -243,8 +240,8 @@ class AcquisitionAnnotation(KGObject):
         "generated": "prov:generated",
         }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("objective_magnification", basestring, "objectiveMagnification"),
+        Field("name", str, "name", required=True),
+        Field("objective_magnification", str, "objectiveMagnification"),
         Field("fixed_stained_slice", FixedStainedSlice, "used"),
         Field("annotated_slice", AnnotatedSlice, "generated")
     )
@@ -274,10 +271,10 @@ class Reconstruction(KGObject):
         "generated": "prov:generated",
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("objective_type", ObjectiveType, "objectiveType"),
-        Field("objective_magnification", basestring, "objectiveMagnification"),
-        Field("compression_correction", basestring, "compressionCorrection"),
+        Field("objective_magnification", str, "objectiveMagnification"),
+        Field("compression_correction", str, "compressionCorrection"),
         Field("labeled_cell", LabeledCell, "used"),
         Field("reconstructed_cell", ReconstructedCell, "generated")
         )

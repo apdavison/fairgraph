@@ -2,7 +2,7 @@
 Base functionality
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,27 +18,21 @@ Base functionality
 
 
 import os
-import sys
 from functools import wraps
 from collections import defaultdict
 from datetime import datetime, date
 import warnings
 from copy import copy
 from io import BytesIO
-try:
-    from collections.abc import Iterable, Mapping
-except ImportError:  # Python 2
-    from collections import Iterable, Mapping
+from collections.abc import Iterable, Mapping
 import logging
 from uuid import UUID
 from dateutil import parser as date_parser
 import mimetypes
+from urllib.parse import urlparse
+
 from six import with_metaclass
 from requests.exceptions import HTTPError
-try:
-    basestring
-except NameError:
-    basestring = str
 import requests
 try:
     from tabulate import tabulate
@@ -67,7 +61,7 @@ def register_class(target_class):
     name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
     registry['names'][name] = target_class
     if hasattr(target_class, 'type'):
-        if isinstance(target_class.type, basestring):
+        if isinstance(target_class.type, str):
             registry['types'][target_class.type] = target_class
         else:
             registry['types'][tuple(target_class.type)] = target_class
@@ -104,7 +98,7 @@ def generate_cache_key(qd):
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
         else:
-            if not isinstance(value, (basestring, int, float)):
+            if not isinstance(value, (str, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
@@ -160,7 +154,7 @@ class Field(object):
     def __init__(self, name, types, path, required=False, default=None, multiple=False,
                  strict=True, reverse=None, doc=""):
         self.name = name
-        if isinstance(types, (type, basestring)):
+        if isinstance(types, (type, str)):
             self._types = (types,)
         else:
             self._types = tuple(types)
@@ -182,7 +176,7 @@ class Field(object):
     def types(self):
         if not self._resolved_types:
             self._types = tuple(
-                [lookup(obj) if isinstance(obj, basestring) else obj
+                [lookup(obj) if isinstance(obj, str) else obj
                  for obj in self._types]
             )
             self._resolved_types = True
@@ -221,7 +215,7 @@ class Field(object):
 
     def serialize(self, value, client, for_query=False):
         def serialize_single(value):
-            if isinstance(value, (basestring, int, float, dict)):
+            if isinstance(value, (str, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
@@ -286,7 +280,7 @@ class Field(object):
             elif self.types[0] == IRI:
                 return data["@id"]
             elif self.types[0] == int:
-                if isinstance(data, basestring):
+                if isinstance(data, str):
                     return int(data)
                 elif isinstance(data, Iterable):
                     return [int(item) for item in data]
@@ -451,7 +445,7 @@ class KGObject(with_metaclass(Registry, object)):
         def get_filter_value(filters, field):
             value = filters[field.name]
             if not isinstance(value, field.types):
-                if isinstance(value, basestring) and issubclass(field.types[0], OntologyTerm):
+                if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
                     value = field.types[0](value)
                 else:
                     raise TypeError("{} must be of type {}".format(field.name, field.types))
@@ -587,7 +581,7 @@ class KGObject(with_metaclass(Registry, object)):
                 if isinstance(item, dict):
                     context_dict.update(item)
                 else:
-                    assert isinstance(item, basestring)
+                    assert isinstance(item, str)
                     if "{{base}}" in item:
                         if client:
                             context_urls.add(item.replace("{{base}}", client.nexus_endpoint))
@@ -601,7 +595,7 @@ class KGObject(with_metaclass(Registry, object)):
             instance_context = self.instance.data.get("@context", {})
             if isinstance(instance_context, dict):
                 context_dict.update(instance_context)
-            elif isinstance(instance_context, basestring):
+            elif isinstance(instance_context, str):
                 context_urls.add(instance_context)
             else:
                 assert isinstance(instance_context, (list, tuple))
@@ -609,7 +603,7 @@ class KGObject(with_metaclass(Registry, object)):
                     if isinstance(item, dict):
                         context_dict.update(item)
                     else:
-                        assert isinstance(item, basestring) and item.startswith("http")
+                        assert isinstance(item, str) and item.startswith("http")
                         context_urls.add(item)
 
         context = list(context_urls) + [context_dict]
@@ -978,8 +972,10 @@ class KGProxy(object):
     """docstring"""
 
     def __init__(self, cls, uri):
-        if isinstance(cls, basestring):
+        if isinstance(cls, str):
             self.cls = lookup(cls)
+        elif cls is None:
+            self.cls = lookup_by_id(uri)
         else:
             self.cls = cls
         self.id = uri
@@ -1034,7 +1030,7 @@ class KGQuery(object):
     def __init__(self, classes, filter, context):
         self.classes = []
         for cls in as_list(classes):
-            if isinstance(cls, basestring):
+            if isinstance(cls, str):
                 self.classes.append(lookup(cls))
             else:
                 self.classes.append(cls)
@@ -1097,7 +1093,7 @@ class Distribution(StructuredMetadata):
                  original_file_name=None):
         if "@id" in location:
             location = location["@id"]
-        if not isinstance(location, basestring):
+        if not isinstance(location, str):
             # todo: add check that location is a URI
             raise ValueError("location must be a URI")
         self.location = location

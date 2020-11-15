@@ -17,10 +17,7 @@ Metadata for data analysis pipelines
 # limitations under the License.
 
 
-try:
-    basestring
-except NameError:
-    basestring = str
+
 import os.path
 import logging
 from datetime import datetime, date
@@ -64,9 +61,9 @@ class Analysis(KGObject):
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description"),
-        Field("identifier", basestring, "identifier"),
+        Field("name", str, "name", required=True),
+        Field("description", str, "description"),
+        Field("identifier", str, "identifier"),
         Field("input_data", KGObject, "dataUsed", multiple=True),
         Field("script", "analysis.AnalysisScript", "scriptUsed", multiple=True),
         Field("config", "analysis.AnalysisConfiguration", "configUsed", multiple=True),
@@ -90,13 +87,13 @@ class AnalysisConfiguration(KGObject):
                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
                "distribution": "nsg:distribution"}
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description"),
-        Field("identifier", basestring, "identifier"),
-        Field("config_file", (Distribution, basestring), "distribution")
+        Field("name", str, "name", required=True),
+        Field("description", str, "description"),
+        Field("identifier", str, "identifier"),
+        Field("config_file", (Distribution, str), "distribution")
     )
 
-    ## TODO : write the different cases: Distribution, dict, basestring
+    ## TODO : write the different cases: Distribution, dict, str
 
     def __init__(self,
                  name,
@@ -113,7 +110,7 @@ class AnalysisConfiguration(KGObject):
             id=id,
             instance=instance)
         self._file_to_upload = None
-        if isinstance(config_file, basestring):
+        if isinstance(config_file, str):
             if config_file.startswith("http"):
                 self.config_file = Distribution(location=config_file)
             elif os.path.isfile(config_file):
@@ -159,14 +156,14 @@ class AnalysisResult(KGObject):
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("result_file", (Distribution, basestring), "distribution"),
+        Field("name", str, "name", required=True),
+        Field("result_file", (Distribution, str), "distribution"),
         Field("timestamp", datetime, "generatedAtTime", default=datetime.now),
         Field("derived_from", KGObject, "wasDerivedFrom", multiple=True),
         Field("attributed_to", Person, "wasAttributedTo"),
         Field("generated_by", Analysis, "wasGeneratedBy"),
-        Field("description", basestring, "description"),
-        #Field("data_type", basestring, "dataType", multiple=True),
+        Field("description", str, "description"),
+        #Field("data_type", str, "dataType", multiple=True),
     )
     existence_query_fields = ("name", "timestamp")
 
@@ -179,7 +176,7 @@ class AnalysisResult(KGObject):
             description=description, id=id, instance=instance
         )
         self._file_to_upload = None
-        if isinstance(result_file, basestring):
+        if isinstance(result_file, str):
             if result_file.startswith("http"):
                 self.result_file = Distribution(location=result_file)
             elif os.path.isfile(result_file):
@@ -252,11 +249,11 @@ class AnalysisScript(KGObject):
                "distribution": "nsg:distribution",
                "code_format": "nsg:code_format"}  # todo: add version field
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("identifier", basestring, "identifier"),
-        Field("script_file", (Distribution, basestring), "distribution", multiple=True),
-        Field("code_format", basestring, "code_format", multiple=True),
-        Field("license", basestring, "license")
+        Field("name", str, "name", required=True),
+        Field("identifier", str, "identifier"),
+        Field("script_file", (Distribution, str), "distribution", multiple=True),
+        Field("code_format", str, "code_format", multiple=True),
+        Field("license", str, "license")
     )
 
     def __init__(self, name,
@@ -274,7 +271,7 @@ class AnalysisScript(KGObject):
                                              id=id,
                                              instance=instance)
         self._file_to_upload = None
-        if isinstance(script_file, basestring):
+        if isinstance(script_file, str):
             if script_file.startswith("http"):
                 self.script_file = Distribution(location=script_file)
             elif os.path.isfile(script_file):

@@ -1,10 +1,10 @@
 """
 Python client for the Human Brain Project Neural Activity Resource
 
-Authors: Andrew Davison et al., CNRS, 2018-2019 (see authors.rst)
+Authors: Andrew Davison et al., CNRS, 2018-2020 (see authors.rst)
 
 
-Copyright 2018-2019 CNRS
+Copyright 2018-2020 CNRS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

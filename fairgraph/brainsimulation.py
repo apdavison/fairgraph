@@ -3,7 +3,7 @@ Metadata for model building, simulation and validation.
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,7 @@ Metadata for model building, simulation and validation.
 # limitations under the License.
 
 
-try:
-    basestring
-except NameError:
-    basestring = str
+
 import os.path
 import logging
 from datetime import datetime, date
@@ -105,22 +102,22 @@ class ModelProject(KGObject, HasAliasMixin):
         "hasPart": "dcterms:hasPart"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("owners", Person, "owner", required=True, multiple=True),
         Field("authors", Person, "author", required=True, multiple=True),
-        Field("description", basestring, "description", required=True),
+        Field("description", str, "description", required=True),
         Field("date_created", datetime, "dateCreated", required=True),
         Field("private", bool, "private", required=True),
-        Field("collab_id", basestring, "collabID"),
-        Field("alias", basestring, "alias"),
+        Field("collab_id", str, "collabID"),
+        Field("alias", str, "alias"),
         Field("organization", Organization, "organization", multiple=True),
-        Field("pla_components", basestring, "PLAComponents", multiple=True),
+        Field("pla_components", str, "PLAComponents", multiple=True),
         Field("brain_region", BrainRegion, "brainRegion", multiple=True),
         Field("species", Species, "species"),
         Field("celltype", CellType, "celltype"),
         Field("abstraction_level", AbstractionLevel, "abstractionLevel"),
         Field("model_of", ModelScope, "modelOf"),
-        Field("old_uuid", basestring, "oldUUID"),
+        Field("old_uuid", str, "oldUUID"),
         Field("parents", "brainsimulation.ModelProject", "partOf", multiple=True),
         #Field("instances", ("brainsimulation.ModelInstance", "brainsimulation.MEModel"),
         #      "dcterms:hasPart", multiple=True),
@@ -182,18 +179,18 @@ class ModelInstance(KGObject):
     # fields:
     #  - fields of ModelInstance + eModel, morphology, mainModelScript, isPartOf (an MEModelRelease)
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("brain_region", BrainRegion, "brainRegion", required=False),
         Field("species", Species, "species", required=False),
         Field("model_of", (CellType, BrainRegion), "modelOf", required=False),  # should be True, but causes problems for a couple of cases at the moment
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=True),
-        Field("release", basestring, "release", required=False),
-        Field("version", basestring, "version", required=True),
+        Field("release", str, "release", required=False),
+        Field("version", str, "version", required=True),
         Field("timestamp", datetime, "generatedAtTime", required=False),
         Field("part_of", KGObject, "isPartOf"),
-        Field("description", basestring, "description"),
-        Field("parameters", basestring, "parameters"),
-        Field("old_uuid", basestring, "oldUUID"),
+        Field("description", str, "description"),
+        Field("parameters", str, "parameters"),
+        Field("old_uuid", str, "oldUUID"),
         Field("alternate_of", KGObject, "alternateOf")
     )
 
@@ -272,7 +269,7 @@ class Morphology(KGObject):
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("cell_type", CellType, "modelOf"),
         Field("distribution", Distribution, "distribution")
     )
@@ -320,9 +317,9 @@ class ModelScript(KGObject):
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("code_format", basestring, "code_format"),
-        Field("license", basestring, "license"),
+        Field("name", str, "name", required=True),
+        Field("code_format", str, "code_format"),
+        Field("license", str, "license"),
         Field("distribution", Distribution, "distribution")
     )
 
@@ -357,18 +354,18 @@ class EModel(ModelInstance):
         "{{base}}/contexts/nexus/core/resource/v0.3.0"
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("brain_region", BrainRegion, "brainRegion", required=False),
         Field("species", Species, "species", required=False),
         Field("model_of", (CellType, BrainRegion), "modelOf", required=False),
         Field("main_script", "brainsimulation.ModelScript", "mainModelScript", required=False),
-        Field("release", basestring, "release", required=False),
-        Field("version", basestring, "version", required=False),
+        Field("release", str, "release", required=False),
+        Field("version", str, "version", required=False),
         Field("timestamp", datetime, "generatedAtTime", required=False),
         Field("part_of", KGObject, "isPartOf"),
-        Field("description", basestring, "description"),
-        Field("parameters", basestring, "parameters"),
-        Field("old_uuid", basestring, "oldUUID")
+        Field("description", str, "description"),
+        Field("parameters", str, "parameters"),
+        Field("old_uuid", str, "oldUUID")
     )
 
     def __init__(self, name, main_script=None, version=None, timestamp=None, #project,
@@ -415,22 +412,22 @@ class ValidationTestDefinition(KGObject, HasAliasMixin):
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("authors", Person, "author", multiple=True, required=True),
-        Field("description", basestring, "description", required=True),
+        Field("description", str, "description", required=True),
         Field("date_created", (date, datetime), "dateCreated", required=True),
-        Field("alias", basestring, "alias"),
+        Field("alias", str, "alias"),
         Field("brain_region", BrainRegion, "brainRegion", multiple=True),
         Field("species", Species, "species"),
         Field("celltype", CellType, "celltype", multiple=True),
-        Field("test_type", basestring, "testType"),
+        Field("test_type", str, "testType"),
         Field("age", Age, "age"),
         Field("reference_data", KGObject, "referenceData", multiple=True),  # to fix: should be a Collection?
-        Field("data_type", basestring, "dataType"),
-        Field("recording_modality", basestring, "recordingModality"),
-        Field("score_type", basestring, "scoreType"),
-        Field("status", basestring, "status"),
-        Field("old_uuid", basestring, "oldUUID")
+        Field("data_type", str, "dataType"),
+        Field("recording_modality", str, "recordingModality"),
+        Field("score_type", str, "scoreType"),
+        Field("status", str, "status"),
+        Field("old_uuid", str, "oldUUID")
     )
 
     @property
@@ -480,15 +477,15 @@ class ValidationScript(KGObject):  # or ValidationImplementation
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("date_created", (date, datetime), "dateCreated", required=True),
         Field("repository", IRI, "repository"),
-        Field("version", basestring, "version"),
-        Field("description", basestring, "description"),
-        Field("parameters", basestring, "parameters"),
-        Field("test_class", basestring, "path"),
+        Field("version", str, "version"),
+        Field("description", str, "description"),
+        Field("parameters", str, "parameters"),
+        Field("test_class", str, "path"),
         Field("test_definition", ValidationTestDefinition, "implements"),
-        Field("old_uuid", basestring, "oldUUID")
+        Field("old_uuid", str, "oldUUID")
     )
 
 
@@ -526,17 +523,17 @@ class ValidationResult(KGObject):
         }
     ]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("generated_by", "brainsimulation.ValidationActivity", "wasGeneratedBy"),
-        Field("description", basestring, "description"),
+        Field("description", str, "description"),
         Field("score", (float, int), "score"),
         Field("normalized_score", (float, int), "normalizedScore"),
         Field("passed", bool, "passedValidation"),
         Field("timestamp", (date, datetime), "dateCreated"),
         Field("additional_data", KGObject, "hadMember", multiple=True),
-        Field("old_uuid", basestring, "oldUUID"),
-        Field("collab_id", basestring, "collabID"),
-        Field("hash", basestring, "hash")
+        Field("old_uuid", str, "oldUUID"),
+        Field("collab_id", str, "collabID"),
+        Field("hash", str, "hash")
     )
 
 
@@ -667,9 +664,9 @@ class Simulation(KGObject):
         }
     ]
     fields = (
-        Field("name", basestring, "name"),
-        Field("description", basestring, "description"),
-        Field("identifier", basestring, "identifier"),
+        Field("name", str, "name"),
+        Field("description", str, "description"),
+        Field("identifier", str, "identifier"),
         Field("model_instance", (ModelInstance, MEModel), "modelUsed"),
         Field("config", "brainsimulation.SimulationConfiguration", "configUsed", multiple=True),
         Field("timestamp", datetime,  "startedAtTime"),
@@ -677,7 +674,7 @@ class Simulation(KGObject):
         Field("started_by", Person, "wasAssociatedWith"),
         Field("end_timestamp",  datetime, "endedAtTime"),
         Field("computing_environment", ComputingEnvironment, "envUsed", required=False),
-        Field("status", basestring, "status"),
+        Field("status", str, "status"),
         # should probably restrict to the enum https://schema.org/ActionStatusType
         Field("resource_usage", float, "resourceUsage"),
         Field("tags", str,  "tags", multiple=True),
@@ -697,10 +694,10 @@ class SimulationConfiguration(KGObject):
                "description": "schema:description",
                "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("identifier", basestring, "identifier"),
-        Field("description", basestring, "description"),
-        Field("config_file", (Distribution, basestring), "distribution")
+        Field("name", str, "name", required=True),
+        Field("identifier", str, "identifier"),
+        Field("description", str, "description"),
+        Field("config_file", (Distribution, str), "distribution")
     )
 
     def __init__(self,
@@ -718,7 +715,7 @@ class SimulationConfiguration(KGObject):
             id=id,
             instance=instance)
         self._file_to_upload = None
-        if isinstance(config_file, basestring):
+        if isinstance(config_file, str):
             if config_file.startswith("http"):
                 self.config_file = Distribution(location=config_file)
             elif os.path.isfile(config_file):
@@ -761,14 +758,14 @@ class SimulationOutput(KGObject):
                "prov": "http://www.w3.org/ns/prov#",
                "startedAtTime": "prov:startedAtTime",
                "wasGeneratedBy": "prov:wasGeneratedBy"}
-    fields = (Field("name", basestring, "name", required=True),
-              Field("description", basestring, "description"),
-              Field("identifier", basestring, "identifier"),
-              Field("result_file", (Distribution, basestring), "distribution"),
+    fields = (Field("name", str, "name", required=True),
+              Field("description", str, "description"),
+              Field("identifier", str, "identifier"),
+              Field("result_file", (Distribution, str), "distribution"),
               Field("generated_by", Simulation, "wasGeneratedBy"),
               Field("derived_from", KGObject, "wasDerivedFrom", multiple=True),  # SHOULD BE SET UP  BY THE ACTIVITY
-              Field("target", basestring, "target"),
-              Field("data_type", basestring, "dataType"),
+              Field("target", str, "target"),
+              Field("data_type", str, "dataType"),
               Field("timestamp", datetime,  "startedAtTime"),
               Field("brain_region", BrainRegion, "brainRegion"),
               Field("species", Species, "species"),
@@ -805,7 +802,7 @@ class SimulationOutput(KGObject):
             id=id,
             instance=instance)
         self._file_to_upload = None
-        if isinstance(result_file, basestring):
+        if isinstance(result_file, str):
             if result_file.startswith("http"):
                 self.result_file = Distribution(location=result_file)
             elif os.path.isfile(result_file):

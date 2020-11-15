@@ -202,7 +202,7 @@ def typename_setting(field, namespace):
             return '\"'+class_entries[i0[0]].capitalize()+'\"', 'multiple=True'
 
     else:
-        return 'basestring', 'multiple=False'
+        return 'str', 'multiple=False'
 
 def field_setting(field,
                   output='property'):

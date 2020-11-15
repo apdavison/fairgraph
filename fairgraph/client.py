@@ -2,7 +2,7 @@
 define client
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +20,8 @@ define client
 import os
 import json
 import logging
-try:
-    from urllib.parse import urlparse, quote_plus
-except ImportError:  # Python 2
-    from urlparse import urlparse
-    from urllib import quote_plus
+from urllib.parse import urlparse, quote_plus
+
 from requests.exceptions import HTTPError
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.auth_client.simple_refresh_token_client import SimpleRefreshTokenClient

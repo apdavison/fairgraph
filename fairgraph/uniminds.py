@@ -23,10 +23,7 @@ import inspect
 from datetime import datetime
 from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list, Field
 from fairgraph.minds import MINDSObject
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 class UnimindsObject(MINDSObject):
     namespace = "uniminds"
@@ -45,12 +42,12 @@ class Person(UnimindsObject):
     type = ["uniminds:Person"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("email", basestring, "http://schema.org/email", required=False, multiple=False),
-      Field("family_name", basestring, "http://schema.org/familyName", required=False, multiple=False),
-      Field("given_name", basestring, "http://schema.org/givenName", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("orcid", basestring, "https://schema.hbp.eu/uniminds/orcid", required=False, multiple=False))
+      Field("email", str, "http://schema.org/email", required=False, multiple=False),
+      Field("family_name", str, "http://schema.org/familyName", required=False, multiple=False),
+      Field("given_name", str, "http://schema.org/givenName", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("orcid", str, "https://schema.hbp.eu/uniminds/orcid", required=False, multiple=False))
     existence_query_fields = ("family_name", "given_name")
 
 class AbstractionLevel(UnimindsOption):
@@ -61,8 +58,8 @@ class AbstractionLevel(UnimindsOption):
     type = ["uniminds:Abstractionlevel"]
     fields = (
         Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-        Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-        Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+        Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+        Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class AgeCategory(UnimindsOption):
@@ -73,8 +70,8 @@ class AgeCategory(UnimindsOption):
     type = ["uniminds:Agecategory"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class BrainStructure(UnimindsOption):
@@ -85,8 +82,8 @@ class BrainStructure(UnimindsOption):
     type = ["uniminds:Brainstructure"]
     fields = (
         Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-        Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-        Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+        Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+        Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class CellularTarget(UnimindsOption):
@@ -97,8 +94,8 @@ class CellularTarget(UnimindsOption):
     type = ["uniminds:Cellulartarget"]
     fields = (
         Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-        Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-        Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+        Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+        Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Country(UnimindsOption):
@@ -109,8 +106,8 @@ class Country(UnimindsOption):
     type = ["uniminds:Country"]
     fields = (
         Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-        Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-        Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+        Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+        Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Dataset(UnimindsObject):
@@ -121,14 +118,14 @@ class Dataset(UnimindsObject):
     type = ["uniminds:Dataset"]
     fields = (
       #Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
       Field("intended_release_date", datetime, "https://schema.hbp.eu/uniminds/intendedReleaseDate", required=False, multiple=False),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("brain_structure", BrainStructure, "https://schema.hbp.eu/uniminds/brainStructure", required=False, multiple=False),
       Field("cellular_target", CellularTarget, "https://schema.hbp.eu/uniminds/cellularTarget", required=False, multiple=False),
       Field("contributor", Person, "https://schema.hbp.eu/uniminds/contributor", required=False, multiple=True),
-      #Field("created_as", basestring, "https://schema.hbp.eu/uniminds/createdAs", required=False, multiple=False),
+      #Field("created_as", str, "https://schema.hbp.eu/uniminds/createdAs", required=False, multiple=False),
       Field("custodian", Person, "https://schema.hbp.eu/uniminds/custodian", required=False, multiple=True),
       Field("doi", "uniminds.Doi", "https://schema.hbp.eu/uniminds/doi", required=False, multiple=False),
       Field("embargo_status", "uniminds.EmbargoStatus", "https://schema.hbp.eu/uniminds/embargoStatus", required=False, multiple=False),
@@ -155,8 +152,8 @@ class Disability(UnimindsOption):
     type = ["uniminds:Disability"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Doi(UnimindsOption):
@@ -166,9 +163,9 @@ class Doi(UnimindsOption):
     _path = "/options/doi/v1.0.0"
     type = ["uniminds:Doi"]
     fields = (
-      Field("citation", basestring, "https://schema.hbp.eu/uniminds/citation", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("citation", str, "https://schema.hbp.eu/uniminds/citation", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class EmbargoStatus(UnimindsOption):
@@ -179,8 +176,8 @@ class EmbargoStatus(UnimindsOption):
     type = ["uniminds:Embargostatus"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class EthicsApproval(UnimindsObject):
@@ -191,9 +188,9 @@ class EthicsApproval(UnimindsObject):
     type = ["uniminds:Ethicsapproval"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("hbpethicsapproval", basestring, "https://schema.hbp.eu/uniminds/hbpEthicsApproval", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("hbpethicsapproval", str, "https://schema.hbp.eu/uniminds/hbpEthicsApproval", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("country_of_origin", Country, "https://schema.hbp.eu/uniminds/countryOfOrigin", required=False, multiple=False),
       Field("ethics_authority", "uniminds.EthicsAuthority", "https://schema.hbp.eu/uniminds/ethicsAuthority", required=False, multiple=True))
 
@@ -207,8 +204,8 @@ class EthicsAuthority(UnimindsOption):
     type = ["uniminds:Ethicsauthority"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class ExperimentalPreparation(UnimindsOption):
@@ -219,8 +216,8 @@ class ExperimentalPreparation(UnimindsOption):
     type = ["uniminds:Experimentalpreparation"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class File(UnimindsObject):
@@ -231,10 +228,10 @@ class File(UnimindsObject):
     type = ["uniminds:File"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("url", basestring, "http://schema.org/url", required=False, multiple=False),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("url", str, "http://schema.org/url", required=False, multiple=False),
       Field("mime_type", "uniminds.MimeType", "https://schema.hbp.eu/uniminds/mimeType", required=False, multiple=False))
 
 
@@ -246,8 +243,8 @@ class FileAssociation(UnimindsObject):
     type = ["uniminds:Fileassociation"]
     fields = (
       Field("from", File, "https://schema.hbp.eu/linkinginstance/from", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("to", Dataset, "https://schema.hbp.eu/linkinginstance/to", required=False, multiple=False))
 
 
@@ -259,11 +256,11 @@ class FileBundle(UnimindsObject):
     type = ["uniminds:FileBundle"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("url", basestring, "http://schema.org/url", required=False, multiple=False),
-      Field("usage_notes", basestring, "https://schema.hbp.eu/uniminds/usageNotes", required=False, multiple=False),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("url", str, "http://schema.org/url", required=False, multiple=False),
+      Field("usage_notes", str, "https://schema.hbp.eu/uniminds/usageNotes", required=False, multiple=False),
       Field("file", File, "https://schema.hbp.eu/uniminds/file", required=False, multiple=False),
       Field("file_bundle", "uniminds.FileBundle", "https://schema.hbp.eu/uniminds/fileBundle", required=False, multiple=False),
       Field("mime_type", "uniminds.MimeType", "https://schema.hbp.eu/uniminds/mimeType", required=False, multiple=True),
@@ -278,8 +275,8 @@ class FileBundleGroup(UnimindsObject):
     type = ["uniminds:Filebundlegroup"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 
@@ -291,9 +288,9 @@ class FundingInformation(UnimindsObject):
     type = ["uniminds:Fundinginformation"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("grant_id", basestring, "https://schema.hbp.eu/uniminds/grantId", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("grant_id", str, "https://schema.hbp.eu/uniminds/grantId", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Genotype(UnimindsOption):
@@ -305,8 +302,8 @@ class Genotype(UnimindsOption):
     type = ["uniminds:Genotype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Handedness(UnimindsOption):
@@ -317,8 +314,8 @@ class Handedness(UnimindsOption):
     type = ["uniminds:Handedness"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class HBPComponent(UnimindsObject):
@@ -329,9 +326,9 @@ class HBPComponent(UnimindsObject):
     type = ["uniminds:Hbpcomponent"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("associated_task", basestring, "https://schema.hbp.eu/uniminds/associatedTask", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("associated_task", str, "https://schema.hbp.eu/uniminds/associatedTask", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("component_owner", Person, "https://schema.hbp.eu/uniminds/componentOwner", required=False, multiple=False))
 
 
@@ -343,10 +340,10 @@ class License(UnimindsOption):
     type = ["uniminds:License"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("fullname", basestring, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("url", basestring, "http://schema.org/url", required=False, multiple=False))
+      Field("fullname", str, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("url", str, "http://schema.org/url", required=False, multiple=False))
 
 
 class Method(UnimindsObject):
@@ -357,10 +354,10 @@ class Method(UnimindsObject):
     type = ["uniminds:Method"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("fullname", basestring, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("fullname", str, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("brain_structure", BrainStructure, "https://schema.hbp.eu/uniminds/brainStructure", required=False, multiple=True),
       Field("ethics_approval", EthicsApproval, "https://schema.hbp.eu/uniminds/ethicsApproval", required=False, multiple=False),
       Field("experimental_preparation", ExperimentalPreparation, "https://schema.hbp.eu/uniminds/experimentalPreparation", required=False, multiple=False),
@@ -378,8 +375,8 @@ class MethodCategory(UnimindsOption):
     type = ["uniminds:Methodcategory"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class MimeType(UnimindsOption):
@@ -390,8 +387,8 @@ class MimeType(UnimindsOption):
     type = ["uniminds:Mimetype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class ModelFormat(UnimindsOption):
@@ -402,8 +399,8 @@ class ModelFormat(UnimindsOption):
     type = ["uniminds:Modelformat"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class ModelInstance(UnimindsObject):
@@ -414,11 +411,11 @@ class ModelInstance(UnimindsObject):
     type = ["uniminds:Modelinstance"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
       Field("license", License, "http://schema.org/license", required=False, multiple=False),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("version", basestring, "http://schema.org/version", required=False, multiple=False),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("version", str, "http://schema.org/version", required=False, multiple=False),
       Field("abstraction_level", AbstractionLevel, "https://schema.hbp.eu/uniminds/abstractionLevel", required=False, multiple=False),
       Field("brain_structure", BrainStructure, "https://schema.hbp.eu/uniminds/brainStructure", required=False, multiple=True),
       Field("cellular_target", CellularTarget, "https://schema.hbp.eu/uniminds/cellularTarget", required=False, multiple=True),
@@ -456,8 +453,8 @@ class ModelScope(UnimindsOption):
     type = ["uniminds:Modelscope"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Organization(UnimindsObject):
@@ -468,9 +465,9 @@ class Organization(UnimindsObject):
     type = ["uniminds:Organization"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("created_as", basestring, "https://schema.hbp.eu/uniminds/createdAs", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("created_as", str, "https://schema.hbp.eu/uniminds/createdAs", required=False, multiple=False))
 
 
 class Project(UnimindsObject):
@@ -481,9 +478,9 @@ class Project(UnimindsObject):
     type = ["uniminds:Project"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("coordinator", Person, "https://schema.hbp.eu/uniminds/coordinator", required=False, multiple=True))
 
 
@@ -495,9 +492,9 @@ class Publication(UnimindsObject):
     type = ["uniminds:Publication"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
-      Field("url", basestring, "http://schema.org/url", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
+      Field("url", str, "http://schema.org/url", required=False, multiple=False),
       Field("brain_structure", BrainStructure, "https://schema.hbp.eu/uniminds/brainStructure", required=False, multiple=False),
       Field("project", Project, "https://schema.hbp.eu/uniminds/project", required=False, multiple=False),
       Field("publication_id", "uniminds.PublicationId", "https://schema.hbp.eu/uniminds/publicationId", required=False, multiple=False),
@@ -513,8 +510,8 @@ class PublicationId(UnimindsOption):
     type = ["uniminds:Publicationid"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("publication", Publication, "https://schema.hbp.eu/uniminds/publication", required=False, multiple=False),
       Field("publication_id_type", "uniminds.PublicationIdType", "https://schema.hbp.eu/uniminds/publicationIdType", required=False, multiple=False))
 
@@ -527,8 +524,8 @@ class PublicationIdType(UnimindsOption):
     type = ["uniminds:Publicationidtype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Sex(UnimindsOption):
@@ -539,8 +536,8 @@ class Sex(UnimindsOption):
     type = ["uniminds:Sex"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Species(UnimindsOption):
@@ -551,8 +548,8 @@ class Species(UnimindsOption):
     type = ["uniminds:Species"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class Strain(UnimindsOption):
@@ -563,8 +560,8 @@ class Strain(UnimindsOption):
     type = ["uniminds:Strain"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 class StudyTarget(UnimindsObject):
@@ -575,9 +572,9 @@ class StudyTarget(UnimindsObject):
     type = ["uniminds:Studytarget"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("fullname", basestring, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("fullname", str, "https://schema.hbp.eu/uniminds/fullName", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("study_target_source", "uniminds.StudyTargetSource", "https://schema.hbp.eu/uniminds/studyTargetSource", required=False, multiple=False),
       Field("study_target_type", "uniminds.StudyTargetType", "https://schema.hbp.eu/uniminds/studyTargetType", required=False, multiple=False))
 
@@ -590,8 +587,8 @@ class StudyTargetSource(UnimindsOption):
     type = ["uniminds:Studytargetsource"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 
@@ -603,8 +600,8 @@ class StudyTargetType(UnimindsOption):
     type = ["uniminds:Studytargettype"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False))
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False))
 
 
 
@@ -615,12 +612,12 @@ class Subject(UnimindsObject):
     _path = "/core/subject/v1.0.0"
     type = ["uniminds:Subject"]
     fields = (
-      Field("age", (basestring, float), "https://schema.hbp.eu/uniminds/age", required=False, multiple=False),
-      Field("age_range_max", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMax", required=False, multiple=False),
-      Field("age_range_min", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMin", required=False, multiple=False),
+      Field("age", (str, float), "https://schema.hbp.eu/uniminds/age", required=False, multiple=False),
+      Field("age_range_max", (str, float), "https://schema.hbp.eu/uniminds/ageRangeMax", required=False, multiple=False),
+      Field("age_range_min", (str, float), "https://schema.hbp.eu/uniminds/ageRangeMin", required=False, multiple=False),
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("age_category", AgeCategory, "https://schema.hbp.eu/uniminds/ageCategory", required=False, multiple=False),
       Field("brain_structure", BrainStructure, "https://schema.hbp.eu/uniminds/brainstructure", required=False, multiple=False),
       Field("cellular_target", CellularTarget, "https://schema.hbp.eu/uniminds/cellularTarget", required=False, multiple=False),
@@ -642,12 +639,12 @@ class SubjectGroup(UnimindsObject):
     _path = "/core/subjectgroup/v1.0.0"
     type = ["uniminds:Subjectgroup"]
     fields = (
-      Field("age_range_max", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMax", required=False, multiple=False),
-      Field("age_range_min", (basestring, float), "https://schema.hbp.eu/uniminds/ageRangeMin", required=False, multiple=False),
+      Field("age_range_max", (str, float), "https://schema.hbp.eu/uniminds/ageRangeMax", required=False, multiple=False),
+      Field("age_range_min", (str, float), "https://schema.hbp.eu/uniminds/ageRangeMin", required=False, multiple=False),
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("description", basestring, "http://schema.org/description", required=False, multiple=False),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("description", str, "http://schema.org/description", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("num_of_subjects", int, "https://schema.hbp.eu/uniminds/numOfSubjects", required=False, multiple=False),
       Field("age_category", AgeCategory, "https://schema.hbp.eu/uniminds/ageCategory", required=False, multiple=False),
       Field("cellular_target", CellularTarget, "https://schema.hbp.eu/uniminds/cellularTarget", required=False, multiple=False),
@@ -673,8 +670,8 @@ class TissueSample(UnimindsObject):
     type = ["uniminds:Tissuesample"]
     fields = (
       Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
-      Field("identifier", basestring, "http://schema.org/identifier", required=False, multiple=True),
-      Field("name", basestring, "http://schema.org/name", required=False, multiple=False),
+      Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),
+      Field("name", str, "http://schema.org/name", required=False, multiple=False),
       Field("subject", Subject, "https://schema.hbp.eu/uniminds/subject", required=False, multiple=False))
 
 

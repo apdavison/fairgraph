@@ -4,7 +4,7 @@ Metadata for entities that are used in multiple experimental contexts (e.g. in b
 """
 
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,10 +23,7 @@ from .base import KGObject, cache, Field, Distribution
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -58,13 +55,13 @@ class Device(KGObject):
         }
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("manufacturer", basestring, "manufacturer"),
-        Field("model_name", basestring, "modelName"),
-        Field("software_version", basestring, "softwareVersion"),
-        Field("serial_number", basestring, "serialNumber"),
+        Field("name", str, "name", required=True),
+        Field("manufacturer", str, "manufacturer"),
+        Field("model_name", str, "modelName"),
+        Field("software_version", str, "softwareVersion"),
+        Field("serial_number", str, "serialNumber"),
         Field("distribution", Distribution, "distribution"),
-        Field("description", basestring, "description"),
+        Field("description", str, "description"),
         Field("placement_activity", ("electrophysiology.ElectrodePlacementActivity", "electrophysiology.ElectrodeImplantationActivity"), "^prov:generated", reverse="device"),
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment"), "^prov:used", reverse="device")
     )
@@ -97,12 +94,12 @@ class CranialWindow(KGObject):
         "description": "schema:description"
         }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
-        Field("window_type", basestring, "windowType"),
+        Field("window_type", str, "windowType"),
         Field("diameter", QuantitativeValue, "diameter"),
-        Field("fluorescence_labeling", basestring, "fluorescenceLabeling"),
-        Field("description", basestring, "description"),
+        Field("fluorescence_labeling", str, "fluorescenceLabeling"),
+        Field("description", str, "description"),
         Field("generated_by", "Craniotomy", "^prov:generated", reverse="cranial_window"),
         Field("activity", ("optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeImplantationActivity", "electrophysiology.PatchClampActivity"), "^prov:used", reverse=["target", "cranial_window", "recorded_tissue"])
     )
@@ -134,10 +131,10 @@ class Craniotomy(KGObject):
         "wasAssociatedWith": "prov:wasAssociatedWith"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("cranial_window", CranialWindow, "generated", required=True),
-        Field("anesthesia", basestring, "anesthesia"),
+        Field("anesthesia", str, "anesthesia"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
@@ -164,9 +161,9 @@ class Slice(KGObject):  # should move to "core" module?
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
-        Field("provider_id", basestring, "providerId"),
+        Field("provider_id", str, "providerId"),
         Field("brain_slicing_activity", "experiment.BrainSlicingActivity", "^prov:generated", reverse="slices"),
         #Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse=["recorded_tissue","target"])
         #  support for multiple reverses not implemented
@@ -212,10 +209,10 @@ class BrainSlicingActivity(KGObject):
         Field("subject", Subject, "used", required=True),
         Field("slices", Slice, "generated", multiple=True, required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
-        Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
-        Field("slicing_plane", basestring, "slicingPlane"), # Sagittal, Para-sagittal, Coronal, Horizontal
+        Field("hemisphere", str, "hemisphere"), # choice of Left, Right
+        Field("slicing_plane", str, "slicingPlane"), # Sagittal, Para-sagittal, Coronal, Horizontal
         Field("slicing_angle", float, "slicingAngle"),
-        Field("cutting_solution", basestring, "solution"),
+        Field("cutting_solution", str, "solution"),
         Field("cutting_thickness", (QuantitativeValueRange, QuantitativeValue), "cuttingThickness"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
@@ -299,8 +296,8 @@ class VisualStimulus(KGObject):
         }
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description"),
+        Field("name", str, "name", required=True),
+        Field("description", str, "description"),
         Field("distribution", Distribution, "distribution"),
         Field("stimulation", "optophysiology.VisualStimulation", "^prov:used", reverse="stimulus")
     )
@@ -334,15 +331,15 @@ class VisualStimulation(KGObject):
         }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulus", VisualStimulus, "used", required=True),
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("interstimulus_interval", QuantitativeValue, "interstimulusInterval"),
         Field("refresh_rate", QuantitativeValue, "refreshRate"),
         Field("background_luminance", QuantitativeValue, "backgroundLuminance"),
         Field("protocol", Protocol, "hadProtocol"),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 
@@ -378,8 +375,8 @@ class ElectrophysiologicalStimulus(KGObject):
         }
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description", required=True),
+        Field("name", str, "name", required=True),
+        Field("description", str, "description", required=True),
         Field("distribution", Distribution, "distribution"),
         Field("stimulation", "experiment.ElectrophysiologicalStimulation", "^prov:used", reverse="stimulus")
     )
@@ -411,12 +408,12 @@ class ElectrophysiologicalStimulation(KGObject):
         }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulus", ElectrophysiologicalStimulus, "used", required=True),
         Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("protocol", Protocol, "hadProtocol"),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 
@@ -452,8 +449,8 @@ class BehavioralStimulus(KGObject):
         }
     }
     fields = (
-        Field("name", basestring, "name", required=True),
-        Field("description", basestring, "description", required=True),
+        Field("name", str, "name", required=True),
+        Field("description", str, "description", required=True),
         Field("distribution", Distribution, "distribution"),
         Field("stimulation", "experiment.BehavioralStimulation", "^prov:used", reverse="stimulus")
     )
@@ -484,12 +481,12 @@ class BehavioralStimulation(KGObject):
         }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulus", BehavioralStimulus, "used", required=True),
         Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("protocol", Protocol, "hadProtocol"),
-        Field("citation", basestring, "citation"),
-        Field("code", basestring, "code"),
+        Field("citation", str, "citation"),
+        Field("code", str, "code"),
         Field("license", License, "license")
     )
 

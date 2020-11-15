@@ -3,7 +3,7 @@
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,10 +20,7 @@
 
 import collections
 from .base import OntologyTerm, StructuredMetadata, Field
-try:
-    basestring
-except NameError:
-    basestring = str
+
 import requests
 from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
 
@@ -612,8 +609,8 @@ class Age(StructuredMetadata):
         "period": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/period"
     }
     fields = (
-        Field("value", basestring, "value", required=True),
-        Field("period", basestring, "period", required=True, multiple=True)
+        Field("value", str, "value", required=True),
+        Field("period", str, "period", required=True, multiple=True)
     )
 
     def __init__(self, value, period):

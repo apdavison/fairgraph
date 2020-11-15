@@ -12,7 +12,6 @@ from datetime import datetime, date
 from copy import deepcopy
 try:
     from urllib.parse import parse_qs, urlparse
-    basestring = str
 except ImportError:
     from urlparse import parse_qs, urlparse  # py2
 
@@ -176,7 +175,7 @@ def generate_random_object(cls, all_fields=True):
             obj_type = field.types[0]  # todo: pick randomly if len(field.types) > 1
             if not field.intrinsic:
                 value = None
-            elif obj_type == basestring:
+            elif obj_type == str:
                 value = _random_text()
             elif obj_type == int:
                 value = random.randint(1, 10)

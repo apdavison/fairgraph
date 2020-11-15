@@ -2,7 +2,7 @@
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,16 +17,11 @@
 # limitations under the License.
 
 
-try:
-    from urllib.request import urlretrieve
-    basestring = str
-except ImportError:  # Python 2
-    from urllib import urlretrieve
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
+
+from urllib.request import urlretrieve
+from pathlib import Path
 from datetime import datetime
+
 from fairgraph.base import KGObject, Field
 
 
@@ -40,7 +35,7 @@ class FileAssociation(DataObject):
     _path = "/core/fileassociation/v1.0.0"
     type = ["cscs:Fileassociation", "https://schema.hbp.eu/LinkingInstance"]
     fields = (
-        Field("name", basestring, "http://schema.org/name"),
+        Field("name", str, "http://schema.org/name"),
         Field("from", KGObject, "'https://schema.hbp.eu/linkinginstance/from"),
         Field("to", KGObject, "'https://schema.hbp.eu/linkinginstance/to")
     )
@@ -66,12 +61,12 @@ class CSCSFile(DataObject):
         "https://nexus.humanbrainproject.org/v0/contexts/nexus/core/resource/v0.3.0"
     ]
     fields = (
-        Field("name", basestring, "schema:name"),
-        Field("absolute_path", basestring, "hbp:absolute_path"),
+        Field("name", str, "schema:name"),
+        Field("absolute_path", str, "hbp:absolute_path"),
         Field("byte_size", int, "hbp:byte_size"),
-        Field("content_type", basestring, "hbp:content_type"),
+        Field("content_type", str, "hbp:content_type"),
         Field("last_modified", datetime, "hbp:last_modified"),
-        Field("relative_path", basestring, "hbp:relative_path")
+        Field("relative_path", str, "hbp:relative_path")
     )
 
     def download(self, base_dir=".", preserve_relative_path=True):

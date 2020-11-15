@@ -11,7 +11,7 @@ Coming soon:
 
 """
 
-# Copyright 2018-2019 CNRS
+# Copyright 2018-2020 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,10 +35,7 @@ from .core import Subject, Person, Protocol
 from .minds import Dataset
 from .utility import compact_uri, standard_context, as_list
 from .experiment import CranialWindow, Slice, VisualStimulation, ElectrophysiologicalStimulation, BehavioralStimulation, Device
-try:
-    basestring
-except NameError:
-    basestring = str
+
 
 DEFAULT_NAMESPACE = "neuralactivity"
 
@@ -68,10 +65,10 @@ class Sensor(KGObject):
     }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("coordinate_system", Distribution, "distribution"),
-        Field("coordinate_units", basestring, "coordinateUnits"),
-        Field("description", basestring, "description")
+        Field("coordinate_units", str, "coordinateUnits"),
+        Field("description", str, "description")
     )
 
     def __init__(self, name, coordinate_system=None, coordinate_units=None, description=None, id=None, instance=None):
@@ -123,7 +120,7 @@ class Trace(KGObject):
         "retrievalDate" : "nsg:retrievalDate"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True),
         Field("generated_by", "electrophysiology.PatchClampExperiment", "wasGeneratedBy",
               required=True),
@@ -131,7 +128,7 @@ class Trace(KGObject):
               "qualifiedGeneration", required=True),
         Field("channel", int, "channel", required=True),
         # add type for units, to allow checking?
-        Field("data_unit", basestring, "dataUnit", required=True),
+        Field("data_unit", str, "dataUnit", required=True),
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("part_of", Dataset, "partOf"),
         Field("retrieval_date", datetime, "retrievalDate"))
@@ -165,7 +162,7 @@ class MultiChannelMultiTrialRecording(Trace):
     _path = "/electrophysiology/multitrace/v0.2.0"
     type = ["nsg:MultiChannelMultiTrialRecording", "prov:Entity"]
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("data_location", Distribution, "distribution", required=True, multiple=True),
         Field("generated_by",
               ("electrophysiology.PatchClampExperiment",
@@ -177,8 +174,8 @@ class MultiChannelMultiTrialRecording(Trace):
               "electrophysiology.QualifiedMultiTraceGeneration",
               "qualifiedGeneration",
               required=True),
-        Field("channel_names", basestring, "channelName", required=True, multiple=True),
-        Field("data_unit", basestring, "dataUnit", required=True,
+        Field("channel_names", str, "channelName", required=True, multiple=True),
+        Field("data_unit", str, "dataUnit", required=True,
               multiple=True),  # add type for units, to allow checking?
         Field("time_step", QuantitativeValue, "timeStep", required=True),
         Field("channel_type", ChannelType, "channelType"),
@@ -224,7 +221,7 @@ class PatchedCell(KGObject):
         "morphologyType": "nsg:morphologyType"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "electrophysiology.PatchedCellCollection", "^prov:hadMember",
               reverse="cells"),
@@ -233,17 +230,17 @@ class PatchedCell(KGObject):
         #Field("morphology_type", MorphologyType, "morphologyType"),
         Field("experiments", "electrophysiology.PatchClampExperiment",
               "^prov:used", reverse="recorded_cell", multiple=True),
-        Field("pipette_id", (basestring, int), "pipetteNumber"),
+        Field("pipette_id", (str, int), "pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "sealResistance"),
         Field("pipette_resistance", QuantitativeValue, "pipetteResistance"),
         Field("liquid_junction_potential", QuantitativeValue, "liquidJunctionPotential"),
         Field("start_membrane_potential", QuantitativeValue, "startMembranePotential"),
         Field("end_membrane_potential", QuantitativeValue, "endMembranePotential"),
-        Field("pipette_solution", basestring, "solution"),
-        Field("labeling_compound", basestring, "labelingCompound"),
+        Field("pipette_solution", str, "solution"),
+        Field("labeling_compound", str, "labelingCompound"),
         Field("reversal_potential_cl", QuantitativeValue, "chlorideReversalPotential"),
-        Field("description", basestring, "description")
+        Field("description", str, "description")
     )
 
     def __init__(self, name, brain_location, collection=None, putative_cell_type=None, cell_type=None, morphology_type=None, experiments=None,
@@ -413,7 +410,7 @@ class PatchedSlice(KGObject):
     #collection_class = "PatchedCellCollection"
     #recording_activity_class = "PatchClampActivity"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
         Field("recorded_cells", "electrophysiology.PatchedCellCollection", "hasPart",
               required=True),
@@ -421,7 +418,7 @@ class PatchedSlice(KGObject):
               reverse="recorded_slice"),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("bath_solution", QuantitativeValue, "solution"),
-        Field("description", basestring, "description")
+        Field("description", str, "description")
     )
 
     def __init__(self, name, slice, recorded_cells, recording_activity=None, brain_location=None, bath_solution=None, description=None,
@@ -469,7 +466,7 @@ class PatchedCellCollection(KGObject):
     #member_class = "PatchedCell"
     #recorded_from_class = "PatchedSlice"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("cells", PatchedCell, "hadMember", required=True, multiple=True),
         Field("slice", PatchedSlice, "^nsg:hasPart", reverse="recorded_cells")
     )
@@ -522,7 +519,7 @@ class CellCulture(KGObject):  # should move to "core" module?
         "hadMember": "prov:hadMember"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("cells", PatchedCell, "hadMember", required=True, multiple=True),
         Field("culturing_activity", "electrophysiology.CellCultureActivity",
@@ -556,10 +553,10 @@ class PatchClampActivity(KGObject):  # rename to "PatchClampRecording"?
         "endAtTime": "prov:endedAtTime"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("recorded_tissue", (CellCulture, Slice, CranialWindow), "used", required=True),
         Field("recorded_slice", PatchedSlice, "generated"),
-        Field("protocol", basestring, "hadProtocol"),
+        Field("protocol", str, "hadProtocol"),
         Field("people", Person, "wasAssociatedWith", multiple=True),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime")
@@ -599,7 +596,7 @@ class PatchClampExperiment(KGObject):
     }
     #recorded_cell_class = "PatchedCell"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("recorded_cell", PatchedCell, "used", required=True),
         Field("acquisition_device", Device, "device"),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
@@ -746,15 +743,15 @@ class QualifiedTraceGeneration(KGObject):
         "compensationCurrent" : "nsg:compensationCurrent"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulus_experiment",
               (PatchClampExperiment, "electrophysiology.IntraCellularSharpElectrodeExperiment"),
               "activity", required=True),
         Field("sweep", int, "sweep", multiple=True, required=True),
         Field("repetition", int, "repetition"),
         Field("at_time", datetime, "atTime"),
-        Field("provider_experiment_id", basestring, "providerExperimentId"),
-        Field("provider_experiment_name", basestring, "providerExperimentName"),
+        Field("provider_experiment_id", str, "providerExperimentId"),
+        Field("provider_experiment_name", str, "providerExperimentName"),
         #Field("traces", (Trace, MultiChannelMultiTrialRecording), "^foo"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
         Field("measured_holding_potential", QuantitativeValue, "measuredHoldingPotential"),
@@ -785,7 +782,7 @@ class ImplantedBrainTissue(KGObject):
         "wasDerivedFrom": "prov:wasDerivedFrom"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("implantation_activity", "electrophysiology.ElectrodeImplantationActivity", "^prov:generated", reverse="implanted_brain_tissues"),
         Field("experiment", "ExtracellularElectrodeExperiment", "^prov:used", reverse="recorded_cell"),
@@ -827,7 +824,7 @@ class ElectrodeArrayExperiment(KGObject):
         "hadProtocol": "prov:hadProtocol"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("device", Device, "used"),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "used", multiple=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
@@ -954,7 +951,7 @@ class ElectrodePlacementActivity(KGObject):
         "hadProtocol": "prov:hadProtocol"
     }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("device", Device, "generated"),
@@ -992,14 +989,14 @@ class ElectrodeImplantationActivity(ElectrodePlacementActivity):
         "hadProtocol": "prov:hadProtocol"
        }
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("subject", Subject, "used", required=True),
         Field("brain_location", BrainRegion, "brainRegion", multiple=True, required=True),
         Field("implanted_brain_tissues", ImplantedBrainTissue, "generated", multiple=True),
         Field("device", Device, "generated"),
         Field("cranial_window", CranialWindow, "cranialWindow"),
         Field("protocol", Protocol, "hadProtocol"),
-        Field("anesthesia", basestring, "anesthesia"),
+        Field("anesthesia", str, "anesthesia"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
@@ -1040,9 +1037,9 @@ class ExtracellularElectrodeExperiment(PatchClampExperiment):
 
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
-        Field("recorded_cell", ImplantedBrainTissue, "used"),
+        Field("recorded_cell", ImplantedBrainTissue, "used"),  # todo: should be "recorded_tissue"
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
     )
 
@@ -1060,19 +1057,19 @@ class IntraCellularSharpElectrodeRecordedCell(PatchedCell):
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     experiment_class = "IntraCellularSharpElectrodeExperiment"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("brain_location", BrainRegion, "brainRegion", required=True, multiple=True),
         Field("collection", "electrophysiology.IntraCellularSharpElectrodeRecordedCellCollection",
               "^prov:hadMember", reverse="cells"),
         Field("cell_type", CellType, "eType", required=False),
         Field("experiments", "electrophysiology.IntraCellularSharpElectrodeExperiment",
               "^prov:used", multiple=True, reverse="recorded_cell"),
-        Field("pipette_id", (basestring, int), "nsg:pipetteNumber"),
+        Field("pipette_id", (str, int), "nsg:pipetteNumber"),
         #Field("seal_resistance", QuantitativeValue.with_dimensions("electrical resistance"), "nsg:sealResistance"),
         Field("seal_resistance", QuantitativeValue, "nsg:sealResistance"),
         Field("pipette_resistance", QuantitativeValue, "nsg:pipetteResistance"),
         Field("liquid_junction_potential", QuantitativeValue, "nsg:liquidJunctionPotential"),
-        Field("labeling_compound", basestring, "nsg:labelingCompound"),
+        Field("labeling_compound", str, "nsg:labelingCompound"),
         Field("reversal_potential_cl", QuantitativeValue, "nsg:chlorideReversalPotential")
     )
 
@@ -1084,11 +1081,11 @@ class IntraCellularSharpElectrodeRecording(PatchClampActivity):
     type = ["nsg:IntraCellularSharpElectrode", "prov:Activity"]
     generates_class = "IntraCellularSharpElectrodeRecordedSlice"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("recorded_tissue", (CellCulture, Slice, CranialWindow), "used", required=True),
         Field("recorded_slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
               "generated", required=True),
-        Field("protocol", basestring, "protocol"),
+        Field("protocol", str, "protocol"),
         Field("people", Person, "wasAssociatedWith")
     )
 
@@ -1101,7 +1098,7 @@ class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     member_class = "IntraCellularSharpElectrodeRecordedCell"
     recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("cells", IntraCellularSharpElectrodeRecordedCell, "hadMember", required=True),
         Field("slice", "electrophysiology.IntraCellularSharpElectrodeRecordedSlice",
               "^nsg:hasPart", reverse="recorded_cells")
@@ -1116,7 +1113,7 @@ class IntraCellularSharpElectrodeRecordedSlice(PatchedSlice):
     collection_class = "IntraCellularSharpElectrodeRecordedCellCollection"
     recording_activity_class = "IntraCellularSharpElectrodeRecording"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("slice", Slice, "wasRevisionOf", required=True),
         Field("recorded_cells", IntraCellularSharpElectrodeRecordedCellCollection, "hasPart",
               required=True),
@@ -1135,7 +1132,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
     type = ["nsg:StimulusExperiment", "prov:Activity"]
     recorded_cell_class = "IntraCellularSharpElectrodeRecordedCell"
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("recorded_cell", IntraCellularSharpElectrodeRecordedCell, "used",
               required=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
@@ -1188,10 +1185,10 @@ class QualifiedMultiTraceGeneration(KGObject):
     }
 
     fields = (
-        Field("name", basestring, "name", required=True),
+        Field("name", str, "name", required=True),
         Field("stimulus_experiment", (ExtracellularElectrodeExperiment, IntraCellularSharpElectrodeExperiment, PatchClampExperiment, ElectrodeArrayExperiment), "activity", required=True),
         Field("sweeps", int, "sweep", multiple=True, required=True),
-        Field("channel_type", basestring, "channelType"),
+        Field("channel_type", str, "channelType"),
         Field("holding_potential", QuantitativeValue, "targetHoldingPotential"),
         Field("sampling_frequency", QuantitativeValue, "samplingFrequency"),
         Field("power_line_frequency", QuantitativeValue, "powerLineFrequency")
@@ -1246,8 +1243,8 @@ class CulturingActivity(KGObject):
         Field("brain_location", BrainRegion, "brainRegion", multiple=True),
         Field("culture_type", CultureType, "cultureType"),
         Field("culture_age", QuantitativeValueRange, "age"),
-        Field("hemisphere", basestring, "hemisphere"), # choice of Left, Right
-        Field("culture_solution", basestring, "solution"),
+        Field("hemisphere", str, "hemisphere"), # choice of Left, Right
+        Field("culture_solution", str, "solution"),
         Field("start_time", datetime, "startedAtTime"),
         Field("end_time", datetime, "endedAtTime"),
         Field("people", Person, "wasAssociatedWith", multiple=True)
