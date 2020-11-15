@@ -72,6 +72,7 @@ class Analysis(KGObject):
         Field("result", "analysis.AnalysisResult", "generated", multiple=True),
         Field("started_by", Person, "wasAssociatedWith")
     )
+    existence_query_fields = ("name", "timestamp")
 
 
 class AnalysisConfiguration(KGObject):
