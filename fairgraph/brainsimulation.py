@@ -636,7 +636,7 @@ class Simulation(KGObject):
     """
     """
     namespace = DEFAULT_NAMESPACE
-    _path = "/simulation/simulationactivity/v0.3.0"
+    _path = "/simulation/simulationactivity/v0.3.2"
     type = ["prov:Activity", "nsg:Simulation"]
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
@@ -680,7 +680,7 @@ class Simulation(KGObject):
         Field("tags", str,  "tags", multiple=True),
         Field("job_id", str, "providerId")
     )
-    existence_query_fields = ("start_time", "model_instance", "simulation_config", "computing_environment")
+    existence_query_fields = ("start_time", "model_instance", "simulation_config")  #, "computing_environment")
 
 
 class SimulationConfiguration(KGObject):
@@ -742,7 +742,7 @@ class SimulationOutput(KGObject):
     """
     """
     namespace = DEFAULT_NAMESPACE
-    type = ["prov:Entity", "nsg:Entity", "nsg:SimulationOutput"]
+    type = ["prov:Entity", "nsg:Entity", "nsg:SimulationResult"]
     _path = "/simulation/simulationresult/v0.1.0"
     context = {"schema": "http://schema.org/",
                "name": "schema:name",

@@ -1145,7 +1145,7 @@ class Distribution(StructuredMetadata):
             size = None
         if "digest" in data:
             digest = data["digest"]["value"]
-            digest_method = data["digest"]["algorithm"]
+            digest_method = data["digest"].get("algorithm")
         else:
             digest = None
             digest_method = None
