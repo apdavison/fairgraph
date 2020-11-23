@@ -19,10 +19,14 @@
 
 
 import collections
+import logging
+import json
 from .base import OntologyTerm, StructuredMetadata, Field
 
 import requests
 from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
+
+logger = logging.getLogger("fairgraph")
 
 
 class Address(StructuredMetadata):
@@ -415,12 +419,17 @@ class License(OntologyTerm):
     }
 
     @classmethod
-    def initialize(cls):
-        spdx_url = "https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json"
-        response = requests.get(spdx_url)
-        if response.status_code != 200:
-            raise Exception("Unable to retrieve license list")
-        license_data = response.json()
+    def initialize(cls, local_file=None):
+        if local_file:
+            with open(local_file) as fp:
+                license_data = json.load(fp)
+        else:
+            logger.info("Retrieving list of licences")
+            spdx_url = "https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json"
+            response = requests.get(spdx_url)
+            if response.status_code != 200:
+                raise Exception("Unable to retrieve license list")
+            license_data = response.json()
         for entry in license_data["licenses"]:
             cls.iri_map[entry["name"]] = entry["seeAlso"][0]
 
