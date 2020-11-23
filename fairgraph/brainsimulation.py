@@ -680,7 +680,7 @@ class Simulation(KGObject):
         Field("tags", str,  "tags", multiple=True),
         Field("job_id", str, "providerId")
     )
-    existence_query_fields = ("start_time", "model_instance", "simulation_config")  #, "computing_environment")
+    existence_query_fields = ("timestamp", "model_instance", "simulation_config")  #, "computing_environment")
 
 
 class SimulationConfiguration(KGObject):
@@ -717,7 +717,7 @@ class SimulationConfiguration(KGObject):
         self._file_to_upload = None
         if isinstance(config_file, str):
             if config_file.startswith("http"):
-                self.config_file = Distribution(location=config_file)
+                self.config_file = [Distribution(location=config_file)]
             elif os.path.isfile(config_file):
                 self._file_to_upload = config_file
                 self.config_file = None

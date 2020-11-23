@@ -348,11 +348,6 @@ class AbstractionLevel(OntologyTerm):
         "spiking neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000014",
         "spiking neurons: biophysical": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000017",
         "spiking neurons: point neuron": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000018",
-        "rate neurons": "http://purl.org/incf/ontology/Computational_Neurosciences/cno_alpha.owl#cno_0000144",
-        "population modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345671",
-        "population modelling: neural field": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345672",
-        "population modelling: neural mass": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345673",
-        "cognitive modelling": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345674",
         "algorithm": "http://www.hbp.FIXME.org/hbp_modelling_ontology/12345675",
         "statistical model": "http://dbpedia.org/page/Statistical_model"
     }

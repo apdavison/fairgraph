@@ -34,7 +34,7 @@ test_data_lookup.update({
     "/v0/data/modelvalidation/simulation/validationscript/v0.1.0/": "test/test_data/nexus/brainsimulation/validationscript_list_0_10.json",
     "/v0/data/modelvalidation/simulation/validationtestdefinition/v0.1.0/": "test/test_data/nexus/brainsimulation/validationtestdefinition_list_0_10.json",
     "/v0/data/modelvalidation/simulation/simulationactivity/v0.1.0/": "test/test_data/nexus/brainsimulation/simulation_list_0_10.json",
-    "/v0/data/modelvalidation/simulation/simulationactivity/v0.3.0/": "test/test_data/nexus/brainsimulation/simulation_list_0_10.json",
+    "/v0/data/modelvalidation/simulation/simulationactivity/v0.3.2/": "test/test_data/nexus/brainsimulation/simulation_list_0_10.json",
     "/v0/data/modelvalidation/simulation/simulationresult/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationoutput_list_0_10.json",
     "/v0/data/modelvalidation/simulation/simulationconfiguration/v0.1.0/": "test/test_data/nexus/brainsimulation/simulationconfiguration_list_0_10.json",
     "/query/modelvalidation/simulation/modelproject/v0.1.1/fgResolved/instances": "test/test_data/kgquery/brainsimulation/modelproject_list_resolved_0_10.json",

@@ -632,6 +632,14 @@ class KGObject(with_metaclass(Registry, object)):
                 if value is not None:
                     return True
             elif self.instance.data[key] != value:
+                existing = self.instance.data[key]
+                if (
+                    isinstance(existing, list)
+                    and len(existing) == 1
+                    and isinstance(existing[0], dict)
+                    and existing[0] == value
+                ): # we treat a list containing a single dict as equivalent to that dict
+                    return False
                 return True
         return False
 
