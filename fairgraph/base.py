@@ -474,7 +474,8 @@ class KGObject(with_metaclass(Registry, object)):
 
         if api == 'nexus':
             context = {
-                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/'
+                'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
+                'prov': 'http://www.w3.org/ns/prov#'
             }
             filter_queries = []
             if filters:

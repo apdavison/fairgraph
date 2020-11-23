@@ -757,7 +757,8 @@ class SimulationOutput(KGObject):
                "dataType": "nsg:dataType",
                "prov": "http://www.w3.org/ns/prov#",
                "startedAtTime": "prov:startedAtTime",
-               "wasGeneratedBy": "prov:wasGeneratedBy"}
+               "wasGeneratedBy": "prov:wasGeneratedBy",
+               "wasDerivedFrom": "prov:wasDerivedFrom"}
     fields = (Field("name", str, "name", required=True),
               Field("description", str, "description"),
               Field("identifier", str, "identifier"),
