@@ -69,9 +69,17 @@ def register_class(target_class):
         pass            # we may want to register the path when the namespace is set
     if hasattr(target_class, 'type'):
         if isinstance(target_class.type, str):
-            registry['types'][target_class.type] = target_class
+            type_ = target_class.type
         else:
-            registry['types'][tuple(target_class.type)] = target_class
+            type_ = tuple(target_class.type)
+        if type_ in registry['types']:
+            if isinstance(registry['types'][type_], list):
+                registry['types'][type_].append(target_class)
+            else:
+                registry['types'][type_] = [registry['types'][type_], target_class]
+        else:
+            registry['types'][type_] = target_class
+
 
 
 def lookup(class_name):
@@ -79,8 +87,14 @@ def lookup(class_name):
 
 
 def lookup_type(class_type, client=None):
+    if 'https://schema.hbp.eu/Inference' in class_type:  # temporary workaround
+        class_type = list(class_type)
+        class_type.remove('https://schema.hbp.eu/Inference')
     if isinstance(class_type, str):
-        return registry['types'][class_type]
+        if class_type in registry['types']:
+            return registry['types'][class_type]
+        else:
+            return registry['types'][(class_type,)]
     else:
         return registry['types'][tuple(class_type)]
 
@@ -631,6 +645,7 @@ class KGObject(with_metaclass(Registry, object)):
         for key, value in data.items():
             if key not in self.instance.data:
                 if value is not None:
+                    logger.info(f"new field '{key}' with value {value}")  # todo: change to debug
                     return True
             elif self.instance.data[key] != value:
                 existing = self.instance.data[key]
@@ -641,6 +656,7 @@ class KGObject(with_metaclass(Registry, object)):
                     and existing[0] == value
                 ): # we treat a list containing a single dict as equivalent to that dict
                     return False
+                logger.info(f"change to field '{key}' from {existing} to {value}")
                 return True
         return False
 
@@ -1011,7 +1027,10 @@ class KGProxy(object):
     @property
     def classes(self):
         # For consistency with KGQuery interface
-        return [self.cls]
+        if isinstance(self.cls, (list, tuple)):
+            return self.cls
+        else:
+            return [self.cls]
 
     def resolve(self, client, api="query", scope="released", use_cache=True):
         """docstring"""
@@ -1021,7 +1040,16 @@ class KGProxy(object):
                 logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
             return obj
         else:
-            obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
+            if len(self.classes) > 1:
+                obj = None
+                for cls in self.classes:
+                    obj = cls.from_uri(self.id, client, api=api, scope=scope)
+                    if obj is not None:
+                        break
+            else:
+                obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
+            if obj is None:
+                raise Exception("Cannot resolve proxy object")
             KGObject.object_cache[self.id] = obj
             return obj
 
@@ -1237,13 +1265,11 @@ def build_kg_object(cls, data, resolved=False, client=None):
 
     objects = []
     for item in data:
+        logger.debug(f"Building {cls} from {item.get('@id', 'not a node')}")
         if cls is None:
             # note that if cls is None, then the class can be different for each list item
             # therefore we need to use a new variable kg_cls inside the loop
             if "@type" in item:
-                if 'https://schema.hbp.eu/Inference' in item["@type"]:  # temporary workaround
-                    item["@type"] = list(item["@type"])
-                    item["@type"].remove('https://schema.hbp.eu/Inference')
                 try:
                     kg_cls = lookup_type(item["@type"])
                 except KeyError:
@@ -1256,7 +1282,13 @@ def build_kg_object(cls, data, resolved=False, client=None):
         else:
             kg_cls = cls
 
-        if issubclass(kg_cls, StructuredMetadata):
+        if isinstance(kg_cls, list):
+            assert all(issubclass(item, KGObject) for item in kg_cls)
+            if resolved:
+                raise NotImplementedError
+            else:
+                obj = KGProxy(kg_cls, item["@id"])
+        elif issubclass(kg_cls, StructuredMetadata):
             obj = kg_cls.from_jsonld(item)
         elif issubclass(kg_cls, KGObject):
             if "@id" in item and item["@id"].startswith("http"):
@@ -1276,7 +1308,13 @@ def build_kg_object(cls, data, resolved=False, client=None):
                             client,
                             api=item.get("fg:api", "query"))
                 else:
-                    obj = KGProxy(kg_cls, item["@id"])
+                    if "@type" in item and kg_cls not in as_list(
+                            lookup_type(compact_uri(item["@type"], standard_context))):
+                        #raise Exception("Mismatched types")
+                        logger.warning("Mismatched types")
+                        obj = None
+                    else:
+                        obj = KGProxy(kg_cls, item["@id"])
             else:
                 # todo: add a logger.warning that we have dud data
                 obj = None

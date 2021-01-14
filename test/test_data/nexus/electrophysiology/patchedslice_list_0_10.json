@@ -23,7 +23,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/03aaf2ff-2bc1-4503-90ad-e01263e514bb",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub7r.samp3",
@@ -66,7 +66,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/6fcbd23e-49ce-4849-b11d-851745ce5645",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "hbp00011_Sub2_Samp1",
@@ -109,7 +109,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/edf4d0c5-1db7-4324-8776-dd7ca6fd2ae7",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub2epsp.samp1",
@@ -152,7 +152,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/b3bc8e2a-004b-4e2e-9fca-41d6cadf59fb",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub16g.samp4",
@@ -195,7 +195,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/ab1e080c-2232-4f82-b001-aad1b32aed13",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "hbp00011_Sub2_Samp2",
@@ -238,7 +238,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/2dd5b375-f574-442c-b869-1a908331ba53",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "hbp00014_Sub1_Samp1",
@@ -281,7 +281,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/4478395d-cc1c-4d5a-8960-4514115f967c",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub1.samp1",
@@ -324,7 +324,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/098ffd07-57ea-4668-af58-f5162adf583b",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub8r.samp1",
@@ -367,7 +367,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/d25393bb-1e31-4678-b7b3-c5efa8cf575f",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "sub4.samp1",
@@ -410,7 +410,7 @@
                 "hasPart": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcellcollection/v0.1.0/584f9fea-a346-40d8-b8ea-4c626589513c",
                     "@type": [
-                        "nsg:Collection"
+                        "nsg:Collection", "prov:Entity"
                     ]
                 },
                 "name": "hbp00012_Sub1_Samp1",

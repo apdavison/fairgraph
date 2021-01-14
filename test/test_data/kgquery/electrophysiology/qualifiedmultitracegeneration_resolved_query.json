@@ -2455,6 +2455,63 @@
                     ]
                 },
                 {
+                    "fieldname": "IntraCellularSharpElectrodeExperiment__wasAssociatedWith",
+                    "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+                    "ensure_order": true,
+                    "fields": [
+                        {
+                            "relative_path": "@id"
+                        },
+                        {
+                            "relative_path": "@type"
+                        },
+                        {
+                            "fieldname": "familyName",
+                            "relative_path": "http://schema.org/familyName"
+                        },
+                        {
+                            "fieldname": "givenName",
+                            "relative_path": "http://schema.org/givenName"
+                        },
+                        {
+                            "fieldname": "email",
+                            "relative_path": "http://schema.org/email"
+                        },
+                        {
+                            "fieldname": "Person__affiliation",
+                            "relative_path": "http://schema.org/affiliation",
+                            "fields": [
+                                {
+                                    "relative_path": "@id"
+                                },
+                                {
+                                    "relative_path": "@type"
+                                },
+                                {
+                                    "fieldname": "name",
+                                    "relative_path": "http://schema.org/name"
+                                },
+                                {
+                                    "fieldname": "address",
+                                    "relative_path": "http://schema.org/address"
+                                },
+                                {
+                                    "fieldname": "Organization__parentOrganization",
+                                    "relative_path": "http://schema.org/parentOrganization",
+                                    "fields": [
+                                        {
+                                            "relative_path": "@id"
+                                        },
+                                        {
+                                            "relative_path": "@type"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
                     "fieldname": "PatchClampExperiment__used",
                     "relative_path": "http://www.w3.org/ns/prov#used",
                     "fields": [

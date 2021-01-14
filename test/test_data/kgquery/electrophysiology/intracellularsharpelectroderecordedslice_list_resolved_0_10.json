@@ -3,7 +3,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -93,7 +93,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -183,7 +183,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -273,7 +273,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -363,7 +363,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -453,7 +453,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -543,7 +543,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,
@@ -633,7 +633,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "IntraCellularSharpElectrodeRecordedCellCollection__hadMember": [
                         {
                             "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/chlorideReversalPotential": null,

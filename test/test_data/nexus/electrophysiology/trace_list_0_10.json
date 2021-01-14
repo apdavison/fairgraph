@@ -51,7 +51,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/7fa2067c-fe0f-4492-af6a-3b25c69217e6",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {
@@ -207,7 +207,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/7fa2067c-fe0f-4492-af6a-3b25c69217e6",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {
@@ -288,7 +288,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/7fa2067c-fe0f-4492-af6a-3b25c69217e6",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {
@@ -369,7 +369,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/48934c56-32d1-4e4f-ae9b-c38c3225d6c4",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {
@@ -702,7 +702,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/0a4aca2c-21db-4732-bd24-0bdeb096d140",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {
@@ -783,7 +783,7 @@
                 "partOf": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/minds/core/dataset/v1.0.0/48934c56-32d1-4e4f-ae9b-c38c3225d6c4",
                     "@type": [
-                        "hbp:Dataset"
+                        "minds:Dataset"
                     ]
                 },
                 "qualifiedGeneration": {

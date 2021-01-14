@@ -454,7 +454,7 @@ class PatchedCellCollection(KGObject):
     """A collection of patched cells."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcellcollection/v0.1.0"
-    type = ["nsg:Collection"]
+    type = ["nsg:Collection", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -1094,7 +1094,7 @@ class IntraCellularSharpElectrodeRecordedCellCollection(PatchedCellCollection):
     """A collection of cells recorded with a sharp electrode."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/intrasharprecordedcellcollection/v0.1.0"
-    type = ["nsg:Collection"]
+    type = ["nsg:Collection", "prov:Entity"]
     member_class = "IntraCellularSharpElectrodeRecordedCell"
     recorded_from_class = "IntraCellularSharpElectrodeRecordedSlice"
     fields = (
@@ -1137,6 +1137,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
               required=True),
         Field("stimulation", (VisualStimulation, BehavioralStimulation, ElectrophysiologicalStimulation), "wasInformedBy", multiple=True),
         Field("traces", Trace, "^prov:wasGeneratedBy", multiple=True, reverse="generated_by"),
+        Field("people", Person, "wasAssociatedWith", multiple=True),
     )
 
     @classmethod
@@ -1166,7 +1167,7 @@ class IntraCellularSharpElectrodeExperiment(PatchClampExperiment):
 class QualifiedMultiTraceGeneration(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/electrophysiology/multitracegeneration/v0.2.3"
-    type = ["nsg:MultiTraceGeneration", "prov:Generation"]
+    type = ["prov:Generation", "nsg:MultiTraceGeneration"]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -1296,3 +1297,10 @@ class CulturingActivity(KGObject):
             if hasattr(person, "resolve"):
                 self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
         return self
+
+
+"""
+fp = open(test_data, "w")
+json.dump(generated, fp, indent=4)
+fp.close()
+"""

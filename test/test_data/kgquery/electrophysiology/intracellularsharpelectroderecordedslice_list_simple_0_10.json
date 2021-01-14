@@ -3,7 +3,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/50d5095a-879c-4b45-bbaf-af016b98c799"
                 }
             ],
@@ -26,7 +26,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/dd673403-090a-4af8-b165-87188d58757e"
                 }
             ],
@@ -49,7 +49,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/73ea26bc-8ab5-4e85-9d92-1faa078f648c"
                 }
             ],
@@ -72,7 +72,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/48489590-5bc7-469e-b2f7-614585f2e85b"
                 }
             ],
@@ -95,7 +95,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/344413d5-2aed-406b-be9c-375e26bdfb2f"
                 }
             ],
@@ -118,7 +118,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/46a17e5f-c3a6-4bcd-8ceb-745b3c203f4d"
                 }
             ],
@@ -141,7 +141,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/9d11c19b-ba90-4d87-b80b-9531899d0dba"
                 }
             ],
@@ -164,7 +164,7 @@
         {
             "hasPart": [
                 {
-                    "@type": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection",
+                    "@type": ["https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/Collection", "http://www.w3.org/ns/prov#Entity"],
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/84470e9b-71fa-4f9d-8496-72951daabe20"
                 }
             ],

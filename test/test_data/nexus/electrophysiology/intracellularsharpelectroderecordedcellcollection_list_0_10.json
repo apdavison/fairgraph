@@ -15,7 +15,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/344413d5-2aed-406b-be9c-375e26bdfb2f",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/b6ed78cf-143a-4c6c-8e0d-0782d8082983",
@@ -49,7 +49,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/46a17e5f-c3a6-4bcd-8ceb-745b3c203f4d",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/c00d9ee6-dac5-4492-a0f9-63547bfa93d9",
@@ -83,7 +83,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/48489590-5bc7-469e-b2f7-614585f2e85b",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/ee42cb26-787c-42be-8edd-c77d13418433",
@@ -117,7 +117,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/50d5095a-879c-4b45-bbaf-af016b98c799",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/6e5560c6-c65c-48e4-8b01-9d2ff5a97604",
@@ -151,7 +151,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/73ea26bc-8ab5-4e85-9d92-1faa078f648c",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/f8534b97-df80-4cd2-8a9f-3d76e6465c86",
@@ -185,7 +185,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/84470e9b-71fa-4f9d-8496-72951daabe20",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/9c3844a6-7318-4a6a-9250-9579d891da26",
@@ -219,7 +219,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/9d11c19b-ba90-4d87-b80b-9531899d0dba",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/50362397-be47-49b0-a569-8e9e03ea0ac6",
@@ -253,7 +253,7 @@
                 },
                 "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcellcollection/v0.1.0/dd673403-090a-4af8-b165-87188d58757e",
                 "@type": [
-                    "nsg:Collection"
+                    "nsg:Collection", "prov:Entity"
                 ],
                 "hadMember": {
                     "@id": "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/intrasharprecordedcell/v0.1.0/1d97c018-42d0-4d2a-bce9-d5c12b1508d9",

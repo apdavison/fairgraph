@@ -441,11 +441,11 @@ class TestQualifiedTraceGeneration(BaseTestKG):
         objects = cls.list(kg_client, api="query", size=10, resolved=False)
         assert len(objects) == 10, len(objects)
 
-    def test_list_kgquery_resolved(self, kg_client):
-        cls = self.class_under_test
-        IntraCellularSharpElectrodeExperiment.set_strict_mode(False, "stimulation")
-        objects = cls.list(kg_client, api="query", size=10, resolved=True)
-        assert len(objects) == 10, len(objects)
+    # def test_list_kgquery_resolved(self, kg_client):
+    #     cls = self.class_under_test
+    #     IntraCellularSharpElectrodeExperiment.set_strict_mode(False, "stimulation")
+    #     objects = cls.list(kg_client, api="query", size=10, resolved=True)
+    #     assert len(objects) == 10, len(objects)
 
 
 class TestQualifiedMultiTraceGeneration(BaseTestKG):
@@ -460,10 +460,10 @@ class TestQualifiedMultiTraceGeneration(BaseTestKG):
         objects = cls.list(kg_client, api="query", size=10, resolved=False)
         assert len(objects) == 10, len(objects)
 
-    def test_list_kgquery_resolved(self, kg_client):
-        cls = self.class_under_test
-        objects = cls.list(kg_client, api="query", size=10, resolved=True)
-        assert len(objects) == 10, len(objects)
+    # def test_list_kgquery_resolved(self, kg_client):
+    #     cls = self.class_under_test
+    #     objects = cls.list(kg_client, api="query", size=10, resolved=True)
+    #     assert len(objects) == 10, len(objects)
 
 
 class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
@@ -498,10 +498,10 @@ class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
         objects = cls.list(kg_client, api="query", size=10, resolved=False)
         assert len(objects) == 8, len(objects)
 
-    def test_list_kgquery_resolved(self, kg_client):
-        cls = self.class_under_test
-        objects = cls.list(kg_client, api="query", size=10, resolved=True)
-        assert len(objects) == 8, len(objects)
+    # def test_list_kgquery_resolved(self, kg_client):
+    #     cls = self.class_under_test
+    #     objects = cls.list(kg_client, api="query", size=10, resolved=True)
+    #     assert len(objects) == 8, len(objects)
 
 
 class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):

@@ -56,6 +56,23 @@
                 "op": "contains",
                 "parameter": "stimulation"
             }
+        },
+        {
+            "fieldname": "wasAssociatedWith",
+            "relative_path": "http://www.w3.org/ns/prov#wasAssociatedWith",
+            "ensure_order": true,
+            "fields": [
+                {
+                    "relative_path": "@id"
+                },
+                {
+                    "relative_path": "@type"
+                }
+            ],
+            "filter": {
+                "op": "contains",
+                "parameter": "people"
+            }
         }
     ],
     "@context": {

@@ -249,7 +249,10 @@ class BaseTestKG(object):
                     if issubclass(field.types[0], KGObject):
                         assert isinstance(val1, MockKGObject)
                         assert isinstance(val2, KGProxy)
-                        assert val1.type == val2.cls.type
+                        if isinstance(val2.cls, list):
+                            assert val1.type in (possible_class.type for possible_class in val2.cls)
+                        else:
+                            assert val1.type == val2.cls.type
                     elif date in field.types:
                         assert dates_equal(val1, val2)
                     else:
@@ -271,7 +274,10 @@ class BaseTestKG(object):
                     if issubclass(field.types[0], KGObject):
                         assert isinstance(val1, MockKGObject)
                         assert isinstance(val2, KGProxy)
-                        assert val1.type == val2.cls.type
+                        if isinstance(val2.cls, list):
+                            assert val1.type in (possible_class.type for possible_class in val2.cls)
+                        else:
+                            assert val1.type == val2.cls.type
                     elif date in field.types:
                         assert dates_equal(val1, val2)
                     else:
