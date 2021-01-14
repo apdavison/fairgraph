@@ -181,7 +181,7 @@ class Software(KGObject):
         Field("source_code", IRI, "code"),
         Field("programming_languages", ProgrammingLanguage, "programmingLanguage", multiple=True),
         Field("funding", Organization, "funder", multiple=True),
-        Field("components", "software.Software", "hasPart"),
+        Field("components", "software.Software", "hasPart", multiple=True),
         Field("is_free", bool, "isAccessibleForFree"),
         #Field("image", IRI, "image", multiple=True),
         Field("keywords", Keyword, "keywords", multiple=True),  # todo: add Keyword class

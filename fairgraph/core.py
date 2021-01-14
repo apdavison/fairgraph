@@ -174,7 +174,7 @@ class Person(KGObject):
                 else:
                     raise ValueError(f"The only supported filters are by first (given) name, last (family) name or email. You specified {name}")
             if len(filter_queries) == 0:
-                return client.list(cls, size=size)
+                return client.list(cls, size=size, api=api)
             elif len(filter_queries) == 1:
                 filter_query = filter_queries[0]
             else:
@@ -183,7 +183,7 @@ class Person(KGObject):
                     "value": filter_queries
                 }
             filter_query = {"nexus": filter_query}
-            return KGQuery(cls, filter_query, context).resolve(client, api="nexus", size=size)
+            return KGQuery(cls, filter_query, context).resolve(client, api=api, size=size)
         elif api == "query":
             return super(Person, cls).list(client, size=size, api=api,
                                            scope=scope, resolved=resolved, **filters)

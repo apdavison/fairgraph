@@ -1107,6 +1107,12 @@ class IRI(object):
     def __eq__(self, other):
         return self.__class__ == other.__class__ and self.value == other.value
 
+    def __repr__(self):
+        return f"IRI(self.value)"
+
+    def __str__(self):
+        return self.value
+
     def to_jsonld(self, client):
         return {"@id": self.value}
 

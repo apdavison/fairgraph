@@ -410,7 +410,10 @@ class ElectrophysiologicalStimulation(KGObject):
     fields = (
         Field("name", str, "name", required=True),
         Field("stimulus", ElectrophysiologicalStimulus, "used", required=True),
-        Field("experiment", ("experiment.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment", "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment", "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging", "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
+        Field("experiment", ("electrophysiology.ElectrodeArrayExperiment", "electrophysiology.EEGExperiment",
+                             "electrophysiology.ECoGExperiment", "electrophysiology.PatchClampExperiment",
+                             "electrophysiology.ExtracellularElectrodeExperiment", "optophysiology.TwoPhotonImaging",
+                             "electrophysiology.ElectrodeArrayExperiment"), "^nsg: wasInformedBy", reverse="stimulation"),
         Field("protocol", Protocol, "hadProtocol"),
         Field("citation", str, "citation"),
         Field("code", str, "code"),
