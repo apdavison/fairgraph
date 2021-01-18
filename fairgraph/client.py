@@ -123,14 +123,11 @@ class KGClient(object):
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return response["total"]
 
-    def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
-        # Nexus API
-        logger.debug("Making Nexus query {} with filter {}".format(path, filter))
+    def _raw_query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
         if filter:
             filter = quote_plus(json.dumps(filter))
         if context:
             context = quote_plus(json.dumps(context))
-        instances = []
         query = self._nexus_client.instances.list(
             subpath=path,
             filter_query=filter,
@@ -139,6 +136,19 @@ class KGClient(object):
             size=size,
             deprecated=deprecated,
             resolved=True)
+        return query
+
+    def query_nexus(self, path, filter, context, from_index=0, size=100, deprecated=False):
+        # Nexus API
+        logger.debug("Making Nexus query {} with filter {}".format(path, filter))
+        instances = []
+        query = self._raw_query_nexus(
+            path=path,
+            filter=filter,
+            context=context,
+            from_index=from_index,
+            size=size,
+            deprecated=deprecated)
         # todo: add support for "sort" field
         instances.extend(query.results)
         next = query.get_next_link()
@@ -151,6 +161,18 @@ class KGClient(object):
             self.cache[instance.data["@id"]] = instance
             instance.data["fg:api"] = "nexus"
         return instances
+
+    def count_nexus(self, path, filter, context, deprecated=False):
+        # Nexus API
+        logger.debug("Making Nexus count query {} with filter {}".format(path, filter))
+        query = self._raw_query_nexus(
+            path=path,
+            filter=filter,
+            context=context,
+            from_index=0,
+            size=1,
+            deprecated=deprecated)
+        return query.total
 
     def query_kgquery(self, path, query_id, filter, from_index=0, size=100, scope="released"):
         template = "{}/{}/instances?start={{}}&size={}&databaseScope={}".format(

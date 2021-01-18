@@ -1132,6 +1132,21 @@ class KGQuery(object):
         else:
             return objects
 
+    def count(self, client, api="query", scope="released"):
+        n = 0
+        for cls in self.classes:
+            if api == "nexus":
+                n += client.count_nexus(
+                    path=cls.path,
+                    filter=self.filter["nexus"],
+                    context=self.context
+                )
+            elif api == "query":
+                raise NotImplementedError("todo")
+            else:
+                raise ValueError("'api' must be either 'nexus' or 'query'")
+        return n
+
 
 class IRI(object):
 
