@@ -292,7 +292,7 @@ class Step(KGObject):
     """
     namespace = DEFAULT_NAMESPACE
     _path = "/core/protocol/v0.1.2"
-    type = ["nsg:Protocol", "prov:Entity"]
+    type = ["nsg:Step", "prov:Entity"]
     context = {
         "schema": "http://schema.org/",
         "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",

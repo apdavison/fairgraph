@@ -455,6 +455,9 @@ class PatchedCellCollection(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/patchedcellcollection/v0.1.0"
     type = ["nsg:Collection", "prov:Entity"]
+    previous_types = [
+        ("nsg:Collection",)
+    ]
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -522,7 +525,7 @@ class CellCulture(KGObject):  # should move to "core" module?
         Field("name", str, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("cells", PatchedCell, "hadMember", required=True, multiple=True),
-        Field("culturing_activity", "electrophysiology.CellCultureActivity",
+        Field("culturing_activity", "electrophysiology.CellCulturingActivity",
               "^prov:generated", reverse="cell_culture"),
         Field("experiment", ("electrophysiology.PatchClampActivity"), "^prov:used", reverse="recorded_tissue")
     )
@@ -785,7 +788,7 @@ class ImplantedBrainTissue(KGObject):
         Field("name", str, "name", required=True),
         Field("subject", Subject, "wasDerivedFrom", required=True),
         Field("implantation_activity", "electrophysiology.ElectrodeImplantationActivity", "^prov:generated", reverse="implanted_brain_tissues"),
-        Field("experiment", "ExtracellularElectrodeExperiment", "^prov:used", reverse="recorded_cell"),
+        Field("experiment", "electrophysiology.ExtracellularElectrodeExperiment", "^prov:used", reverse="recorded_cell"),
     )
 
     def __init__(self, name, subject, implantation_activity=None, experiment=None, id=None, instance=None):
@@ -840,7 +843,11 @@ class ElectrodeArrayExperiment(KGObject):
     )
 
 
-    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulation=None, sensors=None, digitized_head_points_coordinates=None, head_localization_coils_coordinates=None, digitized_head_points=False, digitized_landmarks=False, start_time=None, end_time=None, people=None, id=None, instance=None):
+    def __init__(self, name, device=None, implanted_brain_tissues=None, stimulation=None,
+                 sensors=None, digitized_head_points_coordinates=None,
+                 head_localization_coils_coordinates=None, digitized_head_points=False,
+                 digitized_landmarks=False, start_time=None, end_time=None, people=None,
+                 protocol=None, id=None, instance=None):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
@@ -964,6 +971,35 @@ class ElectrodePlacementActivity(KGObject):
         args = locals()
         args.pop("self")
         KGObject.__init__(self, **args)
+
+    @classmethod
+    @cache
+    def from_kg_instance(cls, instance, client, resolved=False):
+        D = instance.data
+        if resolved:
+            D = cls._fix_keys(D)
+        for otype in as_list(cls.type):
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], standard_context)
+                if otype not in compacted_types:
+                    print(f"Warning: type mismatch {otype} - {compacted_types}")
+        args = {}
+        for field in cls.fields:
+            if field.name == "brain_location":
+                if "brainRegion" in D:
+                    data_item = D.get("brainRegion", {})
+                elif "brainLocation" in D:
+                    data_item = D.get("brainLocation", {}).get("brainRegion")
+                else:
+                    data_item = None
+            elif field.intrinsic:
+                data_item = D.get(field.path)
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize(data_item, client)
+        obj = cls(id=D["@id"], instance=instance, **args)
+        return obj
 
 
 class ElectrodeImplantationActivity(ElectrodePlacementActivity):
@@ -1203,23 +1239,12 @@ class QualifiedMultiTraceGeneration(KGObject):
         KGObject.__init__(self, **args)
 
 
-def list_kg_classes():
-    """List all KG classes defined in this module"""
-    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
-            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
-
-
-def use_namespace(namespace):
-    """Set the namespace for all classes in this module."""
-    for cls in list_kg_classes():
-        cls.namespace = namespace
-
-
-class CulturingActivity(KGObject):
+class CellCulturingActivity(KGObject):
     """The activity of preparing a cell culture from whole brain."""
     namespace = DEFAULT_NAMESPACE
     _path = "/experiment/culturingactivity/v0.2.0"
     type = ["nsg:CulturingActivity", "prov:Activity"]
+
     context = {
         "schema": "http://schema.org/",
         "prov": "http://www.w3.org/ns/prov#",
@@ -1285,7 +1310,7 @@ class CulturingActivity(KGObject):
 
     def _build_data(self, client, all_fields=False):
         """docstring"""
-        data = super(CulturingActivity, self)._build_data(client, all_fields=all_fields)
+        data = super(CellCulturingActivity, self)._build_data(client, all_fields=all_fields)
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
@@ -1299,8 +1324,13 @@ class CulturingActivity(KGObject):
         return self
 
 
-"""
-fp = open(test_data, "w")
-json.dump(generated, fp, indent=4)
-fp.close()
-"""
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__ == __name__]
+
+
+def use_namespace(namespace):
+    """Set the namespace for all classes in this module."""
+    for cls in list_kg_classes():
+        cls.namespace = namespace

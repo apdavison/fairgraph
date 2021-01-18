@@ -15,7 +15,7 @@ from fairgraph.electrophysiology import (
     IntraCellularSharpElectrodeRecordedCellCollection,
     IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
     ElectrodeImplantationActivity, ExtracellularElectrodeExperiment, ImplantedBrainTissue,
-    ExtracellularElectrodeExperiment,ECoGExperiment, CulturingActivity, Device,
+    ExtracellularElectrodeExperiment,ECoGExperiment, CellCulturingActivity, Device,
     Sensor, ElectrodeArrayExperiment, ElectrodePlacementActivity, EEGExperiment, CellCulture,
     list_kg_classes, use_namespace as use_electrophysiology_namespace)
 from fairgraph.experiment import BrainSlicingActivity
@@ -572,7 +572,7 @@ class TestModuleFunctions(object):
             IntraCellularSharpElectrodeRecordedCellCollection,
             IntraCellularSharpElectrodeRecordedSlice, IntraCellularSharpElectrodeRecording,
             ElectrodeImplantationActivity, ImplantedBrainTissue,
-            ExtracellularElectrodeExperiment,ECoGExperiment, CulturingActivity,
+            ExtracellularElectrodeExperiment,ECoGExperiment, CellCulturingActivity,
             Sensor, ElectrodeArrayExperiment, ElectrodePlacementActivity, EEGExperiment,
             CellCulture
         ))

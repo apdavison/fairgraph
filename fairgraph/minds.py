@@ -182,6 +182,9 @@ class Dataset(MINDSObject):
     """
     _path = "/core/dataset/v1.0.0"
     type = ["minds:Dataset"]
+    previous_types = [
+        ("hbp:Dataset",)
+    ]
     accepted_terms_of_use = False
     fields = (
       Field("activity", Activity, "https://schema.hbp.eu/minds/activity", required=False, multiple=True),

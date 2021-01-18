@@ -71,7 +71,7 @@ def register_class(target_class):
         if isinstance(target_class.type, str):
             type_ = target_class.type
         else:
-            type_ = tuple(target_class.type)
+            type_ = tuple(sorted(target_class.type))
         if type_ in registry['types']:
             if isinstance(registry['types'][type_], list):
                 registry['types'][type_].append(target_class)
@@ -79,6 +79,16 @@ def register_class(target_class):
                 registry['types'][type_] = [registry['types'][type_], target_class]
         else:
             registry['types'][type_] = target_class
+
+    if hasattr(target_class, "previous_types"):
+        for prev_type in target_class.previous_types:
+            if prev_type in registry['types']:
+                if isinstance(registry['types'][prev_type], list):
+                    registry['types'][prev_type].append(target_class)
+                else:
+                    registry['types'][prev_type] = [registry['types'][prev_type], target_class]
+            else:
+                registry['types'][prev_type] = target_class
 
 
 
@@ -96,7 +106,7 @@ def lookup_type(class_type, client=None):
         else:
             return registry['types'][(class_type,)]
     else:
-        return registry['types'][tuple(class_type)]
+        return registry['types'][tuple(sorted(class_type))]
 
 
 def lookup_by_iri(iri):
@@ -1265,6 +1275,9 @@ def build_kg_object(cls, data, resolved=False, client=None):
 
     objects = []
     for item in data:
+        if item is None:
+            logger.error(f"Unexpected null. cls={cls} data={data}")
+            continue
         logger.debug(f"Building {cls} from {item.get('@id', 'not a node')}")
         if cls is None:
             # note that if cls is None, then the class can be different for each list item
