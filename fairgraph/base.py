@@ -1032,7 +1032,10 @@ class KGProxy(object):
 
     @property
     def type(self):
-        return self.cls.type
+        try:
+            return self.cls.type
+        except AttributeError as err:
+            raise AttributeError(f"{err} self.cls={self.cls}")
 
     @property
     def classes(self):
@@ -1046,8 +1049,8 @@ class KGProxy(object):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
-            if obj:
-                logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
+            #if obj:
+            #    logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
             return obj
         else:
             if len(self.classes) > 1:
@@ -1065,7 +1068,7 @@ class KGProxy(object):
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
-                '{self.cls!r}, {self.id!r})'.format(self=self))
+                '{self.classes!r}, {self.id!r})'.format(self=self))
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.cls == other.cls and self.id == other.id
@@ -1336,9 +1339,8 @@ def build_kg_object(cls, data, resolved=False, client=None):
                             client,
                             api=item.get("fg:api", "query"))
                 else:
-                    if "@type" in item and kg_cls not in as_list(
+                    if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
                             lookup_type(compact_uri(item["@type"], standard_context))):
-                        #raise Exception("Mismatched types")
                         logger.warning("Mismatched types")
                         obj = None
                     else:

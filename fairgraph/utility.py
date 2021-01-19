@@ -144,7 +144,10 @@ def compact_uri(uri_list, context):
     if isinstance(uri_list, str):
         return jsonld.compact({"@type": uri_list}, context)["@type"]
     else:
-        return tuple(as_list(jsonld.compact({"@type": uri_list}, context)["@type"]))
+        try:
+            return tuple(as_list(jsonld.compact({"@type": uri_list}, context)["@type"]))
+        except Exception as err:
+            raise Exception(f"{err} uri_list={uri_list} context={context}")
 
 
 def namespace_from_id(id):
