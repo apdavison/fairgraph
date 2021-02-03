@@ -1106,7 +1106,7 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, api="query", scope="released", use_cache=True):
+    def resolve(self, client, size=10000, from_index=0, api="query", scope="released", use_cache=True):
         # todo: add from_index argument?
         objects = []
         for cls in self.classes:
@@ -1115,7 +1115,8 @@ class KGQuery(object):
                     path=cls.path,
                     filter=self.filter["nexus"],
                     context=self.context,
-                    size=size
+                    size=size,
+                    from_index=from_index
                 )
             elif api == "query":
                 instances = client.query_kgquery(
@@ -1123,6 +1124,7 @@ class KGQuery(object):
                     query_id=cls.query_id,
                     filter=self.filter["query"],
                     size=size,
+                    from_index=from_index,
                     scope=scope)
             else:
                 raise ValueError("'api' must be either 'nexus' or 'query'")
