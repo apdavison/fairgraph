@@ -444,7 +444,10 @@ class KGObject(with_metaclass(Registry, object)):
         if instance is None:
             return None
         else:
-            return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
+            try:
+                return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
+            except ValueError as err:
+                return None
 
     @classmethod
     def from_uuid(cls, uuid, client, deprecated=False, api="query",
