@@ -33,7 +33,7 @@ from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScop
 from .core import Organization, Person, Age, Collection
 from .utility import compact_uri, standard_context
 from .computing import ComputingEnvironment
-
+from .uniminds import Publication
 
 logger = logging.getLogger("fairgraph")
 mimetypes.init()
@@ -836,3 +836,102 @@ def use_namespace(namespace):
     """Set the namespace for all classes in this module."""
     for cls in list_kg_classes():
         cls.namespace = namespace
+
+
+class LivePaper(KGObject):
+    """
+    Data for generating live papers.
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/livepaper/v0.0.1"
+    type = ["prov:Entity", "nsg:LivePaper"]
+    context = [
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "name": "schema:name",
+            "description": "schema:description",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "prov": "http://www.w3.org/ns/prov#",
+            "schema": "http://schema.org/",
+            "dateCreated": "schema:dateCreated",
+            "publication": "nsg:publication"
+            "lp_version" : "nsg:version",
+            "author": "schema:author",
+            "affiliation": "schema:affiliation",
+            "correspondingAuthor": "schema:author",
+            "createdAuthor": "schema:author",
+            "approvedAuthor": "schema:author",
+            "datePublished": "nsg:datePublished",
+            "license": "schema:license",
+            "resourceSection": "schema:LivePaperResourceSection"
+        }
+    ]
+    fields = (
+        Field("name", str, "name", required=True, multiple=False),
+        Field("description", str, "description", required=False, multiple=False),
+        Field("date_created", (date, datetime), "dateCreated", required=True, multiple=False),
+        Field("date_modified", datetime, "http://hbp.eu/minds#last_modified", required=True, multiple=False),
+        Field("publication", Publication, "publication", required=False, multiple=False), # presuming a 1:1 mapping
+        Field("version", (str, int), "lp_version", multiple=False),
+        Field("authors", Person, "author", required=True, multiple=True),
+        Field("organization", Organization, "affiliation", multiple=True), # required? should be available through authors?
+        Field("corresponding_author", Person, "correspondingAuthor", required=True, multiple=False),
+        Field("created_author", Person, "createdAuthor", required=True, multiple=False),
+        Field("approved_author", Person, "approvedAuthor", required=True, multiple=False),
+        Field("date_published", date, "datePublished")
+        Field("title", str, "title", required=True, multiple=False),
+        Field("journal", str, "title", required=False, multiple=False),
+        Field("url", str, "http://schema.org/url", required=True, multiple=False),
+        Field("citation", str, "https://schema.hbp.eu/uniminds/citation", required=False, multiple=False),
+        Field("doi", str, "https://schema.hbp.eu/minds/doi", required=False, multiple=False),
+        Field("abstract", str, "abstract", required=False, multiple=False),
+        Field("license", str, "license"),
+        Field("resource_section", LivePaperResourceSection, "resourceSection", , required=False, multiple=True)
+    )
+
+class LivePaperResourceSection(KGObject):
+    """
+    Data associated with Live Paper resource sections.
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/LivePaperResourceSection/v0.0.1"
+    type = ["prov:Entity", "nsg:LivePaperResourceSection"]
+    context = [
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "title": "schema:name",
+            "description": "schema:description",
+        }
+    ]
+    fields = (
+        Field("order", int, "order", required=True, multiple=False),
+        Field("type", str, "type", required=True, multiple=False),
+        Field("title", str, "title", required=True, multiple=False),
+        Field("icon", str, "icon", required=True, multiple=False),
+        Field("description", str, "description", required=False, multiple=False),
+        Field("data", (str, KGObject, LivePaperResourceItem), "data", required=True, multiple=True),
+        Field("data_raw", str, "dataRaw", required=True, multiple=False),
+    )
+
+class LivePaperResourceItem(KGObject):
+    """
+    Individual resource items in a Live Paper resource section.
+    """
+    namespace = DEFAULT_NAMESPACE
+    _path = "/simulation/LivePaperResourceItem/v0.0.1"
+    type = ["prov:Entity", "nsg:LivePaperResourceItem"]
+    context = [
+        "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
+        "{{base}}/contexts/nexus/core/resource/v0.3.0",
+        {
+            "label": "schema:name",
+            
+        }
+    ]
+    fields = (
+        Field("download_url", str, "http://schema.org/url", required=True, multiple=False),
+        Field("label", str, "label", required=True, multiple=False),
+        Field("view_url", str, "http://schema.org/url", required=False, multiple=False), # for model catalog url
+    )
