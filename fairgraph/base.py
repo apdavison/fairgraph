@@ -502,7 +502,8 @@ class KGObject(with_metaclass(Registry, object)):
         if api == 'nexus':
             context = {
                 'nsg': 'https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/',
-                'prov': 'http://www.w3.org/ns/prov#'
+                'prov': 'http://www.w3.org/ns/prov#',
+                "schema": "http://schema.org/"
             }
             filter_queries = []
             if filters:
@@ -599,7 +600,8 @@ class KGObject(with_metaclass(Registry, object)):
                     return self.exists(client, "query")
             elif api == "nexus":
                 context = {"schema": "http://schema.org/",
-                           "prov": "http://www.w3.org/ns/prov#"}
+                           "prov": "http://www.w3.org/ns/prov#",
+                           "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"}
                 response = client.query_nexus(self.__class__.path, query_filter, context)
 
             elif api == "query":
