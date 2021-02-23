@@ -128,7 +128,7 @@ class LivePaper(KGObject):
     fields = (
         Field("name", str, "name", required=True, multiple=False),
         Field("description", str, "description", required=False, multiple=False),
-        Field("date_created", (date, datetime), "dateCreated", required=True, multiple=False),
+        Field("date_created", (date, datetime), "dateCreated", required=False, multiple=False),
         Field("date_modified", datetime, "dateModified", required=False, multiple=False),
         Field("version", str, "version", multiple=False),
         Field("original_authors", Person, "author", required=True, multiple=True),
