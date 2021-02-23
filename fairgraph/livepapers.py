@@ -133,7 +133,7 @@ class LivePaper(KGObject):
         Field("version", str, "version", multiple=False),
         Field("original_authors", Person, "author", required=True, multiple=True),
         Field("corresponding_author_index", int, "correspondingAuthorIndex", required=False, multiple=False),
-        Field("custodian", Person, "owner", required=True, multiple=False),
+        Field("custodian", Person, "owner", required=False, multiple=False),
         Field("live_paper_authors", Person, "contributor", required=False, multiple=True),
         Field("collab_id", str, "collabID", required=True, multiple=False),
         Field("date_published", date, "datePublished", required=False, multiple=False),
