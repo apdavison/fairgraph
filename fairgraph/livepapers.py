@@ -50,8 +50,9 @@ class LivePaperResourceItem(KGObject):
     fields = (
         Field("distribution", Distribution, "distribution", required=True, multiple=False),
         Field("name", str, "name", required=True, multiple=False),
-        Field("view_url", str, "url", required=False, multiple=False), # for model catalog url
+        Field("view_url", str, "url", required=False, multiple=False),  # for model catalog url
         Field("identifier", str, "identifier", required=True, multiple=False),
+        Field("resource_type", str, "resourceType", required=False, multiple=False)
     )
     existence_query_fields = ["identifier"]
 
@@ -82,7 +83,7 @@ class LivePaperResourceSection(KGObject):
         Field("name", str, "name", required=True, multiple=False),
         Field("icon", str, "logo", required=True, multiple=False),
         Field("description", str, "description", required=False, multiple=False),
-        Field("data", (KGObject, LivePaperResourceItem), "hadMember", required=False, multiple=True),
+        Field("data", LivePaperResourceItem, "hadMember", required=False, multiple=True),
         Field("data_raw", str, "dataRaw", required=True, multiple=False),
         Field("part_of", "livepapers.LivePaper", "partOf", required=True, multiple=False)
     )
