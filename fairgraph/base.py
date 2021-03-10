@@ -1067,7 +1067,7 @@ class KGProxy(object):
             else:
                 obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
             if obj is None:
-                raise Exception("Cannot resolve proxy object")
+                raise Exception(f"Cannot resolve proxy object {self.id} as {self.cls.__name__}")
             KGObject.object_cache[self.id] = obj
             return obj
 
