@@ -29,7 +29,8 @@ Coming soon:
 import sys
 import inspect
 from datetime import datetime
-from .base import KGObject, KGQuery, cache, Field, Distribution
+from .base import KGObject, KGQuery, cache, Distribution
+from .fields import Field
 from .commons import QuantitativeValue, QuantitativeValueRange, MorphologyType, BrainRegion, CellType, StimulusType, ChannelType, CultureType
 from .core import Subject, Person, Protocol
 from .minds import Dataset

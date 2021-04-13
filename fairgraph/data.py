@@ -22,7 +22,8 @@ from urllib.request import urlretrieve
 from pathlib import Path
 from datetime import datetime
 
-from fairgraph.base import KGObject, Field
+from fairgraph.base import KGObject
+from .fields import Field
 
 
 class DataObject(KGObject):

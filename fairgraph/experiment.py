@@ -19,7 +19,8 @@ Metadata for entities that are used in multiple experimental contexts (e.g. in b
 # limitations under the License.
 
 from datetime import datetime
-from .base import KGObject, cache, Field, Distribution
+from .base import KGObject, cache, Distribution
+from .fields import Field
 from .commons import QuantitativeValue, QuantitativeValueRange, BrainRegion, License, CultureType, StimulusType
 from .core import Subject, Person, Protocol
 from .utility import compact_uri, standard_context, as_list

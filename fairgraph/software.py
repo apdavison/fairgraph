@@ -23,7 +23,8 @@ import logging
 from datetime import date
 import inspect
 from dateutil import parser as date_parser
-from .base import KGObject, Field, IRI, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, OntologyTerm
+from .base import KGObject, IRI, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery, OntologyTerm
+from .fields import Field
 from .core import Organization, Person
 from .commons import License
 

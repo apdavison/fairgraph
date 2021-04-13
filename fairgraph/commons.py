@@ -21,10 +21,11 @@
 import collections
 import logging
 import json
-from .base import OntologyTerm, StructuredMetadata, Field
+from .base import OntologyTerm, StructuredMetadata
+from .fields import Field
 
 import requests
-from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata, Field
+from .base import KGObject, KGProxy, OntologyTerm, StructuredMetadata
 
 logger = logging.getLogger("fairgraph")
 

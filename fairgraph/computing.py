@@ -1,6 +1,7 @@
 
 import sys, inspect
-from .base import KGObject, cache, build_kg_object, Distribution, as_list, Field
+from .base import KGObject, cache, build_kg_object, Distribution, as_list
+from .fields import Field
 from .software import Software
 
 DEFAULT_NAMESPACE = "neuromorphic"

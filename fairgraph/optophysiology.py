@@ -29,7 +29,8 @@ Coming soon:
 import sys
 import inspect
 from datetime import datetime
-from .base import KGObject, Field, Distribution
+from .base import KGObject, Distribution
+from .fields import Field
 from .commons import QuantitativeValue, BrainRegion, License
 from .core import Person, Protocol
 from .experiment import CranialWindow, Slice, VisualStimulation, ElectrophysiologicalStimulation, BehavioralStimulation, Device
