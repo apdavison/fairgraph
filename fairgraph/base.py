@@ -47,10 +47,6 @@ logger = logging.getLogger("fairgraph")
 mimetypes.init()
 
 
-
-
-
-
 #class KGObject(object, metaclass=Registry):
 class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
@@ -133,6 +129,31 @@ class KGObject(with_metaclass(Registry, object)):
             raise NotImplementedError("To be implemented by child class")
 
     @classmethod
+    def from_kgv3_instance(cls, instance, client, use_cache=True, resolved=False):
+        openminds_context = {
+            "schema": "http://schema.org/",
+            "kg": "https://kg.ebrains.eu/api/instances/",
+            "vocab": "https://openminds.ebrains.eu/vocab/",
+            "terms": "https://openminds.ebrains.eu/controlledTerms/",
+            "core": "https://openminds.ebrains.eu/core/"
+        }
+        D = instance
+        for otype in as_list(cls.type):
+            if otype not in D["@type"]:
+                # todo: profile - move compaction outside loop?
+                compacted_types = compact_uri(D["@type"], openminds_context)
+                if otype not in compacted_types:
+                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+        args = {}
+        for field in cls.fields:
+            if field.intrinsic:
+                data_item = D.get(expand_uri(field.path, openminds_context)[0])
+            else:
+                data_item = D["@id"]
+            args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+        return cls(id=D["@id"], instance={"data": instance}, **args)
+
+    @classmethod
     def _fix_keys(cls, data):
         """
         The KG Query API does not allow the same field name to be used twice in a document.
@@ -161,7 +182,10 @@ class KGObject(with_metaclass(Registry, object)):
             return None
         else:
             try:
-                return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
+                if hasattr(instance, "data"):
+                    return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
+                else:
+                    return cls.from_kgv3_instance(instance, client, use_cache=use_cache, resolved=resolved)
             except ValueError as err:
                 return None
 
@@ -1078,6 +1102,102 @@ def build_kg_object(cls, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
+
+
+
+def build_kgv3_object(cls, data, resolved=False, client=None):
+    """
+    Build a KGObject, a KGProxy, or a list of such, based on the data provided.
+
+    This takes care of the JSON-LD quirk that you get a list if there are multiple
+    objects, but you get the object directly if there is only one.
+
+    Returns `None` if data is None.
+    """
+    if data is None:
+        return None
+
+    if not isinstance(data, list):
+        if not isinstance(data, dict):
+            raise ValueError("data must be a list or dict")
+        if "@list" in data:
+            assert len(data) == 1
+            data = data["@list"]
+        else:
+            data = [data]
+
+    objects = []
+    for item in data:
+        if item is None:
+            logger.error(f"Unexpected null. cls={cls} data={data}")
+            continue
+        logger.debug(f"Building {cls} from {item.get('@id', 'not a node')}")
+        if cls is None:
+            # note that if cls is None, then the class can be different for each list item
+            # therefore we need to use a new variable kg_cls inside the loop
+            # if "@type" in item:
+            #     try:
+            #         kg_cls = lookup_type(item["@type"])
+            #     except KeyError:
+            #         kg_cls = lookup_type(compact_uri(item["@type"], standard_context))
+            # elif "label" in item:
+            #     kg_cls = lookup_by_iri(item["@id"])
+            # # todo: add lookup by @id
+            # else:
+            #     raise ValueError("Cannot determine type. Item was: {}".format(item))
+            raise NotImplementedError
+        else:
+            kg_cls = cls
+
+        # if isinstance(kg_cls, list):
+        #     assert all(issubclass(item, KGObject) for item in kg_cls)
+        #     if resolved:
+        #         raise NotImplementedError
+        #     else:
+        #         obj = KGProxy(kg_cls, item["@id"])
+        # elif issubclass(kg_cls, StructuredMetadata):
+        #     obj = kg_cls.from_jsonld(item)
+        # elif issubclass(kg_cls, KGObject):
+        #     if "@id" in item and item["@id"].startswith("http"):
+        #         # here is where we check the "resolved" keyword,
+        #         # and return an actual object if we have the data
+        #         # or resolve the proxy if we don't
+        #         if resolved:
+        #             raise NotImplementedError
+        #             # if kg_cls.namespace is None:
+        #             #     kg_cls.namespace = namespace_from_id(item["@id"])
+        #             # try:
+        #             #     instance = Instance(kg_cls.path, item, Instance.path)
+        #             #     obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
+        #             # except (ValueError, KeyError) as err:
+        #             #     # to add: emit a warning
+        #             #     logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
+        #             #     obj = KGProxy(kg_cls, item["@id"]).resolve(
+        #             #         client,
+        #             #         api=item.get("fg:api", "query"))
+        #         else:
+        #             # if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
+        #             #         lookup_type(compact_uri(item["@type"], standard_context))):
+        #             #     logger.warning("Mismatched types")
+        #             #     obj = None
+        #             # else:
+        #                 obj = KGProxy(kg_cls, item["@id"])
+        #     else:
+        #         # todo: add a logger.warning that we have dud data
+        #         obj = None
+        # else:
+        #     raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
+        if isinstance(kg_cls, (list, tuple)) and len(kg_cls) == 1:
+            kg_cls = kg_cls[0]
+        obj = KGProxy(kg_cls, item["@id"])
+        if obj is not None:
+            objects.append(obj)
+
+    if len(objects) == 1:
+        return objects[0]
+    else:
+        return objects
+
 
 
 # An upload function used by all entity classes -> to be moved in "utils"

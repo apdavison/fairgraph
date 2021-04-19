@@ -33,6 +33,13 @@ try:
 except ImportError:
     oauth_token_handler = None
 
+try:
+    from kg_core.oauth import SimpleToken, ClientCredentials
+    from kg_core.kg import KGv3
+    from kg_core.models import Stage, Pagination
+    have_v3 = True
+except ImportError:
+    have_v3 = False
 
 from .errors import AuthenticationError
 
@@ -363,3 +370,65 @@ class KGClient(object):
 
     def user_info(self):
         return self._idm_client.get("user/me")
+
+
+STAGE_MAP = {
+    "released": Stage.RELEASED,
+    "latest": Stage.IN_PROGRESS,
+    "in progress": Stage.IN_PROGRESS
+}
+
+
+class KGv3Client(object):
+
+    def __init__(
+        self,
+        token: str = None,
+        host: str = "core.kg-ppd.ebrains.eu",
+        client_id: str = None,
+        client_secret: str = None
+    ):
+        if client_id and client_secret:
+            token_handler = ClientCredentials(client_id, client_secret)
+        elif token:
+            token_handler = SimpleToken(token)
+        else:
+            try:
+                token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
+            except KeyError:
+                raise AuthenticationError("Need to provide either token or client id/secret.")
+        self._kg_client = KGv3(host=host, token_handler=token_handler)
+        self.cache = {}
+
+    def list(self, cls, space=None, from_index=0, size=100, deprecated=False, scope="released",
+             resolved=False, filter=None, context=None):
+        """docstring"""
+
+        # todo: handle filters, context, resolved, deprecated
+        results = self._kg_client.get_instances(
+            stage=STAGE_MAP[scope],
+            target_type=cls.type,
+            space=space or cls.space,
+            # we use the default ResponseConfiguration
+            pagination=Pagination(start_from=from_index, size=size)
+        )
+        return [cls.from_kgv3_instance(instance, self, resolved=resolved)
+                for instance in results.payload["data"]]
+
+    def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="query",
+                               scope="released", resolved=False):
+        # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
+        # should perhaps be called 'show_deprecated' or 'include_deprecated'
+        logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
+        if resolved:
+            raise NotImplementedError
+        if use_cache and uri in self.cache:
+            logger.debug("Retrieving instance {} from cache".format(uri))
+            instance = self.cache[uri]
+        else:
+            result = self._kg_client.get_instance(
+                stage=STAGE_MAP[scope],
+                instance_id=self._kg_client.uuid_from_absolute_id(uri)
+            )
+            instance = result.payload["data"]
+        return instance

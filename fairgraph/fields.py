@@ -26,7 +26,7 @@ from dateutil import parser as date_parser
 
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
-                   StructuredMetadata, IRI, build_kg_object)
+                   StructuredMetadata, IRI, build_kg_object, build_kgv3_object)
 
 
 class Field(object):
@@ -175,3 +175,21 @@ class Field(object):
             else:
                 warnings.warn(str(err))
                 return None
+
+    def deserialize_v3(self, data, client, resolved=False):
+        assert self.intrinsic
+        if issubclass(self.types[0], (KGObject, StructuredMetadata)):
+            return build_kgv3_object(self.types, data, resolved=resolved, client=client)
+        elif self.types[0] in (datetime, date):
+            return date_parser.parse(data)
+        elif self.types[0] == IRI:
+            return data["@id"]
+        elif self.types[0] == int:
+            if isinstance(data, str):
+                return int(data)
+            elif isinstance(data, Iterable):
+                return [int(item) for item in data]
+            else:
+                return int(data)
+        else:
+            return data
