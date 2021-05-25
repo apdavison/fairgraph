@@ -1,0 +1,38 @@
+"""
+Structured information on a research project.
+"""
+
+# this file was auto-generated
+
+from datetime import datetime
+from fairgraph.base import KGObject
+from fairgraph.fields import Field
+
+
+class Protocol(KGObject):
+    """
+    Structured information on a research project.
+    """
+    space = "model"
+    type = ["https://openminds.ebrains.eu/core/Protocol"]
+    context = {
+        "schema": "http://schema.org/",
+        "kg": "https://kg.ebrains.eu/api/instances/",
+        "vocab": "https://openminds.ebrains.eu/vocab/",
+        "terms": "https://openminds.ebrains.eu/controlledTerms/",
+        "core": "https://openminds.ebrains.eu/core/"
+    }
+    fields = [
+        Field("description", str, "vocab:description", multiple=False, required=True,
+              doc="Longer statement or account giving the characteristics of the protocol."),
+        Field("behavioral_tasks", "openminds.controlledterms.BehavioralTask", "vocab:behavioralTask", multiple=True, required=False,
+              doc="Specific set of defined activities (or their absence) that should be performed (or avoided) by a subject."),
+        Field("name", str, "vocab:name", multiple=False, required=True,
+              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
+        Field("study_options", ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype"], "vocab:studyOption", multiple=True, required=False,
+              doc="no description available"),
+        Field("techniques", "openminds.controlledterms.Technique", "vocab:technique", multiple=True, required=True,
+              doc="Method of accomplishing a desired aim."),
+        
+    ]
+    existence_query_fields = ('name',)
