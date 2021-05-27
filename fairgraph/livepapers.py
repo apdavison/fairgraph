@@ -123,7 +123,8 @@ class LivePaper(KGObject):
             "collabID": "nsg:collabID",
             "headline": "schema:headline",
             "journal": "nsg:journalName",
-            "correspondingAuthorIndex": "nsg:correspondingAuthorIndex"
+            "correspondingAuthorIndex": "nsg:correspondingAuthorIndex",
+            "accessCode": "schema:accessCode"
         }
     ]
     fields = (
@@ -145,7 +146,8 @@ class LivePaper(KGObject):
         Field("doi", str, "identifier", required=False, multiple=False),
         Field("abstract", str, "abstract", required=False, multiple=False),
         Field("license", License, "license", required=False, multiple=False),
-        Field("resource_section", LivePaperResourceSection, "^nsg:partOf", reverse="part_of", multiple=True)
+        Field("resource_section", LivePaperResourceSection, "^nsg:partOf", reverse="part_of", multiple=True),
+        Field("access_code", str, "accessCode", required=False, multiple=True)
     )
 
 
