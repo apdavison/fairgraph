@@ -31,4 +31,4 @@ class ElectrodeArray(KGObject):
               doc="no description available"),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

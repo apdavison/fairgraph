@@ -35,4 +35,4 @@ class Environment(KGObject):
               doc="Longer statement or account giving the characteristics of the environment."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

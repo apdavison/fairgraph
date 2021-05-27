@@ -39,8 +39,8 @@ class ProtocolExecution(KGObject):
               doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure."),
         Field("semantically_anchored_tos", "openminds.sands.AnatomicalEntity", "vocab:semanticallyAnchoredTo", multiple=True, required=False,
               doc="Reference to a related anatomical structure without providing a quantitative proof of the claimed relation."),
-        Field("study_targets", ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype"], "vocab:studyTarget", multiple=True, required=False,
+        Field("study_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

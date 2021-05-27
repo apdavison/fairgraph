@@ -33,7 +33,7 @@ class Model(KGObject):
               doc="Reference to variants of an original."),
         Field("model_scope", "openminds.controlledterms.ModelScope", "vocab:scope", multiple=False, required=True,
               doc="Extent of something."),
-        Field("study_targets", ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype"], "vocab:studyTarget", multiple=True, required=True,
+        Field("study_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"], "vocab:studyTarget", multiple=True, required=True,
               doc="Structure or function that was targeted within a study."),
         Field("custodians", ["openminds.core.Organization", "openminds.core.Person"], "vocab:custodian", multiple=True, required=False,
               doc="Legal person entrusted with guarding and maintaining property or records."),
@@ -49,4 +49,4 @@ class Model(KGObject):
               doc="Shortened or fully abbreviated name of the model."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

@@ -33,4 +33,4 @@ class MetaDataModelType(KGObject):
               doc="Term or code used to identify something or someone registered within a particular ontology."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

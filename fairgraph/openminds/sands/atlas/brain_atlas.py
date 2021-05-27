@@ -39,4 +39,4 @@ class BrainAtlas(KGObject):
               doc="Shortened or fully abbreviated name of the brain atlas."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

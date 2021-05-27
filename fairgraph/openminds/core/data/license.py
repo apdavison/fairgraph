@@ -33,4 +33,4 @@ class License(KGObject):
               doc="Hypertext document (block of information) found on the World Wide Web."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

@@ -39,4 +39,4 @@ class SubjectState(KGObject):
               doc="Amount that a thing or being weighs."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

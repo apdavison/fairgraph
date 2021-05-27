@@ -49,4 +49,4 @@ class AtlasAnnotation(KGObject):
               doc="Reference to an image in which something is visible."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

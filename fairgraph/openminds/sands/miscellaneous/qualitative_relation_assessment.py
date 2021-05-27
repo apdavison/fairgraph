@@ -31,4 +31,4 @@ class QualitativeRelationAssessment(KGObject):
               doc="Semantic characterization of how much two things occupy the same space."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

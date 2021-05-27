@@ -27,4 +27,4 @@ class ContactInformation(KGObject):
               doc="Address to which or from which an electronic mail can be sent."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

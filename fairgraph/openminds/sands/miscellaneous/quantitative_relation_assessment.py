@@ -31,4 +31,4 @@ class QuantitativeRelationAssessment(KGObject):
               doc="Numerical characterization of how much two things occupy the same space."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

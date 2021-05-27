@@ -27,4 +27,4 @@ class ORCID(KGObject):
               doc="Term or code used to identify something or someone."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

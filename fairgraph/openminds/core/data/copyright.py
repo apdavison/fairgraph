@@ -29,4 +29,4 @@ class Copyright(KGObject):
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

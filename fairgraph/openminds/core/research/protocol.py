@@ -29,10 +29,10 @@ class Protocol(KGObject):
               doc="Specific set of defined activities (or their absence) that should be performed (or avoided) by a subject."),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
-        Field("study_options", ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype"], "vocab:studyOption", multiple=True, required=False,
+        Field("study_options", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"], "vocab:studyOption", multiple=True, required=False,
               doc="no description available"),
         Field("techniques", "openminds.controlledterms.Technique", "vocab:technique", multiple=True, required=True,
               doc="Method of accomplishing a desired aim."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

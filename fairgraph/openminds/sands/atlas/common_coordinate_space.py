@@ -49,4 +49,4 @@ class CommonCoordinateSpace(KGObject):
               doc="Term or code used to identify the version of something."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

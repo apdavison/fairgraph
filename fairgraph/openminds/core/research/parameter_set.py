@@ -31,4 +31,4 @@ class ParameterSet(KGObject):
               doc="Digital or physical property determining a particular function, characteristic or behavior of something."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

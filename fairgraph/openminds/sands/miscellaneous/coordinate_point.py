@@ -29,4 +29,4 @@ class CoordinatePoint(KGObject):
               doc="Two or three dimensional geometric setting."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

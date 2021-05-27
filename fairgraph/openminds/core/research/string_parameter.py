@@ -29,4 +29,4 @@ class StringParameter(KGObject):
               doc="Entry for a property."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

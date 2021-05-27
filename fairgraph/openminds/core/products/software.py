@@ -43,4 +43,4 @@ class Software(KGObject):
               doc="Shortened or fully abbreviated name of the software."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

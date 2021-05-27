@@ -94,8 +94,9 @@ class KGClient(object):
         self.cache = {}  # todo: use combined uri and rev as cache keys
 
     def list(self, cls, from_index=0, size=100, deprecated=False, api="query", scope="released",
-             resolved=False, filter=None, context=None):
+             resolved=False, filter=None, context=None, space=None):
         """docstring"""
+        assert space is None  # only relevant for KGv3
         if api == "nexus":
             organization, domain, schema, version = cls.path.split("/")
             subpath = "/{}/{}/{}/{}".format(organization, domain, schema, version)
@@ -269,7 +270,9 @@ class KGClient(object):
             raise ValueError("'api' must be either 'nexus' or 'query'")
         return instance
 
-    def create_new_instance(self, path, data):
+    def create_new_instance(self, path=None, data=None, space=None):
+        assert path is not None
+        assert data is not None
         instance = Instance(path, data, Instance.path)
         entity = self._nexus_client.instances.create(instance)
         entity.data.update(data)
@@ -400,9 +403,11 @@ class KGv3Client(object):
         self._kg_client = KGv3(host=host, token_handler=token_handler)
         self.cache = {}
 
-    def list(self, cls, space=None, from_index=0, size=100, deprecated=False, scope="released",
+    def list(self, cls, space=None, from_index=0, size=100, deprecated=False, api="core", scope="released",
              resolved=False, filter=None, context=None):
         """docstring"""
+
+        assert api == "core"  # for now, will add "query" later
 
         # todo: handle filters, context, resolved, deprecated
         results = self._kg_client.get_instances(
@@ -415,6 +420,9 @@ class KGv3Client(object):
         return [cls.from_kgv3_instance(instance, self, resolved=resolved)
                 for instance in results.payload["data"]]
 
+    def count(self, cls, space=None, api="core", scope="released"):
+        raise NotImplementedError()
+
     def instance_from_full_uri(self, uri, cls=None, use_cache=True, deprecated=False, api="query",
                                scope="released", resolved=False):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
@@ -426,9 +434,50 @@ class KGv3Client(object):
             logger.debug("Retrieving instance {} from cache".format(uri))
             instance = self.cache[uri]
         else:
-            result = self._kg_client.get_instance(
-                stage=STAGE_MAP[scope],
-                instance_id=self._kg_client.uuid_from_absolute_id(uri)
-            )
-            instance = result.payload["data"]
+            try:
+                result = self._kg_client.get_instance(
+                    stage=STAGE_MAP[scope],
+                    instance_id=self._kg_client.uuid_from_absolute_id(uri)
+                )
+            except Exception as err:
+                if "404" in str(err):
+                    instance = None
+                else:
+                    raise
+            else:
+                instance = result.payload["data"]
         return instance
+
+    def by_name(self, cls, name, match="equals", all=False,
+                space=None, api="core", scope="released", resolved=False):
+        """Retrieve an object based on the value of schema:name"""
+        raise NotImplementedError()
+
+    def create_new_instance(self, path=None, data=None, space=None, instance_id=None):
+        response = self._kg_client.create_instance(
+            space=space,
+            payload=data,
+            normalize_payload=True,
+            instance_id=instance_id  # if already have id
+        )
+        if response.is_successful():
+            return response.payload
+        else:
+            raise Exception(response.error())
+
+    def update_instance(self, instance):
+        raise NotImplementedError()
+        # instance.data.pop("links", None)
+        # instance.data.pop("nxv:rev", None)
+        # instance.data.pop("nxv:deprecated", None)
+        # instance.data.pop("fg:api", None)
+        # instance = self._nexus_client.instances.update(instance)
+        # return instance
+
+    def delete_instance(self, instance):
+        raise NotImplementedError()
+        # self._nexus_client.instances.delete(instance)
+        # logger.debug("Deleting instance {}".format(instance.id))
+        # if instance.data["@id"] in self.cache:
+        #     logger.debug("Removing {} from cache".format(instance.data["@id"]))
+        #     self.cache.pop(instance.data["@id"])

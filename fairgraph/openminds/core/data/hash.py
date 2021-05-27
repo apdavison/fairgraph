@@ -29,4 +29,4 @@ class Hash(KGObject):
               doc="Summation or condensation of a body of information."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

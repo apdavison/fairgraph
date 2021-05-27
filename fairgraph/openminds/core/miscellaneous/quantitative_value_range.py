@@ -31,4 +31,4 @@ class QuantitativeValueRange(KGObject):
               doc="Determinate quantity adopted as a standard of measurement."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

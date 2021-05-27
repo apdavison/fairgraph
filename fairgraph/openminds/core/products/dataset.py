@@ -43,4 +43,4 @@ class Dataset(KGObject):
               doc="Shortened or fully abbreviated name of the dataset."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

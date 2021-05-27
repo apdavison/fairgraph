@@ -35,4 +35,4 @@ class CustomCoordinateSpace(KGObject):
               doc="Determinate quantity used in the original measurement."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

@@ -31,4 +31,4 @@ class HardwareSystem(KGObject):
               doc="Longer statement or account giving the characteristics of the hardware system."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

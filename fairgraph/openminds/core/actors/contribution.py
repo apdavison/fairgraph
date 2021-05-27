@@ -29,4 +29,4 @@ class Contribution(KGObject):
               doc="Legal person that gave or supplied something as a part or share."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

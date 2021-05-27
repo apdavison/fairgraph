@@ -47,4 +47,4 @@ class Visualization(KGObject):
               doc="no description available"),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

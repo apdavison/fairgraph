@@ -37,4 +37,4 @@ class Project(KGObject):
               doc="Shortened or fully abbreviated name of the project."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

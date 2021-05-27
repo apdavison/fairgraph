@@ -213,7 +213,10 @@ class KGObject(with_metaclass(Registry, object)):
 
     @property
     def uuid(self):
-        return self.id.split("/")[-1]
+        if self.id is not None:
+            return self.id.split("/")[-1]
+        else:
+            return None
 
     @classmethod
     def uri_from_uuid(cls, uuid, client):
@@ -221,7 +224,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def list(cls, client, size=100, from_index=0, api="query",
-             scope="released", resolved=False, **filters):
+             scope="released", resolved=False, space=None, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
         def get_filter_value(filters, field):
@@ -267,7 +270,7 @@ class KGObject(with_metaclass(Registry, object)):
                     "op": "and",
                     "value": filter_queries
                 }
-        else:  # api="query"
+        elif api == "query":
             filter_queries = {}
             if filters:
                 for field in cls.fields:
@@ -275,14 +278,25 @@ class KGObject(with_metaclass(Registry, object)):
                         filter_queries[field.name] = get_filter_value(filters, field)
             filter_query = filter_queries or None
             context = None
+        elif api == "core":  # KGv3
+            if filters:
+                raise NotImplementedError
+            filter_query = None
+            context = None
+            space = space or cls.space
+        else:
+            raise ValueError("'api' must be one of 'nexus', 'query', or 'core'")
         return client.list(cls, from_index=from_index, size=size, api=api, scope=scope,
-                           resolved=resolved, filter=filter_query, context=context)
+                           resolved=resolved, filter=filter_query, context=context, space=space)
 
     @classmethod
     def count(cls, client, api="query", scope="released"):
         return client.count(cls, api=api, scope=scope)
 
     def _build_existence_query(self, api="query"):
+        if self.existence_query_fields is None:
+            return None
+
         query_fields = []
         for field_name in self.existence_query_fields:
             for field in self.fields:
@@ -324,35 +338,49 @@ class KGObject(with_metaclass(Registry, object)):
             return True
         else:
             query_filter = self._build_existence_query(api=api)
-            query_cache_key = generate_cache_key(query_filter)
-            if query_cache_key in self.save_cache[self.__class__]:
-                # Because the KnowledgeGraph is only eventually consistent, an instance
-                # that has just been written to Nexus may not appear in the query.
-                # Therefore we cache the query when creating an instance and
-                # where exists() returns True
-                self.id = self.save_cache[self.__class__][query_cache_key]
-                return True
-            elif api == "any":
-                if self.exists(client, "nexus"):
-                    return True
-                else:
-                    return self.exists(client, "query")
-            elif api == "nexus":
-                context = {"schema": "http://schema.org/",
-                           "prov": "http://www.w3.org/ns/prov#"}
-                response = client.query_nexus(self.__class__.path, query_filter, context)
 
-            elif api == "query":
-                response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
-                                                size=1, scope="latest")
-                # not sure about the appropriate scope here
+            if query_filter is None:
+                return False
             else:
-                raise ValueError("'api' must be 'nexus', 'query' or 'any'")
-            if response:
-                # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
-                self.id = response[0].data["@id"]
-                KGObject.save_cache[self.__class__][query_cache_key] = self.id
-            return bool(response)
+                query_cache_key = generate_cache_key(query_filter)
+                if query_cache_key in self.save_cache[self.__class__]:
+                    # Because the KnowledgeGraph is only eventually consistent, an instance
+                    # that has just been written to Nexus may not appear in the query.
+                    # Therefore we cache the query when creating an instance and
+                    # where exists() returns True
+                    self.id = self.save_cache[self.__class__][query_cache_key]
+                    return True
+                elif api == "any":
+                    if self.exists(client, "nexus"):
+                        return True
+                    else:
+                        return self.exists(client, "query")
+                elif api == "nexus":
+                    context = {"schema": "http://schema.org/",
+                            "prov": "http://www.w3.org/ns/prov#"}
+                    response = client.query_nexus(self.__class__.path, query_filter, context)
+
+                elif api == "query":
+                    response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
+                                                    size=1, scope="latest")
+                    # not sure about the appropriate scope here
+                else:
+                    raise ValueError("'api' must be 'nexus', 'query' or 'any'")
+                if response:
+                    # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
+                    self.id = response[0].data["@id"]
+                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
+                return bool(response)
+
+    def exists_v3(self, client):
+        if self.id:
+            instance = client.instance_from_full_uri(self.id, use_cache=True,
+                                                     api="core", scope="latest",
+                                                     resolved=False)
+            breakpoint()
+            return bool(instance)
+        else:
+            return False
 
     def get_context(self, client=None):
         context_urls = set()
@@ -435,7 +463,6 @@ class KGObject(with_metaclass(Registry, object)):
     def save(self, client):
         """docstring"""
 
-
         if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist
             if self.instance is None:
@@ -465,12 +492,27 @@ class KGObject(with_metaclass(Registry, object)):
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
-            instance = client.create_new_instance(self.__class__.path, data)
+            instance = client.create_new_instance(path=self.__class__.path, data=data)
             self.id = instance.data["@id"]
             self.instance = instance
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
-            KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
+            if existence_query:
+                KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
+        logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
+        KGObject.object_cache[self.id] = self
+
+    def save_v3(self, client, space=None):
+        if self.exists_v3(client):
+            # update
+            raise NotImplementedError("update not implemented yet")
+        else:
+            data = self._build_data(client)
+            logger.info("Creating instance with data {}".format(data))
+            data["@context"] = self.get_context(client)
+            data["@type"] = self.type
+            instance = client.create_new_instance(space=space or self.__class__.space, data=data, instance_id=self.uuid)
+            self.id = instance["data"]["@id"]
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObject.object_cache[self.id] = self
 

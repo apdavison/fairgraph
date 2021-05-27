@@ -33,4 +33,4 @@ class Funding(KGObject):
               doc="Legal person that provides money for a particular purpose."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

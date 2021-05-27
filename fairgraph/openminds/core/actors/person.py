@@ -35,4 +35,4 @@ class Person(KGObject):
               doc="Declaration of a person being closely associated to an organization."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

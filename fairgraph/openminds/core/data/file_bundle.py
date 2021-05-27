@@ -39,4 +39,4 @@ class FileBundle(KGObject):
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None

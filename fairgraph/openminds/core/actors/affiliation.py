@@ -31,4 +31,4 @@ class Affiliation(KGObject):
               doc="Legally accountable, administrative and functional structure."),
         
     ]
-    existence_query_fields = ('name',)
+    existence_query_fields = None
