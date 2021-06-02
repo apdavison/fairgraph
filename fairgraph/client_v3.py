@@ -31,6 +31,11 @@ except ImportError:
 
 from .errors import AuthenticationError
 
+try:
+    import clb_nb_utils.oauth as clb_oauth
+except ImportError:
+    clb_oauth = None
+
 
 logger = logging.getLogger("fairgraph")
 
@@ -55,14 +60,13 @@ class KGv3Client(object):
             token_handler = ClientCredentials(client_id, client_secret)
         elif token:
             token_handler = SimpleToken(token)
+        elif clb_oauth:
+            token_handler = SimpleToken(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
         else:
             try:
-                token_handler = SimpleToken(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
-            except NameError:
-                try:
-                    token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
-                except KeyError:
-                    raise AuthenticationError("Need to provide either token or client id/secret.")
+                token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
+            except KeyError:
+                raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = KGv3(host=host, token_handler=token_handler)
         self.cache = {}
 
