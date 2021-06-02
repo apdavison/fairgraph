@@ -54,7 +54,11 @@ class KGObjectV3(object, metaclass=Registry):
                 value = properties[field.name]
             except KeyError:
                 if field.required:
-                    raise ValueError("Field '{}' is required.".format(field.name))
+                    msg = "Field '{}' is required.".format(field.name)
+                    if field.strict_mode:
+                        raise ValueError(msg)
+                    else:
+                        warnings.warn(msg)
                 value = None
             if value is None:
                 value = field.default
@@ -149,9 +153,9 @@ class KGObjectV3(object, metaclass=Registry):
     @classmethod
     def from_id(cls, id, client, use_cache=True, scope="released", resolved=False):
         if id.startswith("http"):
-            return cls.from_uri(id, client, use_cache, scope, resolved)
+            return cls.from_uri(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
         else:
-            return cls.from_uuid(id, client, scope, resolved)
+            return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
 
     @property
     def uuid(self):
@@ -430,14 +434,15 @@ class KGObjectV3(object, metaclass=Registry):
                         #print("    resolving.... (parents={}, field.types={})".format(parents, field.types))
                         subfield_map = {}
                         for child_cls in field.types:
-                            subfields = child_cls.generate_query(
-                                query_label, client, resolved=resolved,
-                                top_level=False, field_names_used=field_names_used,
-                                parents=copy(parents))  # use a copy to keep the original for the next iteration
-                            subfield_map.update(
-                                {subfield_defn.get("propertyName", subfield_defn["path"]): subfield_defn
-                                 for subfield_defn in subfields}
-                            )
+                            if issubclass(child_cls, KGObjectV3):
+                                subfields = child_cls.generate_query(
+                                    query_type, space, client, resolved=resolved,
+                                    top_level=False, field_names_used=field_names_used,
+                                    parents=copy(parents))  # use a copy to keep the original for the next iteration
+                                subfield_map.update(
+                                    {subfield_defn.get("propertyName", subfield_defn["path"]): subfield_defn
+                                    for subfield_defn in subfields}
+                                )
                         field_definition["structure"] = list(subfield_map.values())
 
                 # here we add a filter for top-level fields
@@ -596,7 +601,7 @@ class KGProxyV3(object):
 class KGQueryV3(object):
     """docstring"""
 
-    def __init__(self, classes, filter, context):
+    def __init__(self, classes, filter):
         self.classes = []
         for cls in as_list(classes):
             if isinstance(cls, str):
@@ -604,7 +609,6 @@ class KGQueryV3(object):
             else:
                 self.classes.append(cls)
         self.filter = filter
-        self.context = context
 
     def __repr__(self):
         return ('{self.__class__.__name__}('

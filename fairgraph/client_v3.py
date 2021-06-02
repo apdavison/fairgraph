@@ -66,14 +66,15 @@ class KGv3Client(object):
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
         uuid = self.uuid_from_uri(query["@id"])
+        params = {
+            "from": from_index,
+            "size": size,
+            "stage": STAGE_MAP[scope]
+        }
+        params.update(filter)
         response = self._kg_client.get(
             path=f"/queries/{uuid}/instances",
-            params={
-                "from": from_index,
-                "size": size,
-                "stage": STAGE_MAP[scope],
-                "allRequestParams": filter
-            }
+            params=params
         )
         if response.is_successful():
             data = response.data()
