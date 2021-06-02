@@ -5,11 +5,11 @@ Structured information on an electrode array.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class ElectrodeArray(KGObject):
+class ElectrodeArray(KGObjectV3):
     """
     Structured information on an electrode array.
     """
@@ -29,6 +29,6 @@ class ElectrodeArray(KGObject):
               doc="Term or code that identifies the electrode array within a particular product."),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = None

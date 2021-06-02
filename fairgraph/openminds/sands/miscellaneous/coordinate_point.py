@@ -5,11 +5,11 @@ Structured information on a coordinate point.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class CoordinatePoint(KGObject):
+class CoordinatePoint(KGObjectV3):
     """
     Structured information on a coordinate point.
     """
@@ -27,6 +27,6 @@ class CoordinatePoint(KGObject):
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),
         Field("coordinate_space", ["openminds.sands.CommonCoordinateSpace", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
-        
+
     ]
     existence_query_fields = None

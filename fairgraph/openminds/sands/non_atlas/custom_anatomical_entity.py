@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class CustomAnatomicalEntity(KGObject):
+class CustomAnatomicalEntity(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"]
@@ -29,6 +29,6 @@ class CustomAnatomicalEntity(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("relation_assessments", ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"], "vocab:relationAssessment", multiple=True, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = None

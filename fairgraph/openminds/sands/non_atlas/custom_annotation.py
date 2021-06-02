@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class CustomAnnotation(KGObject):
+class CustomAnnotation(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/sands/CustomAnnotation"]
@@ -45,6 +45,6 @@ class CustomAnnotation(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("visualized_in", "openminds.core.File", "vocab:visualizedIn", multiple=False, required=True,
               doc="Reference to an image in which something is visible."),
-        
+
     ]
     existence_query_fields = None

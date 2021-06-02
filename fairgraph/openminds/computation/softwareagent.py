@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class SoftwareAgent(KGObject):
+class SoftwareAgent(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]
@@ -29,6 +29,6 @@ class SoftwareAgent(KGObject):
               doc="no description available"),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = None

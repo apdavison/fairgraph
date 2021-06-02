@@ -5,11 +5,11 @@ Structured information on an electrode contact.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class ElectrodeContact(KGObject):
+class ElectrodeContact(KGObjectV3):
     """
     Structured information on an electrode contact.
     """
@@ -37,6 +37,6 @@ class ElectrodeContact(KGObject):
               doc="Reference to the written, stored function used as a physiological stimulus."),
         Field("visualized_ins", "openminds.core.File", "vocab:visualizedIn", multiple=True, required=False,
               doc="Reference to an image in which something is visible."),
-        
+
     ]
     existence_query_fields = None

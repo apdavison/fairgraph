@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Affiliation(KGObject):
+class Affiliation(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/core/Affiliation"]
@@ -29,6 +29,6 @@ class Affiliation(KGObject):
               doc="Date in the Gregorian calendar at which something terminates in time."),
         Field("organization", "openminds.core.Organization", "vocab:organization", multiple=False, required=True,
               doc="Legally accountable, administrative and functional structure."),
-        
+
     ]
     existence_query_fields = None

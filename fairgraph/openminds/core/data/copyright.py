@@ -5,11 +5,11 @@ Structured information on the copyright.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Copyright(KGObject):
+class Copyright(KGObjectV3):
     """
     Structured information on the copyright.
     """
@@ -27,6 +27,6 @@ class Copyright(KGObject):
               doc="Legal person in possession of something."),
         Field("year", str, "vocab:year", multiple=False, required=True,
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
-        
+
     ]
     existence_query_fields = None

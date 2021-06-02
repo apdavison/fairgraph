@@ -5,11 +5,11 @@ Structured information on a brain atlas (concept level).
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class BrainAtlas(KGObject):
+class BrainAtlas(KGObjectV3):
     """
     Structured information on a brain atlas (concept level).
     """
@@ -37,6 +37,6 @@ class BrainAtlas(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the brain atlas."),
-        
+
     ]
     existence_query_fields = None

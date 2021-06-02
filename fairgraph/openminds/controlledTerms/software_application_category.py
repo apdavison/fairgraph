@@ -5,11 +5,11 @@ Structured information on the category of the software application.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class SoftwareApplicationCategory(KGObject):
+class SoftwareApplicationCategory(KGObjectV3):
     """
     Structured information on the category of the software application.
     """
@@ -31,6 +31,6 @@ class SoftwareApplicationCategory(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("ontology_identifier", str, "vocab:ontologyIdentifier", multiple=False, required=False,
               doc="Term or code used to identify something or someone registered within a particular ontology."),
-        
+
     ]
     existence_query_fields = None

@@ -5,11 +5,11 @@ Structured information on a subject.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Subject(KGObject):
+class Subject(KGObjectV3):
     """
     Structured information on a subject.
     """
@@ -39,6 +39,6 @@ class Subject(KGObject):
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("strain", "openminds.controlledterms.Strain", "vocab:strain", multiple=False, required=False,
               doc="Group of presumed common ancestry with physiological but usually not morphological distinctions."),
-        
+
     ]
     existence_query_fields = None

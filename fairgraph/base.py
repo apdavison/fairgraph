@@ -129,31 +129,6 @@ class KGObject(with_metaclass(Registry, object)):
             raise NotImplementedError("To be implemented by child class")
 
     @classmethod
-    def from_kgv3_instance(cls, instance, client, use_cache=True, resolved=False):
-        openminds_context = {
-            "schema": "http://schema.org/",
-            "kg": "https://kg.ebrains.eu/api/instances/",
-            "vocab": "https://openminds.ebrains.eu/vocab/",
-            "terms": "https://openminds.ebrains.eu/controlledTerms/",
-            "core": "https://openminds.ebrains.eu/core/"
-        }
-        D = instance
-        for otype in as_list(cls.type):
-            if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], openminds_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
-        args = {}
-        for field in cls.fields:
-            if field.intrinsic:
-                data_item = D.get(expand_uri(field.path, openminds_context)[0])
-            else:
-                data_item = D["@id"]
-            args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
-        return cls(id=D["@id"], instance={"data": instance}, **args)
-
-    @classmethod
     def _fix_keys(cls, data):
         """
         The KG Query API does not allow the same field name to be used twice in a document.
@@ -182,10 +157,7 @@ class KGObject(with_metaclass(Registry, object)):
             return None
         else:
             try:
-                if hasattr(instance, "data"):
-                    return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
-                else:
-                    return cls.from_kgv3_instance(instance, client, use_cache=use_cache, resolved=resolved)
+                return cls.from_kg_instance(instance, client, use_cache=use_cache, resolved=resolved)
             except ValueError as err:
                 return None
 
@@ -213,10 +185,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @property
     def uuid(self):
-        if self.id is not None:
-            return self.id.split("/")[-1]
-        else:
-            return None
+        return self.id.split("/")[-1]
 
     @classmethod
     def uri_from_uuid(cls, uuid, client):
@@ -224,7 +193,7 @@ class KGObject(with_metaclass(Registry, object)):
 
     @classmethod
     def list(cls, client, size=100, from_index=0, api="query",
-             scope="released", resolved=False, space=None, **filters):
+             scope="released", resolved=False, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
         def get_filter_value(filters, field):
@@ -270,7 +239,7 @@ class KGObject(with_metaclass(Registry, object)):
                     "op": "and",
                     "value": filter_queries
                 }
-        elif api == "query":
+        else:  # api="query"
             filter_queries = {}
             if filters:
                 for field in cls.fields:
@@ -278,25 +247,14 @@ class KGObject(with_metaclass(Registry, object)):
                         filter_queries[field.name] = get_filter_value(filters, field)
             filter_query = filter_queries or None
             context = None
-        elif api == "core":  # KGv3
-            if filters:
-                raise NotImplementedError
-            filter_query = None
-            context = None
-            space = space or cls.space
-        else:
-            raise ValueError("'api' must be one of 'nexus', 'query', or 'core'")
         return client.list(cls, from_index=from_index, size=size, api=api, scope=scope,
-                           resolved=resolved, filter=filter_query, context=context, space=space)
+                           resolved=resolved, filter=filter_query, context=context)
 
     @classmethod
     def count(cls, client, api="query", scope="released"):
         return client.count(cls, api=api, scope=scope)
 
     def _build_existence_query(self, api="query"):
-        if self.existence_query_fields is None:
-            return None
-
         query_fields = []
         for field_name in self.existence_query_fields:
             for field in self.fields:
@@ -338,49 +296,35 @@ class KGObject(with_metaclass(Registry, object)):
             return True
         else:
             query_filter = self._build_existence_query(api=api)
-
-            if query_filter is None:
-                return False
-            else:
-                query_cache_key = generate_cache_key(query_filter)
-                if query_cache_key in self.save_cache[self.__class__]:
-                    # Because the KnowledgeGraph is only eventually consistent, an instance
-                    # that has just been written to Nexus may not appear in the query.
-                    # Therefore we cache the query when creating an instance and
-                    # where exists() returns True
-                    self.id = self.save_cache[self.__class__][query_cache_key]
+            query_cache_key = generate_cache_key(query_filter)
+            if query_cache_key in self.save_cache[self.__class__]:
+                # Because the KnowledgeGraph is only eventually consistent, an instance
+                # that has just been written to Nexus may not appear in the query.
+                # Therefore we cache the query when creating an instance and
+                # where exists() returns True
+                self.id = self.save_cache[self.__class__][query_cache_key]
+                return True
+            elif api == "any":
+                if self.exists(client, "nexus"):
                     return True
-                elif api == "any":
-                    if self.exists(client, "nexus"):
-                        return True
-                    else:
-                        return self.exists(client, "query")
-                elif api == "nexus":
-                    context = {"schema": "http://schema.org/",
-                            "prov": "http://www.w3.org/ns/prov#"}
-                    response = client.query_nexus(self.__class__.path, query_filter, context)
-
-                elif api == "query":
-                    response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
-                                                    size=1, scope="latest")
-                    # not sure about the appropriate scope here
                 else:
-                    raise ValueError("'api' must be 'nexus', 'query' or 'any'")
-                if response:
-                    # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
-                    self.id = response[0].data["@id"]
-                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
-                return bool(response)
+                    return self.exists(client, "query")
+            elif api == "nexus":
+                context = {"schema": "http://schema.org/",
+                           "prov": "http://www.w3.org/ns/prov#"}
+                response = client.query_nexus(self.__class__.path, query_filter, context)
 
-    def exists_v3(self, client):
-        if self.id:
-            instance = client.instance_from_full_uri(self.id, use_cache=True,
-                                                     api="core", scope="latest",
-                                                     resolved=False)
-            breakpoint()
-            return bool(instance)
-        else:
-            return False
+            elif api == "query":
+                response = client.query_kgquery(self.__class__.path, self.query_id, filter=query_filter,
+                                                size=1, scope="latest")
+                # not sure about the appropriate scope here
+            else:
+                raise ValueError("'api' must be 'nexus', 'query' or 'any'")
+            if response:
+                # self.instance = response[0]   - this is a problem if retrieved with query API as rev will be 0
+                self.id = response[0].data["@id"]
+                KGObject.save_cache[self.__class__][query_cache_key] = self.id
+            return bool(response)
 
     def get_context(self, client=None):
         context_urls = set()
@@ -492,27 +436,12 @@ class KGObject(with_metaclass(Registry, object)):
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.get_context(client)
             data["@type"] = self.type
-            instance = client.create_new_instance(path=self.__class__.path, data=data)
+            instance = client.create_new_instance(self.__class__.path, data)
             self.id = instance.data["@id"]
             self.instance = instance
             existence_query = self._build_existence_query(api="nexus")
             # make the cache key api-independent?
-            if existence_query:
-                KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
-        logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
-        KGObject.object_cache[self.id] = self
-
-    def save_v3(self, client, space=None):
-        if self.exists_v3(client):
-            # update
-            raise NotImplementedError("update not implemented yet")
-        else:
-            data = self._build_data(client)
-            logger.info("Creating instance with data {}".format(data))
-            data["@context"] = self.get_context(client)
-            data["@type"] = self.type
-            instance = client.create_new_instance(space=space or self.__class__.space, data=data, instance_id=self.uuid)
-            self.id = instance["data"]["@id"]
+            KGObject.save_cache[self.__class__][generate_cache_key(existence_query)] = self.id
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObject.object_cache[self.id] = self
 
@@ -1144,102 +1073,6 @@ def build_kg_object(cls, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
-
-
-
-def build_kgv3_object(cls, data, resolved=False, client=None):
-    """
-    Build a KGObject, a KGProxy, or a list of such, based on the data provided.
-
-    This takes care of the JSON-LD quirk that you get a list if there are multiple
-    objects, but you get the object directly if there is only one.
-
-    Returns `None` if data is None.
-    """
-    if data is None:
-        return None
-
-    if not isinstance(data, list):
-        if not isinstance(data, dict):
-            raise ValueError("data must be a list or dict")
-        if "@list" in data:
-            assert len(data) == 1
-            data = data["@list"]
-        else:
-            data = [data]
-
-    objects = []
-    for item in data:
-        if item is None:
-            logger.error(f"Unexpected null. cls={cls} data={data}")
-            continue
-        logger.debug(f"Building {cls} from {item.get('@id', 'not a node')}")
-        if cls is None:
-            # note that if cls is None, then the class can be different for each list item
-            # therefore we need to use a new variable kg_cls inside the loop
-            # if "@type" in item:
-            #     try:
-            #         kg_cls = lookup_type(item["@type"])
-            #     except KeyError:
-            #         kg_cls = lookup_type(compact_uri(item["@type"], standard_context))
-            # elif "label" in item:
-            #     kg_cls = lookup_by_iri(item["@id"])
-            # # todo: add lookup by @id
-            # else:
-            #     raise ValueError("Cannot determine type. Item was: {}".format(item))
-            raise NotImplementedError
-        else:
-            kg_cls = cls
-
-        # if isinstance(kg_cls, list):
-        #     assert all(issubclass(item, KGObject) for item in kg_cls)
-        #     if resolved:
-        #         raise NotImplementedError
-        #     else:
-        #         obj = KGProxy(kg_cls, item["@id"])
-        # elif issubclass(kg_cls, StructuredMetadata):
-        #     obj = kg_cls.from_jsonld(item)
-        # elif issubclass(kg_cls, KGObject):
-        #     if "@id" in item and item["@id"].startswith("http"):
-        #         # here is where we check the "resolved" keyword,
-        #         # and return an actual object if we have the data
-        #         # or resolve the proxy if we don't
-        #         if resolved:
-        #             raise NotImplementedError
-        #             # if kg_cls.namespace is None:
-        #             #     kg_cls.namespace = namespace_from_id(item["@id"])
-        #             # try:
-        #             #     instance = Instance(kg_cls.path, item, Instance.path)
-        #             #     obj = kg_cls.from_kg_instance(instance, client, resolved=resolved)
-        #             # except (ValueError, KeyError) as err:
-        #             #     # to add: emit a warning
-        #             #     logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-        #             #     obj = KGProxy(kg_cls, item["@id"]).resolve(
-        #             #         client,
-        #             #         api=item.get("fg:api", "query"))
-        #         else:
-        #             # if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
-        #             #         lookup_type(compact_uri(item["@type"], standard_context))):
-        #             #     logger.warning("Mismatched types")
-        #             #     obj = None
-        #             # else:
-        #                 obj = KGProxy(kg_cls, item["@id"])
-        #     else:
-        #         # todo: add a logger.warning that we have dud data
-        #         obj = None
-        # else:
-        #     raise ValueError("cls must be a subclass of KGObject or StructuredMetadata")
-        if isinstance(kg_cls, (list, tuple)) and len(kg_cls) == 1:
-            kg_cls = kg_cls[0]
-        obj = KGProxy(kg_cls, item["@id"])
-        if obj is not None:
-            objects.append(obj)
-
-    if len(objects) == 1:
-        return objects[0]
-    else:
-        return objects
-
 
 
 # An upload function used by all entity classes -> to be moved in "utils"

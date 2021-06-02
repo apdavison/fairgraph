@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class DataAnalysis(KGObject):
+class DataAnalysis(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/computation/DataAnalysis"]
@@ -45,6 +45,6 @@ class DataAnalysis(KGObject):
               doc="no description available"),
         Field("tagss", str, "vocab:tags", multiple=True, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = None

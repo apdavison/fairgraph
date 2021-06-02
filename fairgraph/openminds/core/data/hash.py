@@ -5,11 +5,11 @@ Structured information on a hash.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Hash(KGObject):
+class Hash(KGObjectV3):
     """
     Structured information on a hash.
     """
@@ -27,6 +27,6 @@ class Hash(KGObject):
               doc="Procedure for solving a mathematical problem in a finite number of steps. Can involve repetition of an operation."),
         Field("digest", str, "vocab:digest", multiple=False, required=True,
               doc="Summation or condensation of a body of information."),
-        
+
     ]
     existence_query_fields = None

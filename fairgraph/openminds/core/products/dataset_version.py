@@ -5,11 +5,11 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class DatasetVersion(KGObject):
+class DatasetVersion(KGObjectV3):
     """
     Structured information on data originating from human/animal studies or simulations (version level).
     """
@@ -81,6 +81,6 @@ class DatasetVersion(KGObject):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-        
+
     ]
     existence_query_fields = None

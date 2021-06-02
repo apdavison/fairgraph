@@ -5,11 +5,11 @@ Structured information on a research project.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Project(KGObject):
+class Project(KGObjectV3):
     """
     Structured information on a research project.
     """
@@ -35,6 +35,6 @@ class Project(KGObject):
               doc="Legal person who organizes the collaborative work of people or groups."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the project."),
-        
+
     ]
     existence_query_fields = None

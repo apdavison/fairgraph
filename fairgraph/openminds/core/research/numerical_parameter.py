@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class NumericalParameter(KGObject):
+class NumericalParameter(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/core/NumericalParameter"]
@@ -27,6 +27,6 @@ class NumericalParameter(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("values", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:value", multiple=True, required=True,
               doc="Entry for a property."),
-        
+
     ]
     existence_query_fields = None

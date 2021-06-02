@@ -5,11 +5,11 @@ Structured information on a temporary state of a subject.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class SubjectState(KGObject):
+class SubjectState(KGObjectV3):
     """
     Structured information on a temporary state of a subject.
     """
@@ -37,6 +37,6 @@ class SubjectState(KGObject):
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("weight", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:weight", multiple=False, required=False,
               doc="Amount that a thing or being weighs."),
-        
+
     ]
     existence_query_fields = None

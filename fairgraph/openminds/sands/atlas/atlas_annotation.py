@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class AtlasAnnotation(KGObject):
+class AtlasAnnotation(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/sands/AtlasAnnotation"]
@@ -47,6 +47,6 @@ class AtlasAnnotation(KGObject):
               doc="Documentation on what changed in comparison to a previously published form of something."),
         Field("visualized_in", "openminds.core.File", "vocab:visualizedIn", multiple=False, required=False,
               doc="Reference to an image in which something is visible."),
-        
+
     ]
     existence_query_fields = None

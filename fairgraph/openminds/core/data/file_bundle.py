@@ -5,11 +5,11 @@ Structured information on a bundle of file instances.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class FileBundle(KGObject):
+class FileBundle(KGObjectV3):
     """
     Structured information on a bundle of file instances.
     """
@@ -37,6 +37,6 @@ class FileBundle(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
-        
+
     ]
     existence_query_fields = None

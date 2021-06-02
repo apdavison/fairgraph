@@ -5,11 +5,11 @@ Structured information on a file instances.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class File(KGObject):
+class File(KGObjectV3):
     """
     Structured information on a file instances.
     """
@@ -41,6 +41,6 @@ class File(KGObject):
               doc="Particular function of something when it is used."),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
-        
+
     ]
     existence_query_fields = None

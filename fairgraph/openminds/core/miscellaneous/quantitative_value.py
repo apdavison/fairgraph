@@ -5,11 +5,11 @@ Structured information on a quanitative value.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class QuantitativeValue(KGObject):
+class QuantitativeValue(KGObjectV3):
     """
     Structured information on a quanitative value.
     """
@@ -31,6 +31,6 @@ class QuantitativeValue(KGObject):
               doc="Distinct technique used to quanitify the uncertainty of a measurement."),
         Field("unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:unit", multiple=False, required=False,
               doc="Determinate quantity adopted as a standard of measurement."),
-        
+
     ]
     existence_query_fields = None

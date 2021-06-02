@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class ContactInformation(KGObject):
+class ContactInformation(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/core/ContactInformation"]
@@ -25,6 +25,6 @@ class ContactInformation(KGObject):
     fields = [
         Field("email", str, "vocab:email", multiple=False, required=True,
               doc="Address to which or from which an electronic mail can be sent."),
-        
+
     ]
     existence_query_fields = None

@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class CustomCoordinateSpace(KGObject):
+class CustomCoordinateSpace(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/sands/CustomCoordinateSpace"]
@@ -33,6 +33,6 @@ class CustomCoordinateSpace(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
         Field("native_unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:nativeUnit", multiple=False, required=True,
               doc="Determinate quantity used in the original measurement."),
-        
+
     ]
     existence_query_fields = None

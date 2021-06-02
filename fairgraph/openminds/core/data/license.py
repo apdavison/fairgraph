@@ -5,11 +5,11 @@ Structured information on a used license.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class License(KGObject):
+class License(KGObjectV3):
     """
     Structured information on a used license.
     """
@@ -31,6 +31,6 @@ class License(KGObject):
               doc="Shortened or fully abbreviated name of the license."),
         Field("webpages", str, "vocab:webpage", multiple=True, required=False,
               doc="Hypertext document (block of information) found on the World Wide Web."),
-        
+
     ]
     existence_query_fields = None

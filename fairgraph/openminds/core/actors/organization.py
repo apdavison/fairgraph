@@ -5,11 +5,11 @@ Structured information on an organization.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Organization(KGObject):
+class Organization(KGObjectV3):
     """
     Structured information on an organization.
     """
@@ -33,6 +33,6 @@ class Organization(KGObject):
               doc="Main website of something or someone."),
         Field("alias", str, "vocab:shortName", multiple=False, required=False,
               doc="Shortened or fully abbreviated name of the organization."),
-        
+
     ]
     existence_query_fields = None

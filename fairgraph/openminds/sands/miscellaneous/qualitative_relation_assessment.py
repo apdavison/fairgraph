@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class QualitativeRelationAssessment(KGObject):
+class QualitativeRelationAssessment(KGObjectV3):
     """
-    
+
     """
     space = "model"
     type = ["https://openminds.ebrains.eu/sands/QualitativeRelationAssessment"]
@@ -29,6 +29,6 @@ class QualitativeRelationAssessment(KGObject):
               doc="Reference to a related element."),
         Field("qualitative_overlap", "openminds.controlledterms.QualitativeOverlap", "vocab:qualitativeOverlap", multiple=False, required=True,
               doc="Semantic characterization of how much two things occupy the same space."),
-        
+
     ]
     existence_query_fields = None

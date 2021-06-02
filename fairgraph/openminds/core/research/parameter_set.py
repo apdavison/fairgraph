@@ -5,11 +5,11 @@ Structured information on a used parameter set.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class ParameterSet(KGObject):
+class ParameterSet(KGObjectV3):
     """
     Structured information on a used parameter set.
     """
@@ -29,6 +29,6 @@ class ParameterSet(KGObject):
               doc="Reference to what or whom something or someone bears siginificance."),
         Field("parameters", ["openminds.core.NumericalParameter", "openminds.core.StringParameter"], "vocab:parameter", multiple=True, required=True,
               doc="Digital or physical property determining a particular function, characteristic or behavior of something."),
-        
+
     ]
     existence_query_fields = None

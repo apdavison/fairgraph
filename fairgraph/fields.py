@@ -26,7 +26,8 @@ from dateutil import parser as date_parser
 
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
-                   StructuredMetadata, IRI, build_kg_object, build_kgv3_object)
+                   StructuredMetadata, IRI, build_kg_object)
+from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, build_kgv3_object)
 
 
 class Field(object):
@@ -66,7 +67,7 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery))
+                if not (isinstance(item, (KGProxy, KGQuery, KGProxyV3, KGQueryV3))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         if item is None and self.required:
@@ -100,7 +101,7 @@ class Field(object):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
-            elif isinstance(value, (KGObject, KGProxy)):
+            elif isinstance(value, (KGObject, KGObjectV3, KGProxy, KGProxyV3)):
                 if for_query:
                     return value.id
                 else:
@@ -178,12 +179,10 @@ class Field(object):
 
     def deserialize_v3(self, data, client, resolved=False):
         assert self.intrinsic
-        if issubclass(self.types[0], (KGObject, StructuredMetadata)):
+        if issubclass(self.types[0], KGObjectV3):
             return build_kgv3_object(self.types, data, resolved=resolved, client=client)
         elif self.types[0] in (datetime, date):
             return date_parser.parse(data)
-        elif self.types[0] == IRI:
-            return data["@id"]
         elif self.types[0] == int:
             if isinstance(data, str):
                 return int(data)

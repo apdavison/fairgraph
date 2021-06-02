@@ -5,11 +5,11 @@ Structured information on a protocol execution.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class ProtocolExecution(KGObject):
+class ProtocolExecution(KGObjectV3):
     """
     Structured information on a protocol execution.
     """
@@ -37,10 +37,10 @@ class ProtocolExecution(KGObject):
               doc="Distinct class of actions or processes that make something ready for use or service."),
         Field("protocols", "openminds.core.Protocol", "vocab:protocol", multiple=True, required=True,
               doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure."),
-        Field("semantically_anchored_tos", "openminds.sands.AnatomicalEntity", "vocab:semanticallyAnchoredTo", multiple=True, required=False,
+        Field("semantically_anchored_tos", "openminds.sands.CustomAnatomicalEntity", "vocab:semanticallyAnchoredTo", multiple=True, required=False,
               doc="Reference to a related anatomical structure without providing a quantitative proof of the claimed relation."),
         Field("study_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
-        
+
     ]
     existence_query_fields = None

@@ -5,11 +5,11 @@ Structured information on the contribution made to a research product.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base import KGObject
+from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 
 
-class Contribution(KGObject):
+class Contribution(KGObjectV3):
     """
     Structured information on the contribution made to a research product.
     """
@@ -27,6 +27,6 @@ class Contribution(KGObject):
               doc="Distinct class of what was given or supplied as a part or share."),
         Field("contributor", ["openminds.core.Organization", "openminds.core.Person"], "vocab:contributor", multiple=False, required=True,
               doc="Legal person that gave or supplied something as a part or share."),
-        
+
     ]
     existence_query_fields = None
