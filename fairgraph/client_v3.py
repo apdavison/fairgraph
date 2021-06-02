@@ -57,9 +57,12 @@ class KGv3Client(object):
             token_handler = SimpleToken(token)
         else:
             try:
-                token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
-            except KeyError:
-                raise AuthenticationError("Need to provide either token or client id/secret.")
+                token_handler = SimpleToken(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
+            except NameError:
+                try:
+                    token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
+                except KeyError:
+                    raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = KGv3(host=host, token_handler=token_handler)
         self.cache = {}
 
