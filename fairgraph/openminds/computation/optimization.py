@@ -23,9 +23,9 @@ class Optimization(KGObjectV3):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("input", ["openminds.core.FileBundle", "openminds.core.File", "openminds.core.SoftwareVersion"], "vocab:input", multiple=False, required=True,
+        Field("inputs", ["openminds.core.FileBundle", "openminds.core.File", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
-        Field("output", ["openminds.core.FileBundle", "openminds.core.File"], "vocab:output", multiple=False, required=True,
+        Field("outputs", ["openminds.core.FileBundle", "openminds.core.File"], "vocab:output", multiple=True, required=False,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=True,
               doc="no description available"),

@@ -25,7 +25,7 @@ class Visualization(KGObjectV3):
     fields = [
         Field("inputs", ["openminds.core.FileBundle", "openminds.core.File", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
-        Field("outputs", ["openminds.core.FileBundle", "openminds.core.File"], "vocab:output", multiple=True, required=True,
+        Field("outputs", ["openminds.core.FileBundle", "openminds.core.File"], "vocab:output", multiple=True, required=False,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=True,
               doc="no description available"),
