@@ -202,3 +202,9 @@ class KGv3Client(object):
             raise Exception("Retrieved multiple queries, this shouldn't happen")
         else:
             return response.data()[0]
+
+    def user_info(self):
+        return self._kg_client.get(
+            path="/users/me",
+            params={}
+        ).data()

@@ -2,11 +2,31 @@
 Structured information on a file instances.
 """
 
-# this file was auto-generated
+# this file was auto-generated then hand-modified
 
+import os
+import hashlib
+import mimetypes
 from datetime import datetime
 from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
+from .hash import Hash
+from .content_type import ContentType
+from ..miscellaneous.quantitative_value import QuantitativeValue
+from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+
+mimetypes.init()
+
+def sha1sum(filename):
+    BUFFER_SIZE = 128*1024
+    h = hashlib.sha1()
+    with open(filename, 'rb') as fp:
+        while True:
+            data = fp.read(BUFFER_SIZE)
+            if not data:
+                break
+            h.update(data)
+    return h.hexdigest()
 
 
 class File(KGObjectV3):
@@ -44,3 +64,16 @@ class File(KGObjectV3):
 
     ]
     existence_query_fields = None
+
+    @classmethod
+    def from_local_file(cls, relative_path):
+        cls.set_strict_mode(False)
+        obj = cls(
+            name=relative_path,
+            storage_size=QuantitativeValue(value=float(os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")),
+            hash=Hash(algorithm="SHA1", digest=sha1sum(relative_path)),
+            format=ContentType(name=mimetypes.guess_type(relative_path)[0])
+            # todo: query ContentTypes since that contains additional, EBRAINS-specific content types
+        )
+        cls.set_strict_mode(True)
+        return obj
