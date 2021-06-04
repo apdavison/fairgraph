@@ -13,7 +13,7 @@ class Software(KGObjectV3):
     """
     Structured information on a software tool (concept level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Software"]
     context = {
         "schema": "http://schema.org/",

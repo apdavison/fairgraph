@@ -13,7 +13,7 @@ class Visualization(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/computation/Visualization"]
     context = {
         "schema": "http://schema.org/",

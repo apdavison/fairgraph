@@ -13,7 +13,7 @@ class BrainAtlas(KGObjectV3):
     """
     Structured information on a brain atlas (concept level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/BrainAtlas"]
     context = {
         "schema": "http://schema.org/",

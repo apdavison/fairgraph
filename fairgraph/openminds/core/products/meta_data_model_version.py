@@ -13,7 +13,7 @@ class MetaDataModelVersion(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/MetaDataModelVersion"]
     context = {
         "schema": "http://schema.org/",

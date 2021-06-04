@@ -13,7 +13,7 @@ class QuantitativeValueRange(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/QuantitativeValueRange"]
     context = {
         "schema": "http://schema.org/",

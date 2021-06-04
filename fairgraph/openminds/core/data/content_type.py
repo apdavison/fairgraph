@@ -13,7 +13,7 @@ class ContentType(KGObjectV3):
     """
     Structured information on the content type of a file instance, bundle or repository.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/ContentType"]
     context = {
         "schema": "http://schema.org/",

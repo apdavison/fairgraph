@@ -13,7 +13,7 @@ class QualitativeOverlap(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/QualitativeOverlap"]
     context = {
         "schema": "http://schema.org/",

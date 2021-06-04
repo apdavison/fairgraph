@@ -13,7 +13,7 @@ class Dataset(KGObjectV3):
     """
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Dataset"]
     context = {
         "schema": "http://schema.org/",

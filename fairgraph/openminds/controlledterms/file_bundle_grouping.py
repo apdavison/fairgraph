@@ -13,7 +13,7 @@ class FileBundleGrouping(KGObjectV3):
     """
     Structured information on the grouping mechanism of a file bundle.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/FileBundleGrouping"]
     context = {
         "schema": "http://schema.org/",

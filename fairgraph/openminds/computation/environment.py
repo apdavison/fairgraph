@@ -13,7 +13,7 @@ class Environment(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/computation/Environment"]
     context = {
         "schema": "http://schema.org/",

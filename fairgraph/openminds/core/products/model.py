@@ -13,7 +13,7 @@ class Model(KGObjectV3):
     """
     Structured information on a computational model (concept level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Model"]
     context = {
         "schema": "http://schema.org/",

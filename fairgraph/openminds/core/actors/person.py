@@ -13,7 +13,7 @@ class Person(KGObjectV3):
     """
     Structured information on a person.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Person"]
     context = {
         "schema": "http://schema.org/",

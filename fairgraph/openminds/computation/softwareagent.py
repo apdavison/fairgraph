@@ -13,7 +13,7 @@ class SoftwareAgent(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]
     context = {
         "schema": "http://schema.org/",

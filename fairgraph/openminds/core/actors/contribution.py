@@ -13,7 +13,7 @@ class Contribution(KGObjectV3):
     """
     Structured information on the contribution made to a research product.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Contribution"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class SoftwareApplicationCategory(KGObjectV3):
     """
     Structured information on the category of the software application.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/SoftwareApplicationCategory"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class ModelAbstractionLevel(KGObjectV3):
     """
     Structured information on abstraction level of the computational model.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"]
     context = {
         "schema": "http://schema.org/",

@@ -70,7 +70,7 @@ class KGObjectV3(object, metaclass=Registry):
             setattr(self, field.name, value)
 
         self.id = id
-        self.space = space
+        self._space = space
         self.data = data
 
     def __repr__(self):
@@ -79,33 +79,36 @@ class KGObjectV3(object, metaclass=Registry):
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
         return template.format(self=self)
 
+    @property
+    def space(self):
+        if self.data:
+            if "https://schema.hbp.eu/myQuery/space" in self.data:
+                self._space = self.data["https://schema.hbp.eu/myQuery/space"]
+            elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.data:
+                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"]
+        return self._space
+
     @classmethod
     def from_kg_instance(cls, data, client, resolved=False):
-        openminds_context = {
-            "schema": "http://schema.org/",
-            "kg": "https://kg.ebrains.eu/api/instances/",
-            "vocab": "https://openminds.ebrains.eu/vocab/",
-            "terms": "https://openminds.ebrains.eu/controlledTerms/",
-            "core": "https://openminds.ebrains.eu/core/"
-        }  # do we need this? can just use cls.context
-        D = data
-        for otype in as_list(cls.type):
+        # normalize data by compacting keys
+        D = {
+            compact_uri(key, cls.context): value
+            for key, value in data.items() if key[0] != "@"
+        }
+        D["@id"] =  data["@id"]
+        D["@type"] = compact_uri(data["@type"], cls.context)
+        D["@context"] = data.get("@context", cls.context)
+        for otype in compact_uri(as_list(cls.type), cls.context):  # todo: update class generation to ensure classes are already compacted
             if otype not in D["@type"]:
-                # todo: profile - move compaction outside loop?
-                compacted_types = compact_uri(D["@type"], openminds_context)
-                if otype not in compacted_types:
-                    print("Warning: type mismatch {} - {}".format(otype, compacted_types))
+                print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
         args = {}
         for field in cls.fields:
             if field.intrinsic:
-                if field.path in D:
-                    data_item = D.get(field.path)
-                else:
-                    data_item = D.get(expand_uri(field.path, openminds_context)[0])
+                data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
             args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
-        return cls(id=D["@id"], data=data, **args)
+        return cls(id=D["@id"], data=D, **args)
 
     @classmethod
     def _fix_keys(cls, data):
@@ -268,24 +271,24 @@ class KGObjectV3(object, metaclass=Registry):
                     KGObjectV3.save_cache[self.__class__][query_cache_key] = self.id
                 return bool(instances)
 
-    def _update_needed(self, data):
+    def _updated_data(self, data):
+        updated_data = {}
         for key, value in data.items():
             if key not in self.data:
                 if value is not None:
                     logger.info(f"new field '{key}' with value {value}")  # todo: change to debug
-                    return True
+                    updated_data[key] = value
             elif self.data[key] != value:
                 existing = self.data[key]
-                if (
+                if not (
                     isinstance(existing, list)
                     and len(existing) == 1
                     and isinstance(existing[0], dict)
                     and existing[0] == value
                 ): # we treat a list containing a single dict as equivalent to that dict
-                    return False
-                logger.info(f"change to field '{key}' from {existing} to {value}")
-                return True
-        return False
+                    logger.info(f"change to field '{key}' from {existing} to {value}")
+                    updated_data[key] = value
+        return updated_data
 
     def _build_data(self, client, all_fields=False):
         if self.fields:
@@ -294,7 +297,7 @@ class KGObjectV3(object, metaclass=Registry):
                 if field.intrinsic:
                     value = getattr(self, field.name)
                     if all_fields or field.required or value is not None:
-                        serialized = field.serialize(value, client)
+                        serialized = field.serialize(value, client, with_type=False)
                         if field.path in data:
                             if isinstance(data[field.path], list):
                                 data[field.path].append(serialized)
@@ -307,16 +310,30 @@ class KGObjectV3(object, metaclass=Registry):
             raise NotImplementedError("to be implemented by child classes")
 
     def save(self, client, space=None):
+        if space is None:
+            if self.space is None:
+                space = self.__class__.space
+            else:
+                space = self.space
         if self.exists(client, space=space):
             # update
-            raise NotImplementedError("update not implemented yet")
+            data = self._build_data(client, all_fields=True)
+            updated_data = self._updated_data(data)
+            if updated_data:
+                logger.info(f"Updating - {self.__class__.__name__}(id={self.id})")
+                self.data.update(data)
+                client.update_instance(self.uuid, updated_data)
+            else:
+                logger.info(f"Not updating {self.__class__.__name__}(id={self.id}), unchanged")
         else:
+            # create new
             data = self._build_data(client)
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.context
             data["@type"] = self.type
             instance_data = client.create_new_instance(space=space or self.__class__.space, data=data, instance_id=self.uuid)
             self.id = instance_data["@id"]
+        # not handled yet: save existing object to new space - requires changing uuid
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObjectV3.object_cache[self.id] = self
 

@@ -13,7 +13,7 @@ class EthicsAssessment(KGObjectV3):
     """
     Structured information on the ethics assessment of a dataset.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/EthicsAssessment"]
     context = {
         "schema": "http://schema.org/",

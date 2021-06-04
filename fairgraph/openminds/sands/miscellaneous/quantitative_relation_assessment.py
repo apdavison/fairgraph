@@ -13,7 +13,7 @@ class QuantitativeRelationAssessment(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/QuantitativeRelationAssessment"]
     context = {
         "schema": "http://schema.org/",

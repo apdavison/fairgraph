@@ -13,7 +13,7 @@ class SubjectGroup(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/SubjectGroup"]
     context = {
         "schema": "http://schema.org/",

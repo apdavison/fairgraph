@@ -13,7 +13,7 @@ class StringParameter(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/StringParameter"]
     context = {
         "schema": "http://schema.org/",

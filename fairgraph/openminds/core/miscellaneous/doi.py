@@ -13,7 +13,7 @@ class DOI(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/DOI"]
     context = {
         "schema": "http://schema.org/",

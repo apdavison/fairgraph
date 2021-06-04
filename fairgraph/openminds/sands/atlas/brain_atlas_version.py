@@ -13,7 +13,7 @@ class BrainAtlasVersion(KGObjectV3):
     """
     Structured information on a brain atlas (version level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/BrainAtlasVersion"]
     context = {
         "schema": "http://schema.org/",

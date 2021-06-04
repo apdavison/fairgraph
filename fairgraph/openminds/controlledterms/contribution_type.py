@@ -13,7 +13,7 @@ class ContributionType(KGObjectV3):
     """
     Structured information on the type of contribution a person or organization performed.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/ContributionType"]
     context = {
         "schema": "http://schema.org/",

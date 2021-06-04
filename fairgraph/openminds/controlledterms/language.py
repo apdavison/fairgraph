@@ -13,7 +13,7 @@ class Language(KGObjectV3):
     """
     Structured information on the available language setting.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/Language"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class ISBN(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/ISBN"]
     context = {
         "schema": "http://schema.org/",

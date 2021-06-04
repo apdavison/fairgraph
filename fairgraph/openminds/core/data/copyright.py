@@ -13,7 +13,7 @@ class Copyright(KGObjectV3):
     """
     Structured information on the copyright.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Copyright"]
     context = {
         "schema": "http://schema.org/",

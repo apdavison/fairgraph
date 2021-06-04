@@ -13,7 +13,7 @@ class Organization(KGObjectV3):
     """
     Structured information on an organization.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Organization"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class TissueSampleCollection(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/TissueSampleCollection"]
     context = {
         "schema": "http://schema.org/",

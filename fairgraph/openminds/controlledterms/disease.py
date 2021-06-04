@@ -13,7 +13,7 @@ class Disease(KGObjectV3):
     """
     Structured information on a disease.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/Disease"]
     context = {
         "schema": "http://schema.org/",

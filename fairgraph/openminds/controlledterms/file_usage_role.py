@@ -13,7 +13,7 @@ class FileUsageRole(KGObjectV3):
     """
     Structured information on the usage role of a file instance or bundle.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/FileUsageRole"]
     context = {
         "schema": "http://schema.org/",

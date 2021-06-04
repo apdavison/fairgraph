@@ -13,7 +13,7 @@ class UnitOfMeasurement(KGObjectV3):
     """
     Structured information on the unit of measurement.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/UnitOfMeasurement"]
     context = {
         "schema": "http://schema.org/",

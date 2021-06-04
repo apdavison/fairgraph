@@ -13,7 +13,7 @@ class ModelVersion(KGObjectV3):
     """
     Structured information on a computational model (version level).
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/ModelVersion"]
     context = {
         "schema": "http://schema.org/",

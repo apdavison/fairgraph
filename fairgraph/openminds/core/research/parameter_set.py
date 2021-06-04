@@ -13,7 +13,7 @@ class ParameterSet(KGObjectV3):
     """
     Structured information on a used parameter set.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/ParameterSet"]
     context = {
         "schema": "http://schema.org/",

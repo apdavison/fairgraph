@@ -13,7 +13,7 @@ class Hash(KGObjectV3):
     """
     Structured information on a hash.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Hash"]
     context = {
         "schema": "http://schema.org/",

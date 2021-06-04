@@ -13,7 +13,7 @@ class CoordinatePoint(KGObjectV3):
     """
     Structured information on a coordinate point.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/CoordinatePoint"]
     context = {
         "schema": "http://schema.org/",

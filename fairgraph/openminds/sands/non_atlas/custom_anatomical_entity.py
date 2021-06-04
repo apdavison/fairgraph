@@ -13,7 +13,7 @@ class CustomAnatomicalEntity(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"]
     context = {
         "schema": "http://schema.org/",

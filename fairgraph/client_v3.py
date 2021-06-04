@@ -72,6 +72,8 @@ class KGv3Client(object):
 
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
+        if query is None:
+            raise Exception(f"No query was retrieved with label '{query_label}' for class {self.__class__.__name__}")
         uuid = self.uuid_from_uri(query["@id"])
         params = {
             "from": from_index,
@@ -162,8 +164,16 @@ class KGv3Client(object):
         else:
             raise Exception(response.error())
 
-    def update_instance(self, data):
-        raise NotImplementedError()
+    def update_instance(self, instance_id, data):
+        response = self._kg_client.partially_update_contribution_to_instance(
+            instance_id=instance_id,
+            payload=data,
+            normalize_payload=True
+        )
+        if response.is_successful():
+            return response.data()
+        else:
+            raise Exception(response.error())
 
     def delete_instance(self, instance_id):
         raise NotImplementedError()

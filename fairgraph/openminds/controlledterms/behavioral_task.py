@@ -13,7 +13,7 @@ class BehavioralTask(KGObjectV3):
     """
     Structured information on the behavioral task that had to be peformed by a subject.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/BehavioralTask"]
     context = {
         "schema": "http://schema.org/",

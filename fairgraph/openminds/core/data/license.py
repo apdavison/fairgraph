@@ -13,7 +13,7 @@ class License(KGObjectV3):
     """
     Structured information on a used license.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/License"]
     context = {
         "schema": "http://schema.org/",

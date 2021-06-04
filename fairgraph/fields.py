@@ -95,7 +95,7 @@ class Field(object):
         """
         return not self.path.startswith("^")
 
-    def serialize(self, value, client, for_query=False):
+    def serialize(self, value, client, for_query=False, with_type=True):
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):
                 return value
@@ -105,10 +105,12 @@ class Field(object):
                 if for_query:
                     return value.id
                 else:
-                    return {
+                    data = {
                         "@id": value.id,
-                        "@type": value.type
                     }
+                    if with_type:
+                        data["@type"] = value.type
+                    return data
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             elif value is None:

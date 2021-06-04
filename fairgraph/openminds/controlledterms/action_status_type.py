@@ -13,7 +13,7 @@ class ActionStatusType(KGObjectV3):
     """
 
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/ActionStatusType"]
     context = {
         "schema": "http://schema.org/",

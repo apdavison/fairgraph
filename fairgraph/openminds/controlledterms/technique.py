@@ -13,7 +13,7 @@ class Technique(KGObjectV3):
     """
     Structured information on the technique.
     """
-    space = "model"
+    default_space = "model"
     type = ["https://openminds.ebrains.eu/controlledTerms/Technique"]
     context = {
         "schema": "http://schema.org/",

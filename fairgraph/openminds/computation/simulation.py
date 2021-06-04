@@ -13,14 +13,15 @@ class Simulation(KGObjectV3):
     """
 
     """
-    space = "model"
-    type = ["https://openminds.ebrains.eu/computation/Simulation"]
+    default_space = "model"
+    type = ["computation:Simulation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
+        "core": "https://openminds.ebrains.eu/core/",
+        "computation": "https://openminds.ebrains.eu/computation/"
     }
     fields = [
         Field("inputs", ["openminds.core.FileBundle", "openminds.core.File", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
