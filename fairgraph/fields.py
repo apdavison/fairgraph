@@ -27,7 +27,7 @@ from dateutil import parser as date_parser
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
                    StructuredMetadata, IRI, build_kg_object)
-from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, build_kgv3_object)
+from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object)
 
 
 class Field(object):
@@ -67,7 +67,7 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery, KGProxyV3, KGQueryV3))
+                if not (isinstance(item, (KGProxy, KGQuery, KGProxyV3, KGQueryV3, EmbeddedMetadata))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         if item is None and self.required:
@@ -181,16 +181,21 @@ class Field(object):
 
     def deserialize_v3(self, data, client, resolved=False):
         assert self.intrinsic
-        if issubclass(self.types[0], KGObjectV3):
-            return build_kgv3_object(self.types, data, resolved=resolved, client=client)
-        elif self.types[0] in (datetime, date):
-            return date_parser.parse(data)
-        elif self.types[0] == int:
-            if isinstance(data, str):
-                return int(data)
-            elif isinstance(data, Iterable):
-                return [int(item) for item in data]
-            else:
-                return int(data)
+        if data is None or data == []:
+            return None
         else:
-            return data
+            if issubclass(self.types[0], KGObjectV3):
+                return build_kgv3_object(self.types, data, resolved=resolved, client=client)
+            elif issubclass(self.types[0], EmbeddedMetadata):
+                return self.types[0].from_jsonld(data, client, resolved=resolved)
+            elif self.types[0] in (datetime, date):
+                return date_parser.parse(data)
+            elif self.types[0] == int:
+                if isinstance(data, str):
+                    return int(data)
+                elif isinstance(data, Iterable):
+                    return [int(item) for item in data]
+                else:
+                    return int(data)
+            else:
+                return data

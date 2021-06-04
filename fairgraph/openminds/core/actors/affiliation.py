@@ -5,15 +5,14 @@
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
 from fairgraph.fields import Field
 
 
-class Affiliation(KGObjectV3):
+class Affiliation(EmbeddedMetadata):
     """
 
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Affiliation"]
     context = {
         "schema": "http://schema.org/",
@@ -31,4 +30,3 @@ class Affiliation(KGObjectV3):
               doc="Legally accountable, administrative and functional structure."),
 
     ]
-    existence_query_fields = None

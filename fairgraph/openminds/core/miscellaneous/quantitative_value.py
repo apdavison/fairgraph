@@ -5,15 +5,14 @@ Structured information on a quanitative value.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
 from fairgraph.fields import Field
 
 
-class QuantitativeValue(KGObjectV3):
+class QuantitativeValue(EmbeddedMetadata):
     """
     Structured information on a quanitative value.
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/QuantitativeValue"]
     context = {
         "schema": "http://schema.org/",
@@ -33,4 +32,3 @@ class QuantitativeValue(KGObjectV3):
               doc="Determinate quantity adopted as a standard of measurement."),
 
     ]
-    existence_query_fields = None

@@ -5,15 +5,14 @@ Structured information on a hash.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
 from fairgraph.fields import Field
 
 
-class Hash(KGObjectV3):
+class Hash(EmbeddedMetadata):
     """
     Structured information on a hash.
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Hash"]
     context = {
         "schema": "http://schema.org/",
@@ -29,4 +28,3 @@ class Hash(KGObjectV3):
               doc="Summation or condensation of a body of information."),
 
     ]
-    existence_query_fields = None

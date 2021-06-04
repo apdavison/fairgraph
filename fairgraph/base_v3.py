@@ -37,6 +37,64 @@ from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup
 logger = logging.getLogger("fairgraph")
 
 
+class EmbeddedMetadata(object, metaclass=Registry):
+
+    def __init__(self, **properties):
+        for field in self.fields:
+            try:
+                value = properties[field.name]
+            except KeyError:
+                if field.required:
+                    msg = "Field '{}' is required.".format(field.name)
+                    if field.strict_mode:
+                        raise ValueError(msg)
+                    else:
+                        warnings.warn(msg)
+                value = None
+            if value is None:
+                value = field.default
+                if callable(value):
+                    value = value()
+            elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
+                value = None
+            field.check_value(value)
+            setattr(self, field.name, value)
+
+    def __repr__(self):
+        template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
+                            for field in self.fields if getattr(self, field.name) is not None)
+        template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
+        return template.format(self=self)
+
+    def to_jsonld(self):
+        data = {}
+        for field in self.fields:
+            value = getattr(self, field.name)
+            if value is not None:
+                data[field.path] = value
+
+    @classmethod
+    def from_jsonld(cls, data, client, resolved=False):
+        properties = {}
+        for field in cls.fields:
+            properties[field.name] = field.deserialize_v3(data, client, resolved=resolved)
+        return cls(**properties)
+
+    @classmethod
+    def set_strict_mode(cls, value, field_name=None):
+        if value not in (True, False):
+            raise ValueError("value should be either True or False")
+        if field_name:
+            for field in cls.fields:
+                if field.name == field_name:
+                    field.strict_mode = value
+                    return
+            raise ValueError("No such field: {}".format(field_name))
+        else:
+            for field in cls.fields:
+                field.strict_mode = value
+
+
 class KGObjectV3(object, metaclass=Registry):
     """Base class for Knowledge Graph objects"""
     object_cache = {}  # for caching based on object ids

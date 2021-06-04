@@ -5,15 +5,14 @@ Structured information on the copyright.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
 from fairgraph.fields import Field
 
 
-class Copyright(KGObjectV3):
+class Copyright(EmbeddedMetadata):
     """
     Structured information on the copyright.
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Copyright"]
     context = {
         "schema": "http://schema.org/",
@@ -29,4 +28,3 @@ class Copyright(KGObjectV3):
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
 
     ]
-    existence_query_fields = None
