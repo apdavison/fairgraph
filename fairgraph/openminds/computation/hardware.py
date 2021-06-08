@@ -13,7 +13,7 @@ class HardwareSystem(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/HardwareSystem"]
     context = {
         "schema": "http://schema.org/",

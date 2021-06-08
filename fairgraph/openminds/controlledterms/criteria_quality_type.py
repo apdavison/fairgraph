@@ -13,7 +13,7 @@ class CriteriaQualityType(KGObjectV3):
     """
     Structured information on the quality type of the defined criteria for a measurement.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/CriteriaQualityType"]
     context = {
         "schema": "http://schema.org/",

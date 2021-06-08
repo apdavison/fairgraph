@@ -13,7 +13,7 @@ class ProgrammingLanguage(KGObjectV3):
     """
     Structured information on the programming language.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/ProgrammingLanguage"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class Optimization(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Optimization"]
     context = {
         "schema": "http://schema.org/",

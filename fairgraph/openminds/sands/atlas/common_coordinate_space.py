@@ -13,7 +13,7 @@ class CommonCoordinateSpace(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/CommonCoordinateSpace"]
     context = {
         "schema": "http://schema.org/",

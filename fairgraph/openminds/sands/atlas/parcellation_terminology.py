@@ -13,7 +13,7 @@ class ParcellationTerminology(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/ParcellationTerminology"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class Species(KGObjectV3):
     """
     Structured information on the species.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Species"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class Project(KGObjectV3):
     """
     Structured information on a research project.
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/Project"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class ElectrodeArray(KGObjectV3):
     """
     Structured information on an electrode array.
     """
-    default_space = "model"
+    default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/ElectrodeArray"]
     context = {
         "schema": "http://schema.org/",

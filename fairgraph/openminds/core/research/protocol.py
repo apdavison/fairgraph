@@ -13,7 +13,7 @@ class Protocol(KGObjectV3):
     """
     Structured information on a research project.
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/Protocol"]
     context = {
         "schema": "http://schema.org/",

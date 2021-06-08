@@ -13,7 +13,7 @@ class FileRepository(KGObjectV3):
     """
     Structured information on a file repository.
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/FileRepository"]
     context = {
         "schema": "http://schema.org/",

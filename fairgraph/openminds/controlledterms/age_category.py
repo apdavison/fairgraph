@@ -13,7 +13,7 @@ class AgeCategory(KGObjectV3):
     """
     Structured information on the life cycle (semantic term) of a specific age group.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/AgeCategory"]
     context = {
         "schema": "http://schema.org/",

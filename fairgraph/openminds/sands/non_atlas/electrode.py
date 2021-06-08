@@ -13,7 +13,7 @@ class Electrode(KGObjectV3):
     """
     Structured information on an electrode.
     """
-    default_space = "model"
+    default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/Electrode"]
     context = {
         "schema": "http://schema.org/",

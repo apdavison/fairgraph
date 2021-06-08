@@ -13,7 +13,7 @@ class AtlasAnnotation(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/AtlasAnnotation"]
     context = {
         "schema": "http://schema.org/",

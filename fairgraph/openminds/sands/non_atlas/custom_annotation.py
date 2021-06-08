@@ -13,7 +13,7 @@ class CustomAnnotation(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/CustomAnnotation"]
     context = {
         "schema": "http://schema.org/",

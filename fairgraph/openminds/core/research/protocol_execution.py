@@ -13,7 +13,7 @@ class ProtocolExecution(KGObjectV3):
     """
     Structured information on a protocol execution.
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ProtocolExecution"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class Subject(KGObjectV3):
     """
     Structured information on a subject.
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/Subject"]
     context = {
         "schema": "http://schema.org/",

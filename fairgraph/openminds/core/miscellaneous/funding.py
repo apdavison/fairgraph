@@ -13,7 +13,7 @@ class Funding(KGObjectV3):
     """
     Structured information on used funding.
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/Funding"]
     context = {
         "schema": "http://schema.org/",

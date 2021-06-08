@@ -13,7 +13,7 @@ class BiologicalSex(KGObjectV3):
     """
     Structured information on the biological sex of a subject.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/BiologicalSex"]
     context = {
         "schema": "http://schema.org/",

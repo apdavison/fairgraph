@@ -13,7 +13,7 @@ class OperatingSystem(KGObjectV3):
     """
     Structured information on the operating system.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/OperatingSystem"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class ElectrodeContact(KGObjectV3):
     """
     Structured information on an electrode contact.
     """
-    default_space = "model"
+    default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/ElectrodeContact"]
     context = {
         "schema": "http://schema.org/",

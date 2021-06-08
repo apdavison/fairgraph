@@ -13,7 +13,7 @@ class SemanticDataType(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/SemanticDataType"]
     context = {
         "schema": "http://schema.org/",

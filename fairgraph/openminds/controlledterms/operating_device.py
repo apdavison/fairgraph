@@ -13,7 +13,7 @@ class OperatingDevice(KGObjectV3):
     """
     Structured information on the operating device.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/OperatingDevice"]
     context = {
         "schema": "http://schema.org/",

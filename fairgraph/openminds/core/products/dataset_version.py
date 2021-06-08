@@ -13,7 +13,7 @@ class DatasetVersion(KGObjectV3):
     """
     Structured information on data originating from human/animal studies or simulations (version level).
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/DatasetVersion"]
     context = {
         "schema": "http://schema.org/",

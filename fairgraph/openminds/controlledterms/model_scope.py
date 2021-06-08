@@ -13,7 +13,7 @@ class ModelScope(KGObjectV3):
     """
     Structured information on the scope of the computational model.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/ModelScope"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class MetaDataModel(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "metadatamodel"
     type = ["https://openminds.ebrains.eu/core/MetaDataModel"]
     context = {
         "schema": "http://schema.org/",

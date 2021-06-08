@@ -13,7 +13,7 @@ class FileBundle(KGObjectV3):
     """
     Structured information on a bundle of file instances.
     """
-    default_space = "model"
+    default_space = "files"
     type = ["https://openminds.ebrains.eu/core/FileBundle"]
     context = {
         "schema": "http://schema.org/",

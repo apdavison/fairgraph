@@ -13,7 +13,7 @@ class SoftwareFeature(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/SoftwareFeature"]
     context = {
         "schema": "http://schema.org/",

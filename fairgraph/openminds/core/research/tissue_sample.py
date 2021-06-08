@@ -13,7 +13,7 @@ class TissueSample(KGObjectV3):
     """
     Structured information on a tissue sample.
     """
-    default_space = "model"
+    default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/TissueSample"]
     context = {
         "schema": "http://schema.org/",

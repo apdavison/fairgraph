@@ -13,7 +13,7 @@ class AnatomicalAxesOrientation(KGObjectV3):
     """
     Structured information on the anatomical directions of the X, Y, and Z axis.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/AnatomicalAxesOrientation"]
     context = {
         "schema": "http://schema.org/",

@@ -5,15 +5,14 @@ Structured information on the contribution made to a research product.
 # this file was auto-generated
 
 from datetime import datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import KGObjectV3, EmbeddedMetadata
 from fairgraph.fields import Field
 
 
-class Contribution(KGObjectV3):
+class Contribution(EmbeddedMetadata):
     """
     Structured information on the contribution made to a research product.
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/core/Contribution"]
     context = {
         "schema": "http://schema.org/",
@@ -29,4 +28,3 @@ class Contribution(KGObjectV3):
               doc="Legal person that gave or supplied something as a part or share."),
 
     ]
-    existence_query_fields = None

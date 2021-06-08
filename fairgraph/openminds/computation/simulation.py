@@ -13,7 +13,7 @@ class Simulation(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "computation"
     type = ["computation:Simulation"]
     context = {
         "schema": "http://schema.org/",

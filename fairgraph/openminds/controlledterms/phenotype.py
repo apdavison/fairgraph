@@ -13,7 +13,7 @@ class Phenotype(KGObjectV3):
     """
     Structured information on the phenotype of a subject.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Phenotype"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class TissueSampleType(KGObjectV3):
     """
     Structured information on the general type of the tissue sample.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/TissueSampleType"]
     context = {
         "schema": "http://schema.org/",

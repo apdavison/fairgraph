@@ -13,7 +13,7 @@ class SoftwareVersion(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "software"
     type = ["https://openminds.ebrains.eu/core/SoftwareVersion"]
     context = {
         "schema": "http://schema.org/",

@@ -33,7 +33,7 @@ class File(KGObjectV3):
     """
     Structured information on a file instances.
     """
-    default_space = "model"
+    default_space = "files"
     type = ["https://openminds.ebrains.eu/core/File"]
     context = {
         "schema": "http://schema.org/",

@@ -13,7 +13,7 @@ class URL(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/URL"]
     context = {
         "schema": "http://schema.org/",

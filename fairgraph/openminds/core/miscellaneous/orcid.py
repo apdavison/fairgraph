@@ -13,7 +13,7 @@ class ORCID(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/ORCID"]
     context = {
         "schema": "http://schema.org/",

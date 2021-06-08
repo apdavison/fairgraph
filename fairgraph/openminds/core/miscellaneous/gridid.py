@@ -13,7 +13,7 @@ class GRIDID(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/GRIDID"]
     context = {
         "schema": "http://schema.org/",

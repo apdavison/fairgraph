@@ -13,7 +13,7 @@ class RORID(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "common"
     type = ["https://openminds.ebrains.eu/core/RORID"]
     context = {
         "schema": "http://schema.org/",

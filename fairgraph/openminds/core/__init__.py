@@ -1,3 +1,7 @@
+import sys
+import inspect
+from ...base_v3 import KGObjectV3
+
 from .research.subject_group import SubjectGroup
 from .research.protocol_execution import ProtocolExecution
 from .research.parameter_set import ParameterSet
@@ -42,3 +46,9 @@ from .data.file import File
 from .data.hash import Hash
 from .data.content_type import ContentType
 from .data.file_bundle import FileBundle
+
+
+def list_kg_classes():
+    """List all KG classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+           if inspect.isclass(obj) and issubclass(obj, KGObjectV3) and obj.__module__.startswith(__name__)]

@@ -13,7 +13,7 @@ class Handedness(KGObjectV3):
     """
 
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Handedness"]
     context = {
         "schema": "http://schema.org/",

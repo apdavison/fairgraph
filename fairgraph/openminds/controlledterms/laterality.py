@@ -13,7 +13,7 @@ class Laterality(KGObjectV3):
     """
     Structured information on the lateral direction.
     """
-    default_space = "model"
+    default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Laterality"]
     context = {
         "schema": "http://schema.org/",
