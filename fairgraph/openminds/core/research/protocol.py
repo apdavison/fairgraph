@@ -35,4 +35,4 @@ class Protocol(KGObjectV3):
               doc="Method of accomplishing a desired aim."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("name",)

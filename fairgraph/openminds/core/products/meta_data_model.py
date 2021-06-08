@@ -43,4 +43,4 @@ class MetaDataModel(KGObjectV3):
               doc="Shortened or fully abbreviated name of the (meta) data model."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("alias",)

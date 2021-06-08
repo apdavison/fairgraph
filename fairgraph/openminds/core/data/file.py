@@ -63,7 +63,7 @@ class File(KGObjectV3):
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("hash",)
 
     @classmethod
     def from_local_file(cls, relative_path):

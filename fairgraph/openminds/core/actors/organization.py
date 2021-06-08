@@ -35,4 +35,4 @@ class Organization(KGObjectV3):
               doc="Shortened or fully abbreviated name of the organization."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("alias,")

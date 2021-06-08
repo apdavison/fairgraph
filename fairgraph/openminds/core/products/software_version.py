@@ -91,4 +91,4 @@ class SoftwareVersion(KGObjectV3):
               doc="Documentation on what changed in comparison to a previously published form of something."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("alias", "version_identifier")

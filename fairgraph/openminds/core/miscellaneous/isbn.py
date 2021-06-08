@@ -27,4 +27,4 @@ class ISBN(KGObjectV3):
               doc="Term or code used to identify something or someone."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("identifier",)

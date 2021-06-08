@@ -35,7 +35,7 @@ class Person(KGObjectV3):
               doc="Declaration of a person being closely associated to an organization."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("given_name", "family_name")
 
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):

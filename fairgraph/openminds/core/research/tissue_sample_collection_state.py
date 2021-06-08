@@ -35,4 +35,4 @@ class TissueSampleCollectionState(KGObjectV3):
               doc="Amount that a thing or being weighs."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("lookup_label",)

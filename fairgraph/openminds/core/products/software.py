@@ -44,4 +44,4 @@ class Software(KGObjectV3):
               doc="Shortened or fully abbreviated name of the software."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("alias",)

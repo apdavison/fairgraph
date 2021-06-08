@@ -39,4 +39,4 @@ class BrainAtlas(KGObjectV3):
               doc="Shortened or fully abbreviated name of the brain atlas."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("digital_identifier",)

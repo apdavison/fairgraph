@@ -47,4 +47,4 @@ class TissueSample(KGObjectV3):
               doc="Group of presumed common ancestry with physiological but usually not morphological distinctions."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("lookup_label",)

@@ -43,4 +43,4 @@ class ProtocolExecution(KGObjectV3):
               doc="Structure or function that was targeted within a study."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("lookup_label",)

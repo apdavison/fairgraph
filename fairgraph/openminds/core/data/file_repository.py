@@ -39,4 +39,4 @@ class FileRepository(KGObjectV3):
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("iri",)

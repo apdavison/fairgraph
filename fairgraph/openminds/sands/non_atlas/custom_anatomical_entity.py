@@ -31,4 +31,4 @@ class CustomAnatomicalEntity(KGObjectV3):
               doc="no description available"),
 
     ]
-    existence_query_fields = None
+    existence_query_fields = ("name",)
