@@ -19,6 +19,7 @@ Base functionality
 
 from collections import defaultdict
 from datetime import datetime, date
+from urllib.parse import SplitResultBytes
 import warnings
 from copy import copy
 import logging
@@ -39,7 +40,7 @@ logger = logging.getLogger("fairgraph")
 
 class EmbeddedMetadata(object, metaclass=Registry):
 
-    def __init__(self, **properties):
+    def __init__(self, data=None, **properties):
         for field in self.fields:
             try:
                 value = properties[field.name]
@@ -59,6 +60,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 value = None
             field.check_value(value)
             setattr(self, field.name, value)
+        self.data = data
 
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
@@ -75,10 +77,15 @@ class EmbeddedMetadata(object, metaclass=Registry):
 
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
-        properties = {}
+        D = {
+            compact_uri(key, cls.context): value
+            for key, value in data.items() if key[0] != "@"
+        }
+        args = {}
         for field in cls.fields:
-            properties[field.name] = field.deserialize_v3(data, client, resolved=resolved)
-        return cls(**properties)
+            data_item = D.get(field.path)
+            args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+        return cls(data=D, **args)
 
     @classmethod
     def set_strict_mode(cls, value, field_name=None):
@@ -447,6 +454,13 @@ class KGObjectV3(object, metaclass=Registry):
     @classmethod
     def generate_query(cls, query_type, space, client, resolved=False, top_level=True,
                        field_names_used=None, parents=None):
+        """
+
+        query_type: "simple" or "resolved"
+
+        Fields top_level, field_names_used and parents should not be specified,
+        they are used only for recursion.
+        """
         query_label = cls.get_query_label(query_type, space)
         if top_level:
             fields = [
@@ -519,6 +533,24 @@ class KGObjectV3(object, metaclass=Registry):
                                     for subfield_defn in subfields}
                                 )
                         field_definition["structure"] = list(subfield_map.values())
+
+                elif any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
+                    if not top_level and field.path in field_names_used:
+                        field_definition["propertyName"] = "{}__{}".format(cls.__name__, field.path)
+                    if field.multiple:
+                        field_definition["ensureOrder"] = True
+                    field_definition["structure"] = [{"path": "@type"}]
+                    for child_cls in field.types:
+                        for ch_field in child_cls.fields:
+                            subfield_definition = {
+                                "path": expand_uri(ch_field.path, child_cls.context, client)[0],
+                            }
+                            if issubclass(child_cls, KGObjectV3):
+                                subfield_definition["structure"] = {
+                                    {"path": "@id"},
+                                    {"path": "@type"}
+                                }
+                            field_definition["structure"].append(subfield_definition)
 
                 # here we add a filter for top-level fields
                 if field.types[0] in (int, float, bool, datetime, date):

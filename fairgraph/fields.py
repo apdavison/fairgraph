@@ -26,7 +26,7 @@ from dateutil import parser as date_parser
 
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
-                   StructuredMetadata, IRI, build_kg_object)
+                   StructuredMetadata, IRI, build_kg_object, as_list)
 from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object)
 
 
@@ -187,7 +187,10 @@ class Field(object):
             if issubclass(self.types[0], KGObjectV3):
                 return build_kgv3_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
-                return self.types[0].from_jsonld(data, client, resolved=resolved)
+                return [
+                    self.types[0].from_jsonld(item, client, resolved=resolved)
+                    for item in as_list(data)
+                ]
             elif self.types[0] in (datetime, date):
                 return date_parser.parse(data)
             elif self.types[0] == int:
