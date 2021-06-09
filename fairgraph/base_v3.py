@@ -331,8 +331,7 @@ class KGObjectV3(object, metaclass=Registry):
                     return True
 
                 query_label = self.get_query_label("simple", space)
-                instances = client.query(query_label, filter=query_filter,
-                                        space=space, size=1, scope="latest")
+                instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
                 if instances:
                     self.id = instances[0].data()["@id"]
                     KGObjectV3.save_cache[self.__class__][query_cache_key] = self.id
