@@ -80,7 +80,8 @@ class KGv3Client(object):
             "size": size,
             "stage": STAGE_MAP[scope]
         }
-        params.update(filter)
+        if filter:
+            params.update(filter)
         response = self._kg_client.get(
             path=f"/queries/{uuid}/instances",
             params=params

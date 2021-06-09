@@ -249,7 +249,10 @@ class KGObjectV3(object, metaclass=Registry):
             #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
             #         value = field.types[0](value)
             #     else:
-                raise TypeError("{} must be of type {}".format(field.name, field.types))
+                if field.name == "hash":  # bit of a hack
+                    filter_value = value
+                else:
+                    raise TypeError("{} must be of type {}".format(field.name, field.types))
             if hasattr(value, "iri"):
                 filter_value = value.iri
             elif hasattr(value, "id"):
