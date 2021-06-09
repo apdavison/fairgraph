@@ -337,7 +337,7 @@ class KGObjectV3(object, metaclass=Registry):
                 query_label = self.get_query_label("simple", space)
                 instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
                 if instances:
-                    self.id = instances[0].data()["@id"]
+                    self.id = instances[0]["@id"]
                     KGObjectV3.save_cache[self.__class__][query_cache_key] = self.id
                 return bool(instances)
 
@@ -480,7 +480,7 @@ class KGObjectV3(object, metaclass=Registry):
                     "path": "https://core.kg.ebrains.eu/vocab/meta/space",
                     "filter": {
                         "op": "EQUALS",
-                        "value": space
+                        "value": space.replace("-", "_")   # temporary fix for KG bug
                     },
                     "propertyName": "query:space"
                 }
@@ -532,7 +532,8 @@ class KGObjectV3(object, metaclass=Registry):
                                 subfields = child_cls.generate_query(
                                     query_type, space, client, resolved=resolved,
                                     top_level=False, field_names_used=field_names_used,
-                                    parents=copy(parents))  # use a copy to keep the original for the next iteration
+                                    parents=copy(parents)  # use a copy to keep the original for the next iteration
+                                )
                                 subfield_map.update(
                                     {subfield_defn.get("propertyName", subfield_defn["path"]): subfield_defn
                                     for subfield_defn in subfields}
