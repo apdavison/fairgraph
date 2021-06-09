@@ -320,6 +320,7 @@ class KGObjectV3(object, metaclass=Registry):
                 # duplicate entries
                 return False
             else:
+                space = space or self.default_space
                 query_cache_key = generate_cache_key(query_filter, space)
                 if query_cache_key in self.save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
@@ -329,6 +330,7 @@ class KGObjectV3(object, metaclass=Registry):
                     self.id = self.save_cache[self.__class__][query_cache_key]
                     return True
 
+                query_label = self.get_query_label("simple", space)
                 instances = client.query(self.query_label, filter=query_filter,
                                         space=space, size=1, scope="latest")
                 if instances:
