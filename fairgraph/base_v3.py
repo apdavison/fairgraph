@@ -68,7 +68,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)
 
-    def to_jsonld(self):
+    def to_jsonld(self, client=None):
         data = {}
         for field in self.fields:
             value = getattr(self, field.name)
