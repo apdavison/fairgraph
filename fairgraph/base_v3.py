@@ -331,7 +331,7 @@ class KGObjectV3(object, metaclass=Registry):
                     return True
 
                 query_label = self.get_query_label("simple", space)
-                instances = client.query(self.query_label, filter=query_filter,
+                instances = client.query(query_label, filter=query_filter,
                                         space=space, size=1, scope="latest")
                 if instances:
                     self.id = instances[0].data()["@id"]
