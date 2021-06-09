@@ -147,10 +147,11 @@ class KGObjectV3(object, metaclass=Registry):
     @property
     def space(self):
         if self.data:
+            # the 'replace' calls are a temporary workaround for a KG bug that will be fixed soon
             if "https://schema.hbp.eu/myQuery/space" in self.data:
-                self._space = self.data["https://schema.hbp.eu/myQuery/space"]
+                self._space = self.data["https://schema.hbp.eu/myQuery/space"].replace("_", "-")
             elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.data:
-                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"]
+                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"].replace("_", "-")
         return self._space
 
     @classmethod
