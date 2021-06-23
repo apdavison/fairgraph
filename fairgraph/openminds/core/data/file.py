@@ -142,5 +142,5 @@ class File(KGObjectV3):
                                                  {'path': 'https://openminds.ebrains.eu/vocab/unit'}],
                                    'filter': {'op': 'CONTAINS', 'parameter': 'storage_size'}}]}
         else:
-            return super().generate_query(query_type, space, client, resolved=False, top_level=True,
-                                          field_names_used=None, parents=None)
+            return super().generate_query(query_type, space, client, resolved=resolved, top_level=top_level,
+                                          field_names_used=field_names_used, parents=parents)
