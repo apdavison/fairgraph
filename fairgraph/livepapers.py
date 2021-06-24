@@ -3,7 +3,7 @@ Metadata for Live Papers.
 
 """
 
-# Copyright 2020 CNRS
+# Copyright 2021 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,7 +44,9 @@ class LivePaperResourceItem(KGObject):
             "schema": "http://schema.org/",
             "name": "schema:name",
             "url": "schema:url",
-            "identifier": "schema:identifier"
+            "identifier": "schema:identifier",
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
+            "partOf": "nsg:partOf"
         }
     ]
     fields = (
@@ -52,9 +54,10 @@ class LivePaperResourceItem(KGObject):
         Field("name", str, "name", required=True, multiple=False),
         Field("view_url", str, "url", required=False, multiple=False),  # for model catalog url
         Field("identifier", str, "identifier", required=True, multiple=False),
-        Field("resource_type", str, "resourceType", required=False, multiple=False)
+        Field("resource_type", str, "resourceType", required=False, multiple=False),
+        Field("part_of", "livepapers.LivePaper", "partOf", required=True, multiple=False)
     )
-    existence_query_fields = ["identifier"]
+    existence_query_fields = ["identifier", "part_of"]
 
 
 class LivePaperResourceSection(KGObject):
@@ -83,7 +86,7 @@ class LivePaperResourceSection(KGObject):
         Field("name", str, "name", required=True, multiple=False),
         Field("icon", str, "logo", required=True, multiple=False),
         Field("description", str, "description", required=False, multiple=False),
-        Field("data", LivePaperResourceItem, "hadMember", required=False, multiple=True),
+        Field("data", LivePaperResourceItem, "^partOf", reverse="section", required=False, multiple=True),
         Field("data_raw", str, "dataRaw", required=True, multiple=False),
         Field("part_of", "livepapers.LivePaper", "partOf", required=True, multiple=False)
     )
