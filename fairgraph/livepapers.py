@@ -55,7 +55,7 @@ class LivePaperResourceItem(KGObject):
         Field("view_url", str, "url", required=False, multiple=False),  # for model catalog url
         Field("identifier", str, "identifier", required=True, multiple=False),
         Field("resource_type", str, "resourceType", required=False, multiple=False),
-        Field("part_of", "livepapers.LivePaper", "partOf", required=True, multiple=False)
+        Field("part_of", "livepapers.LivePaperResourceSection", "partOf", required=True, multiple=False)
     )
     existence_query_fields = ["identifier", "part_of"]
 
