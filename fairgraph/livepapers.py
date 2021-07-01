@@ -127,11 +127,13 @@ class LivePaper(KGObject):
             "headline": "schema:headline",
             "journal": "nsg:journalName",
             "correspondingAuthorIndex": "nsg:correspondingAuthorIndex",
-            "accessCode": "schema:accessCode"
+            "accessCode": "schema:accessCode",
+            "alias": "nsg:alias",
         }
     ]
     fields = (
         Field("name", str, "name", required=True, multiple=False),
+        Field("alias", str, "alias", required=False, multiple=False),
         Field("description", str, "description", required=False, multiple=False),
         Field("date_created", (date, datetime), "dateCreated", required=False, multiple=False),
         Field("date_modified", datetime, "dateModified", required=False, multiple=False),
