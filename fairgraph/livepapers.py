@@ -87,7 +87,6 @@ class LivePaperResourceSection(KGObject):
         Field("icon", str, "logo", required=True, multiple=False),
         Field("description", str, "description", required=False, multiple=False),
         Field("data", LivePaperResourceItem, "^partOf", reverse="section", required=False, multiple=True),
-        Field("data_raw", str, "dataRaw", required=True, multiple=False),
         Field("part_of", "livepapers.LivePaper", "partOf", required=True, multiple=False)
     )
     existence_query_fields = ["name", "part_of"]  # would be better to use sectionType
