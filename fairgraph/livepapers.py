@@ -108,6 +108,7 @@ class LivePaper(KGObject):
             "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
             "prov": "http://www.w3.org/ns/prov#",
             "schema": "http://schema.org/",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "dateCreated": "schema:dateCreated",
             "dateModified": "schema:dateModified",
             "publication": "nsg:publication",
@@ -128,6 +129,8 @@ class LivePaper(KGObject):
             "correspondingAuthorIndex": "nsg:correspondingAuthorIndex",
             "accessCode": "schema:accessCode",
             "alias": "nsg:alias",
+            "abstract": "schema:abstract",
+            "label": "rdfs:label"
         }
     ]
     fields = (
