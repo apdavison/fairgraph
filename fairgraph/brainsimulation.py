@@ -35,7 +35,6 @@ from .core import Organization, Person, Age, Collection
 from .utility import compact_uri, standard_context
 from .computing import ComputingEnvironment
 
-
 logger = logging.getLogger("fairgraph")
 mimetypes.init()
 
