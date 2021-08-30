@@ -37,6 +37,10 @@ class Person(KGObjectV3):
     ]
     existence_query_fields = ("given_name", "family_name")
 
+    @property
+    def full_name(self):
+        return f"{self.given_name} {self.family_name}"
+
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()

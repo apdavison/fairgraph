@@ -104,7 +104,7 @@ class KGv3Client(object):
             response = self._kg_client.get_instances(
                 stage=STAGE_MAP[scope],
                 target_type=cls.type,
-                space=space or cls.space,
+                space=space or cls.default_space,
                 # we use the default ResponseConfiguration
                 pagination=Pagination(start_from=from_index, size=size)
             )

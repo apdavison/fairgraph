@@ -77,6 +77,10 @@ class EmbeddedMetadata(object, metaclass=Registry):
 
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
+        if "@id" in data:
+            warnings.warn("Expected embedded metadata, but received @id")
+            return None
+
         D = {
             compact_uri(key, cls.context): value
             for key, value in data.items() if key[0] != "@"
@@ -274,7 +278,7 @@ class KGObjectV3(object, metaclass=Registry):
                 raise ValueError("Cannot use filters with api='core'")
             filter_query = None
             context = None
-            space = space or cls.space
+            space = space or cls.default_space
         else:
             raise ValueError("'api' must be either 'query', or 'core'")
         return client.list(cls, space=space, from_index=from_index, size=size, api=api,
@@ -310,7 +314,7 @@ class KGObjectV3(object, metaclass=Registry):
                                                  scope="latest", resolved=False)
             if space:
                 key = "https://core.kg.ebrains.eu/vocab/meta/space"
-                if key in data and data[key] == space:
+                if data and key in data and data[key] == space:
                     return True
                 else:
                     return False
@@ -382,7 +386,7 @@ class KGObjectV3(object, metaclass=Registry):
     def save(self, client, space=None):
         if space is None:
             if self.space is None:
-                space = self.__class__.space
+                space = self.__class__.default_space
             else:
                 space = self.space
         if self.exists(client, space=space):
@@ -401,7 +405,10 @@ class KGObjectV3(object, metaclass=Registry):
             logger.info("Creating instance with data {}".format(data))
             data["@context"] = self.context
             data["@type"] = self.type
-            instance_data = client.create_new_instance(space=space or self.__class__.space, data=data, instance_id=self.uuid)
+            instance_data = client.create_new_instance(
+                space=space or self.__class__.default_space,
+                data=data,
+                instance_id=self.uuid)
             self.id = instance_data["@id"]
         # not handled yet: save existing object to new space - requires changing uuid
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
