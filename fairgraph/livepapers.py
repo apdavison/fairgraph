@@ -19,9 +19,10 @@ Metadata for Live Papers.
 
 
 import logging
-from .base import KGObject, KGProxy, Distribution, as_list, KGQuery, Field, IRI
+from .base import KGObject, Distribution
+from .fields import Field
 from datetime import datetime, date
-from .core import Organization, Person
+from .core import Person
 from .commons import License
 
 
