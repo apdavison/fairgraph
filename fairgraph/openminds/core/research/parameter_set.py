@@ -24,7 +24,7 @@ class ParameterSet(EmbeddedMetadata):
     fields = [
         Field("context", str, "vocab:context", multiple=False, required=True,
               doc="no description available"),
-        Field("relevant_for", ["openminds.controlledterms.BehavioralTask", "openminds.controlledterms.Technique"], "vocab:relevantFor", multiple=False, required=True,
+        Field("relevant_for", ["openminds.controlledterms.BehavioralTask", "openminds.controlledterms.Technique"], "vocab:relevantFor", multiple=False, required=False,
               doc="Reference to what or whom something or someone bears siginificance."),
         Field("parameters", ["openminds.core.NumericalParameter", "openminds.core.StringParameter"], "vocab:parameter", multiple=True, required=True,
               doc="Digital or physical property determining a particular function, characteristic or behavior of something."),

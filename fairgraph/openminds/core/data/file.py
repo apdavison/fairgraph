@@ -54,7 +54,7 @@ class File(KGObjectV3):
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("iri", str, "vocab:IRI", multiple=False, required=True,
               doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
-        Field("is_part_ofs", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=True,
+        Field("is_part_ofs", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
               doc="Reference to the ensemble of multiple things or beings."),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
