@@ -4,7 +4,7 @@ Structured information on data originating from human/animal studies or simulati
 
 # this file was auto-generated
 
-from datetime import datetime
+from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 

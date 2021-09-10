@@ -4,7 +4,7 @@ Structured information on a used parameter set.
 
 # this file was auto-generated
 
-from datetime import datetime
+from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3, EmbeddedMetadata
 from fairgraph.fields import Field
 

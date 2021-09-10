@@ -4,7 +4,7 @@
 
 # this file was auto-generated
 
-from datetime import datetime
+from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
 from fairgraph.fields import Field
 

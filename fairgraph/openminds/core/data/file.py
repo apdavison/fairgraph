@@ -7,7 +7,7 @@ Structured information on a file instances.
 import os
 import hashlib
 import mimetypes
-from datetime import datetime
+from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
 from fairgraph.fields import Field
 from .hash import Hash
