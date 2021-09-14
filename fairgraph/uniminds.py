@@ -56,7 +56,7 @@ class AbstractionLevel(UnimindsOption):
     Level of abstraction for a neuroscience model, e.g.rate neurons, spiking neurons
     """
     _path = "/options/abstractionlevel/v1.0.0"
-    type = ["uniminds:Abstractionlevel"]
+    type = ["uniminds:Abstractionlevel"]  # should be AbstractionLevel?
     fields = (
         Field("alternatives", KGObject, "https://schema.hbp.eu/inference/alternatives", required=False, multiple=True),
         Field("identifier", str, "http://schema.org/identifier", required=False, multiple=True),

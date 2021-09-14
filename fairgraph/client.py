@@ -25,6 +25,7 @@ from urllib.parse import urlparse, quote_plus
 from requests.exceptions import HTTPError
 from openid_http_client.auth_client.access_token_client import AccessTokenClient
 from openid_http_client.auth_client.simple_refresh_token_client import SimpleRefreshTokenClient
+from openid_http_client.auth_client.client_credentials_client import ClientCredentialsClient
 from openid_http_client.http_client import HttpClient
 from pyxus.client import NexusClient
 from pyxus.resources.entity import Instance
@@ -61,9 +62,12 @@ class KGClient(object):
                  client_secret=None,
                  refresh_token=None):
 
-        if client_id and client_secret and refresh_token:
-            auth_client = SimpleRefreshTokenClient(oidc_host, client_secret,
-                                                   client_id, refresh_token)
+        if client_id and client_secret:
+            if refresh_token:
+                auth_client = SimpleRefreshTokenClient(oidc_host, client_secret,
+                                                       client_id, refresh_token)
+            else:
+                auth_client = ClientCredentialsClient(oidc_host, client_secret, client_id)
         else:
             if token is None:
                 if oauth_token_handler:

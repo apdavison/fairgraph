@@ -100,6 +100,7 @@ standard_context = {
     "morphologyType": "nsg:morphologyType",
     "atTime" : "nsg:atTime",
     "identifier": "schema:identifier",
+    "abstract": "schema:abstract"
 }
 
 
