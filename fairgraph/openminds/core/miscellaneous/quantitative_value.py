@@ -1,17 +1,20 @@
 """
-Structured information on a quanitative value.
+Structured information on a quantitative value.
 """
 
 # this file was auto-generated
 
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class QuantitativeValue(EmbeddedMetadata):
     """
-    Structured information on a quanitative value.
+    Structured information on a quantitative value.
     """
     type = ["https://openminds.ebrains.eu/core/QuantitativeValue"]
     context = {
@@ -27,8 +30,9 @@ class QuantitativeValue(EmbeddedMetadata):
         Field("uncertaintys", float, "vocab:uncertainty", multiple=True, required=False,
               doc="Quantitative value range defining the uncertainty of a measurement."),
         Field("type_of_uncertainty", "openminds.controlledterms.TypeOfUncertainty", "vocab:typeOfUncertainty", multiple=False, required=False,
-              doc="Distinct technique used to quanitify the uncertainty of a measurement."),
+              doc="Distinct technique used to quantify the uncertainty of a measurement."),
         Field("unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:unit", multiple=False, required=False,
               doc="Determinate quantity adopted as a standard of measurement."),
-
+        
     ]
+

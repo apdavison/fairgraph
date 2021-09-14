@@ -6,7 +6,10 @@ Structured information on a research project.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Project(KGObjectV3):
@@ -27,14 +30,15 @@ class Project(KGObjectV3):
               doc="Longer statement or account giving the characteristics of the project."),
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the project."),
-        Field("has_research_productss", ["openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
+        Field("has_research_products", ["openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
               doc="Reference to subsidiary research products."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the project."),
         Field("coordinators", ["openminds.core.Organization", "openminds.core.Person"], "vocab:coordinator", multiple=True, required=False,
               doc="Legal person who organizes the collaborative work of people or groups."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the project."),
-
+        
     ]
-    existence_query_fields = ("alias",)
+    existence_query_fields = ('alias',)
+

@@ -6,7 +6,10 @@ Structured information on used funding.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Funding(KGObjectV3):
@@ -31,6 +34,7 @@ class Funding(KGObjectV3):
               doc="Human-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need."),
         Field("funder", ["openminds.core.Organization", "openminds.core.Person"], "vocab:funder", multiple=False, required=True,
               doc="Legal person that provides money for a particular purpose."),
-
+        
     ]
-    existence_query_fields = None
+    existence_query_fields = ('funder',)
+

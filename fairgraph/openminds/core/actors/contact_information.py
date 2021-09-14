@@ -6,14 +6,17 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class ContactInformation(KGObjectV3):
     """
-
+    
     """
-    default_space = "controlled"
+    default_space = "restricted"
     type = ["https://openminds.ebrains.eu/core/ContactInformation"]
     context = {
         "schema": "http://schema.org/",
@@ -25,6 +28,7 @@ class ContactInformation(KGObjectV3):
     fields = [
         Field("email", str, "vocab:email", multiple=False, required=True,
               doc="Address to which or from which an electronic mail can be sent."),
-
+        
     ]
-    existence_query_fields = ("email",)
+    existence_query_fields = ('email',)
+

@@ -6,14 +6,16 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class QuantitativeRelationAssessment(EmbeddedMetadata):
     """
-
+    
     """
-    default_space = "model"
     type = ["https://openminds.ebrains.eu/sands/QuantitativeRelationAssessment"]
     context = {
         "schema": "http://schema.org/",
@@ -25,10 +27,10 @@ class QuantitativeRelationAssessment(EmbeddedMetadata):
     fields = [
         Field("criteria", "openminds.core.ProtocolExecution", "vocab:criteria", multiple=False, required=False,
               doc="Aspects or standards on which a judgement or decision is based."),
-        Field("in_relation_to", "openminds.sands.ParcellationEntity", "vocab:inRelationTo", multiple=False, required=True,
+        Field("in_relation_to", "openminds.sands.ParcellationEntityVersion", "vocab:inRelationTo", multiple=False, required=True,
               doc="Reference to a related element."),
         Field("quantitative_overlap", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:quantitativeOverlap", multiple=False, required=True,
               doc="Numerical characterization of how much two things occupy the same space."),
-
+        
     ]
-    existence_query_fields = None
+

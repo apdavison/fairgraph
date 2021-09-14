@@ -4,19 +4,18 @@ from ...base_v3 import KGObjectV3
 
 from .non_atlas.custom_coordinate_space import CustomCoordinateSpace
 from .non_atlas.custom_annotation import CustomAnnotation
-from .non_atlas.electrode_array import ElectrodeArray
 from .non_atlas.custom_anatomical_entity import CustomAnatomicalEntity
-from .non_atlas.electrode_contact import ElectrodeContact
-from .non_atlas.electrode import Electrode
 from .miscellaneous.qualitative_relation_assessment import QualitativeRelationAssessment
 from .miscellaneous.quantitative_relation_assessment import QuantitativeRelationAssessment
 from .miscellaneous.coordinate_point import CoordinatePoint
 from .atlas.parcellation_entity import ParcellationEntity
 from .atlas.common_coordinate_space import CommonCoordinateSpace
 from .atlas.parcellation_terminology import ParcellationTerminology
+from .atlas.parcellation_terminology_version import ParcellationTerminologyVersion
 from .atlas.brain_atlas import BrainAtlas
 from .atlas.atlas_annotation import AtlasAnnotation
 from .atlas.brain_atlas_version import BrainAtlasVersion
+from .atlas.parcellation_entity_version import ParcellationEntityVersion
 
 
 def list_kg_classes():

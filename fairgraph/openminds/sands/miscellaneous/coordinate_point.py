@@ -6,7 +6,10 @@ Structured information on a coordinate point.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class CoordinatePoint(EmbeddedMetadata):
@@ -22,9 +25,10 @@ class CoordinatePoint(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("coordinatess", "openminds.core.QuantitativeValue", "vocab:coordinates", multiple=True, required=True,
+        Field("coordinates", "openminds.core.QuantitativeValue", "vocab:coordinates", multiple=True, required=True,
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),
         Field("coordinate_space", ["openminds.sands.CommonCoordinateSpace", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
-
+        
     ]
+

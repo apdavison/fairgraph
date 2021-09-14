@@ -6,7 +6,10 @@ Structured information on a person.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Person(KGObjectV3):
@@ -33,9 +36,10 @@ class Person(KGObjectV3):
               doc="Name given to a person, including all potential middle names, but excluding the family name."),
         Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
               doc="Declaration of a person being closely associated to an organization."),
-
+        
     ]
-    existence_query_fields = ("given_name", "family_name")
+    existence_query_fields = ('given_name', 'family_name')
+
 
     @property
     def full_name(self):
@@ -61,3 +65,4 @@ class Person(KGObjectV3):
         else:
             raise Exception("Found multiple matches")
         return person
+    

@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class CommonCoordinateSpace(KGObjectV3):
     """
-
+    
     """
     default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/CommonCoordinateSpace"]
@@ -34,19 +37,20 @@ class CommonCoordinateSpace(KGObjectV3):
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the common coordinate space."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the common coordinate space."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
         Field("native_unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:nativeUnit", multiple=False, required=True,
               doc="Determinate quantity used in the original measurement."),
-        Field("ontology_identifier", str, "vocab:ontologyIdentifier", multiple=False, required=False,
-              doc="Term or code used to identify something or someone registered within a particular ontology."),
-        Field("release_date", str, "vocab:releaseDate", multiple=False, required=True,
+        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+              doc="Term or code used to identify the common coordinate space registered within a particular ontology."),
+        Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the common coordinate space."),
         Field("version_identifier", str, "vocab:versionIdentifier", multiple=False, required=True,
               doc="Term or code used to identify the version of something."),
-
+        
     ]
-    existence_query_fields = ("digital_identifier",)
+    existence_query_fields = ('alias', 'version_identifier')
+

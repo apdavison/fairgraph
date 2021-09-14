@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class SWHID(KGObjectV3):
     """
-
+    
     """
     default_space = "software"
     type = ["https://openminds.ebrains.eu/core/SWHID"]
@@ -24,7 +27,8 @@ class SWHID(KGObjectV3):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=False,
-              doc="Term or code used to identify something or someone."),
-
+              doc="Term or code used to identify the SWHID."),
+        
     ]
-    existence_query_fields = ("identifier",)
+    existence_query_fields = ('identifier',)
+

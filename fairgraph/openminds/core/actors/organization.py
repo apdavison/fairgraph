@@ -6,7 +6,10 @@ Structured information on an organization.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Organization(KGObjectV3):
@@ -30,9 +33,10 @@ class Organization(KGObjectV3):
         Field("has_parent", "openminds.core.Organization", "vocab:hasParent", multiple=False, required=False,
               doc="Reference to a parent object or legal person."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the organization."),
         Field("alias", str, "vocab:shortName", multiple=False, required=False,
               doc="Shortened or fully abbreviated name of the organization."),
-
+        
     ]
-    existence_query_fields = ("alias,")
+    existence_query_fields = ('name',)
+

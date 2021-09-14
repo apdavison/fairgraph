@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class CustomCoordinateSpace(KGObjectV3):
     """
-
+    
     """
     default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/CustomCoordinateSpace"]
@@ -30,9 +33,10 @@ class CustomCoordinateSpace(KGObjectV3):
         Field("default_images", "openminds.core.File", "vocab:defaultImage", multiple=True, required=False,
               doc="Two or three dimensional image that particluarly represents a specific coordinate space."),
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
+              doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space."),
         Field("native_unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:nativeUnit", multiple=False, required=True,
               doc="Determinate quantity used in the original measurement."),
-
+        
     ]
-    existence_query_fields = None
+    existence_query_fields = ('name',)
+

@@ -6,7 +6,10 @@ Structured information on a brain atlas (concept level).
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class BrainAtlas(KGObjectV3):
@@ -23,20 +26,15 @@ class BrainAtlas(KGObjectV3):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("description", str, "vocab:description", multiple=False, required=True,
-              doc="Longer statement or account giving the characteristics of the brain atlas."),
-        Field("digital_identifier", "openminds.core.DOI", "vocab:digitalIdentifier", multiple=False, required=False,
+        Field("authors", ["openminds.core.Organization", "openminds.core.Person"], "vocab:author", multiple=True, required=True,
+              doc="Creator of a literary or creative work, as well as a dataset publication."),
+        Field("digital_identifier", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
-        Field("name", str, "vocab:fullName", multiple=False, required=True,
-              doc="Whole, non-abbreviated name of the brain atlas."),
-        Field("versions", "openminds.sands.BrainAtlasVersion", "vocab:hasVersion", multiple=True, required=True,
+        Field("has_terminology", "openminds.sands.ParcellationTerminology", "vocab:hasTerminology", multiple=False, required=True,
+              doc="no description available"),
+        Field("versions", "openminds.sands.BrainAtlasVersion", "vocab:hasVersion", multiple=True, required=False,
               doc="Reference to variants of an original."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
-        Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
-              doc="Preferred format for citing a particular object or legal person."),
-        Field("alias", str, "vocab:shortName", multiple=False, required=True,
-              doc="Shortened or fully abbreviated name of the brain atlas."),
-
+        
     ]
-    existence_query_fields = ("digital_identifier",)
+    existence_query_fields = ('digital_identifier',)
+

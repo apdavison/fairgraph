@@ -6,7 +6,10 @@ Structured information on a used license.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class License(KGObjectV3):
@@ -25,12 +28,13 @@ class License(KGObjectV3):
     fields = [
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the license."),
-        Field("legal_code", str, "vocab:legalCode", multiple=False, required=True,
+        Field("legal_code", IRI, "vocab:legalCode", multiple=False, required=True,
               doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the license."),
         Field("webpages", str, "vocab:webpage", multiple=True, required=False,
               doc="Hypertext document (block of information) found on the World Wide Web."),
-
+        
     ]
-    existence_query_fields = ("alias",)
+    existence_query_fields = ('alias',)
+

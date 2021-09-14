@@ -2,21 +2,23 @@
 Structured information on a file instances.
 """
 
-# this file was auto-generated then hand-modified
+# this file was auto-generated
+
+from datetime import date, datetime
+from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
+from fairgraph.fields import Field
+
 
 import os
 import hashlib
 import mimetypes
-from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
-from fairgraph.fields import Field
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
 from ...controlledterms.unit_of_measurement import UnitOfMeasurement
 
 mimetypes.init()
-
 
 def sha1sum(filename):
     BUFFER_SIZE = 128*1024
@@ -28,6 +30,7 @@ def sha1sum(filename):
                 break
             h.update(data)
     return h.hexdigest()
+    
 
 
 class File(KGObjectV3):
@@ -52,19 +55,20 @@ class File(KGObjectV3):
               doc="Method of digitally organizing and structuring data or information."),
         Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
-        Field("iri", str, "vocab:IRI", multiple=False, required=True,
+        Field("iri", IRI, "vocab:IRI", multiple=False, required=True,
               doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
-        Field("is_part_ofs", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
+        Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=True,
               doc="Reference to the ensemble of multiple things or beings."),
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
+              doc="Word or phrase that constitutes the distinctive designation of the file."),
         Field("special_usage_role", "openminds.controlledterms.FileUsageRole", "vocab:specialUsageRole", multiple=False, required=False,
               doc="Particular function of something when it is used."),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
-
+        
     ]
-    existence_query_fields = ("hash",)
+    existence_query_fields = ('iri', 'hash')
+
 
     @classmethod
     def from_local_file(cls, relative_path):

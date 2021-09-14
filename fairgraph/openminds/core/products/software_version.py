@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class SoftwareVersion(KGObjectV3):
     """
-
+    
     """
     default_space = "software"
     type = ["https://openminds.ebrains.eu/core/SoftwareVersion"]
@@ -34,12 +37,12 @@ class SoftwareVersion(KGObjectV3):
         Field("has_components", "openminds.core.SoftwareVersion", "vocab:hasComponent", multiple=True, required=False,
               doc="Reference to an element of a collection."),
         Field("features", "openminds.controlledterms.SoftwareFeature", "vocab:feature", multiple=True, required=True,
-              doc="Structure, form, or appearance that characterizes something or someone."),
+              doc="Structure, form, or appearance that characterizes the software version."),
         Field("requirements", str, "vocab:requirement", multiple=True, required=False,
               doc="Something essential to the existence, occurrence or function of something else."),
         Field("input_formats", "openminds.core.ContentType", "vocab:inputFormat", multiple=True, required=False,
               doc="Format of data that is put into a process or machine."),
-        Field("is_alternative_version_ofs", "openminds.core.SoftwareVersion", "vocab:isAlternativeVersionOf", multiple=True, required=False,
+        Field("is_alternative_version_of", "openminds.core.SoftwareVersion", "vocab:isAlternativeVersionOf", multiple=True, required=False,
               doc="Reference to an original form where the essence was preserved, but presented in an alternative form."),
         Field("is_new_version_of", "openminds.core.SoftwareVersion", "vocab:isNewVersionOf", multiple=False, required=False,
               doc="Reference to a previous (potentially outdated) particular form of something."),
@@ -65,19 +68,19 @@ class SoftwareVersion(KGObjectV3):
               doc="Non-abridged instructions, comments, and information for using a particular product."),
         Field("name", str, "vocab:fullName", multiple=False, required=False,
               doc="Whole, non-abbreviated name of the software version."),
-        Field("fundings", "openminds.core.Funding", "vocab:funding", multiple=True, required=True,
+        Field("funding", "openminds.core.Funding", "vocab:funding", multiple=True, required=False,
               doc="Money provided by a legal person for a particular purpose."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the software version."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
-        Field("keywords", str, "vocab:keyword", multiple=True, required=False,
-              doc="Significant word or concept that are representative of something or someone."),
+        Field("keywords", ["openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Handedness", "openminds.controlledterms.Organ", "openminds.controlledterms.Phenotype", "openminds.controlledterms.Species", "openminds.controlledterms.Strain", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:keyword", multiple=True, required=False,
+              doc="Significant word or concept that are representative of the software version."),
         Field("other_contributions", "openminds.core.Contribution", "vocab:otherContribution", multiple=True, required=False,
               doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere."),
         Field("related_publications", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
-        Field("release_date", str, "vocab:releaseDate", multiple=False, required=True,
+        Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),
         Field("repository", "openminds.core.FileRepository", "vocab:repository", multiple=False, required=False,
               doc="Place, room, or container where something is deposited or stored."),
@@ -89,6 +92,7 @@ class SoftwareVersion(KGObjectV3):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-
+        
     ]
-    existence_query_fields = ("alias", "version_identifier")
+    existence_query_fields = ('alias', 'version_identifier')
+

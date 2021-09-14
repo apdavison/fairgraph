@@ -6,7 +6,10 @@ Structured information on a subject.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Subject(KGObjectV3):
@@ -23,10 +26,10 @@ class Subject(KGObjectV3):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("is_part_ofs", "openminds.core.SubjectGroup", "vocab:isPartOf", multiple=True, required=False,
+        Field("is_part_of", "openminds.core.SubjectGroup", "vocab:isPartOf", multiple=True, required=False,
               doc="Reference to the ensemble of multiple things or beings."),
         Field("studied_states", "openminds.core.SubjectState", "vocab:studiedState", multiple=True, required=True,
-              doc="Reference to a point in time at which something or someone was studied in a particular mode or condition."),
+              doc="Reference to a point in time at which the subject was studied in a particular mode or condition."),
         Field("biological_sex", "openminds.controlledterms.BiologicalSex", "vocab:biologicalSex", multiple=False, required=True,
               doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce."),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
@@ -39,6 +42,7 @@ class Subject(KGObjectV3):
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("strain", "openminds.controlledterms.Strain", "vocab:strain", multiple=False, required=False,
               doc="Group of presumed common ancestry with physiological but usually not morphological distinctions."),
-
+        
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_fields = ('lookup_label',)
+

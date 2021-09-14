@@ -5,9 +5,11 @@ from ...base_v3 import KGObjectV3
 from .research.subject_group import SubjectGroup
 from .research.protocol_execution import ProtocolExecution
 from .research.parameter_set import ParameterSet
+from .research.behavioral_protocol import BehavioralProtocol
 from .research.subject import Subject
 from .research.numerical_parameter import NumericalParameter
 from .research.tissue_sample_collection import TissueSampleCollection
+from .research.stimulation import Stimulation
 from .research.string_parameter import StringParameter
 from .research.tissue_sample_state import TissueSampleState
 from .research.subject_state import SubjectState
@@ -39,12 +41,16 @@ from .actors.organization import Organization
 from .actors.contact_information import ContactInformation
 from .actors.affiliation import Affiliation
 from .actors.person import Person
+from .data.service_link import ServiceLink
 from .data.copyright import Copyright
+from .data.content_type_pattern import ContentTypePattern
 from .data.file_repository import FileRepository
 from .data.license import License
 from .data.file import File
 from .data.hash import Hash
+from .data.file_path_pattern import FilePathPattern
 from .data.content_type import ContentType
+from .data.file_repository_structure import FileRepositoryStructure
 from .data.file_bundle import FileBundle
 
 

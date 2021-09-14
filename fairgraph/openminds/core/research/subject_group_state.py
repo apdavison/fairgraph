@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class SubjectGroupState(KGObjectV3):
     """
-
+    
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/SubjectGroupState"]
@@ -23,9 +26,9 @@ class SubjectGroupState(KGObjectV3):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("age_categorys", "openminds.controlledterms.AgeCategory", "vocab:ageCategory", multiple=True, required=True,
+        Field("age_categories", "openminds.controlledterms.AgeCategory", "vocab:ageCategory", multiple=True, required=True,
               doc="Distinct life cycle class that is defined by a similar age or age range (developmental stage) within a group of individual beings."),
-        Field("handednesss", "openminds.controlledterms.Handedness", "vocab:handedness", multiple=True, required=False,
+        Field("handedness", "openminds.controlledterms.Handedness", "vocab:handedness", multiple=True, required=False,
               doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task."),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
@@ -37,6 +40,7 @@ class SubjectGroupState(KGObjectV3):
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("weight", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:weight", multiple=False, required=False,
               doc="Amount that a thing or being weighs."),
-
+        
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_fields = ('lookup_label',)
+

@@ -5,15 +5,17 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
 
 
-class AtlasAnnotation(KGObjectV3):
-    """
 
+
+class AtlasAnnotation(EmbeddedMetadata):
     """
-    default_space = "atlas"
+    
+    """
     type = ["https://openminds.ebrains.eu/sands/AtlasAnnotation"]
     context = {
         "schema": "http://schema.org/",
@@ -35,18 +37,12 @@ class AtlasAnnotation(KGObjectV3):
               doc="Reference to an inspiring element."),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
               doc="Term or code that identifies the atlas annotation within a particular product."),
-        Field("lateralitys", "openminds.controlledterms.Laterality", "vocab:laterality", multiple=True, required=False,
+        Field("laterality", "openminds.controlledterms.Laterality", "vocab:laterality", multiple=True, required=False,
               doc="Differentiation between a pair of lateral homologous parts of the body."),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("name", str, "vocab:name", multiple=False, required=False,
-              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
-        Field("version_identifier", str, "vocab:versionIdentifier", multiple=False, required=True,
-              doc="Term or code used to identify the version of something."),
-        Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
-              doc="Documentation on what changed in comparison to a previously published form of something."),
         Field("visualized_in", "openminds.core.File", "vocab:visualizedIn", multiple=False, required=False,
               doc="Reference to an image in which something is visible."),
-
+        
     ]
-    existence_query_fields = ("lookup_label",)
+

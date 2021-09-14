@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Affiliation(EmbeddedMetadata):
     """
-
+    
     """
     type = ["https://openminds.ebrains.eu/core/Affiliation"]
     context = {
@@ -22,11 +25,12 @@ class Affiliation(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("start_date", str, "vocab:startDate", multiple=False, required=False,
+        Field("start_date", date, "vocab:startDate", multiple=False, required=False,
               doc="Date in the Gregorian calendar at which something begins in time"),
-        Field("end_date", str, "vocab:endDate", multiple=False, required=False,
+        Field("end_date", date, "vocab:endDate", multiple=False, required=False,
               doc="Date in the Gregorian calendar at which something terminates in time."),
         Field("organization", "openminds.core.Organization", "vocab:organization", multiple=False, required=True,
               doc="Legally accountable, administrative and functional structure."),
-
+        
     ]
+

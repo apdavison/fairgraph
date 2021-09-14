@@ -2,15 +2,14 @@ import sys
 import inspect
 from ...base_v3 import KGObjectV3
 
-from .launchconfiguration import LaunchConfiguration
+from .launch_configuration import LaunchConfiguration
 from .optimization import Optimization
 from .visualization import Visualization
 from .data_analysis import DataAnalysis
 from .environment import Environment
-from .workflowexecution import WorkflowExecution
-from .softwareagent import SoftwareAgent
-from .computation import Computation
-from .hardware import HardwareSystem
+from .workflow_execution import WorkflowExecution
+from .software_agent import SoftwareAgent
+from .hardware_system import HardwareSystem
 from .simulation import Simulation
 
 

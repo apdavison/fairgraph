@@ -6,7 +6,10 @@ Structured information on the copyright.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Copyright(EmbeddedMetadata):
@@ -26,5 +29,6 @@ class Copyright(EmbeddedMetadata):
               doc="Legal person in possession of something."),
         Field("year", str, "vocab:year", multiple=False, required=True,
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
-
+        
     ]
+

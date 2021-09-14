@@ -6,12 +6,15 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class MetaDataModel(KGObjectV3):
     """
-
+    
     """
     default_space = "metadatamodel"
     type = ["https://openminds.ebrains.eu/core/MetaDataModel"]
@@ -32,15 +35,16 @@ class MetaDataModel(KGObjectV3):
         Field("custodians", ["openminds.core.Organization", "openminds.core.Person"], "vocab:custodian", multiple=True, required=False,
               doc="Legal person entrusted with guarding and maintaining property or records."),
         Field("description", str, "vocab:description", multiple=False, required=True,
-              doc="Longer statement or account giving the characteristics of the (meta) data model."),
+              doc="Longer statement or account giving the characteristics of the meta data model."),
         Field("name", str, "vocab:fullName", multiple=False, required=True,
-              doc="Whole, non-abbreviated name of the (meta) data model."),
+              doc="Whole, non-abbreviated name of the meta data model."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the meta data model."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
-              doc="Shortened or fully abbreviated name of the (meta) data model."),
-
+              doc="Shortened or fully abbreviated name of the meta data model."),
+        
     ]
-    existence_query_fields = ("alias",)
+    existence_query_fields = ('alias',)
+

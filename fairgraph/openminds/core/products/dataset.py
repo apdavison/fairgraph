@@ -6,7 +6,10 @@ Structured information on data originating from human/animal studies or simulati
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Dataset(KGObjectV3):
@@ -36,11 +39,12 @@ class Dataset(KGObjectV3):
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the dataset."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
-              doc="Main website of something or someone."),
+              doc="Main website of the dataset."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the dataset."),
-
+        
     ]
-    existence_query_fields = ("alias",)
+    existence_query_fields = ('alias',)
+

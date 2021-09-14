@@ -6,15 +6,18 @@
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
 
 
-class SoftwareAgent(KGObjectV3):
-    """
 
+
+class HardwareSystem(KGObjectV3):
+    """
+    
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]
+    type = ["https://openminds.ebrains.eu/computation/HardwareSystem"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -24,11 +27,12 @@ class SoftwareAgent(KGObjectV3):
     }
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
-        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=False, required=True,
+              doc="Word or phrase that constitutes the distinctive designation of the hardware system."),
+        Field("version", str, "vocab:version", multiple=False, required=True,
               doc="no description available"),
-        Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=False,
-              doc="no description available"),
-
+        Field("description", str, "vocab:description", multiple=False, required=False,
+              doc="Longer statement or account giving the characteristics of the hardware system."),
+        
     ]
-    existence_query_fields = None
+    existence_query_fields = ('name', 'version')
+

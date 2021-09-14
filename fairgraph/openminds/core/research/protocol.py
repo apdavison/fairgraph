@@ -6,7 +6,10 @@ Structured information on a research project.
 
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base import IRI
 from fairgraph.fields import Field
+
+
 
 
 class Protocol(KGObjectV3):
@@ -25,14 +28,13 @@ class Protocol(KGObjectV3):
     fields = [
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the protocol."),
-        Field("behavioral_tasks", "openminds.controlledterms.BehavioralTask", "vocab:behavioralTask", multiple=True, required=False,
-              doc="Specific set of defined activities (or their absence) that should be performed (or avoided) by a subject."),
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of a being or thing."),
-        Field("study_options", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.Strain", "openminds.controlledterms.Species", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.Disease", "openminds.controlledterms.Handedness", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Phenotype", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"], "vocab:studyOption", multiple=True, required=False,
+              doc="Word or phrase that constitutes the distinctive designation of the protocol."),
+        Field("stimulations", "openminds.core.Stimulation", "vocab:stimulation", multiple=True, required=False,
               doc="no description available"),
         Field("techniques", "openminds.controlledterms.Technique", "vocab:technique", multiple=True, required=True,
               doc="Method of accomplishing a desired aim."),
-
+        
     ]
-    existence_query_fields = ("name",)
+    existence_query_fields = ('name',)
+

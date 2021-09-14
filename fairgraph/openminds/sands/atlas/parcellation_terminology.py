@@ -5,15 +5,17 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
+from fairgraph.base_v3 import EmbeddedMetadata
+from fairgraph.base import IRI
 from fairgraph.fields import Field
 
 
-class ParcellationTerminology(KGObjectV3):
-    """
 
+
+class ParcellationTerminology(EmbeddedMetadata):
     """
-    default_space = "atlas"
+    
+    """
     type = ["https://openminds.ebrains.eu/sands/ParcellationTerminology"]
     context = {
         "schema": "http://schema.org/",
@@ -25,20 +27,14 @@ class ParcellationTerminology(KGObjectV3):
     fields = [
         Field("defined_ins", "openminds.core.File", "vocab:definedIn", multiple=True, required=False,
               doc="Reference to a file instance in which something is stored."),
-        Field("name", str, "vocab:fullName", multiple=False, required=True,
+        Field("name", str, "vocab:fullName", multiple=False, required=False,
               doc="Whole, non-abbreviated name of the parcellation terminology."),
-        Field("is_alternative_version_ofs", "openminds.sands.ParcellationTerminology", "vocab:isAlternativeVersionOf", multiple=True, required=False,
-              doc="Reference to an original form where the essence was preserved, but presented in an alternative form."),
-        Field("is_new_version_of", "openminds.sands.ParcellationTerminology", "vocab:isNewVersionOf", multiple=False, required=False,
-              doc="Reference to a previous (potentially outdated) particular form of something."),
-        Field("ontology_identifier", str, "vocab:ontologyIdentifier", multiple=False, required=False,
-              doc="Term or code used to identify something or someone registered within a particular ontology."),
+        Field("entities", "openminds.sands.ParcellationEntity", "vocab:hasEntity", multiple=True, required=True,
+              doc="no description available"),
+        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+              doc="Term or code used to identify the parcellation terminology registered within a particular ontology."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the parcellation terminology."),
-        Field("version_identifier", str, "vocab:versionIdentifier", multiple=False, required=True,
-              doc="Term or code used to identify the version of something."),
-        Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
-              doc="Documentation on what changed in comparison to a previously published form of something."),
-
+        
     ]
-    existence_query_fields = ("alias", "version_identifier")
+
