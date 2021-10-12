@@ -26,7 +26,8 @@ from dateutil import parser as date_parser
 
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
-                   StructuredMetadata, IRI, build_kg_object)
+                   StructuredMetadata, IRI, build_kg_object, as_list)
+from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object)
 
 
 class Field(object):
@@ -66,7 +67,7 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery))
+                if not (isinstance(item, (KGProxy, KGQuery, KGProxyV3, KGQueryV3, EmbeddedMetadata))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         if item is None and self.required:
@@ -94,20 +95,22 @@ class Field(object):
         """
         return not self.path.startswith("^")
 
-    def serialize(self, value, client, for_query=False):
+    def serialize(self, value, client, for_query=False, with_type=True):
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
-            elif isinstance(value, (KGObject, KGProxy)):
+            elif isinstance(value, (KGObject, KGObjectV3, KGProxy, KGProxyV3)):
                 if for_query:
                     return value.id
                 else:
-                    return {
+                    data = {
                         "@id": value.id,
-                        "@type": value.type
                     }
+                    if with_type:
+                        data["@type"] = value.type
+                    return data
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             elif value is None:
@@ -175,3 +178,27 @@ class Field(object):
             else:
                 warnings.warn(str(err))
                 return None
+
+    def deserialize_v3(self, data, client, resolved=False):
+        assert self.intrinsic
+        if data is None or data == []:
+            return None
+        else:
+            if issubclass(self.types[0], KGObjectV3):
+                return build_kgv3_object(self.types, data, resolved=resolved, client=client)
+            elif issubclass(self.types[0], EmbeddedMetadata):
+                return [
+                    self.types[0].from_jsonld(item, client, resolved=resolved)
+                    for item in as_list(data)
+                ]
+            elif self.types[0] in (datetime, date):
+                return date_parser.parse(data)
+            elif self.types[0] == int:
+                if isinstance(data, str):
+                    return int(data)
+                elif isinstance(data, Iterable):
+                    return [int(item) for item in data]
+                else:
+                    return int(data)
+            else:
+                return data

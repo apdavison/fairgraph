@@ -47,10 +47,6 @@ logger = logging.getLogger("fairgraph")
 mimetypes.init()
 
 
-
-
-
-
 #class KGObject(object, metaclass=Registry):
 class KGObject(with_metaclass(Registry, object)):
     """Base class for Knowledge Graph objects"""
@@ -412,7 +408,6 @@ class KGObject(with_metaclass(Registry, object)):
 
     def save(self, client):
         """docstring"""
-
 
         if self.id or self.exists(client, api="any"):
             # note that calling self.exists() sets self.id if the object does exist

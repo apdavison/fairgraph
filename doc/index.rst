@@ -50,23 +50,23 @@ Basic setup
 
 The basic idea of the library is to represent metadata nodes from the Knowledge Graph as Python objects.
 Communication with the Knowledge Graph service is through a client object,
-for which an access token associated with an HBP Identity account is needed.
+for which an access token associated with an EBRAINS account is needed.
 
-If you are working in a Collaboratory Jupyter notebook::
+If you are working in a Collaboratory Jupyter notebook, the client will take its access token from the notebook automatically::
 
-   from jupyter_collab_storage import oauth_token_handler
-   token = oauth_token_handler.get_token()
+   from fairgraph import KGClient
 
+   client = KGClient()
 
-If working outside the Collaboratory, we recommend you obtain a token from https://nexus-iam.humanbrainproject.org/v0/oauth2/authorize
+If working outside the Collaboratory, you will need to obtain a token
+(for example from the KG Editor if you are a curator, or using `clb_oauth.get_token()` in a Collaboratory Jupyter notebook)
 and save it as an environment variable, e.g. at a shell prompt::
 
-   export HBP_AUTH_TOKEN=eyJhbGci...nPq
+   export KG_AUTH_TOKEN=eyJhbGci...nPq
 
 and then in Python::
 
-   token = os.environ['HBP_AUTH_TOKEN']
-
+   token = os.environ['KG_AUTH_TOKEN']
 
 Once you have a token::
 
@@ -78,45 +78,34 @@ Once you have a token::
 Retrieving metadata from the Knowledge Graph
 --------------------------------------------
 
-The different metadata/data types available in the Knowledge Graph are grouped into modules,
-currently `commons`, `core`, `brainsimulation`, `electrophysiology`, `software`, `minds` and `uniminds`.
+The different metadata/data types available in the Knowledge Graph are grouped into modules
+within the `openminds` module.
 For example::
 
-   from fairgraph.commons import BrainRegion
-   from fairgraph.electrophysiology import PatchedCell
+   from fairgraph.openminds.core import DatasetVersion
 
 Using these classes, it is possible to list all metadata matching a particular criterion, e.g.::
 
-   cells_in_ca1 = PatchedCell.list(client, brain_region=BrainRegion("hippocampus CA1"))
+   datasets = DatasetVersion.list(client, from_index=10, size=10)
 
 If you know the unique identifier of an object, you can retrieve it directly::
 
-   cell_of_interest = PatchedCell.from_uuid("153ec151-b1ae-417b-96b5-4ce9950a3c56", client)
+   dataset_of_interest = Dataset.from_id("153ec151-b1ae-417b-96b5-4ce9950a3c56", client)
+   dataset_of_interest.show()
 
 Links between metadata in the Knowledge Graph are not followed automatically,
 to avoid unnecessary network traffic, but can be followed with the `resolve()` method::
 
-   example_cell = cells_in_ca1[3]
-   experiment = example_cell.experiments.resolve(client)
-   trace = experiment.traces.resolve(client)
+   dataset_license = dataset_of_interest.license.resolve(client)
 
+The associated metadata are accessible as attributes of the Python objects, e.g.::
 
-The associated metadata is accessible as attributes of the Python objects, e.g.::
-
-   print(example_cell.cell_type)
-   print(example_cell.reversal_potential_cl)
-   print(trace.time_step)
-   print(trace.data_unit)
-
+   print(dataset_of_interest.description)
 
 You can also access any associated data::
 
-   import requests
-   import numpy as np
-   from io import BytesIO
-
-   download_url = trace.data_location['downloadURL']
-   data = np.genfromtxt(BytesIO(requests.get(download_url).content))
+   print(dataset.files)
+   dataset.download(dataset.files[0])
 
 
 Advanced queries

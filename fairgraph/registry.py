@@ -17,7 +17,12 @@ registry = {
 
 
 def register_class(target_class):
-    name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
+    if "openminds" in target_class.__module__:
+        parts = target_class.__module__.split(".")
+        name = ".".join(parts[1:3] + [target_class.__name__])  # e.g. openminds.core.Dataset
+    else:
+        name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
+
     registry['names'][name] = target_class
     try:
         registry['paths'][target_class.path] = target_class
@@ -81,7 +86,7 @@ def lookup_by_id(id):
     return registry["paths"][path]
 
 
-def generate_cache_key(qd):
+def generate_cache_key(qd, space=None):
     """From a query dict, generate an object suitable as a key for caching"""
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
@@ -98,6 +103,8 @@ def generate_cache_key(qd):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
+    if space:
+        cache_key.append(("space", space))
     return tuple(cache_key)
 
 
