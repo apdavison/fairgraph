@@ -33,9 +33,32 @@ except ImportError:
     have_tabulate = False
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
+from .errors import NoQueryFound
 
 
 logger = logging.getLogger("fairgraph")
+
+
+class IRI(object):
+
+    def __init__(self, value):
+        if isinstance(value, IRI):
+            value = value.value
+        if not value.startswith("http"):
+            raise ValueError("Invalid IRI")
+        self.value = value
+
+    def __eq__(self, other):
+        return self.__class__ == other.__class__ and self.value == other.value
+
+    def __repr__(self):
+        return f"IRI(self.value)"
+
+    def __str__(self):
+        return self.value
+
+    def to_jsonld(self, client):
+        return self.value
 
 
 class EmbeddedMetadata(object, metaclass=Registry):
@@ -69,7 +92,9 @@ class EmbeddedMetadata(object, metaclass=Registry):
         return template.format(self=self)
 
     def to_jsonld(self, client=None):
-        data = {}
+        data = {
+            "@type": self.type
+        }
         for field in self.fields:
             value = getattr(self, field.name)
             if value is not None:
@@ -78,6 +103,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
         if "@id" in data:
+            #raise Exception("Expected embedded metadata, but received @id: " + str(data))
             warnings.warn("Expected embedded metadata, but received @id")
             return None
 
@@ -151,11 +177,10 @@ class KGObjectV3(object, metaclass=Registry):
     @property
     def space(self):
         if self.data:
-            # the 'replace' calls are a temporary workaround for a KG bug that will be fixed soon
             if "https://schema.hbp.eu/myQuery/space" in self.data:
-                self._space = self.data["https://schema.hbp.eu/myQuery/space"].replace("_", "-")
+                self._space = self.data["https://schema.hbp.eu/myQuery/space"]
             elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.data:
-                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"].replace("_", "-")
+                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"]
         return self._space
 
     @classmethod
@@ -170,7 +195,8 @@ class KGObjectV3(object, metaclass=Registry):
         D["@context"] = data.get("@context", cls.context)
         for otype in compact_uri(as_list(cls.type), cls.context):  # todo: update class generation to ensure classes are already compacted
             if otype not in D["@type"]:
-                print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
+                #print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
+                raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         args = {}
         for field in cls.fields:
             if field.intrinsic:
@@ -259,12 +285,15 @@ class KGObjectV3(object, metaclass=Registry):
                     raise TypeError("{} must be of type {}".format(field.name, field.types))
             if hasattr(value, "iri"):
                 filter_value = value.iri
+            elif isinstance(value, IRI):
+                filter_value = value.value
             elif hasattr(value, "id"):
                 filter_value = value.id
             else:
                 filter_value = value
             return filter_value
 
+        space = space or cls.default_space
         if api == "query":
             filter_queries = {}
             if filters:
@@ -272,13 +301,10 @@ class KGObjectV3(object, metaclass=Registry):
                     if field.name in filters:
                         filter_queries[field.name] = get_filter_value(filters, field)
             filter_query = filter_queries or None
-            context = None
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
             filter_query = None
-            context = None
-            space = space or cls.default_space
         else:
             raise ValueError("'api' must be either 'query', or 'core'")
         return client.list(cls, space=space, from_index=from_index, size=size, api=api,
@@ -312,10 +338,19 @@ class KGObjectV3(object, metaclass=Registry):
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
                                                  scope="latest", resolved=False)
+            if self.data is None:
+                self.data = data
+
             if space:
                 key = "https://core.kg.ebrains.eu/vocab/meta/space"
-                if data and key in data and data[key] == space:
-                    return True
+                if data and key in data:
+                    if data[key] == space:
+                        return True
+                     # following 2 lines are a temporary workaround
+                    elif space == "myspace" and data[key] == client._private_space:
+                        return True
+                    else:
+                        return False
                 else:
                     return False
             else:
@@ -338,30 +373,49 @@ class KGObjectV3(object, metaclass=Registry):
                     self.id = self.save_cache[self.__class__][query_cache_key]
                     return True
 
-                query_label = self.get_query_label("simple", space)
-                instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
+                instances = self._query_simple(query_filter, space, client)
                 if instances:
                     self.id = instances[0]["@id"]
                     KGObjectV3.save_cache[self.__class__][query_cache_key] = self.id
+
+                    if self.data is None:
+                        self.data = instances[0]
                 return bool(instances)
+
+    def _query_simple(self, query_filter, space, client):
+        query_label = self.get_query_label("simple", space)
+        try:
+            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
+        except NoQueryFound:
+            query_definition = self.__class__.generate_query("simple", space, client, resolved=False)
+            client.store_query(query_label, query_definition, space=space)
+            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
+        return instances
 
     def _updated_data(self, data):
         updated_data = {}
         for key, value in data.items():
-            if key not in self.data:
+            if self.data is None or key not in self.data:
                 if value is not None:
-                    logger.info(f"new field '{key}' with value {value}")  # todo: change to debug
+                    logger.info(f"    - new field '{key}' with value {value}")  # todo: change to debug
                     updated_data[key] = value
-            elif self.data[key] != value:
+            else:
                 existing = self.data[key]
-                if not (
-                    isinstance(existing, list)
-                    and len(existing) == 1
-                    and isinstance(existing[0], dict)
-                    and existing[0] == value
-                ): # we treat a list containing a single dict as equivalent to that dict
-                    logger.info(f"change to field '{key}' from {existing} to {value}")
-                    updated_data[key] = value
+                if existing != value:
+                    if (isinstance(existing, list) and len(existing) == 0 and value is None):
+                        # we treat empty list and None as equivalent
+                        pass
+                    elif (
+                        isinstance(existing, list)
+                        and len(existing) == 1
+                        and isinstance(existing[0], dict)
+                        and existing[0] == value
+                    ):
+                        # we treat a list containing a single dict as equivalent to that dict
+                        pass
+                    else:
+                        logger.info(f"    -  change to field '{key}' from {existing} to {value}")
+                        updated_data[key] = value
         return updated_data
 
     def _build_data(self, client, all_fields=False):
@@ -383,7 +437,15 @@ class KGObjectV3(object, metaclass=Registry):
         else:
             raise NotImplementedError("to be implemented by child classes")
 
-    def save(self, client, space=None):
+    def save(self, client, space=None, recursive=False):
+        logger.info(f"Saving a {self.__class__.__name__} in space {space}")
+        if recursive:
+            for field in self.fields:
+                if field.intrinsic:
+                    values = getattr(self, field.name)
+                    for value in as_list(values):
+                        if isinstance(value, KGObjectV3):
+                            value.save(client, space=space, recursive=True)
         if space is None:
             if self.space is None:
                 space = self.__class__.default_space
@@ -394,15 +456,18 @@ class KGObjectV3(object, metaclass=Registry):
             data = self._build_data(client, all_fields=True)
             updated_data = self._updated_data(data)
             if updated_data:
-                logger.info(f"Updating - {self.__class__.__name__}(id={self.id})")
-                self.data.update(data)
+                logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {updated_data.keys()}")
+                if self.data is None:
+                    self.data = data
+                else:
+                    self.data.update(data)
                 client.update_instance(self.uuid, updated_data)
             else:
-                logger.info(f"Not updating {self.__class__.__name__}(id={self.id}), unchanged")
+                logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
         else:
             # create new
             data = self._build_data(client)
-            logger.info("Creating instance with data {}".format(data))
+            logger.info("  - creating instance with data {}".format(data))
             data["@context"] = self.context
             data["@type"] = self.type
             instance_data = client.create_new_instance(
@@ -487,7 +552,7 @@ class KGObjectV3(object, metaclass=Registry):
                     "path": "https://core.kg.ebrains.eu/vocab/meta/space",
                     "filter": {
                         "op": "EQUALS",
-                        "value": space.replace("-", "_")   # temporary fix for KG bug
+                        "value": space
                     },
                     "propertyName": "query:space"
                 }
@@ -611,7 +676,10 @@ class KGObjectV3(object, metaclass=Registry):
 
     @classmethod
     def get_query_label(cls, query_type, space):
-        return f"fg-{cls.__name__}-{query_type}-{space}"
+        if "private" in space:  # temporary work-around
+            return f"fg-{cls.__name__}-{query_type}-myspace"
+        else:
+            return f"fg-{cls.__name__}-{query_type}-{space}"
 
     @classmethod
     def store_queries(cls, space, client):
@@ -685,8 +753,11 @@ class KGProxyV3(object):
             if len(self.classes) > 1:
                 obj = None
                 for cls in self.classes:
-                    obj = cls.from_uri(self.id, client, scope=scope)
-                    if obj is not None:
+                    try:
+                        obj = cls.from_uri(self.id, client, scope=scope)
+                    except TypeError:
+                        pass
+                    else:
                         break
             else:
                 obj = self.cls.from_uri(self.id, client, scope=scope)
@@ -742,7 +813,7 @@ class KGQueryV3(object):
             query_type = "simple"
         objects = []
         for cls in self.classes:
-            instances = client.query(
+            instances = self.client.query(
                 query_label=cls.get_query_label(query_type, space),
                 filter=self.filter,
                 size=size,
@@ -841,3 +912,42 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
+
+
+"""
+id                    https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000
+inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/25975e2e-f186-4c3f-9352-d460c6969761), id=https://kg.ebrains.eu/api/instances/4a10989f-fd9f-4068-b9c2-28d9a6d7342c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/ab0e7c0b-0cae-4a5a-9c75-a0323a3addfb), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/a50435e2-1a64-41c0-ba90-e52bf124a673), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/deaf5b85-bd3d-4937-a1cf-cea45f6e2c2f)]
+outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/06b025ae-43d6-4e7c-8509-ce1eefb4acf6), id=https://kg.ebrains.eu/api/instances/27b8231a-88cf-4264-ace4-dd9fa45d9d60), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/477faf0c-da36-4172-ad18-dfe44ad817d8), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/8859cc17-947b-4167-9e29-81a02868454a)]
+environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/0a467c94-cdf8-41f6-bf86-386ce21749a2), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/a2252d99-2c16-4a96-9e99-5882675f4069), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/22f5ea2f-f7ee-40a8-b759-f3522fcc0b98), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/bfea4e9f-0ca1-4896-a046-3c31384c2328)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/64f65fa0-7338-406c-9c5a-81545bc05299)
+launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/9677046e-2850-44ab-9086-45833f9ccef9)
+started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/8bbe9569-de0c-4a62-93ef-ab4a60a5cf02)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/ca4302b8-f130-4c8f-933f-35d9b2c7fbd4)
+was_informed_by
+status                ActionStatusType(name='queued', id=https://kg.ebrains.eu/api/instances/c3c089db-47aa-4bcd-9646-84b370c16bd3)
+resource_usages
+tags                  ['string']
+description
+ended_at_time         2021-05-28 16:32:58.597000+00:00
+lookup_label
+parameter_sets
+started_at_time       2021-05-28 16:32:58.597000+00:00
+study_targets
+"""
+
+"""
+id                    https://kg.ebrains.eu/api/instances/9c87a285-0dae-4028-b417-9093ecfc9ddc
+inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/4d046ca8-be25-4c7f-b6d6-5b35bf3a3664), id=https://kg.ebrains.eu/api/instances/a1351964-ad28-4ce7-8ccd-b0418a8f615c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/be522f07-b61c-4167-a84f-773e8a8b92e7), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/db6971a6-ab1d-4e97-ad10-9ac77532f99f), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/ed290bed-3e8e-4cf1-b95a-85d98760e310)]
+outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/bdb2fdca-db72-48c7-867d-24de2e1adc37), id=https://kg.ebrains.eu/api/instances/63513a20-fa0e-4d84-b09c-6927470238f2), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/87f6330b-8350-41c2-9a33-427d93e0969c), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/488bd6be-e1ec-4463-9e06-0e4c24a51882)]
+environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/17f432ae-6876-4407-865b-b9a333114d64), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/36f290da-c68b-47b1-afd6-aedf643352a5), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/bef421f5-7cf5-45e5-9b4c-58a1b5503241), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/d21abc35-7245-4123-b3ea-b9bb7574e912)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/9bbf37a3-3d11-42e0-9078-aad505ab5089)
+launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/2eb5e20c-6409-4aec-ab18-7d035c507ee0)
+started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/e83b8bc0-b460-4217-ba4f-1fae41a5f1dc)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/723830ad-2991-4ecd-878f-d16cc2ce2f89)
+was_informed_by
+status                ActionStatusType(name='queued', id=https://kg.ebrains.eu/api/instances/6f91e353-4207-4160-8ba8-c8da9ccea074)
+resource_usages
+tags                  ['string']
+description
+ended_at_time         2021-05-28 16:32:58.597000+00:00
+lookup_label          Data analysis by Alain Destexhe on 2021-05-28T16:32:58.597000+00:00 [0000000]
+parameter_sets
+started_at_time       2021-05-28 16:32:58.597000+00:00
+study_targets
+"""

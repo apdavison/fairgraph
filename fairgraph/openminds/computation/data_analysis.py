@@ -5,8 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
-from fairgraph.base import IRI
+from fairgraph.base_v3 import KGObjectV3, IRI
 from fairgraph.fields import Field
 
 
@@ -14,7 +13,7 @@ from fairgraph.fields import Field
 
 class DataAnalysis(KGObjectV3):
     """
-    
+
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/DataAnalysis"]
@@ -36,7 +35,7 @@ class DataAnalysis(KGObjectV3):
               doc="no description available"),
         Field("started_by", ["openminds.computation.SoftwareAgent", "openminds.core.Person"], "vocab:startedBy", multiple=False, required=False,
               doc="no description available"),
-        Field("was_informed_by", "openminds.computation.Computation", "vocab:wasInformedBy", multiple=False, required=False,
+        Field("was_informed_by", ["openminds.computation.DataAnalysis", "openminds.computation.Simulation", "openminds.computation.Optimization", "openminds.computation.Visualization"], "vocab:wasInformedBy", multiple=False, required=False,
               doc="no description available"),
         Field("status", "openminds.controlledterms.ActionStatusType", "vocab:status", multiple=False, required=False,
               doc="no description available"),
@@ -56,7 +55,6 @@ class DataAnalysis(KGObjectV3):
               doc="no description available"),
         Field("study_targets", ["openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Handedness", "openminds.controlledterms.Organ", "openminds.controlledterms.Phenotype", "openminds.controlledterms.Species", "openminds.controlledterms.Strain", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
-        
+
     ]
     existence_query_fields = ('lookup_label',)
-

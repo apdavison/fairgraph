@@ -11,3 +11,7 @@ class ResourceExistsError(Exception):
 class AuthenticationError(Exception):
     """Raised when there is a problem with authentication"""
     pass
+
+
+class NoQueryFound(Exception):
+    pass

@@ -27,7 +27,7 @@ from dateutil import parser as date_parser
 from .registry import lookup
 from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
                    StructuredMetadata, IRI, build_kg_object, as_list)
-from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object)
+from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object, IRI as IRIv3)
 
 
 class Field(object):
@@ -183,7 +183,7 @@ class Field(object):
         assert self.intrinsic
         if data is None or data == []:
             return None
-        else:
+        try:
             if issubclass(self.types[0], KGObjectV3):
                 return build_kgv3_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
@@ -200,5 +200,13 @@ class Field(object):
                     return [int(item) for item in data]
                 else:
                     return int(data)
+            elif self.types[0] == IRIv3:
+                return IRIv3(data)
             else:
                 return data
+        except Exception as err:
+            if self.strict_mode:
+                raise
+            else:
+                warnings.warn(str(err))
+                return None

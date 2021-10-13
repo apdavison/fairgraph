@@ -5,8 +5,7 @@ Structured information on an organization.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
-from fairgraph.base import IRI
+from fairgraph.base_v3 import KGObjectV3, IRI
 from fairgraph.fields import Field
 
 

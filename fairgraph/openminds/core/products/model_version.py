@@ -5,8 +5,7 @@ Structured information on a computational model (version level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
-from fairgraph.base import IRI
+from fairgraph.base_v3 import KGObjectV3, IRI
 from fairgraph.fields import Field
 
 
@@ -30,7 +29,7 @@ class ModelVersion(KGObjectV3):
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
         Field("digital_identifier", ["openminds.core.DOI", "openminds.core.SWHID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
-        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=True,
+        Field("format", "openminds.core.ContentType", "vocab:format", multiple=True, required=True,
               doc="Method of digitally organizing and structuring data or information."),
         Field("input_data", ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle"], "vocab:inputData", multiple=True, required=False,
               doc="Data that is put into a process or machine."),
@@ -78,7 +77,6 @@ class ModelVersion(KGObjectV3):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-        
+
     ]
     existence_query_fields = ('name', 'version_identifier')
-

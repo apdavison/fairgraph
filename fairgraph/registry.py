@@ -98,6 +98,8 @@ def generate_cache_key(qd, space=None):
             for sub_value in value:
                 sub_key.append(generate_cache_key(sub_value))
             cache_key.append(tuple(sub_key))
+        elif isinstance(value, dict):
+            cache_key.append((key, str(value)))
         else:
             if not isinstance(value, (str, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"

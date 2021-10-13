@@ -5,8 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3
-from fairgraph.base import IRI
+from fairgraph.base_v3 import KGObjectV3, IRI
 from fairgraph.fields import Field
 
 
@@ -14,7 +13,7 @@ from fairgraph.fields import Field
 
 class SoftwareVersion(KGObjectV3):
     """
-    
+
     """
     default_space = "software"
     type = ["https://openminds.ebrains.eu/core/SoftwareVersion"]
@@ -26,7 +25,7 @@ class SoftwareVersion(KGObjectV3):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("application_categorys", "openminds.controlledterms.SoftwareApplicationCategory", "vocab:applicationCategory", multiple=True, required=True,
+        Field("application_categories", "openminds.controlledterms.SoftwareApplicationCategory", "vocab:applicationCategory", multiple=True, required=True,
               doc="Distinct class that groups software programs which perform a similar task or set of tasks."),
         Field("developers", ["openminds.core.Organization", "openminds.core.Person"], "vocab:developer", multiple=True, required=False,
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
@@ -92,7 +91,6 @@ class SoftwareVersion(KGObjectV3):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-        
+
     ]
     existence_query_fields = ('alias', 'version_identifier')
-

@@ -5,8 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import EmbeddedMetadata
-from fairgraph.base import IRI
+from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 

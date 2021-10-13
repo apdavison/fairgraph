@@ -56,8 +56,8 @@ class KGClient(object):
                  nexus_endpoint="https://nexus.humanbrainproject.org/v0",
                  kg_query_endpoint="https://kg.humanbrainproject.eu/query",
                  release_endpoint="https://kg.humanbrainproject.eu/api/releases",
-                 idm_endpoint="https://services.humanbrainproject.eu/idm/v1/api",
-                 oidc_host="https://services.humanbrainproject.eu/oidc",
+                 idm_endpoint="https://iam.ebrains.eu/auth/realms/hbp/protocol/openid-connect",
+                 oidc_host="https://iam.ebrains.eu/auth/realms/hbp",
                  client_id=None,
                  client_secret=None,
                  refresh_token=None):
@@ -74,7 +74,7 @@ class KGClient(object):
                     token = oauth_token_handler.get_token()
                 else:
                     try:
-                        token = os.environ["HBP_AUTH_TOKEN"]
+                        token = os.environ["KG_AUTH_TOKEN"]
                     except KeyError:
                         raise AuthenticationError("No token provided.")
             auth_client = AccessTokenClient(token)
@@ -366,4 +366,4 @@ class KGClient(object):
             raise Exception("Can't unrelease node with id {}".format(uri))
 
     def user_info(self):
-        return self._idm_client.get("user/me")
+        return self._idm_client.get("userinfo")

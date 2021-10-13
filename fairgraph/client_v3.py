@@ -24,12 +24,12 @@ from uuid import uuid4
 try:
     from kg_core.oauth import SimpleToken, ClientCredentials
     from kg_core.kg import KGv3
-    from kg_core.models import Stage, Pagination
+    from kg_core.models import Stage, Pagination, ResponseConfiguration
     have_v3 = True
 except ImportError:
     have_v3 = False
 
-from .errors import AuthenticationError
+from .errors import AuthenticationError, NoQueryFound
 
 try:
     import clb_nb_utils.oauth as clb_oauth
@@ -45,6 +45,22 @@ STAGE_MAP = {
     "latest": Stage.IN_PROGRESS,
     "in progress": Stage.IN_PROGRESS
 }
+
+AVAILABLE_PERMISSIONS = [
+    "CREATE",
+    "READ",
+    "DELETE",
+    "RELEASE",
+    "INVITE_FOR_REVIEW",
+    "INVITE_FOR_SUGGESTION",
+    "SUGGEST",
+    "UNRELEASE",
+    "READ_RELEASED",
+    "RELEASE_STATUS",
+    "WRITE"
+]
+
+default_response_configuration = ResponseConfiguration(return_embedded=True)
 
 
 class KGv3Client(object):
@@ -67,13 +83,15 @@ class KGv3Client(object):
                 token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
             except KeyError:
                 raise AuthenticationError("Need to provide either token or client id/secret.")
+        self.host = host
         self._kg_client = KGv3(host=host, token_handler=token_handler)
+        self._user_info = None
         self.cache = {}
 
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
         if query is None:
-            raise Exception(f"No query was retrieved with label '{query_label}' for class {self.__class__.__name__}")
+            raise NoQueryFound(f"No query was retrieved with label '{query_label}' for class {self.__class__.__name__}")
         uuid = self.uuid_from_uri(query["@id"])
         params = {
             "from": from_index,
@@ -105,7 +123,7 @@ class KGv3Client(object):
                 stage=STAGE_MAP[scope],
                 target_type=cls.type,
                 space=space or cls.default_space,
-                # we use the default ResponseConfiguration
+                response_configuration=default_response_configuration,
                 pagination=Pagination(start_from=from_index, size=size)
             )
             return [cls.from_kg_instance(instance, self, resolved=resolved)
@@ -137,7 +155,8 @@ class KGv3Client(object):
             try:
                 response = self._kg_client.get_instance(
                     stage=STAGE_MAP[scope],
-                    instance_id=self._kg_client.uuid_from_absolute_id(uri)
+                    instance_id=self._kg_client.uuid_from_absolute_id(uri),
+                    response_configuration=default_response_configuration
                 )
             except Exception as err:
                 if "404" in str(err):
@@ -158,7 +177,8 @@ class KGv3Client(object):
             space=space,
             payload=data,
             normalize_payload=True,
-            instance_id=instance_id  # if already have id
+            instance_id=instance_id,  # if already have id
+            response_configuration=default_response_configuration
         )
         if response.is_successful():
             return response.data()
@@ -169,7 +189,8 @@ class KGv3Client(object):
         response = self._kg_client.partially_update_contribution_to_instance(
             instance_id=instance_id,
             payload=data,
-            normalize_payload=True
+            normalize_payload=True,
+            response_configuration=default_response_configuration
         )
         if response.is_successful():
             return response.data()
@@ -215,7 +236,43 @@ class KGv3Client(object):
             return response.data()[0]
 
     def user_info(self):
-        return self._kg_client.get(
-            path="/users/me",
-            params={}
-        ).data()
+        if self._user_info is None:
+            self._user_info = self._kg_client.get(
+                path="/users/me",
+                params={}
+            ).data()
+        return self._user_info
+
+    def spaces(self, permissions=None, names_only=False):
+        response = self._kg_client.spaces(
+            with_permissions=True,
+            pagination=Pagination(start_from=0, size=100)
+        )
+        if permissions:
+            for permission in permissions:
+                if permission.upper() not in AVAILABLE_PERMISSIONS:
+                    raise ValueError(f"Invalid permission '{permission}'")
+        if response.is_successful():
+            accessible_spaces = response.data()
+        else:
+            raise Exception(response.error())
+        if permissions:
+            filtered_spaces = []
+            for space in accessible_spaces:
+                for permission in permissions:
+                    if permission.upper() in space["https://core.kg.ebrains.eu/vocab/meta/permissions"]:
+                        if names_only:
+                            filtered_spaces.append(space["http://schema.org/name"])
+                        else:
+                            filtered_spaces.append(space)
+            return filtered_spaces
+        else:
+            if names_only:
+                return [space["http://schema.org/name"] for space in accessible_spaces]
+            else:
+                return accessible_spaces
+
+    @property
+    def _private_space(self):
+        # temporary workaround
+        return f"private-{self.user_info()['https://schema.hbp.eu/users/nativeId']}"
