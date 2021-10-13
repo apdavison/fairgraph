@@ -32,7 +32,7 @@ setup(
     install_requires=[
         "openid_http_client @ git+https://github.com/HumanBrainProject/openid_http_client.git#subdirectory=openid_http_client",
         "pyxus @ git+https://github.com/HumanBrainProject/pyxus.git#subdirectory=pyxus",
-        "kg-core-python @ https://github.com/apdavison/kg-core-python/archive/refs/heads/add-spaces.zip",
+        "kg-core @ https://github.com/apdavison/kg-core-python/archive/refs/heads/add-spaces.zip",
         "pathlib2",
         "python-dateutil",
         "six",
