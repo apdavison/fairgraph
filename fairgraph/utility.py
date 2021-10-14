@@ -32,6 +32,7 @@ standard_context = {
     "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
     "minds": "https://schema.hbp.eu/minds/",
     "uniminds": "https://schema.hbp.eu/uniminds/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "name": "schema:name",
     "description": "schema:description",
     "brainRegion": "nsg:brainRegion",
@@ -100,7 +101,8 @@ standard_context = {
     "morphologyType": "nsg:morphologyType",
     "atTime" : "nsg:atTime",
     "identifier": "schema:identifier",
-    "abstract": "schema:abstract"
+    "abstract": "schema:abstract",
+    "label": "rdfs:label"
 }
 
 

@@ -100,6 +100,7 @@ class LivePaper(KGObject):
     namespace = DEFAULT_NAMESPACE
     _path = "/livepapers/livepaper/v0.1.1"
     type = ["prov:Entity", "nsg:LivePaper"]
+    query_id = "fgSimpleAlt"
     context = [
         "{{base}}/contexts/neurosciencegraph/core/data/v0.3.1",
         "{{base}}/contexts/nexus/core/resource/v0.3.0",

@@ -727,6 +727,9 @@ class OntologyTerm(StructuredMetadata):
     def from_jsonld(cls, data):
         if data is None:
             return None
+        if "http://www.w3.org/2000/01/rdf-schema#label" in data:
+            # workaround for an issue with LivePaper.license
+            data["label"] = data["http://www.w3.org/2000/01/rdf-schema#label"]
         return cls(data["label"], data["@id"])
 
     @classmethod
