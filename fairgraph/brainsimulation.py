@@ -28,7 +28,7 @@ import inspect
 from dateutil import parser as date_parser
 import requests
 from .base import (KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery,
-                   IRI, upload_attachment)
+                   IRI, upload_attachment, HasAliasMixin)
 from .fields import Field
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm
 from .core import Organization, Person, Age, Collection
@@ -41,26 +41,6 @@ mimetypes.init()
 DEFAULT_NAMESPACE = "modelvalidation"
 
 from .utility import ATTACHMENT_SIZE_LIMIT
-
-
-class HasAliasMixin(object):
-
-    @classmethod
-    def from_alias(cls, alias, client, api="query"):
-        context = {
-            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
-        }
-        query = {
-            "nexus": {
-                "path": "nsg:alias",
-                "op": "eq",
-                "value": alias
-            },
-            "query": {
-                "alias": alias
-            }
-        }
-        return KGQuery(cls, query, context).resolve(client, api=api)
 
 
 class ModelProject(KGObject, HasAliasMixin):

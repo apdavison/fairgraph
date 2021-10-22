@@ -102,7 +102,8 @@ standard_context = {
     "atTime" : "nsg:atTime",
     "identifier": "schema:identifier",
     "abstract": "schema:abstract",
-    "label": "rdfs:label"
+    "label": "rdfs:label",
+    "associatedIdentifier": "nsg:associatedIdentifier"
 }
 
 

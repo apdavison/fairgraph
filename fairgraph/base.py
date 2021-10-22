@@ -1102,3 +1102,23 @@ def upload_attachment(cls, file_path, client):
         cls.report_file = Distribution.from_jsonld(response.json()["distribution"][0])
     else:
         raise Exception(str(response.content))
+
+
+class HasAliasMixin(object):
+
+    @classmethod
+    def from_alias(cls, alias, client, api="query", scope="released"):
+        context = {
+            "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/"
+        }
+        query = {
+            "nexus": {
+                "path": "nsg:alias",
+                "op": "eq",
+                "value": alias
+            },
+            "query": {
+                "alias": alias
+            }
+        }
+        return KGQuery(cls, query, context).resolve(client, api=api, scope=scope)

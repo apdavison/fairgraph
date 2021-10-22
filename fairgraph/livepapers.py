@@ -19,7 +19,7 @@ Metadata for Live Papers.
 
 
 import logging
-from .base import KGObject, Distribution
+from .base import KGObject, Distribution, HasAliasMixin
 from .fields import Field
 from datetime import datetime, date
 from .core import Person
@@ -93,7 +93,7 @@ class LivePaperResourceSection(KGObject):
     existence_query_fields = ["name", "part_of"]  # would be better to use sectionType
 
 
-class LivePaper(KGObject):
+class LivePaper(KGObject, HasAliasMixin):
     """
     Data for generating live papers.
     """
@@ -125,6 +125,7 @@ class LivePaper(KGObject):
             "hasPart": "dcterms:hasPart",
             "citation": "schema:citation",
             "identifier": "schema:identifier",
+            "associatedIdentifier": "nsg:associatedIdentifier",
             "collabID": "nsg:collabID",
             "headline": "schema:headline",
             "journal": "nsg:journalName",
@@ -153,6 +154,7 @@ class LivePaper(KGObject):
         Field("url", Distribution, "distribution", required=False, multiple=False),
         Field("citation", str, "citation", required=False, multiple=False),
         Field("doi", str, "identifier", required=False, multiple=False),
+        Field("associated_paper_doi", str, "associatedIdentifier", required=False, multiple=False),
         Field("abstract", str, "abstract", required=False, multiple=False),
         Field("license", License, "license", required=False, multiple=False),
         Field("resource_section", LivePaperResourceSection, "^nsg:partOf", reverse="part_of", multiple=True),
