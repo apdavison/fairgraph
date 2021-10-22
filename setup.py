@@ -38,6 +38,7 @@ setup(
         "six",
         "tabulate",
         "requests",
-        "tqdm"
+        "tqdm",
+        "pyld==0.8.2"
     ]
 )
