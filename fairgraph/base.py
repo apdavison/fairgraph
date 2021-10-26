@@ -418,7 +418,7 @@ class KGObject(with_metaclass(Registry, object)):
 
                 # we have to use the Nexus API to get the revision number
                 self.instance = client.instance_from_full_uri(
-                    self.id, cls=self.__class__, api="nexus", use_cache=False)
+                    self.id, cls=self.__class__, api="nexus", scope="latest", use_cache=False)
 
         if self.instance:
             data = self._build_data(client, all_fields=True)
