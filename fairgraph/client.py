@@ -226,6 +226,9 @@ class KGClient(object):
         # 'deprecated=True' means 'returns an instance even if that instance is deprecated'
         # should perhaps be called 'show_deprecated' or 'include_deprecated'
         logger.debug("Retrieving instance from {}, api='{}' use_cache={}".format(uri, api, use_cache))
+        if scope == "released" and not self.is_released(uri):
+            return None
+
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance {} from cache".format(uri))
             instance = self.cache[uri]
