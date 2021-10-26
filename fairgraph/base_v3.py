@@ -52,7 +52,7 @@ class IRI(object):
         return self.__class__ == other.__class__ and self.value == other.value
 
     def __repr__(self):
-        return f"IRI(self.value)"
+        return f"IRI({self.value})"
 
     def __str__(self):
         return self.value
@@ -118,15 +118,19 @@ class EmbeddedMetadata(object, metaclass=Registry):
         return cls(data=D, **args)
 
     @classmethod
-    def set_strict_mode(cls, value, field_name=None):
+    def set_strict_mode(cls, value, field_names=None):
         if value not in (True, False):
             raise ValueError("value should be either True or False")
-        if field_name:
-            for field in cls.fields:
-                if field.name == field_name:
-                    field.strict_mode = value
-                    return
-            raise ValueError("No such field: {}".format(field_name))
+        if field_names:
+            for field_name in as_list(field_names):
+                found = False
+                for field in cls.fields:
+                    if field.name == field_name:
+                        field.strict_mode = value
+                        found = True
+                        break
+                if not found:
+                    raise ValueError("No such field: {}".format(field_name))
         else:
             for field in cls.fields:
                 field.strict_mode = value
@@ -425,7 +429,7 @@ class KGObjectV3(object, metaclass=Registry):
                 if field.intrinsic:
                     value = getattr(self, field.name)
                     if all_fields or field.required or value is not None:
-                        serialized = field.serialize(value, client, with_type=False)
+                        serialized = field.serialize(value, client, with_type=True)
                         if field.path in data:
                             if isinstance(data[field.path], list):
                                 data[field.path].append(serialized)
@@ -636,10 +640,17 @@ class KGObjectV3(object, metaclass=Registry):
                 else:
                     op = "CONTAINS"
                 if top_level:
-                    field_definition["filter"] = {  # don't filter on datetime,  ...
+                    filter = {
                         "op": op,
                         "parameter": field.name
                     }
+                    id_elements = [elem for elem in field_definition.get("structure", [])
+                                   if elem["path"] == "@id"]
+                    if len(id_elements) > 0:
+                        # if the field is itself an object, filter on the object's id
+                        id_elements[0]["filter"] = filter
+                    else:
+                        field_definition["filter"] = filter
 
                 fields.append(field_definition)
 
