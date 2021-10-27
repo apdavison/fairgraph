@@ -824,7 +824,7 @@ class KGQueryV3(object):
             query_type = "simple"
         objects = []
         for cls in self.classes:
-            instances = self.client.query(
+            instances = client.query(
                 query_label=cls.get_query_label(query_type, space),
                 filter=self.filter,
                 size=size,
