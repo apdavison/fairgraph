@@ -87,6 +87,7 @@ class KGv3Client(object):
         self._kg_client = KGv3(host=host, token_handler=token_handler)
         self._user_info = None
         self.cache = {}
+        self._query_cache = {}
 
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
@@ -222,18 +223,20 @@ class KGv3Client(object):
         # todo: handle errors
 
     def retrieve_query(self, query_label):
-        response = self._kg_client.get(
-            path=f"/queries/",
-            params={
-                "search": query_label
-            }
-        )
-        if response.total() == 0:
-            return None
-        elif response.total() > 1:
-            raise Exception("Retrieved multiple queries, this shouldn't happen")
-        else:
-            return response.data()[0]
+        if query_label not in self._query_cache:
+            response = self._kg_client.get(
+                path=f"/queries/",
+                params={
+                    "search": query_label
+                }
+            )
+            if response.total() == 0:
+                return None
+            elif response.total() > 1:
+                raise Exception("Retrieved multiple queries, this shouldn't happen")
+            else:
+                self._query_cache[query_label] = response.data()[0]
+        return self._query_cache[query_label]
 
     def user_info(self):
         if self._user_info is None:
