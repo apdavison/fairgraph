@@ -148,6 +148,7 @@ class KGObjectV3(object, metaclass=Registry):
     # which may often not be the case.
 
     def __init__(self, id=None, data=None, space=None, **properties):
+        properties_copy = copy(properties)
         for field in self.fields:
             try:
                 value = properties[field.name]
@@ -159,6 +160,8 @@ class KGObjectV3(object, metaclass=Registry):
                     else:
                         warnings.warn(msg)
                 value = None
+            else:
+                properties_copy.pop(field.name)
             if value is None:
                 value = field.default
                 if callable(value):
@@ -167,6 +170,11 @@ class KGObjectV3(object, metaclass=Registry):
                 value = None
             field.check_value(value)
             setattr(self, field.name, value)
+        if len(properties_copy) > 0:
+            if len(properties_copy) == 1:
+                raise NameError(f'{self.__class__.__name__} does not have a field named "{list(properties_copy)[0]}".')
+            else:
+                raise NameError(f"""{self.__class__.__name__} does not have fields named "{'", "'.join(properties_copy)}".""")
 
         self.id = id
         self._space = space
