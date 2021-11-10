@@ -449,7 +449,7 @@ class KGObjectV3(object, metaclass=Registry):
         else:
             raise NotImplementedError("to be implemented by child classes")
 
-    def save(self, client, space=None, recursive=False):
+    def save(self, client, space=None, recursive=False, activity_log=None):
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
         if recursive:
             for field in self.fields:
@@ -482,9 +482,15 @@ class KGObjectV3(object, metaclass=Registry):
                     self.data = data
                 else:
                     self.data.update(data)
+                updated_data["@context"] = self.context
                 client.update_instance(self.uuid, updated_data)
+                if activity_log:
+                    updated_data.pop("@context")
+                    activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
             else:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
+                if activity_log:
+                    activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
             data = self._build_data(client)
@@ -496,6 +502,8 @@ class KGObjectV3(object, metaclass=Registry):
                 data=data,
                 instance_id=self.uuid)
             self.id = instance_data["@id"]
+            if activity_log:
+                activity_log.update(item=self, delta=data, space=space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObjectV3.object_cache[self.id] = self

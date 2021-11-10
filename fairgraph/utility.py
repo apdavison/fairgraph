@@ -172,3 +172,31 @@ def in_notebook():
             return False
     except NameError:
         return False
+
+
+
+class LogEntry:
+
+    def __init__(self, cls, id, delta, space, type_):
+        self.cls = cls
+        self.id = id
+        self.delta = delta
+        self.space = space
+        self.type = type_
+
+    def __repr__(self):
+        return f"{self.type}: {self.cls}({self.id}) in '{self.space}'"
+
+
+class ActivityLog:
+
+    def __init__(self):
+        self.entries = []
+
+    def update(self, item, delta, space, entry_type):
+        self.entries.append(
+            LogEntry(item.__class__.__name__, item.uuid, delta,  space, entry_type)
+        )
+
+    def __repr__(self):
+        return "\n".join((str(entry) for entry in self.entries))
