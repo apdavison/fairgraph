@@ -34,6 +34,6 @@ class Hash(EmbeddedMetadata):
     def to_jsonld(self, client):
         return {
             "@type": self.__class__.type,
-            "algorithm": self.algorithm,
-            "digest": self.digest
+            "vocab:algorithm": self.algorithm,
+            "vocab:digest": self.digest
         }

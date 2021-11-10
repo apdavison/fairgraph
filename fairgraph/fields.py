@@ -192,6 +192,8 @@ class Field(object):
                     for item in as_list(data)
                 ]
             elif self.types[0] in (datetime, date):
+                if data == "":  # seems like the KG Editor puts empty strings here rather than None?
+                    return None
                 return date_parser.parse(data)
             elif self.types[0] == int:
                 if isinstance(data, str):

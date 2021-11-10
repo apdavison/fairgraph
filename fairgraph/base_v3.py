@@ -651,6 +651,7 @@ class KGObjectV3(object, metaclass=Registry):
                         for ch_field in child_cls.fields:
                             subfield_definition = {
                                 "path": expand_uri(ch_field.path, child_cls.context, client)[0],
+                                "propertyName": ch_field.path
                             }
                             if issubclass(child_cls, KGObjectV3):
                                 subfield_definition["structure"] = {

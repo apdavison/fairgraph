@@ -29,7 +29,7 @@ def sha1sum(filename):
                 break
             h.update(data)
     return h.hexdigest()
-    
+
 
 
 class File(KGObjectV3):
@@ -52,7 +52,7 @@ class File(KGObjectV3):
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
-        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
+        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=True, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("iri", IRI, "vocab:IRI", multiple=False, required=True,
               doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
@@ -64,7 +64,7 @@ class File(KGObjectV3):
               doc="Particular function of something when it is used."),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
-        
+
     ]
     existence_query_fields = ('iri', 'hash')
 
@@ -82,4 +82,3 @@ class File(KGObjectV3):
         )
         cls.set_strict_mode(True)
         return obj
-    
