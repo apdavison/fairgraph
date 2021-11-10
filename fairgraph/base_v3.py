@@ -457,7 +457,16 @@ class KGObjectV3(object, metaclass=Registry):
                     values = getattr(self, field.name)
                     for value in as_list(values):
                         if isinstance(value, KGObjectV3):
-                            value.save(client, space=space, recursive=True)
+                            if value.space:
+                                target_space = value.space
+                            elif value.__class__.default_space == "controlled":
+                                if value.exists(client, space="controlled"):
+                                    continue
+                                target_space = space
+                            else:
+                                target_space = space
+                            value.save(client, space=target_space, recursive=True,
+                                       activity_log=activity_log)
         if space is None:
             if self.space is None:
                 space = self.__class__.default_space
