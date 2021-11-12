@@ -65,6 +65,7 @@ test_data_lookup.update({
 
     #"/query/minds/core/dataset/v1.0.0/fgResolvedModified/instances": "test/test_data/kgquery/minds/dataset_list_resolved_0_10.json",
     "/query/minds/core/dataset/v1.0.0/fgResolved/instances": "test/test_data/kgquery/minds/dataset_list_resolved_0_10.json",
+    "/api/releases/minds/core/dataset/v1.0.0/bd78a096-6804-4655-83e7-38286ba59671": "test/test_data/releases/released.json"
 })
 
 
@@ -96,7 +97,7 @@ class TestDataset(BaseTestKG):
 
     def test_from_id_kgquery_resolved(self, kg_client):
         uuid = "bd78a096-6804-4655-83e7-38286ba59671"
-        dataset = Dataset.from_id(uuid, kg_client, api="query", scope="released", resolved=True)
+        dataset = Dataset.from_id(uuid, kg_client, api="query", scope="latest", resolved=True)
         assert dataset.uuid == uuid
         assert dataset.activity.ethics_authority.name == "Veterinary Office, Canton of Zurich, Switzerland"
         assert dataset.activity.preparation.name == "In vivo"

@@ -142,7 +142,7 @@ class TestPatchedCell(BaseTestKG):
 
     def test_get_from_uri_nexus(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
-        cell = PatchedCell.from_uri(uri, kg_client, api="nexus")
+        cell = PatchedCell.from_uri(uri, kg_client, api="nexus", scope="latest")
         assert isinstance(cell, PatchedCell)
         assert cell.id == uri
         assert cell.brain_location == [BrainRegion('lobule 5 of the cerebellar vermis'),
@@ -154,7 +154,7 @@ class TestPatchedCell(BaseTestKG):
 
     def test_get_from_uri_kgquery_simple(self, kg_client):  # TODO: UPDATE STORED QUERY
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648"
-        cell = PatchedCell.from_uri(uri, kg_client, api="query", resolved=False)
+        cell = PatchedCell.from_uri(uri, kg_client, api="query", scope="latest", resolved=False)
         assert isinstance(cell, PatchedCell)
         assert cell.brain_location == [BrainRegion('5th cerebellar lobule'),
                                        BrainRegion('6th cerebellar lobule'),
@@ -165,7 +165,7 @@ class TestPatchedCell(BaseTestKG):
 
     def test_get_from_uri_kgquery_resolved(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/b813a2f7-5e87-4827-81cd-0008da041648"
-        cell = PatchedCell.from_uri(uri, kg_client, api="query", resolved=True)
+        cell = PatchedCell.from_uri(uri, kg_client, api="query", scope="latest", resolved=True)
         assert isinstance(cell, PatchedCell)
         assert cell.id == uri
         assert cell.brain_location == [BrainRegion('5th cerebellar lobule'),
@@ -177,8 +177,8 @@ class TestPatchedCell(BaseTestKG):
 
     def test_get_from_uuid(self, kg_client):
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
-        a = PatchedCell.from_uri(uri, kg_client, api="nexus")
-        b = PatchedCell.from_uuid("5ab24291-8dca-4a45-a484-8a8c28d396e2", kg_client, api="nexus")
+        a = PatchedCell.from_uri(uri, kg_client, api="nexus", scope="latest")
+        b = PatchedCell.from_uuid("5ab24291-8dca-4a45-a484-8a8c28d396e2", kg_client, api="nexus", scope="latest")
         assert a == b
         assert a.id == uri
 
@@ -187,15 +187,15 @@ class TestPatchedCell(BaseTestKG):
         assert kg_client._nexus_client._http_client.request_count == 0
         uri = "https://nexus.humanbrainproject.org/v0/data/neuralactivity/experiment/patchedcell/v0.1.0/5ab24291-8dca-4a45-a484-8a8c28d396e2"
         # 1st call
-        cell1 = PatchedCell.from_uri(uri, kg_client, api="nexus")
+        cell1 = PatchedCell.from_uri(uri, kg_client, api="nexus", scope="latest")
         assert len(kg_client.cache) == 1
         assert kg_client._nexus_client._http_client.request_count == 1
         assert uri in kg_client.cache
         # 2nd call
-        cell2 = PatchedCell.from_uri(uri, kg_client, api="nexus")
+        cell2 = PatchedCell.from_uri(uri, kg_client, api="nexus", scope="latest")
         assert kg_client._nexus_client._http_client.request_count == 1  # should be unchanged if cache was used
         # 3rd call, without cache
-        cell3 = PatchedCell.from_uri(uri, kg_client, use_cache=False, api="nexus")
+        cell3 = PatchedCell.from_uri(uri, kg_client, use_cache=False, api="nexus", scope="latest")
         assert kg_client._nexus_client._http_client.request_count == 2
         assert cell1.id == cell2.id == cell3.id == uri
 
