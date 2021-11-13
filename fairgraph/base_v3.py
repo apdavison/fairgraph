@@ -91,6 +91,9 @@ class EmbeddedMetadata(object, metaclass=Registry):
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
+
     def to_jsonld(self, client=None):
         data = {
             "@type": self.type
@@ -99,6 +102,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
             value = getattr(self, field.name)
             if value is not None:
                 data[field.path] = value
+        return data
 
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
@@ -196,7 +200,7 @@ class KGObjectV3(object, metaclass=Registry):
         return self._space
 
     @classmethod
-    def from_kg_instance(cls, data, client, resolved=False):
+    def _deserialize_data(cls, data, client, resolved=False):
         # normalize data by compacting keys
         D = {
             compact_uri(key, cls.context): value
@@ -209,14 +213,19 @@ class KGObjectV3(object, metaclass=Registry):
             if otype not in D["@type"]:
                 #print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
-        args = {}
+        deserialized_data = {}
         for field in cls.fields:
             if field.intrinsic:
                 data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
-            args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
-        return cls(id=D["@id"], data=D, **args)
+            deserialized_data[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+        return deserialized_data
+
+    @classmethod
+    def from_kg_instance(cls, data, client, resolved=False):
+        deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
+        return cls(id=data["@id"], data=data, **deserialized_data)
 
     @classmethod
     def _fix_keys(cls, data):
@@ -343,6 +352,17 @@ class KGObjectV3(object, metaclass=Registry):
             for field in query_fields
         }
 
+    def _update(self, data, client, resolved=False):
+        """Replace any empty fields (value None) with the supplied data"""
+        cls = self.__class__
+        if self.data:
+            self.data.update(data)
+        deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
+        for field in cls.fields:
+            current_value = getattr(self, field.name, None)
+            if current_value is None:
+                setattr(self, field.name, deserialized_data[field.name])
+
     def exists(self, client, space=None):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
@@ -357,16 +377,19 @@ class KGObjectV3(object, metaclass=Registry):
                 key = "https://core.kg.ebrains.eu/vocab/meta/space"
                 if data and key in data:
                     if data[key] == space:
-                        return True
+                        obj_exists = True
                      # following 2 lines are a temporary workaround
                     elif space == "myspace" and data[key] == client._private_space:
-                        return True
+                        obj_exists = True
                     else:
-                        return False
+                        obj_exists = False
                 else:
-                    return False
+                    obj_exists = False
             else:
-                return bool(data)
+                obj_exists = bool(data)
+            if obj_exists:
+                self._update(data, client)
+            return obj_exists
         else:
             query_filter = self._build_existence_query()
 
@@ -379,7 +402,7 @@ class KGObjectV3(object, metaclass=Registry):
                 query_cache_key = generate_cache_key(query_filter, space)
                 if query_cache_key in self.save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
-                    # that has just been written to Nexus may not appear in the query.
+                    # that has just been written to the KG may not appear in the query.
                     # Therefore we cache the query when creating an instance and
                     # where exists() returns True
                     self.id = self.save_cache[self.__class__][query_cache_key]
@@ -392,6 +415,7 @@ class KGObjectV3(object, metaclass=Registry):
 
                     if self.data is None:
                         self.data = instances[0]
+                    self._update(instances[0], client)
                 return bool(instances)
 
     def _query_simple(self, query_filter, space, client):
@@ -543,13 +567,13 @@ class KGObjectV3(object, metaclass=Registry):
     def show(self, max_width=None):
         if not have_tabulate:
             raise Exception("You need to install the tabulate module to use the `show()` method")
-        data = [("id", self.id)] + [(field.name, getattr(self, field.name, None))
+        data = [("id", self.id)] + [(field.name, str(getattr(self, field.name, None)))
                                     for field in self.fields]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
             def fit_column(value):
-                strv = str(value)
+                strv = value
                 if len(strv) > value_column_width:
                     strv = strv[:value_column_width - 4] + " ..."
                 return strv

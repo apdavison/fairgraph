@@ -187,14 +187,23 @@ class Field(object):
             if issubclass(self.types[0], KGObjectV3):
                 return build_kgv3_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
-                return [
+                deserialized = [
                     self.types[0].from_jsonld(item, client, resolved=resolved)
                     for item in as_list(data)
                 ]
+                if not self.multiple:
+                    assert len(deserialized) == 1
+                    deserialized = deserialized[0]
+                return deserialized
             elif self.types[0] in (datetime, date):
-                if data == "":  # seems like the KG Editor puts empty strings here rather than None?
-                    return None
-                return date_parser.parse(data)
+                if isinstance(data, str):
+                    if data == "":  # seems like the KG Editor puts empty strings here rather than None?
+                        return None
+                    return date_parser.parse(data)
+                elif isinstance(data, Iterable):
+                    return [date_parser.parse(item) for item in data]
+                else:
+                    raise ValueError("expecting a string or list")
             elif self.types[0] == int:
                 if isinstance(data, str):
                     return int(data)
