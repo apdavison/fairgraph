@@ -101,7 +101,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
         for field in self.fields:
             value = getattr(self, field.name)
             if value is not None:
-                data[field.path] = value
+                data[field.path] = field.serialize(value, client)
         return data
 
     @classmethod
@@ -406,6 +406,9 @@ class KGObjectV3(object, metaclass=Registry):
                     # Therefore we cache the query when creating an instance and
                     # where exists() returns True
                     self.id = self.save_cache[self.__class__][query_cache_key]
+                    cached_obj = self.object_cache.get(self.id)
+                    if cached_obj and cached_obj.data:
+                        self.data = cached_obj.data  # copy or update needed?
                     return True
 
                 instances = self._query_simple(query_filter, space, client)
@@ -491,6 +494,7 @@ class KGObjectV3(object, metaclass=Registry):
                                 target_space = space
                             value.save(client, space=target_space, recursive=True,
                                        activity_log=activity_log)
+                        # todo: handle EmbeddedMetadata object that _contain_ KGObjects (e.g. QuantitativeValue->UnitOfMeasurement)
         if space is None:
             if self.space is None:
                 space = self.__class__.default_space
@@ -506,11 +510,22 @@ class KGObjectV3(object, metaclass=Registry):
                     self.data = data
                 else:
                     self.data.update(data)
-                updated_data["@context"] = self.context
-                client.update_instance(self.uuid, updated_data)
-                if activity_log:
-                    updated_data.pop("@context")
-                    activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
+
+                skip_update = False
+                if "vocab:storageSize" in updated_data:
+                    warnings.warn("Removing storage size from update because this field is currently locked by the KG")
+                    updated_data.pop("vocab:storageSize")
+                    skip_update = len(updated_data) == 0
+
+                if skip_update:
+                    if activity_log:
+                        activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
+                else:
+                    updated_data["@context"] = self.context
+                    client.update_instance(self.uuid, updated_data)
+                    if activity_log:
+                        updated_data.pop("@context")
+                        activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
             else:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
                 if activity_log:

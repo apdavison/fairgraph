@@ -35,7 +35,7 @@ class Person(KGObjectV3):
               doc="Name given to a person, including all potential middle names, but excluding the family name."),
         Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
               doc="Declaration of a person being closely associated to an organization."),
-        
+
     ]
     existence_query_fields = ('given_name', 'family_name')
 
@@ -47,6 +47,8 @@ class Person(KGObjectV3):
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
+        if user_info is None:
+            raise Exception("User information could not be retrieved. You may need to refresh your token.")
         family_name = user_info["http://schema.org/familyName"]
         given_name = user_info["http://schema.org/givenName"]
         possible_matches = cls.list(
@@ -64,4 +66,3 @@ class Person(KGObjectV3):
         else:
             raise Exception("Found multiple matches")
         return person
-    
