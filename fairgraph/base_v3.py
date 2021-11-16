@@ -559,7 +559,7 @@ class KGObjectV3(object, metaclass=Registry):
         return client.by_name(cls, name, match=match, all=all, space=space,
                               scope="released", resolved=resolved)
 
-    def resolve(self, client, use_cache=True):
+    def resolve(self, client, scope="released", use_cache=True):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
