@@ -51,7 +51,7 @@ class ModelVersion(KGObjectV3):
               doc="Longer statement or account giving the characteristics of the model version."),
         Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:fullDocumentation", multiple=False, required=True,
               doc="Non-abridged instructions, comments, and information for using a particular product."),
-        Field("name", str, "vocab:fullName", multiple=False, required=False,
+        Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the model version."),
         Field("funding", "openminds.core.Funding", "vocab:funding", multiple=True, required=False,
               doc="Money provided by a legal person for a particular purpose."),

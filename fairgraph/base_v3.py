@@ -955,7 +955,8 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
         else:
             kg_cls = possible_classes[0]
 
-        if "@id" in item and item["@id"].startswith("http"):
+        if "@id" in item:
+            item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})[0]
             # here is where we check the "resolved" keyword,
             # and return an actual object if we have the data
             # or resolve the proxy if we don't
