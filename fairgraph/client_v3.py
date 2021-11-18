@@ -97,7 +97,8 @@ class KGv3Client(object):
         params = {
             "from": from_index,
             "size": size,
-            "stage": STAGE_MAP[scope]
+            "stage": STAGE_MAP[scope],
+            "returnEmbedded": True
         }
         if filter:
             params.update(filter)
@@ -204,8 +205,26 @@ class KGv3Client(object):
         else:
             raise Exception(response.error())
 
-    def delete_instance(self, instance_id):
-        raise NotImplementedError()
+    def replace_instance(self, instance_id, data):
+        response = self._kg_client.replace_contribution_to_instance(
+            instance_id=instance_id,
+            payload=data,
+            normalize_payload=True,
+            response_configuration=default_response_configuration
+        )
+        if response.is_successful():
+            return response.data()
+        else:
+            raise Exception(response.error())
+
+    def delete_instance(self, instance_id, ignore_not_found=True):
+        response = self._kg_client.deprecate_instance(instance_id)
+        if response.is_successful():
+            return response.data()
+        else:
+            if response.error() == "Not Found" and ignore_not_found:
+                return None
+            raise Exception(response.error())
 
     def uri_from_uuid(self, uuid):
         return self._kg_client.absolute_id(uuid)

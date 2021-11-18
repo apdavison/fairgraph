@@ -187,10 +187,15 @@ class Field(object):
             if issubclass(self.types[0], KGObjectV3):
                 return build_kgv3_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
-                deserialized = [
-                    self.types[0].from_jsonld(item, client, resolved=resolved)
-                    for item in as_list(data)
-                ]
+                deserialized = []
+                for item in as_list(data):
+                    d_item = None
+                    for cls in self.types:
+                        if "@type" in item and item["@type"] == cls.type:
+                            d_item = cls.from_jsonld(item, client, resolved=resolved)
+                    if d_item is None:  # do we need this fallback?
+                        d_item = self.types[0].from_jsonld(item, client, resolved=resolved)
+                    deserialized.append(d_item)
                 if not self.multiple:
                     assert len(deserialized) == 1
                     deserialized = deserialized[0]

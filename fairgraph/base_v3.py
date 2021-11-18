@@ -476,7 +476,7 @@ class KGObjectV3(object, metaclass=Registry):
         else:
             raise NotImplementedError("to be implemented by child classes")
 
-    def save(self, client, space=None, recursive=False, activity_log=None):
+    def save(self, client, space=None, recursive=False, activity_log=None, replace=False):
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
         if recursive:
             for field in self.fields:
@@ -503,33 +503,39 @@ class KGObjectV3(object, metaclass=Registry):
         if self.exists(client, space=space):
             # update
             data = self._build_data(client, all_fields=True)
-            updated_data = self._updated_data(data)
-            if updated_data:
-                logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {updated_data.keys()}")
-                if self.data is None:
-                    self.data = data
+            if replace:
+                logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
+                if activity_log:
+                    activity_log.update(item=self, delta=data, space=space, entry_type="replacement")
+                client.replace_instance(self.uuid, data)
+            else:
+                updated_data = self._updated_data(data)
+                if updated_data:
+                    logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {updated_data.keys()}")
+                    if self.data is None:
+                        self.data = data
+                    else:
+                        self.data.update(data)
+
+                    skip_update = False
+                    if "vocab:storageSize" in updated_data:
+                        warnings.warn("Removing storage size from update because this field is currently locked by the KG")
+                        updated_data.pop("vocab:storageSize")
+                        skip_update = len(updated_data) == 0
+
+                    if skip_update:
+                        if activity_log:
+                            activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
+                    else:
+                        updated_data["@context"] = self.context
+                        client.update_instance(self.uuid, updated_data)
+                        if activity_log:
+                            updated_data.pop("@context")
+                            activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
                 else:
-                    self.data.update(data)
-
-                skip_update = False
-                if "vocab:storageSize" in updated_data:
-                    warnings.warn("Removing storage size from update because this field is currently locked by the KG")
-                    updated_data.pop("vocab:storageSize")
-                    skip_update = len(updated_data) == 0
-
-                if skip_update:
+                    logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
                     if activity_log:
                         activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
-                else:
-                    updated_data["@context"] = self.context
-                    client.update_instance(self.uuid, updated_data)
-                    if activity_log:
-                        updated_data.pop("@context")
-                        activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
-            else:
-                logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
-                if activity_log:
-                    activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
             data = self._build_data(client)
