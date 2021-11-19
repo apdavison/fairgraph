@@ -109,7 +109,16 @@ class Field(object):
                         "@id": value.id,
                     }
                     if with_type:
-                        data["@type"] = value.type
+                        if isinstance(value, (KGProxy, KGProxyV3)):
+                            if len(value.classes) == 1:
+                                data["@type"] = value.classes[0].type
+                            else:
+                                # need to resolve proxy to determine the actual type
+                                data["@type"] = value.resolve(client, scope="in progress").type
+                        else:
+                            data["@type"] = value.type
+                        assert (isinstance(data["@type"], str)
+                                or (isinstance(data["@type"], list) and isinstance(data["@type"][0], str)))
                     return data
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
