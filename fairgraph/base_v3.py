@@ -332,7 +332,7 @@ class KGObjectV3(object, metaclass=Registry):
                            scope=scope, resolved=resolved, filter=filter_query)
 
     @classmethod
-    def count(cls, client, api="query", scope="released"):
+    def count(cls, client, api="core", scope="released"):
         return client.count(cls, api=api, scope=scope)
 
     def _build_existence_query(self):
