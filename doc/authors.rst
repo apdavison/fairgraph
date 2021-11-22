@@ -10,7 +10,7 @@ The following people have contributed to fairgraph. Their affiliations at the ti
 - Nico Feld [2]
 - Glynis Mattheisen[1]
 
-1. Department of Integrative and Computational Neuroscience, Paris-Saclay Institute of Neuroscience, CNRS/Université Paris Sud
+1. Department of Integrative and Computational Neuroscience, Paris-Saclay Institute of Neuroscience, CNRS/Université Paris Saclay
 2. Human-Computer Interaction, Department IV, Computer Science, Universität Trier
 
 
@@ -22,4 +22,4 @@ Acknowledgements
 
 This open source software code was developed in part or in whole in the Human Brain Project,
 funded from the European Union's Horizon 2020 Framework Programme for Research and Innovation
-under Specific Grant Agreements No. 720270 and No. 785907 (Human Brain Project SGA1 and SGA2).
+under Specific Grant Agreements No. 720270, No. 785907 and No. 945539 (Human Brain Project SGA1, SGA2 and SGA3).
