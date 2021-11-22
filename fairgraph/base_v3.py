@@ -220,6 +220,8 @@ class KGObjectV3(object, metaclass=Registry):
             else:
                 data_item = D["@id"]
             deserialized_data[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+        # if cls.__name__ == "ModelVersion":
+        #     raise Exception()
         return deserialized_data
 
     @classmethod
@@ -612,7 +614,12 @@ class KGObjectV3(object, metaclass=Registry):
         Fields top_level, field_names_used and parents should not be specified,
         they are used only for recursion.
         """
+
         query_label = cls.get_query_label(query_type, space)
+        if space == "myspace":
+            real_space = client._private_space
+        else:
+            real_space = space
         if top_level:
             fields = [
                 {
@@ -626,7 +633,7 @@ class KGObjectV3(object, metaclass=Registry):
                     "path": "https://core.kg.ebrains.eu/vocab/meta/space",
                     "filter": {
                         "op": "EQUALS",
-                        "value": space
+                        "value": real_space
                     },
                     "propertyName": "query:space"
                 }
