@@ -4,10 +4,15 @@ Structured information on data originating from human/animal studies or simulati
 
 # this file was auto-generated
 
+import os
 from datetime import date, datetime
+from urllib.parse import urlparse, quote_plus, parse_qs, urlencode
+import requests
+from tqdm import tqdm
+
 from fairgraph.base_v3 import KGObjectV3, IRI
 from fairgraph.fields import Field
-
+from fairgraph.utility import in_notebook, TERMS_OF_USE
 
 
 
@@ -89,7 +94,54 @@ class DatasetVersion(KGObjectV3):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=True,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-        
+
     ]
     existence_query_fields = ('alias', 'version_identifier')
 
+    def __init__(self, id=None, data=None, space=None, **properties):
+        super().__init__(id=id, data=data, space=space, **properties)
+        self.accepted_terms_of_use = False
+
+    def download(self, client, local_directory, accept_terms_of_use=False):
+        # todo: add support for download as zip
+        # todo: check hashes
+        if not (accept_terms_of_use or self.accepted_terms_of_use):
+            if in_notebook():
+                from IPython.display import display, Markdown
+                display(Markdown(TERMS_OF_USE))
+            else:
+                print(TERMS_OF_USE)
+            user_response = input("Do you accept the EBRAINS KG Terms of Service? ")
+            if user_response in ('y', 'Y', 'yes', 'YES'):
+                self.__class__.accepted_terms_of_use = True
+            else:
+                raise Exception("Please accept the terms of use before downloading the dataset")
+
+        repository_url = self.repository.resolve(client, scope="in progress").iri.value
+        parts = urlparse(repository_url)
+        query_dict = parse_qs(parts.query)
+        query_dict['format'] = "json"
+        url = parts._replace(query=urlencode(query_dict, True)).geturl()
+        response = requests.get(url)
+        if response.status_code not in (200, 204):
+            raise IOError(
+                f"Unable to download dataset. Response code {response.status_code}")
+        contents = response.json()
+        total_data_size = sum(item["bytes"] for item in contents) // 1024
+        progress_bar = tqdm(total=total_data_size)
+        for entry in sorted(contents,
+                            key=lambda entry: entry["content_type"] != "application/directory"):
+            # take directories first
+            local_path = os.path.join(local_directory, entry["name"])
+            if entry["content_type"] == "application/directory":
+                os.makedirs(local_path, exist_ok=True)
+            else:
+                response2 = requests.get(repository_url + "/" + entry["name"])
+                if response2.status_code in (200, 204):
+                    with open(local_path, "wb") as fp:
+                        fp.write(response2.content)
+                    progress_bar.update(entry["bytes"] // 1024)
+                else:
+                    raise IOError(
+                        f"Unable to download file '{local_path}'. Response code {response2.status_code}")
+        progress_bar.close()
