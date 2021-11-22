@@ -89,6 +89,20 @@ class KGv3Client(object):
         self.cache = {}
         self._query_cache = {}
 
+    def _data_from_response(self, response, ignore_not_found=False):
+        if response.is_successful():
+            if response.status_code < 300:
+                return response.data()
+            elif response.status_code in (401, 403):
+                raise Exception("Authentication/authorization problem. Your token may have expired. "
+                                f"Status code {response.status_code}")
+            else:
+                raise Exception(f"Error. Status code {response.status_code}")
+        else:
+            if response.error() == "Not Found" and ignore_not_found:
+                return None
+            raise Exception(response.error())
+
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
         if query is None:
@@ -106,14 +120,11 @@ class KGv3Client(object):
             path=f"/queries/{uuid}/instances",
             params=params
         )
-        if response.is_successful():
-            data = response.data()
-            if context:
-                for item in data:
-                    item["@context"] = context
-            return data
-        else:
-            raise Exception(response.error())
+        data = self._data_from_response(response)
+        if context:
+            for item in data:
+                item["@context"] = context
+        return data
 
     def list(self, cls, space=None, from_index=0, size=100, api="core", scope="released",
              resolved=False, filter=None):
@@ -143,8 +154,19 @@ class KGv3Client(object):
         else:
             raise ValueError("api must be either 'core' or 'query'")
 
-    def count(self, cls, space=None, filter=None, scope="released"):
-        raise NotImplementedError()
+    def count(self, cls, space=None, api="core", scope="released", filter=None):
+        if api == "core":
+            # todo: handle filters, context, resolved, deprecated
+            response = self._kg_client.get_instances(
+                stage=STAGE_MAP[scope],
+                target_type=cls.type,
+                space=space or cls.default_space,
+                #response_configuration=default_response_configuration,
+                pagination=Pagination(start_from=0, size=1)
+            )
+            return response.total()
+        else:
+            raise NotImplementedError("todo")
 
     def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False):
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
@@ -182,16 +204,7 @@ class KGv3Client(object):
             instance_id=instance_id,  # if already have id
             response_configuration=default_response_configuration
         )
-        if response.is_successful():
-            if response.status_code < 300:
-                return response.data()
-            elif response.status_code in (401, 403):
-                raise Exception("Authentication/authorization problem. Your token may have expired. "
-                                f"Status code {response.status_code}")
-            else:
-                raise Exception(f"Error. Status code {response.status_code}")
-        else:
-            raise Exception(response.error())
+        return self._data_from_response(response)
 
     def update_instance(self, instance_id, data):
         response = self._kg_client.partially_update_contribution_to_instance(
@@ -200,10 +213,7 @@ class KGv3Client(object):
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        if response.is_successful():
-            return response.data()
-        else:
-            raise Exception(response.error())
+        return self._data_from_response(response)
 
     def replace_instance(self, instance_id, data):
         response = self._kg_client.replace_contribution_to_instance(
@@ -212,19 +222,11 @@ class KGv3Client(object):
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        if response.is_successful():
-            return response.data()
-        else:
-            raise Exception(response.error())
+        return self._data_from_response(response)
 
     def delete_instance(self, instance_id, ignore_not_found=True):
         response = self._kg_client.deprecate_instance(instance_id)
-        if response.is_successful():
-            return response.data()
-        else:
-            if response.error() == "Not Found" and ignore_not_found:
-                return None
-            raise Exception(response.error())
+        return self._data_from_response(response, ignore_not_found=ignore_not_found)
 
     def uri_from_uuid(self, uuid):
         return self._kg_client.absolute_id(uuid)
@@ -280,10 +282,7 @@ class KGv3Client(object):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        if response.is_successful():
-            accessible_spaces = response.data()
-        else:
-            raise Exception(response.error())
+        accessible_spaces = self._data_from_response(response)
         if permissions:
             filtered_spaces = []
             for space in accessible_spaces:
