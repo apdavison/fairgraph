@@ -2,6 +2,22 @@
 Metadata domains
 ================
 
+
+KG version 3
+------------
+
+.. toctree::
+   :hidden:
+
+   modules/openminds_core
+   modules/openminds_controlledterms
+   modules/openminds_sands
+   modules/openminds_computation
+
+
+KG version 2
+------------
+
 .. toctree::
    :hidden:
 
@@ -14,7 +30,7 @@ Metadata domains
    modules/commons
 
 
-**fairgraph** currently provides the following modules:
+**fairgraph** currently provides the following modules for working with KG v3:
 
 :doc:`modules/minds`
     "Minimal Information for Neuroscience DataSets" - metadata common to all neuroscience

@@ -5,18 +5,27 @@ Creating and updating metadata nodes
 To create a new metadata node, create an instance of the appropriate Python class,
 then use the :meth:`save()` method, e.g.::
 
-    from fairgraph.modelvalidation import AnalysisResult
+    from fairgraph.openminds.core import SoftwareVersion, URL
 
-    result = AnalysisResult(
-        name="inter-spike-interval histograms from subject #f2009a33, white-noise stimulation",
-        result_file="isi_f2009a33_wn.txt"
+    # By default, fairgraph strictly enforces required fields.
+    # For demonstration purposes we turn this enforcement off here.
+    SoftwareVersion.set_strict_mode(False)
+
+    sv = SoftwareVersion(
+        name="numpy",
+        alias="numpy",
+        version_identifier="1.14.9"
     )
-    result.save(client)
+    sv.save(client, space="myspace")
 
 To update a node, edit the attributes of the corresponding Python object, then :meth:`save()` again::
 
-    result.description = "ISIs from 32 neurons, first column is bin left edges, remaining columns one per neuron"
-    result.save(client)
+    from fairgraph.base_v3 import IRI
+
+    sv.homepage = URL(url=IRI("https://numpy.org"))
+    sv.save(client)
+
+(Note that for updating existing objects you don't need to specify the space.)
 
 How does fairgraph distinguish between creating a new node and modifying an existing one?
 =========================================================================================
@@ -26,10 +35,12 @@ and therefore calling :meth:`save()` will update the node with this ID.
 
 If a new Python object is created with the same or similar metadata, **fairgraph** queries for
 a node with matching metadata for a *subset* of the fields.
-In the case of :class:`AnalysisResult`, above, those fields are *name* and *timestamp*.
+If you want to know which fields are included in the match, examine the :attr:`existence_query_fields`
+attribute, e.g.::
 
-.. note:: at present, the only way to know which subset of fields are used in this query is
-          to view the sourcecode, and inspect the :meth:`_existence_query()` method.
+    >>> SoftwareVersion.existence_query_fields
+    ('alias', 'version_identifier')
+
 
 Permissions
 ===========
