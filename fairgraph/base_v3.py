@@ -478,8 +478,7 @@ class KGObjectV3(object, metaclass=Registry):
         else:
             raise NotImplementedError("to be implemented by child classes")
 
-    def save(self, client, space=None, recursive=False, activity_log=None, replace=False):
-        logger.info(f"Saving a {self.__class__.__name__} in space {space}")
+    def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
         if recursive:
             for field in self.fields:
                 if field.intrinsic:
@@ -488,10 +487,10 @@ class KGObjectV3(object, metaclass=Registry):
                         if isinstance(value, KGObjectV3):
                             if value.space:
                                 target_space = value.space
-                            elif value.__class__.default_space == "controlled":
-                                if value.exists(client, space="controlled"):
-                                    continue
-                                target_space = space
+                            elif value.__class__.default_space == "controlled" and value.exists(client, space="controlled"):
+                                continue
+                            elif space is None and self.space is not None:
+                                target_space = self.space
                             else:
                                 target_space = space
                             value.save(client, space=target_space, recursive=True,
@@ -502,6 +501,7 @@ class KGObjectV3(object, metaclass=Registry):
                 space = self.__class__.default_space
             else:
                 space = self.space
+        logger.info(f"Saving a {self.__class__.__name__} in space {space}")
         if self.exists(client, space=space):
             # update
             data = self._build_data(client, all_fields=True)
@@ -549,8 +549,9 @@ class KGObjectV3(object, metaclass=Registry):
                 data=data,
                 instance_id=self.uuid)
             self.id = instance_data["@id"]
+            self._space = space or self.__class__.default_space
             if activity_log:
-                activity_log.update(item=self, delta=data, space=space, entry_type="create")
+                activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObjectV3.object_cache[self.id] = self
