@@ -22,7 +22,7 @@ limitations under the License.
 import re
 from .client import KGClient
 
-__version__ = "0.6.0"
+__version__ = "0.6.1.dev"
 
 from . import (analysis, base, brainsimulation, client, commons, core, data, experiment, electrophysiology,
                errors, minds, optophysiology, software, uniminds, utility, livepapers, openminds)
