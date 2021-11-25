@@ -14,6 +14,20 @@ KG version 3
    modules/openminds_sands
    modules/openminds_computation
 
+**fairgraph** currently provides the following modules for working with KG v3:
+
+:doc:`modules/openminds_core`
+    covers general origin, location and content of research products
+
+:doc:`modules/openminds_sands`
+    covers brain atlases, as well as anatomical locations and relations of non-atlas data.
+
+:doc:`modules/openminds_controlledterms`
+    covers consistent definition of neuroscience terms
+
+:doc:`modules/openminds_computation`
+    covers provenance of simulations, data analysis and visualizations in neuroscience
+
 
 KG version 2
 ------------
@@ -30,7 +44,7 @@ KG version 2
    modules/commons
 
 
-**fairgraph** currently provides the following modules for working with KG v3:
+**fairgraph** currently provides the following modules for working with KG v2:
 
 :doc:`modules/minds`
     "Minimal Information for Neuroscience DataSets" - metadata common to all neuroscience
