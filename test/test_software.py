@@ -8,7 +8,12 @@ import json
 from fairgraph.software import Software, OperatingSystem, SoftwareCategory, ProgrammingLanguage, License
 from fairgraph.core import Person, Organization
 from fairgraph.commons import License
-
+try:
+    import pyxus
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
+import pytest
 
 class MockInstance(object):
 
@@ -16,6 +21,7 @@ class MockInstance(object):
         self.data = data
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSoftware(object):
 
     def test__build_data(self):

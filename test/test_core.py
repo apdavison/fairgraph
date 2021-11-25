@@ -10,7 +10,11 @@ from fairgraph.commons import QuantitativeValue, Species, Strain, Sex, Age, Addr
 from fairgraph.core import Subject, Organization, Person
 
 from .utils import kg_client, MockKGObject, test_data_lookup, BaseTestKG
-from pyxus.resources.entity import Instance
+try:
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
 
 import pytest
 
@@ -25,6 +29,7 @@ test_data_lookup.update({
 })
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSubject(BaseTestKG):
     class_under_test = Subject
 
@@ -46,6 +51,7 @@ class TestSubject(BaseTestKG):
             assert getattr(obj1, field) == getattr(obj2, field)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestOrganization(BaseTestKG):
     class_under_test = Organization
 
@@ -84,6 +90,7 @@ class TestOrganization(BaseTestKG):
         assert obj1._build_data(kg_client) == expected
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPerson(BaseTestKG):
     class_under_test = Person
 

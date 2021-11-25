@@ -36,7 +36,11 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
-from pyxus.resources.entity import Instance
+try:
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
 from .errors import ResourceExistsError
 from .utility import (compact_uri, expand_uri, standard_context, namespace_from_id, as_list,
                       ATTACHMENT_SIZE_LIMIT)
@@ -62,6 +66,8 @@ class KGObject(with_metaclass(Registry, object)):
     # which may often not be the case.
 
     def __init__(self, id=None, instance=None, **properties):
+        if not have_pyxus:
+            raise ImportError("Support for KG version 2 requires the pyxus package.")
         if self.fields:
             for field in self.fields:
                 try:

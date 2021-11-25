@@ -23,12 +23,17 @@ import logging
 from urllib.parse import urlparse, quote_plus
 
 from requests.exceptions import HTTPError
-from openid_http_client.auth_client.access_token_client import AccessTokenClient
-from openid_http_client.auth_client.simple_refresh_token_client import SimpleRefreshTokenClient
-from openid_http_client.auth_client.client_credentials_client import ClientCredentialsClient
-from openid_http_client.http_client import HttpClient
-from pyxus.client import NexusClient
-from pyxus.resources.entity import Instance
+try:
+    from openid_http_client.auth_client.access_token_client import AccessTokenClient
+    from openid_http_client.auth_client.simple_refresh_token_client import SimpleRefreshTokenClient
+    from openid_http_client.auth_client.client_credentials_client import ClientCredentialsClient
+    from openid_http_client.http_client import HttpClient
+    from pyxus.client import NexusClient
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
+
 try:
     from jupyter_collab_storage import oauth_token_handler
 except ImportError:
@@ -61,6 +66,9 @@ class KGClient(object):
                  client_id=None,
                  client_secret=None,
                  refresh_token=None):
+
+        if not have_pyxus:
+            raise ImportError("Support for KG version 2 requires the pyxus package.")
 
         if client_id and client_secret:
             if refresh_token:

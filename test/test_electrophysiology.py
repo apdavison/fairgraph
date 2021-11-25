@@ -22,7 +22,11 @@ from fairgraph.experiment import BrainSlicingActivity
 from fairgraph.minds import Dataset
 
 from .utils import kg_client, MockKGObject, test_data_lookup, BaseTestKG
-from pyxus.resources.entity import Instance
+try:
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
 
 import pytest
 
@@ -109,6 +113,7 @@ use_core_namespace("neuralactivity")
 use_electrophysiology_namespace("neuralactivity")
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPatchedCell(BaseTestKG):
     class_under_test = PatchedCell
 
@@ -254,6 +259,7 @@ class TestPatchedCell(BaseTestKG):
         assert repr(cell) == expected_repr
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestTrace(BaseTestKG):
     class_under_test = Trace
 
@@ -296,6 +302,7 @@ class TestTrace(BaseTestKG):
             assert obj1.type == obj2.type
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestMultiChannelMultiTrialRecording(BaseTestKG):
     class_under_test = MultiChannelMultiTrialRecording
 
@@ -315,6 +322,7 @@ class TestMultiChannelMultiTrialRecording(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSlice(BaseTestKG):
     class_under_test = Slice
 
@@ -334,6 +342,7 @@ class TestSlice(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestBrainSlicingActivity(BaseTestKG):
     class_under_test = BrainSlicingActivity
 
@@ -353,6 +362,7 @@ class TestBrainSlicingActivity(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPatchedSlice(BaseTestKG):
     class_under_test = PatchedSlice
 
@@ -372,6 +382,7 @@ class TestPatchedSlice(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPatchedCellCollection(BaseTestKG):
     class_under_test = PatchedCellCollection
 
@@ -386,6 +397,7 @@ class TestPatchedCellCollection(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPatchClampActivity(BaseTestKG):
     class_under_test = PatchClampActivity
 
@@ -405,6 +417,7 @@ class TestPatchClampActivity(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestPatchClampExperiment(BaseTestKG):
     class_under_test = PatchClampExperiment
 
@@ -428,6 +441,7 @@ class TestPatchClampExperiment(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestQualifiedTraceGeneration(BaseTestKG):
     class_under_test = QualifiedTraceGeneration
 
@@ -448,6 +462,7 @@ class TestQualifiedTraceGeneration(BaseTestKG):
     #     assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestQualifiedMultiTraceGeneration(BaseTestKG):
     class_under_test = QualifiedMultiTraceGeneration
 
@@ -466,6 +481,7 @@ class TestQualifiedMultiTraceGeneration(BaseTestKG):
     #     assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCell
 
@@ -485,6 +501,7 @@ class TestIntraCellularSharpElectrodeRecordedCell(BaseTestKG):
         assert len(objects) == 8, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecording
 
@@ -504,6 +521,7 @@ class TestIntraCellularSharpElectrodeRecording(BaseTestKG):
     #     assert len(objects) == 8, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedCellCollection
 
@@ -523,6 +541,7 @@ class TestIntraCellularSharpElectrodeRecordedCellCollection(BaseTestKG):
         assert len(objects) == 8, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeRecordedSlice
 
@@ -542,6 +561,7 @@ class TestIntraCellularSharpElectrodeRecordedSlice(BaseTestKG):
         assert len(objects) == 8, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
     class_under_test = IntraCellularSharpElectrodeExperiment
 
@@ -561,6 +581,7 @@ class TestIntraCellularSharpElectrodeExperiment(BaseTestKG):
         assert len(objects) == 8, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestModuleFunctions(object):
 
     def test_list_kg_classes(self):

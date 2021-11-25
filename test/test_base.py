@@ -12,11 +12,17 @@ from fairgraph.commons import QuantitativeValue
 from fairgraph.core import Person
 
 from .utils import kg_client
-from pyxus.resources.entity import Instance
+
+try:
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
+
 
 import pytest
 
-
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestDistribution(object):
 
     def test_to_jsonld(self, kg_client):
@@ -65,6 +71,7 @@ class TestDistribution(object):
         assert obj.location == "http://example.com/data2.dat"
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestModuleFunctions(object):
 
     def test_build_kg_object(self, kg_client):

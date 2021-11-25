@@ -19,14 +19,22 @@ import uuid
 
 import pytest
 from jsondiff import diff as jsondiff
-from openid_http_client.http_client import HttpClient
 
-from pyxus.client import NexusClient, NexusConfig
-from pyxus.resources.entity import Instance
-from pyxus.resources.repository import (ContextRepository, DomainRepository,
-                                        InstanceRepository,
-                                        OrganizationRepository,
-                                        SchemaRepository)
+try:
+    from openid_http_client.http_client import HttpClient
+    from pyxus.client import NexusClient, NexusConfig
+    from pyxus.resources.entity import Instance
+    from pyxus.resources.repository import (ContextRepository, DomainRepository,
+                                            InstanceRepository,
+                                            OrganizationRepository,
+                                            SchemaRepository)
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
+    HttpClient = object
+    NexusClient = object
+
+
 import fairgraph.client
 from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
 from fairgraph.commons import (QuantitativeValue, QuantitativeValueRange,
@@ -126,6 +134,8 @@ class MockNexusClient(NexusClient):
 
     def __init__(self, scheme=None, host=None, prefix=None,
                  alternative_namespace=None, auth_client=None):
+        if not have_pyxus:
+            return
         self.version = None
         self.namespace = alternative_namespace if alternative_namespace is not None else "{}://{}".format(scheme, host)
         self.env = None
@@ -232,6 +242,7 @@ def dates_equal(d1, d2):
     return d1 == d2
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class BaseTestKG(object):
 
     def test_round_trip_random(self, kg_client):

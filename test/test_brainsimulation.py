@@ -5,7 +5,12 @@ which returns data loaded from the files in the test_data directory.
 """
 
 from datetime import datetime
-from pyxus.resources.entity import Instance
+try:
+    from pyxus.resources.entity import Instance
+    have_pyxus = True
+except ImportError:
+    have_pyxus = False
+import pytest
 
 from fairgraph.base import KGQuery, KGProxy, as_list, Distribution, KGObject
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
@@ -45,7 +50,7 @@ test_data_lookup.update({
 
 })
 
-
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestModelScript(BaseTestKG):
     class_under_test = ModelScript
 
@@ -64,6 +69,7 @@ class TestModelScript(BaseTestKG):
         assert context == expected_context
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestModelProject(BaseTestKG):
     class_under_test = ModelProject
 
@@ -118,6 +124,7 @@ class TestModelProject(BaseTestKG):
         assert expected == generated
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestModelInstance(BaseTestKG):
     class_under_test = ModelInstance
 
@@ -127,6 +134,7 @@ class TestModelInstance(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestMEModel(BaseTestKG):
     class_under_test = MEModel
 
@@ -136,6 +144,7 @@ class TestMEModel(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestMorphology(BaseTestKG):
     class_under_test = Morphology
 
@@ -164,6 +173,7 @@ class TestMorphology(BaseTestKG):
         assert obj1.morphology_file == obj2.morphology_file
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestEModel(BaseTestKG):
     class_under_test = EModel
 
@@ -173,6 +183,7 @@ class TestEModel(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestValidationTestDefinition(BaseTestKG):
     class_under_test = ValidationTestDefinition
 
@@ -182,6 +193,7 @@ class TestValidationTestDefinition(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestValidationScript(BaseTestKG):
     class_under_test = ValidationScript
 
@@ -191,6 +203,7 @@ class TestValidationScript(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestValidationResult(BaseTestKG):
     class_under_test = ValidationResult
 
@@ -200,6 +213,7 @@ class TestValidationResult(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestValidationActivity(BaseTestKG):
     class_under_test = ValidationActivity
 
@@ -209,6 +223,7 @@ class TestValidationActivity(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSimulation(BaseTestKG):
     class_under_test = Simulation
 
@@ -218,6 +233,7 @@ class TestSimulation(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSimulationOutput(BaseTestKG):
     class_under_test = SimulationOutput
 
@@ -227,6 +243,7 @@ class TestSimulationOutput(BaseTestKG):
         assert len(objects) == 10, len(objects)
 
 
+@pytest.mark.skipif(not have_pyxus, reason="pyxus not available")
 class TestSimulationConfiguration(BaseTestKG):
     class_under_test = SimulationConfiguration
 
