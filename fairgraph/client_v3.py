@@ -97,11 +97,11 @@ class KGv3Client(object):
                 raise Exception("Authentication/authorization problem. Your token may have expired. "
                                 f"Status code {response.status_code}")
             else:
-                raise Exception(f"Error. Status code {response.status_code}")
+                raise Exception(f"Error. Status code {response.status_code} {response.message()}\n{response.request_args}\n{response.request_payload}")
         else:
             if response.error() == "Not Found" and ignore_not_found:
                 return None
-            raise Exception(response.error())
+            raise Exception(f"Error: {response.error()}\n{response.request_args}")
 
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)

@@ -202,7 +202,7 @@ class Field(object):
                     for cls in self.types:
                         if "@type" in item and item["@type"] == cls.type:
                             d_item = cls.from_jsonld(item, client, resolved=resolved)
-                    if d_item is None:  # do we need this fallback?
+                    if d_item is None:  # if @type is not available
                         d_item = self.types[0].from_jsonld(item, client, resolved=resolved)
                     deserialized.append(d_item)
                 if not self.multiple:

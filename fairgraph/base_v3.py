@@ -94,14 +94,14 @@ class EmbeddedMetadata(object, metaclass=Registry):
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
 
-    def to_jsonld(self, client=None):
+    def to_jsonld(self, client=None, with_type=False):
         data = {
             "@type": self.type
         }
         for field in self.fields:
             value = getattr(self, field.name)
             if value is not None:
-                data[field.path] = field.serialize(value, client)
+                data[field.path] = field.serialize(value, client, with_type=with_type)
         return data
 
     @classmethod
@@ -466,7 +466,7 @@ class KGObjectV3(object, metaclass=Registry):
                 if field.intrinsic:
                     value = getattr(self, field.name)
                     if all_fields or field.required or value is not None:
-                        serialized = field.serialize(value, client, with_type=True)
+                        serialized = field.serialize(value, client, with_type=False)
                         if field.path in data:
                             if isinstance(data[field.path], list):
                                 data[field.path].append(serialized)

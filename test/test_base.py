@@ -279,17 +279,14 @@ class TestKGObject(object):
             },
             "vocab:aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
-                "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"]
             },
             "vocab:aRequiredListOfDateTimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
             "vocab:aRequiredListOfEmbeddedObjects": [
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 100.0},
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 200.0}],
             "vocab:aRequiredListOfLinkedObjects": [
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"]},
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"]}
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}
             ],
             "vocab:aRequiredListOfStrings": ["banana", "pear"],
             "vocab:aRequiredString": "apple",
@@ -299,18 +296,15 @@ class TestKGObject(object):
                 "vocab:aNumber": 17.0
             },
             "vocab:anOptionalLinkedObject": {
-                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000123",
-                "@type": ["https://openminds.ebrains.eu/mock/MockKGObject2"]
+                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000123"
             },
             "vocab:anOptionalListOfDateTimes": ["1899-12-31T00:00:00", "1999-12-31T00:00:00"],
             "vocab:anOptionalListOfEmbeddedObjects": [
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 18.0},
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 19.0}],
             "vocab:anOptionalListOfLinkedObjects": [
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject2"]},
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"]}],
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}],
             "vocab:anOptionalListOfStrings": "plum, peach, apricot",
             "vocab:anOptionalString": "melon"}
         assert obj._build_data(client=None, all_fields=True) == expected
@@ -381,8 +375,7 @@ class TestKGObject(object):
                 "vocab:aNumber": 41.0
             },
             "vocab:aRequiredLinkedObject": {
-                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234",
-                "@type": ["https://openminds.ebrains.eu/mock/MockKGObject2"]
+                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
             },
             "vocab:aRequiredListOfDateTimes": ["1900-01-01T00:00:00",
                                                "2000-01-01T00:00:00"],
@@ -390,10 +383,8 @@ class TestKGObject(object):
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 42.0},
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 43.0}],
             "vocab:aRequiredListOfLinkedObjects": [
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002345",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject2"]},
-                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456",
-                 "@type": ["https://openminds.ebrains.eu/mock/MockKGObject2"]}
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002345"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456"}
             ],
             "vocab:aRequiredListOfStrings": ["banana", "pear"],  # still the same value, represents what is thought to be in the KG
             "vocab:aRequiredString": "apple",
