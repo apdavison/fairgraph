@@ -9,8 +9,6 @@ from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
-
-
 class Hash(EmbeddedMetadata):
     """
     Structured information on a hash.
