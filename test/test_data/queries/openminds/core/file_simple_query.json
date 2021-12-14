@@ -24,7 +24,7 @@
     {
       "path": "@id",
       "filter": {
-        "op": "equals",
+        "op": "EQUALS",
         "parameter": "id"
       }
     },
@@ -165,15 +165,18 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty"
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty"
+          "propertyName": "vocab:typeOfUncertainty",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit"
+          "propertyName": "vocab:unit",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         }
       ],
       "filter": {

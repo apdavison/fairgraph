@@ -24,7 +24,7 @@
     {
       "path": "@id",
       "filter": {
-        "op": "equals",
+        "op": "EQUALS",
         "parameter": "id"
       }
     },
@@ -143,6 +143,7 @@
     {
       "propertyName": "vocab:requirement",
       "path": "https://openminds.ebrains.eu/vocab/requirement",
+      "ensureOrder": true,
       "filter": {
         "op": "CONTAINS",
         "parameter": "requirements"
@@ -308,7 +309,9 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/holder",
-          "propertyName": "vocab:holder"
+          "propertyName": "vocab:holder",
+          "ensureOrder": true,
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/year",
@@ -438,11 +441,14 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/contributionType",
-          "propertyName": "vocab:contributionType"
+          "propertyName": "vocab:contributionType",
+          "ensureOrder": true,
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/contributor",
-          "propertyName": "vocab:contributor"
+          "propertyName": "vocab:contributor",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         }
       ],
       "filter": {
@@ -502,6 +508,7 @@
     {
       "propertyName": "vocab:supportChannel",
       "path": "https://openminds.ebrains.eu/vocab/supportChannel",
+      "ensureOrder": true,
       "filter": {
         "op": "CONTAINS",
         "parameter": "support_channels"

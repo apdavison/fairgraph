@@ -24,7 +24,7 @@
     {
       "path": "@id",
       "filter": {
-        "op": "equals",
+        "op": "EQUALS",
         "parameter": "id"
       }
     },
@@ -94,31 +94,18 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "ensureOrder": true,
           "propertyName": "vocab:uncertainty"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty"
+          "propertyName": "vocab:typeOfUncertainty",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/maxValue",
-          "propertyName": "vocab:maxValue"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-          "propertyName": "vocab:maxValueUnit"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/minValue",
-          "propertyName": "vocab:minValue"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-          "propertyName": "vocab:minValueUnit"
+          "propertyName": "vocab:unit",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         }
       ],
       "filter": {
@@ -164,31 +151,18 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty"
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty"
+          "propertyName": "vocab:typeOfUncertainty",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/maxValue",
-          "propertyName": "vocab:maxValue"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-          "propertyName": "vocab:maxValueUnit"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/minValue",
-          "propertyName": "vocab:minValue"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-          "propertyName": "vocab:minValueUnit"
+          "propertyName": "vocab:unit",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         }
       ],
       "filter": {

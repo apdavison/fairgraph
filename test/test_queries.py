@@ -1,8 +1,11 @@
 
+import os
+import json
 import pytest
 from fairgraph.client_v3 import KGv3Client as KGClient
-from fairgraph.queries import Query, QueryItem, Filter
+from fairgraph.queries import Query, QueryProperty, Filter
 from fairgraph.errors import AuthenticationError
+import fairgraph.openminds.core as omcore
 
 
 have_kg_connection = False
@@ -23,37 +26,37 @@ def example_query():
         node_type="https://openminds.ebrains.eu/core/ModelVersion",
         label="fg-testing-modelversion",
         space="model",
-        items=[
-            QueryItem("@id", filter=Filter("EQUALS", parameter="id")),
-            QueryItem("@type"),
-            QueryItem("https://openminds.ebrains.eu/vocab/fullName",
+        properties=[
+            QueryProperty("@id", filter=Filter("EQUALS", parameter="id")),
+            QueryProperty("@type"),
+            QueryProperty("https://openminds.ebrains.eu/vocab/fullName",
                       name="vocab:fullName",
                       filter=Filter("CONTAINS", parameter="name"),
                       sorted=True, required=True),
-            QueryItem("https://openminds.ebrains.eu/vocab/versionIdentifier",
+            QueryProperty("https://openminds.ebrains.eu/vocab/versionIdentifier",
                       name="vocab:versionIdentifier",
                       filter=Filter("EQUALS", parameter="version"),
                       required=True),
-            QueryItem("https://openminds.ebrains.eu/vocab/format",
+            QueryProperty("https://openminds.ebrains.eu/vocab/format",
                       name="vocab:format",
                       ensure_order=True,
-                      children=[
-                          QueryItem("@id", filter=Filter("EQUALS", parameter="format")),
-                          QueryItem("@type")
+                      properties=[
+                          QueryProperty("@id", filter=Filter("EQUALS", parameter="format")),
+                          QueryProperty("@type")
                       ]),
-            QueryItem("https://openminds.ebrains.eu/vocab/custodian",
+            QueryProperty("https://openminds.ebrains.eu/vocab/custodian",
                       name="vocab:custodian",
                       ensure_order=True,
-                      children=[
-                          QueryItem("@id", filter=Filter("EQUALS", parameter="custodian")),
-                          QueryItem("https://openminds.ebrains.eu/vocab/affiliation",
+                      properties=[
+                          QueryProperty("@id", filter=Filter("EQUALS", parameter="custodian")),
+                          QueryProperty("https://openminds.ebrains.eu/vocab/affiliation",
                                     name="vocab:affiliation",
-                                    children=[
-                                        QueryItem("@type"),
-                                        QueryItem("https://openminds.ebrains.eu/vocab/organization",
+                                    properties=[
+                                        QueryProperty("@type"),
+                                        QueryProperty("https://openminds.ebrains.eu/vocab/organization",
                                                   name="vocab:organization",
-                                                  children=[QueryItem("@id")]),
-                                        QueryItem("https://openminds.ebrains.eu/vocab/startDate",
+                                                  properties=[QueryProperty("@id")]),
+                                        QueryProperty("https://openminds.ebrains.eu/vocab/startDate",
                                                   name="vocab:startDate")
                                     ])
                       ])
@@ -180,3 +183,15 @@ def test_execute_query(example_query):
         if custodian0["vocab:affiliation"]:
             affil0 = custodian0["vocab:affiliation"][0]
             assert set(affil0.keys())  == set(["@type", "vocab:organization", "vocab:startDate"])
+
+
+class MockClient:
+    pass
+
+
+def test_openminds_core_queries():
+    for cls in omcore.list_kg_classes():
+        with open(os.path.join(os.path.dirname(__file__), "test_data", "queries", "openminds", "core", f"{cls.__name__.lower()}_simple_query.json")) as fp:
+            expected = json.load(fp)
+            generated = cls.generate_query("simple", "collab-foobar", MockClient(), resolved=False)
+            assert generated == expected

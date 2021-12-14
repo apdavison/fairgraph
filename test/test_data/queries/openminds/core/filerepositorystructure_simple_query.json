@@ -24,7 +24,7 @@
     {
       "path": "@id",
       "filter": {
-        "op": "equals",
+        "op": "EQUALS",
         "parameter": "id"
       }
     },
@@ -49,7 +49,8 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/groupingType",
-          "propertyName": "vocab:groupingType"
+          "propertyName": "vocab:groupingType",
+          "structure": [{"path": "@id"}, {"path": "@type"}]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/regex",

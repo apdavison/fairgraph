@@ -33,6 +33,7 @@ except ImportError:
     have_tabulate = False
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
+from .queries import QueryProperty, Query, Filter
 from .errors import NoQueryFound
 
 
@@ -138,6 +139,40 @@ class EmbeddedMetadata(object, metaclass=Registry):
         else:
             for field in cls.fields:
                 field.strict_mode = value
+
+    @classmethod
+    def generate_query_property(cls, field, client, filter_parameter=None):
+
+        expanded_path = expand_uri(field.path, cls.context, client)[0]
+
+        if filter_parameter:
+            property = QueryProperty(
+                expanded_path,
+                name=field.path,
+                filter=Filter("CONTAINS", parameter=filter_parameter),
+                ensure_order=field.multiple,
+                properties=[
+                    QueryProperty("@type")
+                ])
+        else:
+            property = QueryProperty(expanded_path, name=field.path)
+
+        properties = []
+        for subfield in cls.fields:
+            if subfield.intrinsic:
+                if any(issubclass(_type, (KGObjectV3, EmbeddedMetadata)) for _type in subfield.types):
+                    for child_cls in subfield.types[:1]:  # for backwards compatibility, just take the first type
+                        properties.append(
+                            child_cls.generate_query_property(subfield, client))
+                else:
+                    expanded_subpath = expand_uri(subfield.path, cls.context, client)[0]
+                    properties.append(
+                        QueryProperty(expanded_subpath,
+                                      name=subfield.path,
+                                      ensure_order=subfield.multiple))
+
+        property.properties.extend(properties)
+        return property
 
 
 class KGObjectV3(object, metaclass=Registry):
@@ -606,163 +641,70 @@ class KGObjectV3(object, metaclass=Registry):
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
-    def generate_query(cls, query_type, space, client, resolved=False, top_level=True,
-                       field_names_used=None, parents=None):
+    def generate_query_property(cls, field, client, filter_parameter=None):
+
+        expanded_path = expand_uri(field.path, cls.context, client)[0]
+
+        if filter_parameter:
+            filter = Filter("CONTAINS", parameter=filter_parameter)  # should be "EQUALS" for consistency, here we use "CONTAINS" for backwards compatibility
+        else:
+            filter = None
+        property = QueryProperty(
+            expanded_path,
+            name=field.path,
+            ensure_order=field.multiple,
+            properties=[
+                QueryProperty("@id", filter=filter),
+                QueryProperty("@type")
+            ])
+        return property
+
+
+    @classmethod
+    def generate_query(cls, query_type, space, client, resolved=False):
         """
 
         query_type: "simple" or "resolved"
-
-        Fields top_level, field_names_used and parents should not be specified,
-        they are used only for recursion.
         """
+        if resolved:
+            raise NotImplementedError("todo")
 
         query_label = cls.get_query_label(query_type, space)
         if space == "myspace":
             real_space = client._private_space
         else:
             real_space = space
-        if top_level:
-            fields = [
-                {
-                    "path": "@id",
-                    "filter": {
-                        "op": "equals",
-                        "parameter": "id"
-                    }
-                },
-                {
-                    "path": "https://core.kg.ebrains.eu/vocab/meta/space",
-                    "filter": {
-                        "op": "EQUALS",
-                        "value": real_space
-                    },
-                    "propertyName": "query:space"
-                }
+        query = Query(
+            node_type=cls.type[0],
+            label=query_label,
+            space=real_space,
+            properties=[
+                QueryProperty("@type"),
             ]
-        else:
-            fields = [{"path": "@id"}]
-        fields.append({"path": "@type"})
-        if field_names_used is None:
-            field_names_used = []
-
+        )
         for field in cls.fields:
-            # set parents to avoid infinite recursion
-            if top_level:
-                # reset for each field
-                parents = set([cls])
-            else:
-                parents.add(cls)
-
             if field.intrinsic:
-                field_definition = {
-                    "propertyName": field.path,
-                    "path": expand_uri(field.path, cls.context, client)[0],
-                }
-                field_names_used.append(field.path)
-                if top_level:
-                    if field.name == "name":
-                        field_definition["sort"] = True
-                        if field.required:
-                            field_definition["required"] = True
-
-                if any(issubclass(_type, KGObjectV3) for _type in field.types):
-
-                    if not top_level and field.path in field_names_used:
-                        field_definition["propertyName"] = "{}__{}".format(cls.__name__, field.path)
-                    if field.multiple:
-                        field_definition["ensureOrder"] = True
-
-                    field_definition["structure"] = [
-                        {"path": "@id"},
-                        {"path": "@type"}
-                    ]
-
-                    if resolved and not parents.intersection(set(field.types)):
-                        #               ^^^ avoid recursion to types seen previously
-                        #print("    resolving.... (parents={}, field.types={})".format(parents, field.types))
-                        subfield_map = {}
-                        for child_cls in field.types:
-                            if issubclass(child_cls, KGObjectV3):
-                                subfields = child_cls.generate_query(
-                                    query_type, space, client, resolved=resolved,
-                                    top_level=False, field_names_used=field_names_used,
-                                    parents=copy(parents)  # use a copy to keep the original for the next iteration
-                                )
-                                subfield_map.update(
-                                    {subfield_defn.get("propertyName", subfield_defn["path"]): subfield_defn
-                                    for subfield_defn in subfields}
-                                )
-                        field_definition["structure"] = list(subfield_map.values())
-
-                elif any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
-                    if not top_level and field.path in field_names_used:
-                        field_definition["propertyName"] = "{}__{}".format(cls.__name__, field.path)
-                    if field.multiple:
-                        field_definition["ensureOrder"] = True
-                    field_definition["structure"] = [{"path": "@type"}]
-                    for child_cls in field.types:
-                        for ch_field in child_cls.fields:
-                            subfield_definition = {
-                                "path": expand_uri(ch_field.path, child_cls.context, client)[0],
-                                "propertyName": ch_field.path
-                            }
-                            if issubclass(child_cls, KGObjectV3):
-                                subfield_definition["structure"] = {
-                                    {"path": "@id"},
-                                    {"path": "@type"}
-                                }
-                            field_definition["structure"].append(subfield_definition)
-
-                # here we add a filter for top-level fields
                 if field.types[0] in (int, float, bool, datetime, date):
                     op = "EQUALS"
                 else:
                     op = "CONTAINS"
-                if top_level:
-                    filter = {
-                        "op": op,
-                        "parameter": field.name
-                    }
-                    id_elements = [elem for elem in field_definition.get("structure", [])
-                                   if elem["path"] == "@id"]
-                    if len(id_elements) > 0:
-                        # if the field is itself an object, filter on the object's id
-                        id_elements[0]["filter"] = filter
-                    else:
-                        field_definition["filter"] = filter
-
-                fields.append(field_definition)
-
-            # todo: add proxy reverse links for non-intrinsic fields?
-            #       (proxy because otherwise we risk returning the entire graph!)
-        if top_level:
-            query = {
-                "@context": {
-                    "@vocab": "https://core.kg.ebrains.eu/vocab/query/",
-                    "query": "https://schema.hbp.eu/myQuery/",
-                    "propertyName": {
-                        "@id": "propertyName",
-                        "@type": "@id"
-                    },
-                    "merge": {
-                        "@type": "@id",
-                        "@id": "merge"
-                    },
-                    "path": {
-                        "@id": "path",
-                        "@type": "@id"
-                    }
-                },
-                "meta": {
-                    "type": cls.type[0],   # ? e.g. "https://openminds.ebrains.eu/core/ModelVersion",
-                    "name": query_label,
-                    "description": "Automatically generated by fairgraph"
-                },
-                "structure": fields,
-            }
-            return query
-        else:
-            return fields
+                expanded_path = expand_uri(field.path, cls.context, client)[0]
+                if any(issubclass(_type, (KGObjectV3, EmbeddedMetadata)) for _type in field.types):
+                    for child_cls in field.types[:1]:  # only the first for now
+                        property = child_cls.generate_query_property(
+                            field, client,
+                            filter_parameter=field.name)
+                else:
+                    property = QueryProperty(expanded_path,
+                                             name=field.path,
+                                             filter=Filter(op, parameter=field.name),
+                                             ensure_order=field.multiple)
+                    if field.name == "name":
+                        property.sorted = True
+                        if field.required:
+                            property.required = True
+                query.properties.append(property)
+        return query.serialize()
 
     @classmethod
     def get_query_label(cls, query_type, space):
@@ -775,7 +717,8 @@ class KGObjectV3(object, metaclass=Registry):
     def store_queries(cls, space, client):
         # todo: we don't necessarily have to store the queries in the same space they're querying
         #       might be useful to have some queries that span multiple spaces, e.g. 'model' + 'myspace'
-        for query_type, resolved in (("simple", False), ("resolved", True)):
+        #for query_type, resolved in (("simple", False), ("resolved", True)):
+        for query_type, resolved in (("simple", False),):  # temporary until resolved is reimplemented
             query_label = cls.get_query_label(query_type, space)
             query_definition = cls.generate_query(query_type, space, client, resolved=resolved)
             try:

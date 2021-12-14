@@ -24,7 +24,7 @@
     {
       "path": "@id",
       "filter": {
-        "op": "equals",
+        "op": "EQUALS",
         "parameter": "id"
       }
     },
@@ -68,6 +68,7 @@
     {
       "propertyName": "vocab:webpage",
       "path": "https://openminds.ebrains.eu/vocab/webpage",
+      "ensureOrder": true,
       "filter": {
         "op": "CONTAINS",
         "parameter": "webpages"
