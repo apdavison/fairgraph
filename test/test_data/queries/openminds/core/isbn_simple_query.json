@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:identifier",
       "path": "https://openminds.ebrains.eu/vocab/identifier",
+      "propertyName": "vocab:identifier",
       "filter": {
         "op": "CONTAINS",
         "parameter": "identifier"

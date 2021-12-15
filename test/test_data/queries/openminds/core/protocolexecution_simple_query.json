@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:behavioralProtocol",
       "path": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
+      "propertyName": "vocab:behavioralProtocol",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,8 +57,8 @@
       ]
     },
     {
-      "propertyName": "vocab:input",
       "path": "https://openminds.ebrains.eu/vocab/input",
+      "propertyName": "vocab:input",
       "ensureOrder": true,
       "structure": [
         {
@@ -74,8 +74,8 @@
       ]
     },
     {
-      "propertyName": "vocab:isPartOf",
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
+      "propertyName": "vocab:isPartOf",
       "structure": [
         {
           "path": "@id",
@@ -90,8 +90,8 @@
       ]
     },
     {
-      "propertyName": "vocab:output",
       "path": "https://openminds.ebrains.eu/vocab/output",
+      "propertyName": "vocab:output",
       "ensureOrder": true,
       "structure": [
         {
@@ -107,8 +107,8 @@
       ]
     },
     {
-      "propertyName": "vocab:preparationDesign",
       "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
+      "propertyName": "vocab:preparationDesign",
       "structure": [
         {
           "path": "@id",
@@ -123,8 +123,8 @@
       ]
     },
     {
-      "propertyName": "vocab:protocol",
       "path": "https://openminds.ebrains.eu/vocab/protocol",
+      "propertyName": "vocab:protocol",
       "ensureOrder": true,
       "structure": [
         {
@@ -140,32 +140,36 @@
       ]
     },
     {
-      "propertyName": "vocab:description",
       "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description",
       "filter": {
         "op": "CONTAINS",
         "parameter": "description"
       }
     },
     {
-      "propertyName": "vocab:endedAtTime",
       "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
+      "propertyName": "vocab:endedAtTime",
       "filter": {
         "op": "EQUALS",
         "parameter": "ended_at_time"
       }
     },
     {
-      "propertyName": "vocab:lookupLabel",
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
       "filter": {
         "op": "CONTAINS",
         "parameter": "lookup_label"
       }
     },
     {
-      "propertyName": "vocab:parameterSet",
       "path": "https://openminds.ebrains.eu/vocab/parameterSet",
+      "propertyName": "vocab:parameterSet",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "parameter_sets"
+      },
       "ensureOrder": true,
       "structure": [
         {
@@ -178,11 +182,125 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/relevantFor",
           "propertyName": "vocab:relevantFor",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/parameter",
-          "propertyName": "vocab:parameter",
+          "path": {
+            "@id": "https://openminds.ebrains.eu/vocab/parameter",
+            "typeFilter": [
+              "https://openminds.ebrains.eu/core/NumericalParameter"
+            ]
+          },
+          "propertyName": "vocab:parameter__NumericalParameter",
+          "structure": [
+            {
+              "path": "https://openminds.ebrains.eu/vocab/name",
+              "propertyName": "vocab:name"
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/value",
+                "typeFilter": [
+                  "https://openminds.ebrains.eu/core/QuantitativeValue"
+                ]
+              },
+              "propertyName": "vocab:value__QuantitativeValue",
+              "structure": [
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/value",
+                  "propertyName": "vocab:value"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+                  "propertyName": "vocab:uncertainty",
+                  "ensureOrder": true
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
+                  "propertyName": "vocab:typeOfUncertainty",
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/unit",
+                  "propertyName": "vocab:unit",
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/value",
+                "typeFilter": [
+                  "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+                ]
+              },
+              "propertyName": "vocab:value__QuantitativeValueRange",
+              "structure": [
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/maxValue",
+                  "propertyName": "vocab:maxValue"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
+                  "propertyName": "vocab:maxValueUnit",
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/minValue",
+                  "propertyName": "vocab:minValue"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
+                  "propertyName": "vocab:minValueUnit",
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": {
+            "@id": "https://openminds.ebrains.eu/vocab/parameter",
+            "typeFilter": [
+              "https://openminds.ebrains.eu/core/StringParameter"
+            ]
+          },
+          "propertyName": "vocab:parameter__StringParameter",
           "structure": [
             {
               "path": "https://openminds.ebrains.eu/vocab/name",
@@ -190,48 +308,23 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/value",
-              "propertyName": "vocab:value",
-              "structure": [
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/value",
-                  "propertyName": "vocab:value"
-                },
-                {
-                  "ensureOrder": true,
-                  "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-                  "propertyName": "vocab:uncertainty"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-                  "propertyName": "vocab:typeOfUncertainty",
-                  "structure": [{"path": "@id"}, {"path": "@type"}]
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/unit",
-                  "propertyName": "vocab:unit",
-                  "structure": [{"path": "@id"}, {"path": "@type"}]
-                }
-              ]
+              "propertyName": "vocab:value"
             }
           ]
         }
-      ],
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "parameter_sets"
-      }
+      ]
     },
     {
-      "propertyName": "vocab:startedAtTime",
       "path": "https://openminds.ebrains.eu/vocab/startedAtTime",
+      "propertyName": "vocab:startedAtTime",
       "filter": {
         "op": "EQUALS",
         "parameter": "started_at_time"
       }
     },
     {
-      "propertyName": "vocab:studyTarget",
       "path": "https://openminds.ebrains.eu/vocab/studyTarget",
+      "propertyName": "vocab:studyTarget",
       "ensureOrder": true,
       "structure": [
         {

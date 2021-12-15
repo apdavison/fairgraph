@@ -141,7 +141,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_property(cls, field, client, filter_parameter=None):
+    def generate_query_property(cls, field, client, filter_parameter=None, use_type_filter=False):
 
         expanded_path = expand_uri(field.path, cls.context, client)[0]
 
@@ -157,13 +157,28 @@ class EmbeddedMetadata(object, metaclass=Registry):
         else:
             property = QueryProperty(expanded_path, name=field.path)
 
+        if use_type_filter:
+            property.type_filter = cls.type
+            property.name = f"{property.name}__{cls.__name__}"
+
         properties = []
         for subfield in cls.fields:
             if subfield.intrinsic:
-                if any(issubclass(_type, (KGObjectV3, EmbeddedMetadata)) for _type in subfield.types):
-                    for child_cls in subfield.types[:1]:  # for backwards compatibility, just take the first type
+                if any(issubclass(_type, EmbeddedMetadata) for _type in subfield.types):
+                    for child_cls in subfield.types:
                         properties.append(
-                            child_cls.generate_query_property(subfield, client))
+                            child_cls.generate_query_property(
+                                subfield, client,
+                                use_type_filter=bool(len(subfield.types) > 1)
+                            )
+                        )
+                elif any(issubclass(_type, KGObjectV3) for _type in subfield.types):
+                    for child_cls in subfield.types[:1]:
+                        properties.append(
+                            child_cls.generate_query_property(
+                                subfield, client
+                            )
+                        )
                 else:
                     expanded_subpath = expand_uri(subfield.path, cls.context, client)[0]
                     properties.append(
@@ -238,12 +253,24 @@ class KGObjectV3(object, metaclass=Registry):
     def _deserialize_data(cls, data, client, resolved=False):
         # normalize data by compacting keys
         D = {
-            compact_uri(key, cls.context): value
-            for key, value in data.items() if key[0] != "@"
+            "@id": data["@id"],
+            "@type": compact_uri(data["@type"], cls.context),
+            "@context": data.get("@context", cls.context)
         }
-        D["@id"] =  data["@id"]
-        D["@type"] = compact_uri(data["@type"], cls.context)
-        D["@context"] = data.get("@context", cls.context)
+        for key, value in data.items():
+            if "__" in key:
+                key, type_filter = key.split("__")
+                normalised_key = compact_uri(key, cls.context)
+                value = [item for item in as_list(value)
+                         if item["@type"][0].endswith(type_filter)]
+                if normalised_key in D:
+                    D[normalised_key].extend(value)
+                else:
+                    D[normalised_key] = value
+            elif key[0] != "@":
+                normalised_key = compact_uri(key, cls.context)
+                D[normalised_key] = value
+
         for otype in compact_uri(as_list(cls.type), cls.context):  # todo: update class generation to ensure classes are already compacted
             if otype not in D["@type"]:
                 #print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
@@ -657,6 +684,7 @@ class KGObjectV3(object, metaclass=Registry):
                 QueryProperty("@id", filter=filter),
                 QueryProperty("@type")
             ])
+
         return property
 
 
@@ -689,11 +717,23 @@ class KGObjectV3(object, metaclass=Registry):
                 else:
                     op = "CONTAINS"
                 expanded_path = expand_uri(field.path, cls.context, client)[0]
-                if any(issubclass(_type, (KGObjectV3, EmbeddedMetadata)) for _type in field.types):
-                    for child_cls in field.types[:1]:  # only the first for now
+                if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
+                    for child_cls in field.types:
                         property = child_cls.generate_query_property(
                             field, client,
-                            filter_parameter=field.name)
+                            filter_parameter=field.name,
+                            use_type_filter=bool(len(field.types) > 1)
+                        )
+                        query.properties.append(property)
+                elif any(issubclass(_type, KGObjectV3) for _type in field.types):
+                    for child_cls in field.types[:1]:
+                        # take only the first entry, since we don't use type filters
+                        # for KGObject where resolved=False
+                        property = child_cls.generate_query_property(
+                            field, client,
+                            filter_parameter=field.name
+                        )
+                        query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,
                                              name=field.path,
@@ -703,7 +743,7 @@ class KGObjectV3(object, metaclass=Registry):
                         property.sorted = True
                         if field.required:
                             property.required = True
-                query.properties.append(property)
+                    query.properties.append(property)
         return query.serialize()
 
     @classmethod

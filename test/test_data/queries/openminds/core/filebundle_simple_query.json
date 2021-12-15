@@ -30,26 +30,26 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:content",
       "path": "https://openminds.ebrains.eu/vocab/content",
+      "propertyName": "vocab:content",
       "filter": {
         "op": "CONTAINS",
         "parameter": "content"
       }
     },
     {
-      "propertyName": "vocab:descendedFrom",
       "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
+      "propertyName": "vocab:descendedFrom",
       "ensureOrder": true,
       "structure": [
         {
@@ -65,8 +65,8 @@
       ]
     },
     {
-      "propertyName": "vocab:format",
       "path": "https://openminds.ebrains.eu/vocab/format",
+      "propertyName": "vocab:format",
       "structure": [
         {
           "path": "@id",
@@ -81,8 +81,8 @@
       ]
     },
     {
-      "propertyName": "vocab:groupingType",
       "path": "https://openminds.ebrains.eu/vocab/groupingType",
+      "propertyName": "vocab:groupingType",
       "structure": [
         {
           "path": "@id",
@@ -97,8 +97,12 @@
       ]
     },
     {
-      "propertyName": "vocab:hash",
       "path": "https://openminds.ebrains.eu/vocab/hash",
+      "propertyName": "vocab:hash",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "hash"
+      },
       "structure": [
         {
           "path": "@type"
@@ -111,15 +115,11 @@
           "path": "https://openminds.ebrains.eu/vocab/digest",
           "propertyName": "vocab:digest"
         }
-      ],
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "hash"
-      }
+      ]
     },
     {
-      "propertyName": "vocab:isPartOf",
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
+      "propertyName": "vocab:isPartOf",
       "structure": [
         {
           "path": "@id",
@@ -134,18 +134,22 @@
       ]
     },
     {
-      "propertyName": "vocab:name",
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:name",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:storageSize",
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
+      "propertyName": "vocab:storageSize",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "storage_size"
+      },
       "structure": [
         {
           "path": "@type"
@@ -162,18 +166,28 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
           "propertyName": "vocab:typeOfUncertainty",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         }
-      ],
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "storage_size"
-      }
+      ]
     }
   ]
 }

@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:stimulationApproach",
       "path": "https://openminds.ebrains.eu/vocab/stimulationApproach",
+      "propertyName": "vocab:stimulationApproach",
       "structure": [
         {
           "path": "@id",
@@ -56,8 +56,8 @@
       ]
     },
     {
-      "propertyName": "vocab:stimulusType",
       "path": "https://openminds.ebrains.eu/vocab/stimulusType",
+      "propertyName": "vocab:stimulusType",
       "structure": [
         {
           "path": "@id",

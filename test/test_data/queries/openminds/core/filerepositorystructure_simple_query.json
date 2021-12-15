@@ -30,18 +30,22 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:filePathPattern",
       "path": "https://openminds.ebrains.eu/vocab/filePathPattern",
+      "propertyName": "vocab:filePathPattern",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "file_path_patterns"
+      },
       "ensureOrder": true,
       "structure": [
         {
@@ -50,21 +54,24 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/groupingType",
           "propertyName": "vocab:groupingType",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/regex",
           "propertyName": "vocab:regex"
         }
-      ],
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "file_path_patterns"
-      }
+      ]
     },
     {
-      "propertyName": "vocab:lookupLabel",
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
       "filter": {
         "op": "CONTAINS",
         "parameter": "lookup_label"

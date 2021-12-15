@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:dataLocation",
       "path": "https://openminds.ebrains.eu/vocab/dataLocation",
+      "propertyName": "vocab:dataLocation",
       "structure": [
         {
           "path": "@id",
@@ -56,17 +56,17 @@
       ]
     },
     {
-      "propertyName": "vocab:name",
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "sort": true,
+      "propertyName": "vocab:name",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true
     },
     {
-      "propertyName": "vocab:openDataIn",
       "path": "https://openminds.ebrains.eu/vocab/openDataIn",
+      "propertyName": "vocab:openDataIn",
       "structure": [
         {
           "path": "@id",
@@ -81,8 +81,8 @@
       ]
     },
     {
-      "propertyName": "vocab:service",
       "path": "https://openminds.ebrains.eu/vocab/service",
+      "propertyName": "vocab:service",
       "structure": [
         {
           "path": "@id",

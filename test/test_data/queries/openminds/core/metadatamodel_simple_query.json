@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:developer",
       "path": "https://openminds.ebrains.eu/vocab/developer",
+      "propertyName": "vocab:developer",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,8 +57,8 @@
       ]
     },
     {
-      "propertyName": "vocab:digitalIdentifier",
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
       "structure": [
         {
           "path": "@id",
@@ -73,8 +73,8 @@
       ]
     },
     {
-      "propertyName": "vocab:hasVersion",
       "path": "https://openminds.ebrains.eu/vocab/hasVersion",
+      "propertyName": "vocab:hasVersion",
       "ensureOrder": true,
       "structure": [
         {
@@ -90,8 +90,8 @@
       ]
     },
     {
-      "propertyName": "vocab:custodian",
       "path": "https://openminds.ebrains.eu/vocab/custodian",
+      "propertyName": "vocab:custodian",
       "ensureOrder": true,
       "structure": [
         {
@@ -107,26 +107,26 @@
       ]
     },
     {
-      "propertyName": "vocab:description",
       "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description",
       "filter": {
         "op": "CONTAINS",
         "parameter": "description"
       }
     },
     {
-      "propertyName": "vocab:fullName",
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:fullName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:homepage",
       "path": "https://openminds.ebrains.eu/vocab/homepage",
+      "propertyName": "vocab:homepage",
       "structure": [
         {
           "path": "@id",
@@ -141,16 +141,16 @@
       ]
     },
     {
-      "propertyName": "vocab:howToCite",
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
+      "propertyName": "vocab:howToCite",
       "filter": {
         "op": "CONTAINS",
         "parameter": "how_to_cite"
       }
     },
     {
-      "propertyName": "vocab:shortName",
       "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "alias"

@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:digitalIdentifier",
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,8 +57,8 @@
       ]
     },
     {
-      "propertyName": "vocab:contactInformation",
       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
+      "propertyName": "vocab:contactInformation",
       "structure": [
         {
           "path": "@id",
@@ -73,24 +73,28 @@
       ]
     },
     {
-      "propertyName": "vocab:familyName",
       "path": "https://openminds.ebrains.eu/vocab/familyName",
+      "propertyName": "vocab:familyName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "family_name"
       }
     },
     {
-      "propertyName": "vocab:givenName",
       "path": "https://openminds.ebrains.eu/vocab/givenName",
+      "propertyName": "vocab:givenName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "given_name"
       }
     },
     {
-      "propertyName": "vocab:affiliation",
       "path": "https://openminds.ebrains.eu/vocab/affiliation",
+      "propertyName": "vocab:affiliation",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "affiliations"
+      },
       "ensureOrder": true,
       "structure": [
         {
@@ -107,13 +111,16 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/organization",
           "propertyName": "vocab:organization",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         }
-      ],
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "affiliations"
-      }
+      ]
     }
   ]
 }

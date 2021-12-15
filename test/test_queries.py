@@ -21,13 +21,12 @@ no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUT
 
 
 @pytest.fixture()
-def example_query():
+def example_query_model_version():
     return Query(
         node_type="https://openminds.ebrains.eu/core/ModelVersion",
         label="fg-testing-modelversion",
         space="model",
         properties=[
-            QueryProperty("@id", filter=Filter("EQUALS", parameter="id")),
             QueryProperty("@type"),
             QueryProperty("https://openminds.ebrains.eu/vocab/fullName",
                       name="vocab:fullName",
@@ -47,6 +46,7 @@ def example_query():
             QueryProperty("https://openminds.ebrains.eu/vocab/custodian",
                       name="vocab:custodian",
                       ensure_order=True,
+                      type_filter="https://openminds.ebrains.eu/core/Person",
                       properties=[
                           QueryProperty("@id", filter=Filter("EQUALS", parameter="custodian")),
                           QueryProperty("https://openminds.ebrains.eu/vocab/affiliation",
@@ -64,8 +64,40 @@ def example_query():
     )
 
 
-def test_query_builder(example_query):
-    generated = example_query.serialize()
+@pytest.fixture()
+def example_query_model():
+    return Query(
+        node_type="https://openminds.ebrains.eu/core/Model",
+        label="fg-testing-model",
+        space="model",
+        properties=[
+            QueryProperty("@type"),
+            QueryProperty("https://openminds.ebrains.eu/vocab/fullName",
+                      name="vocab:fullName",
+                      filter=Filter("CONTAINS", parameter="name"),
+                      sorted=True, required=True),
+            QueryProperty("https://openminds.ebrains.eu/vocab/custodian",
+                      name="vocab:custodian",
+                      type_filter="https://openminds.ebrains.eu/core/Person",
+                      properties=[
+                          #QueryProperty("@type"),
+                          QueryProperty("https://openminds.ebrains.eu/vocab/familyName",
+                                        name="vocab:familyName"),
+                      ]),
+            QueryProperty("https://openminds.ebrains.eu/vocab/custodian",
+                      name="vocab:organization",
+                      type_filter="https://openminds.ebrains.eu/core/Organization",
+                      properties=[
+                          #QueryProperty("@type"),
+                          QueryProperty("https://openminds.ebrains.eu/vocab/shortName",
+                                        name="vocab:shortName"),
+                      ])
+        ]
+    )
+
+
+def test_query_builder(example_query_model_version):
+    generated = example_query_model_version.serialize()
     expected = {
         '@context': {
             '@vocab': 'https://core.kg.ebrains.eu/vocab/query/',
@@ -88,10 +120,6 @@ def test_query_builder(example_query):
                 'filter': {'op': 'EQUALS', 'value': 'model'},
                 'path': 'https://core.kg.ebrains.eu/vocab/meta/space',
                 'propertyName': 'query:space'
-            },
-            {
-                'filter': {'op': 'EQUALS', 'parameter': 'id'},
-                'path': '@id',
             },
             {
                 'path': '@type'
@@ -120,7 +148,10 @@ def test_query_builder(example_query):
             },
             {
                 'ensureOrder': True,
-                'path': 'https://openminds.ebrains.eu/vocab/custodian',
+                'path': {
+                    '@id': 'https://openminds.ebrains.eu/vocab/custodian',
+                    'typeFilter': 'https://openminds.ebrains.eu/core/Person'
+                },
                 'propertyName': 'vocab:custodian',
                 'structure': [
                     {
@@ -154,7 +185,7 @@ def test_query_builder(example_query):
 
 
 @pytest.mark.skipif(not have_kg_connection, reason=no_kg_err_msg)
-def test_execute_query(example_query):
+def test_execute_query(example_query_model_version):
     params = {
         "from": 0,
         "size": 3,
@@ -164,7 +195,7 @@ def test_execute_query(example_query):
     response = kg_client._kg_client.post(
         path=f"/queries",
         params=params,
-        payload=example_query.serialize()
+        payload=example_query_model_version.serialize()
     )
     assert response.status_code == 200
     data = response.data()
@@ -185,13 +216,37 @@ def test_execute_query(example_query):
             assert set(affil0.keys())  == set(["@type", "vocab:organization", "vocab:startDate"])
 
 
+@pytest.mark.skipif(not have_kg_connection, reason=no_kg_err_msg)
+def test_execute_query_with_id_filter(example_query_model):
+    target_id = "https://kg.ebrains.eu/api/instances/9846333f-101f-4bcb-831a-7deba765d8af"
+    params = {
+        "from": 0,
+        "size": 10,
+        "stage": "IN_PROGRESS",
+        "returnEmbedded": True,
+        "id": target_id
+    }
+    response = kg_client._kg_client.post(
+        path=f"/queries",
+        params=params,
+        payload=example_query_model.serialize()
+    )
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 1
+    assert data[0]["vocab:fullName"] == "AdEx Neuron Models with PyNN"
+    assert data[0]["vocab:custodian"][0]["vocab:familyName"] == "Destexhe"
+    assert data[0]["vocab:organization"][0]["vocab:shortName"] == "Destexhe Lab"
+
+
 class MockClient:
     pass
 
 
 def test_openminds_core_queries():
     for cls in omcore.list_kg_classes():
-        with open(os.path.join(os.path.dirname(__file__), "test_data", "queries", "openminds", "core", f"{cls.__name__.lower()}_simple_query.json")) as fp:
+        path_expected = os.path.join(os.path.dirname(__file__), "test_data", "queries", "openminds", "core", f"{cls.__name__.lower()}_simple_query.json")
+        with open(path_expected) as fp:
             expected = json.load(fp)
             generated = cls.generate_query("simple", "collab-foobar", MockClient(), resolved=False)
             assert generated == expected

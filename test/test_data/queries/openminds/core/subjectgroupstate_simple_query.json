@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:ageCategory",
       "path": "https://openminds.ebrains.eu/vocab/ageCategory",
+      "propertyName": "vocab:ageCategory",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,8 +57,8 @@
       ]
     },
     {
-      "propertyName": "vocab:handedness",
       "path": "https://openminds.ebrains.eu/vocab/handedness",
+      "propertyName": "vocab:handedness",
       "ensureOrder": true,
       "structure": [
         {
@@ -74,73 +74,25 @@
       ]
     },
     {
-      "propertyName": "vocab:additionalRemarks",
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
+      "propertyName": "vocab:additionalRemarks",
       "filter": {
         "op": "CONTAINS",
         "parameter": "additional_remarks"
       }
     },
     {
-      "propertyName": "vocab:age",
-      "path": "https://openminds.ebrains.eu/vocab/age",
-      "structure": [
-        {
-          "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "ensureOrder": true,
-          "propertyName": "vocab:uncertainty"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
-        }
-      ],
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/age",
+        "typeFilter": [
+          "https://openminds.ebrains.eu/core/QuantitativeValue"
+        ]
+      },
+      "propertyName": "vocab:age__QuantitativeValue",
       "filter": {
         "op": "CONTAINS",
         "parameter": "age"
-      }
-    },
-    {
-      "propertyName": "vocab:lookupLabel",
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
-    },
-    {
-      "propertyName": "vocab:pathology",
-      "path": "https://openminds.ebrains.eu/vocab/pathology",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "pathologys"
-          }
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "propertyName": "vocab:weight",
-      "path": "https://openminds.ebrains.eu/vocab/weight",
+      },
       "structure": [
         {
           "path": "@type"
@@ -157,18 +109,204 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
           "propertyName": "vocab:typeOfUncertainty",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
-          "structure": [{"path": "@id"}, {"path": "@type"}]
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
         }
-      ],
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/age",
+        "typeFilter": [
+          "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        ]
+      },
+      "propertyName": "vocab:age__QuantitativeValueRange",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "age"
+      },
+      "structure": [
+        {
+          "path": "@type"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/maxValue",
+          "propertyName": "vocab:maxValue"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
+          "propertyName": "vocab:maxValueUnit",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/minValue",
+          "propertyName": "vocab:minValue"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
+          "propertyName": "vocab:minValueUnit",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "lookup_label"
+      }
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/pathology",
+      "propertyName": "vocab:pathology",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id",
+          "filter": {
+            "op": "CONTAINS",
+            "parameter": "pathologys"
+          }
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/weight",
+        "typeFilter": [
+          "https://openminds.ebrains.eu/core/QuantitativeValue"
+        ]
+      },
+      "propertyName": "vocab:weight__QuantitativeValue",
       "filter": {
         "op": "CONTAINS",
         "parameter": "weight"
-      }
+      },
+      "structure": [
+        {
+          "path": "@type"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/value",
+          "propertyName": "vocab:value"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
+          "propertyName": "vocab:typeOfUncertainty",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/unit",
+          "propertyName": "vocab:unit",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/weight",
+        "typeFilter": [
+          "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        ]
+      },
+      "propertyName": "vocab:weight__QuantitativeValueRange",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "weight"
+      },
+      "structure": [
+        {
+          "path": "@type"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/maxValue",
+          "propertyName": "vocab:maxValue"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
+          "propertyName": "vocab:maxValueUnit",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/minValue",
+          "propertyName": "vocab:minValue"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
+          "propertyName": "vocab:minValueUnit",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

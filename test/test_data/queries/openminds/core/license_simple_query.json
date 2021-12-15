@@ -30,49 +30,49 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:fullName",
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:fullName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:legalCode",
       "path": "https://openminds.ebrains.eu/vocab/legalCode",
+      "propertyName": "vocab:legalCode",
       "filter": {
         "op": "CONTAINS",
         "parameter": "legal_code"
       }
     },
     {
-      "propertyName": "vocab:shortName",
       "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "alias"
       }
     },
     {
-      "propertyName": "vocab:webpage",
       "path": "https://openminds.ebrains.eu/vocab/webpage",
-      "ensureOrder": true,
+      "propertyName": "vocab:webpage",
       "filter": {
         "op": "CONTAINS",
         "parameter": "webpages"
-      }
+      },
+      "ensureOrder": true
     }
   ]
 }

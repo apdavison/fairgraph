@@ -30,27 +30,27 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:fileExtension",
       "path": "https://openminds.ebrains.eu/vocab/fileExtension",
-      "ensureOrder": true,
+      "propertyName": "vocab:fileExtension",
       "filter": {
         "op": "CONTAINS",
         "parameter": "file_extensions"
-      }
+      },
+      "ensureOrder": true
     },
     {
-      "propertyName": "vocab:dataType",
       "path": "https://openminds.ebrains.eu/vocab/dataType",
+      "propertyName": "vocab:dataType",
       "ensureOrder": true,
       "structure": [
         {
@@ -66,47 +66,47 @@
       ]
     },
     {
-      "propertyName": "vocab:description",
       "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description",
       "filter": {
         "op": "CONTAINS",
         "parameter": "description"
       }
     },
     {
-      "propertyName": "vocab:relatedMediaType",
       "path": "https://openminds.ebrains.eu/vocab/relatedMediaType",
+      "propertyName": "vocab:relatedMediaType",
       "filter": {
         "op": "CONTAINS",
         "parameter": "related_media_type"
       }
     },
     {
-      "propertyName": "vocab:name",
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:name",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:specification",
       "path": "https://openminds.ebrains.eu/vocab/specification",
+      "propertyName": "vocab:specification",
       "filter": {
         "op": "CONTAINS",
         "parameter": "specification"
       }
     },
     {
-      "propertyName": "vocab:synonym",
       "path": "https://openminds.ebrains.eu/vocab/synonym",
-      "ensureOrder": true,
+      "propertyName": "vocab:synonym",
       "filter": {
         "op": "CONTAINS",
         "parameter": "synonyms"
-      }
+      },
+      "ensureOrder": true
     }
   ]
 }

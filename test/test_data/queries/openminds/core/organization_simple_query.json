@@ -30,18 +30,18 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:digitalIdentifier",
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,18 +57,18 @@
       ]
     },
     {
-      "propertyName": "vocab:fullName",
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:fullName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:hasParent",
       "path": "https://openminds.ebrains.eu/vocab/hasParent",
+      "propertyName": "vocab:hasParent",
       "structure": [
         {
           "path": "@id",
@@ -83,8 +83,8 @@
       ]
     },
     {
-      "propertyName": "vocab:homepage",
       "path": "https://openminds.ebrains.eu/vocab/homepage",
+      "propertyName": "vocab:homepage",
       "structure": [
         {
           "path": "@id",
@@ -99,8 +99,8 @@
       ]
     },
     {
-      "propertyName": "vocab:shortName",
       "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName",
       "filter": {
         "op": "CONTAINS",
         "parameter": "alias"

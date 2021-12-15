@@ -4,6 +4,7 @@ Structured information on a quantitative value.
 
 # this file was auto-generated
 
+from numbers import Number
 from datetime import date, datetime
 from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
@@ -24,9 +25,9 @@ class QuantitativeValue(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("value", float, "vocab:value", multiple=False, required=True,
+        Field("value", Number, "vocab:value", multiple=False, required=True,
               doc="Entry for a property."),
-        Field("uncertainties", float, "vocab:uncertainty", multiple=True, required=False,
+        Field("uncertainties", Number, "vocab:uncertainty", multiple=True, required=False,
               doc="Quantitative value range defining the uncertainty of a measurement."),
         Field("type_of_uncertainty", "openminds.controlledterms.TypeOfUncertainty", "vocab:typeOfUncertainty", multiple=False, required=False,
               doc="Distinct technique used to quantify the uncertainty of a measurement."),

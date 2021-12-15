@@ -54,7 +54,7 @@ class QueryProperty:
 
     def __init__(self, path, name=None, filter=None,
                  sorted=False, required=False, ensure_order=False,
-                 properties=None):
+                 properties=None, type_filter=None):
         self.path = path
         self.name = name
         self.filter = filter
@@ -62,6 +62,7 @@ class QueryProperty:
         self.required = required
         self.ensure_order = ensure_order
         self.properties = properties or []
+        self.type_filter = type_filter
 
     def __repr__(self):
         return f"QueryProperty({self.path}, name={self.name})"
@@ -88,6 +89,11 @@ class QueryProperty:
             data["structure"] = [
                 property.serialize() for property in self.properties
             ]
+        if self.type_filter:
+            data["path"] = {
+                "@id": data["path"],
+                "typeFilter": self.type_filter
+            }
         return data
 
 

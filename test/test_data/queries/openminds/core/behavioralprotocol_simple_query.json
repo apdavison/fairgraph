@@ -30,44 +30,44 @@
     },
     {
       "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+      "propertyName": "query:space",
       "filter": {
         "op": "EQUALS",
         "value": "collab-foobar"
-      },
-      "propertyName": "query:space"
+      }
     },
     {
       "path": "@type"
     },
     {
-      "propertyName": "vocab:description",
       "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description",
       "filter": {
         "op": "CONTAINS",
         "parameter": "description"
       }
     },
     {
-      "propertyName": "vocab:name",
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "sort": true,
-      "required": true,
+      "propertyName": "vocab:name",
       "filter": {
         "op": "CONTAINS",
         "parameter": "name"
-      }
+      },
+      "sort": true,
+      "required": true
     },
     {
-      "propertyName": "vocab:internalIdentifier",
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
+      "propertyName": "vocab:internalIdentifier",
       "filter": {
         "op": "CONTAINS",
         "parameter": "internal_identifier"
       }
     },
     {
-      "propertyName": "vocab:stimulation",
       "path": "https://openminds.ebrains.eu/vocab/stimulation",
+      "propertyName": "vocab:stimulation",
       "ensureOrder": true,
       "structure": [
         {
