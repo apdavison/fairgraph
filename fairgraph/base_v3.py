@@ -219,6 +219,9 @@ class KGObjectV3(object, metaclass=Registry):
                 data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
+            # sometimes queries put single items in a list, this removes the enclosing list
+            if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
+                data_item = data_item[0]
             deserialized_data[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
         # if cls.__name__ == "ModelVersion":
         #     raise Exception()
