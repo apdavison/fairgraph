@@ -552,7 +552,7 @@ class KGObjectV3(object, metaclass=Registry):
                 data=data,
                 instance_id=self.uuid)
             self.id = instance_data["@id"]
-            self._space = space or self.__class__.default_space
+            self.data = instance_data
             if activity_log:
                 activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
