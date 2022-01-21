@@ -5,13 +5,13 @@ Structured information on the content type of a file instance, bundle or reposit
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ContentType(KGObjectV3):
+class ContentType(KGObject):
     """
     Structured information on the content type of a file instance, bundle or repository.
     """
@@ -39,7 +39,6 @@ class ContentType(KGObjectV3):
               doc="Detailed and precise presentation of, or proposal for something."),
         Field("synonyms", str, "vocab:synonym", multiple=True, required=False,
               doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses."),
-        
+
     ]
     existence_query_fields = ('name',)
-

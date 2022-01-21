@@ -25,7 +25,7 @@ import os
 from datetime import datetime
 import requests
 from tqdm import tqdm
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list
+from fairgraph.base_v2 import KGObject, KGProxy, KGQuery, cache, as_list
 from fairgraph.fields import Field
 from fairgraph.data import FileAssociation, CSCSFile
 from fairgraph.commons import QuantitativeValue

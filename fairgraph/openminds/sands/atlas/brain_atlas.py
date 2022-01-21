@@ -5,13 +5,13 @@ Structured information on a brain atlas (concept level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class BrainAtlas(KGObjectV3):
+class BrainAtlas(KGObject):
     """
     Structured information on a brain atlas (concept level).
     """
@@ -33,7 +33,6 @@ class BrainAtlas(KGObjectV3):
               doc="no description available"),
         Field("versions", "openminds.sands.BrainAtlasVersion", "vocab:hasVersion", multiple=True, required=False,
               doc="Reference to variants of an original."),
-        
+
     ]
     existence_query_fields = ('digital_identifier',)
-

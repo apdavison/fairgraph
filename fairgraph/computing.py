@@ -1,6 +1,6 @@
 
 import sys, inspect
-from .base import KGObject, cache, build_kg_object, Distribution, as_list
+from .base_v2 import KGObject, cache, build_kg_object, Distribution, as_list
 from .fields import Field
 from .software import Software
 

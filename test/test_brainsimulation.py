@@ -12,7 +12,7 @@ except ImportError:
     have_pyxus = False
 import pytest
 
-from fairgraph.base import KGQuery, KGProxy, as_list, Distribution, KGObject
+from fairgraph.base_v2 import KGQuery, KGProxy, as_list, Distribution, KGObject
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
 from fairgraph.brainsimulation import (
     ModelScript, ModelProject, ModelInstance, MEModel, Morphology, EModel,

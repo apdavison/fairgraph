@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class URL(KGObjectV3):
+class URL(KGObject):
     """
-    
+
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/URL"]
@@ -27,7 +27,6 @@ class URL(KGObjectV3):
     fields = [
         Field("url", IRI, "vocab:URL", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('url',)
-

@@ -5,13 +5,13 @@ Structured information on a protocol execution.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ProtocolExecution(KGObjectV3):
+class ProtocolExecution(KGObject):
     """
     Structured information on a protocol execution.
     """
@@ -49,7 +49,6 @@ class ProtocolExecution(KGObjectV3):
               doc="no description available"),
         Field("study_targets", ["openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.Handedness", "openminds.controlledterms.Organ", "openminds.controlledterms.Phenotype", "openminds.controlledterms.Species", "openminds.controlledterms.Strain", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
-        
+
     ]
     existence_query_fields = ('lookup_label',)
-

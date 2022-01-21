@@ -27,7 +27,7 @@ import sys
 import inspect
 from dateutil import parser as date_parser
 import requests
-from .base import (KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery,
+from .base_v2 import (KGObject, cache, KGProxy, build_kg_object, Distribution, as_list, KGQuery,
                    IRI, upload_attachment, HasAliasMixin)
 from .fields import Field
 from .commons import BrainRegion, CellType, Species, AbstractionLevel, ModelScope, OntologyTerm

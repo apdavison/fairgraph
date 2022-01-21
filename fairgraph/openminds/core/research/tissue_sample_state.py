@@ -5,13 +5,13 @@ Structured information on a temporary state of a tissue sample.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class TissueSampleState(KGObjectV3):
+class TissueSampleState(KGObject):
     """
     Structured information on a temporary state of a tissue sample.
     """
@@ -35,7 +35,6 @@ class TissueSampleState(KGObjectV3):
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("weight", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:weight", multiple=False, required=False,
               doc="Amount that a thing or being weighs."),
-        
+
     ]
     existence_query_fields = ('lookup_label',)
-

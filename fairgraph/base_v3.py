@@ -172,7 +172,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                                 use_type_filter=bool(len(subfield.types) > 1)
                             )
                         )
-                elif any(issubclass(_type, KGObjectV3) for _type in subfield.types):
+                elif any(issubclass(_type, KGObject) for _type in subfield.types):
                     for child_cls in subfield.types[:1]:
                         properties.append(
                             child_cls.generate_query_property(
@@ -190,7 +190,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
         return property
 
 
-class KGObjectV3(object, metaclass=Registry):
+class KGObject(object, metaclass=Registry):
     """Base class for Knowledge Graph objects"""
     object_cache = {}  # for caching based on object ids
     save_cache = defaultdict(dict)  # for caching based on queries
@@ -481,7 +481,7 @@ class KGObjectV3(object, metaclass=Registry):
                 instances = self._query_simple(query_filter, space, client)
                 if instances:
                     self.id = instances[0]["@id"]
-                    KGObjectV3.save_cache[self.__class__][query_cache_key] = self.id
+                    KGObject.save_cache[self.__class__][query_cache_key] = self.id
 
                     if self.data is None:
                         self.data = instances[0]
@@ -549,7 +549,7 @@ class KGObjectV3(object, metaclass=Registry):
                 if field.intrinsic:
                     values = getattr(self, field.name)
                     for value in as_list(values):
-                        if isinstance(value, KGObjectV3):
+                        if isinstance(value, KGObject):
                             if value.space:
                                 target_space = value.space
                             elif value.__class__.default_space == "controlled" and value.exists(client, space="controlled"):
@@ -619,13 +619,13 @@ class KGObjectV3(object, metaclass=Registry):
                 activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
-        KGObjectV3.object_cache[self.id] = self
+        KGObject.object_cache[self.id] = self
 
     def delete(self, client):
         """Deprecate"""
         client.delete_instance(self.id)
-        if self.id in KGObjectV3.object_cache:
-            KGObjectV3.object_cache.pop(self.id)
+        if self.id in KGObject.object_cache:
+            KGObject.object_cache.pop(self.id)
 
     @classmethod
     def by_name(cls, name, client, match="equals", all=False,
@@ -728,7 +728,7 @@ class KGObjectV3(object, metaclass=Registry):
                             use_type_filter=bool(len(field.types) > 1)
                         )
                         query.properties.append(property)
-                elif any(issubclass(_type, KGObjectV3) for _type in field.types):
+                elif any(issubclass(_type, KGObject) for _type in field.types):
                     for child_cls in field.types[:1]:
                         # take only the first entry, since we don't use type filters
                         # for KGObject where resolved=False
@@ -791,7 +791,7 @@ class KGObjectV3(object, metaclass=Registry):
         return client.unrelease(self.id)
 
 
-class KGProxyV3(object):
+class KGProxy(object):
     """docstring"""
 
     def __init__(self, cls, uri):
@@ -820,8 +820,8 @@ class KGProxyV3(object):
 
     def resolve(self, client, scope="released", use_cache=True):
         """docstring"""
-        if use_cache and self.id in KGObjectV3.object_cache:
-            obj = KGObjectV3.object_cache[self.id]
+        if use_cache and self.id in KGObject.object_cache:
+            obj = KGObject.object_cache[self.id]
             #if obj:
             #    logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
             return obj
@@ -839,7 +839,7 @@ class KGProxyV3(object):
                 obj = self.cls.from_uri(self.id, client, scope=scope)
             if obj is None:
                 raise Exception("Cannot resolve proxy object")
-            KGObjectV3.object_cache[self.id] = obj
+            KGObject.object_cache[self.id] = obj
             return obj
 
     def __repr__(self):
@@ -865,7 +865,7 @@ class KGProxyV3(object):
             obj.delete(client)
 
 
-class KGQueryV3(object):
+class KGQuery(object):
     """docstring"""
 
     def __init__(self, classes, filter):
@@ -898,7 +898,7 @@ class KGQueryV3(object):
             objects.extend(cls.from_kg_instance(instance_data, client)
                            for instance_data in instances)
         for obj in objects:
-            KGObjectV3.object_cache[obj.id] = obj
+            KGObject.object_cache[obj.id] = obj
         if len(objects) == 1:
             return objects[0]
         else:
@@ -942,7 +942,7 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
             raise NotImplementedError
 
         assert isinstance(possible_classes, (list, tuple))
-        assert all(issubclass(item, KGObjectV3) for item in possible_classes)
+        assert all(issubclass(item, KGObject) for item in possible_classes)
         if len(possible_classes) > 1:
             if "@type" in item:
                 for cls in possible_classes:
@@ -966,7 +966,7 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
                 except (ValueError, KeyError) as err:
                     # to add: emit a warning
                     logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                    obj = KGProxyV3(kg_cls, item["@id"]).resolve(
+                    obj = KGProxy(kg_cls, item["@id"]).resolve(
                         client,
                         # todo: provide space and scope
                         resolved=resolved)
@@ -977,7 +977,7 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
                     raise Exception("mismatched types")
                     obj = None
                 else:
-                    obj = KGProxyV3(kg_cls, item["@id"])
+                    obj = KGProxy(kg_cls, item["@id"])
         else:
             # todo: add a logger.warning that we have dud data
             obj = None
@@ -993,8 +993,8 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
 
 """
 id                    https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000
-inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/25975e2e-f186-4c3f-9352-d460c6969761), id=https://kg.ebrains.eu/api/instances/4a10989f-fd9f-4068-b9c2-28d9a6d7342c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/ab0e7c0b-0cae-4a5a-9c75-a0323a3addfb), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/a50435e2-1a64-41c0-ba90-e52bf124a673), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/deaf5b85-bd3d-4937-a1cf-cea45f6e2c2f)]
-outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/06b025ae-43d6-4e7c-8509-ce1eefb4acf6), id=https://kg.ebrains.eu/api/instances/27b8231a-88cf-4264-ace4-dd9fa45d9d60), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/477faf0c-da36-4172-ad18-dfe44ad817d8), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/8859cc17-947b-4167-9e29-81a02868454a)]
+inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/25975e2e-f186-4c3f-9352-d460c6969761), id=https://kg.ebrains.eu/api/instances/4a10989f-fd9f-4068-b9c2-28d9a6d7342c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/ab0e7c0b-0cae-4a5a-9c75-a0323a3addfb), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/a50435e2-1a64-41c0-ba90-e52bf124a673), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/deaf5b85-bd3d-4937-a1cf-cea45f6e2c2f)]
+outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/06b025ae-43d6-4e7c-8509-ce1eefb4acf6), id=https://kg.ebrains.eu/api/instances/27b8231a-88cf-4264-ace4-dd9fa45d9d60), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/477faf0c-da36-4172-ad18-dfe44ad817d8), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/8859cc17-947b-4167-9e29-81a02868454a)]
 environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/0a467c94-cdf8-41f6-bf86-386ce21749a2), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/a2252d99-2c16-4a96-9e99-5882675f4069), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/22f5ea2f-f7ee-40a8-b759-f3522fcc0b98), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/bfea4e9f-0ca1-4896-a046-3c31384c2328)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/64f65fa0-7338-406c-9c5a-81545bc05299)
 launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/9677046e-2850-44ab-9086-45833f9ccef9)
 started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/8bbe9569-de0c-4a62-93ef-ab4a60a5cf02)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/ca4302b8-f130-4c8f-933f-35d9b2c7fbd4)
@@ -1012,8 +1012,8 @@ study_targets
 
 """
 id                    https://kg.ebrains.eu/api/instances/9c87a285-0dae-4028-b417-9093ecfc9ddc
-inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/4d046ca8-be25-4c7f-b6d6-5b35bf3a3664), id=https://kg.ebrains.eu/api/instances/a1351964-ad28-4ce7-8ccd-b0418a8f615c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/be522f07-b61c-4167-a84f-773e8a8b92e7), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/db6971a6-ab1d-4e97-ad10-9ac77532f99f), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/ed290bed-3e8e-4cf1-b95a-85d98760e310)]
-outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxyV3([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/bdb2fdca-db72-48c7-867d-24de2e1adc37), id=https://kg.ebrains.eu/api/instances/63513a20-fa0e-4d84-b09c-6927470238f2), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/87f6330b-8350-41c2-9a33-427d93e0969c), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/488bd6be-e1ec-4463-9e06-0e4c24a51882)]
+inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/4d046ca8-be25-4c7f-b6d6-5b35bf3a3664), id=https://kg.ebrains.eu/api/instances/a1351964-ad28-4ce7-8ccd-b0418a8f615c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/be522f07-b61c-4167-a84f-773e8a8b92e7), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/db6971a6-ab1d-4e97-ad10-9ac77532f99f), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/ed290bed-3e8e-4cf1-b95a-85d98760e310)]
+outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/bdb2fdca-db72-48c7-867d-24de2e1adc37), id=https://kg.ebrains.eu/api/instances/63513a20-fa0e-4d84-b09c-6927470238f2), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/87f6330b-8350-41c2-9a33-427d93e0969c), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/488bd6be-e1ec-4463-9e06-0e4c24a51882)]
 environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/17f432ae-6876-4407-865b-b9a333114d64), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/36f290da-c68b-47b1-afd6-aedf643352a5), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/bef421f5-7cf5-45e5-9b4c-58a1b5503241), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/d21abc35-7245-4123-b3ea-b9bb7574e912)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/9bbf37a3-3d11-42e0-9078-aad505ab5089)
 launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/2eb5e20c-6409-4aec-ab18-7d035c507ee0)
 started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/e83b8bc0-b460-4217-ba4f-1fae41a5f1dc)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/723830ad-2991-4ecd-878f-d16cc2ce2f89)

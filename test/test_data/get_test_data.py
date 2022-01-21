@@ -5,7 +5,7 @@ Script to retrieve/update test data
 import os.path
 from itertools import cycle
 import json
-from fairgraph import KGClient, core, brainsimulation, electrophysiology, minds, uniminds, analysis
+from fairgraph.client_v2 import KGClient, core, brainsimulation, electrophysiology, minds, uniminds, analysis
 
 core.use_namespace("neuralactivity")
 

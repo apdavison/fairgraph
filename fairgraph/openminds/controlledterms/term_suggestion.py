@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class TermSuggestion(KGObjectV3):
+class TermSuggestion(KGObject):
     """
-    
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/TermSuggestion"]
@@ -43,7 +43,6 @@ class TermSuggestion(KGObjectV3):
               doc="Persistent identifier of a preferred ontological term."),
         Field("synonyms", str, "vocab:synonym", multiple=True, required=False,
               doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses."),
-        
+
     ]
     existence_query_fields = ('name',)
-

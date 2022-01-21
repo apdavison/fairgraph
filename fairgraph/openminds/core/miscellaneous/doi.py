@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class DOI(KGObjectV3):
+class DOI(KGObject):
     """
-    
+
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/DOI"]
@@ -27,7 +27,6 @@ class DOI(KGObjectV3):
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=False,
               doc="Term or code used to identify the DOI."),
-        
+
     ]
     existence_query_fields = ('identifier',)
-

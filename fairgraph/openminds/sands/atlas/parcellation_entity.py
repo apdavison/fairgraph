@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ParcellationEntity(KGObjectV3):
+class ParcellationEntity(KGObject):
     """
-    
+
     """
     default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/ParcellationEntity"]
@@ -35,7 +35,6 @@ class ParcellationEntity(KGObjectV3):
               doc="Term or code used to identify the parcellation entity registered within a particular ontology."),
         Field("related_uberon_term", "openminds.controlledterms.UBERONParcellation", "vocab:relatedUBERONTerm", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('name',)
-

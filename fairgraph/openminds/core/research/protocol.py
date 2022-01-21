@@ -5,13 +5,13 @@ Structured information on a research project.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Protocol(KGObjectV3):
+class Protocol(KGObject):
     """
     Structured information on a research project.
     """
@@ -33,7 +33,6 @@ class Protocol(KGObjectV3):
               doc="no description available"),
         Field("techniques", "openminds.controlledterms.Technique", "vocab:technique", multiple=True, required=True,
               doc="Method of accomplishing a desired aim."),
-        
+
     ]
     existence_query_fields = ('name',)
-

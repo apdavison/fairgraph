@@ -1,12 +1,12 @@
 # encoding: utf-8
 """
-Tests of fairgraph.base module.
+Tests of fairgraph.base_v2 module.
 """
 
 from datetime import date, datetime
 from uuid import UUID
-from fairgraph.base import KGQuery, KGProxy, as_list, Distribution, build_kg_object
-from fairgraph.base_v3 import EmbeddedMetadata, KGObjectV3
+from fairgraph.base_v2 import KGQuery, KGProxy, as_list, Distribution, build_kg_object
+from fairgraph.base_v3 import EmbeddedMetadata, KGObject
 from fairgraph.fields import Field
 from fairgraph.commons import QuantitativeValue
 from fairgraph.core import Person
@@ -121,7 +121,7 @@ class MockEmbeddedObject(EmbeddedMetadata):
     ]
 
 
-class MockKGObject2(KGObjectV3):
+class MockKGObject2(KGObject):
     default_space = "mock"
     type = ["https://openminds.ebrains.eu/mock/MockKGObject2"]
     context = {
@@ -135,7 +135,7 @@ class MockKGObject2(KGObjectV3):
     ]
 
 
-class MockKGObject(KGObjectV3):
+class MockKGObject(KGObject):
     default_space = "mock"
     type = ["https://openminds.ebrains.eu/mock/MockKGObject"]
     context = {

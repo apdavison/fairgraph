@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class CustomAnatomicalEntity(KGObjectV3):
+class CustomAnatomicalEntity(KGObject):
     """
-    
+
     """
     default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"]
@@ -33,7 +33,6 @@ class CustomAnatomicalEntity(KGObjectV3):
               doc="no description available"),
         Field("relation_assessments", ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"], "vocab:relationAssessment", multiple=True, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('name',)
-

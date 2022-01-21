@@ -35,8 +35,8 @@ except ImportError:
     NexusClient = object
 
 
-import fairgraph.client
-from fairgraph.base import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
+import fairgraph.client_v2
+from fairgraph.base_v2 import as_list, KGObject, MockKGObject, KGProxy, Distribution, IRI
 from fairgraph.commons import (QuantitativeValue, QuantitativeValueRange,
                                OntologyTerm, Age, Address, Species)
 
@@ -151,9 +151,9 @@ class MockNexusClient(NexusClient):
 
 @pytest.fixture
 def kg_client():
-    fairgraph.client.NexusClient = MockNexusClient
-    fairgraph.client.HttpClient = MockHttpClient
-    client = fairgraph.client.KGClient("thisismytoken")
+    fairgraph.client_v2.NexusClient = MockNexusClient
+    fairgraph.client_v2.HttpClient = MockHttpClient
+    client = fairgraph.client_v2.KGClient("thisismytoken")
     #token = os.environ["HBP_token"]
     #client = fairgraph.client.KGClient(token)
     return client

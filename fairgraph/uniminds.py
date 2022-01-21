@@ -21,7 +21,7 @@ An updated version of MINDS
 import sys
 import inspect
 from datetime import datetime
-from fairgraph.base import KGObject, KGProxy, KGQuery, cache, as_list
+from fairgraph.base_v2 import KGObject, KGProxy, KGQuery, cache, as_list
 from .fields import Field
 from fairgraph.minds import MINDSObject
 

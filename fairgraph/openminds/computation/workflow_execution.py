@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class WorkflowExecution(KGObjectV3):
+class WorkflowExecution(KGObject):
     """
-    
+
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/WorkflowExecution"]
@@ -29,7 +29,6 @@ class WorkflowExecution(KGObjectV3):
               doc="no description available"),
         Field("started_by", ["openminds.computation.SoftwareAgent", "openminds.core.Person"], "vocab:startedBy", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('stages',)
-

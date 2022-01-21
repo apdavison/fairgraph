@@ -10,13 +10,13 @@ from urllib.parse import urlparse, quote_plus, parse_qs, urlencode
 import requests
 from tqdm import tqdm
 
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 from fairgraph.utility import in_notebook, TERMS_OF_USE
 
 
 
-class DatasetVersion(KGObjectV3):
+class DatasetVersion(KGObject):
     """
     Structured information on data originating from human/animal studies or simulations (version level).
     """

@@ -23,7 +23,7 @@ import sys
 import inspect
 import logging
 from datetime import date
-from .base import KGObject, KGQuery, as_list, Distribution
+from .base_v2 import KGObject, KGQuery, as_list, Distribution
 from .fields import Field
 
 from .commons import Address, Species, Strain, Genotype, Sex, Age, QuantitativeValue, Handedness, Group

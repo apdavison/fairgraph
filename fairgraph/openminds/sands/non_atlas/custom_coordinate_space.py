@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class CustomCoordinateSpace(KGObjectV3):
+class CustomCoordinateSpace(KGObject):
     """
-    
+
     """
     default_space = "spatial"
     type = ["https://openminds.ebrains.eu/sands/CustomCoordinateSpace"]
@@ -35,7 +35,6 @@ class CustomCoordinateSpace(KGObjectV3):
               doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space."),
         Field("native_unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:nativeUnit", multiple=False, required=True,
               doc="Determinate quantity used in the original measurement."),
-        
+
     ]
     existence_query_fields = ('name',)
-

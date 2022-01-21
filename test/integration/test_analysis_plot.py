@@ -8,7 +8,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-from fairgraph import KGClient
+from fairgraph.client_v2 import KGClient
 from fairgraph.analysis import AnalysisResult
 
 import pytest

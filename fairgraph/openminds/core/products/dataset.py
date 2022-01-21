@@ -5,13 +5,13 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Dataset(KGObjectV3):
+class Dataset(KGObject):
     """
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
@@ -43,7 +43,6 @@ class Dataset(KGObjectV3):
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the dataset."),
-        
+
     ]
     existence_query_fields = ('alias',)
-

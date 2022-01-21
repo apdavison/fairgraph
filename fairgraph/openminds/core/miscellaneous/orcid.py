@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ORCID(KGObjectV3):
+class ORCID(KGObject):
     """
-    
+
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/ORCID"]
@@ -27,7 +27,6 @@ class ORCID(KGObjectV3):
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=False,
               doc="Term or code used to identify the ORCID."),
-        
+
     ]
     existence_query_fields = ('identifier',)
-

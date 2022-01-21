@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Environment(KGObjectV3):
+class Environment(KGObject):
     """
-    
+
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Environment"]
@@ -35,7 +35,6 @@ class Environment(KGObjectV3):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the environment."),
-        
+
     ]
     existence_query_fields = ('name', 'hardware')
-

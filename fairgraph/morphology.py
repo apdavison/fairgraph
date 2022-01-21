@@ -20,7 +20,7 @@ Metadata for morphology experiments.
 import sys
 import inspect
 from datetime import datetime
-from .base import KGObject, KGQuery, cache, Distribution
+from .base_v2 import KGObject, KGQuery, cache, Distribution
 from .fields import Field
 from .commons import QuantitativeValue, MorphologyType, BrainRegion, SomaType, ObjectiveType
 from .core import Subject, Person, Protocol

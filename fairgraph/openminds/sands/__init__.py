@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObjectV3
+from ...base_v3 import KGObject
 
 from .non_atlas.custom_coordinate_space import CustomCoordinateSpace
 from .non_atlas.custom_annotation import CustomAnnotation
@@ -21,4 +21,4 @@ from .atlas.parcellation_entity_version import ParcellationEntityVersion
 def list_kg_classes():
     """List all KG classes defined in this module"""
     return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
-           if inspect.isclass(obj) and issubclass(obj, KGObjectV3) and obj.__module__.startswith(__name__)]
+           if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__.startswith(__name__)]

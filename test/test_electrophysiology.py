@@ -4,7 +4,7 @@ Tests of fairgraph.electrophysiology module, using a mock Http client
 which returns data loaded from the files in the test_data directory.
 """
 
-from fairgraph.base import KGQuery, KGProxy, as_list, Distribution
+from fairgraph.base_v2 import KGQuery, KGProxy, as_list, Distribution
 from fairgraph.commons import BrainRegion, CellType, QuantitativeValue
 from fairgraph.core import use_namespace as use_core_namespace
 from fairgraph.electrophysiology import (

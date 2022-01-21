@@ -5,13 +5,13 @@ Structured information on a brain atlas (version level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class BrainAtlasVersion(KGObjectV3):
+class BrainAtlasVersion(KGObject):
     """
     Structured information on a brain atlas (version level).
     """
@@ -41,7 +41,6 @@ class BrainAtlasVersion(KGObjectV3):
               doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something."),
         Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
               doc="Term or code used to identify the brain atlas version registered within a particular ontology."),
-        
+
     ]
     existence_query_fields = ('alias', 'version_identifier')
-

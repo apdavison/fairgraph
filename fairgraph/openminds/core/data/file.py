@@ -5,7 +5,7 @@ Structured information on a file instances.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -32,7 +32,7 @@ def sha1sum(filename):
 
 
 
-class File(KGObjectV3):
+class File(KGObject):
     """
     Structured information on a file instances.
     """

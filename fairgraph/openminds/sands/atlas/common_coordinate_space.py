@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class CommonCoordinateSpace(KGObjectV3):
+class CommonCoordinateSpace(KGObject):
     """
-    
+
     """
     default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/CommonCoordinateSpace"]
@@ -49,7 +49,6 @@ class CommonCoordinateSpace(KGObjectV3):
               doc="Shortened or fully abbreviated name of the common coordinate space."),
         Field("version_identifier", str, "vocab:versionIdentifier", multiple=False, required=True,
               doc="Term or code used to identify the version of something."),
-        
+
     ]
     existence_query_fields = ('alias', 'version_identifier')
-

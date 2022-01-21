@@ -5,13 +5,13 @@ Structured information on a person.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Person(KGObjectV3):
+class Person(KGObject):
     """
     Structured information on a person.
     """
@@ -39,6 +39,10 @@ class Person(KGObjectV3):
     ]
     existence_query_fields = ('given_name', 'family_name')
 
+
+    @property
+    def full_name(self):
+        return f"{self.given_name} {self.family_name}"
 
     @property
     def full_name(self):

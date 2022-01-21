@@ -5,13 +5,13 @@ Structured information on a file repository.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class FileRepository(KGObjectV3):
+class FileRepository(KGObject):
     """
     Structured information on a file repository.
     """
@@ -43,7 +43,6 @@ class FileRepository(KGObjectV3):
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
         Field("structure_pattern", "openminds.core.FileRepositoryStructure", "vocab:structurePattern", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('iri',)
-

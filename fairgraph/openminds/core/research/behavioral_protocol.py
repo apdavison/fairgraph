@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class BehavioralProtocol(KGObjectV3):
+class BehavioralProtocol(KGObject):
     """
-    
+
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]
@@ -33,7 +33,6 @@ class BehavioralProtocol(KGObjectV3):
               doc="Term or code that identifies the behavioral protocol within a particular product."),
         Field("stimulations", "openminds.core.Stimulation", "vocab:stimulation", multiple=True, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('description', 'name')
-

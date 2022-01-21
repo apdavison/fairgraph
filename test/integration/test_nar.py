@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 
 from fairgraph.commons import BrainRegion, Species, CellType
 from fairgraph.electrophysiology import PatchedCell, Trace
-from fairgraph import KGClient
-from fairgraph.base import KGQuery
+from fairgraph.client_v2 import KGClient
+from fairgraph.base_v2 import KGQuery
 from fairgraph.minds import Dataset
 
 import pytest

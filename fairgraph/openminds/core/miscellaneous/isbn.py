@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ISBN(KGObjectV3):
+class ISBN(KGObject):
     """
-    
+
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ISBN"]
@@ -27,7 +27,6 @@ class ISBN(KGObjectV3):
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=False,
               doc="Term or code used to identify the ISBN."),
-        
+
     ]
     existence_query_fields = ('identifier',)
-

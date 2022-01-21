@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class LaunchConfiguration(KGObjectV3):
+class LaunchConfiguration(KGObject):
     """
-    
+
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/LaunchConfiguration"]
@@ -35,7 +35,6 @@ class LaunchConfiguration(KGObjectV3):
               doc="no description available"),
         Field("environment_variables", "openminds.core.ParameterSet", "vocab:environmentVariables", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('executable', 'name')
-

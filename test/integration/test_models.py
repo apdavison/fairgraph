@@ -7,10 +7,10 @@ Corresponds to "Accessing model information from the Knowledge Graph in a Jupyte
 import os
 import pandas as pd
 
-from fairgraph import KGClient
+from fairgraph.client_v2 import KGClient
 from fairgraph.brainsimulation import ModelProject, MEModel
 from fairgraph.commons import Species, CellType, BrainRegion, AbstractionLevel, ModelScope
-from fairgraph.base import as_list
+from fairgraph.base_v2 import as_list
 
 import pytest
 

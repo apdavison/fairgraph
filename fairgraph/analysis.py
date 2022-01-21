@@ -23,7 +23,7 @@ import logging
 from datetime import datetime, date
 import sys
 import inspect
-from .base import KGObject, Distribution, as_list, upload_attachment
+from .base_v2 import KGObject, Distribution, as_list, upload_attachment
 from .fields import Field
 from .core import Person
 

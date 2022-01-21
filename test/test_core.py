@@ -5,7 +5,7 @@ which returns data loaded from the files in the test_data directory.
 """
 
 from datetime import datetime
-from fairgraph.base import KGQuery, KGProxy, as_list
+from fairgraph.base_v2 import KGQuery, KGProxy, as_list
 from fairgraph.commons import QuantitativeValue, Species, Strain, Sex, Age, Address
 from fairgraph.core import Subject, Organization, Person
 

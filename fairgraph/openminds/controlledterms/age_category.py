@@ -5,13 +5,13 @@ Structured information on the life cycle (semantic term) of a specific age group
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class AgeCategory(KGObjectV3):
+class AgeCategory(KGObject):
     """
     Structured information on the life cycle (semantic term) of a specific age group.
     """
@@ -39,7 +39,6 @@ class AgeCategory(KGObjectV3):
               doc="Persistent identifier of a preferred ontological term."),
         Field("synonyms", str, "vocab:synonym", multiple=True, required=False,
               doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses."),
-        
+
     ]
     existence_query_fields = ('name',)
-

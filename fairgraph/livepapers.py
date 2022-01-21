@@ -19,7 +19,7 @@ Metadata for Live Papers.
 
 
 import logging
-from .base import KGObject, Distribution, HasAliasMixin
+from .base_v2 import KGObject, Distribution, HasAliasMixin
 from .fields import Field
 from datetime import datetime, date
 from .core import Person

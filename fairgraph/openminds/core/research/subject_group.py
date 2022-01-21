@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class SubjectGroup(KGObjectV3):
+class SubjectGroup(KGObject):
     """
-    
+
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/SubjectGroup"]
@@ -43,7 +43,6 @@ class SubjectGroup(KGObjectV3):
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("strains", "openminds.controlledterms.Strain", "vocab:strain", multiple=True, required=False,
               doc="Group of presumed common ancestry with physiological but usually not morphological distinctions."),
-        
+
     ]
     existence_query_fields = ('lookup_label',)
-

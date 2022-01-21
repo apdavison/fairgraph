@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ParcellationEntityVersion(KGObjectV3):
+class ParcellationEntityVersion(KGObject):
     """
-    
+
     """
     default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/ParcellationEntityVersion"]
@@ -39,7 +39,6 @@ class ParcellationEntityVersion(KGObjectV3):
               doc="Term or code used to identify the version of something."),
         Field("version_innovation", str, "vocab:versionInnovation", multiple=False, required=False,
               doc="Documentation on what changed in comparison to a previously published form of something."),
-        
+
     ]
     existence_query_fields = ('name', 'version_identifier')
-

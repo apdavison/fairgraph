@@ -25,9 +25,23 @@ from collections.abc import Iterable, Mapping
 from dateutil import parser as date_parser
 
 from .registry import lookup
-from .base import (KGObject, KGProxy, KGQuery, MockKGObject, Distribution,
-                   StructuredMetadata, IRI, build_kg_object, as_list)
-from .base_v3 import (KGObjectV3, KGProxyV3, KGQueryV3, EmbeddedMetadata, build_kgv3_object, IRI as IRIv3)
+from .base_v2 import (
+    KGObject as KGObjectV2,
+    KGProxy as KGProxyV2,
+    KGQuery as KGQueryV2,
+    MockKGObject,
+    Distribution,
+    StructuredMetadata,
+    IRI as IRIv2,
+    build_kg_object,
+    as_list)
+from .base_v3 import (
+    KGObject as KGObjectV3,
+    KGProxy as KGProxyV3,
+    KGQuery as KGQueryV3,
+    EmbeddedMetadata,
+    build_kgv3_object,
+    IRI as IRIv3)
 
 
 class Field(object):
@@ -67,7 +81,7 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery, KGProxyV3, KGQueryV3, EmbeddedMetadata))
+                if not (isinstance(item, (KGProxyV2, KGQueryV2, KGProxyV3, KGQueryV3, EmbeddedMetadata))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if not isinstance(item, MockKGObject):  # this check could be stricter
                         if item is None and self.required:
@@ -101,7 +115,7 @@ class Field(object):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
-            elif isinstance(value, (KGObject, KGObjectV3, KGProxy, KGProxyV3)):
+            elif isinstance(value, (KGObjectV2, KGObjectV3, KGProxyV2, KGProxyV3)):
                 if for_query:
                     return value.id
                 else:
@@ -109,7 +123,7 @@ class Field(object):
                         "@id": value.id,
                     }
                     if with_type:
-                        if isinstance(value, (KGProxy, KGProxyV3)):
+                        if isinstance(value, (KGProxyV2, KGProxyV3)):
                             if len(value.classes) == 1:
                                 data["@type"] = value.classes[0].type
                             else:
@@ -161,16 +175,16 @@ class Field(object):
                     "schema": "http://schema.org/",
                     "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
                 }
-                return KGQuery(self.types, query_filter, query_context)
+                return KGQueryV2(self.types, query_filter, query_context)
             if Distribution in self.types:
                 return build_kg_object(Distribution, data)
-            elif issubclass(self.types[0], (KGObject, StructuredMetadata)):
-                if len(self.types) > 1 or self.types[0] == KGObject:
+            elif issubclass(self.types[0], (KGObjectV2, StructuredMetadata)):
+                if len(self.types) > 1 or self.types[0] == KGObjectV2:
                     return build_kg_object(None, data, resolved=resolved, client=client)
                 return build_kg_object(self.types[0], data, resolved=resolved, client=client)
             elif self.types[0] in (datetime, date):
                 return date_parser.parse(data)
-            elif self.types[0] == IRI:
+            elif self.types[0] == IRIv2:
                 return data["@id"]
             elif self.types[0] == int:
                 if isinstance(data, str):

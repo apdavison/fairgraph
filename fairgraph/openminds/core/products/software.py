@@ -5,13 +5,13 @@ Structured information on a software tool (concept level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Software(KGObjectV3):
+class Software(KGObject):
     """
     Structured information on a software tool (concept level).
     """
@@ -43,7 +43,6 @@ class Software(KGObjectV3):
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the software."),
-        
+
     ]
     existence_query_fields = ('alias',)
-

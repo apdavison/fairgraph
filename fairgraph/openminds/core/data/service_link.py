@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ServiceLink(KGObjectV3):
+class ServiceLink(KGObject):
     """
-    
+
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ServiceLink"]
@@ -33,7 +33,6 @@ class ServiceLink(KGObjectV3):
               doc="no description available"),
         Field("service", "openminds.controlledterms.Service", "vocab:service", multiple=False, required=True,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('data_location', 'open_data_in', 'service')
-

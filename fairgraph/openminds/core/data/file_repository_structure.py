@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class FileRepositoryStructure(KGObjectV3):
+class FileRepositoryStructure(KGObject):
     """
-    
+
     """
     default_space = "files"
     type = ["https://openminds.ebrains.eu/core/FileRepositoryStructure"]
@@ -29,7 +29,6 @@ class FileRepositoryStructure(KGObjectV3):
               doc="no description available"),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        
+
     ]
     existence_query_fields = ('lookup_label',)
-

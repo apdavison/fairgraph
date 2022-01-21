@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class HardwareSystem(KGObjectV3):
+class HardwareSystem(KGObject):
     """
-    
+
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/HardwareSystem"]
@@ -31,7 +31,6 @@ class HardwareSystem(KGObjectV3):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the hardware system."),
-        
+
     ]
     existence_query_fields = ('name', 'version')
-

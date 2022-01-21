@@ -5,15 +5,15 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObjectV3, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class MetaDataModel(KGObjectV3):
+class MetaDataModel(KGObject):
     """
-    
+
     """
     default_space = "metadatamodel"
     type = ["https://openminds.ebrains.eu/core/MetaDataModel"]
@@ -43,7 +43,6 @@ class MetaDataModel(KGObjectV3):
               doc="Preferred format for citing a particular object or legal person."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the meta data model."),
-        
+
     ]
     existence_query_fields = ('alias',)
-
