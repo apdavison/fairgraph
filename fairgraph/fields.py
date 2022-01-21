@@ -48,7 +48,7 @@ class Field(object):
     """Representation of a metadata field"""
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False,
-                 strict=True, reverse=None, doc=""):
+                 strict=False, reverse=None, doc=""):
         self.name = name
         if isinstance(types, (type, str)):
             self._types = (types,)
