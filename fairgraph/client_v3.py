@@ -106,7 +106,7 @@ class KGv3Client(object):
     def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
         query = self.retrieve_query(query_label)
         if query is None:
-            raise NoQueryFound(f"No query was retrieved with label '{query_label}' for class {self.__class__.__name__}")
+            raise NoQueryFound(f"No query was retrieved with label '{query_label}'")
         uuid = self.uuid_from_uri(query["@id"])
         params = {
             "from": from_index,
@@ -191,11 +191,6 @@ class KGv3Client(object):
                 data = response.data()
         return data
 
-    def by_name(self, cls, name, match="equals", all=False,
-                space=None, scope="released", resolved=False):
-        """Retrieve an object based on the value of schema:name"""
-        raise NotImplementedError()
-
     def create_new_instance(self, data=None, space=None, instance_id=None):
         response = self._kg_client.create_instance(
             space=space,
@@ -257,6 +252,8 @@ class KGv3Client(object):
                     "search": query_label
                 }
             )
+            if response.status_code == 401:
+                raise AuthenticationError("Could not retrieve query. Has your token expired?")
             if response.total() == 0:
                 return None
             elif response.total() > 1:

@@ -151,3 +151,7 @@ class Registry(type):
         if cls.namespace is None:
             raise ValueError("namespace not set")
         return cls.namespace + cls._path
+
+    @property
+    def field_names(cls):
+        return [f.name for f in cls.fields]

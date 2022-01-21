@@ -24,6 +24,7 @@ import warnings
 from copy import copy
 import logging
 from uuid import UUID
+from warnings import warn
 
 from requests.exceptions import HTTPError
 try:
@@ -630,8 +631,18 @@ class KGObject(object, metaclass=Registry):
     @classmethod
     def by_name(cls, name, client, match="equals", all=False,
                 space=None, scope="released", resolved=False):
-        return client.by_name(cls, name, match=match, all=all, space=space,
-                              scope="released", resolved=resolved)
+        # todo: implement 'match'
+        objects = cls.list(client, space=space, scope=scope, resolved=resolved, api="query", name=name)
+        if len(objects) == 0:
+            return None
+        elif len(objects) == 1:
+            return objects[0]
+        elif all:
+            return objects
+        else:
+            warn("Multiple objects with the same name, returning the first. "
+                "Use 'all=True' to retrieve them all")
+            return objects[0]
 
     def resolve(self, client, scope="released", use_cache=True):
         """To avoid having to check if a child attribute is a proxy or a real object,
