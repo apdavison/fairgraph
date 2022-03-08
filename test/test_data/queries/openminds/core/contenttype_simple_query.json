@@ -40,6 +40,14 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/displayLabel",
+      "propertyName": "vocab:displayLabel",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "display_label"
+      }
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/fileExtension",
       "propertyName": "vocab:fileExtension",
       "filter": {

@@ -40,6 +40,22 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "description"
+      }
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "lookup_label"
+      }
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/stimulationApproach",
       "propertyName": "vocab:stimulationApproach",
       "structure": [

@@ -72,6 +72,23 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/attribute",
+      "propertyName": "vocab:attribute",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id",
+          "filter": {
+            "op": "CONTAINS",
+            "parameter": "attributes"
+          }
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
       "propertyName": "vocab:additionalRemarks",
       "filter": {

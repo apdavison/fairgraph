@@ -39,7 +39,7 @@ class ModelVersion(KGObject):
               doc="Reference to a previous (potentially outdated) particular form of something."),
         Field("licenses", "openminds.core.License", "vocab:license", multiple=True, required=True,
               doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something."),
-        Field("output_datas", ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.URL"], "vocab:outputData", multiple=True, required=False,
+        Field("output_data", ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.URL"], "vocab:outputData", multiple=True, required=False,
               doc="Data that comes out of, is delivered or produced by a process or machine."),
         Field("accessibility", "openminds.controlledterms.ProductAccessibility", "vocab:accessibility", multiple=False, required=True,
               doc="Level to which something is accessible to the model version."),

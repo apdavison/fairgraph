@@ -107,23 +107,6 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/hasComponent",
-      "propertyName": "vocab:hasComponent",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "has_components"
-          }
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/feature",
       "propertyName": "vocab:feature",
       "ensureOrder": true,

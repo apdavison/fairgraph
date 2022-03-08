@@ -5,8 +5,12 @@ Corresponds to "Register and store an analysis plot created in the notebook into
 """
 
 import os
-import matplotlib.pyplot as plt
-import numpy as np
+try:
+    import matplotlib.pyplot as plt
+    import numpy as np
+    have_import_error = False
+except ImportError:
+    have_import_error = True
 
 from fairgraph.client_v2 import KGClient
 from fairgraph.analysis import AnalysisResult
@@ -21,6 +25,8 @@ if token:
 
 
 @pytest.mark.skip("comment this out to run the test")
+@pytest.mark.skipif(have_import_error,
+                    reason="One or more libraries needed for this test are not available")
 @pytest.mark.skipif(token is None,
                     reason="No token provided. Please set environment variable HBP_AUTH_TOKEN")
 def test_all():

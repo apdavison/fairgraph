@@ -10,8 +10,13 @@ from pprint import pprint
 from io import BytesIO
 
 import requests
-import numpy as np
-import matplotlib.pyplot as plt
+
+try:
+    import numpy as np
+    import matplotlib.pyplot as plt
+    have_import_error = False
+except ImportError:
+    have_import_error = True
 
 from fairgraph.commons import BrainRegion, Species, CellType
 from fairgraph.electrophysiology import PatchedCell, Trace
@@ -29,6 +34,8 @@ if token:
 
 
 @pytest.mark.skip("comment this out to run the test")
+@pytest.mark.skipif(have_import_error,
+                    reason="One or more libraries needed for this test are not available")
 @pytest.mark.skipif(token is None,
                     reason="No token provided. Please set environment variable HBP_AUTH_TOKEN")
 def test_all():

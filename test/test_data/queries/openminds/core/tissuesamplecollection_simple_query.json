@@ -166,23 +166,6 @@
       }
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/phenotype",
-      "propertyName": "vocab:phenotype",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "phenotypes"
-          }
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/quantity",
       "propertyName": "vocab:quantity",
       "filter": {
@@ -200,23 +183,6 @@
           "filter": {
             "op": "CONTAINS",
             "parameter": "species"
-          }
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/strain",
-      "propertyName": "vocab:strain",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "strains"
           }
         },
         {

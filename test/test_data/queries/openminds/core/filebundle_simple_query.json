@@ -40,17 +40,16 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/content",
-      "propertyName": "vocab:content",
+      "path": "https://openminds.ebrains.eu/vocab/contentDescription",
+      "propertyName": "vocab:contentDescription",
       "filter": {
         "op": "CONTAINS",
-        "parameter": "content"
+        "parameter": "content_description"
       }
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
       "propertyName": "vocab:descendedFrom",
-      "ensureOrder": true,
       "structure": [
         {
           "path": "@id",

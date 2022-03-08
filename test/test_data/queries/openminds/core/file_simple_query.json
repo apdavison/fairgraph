@@ -40,11 +40,11 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/content",
-      "propertyName": "vocab:content",
+      "path": "https://openminds.ebrains.eu/vocab/contentDescription",
+      "propertyName": "vocab:contentDescription",
       "filter": {
         "op": "CONTAINS",
-        "parameter": "content"
+        "parameter": "content_description"
       }
     },
     {
@@ -56,6 +56,23 @@
           "filter": {
             "op": "CONTAINS",
             "parameter": "file_repository"
+          }
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/dataType",
+      "propertyName": "vocab:dataType",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id",
+          "filter": {
+            "op": "CONTAINS",
+            "parameter": "data_types"
           }
         },
         {

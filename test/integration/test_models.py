@@ -5,7 +5,11 @@ Corresponds to "Accessing model information from the Knowledge Graph in a Jupyte
 """
 
 import os
-import pandas as pd
+try:
+    import pandas as pd
+    have_import_error = False
+except ImportError:
+    have_import_error = True
 
 from fairgraph.client_v2 import KGClient
 from fairgraph.brainsimulation import ModelProject, MEModel
@@ -21,6 +25,8 @@ if token:
 
 
 @pytest.mark.skip("comment this out to run the test")
+@pytest.mark.skipif(have_import_error,
+                    reason="One or more libraries needed for this test are not available")
 @pytest.mark.skipif(token is None,
                     reason="No token provided. Please set environment variable HBP_AUTH_TOKEN")
 def test_all():

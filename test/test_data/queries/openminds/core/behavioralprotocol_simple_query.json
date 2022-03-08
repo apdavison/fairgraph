@@ -40,6 +40,22 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/describedIn",
+      "propertyName": "vocab:describedIn",
+      "structure": [
+        {
+          "path": "@id",
+          "filter": {
+            "op": "CONTAINS",
+            "parameter": "described_in"
+          }
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/description",
       "propertyName": "vocab:description",
       "filter": {
