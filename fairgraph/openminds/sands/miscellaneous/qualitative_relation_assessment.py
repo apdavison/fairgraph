@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class QualitativeRelationAssessment(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/sands/QualitativeRelationAssessment"]
     context = {
@@ -26,10 +26,9 @@ class QualitativeRelationAssessment(EmbeddedMetadata):
     fields = [
         Field("criteria", "openminds.core.ProtocolExecution", "vocab:criteria", multiple=False, required=False,
               doc="Aspects or standards on which a judgement or decision is based."),
-        Field("in_relation_to", "openminds.sands.ParcellationEntityVersion", "vocab:inRelationTo", multiple=False, required=True,
+        Field("in_relation_to", ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:inRelationTo", multiple=False, required=True,
               doc="Reference to a related element."),
         Field("qualitative_overlap", "openminds.controlledterms.QualitativeOverlap", "vocab:qualitativeOverlap", multiple=False, required=True,
               doc="Semantic characterization of how much two things occupy the same space."),
-        
-    ]
 
+    ]

@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ContentTypePattern(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/core/ContentTypePattern"]
     context = {
@@ -30,6 +30,5 @@ class ContentTypePattern(EmbeddedMetadata):
               doc="no description available"),
         Field("regex", str, "vocab:regex", multiple=False, required=False,
               doc="no description available"),
-        
-    ]
 
+    ]

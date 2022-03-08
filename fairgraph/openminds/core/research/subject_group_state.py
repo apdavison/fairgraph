@@ -29,6 +29,8 @@ class SubjectGroupState(KGObject):
               doc="Distinct life cycle class that is defined by a similar age or age range (developmental stage) within a group of individual beings."),
         Field("handedness", "openminds.controlledterms.Handedness", "vocab:handedness", multiple=True, required=False,
               doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task."),
+        Field("attributes", "openminds.controlledterms.SubjectAttribute", "vocab:attribute", multiple=True, required=False,
+              doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
         Field("age", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:age", multiple=False, required=False,

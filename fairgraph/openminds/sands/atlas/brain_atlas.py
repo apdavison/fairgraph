@@ -25,9 +25,11 @@ class BrainAtlas(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
+              doc="no description available"),
         Field("authors", ["openminds.core.Organization", "openminds.core.Person"], "vocab:author", multiple=True, required=True,
               doc="Creator of a literary or creative work, as well as a dataset publication."),
-        Field("digital_identifier", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:digitalIdentifier", multiple=False, required=False,
+        Field("digital_identifier", ["openminds.core.DOI", "openminds.core.ISBN", "openminds.core.RRID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
         Field("has_terminology", "openminds.sands.ParcellationTerminology", "vocab:hasTerminology", multiple=False, required=True,
               doc="no description available"),

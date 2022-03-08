@@ -1,0 +1,39 @@
+"""
+{{docstring}}
+"""
+
+# this file was auto-generated
+
+from datetime import date, datetime
+from fairgraph.base_v3 import {{ base_class }}, IRI
+from fairgraph.fields import Field
+
+{{preamble}}
+
+
+class {{ class_name }}({{ base_class }}):
+    """
+    {{ docstring }}
+    """
+    {%- if default_space %}
+    default_space = "{{ default_space }}"
+    {%- endif %}
+    type = ["{{ openminds_type }}"]
+    context = {
+        "schema": "http://schema.org/",
+        "kg": "https://kg.ebrains.eu/api/instances/",
+        "vocab": "https://openminds.ebrains.eu/vocab/",
+        "terms": "https://openminds.ebrains.eu/controlledTerms/",
+        "core": "https://openminds.ebrains.eu/core/"
+    }
+    fields = [
+        {% for field in fields -%}
+        Field("{{field.name}}", {{field.type}}, "{{field.iri}}", multiple={{field.allow_multiple}}, required={{field.required}},
+              doc="{{field.doc}}"),
+        {% endfor %}
+    ]
+    {%- if default_space %}
+    existence_query_fields = {{ existence_query_fields }}
+    {%- endif %}
+
+{{ additional_methods }}

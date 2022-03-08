@@ -25,6 +25,10 @@ class TissueSampleState(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("descended_from", ["openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:descendedFrom", multiple=True, required=False,
+              doc="no description available"),
+        Field("attributes", "openminds.controlledterms.TissueSampleAttribute", "vocab:attribute", multiple=True, required=False,
+              doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
         Field("age", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:age", multiple=False, required=False,

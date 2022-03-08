@@ -27,10 +27,10 @@ class HardwareSystem(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the hardware system."),
-        Field("version", str, "vocab:version", multiple=False, required=True,
+        Field("version", str, "vocab:version", multiple=False, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the hardware system."),
 
     ]
-    existence_query_fields = ('name', 'version')
+    existence_query_fields = ('name',)

@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class StringParameter(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/core/StringParameter"]
     context = {
@@ -28,6 +28,5 @@ class StringParameter(EmbeddedMetadata):
               doc="Word or phrase that constitutes the distinctive designation of the string parameter."),
         Field("value", str, "vocab:value", multiple=False, required=True,
               doc="Entry for a property."),
-        
-    ]
 
+    ]

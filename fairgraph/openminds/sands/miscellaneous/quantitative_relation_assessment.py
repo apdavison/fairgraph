@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class QuantitativeRelationAssessment(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/sands/QuantitativeRelationAssessment"]
     context = {
@@ -30,6 +30,5 @@ class QuantitativeRelationAssessment(EmbeddedMetadata):
               doc="Reference to a related element."),
         Field("quantitative_overlap", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:quantitativeOverlap", multiple=False, required=True,
               doc="Numerical characterization of how much two things occupy the same space."),
-        
-    ]
 
+    ]

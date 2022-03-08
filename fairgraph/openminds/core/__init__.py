@@ -7,6 +7,7 @@ from .research.protocol_execution import ProtocolExecution
 from .research.parameter_set import ParameterSet
 from .research.behavioral_protocol import BehavioralProtocol
 from .research.subject import Subject
+from .research.strain import Strain
 from .research.numerical_parameter import NumericalParameter
 from .research.tissue_sample_collection import TissueSampleCollection
 from .research.stimulation import Stimulation
@@ -30,9 +31,11 @@ from .miscellaneous.doi import DOI
 from .miscellaneous.rorid import RORID
 from .miscellaneous.isbn import ISBN
 from .miscellaneous.quantitative_value import QuantitativeValue
+from .miscellaneous.rrid import RRID
 from .miscellaneous.orcid import ORCID
 from .miscellaneous.gridid import GRIDID
 from .miscellaneous.funding import Funding
+from .miscellaneous.stock_number import StockNumber
 from .miscellaneous.quantitative_value_range import QuantitativeValueRange
 from .miscellaneous.swhid import SWHID
 from .miscellaneous.url import URL

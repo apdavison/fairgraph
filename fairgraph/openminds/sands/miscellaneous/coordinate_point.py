@@ -28,6 +28,5 @@ class CoordinatePoint(EmbeddedMetadata):
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),
         Field("coordinate_space", ["openminds.sands.CommonCoordinateSpace", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
-        
-    ]
 
+    ]

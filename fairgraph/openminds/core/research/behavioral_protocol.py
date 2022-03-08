@@ -25,6 +25,8 @@ class BehavioralProtocol(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("described_in", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:describedIn", multiple=False, required=False,
+              doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the behavioral protocol."),
         Field("name", str, "vocab:name", multiple=False, required=True,

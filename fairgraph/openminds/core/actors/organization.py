@@ -25,7 +25,7 @@ class Organization(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("digital_identifiers", ["openminds.core.GRIDID", "openminds.core.RORID"], "vocab:digitalIdentifier", multiple=True, required=False,
+        Field("digital_identifiers", ["openminds.core.GRIDID", "openminds.core.RORID", "openminds.core.RRID"], "vocab:digitalIdentifier", multiple=True, required=False,
               doc="Digital handle to identify objects or legal persons."),
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the organization."),

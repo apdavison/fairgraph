@@ -25,11 +25,15 @@ class BrainAtlasVersion(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
+              doc="no description available"),
+        Field("atlas_type", "openminds.controlledterms.AtlasType", "vocab:atlasType", multiple=False, required=False,
+              doc="no description available"),
         Field("authors", ["openminds.core.Organization", "openminds.core.Person"], "vocab:author", multiple=True, required=False,
               doc="Creator of a literary or creative work, as well as a dataset publication."),
         Field("coordinate_space", "openminds.sands.CommonCoordinateSpace", "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
-        Field("digital_identifier", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:digitalIdentifier", multiple=False, required=False,
+        Field("digital_identifier", ["openminds.core.DOI", "openminds.core.ISBN", "openminds.core.RRID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
         Field("has_terminology_version", "openminds.sands.ParcellationTerminologyVersion", "vocab:hasTerminologyVersion", multiple=False, required=True,
               doc="no description available"),
@@ -39,7 +43,7 @@ class BrainAtlasVersion(KGObject):
               doc="Reference to a previous (potentially outdated) particular form of something."),
         Field("license", "openminds.core.License", "vocab:license", multiple=False, required=True,
               doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something."),
-        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+        Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the brain atlas version registered within a particular ontology."),
 
     ]

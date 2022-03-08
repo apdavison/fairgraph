@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class FilePathPattern(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/core/FilePathPattern"]
     context = {
@@ -28,6 +28,5 @@ class FilePathPattern(EmbeddedMetadata):
               doc="no description available"),
         Field("regex", str, "vocab:regex", multiple=False, required=True,
               doc="no description available"),
-        
-    ]
 
+    ]

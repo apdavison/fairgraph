@@ -25,10 +25,14 @@ class Stimulation(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("description", str, "vocab:description", multiple=False, required=False,
+              doc="Longer statement or account giving the characteristics of the stimulation."),
+        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
+              doc="no description available"),
         Field("stimulation_approach", "openminds.controlledterms.StimulationApproach", "vocab:stimulationApproach", multiple=False, required=True,
               doc="no description available"),
         Field("stimulus_type", "openminds.controlledterms.StimulusType", "vocab:stimulusType", multiple=False, required=True,
               doc="no description available"),
 
     ]
-    existence_query_fields = ('stimulation_approach', 'stimulus_type')
+    existence_query_fields = ('lookup_label',)

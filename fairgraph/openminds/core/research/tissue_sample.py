@@ -37,18 +37,14 @@ class TissueSample(KGObject):
               doc="no description available"),
         Field("type", "openminds.controlledterms.TissueSampleType", "vocab:type", multiple=False, required=True,
               doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
-        Field("biological_sex", "openminds.controlledterms.BiologicalSex", "vocab:biologicalSex", multiple=False, required=True,
+        Field("biological_sex", "openminds.controlledterms.BiologicalSex", "vocab:biologicalSex", multiple=False, required=False,
               doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce."),
-        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
+        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the tissue sample within a particular product."),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("phenotype", "openminds.controlledterms.Phenotype", "vocab:phenotype", multiple=False, required=False,
-              doc="Physical expression of one or more genes of an organism."),
-        Field("species", "openminds.controlledterms.Species", "vocab:species", multiple=False, required=True,
+        Field("species", ["openminds.controlledterms.Species", "openminds.core.Strain"], "vocab:species", multiple=False, required=True,
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
-        Field("strain", "openminds.controlledterms.Strain", "vocab:strain", multiple=False, required=False,
-              doc="Group of presumed common ancestry with physiological but usually not morphological distinctions."),
 
     ]
     existence_query_fields = ('lookup_label',)

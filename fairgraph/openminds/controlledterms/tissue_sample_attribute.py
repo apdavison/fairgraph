@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class Strain(KGObject):
+class TissueSampleAttribute(KGObject):
     """
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/Strain"]
+    type = ["https://openminds.ebrains.eu/controlledTerms/TissueSampleAttribute"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,18 +25,16 @@ class Strain(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("identifiers", str, "vocab:identifier", multiple=True, required=False,
-              doc="Term or code used to identify the strain."),
         Field("definition", str, "vocab:definition", multiple=False, required=False,
               doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol."),
         Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the strain."),
+              doc="Longer statement or account giving the characteristics of the tissue sample attribute."),
         Field("interlex_identifier", IRI, "vocab:interlexIdentifier", multiple=False, required=False,
               doc="Persistent identifier for a term registered in the InterLex project."),
         Field("knowledge_space_link", IRI, "vocab:knowledgeSpaceLink", multiple=False, required=False,
               doc="Persistent link to an encyclopedia entry in the Knowledge Space project."),
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the strain."),
+              doc="Word or phrase that constitutes the distinctive designation of the tissue sample attribute."),
         Field("preferred_ontology_identifier", IRI, "vocab:preferredOntologyIdentifier", multiple=False, required=False,
               doc="Persistent identifier of a preferred ontological term."),
         Field("synonyms", str, "vocab:synonym", multiple=True, required=False,

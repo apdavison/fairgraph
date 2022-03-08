@@ -1,5 +1,5 @@
 """
-Structured information on the phenotype of a subject.
+
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class Phenotype(KGObject):
+class LivePaperSectionType(KGObject):
     """
-    Structured information on the phenotype of a subject.
+
     """
-    default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/Phenotype"]
+    default_space = "publications"
+    type = ["https://openminds.ebrains.eu/publications/LivePaperSectionType"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -28,13 +28,13 @@ class Phenotype(KGObject):
         Field("definition", str, "vocab:definition", multiple=False, required=False,
               doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol."),
         Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the phenotype."),
+              doc="Longer statement or account giving the characteristics of the live paper section type."),
         Field("interlex_identifier", IRI, "vocab:interlexIdentifier", multiple=False, required=False,
               doc="Persistent identifier for a term registered in the InterLex project."),
         Field("knowledge_space_link", IRI, "vocab:knowledgeSpaceLink", multiple=False, required=False,
               doc="Persistent link to an encyclopedia entry in the Knowledge Space project."),
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the phenotype."),
+              doc="Word or phrase that constitutes the distinctive designation of the live paper section type."),
         Field("preferred_ontology_identifier", IRI, "vocab:preferredOntologyIdentifier", multiple=False, required=False,
               doc="Persistent identifier of a preferred ontological term."),
         Field("synonyms", str, "vocab:synonym", multiple=True, required=False,

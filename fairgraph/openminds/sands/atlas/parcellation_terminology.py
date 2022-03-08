@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ParcellationTerminology(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/sands/ParcellationTerminology"]
     context = {
@@ -26,14 +26,9 @@ class ParcellationTerminology(EmbeddedMetadata):
     fields = [
         Field("defined_ins", "openminds.core.File", "vocab:definedIn", multiple=True, required=False,
               doc="Reference to a file instance in which something is stored."),
-        Field("name", str, "vocab:fullName", multiple=False, required=False,
-              doc="Whole, non-abbreviated name of the parcellation terminology."),
         Field("entities", "openminds.sands.ParcellationEntity", "vocab:hasEntity", multiple=True, required=True,
               doc="no description available"),
-        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+        Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the parcellation terminology registered within a particular ontology."),
-        Field("alias", str, "vocab:shortName", multiple=False, required=True,
-              doc="Shortened or fully abbreviated name of the parcellation terminology."),
-        
-    ]
 
+    ]

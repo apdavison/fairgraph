@@ -29,7 +29,7 @@ class Project(KGObject):
               doc="Longer statement or account giving the characteristics of the project."),
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the project."),
-        Field("has_research_products", ["openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
+        Field("has_research_products", ["openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion", "openminds.publications.LivePaper", "openminds.publications.LivePaperVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
               doc="Reference to subsidiary research products."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
               doc="Main website of the project."),

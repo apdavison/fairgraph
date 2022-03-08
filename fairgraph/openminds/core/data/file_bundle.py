@@ -25,9 +25,9 @@ class FileBundle(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("content", str, "vocab:content", multiple=False, required=False,
-              doc="Something that is contained."),
-        Field("descended_from", ["openminds.controlledterms.Technique", "openminds.core.BehavioralProtocol", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:descendedFrom", multiple=True, required=False,
+        Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
+              doc="no description available"),
+        Field("descended_from", ["openminds.controlledterms.Technique", "openminds.core.BehavioralProtocol", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.Subject", "openminds.core.SubjectGroup", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSample", "openminds.core.TissueSampleCollection", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:descendedFrom", multiple=False, required=False,
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),

@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class NumericalParameter(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/core/NumericalParameter"]
     context = {
@@ -28,6 +28,5 @@ class NumericalParameter(EmbeddedMetadata):
               doc="Word or phrase that constitutes the distinctive designation of the numerical parameter."),
         Field("values", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:value", multiple=True, required=True,
               doc="Entry for a property."),
-        
-    ]
 
+    ]

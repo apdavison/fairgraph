@@ -41,7 +41,7 @@ class CommonCoordinateSpace(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
         Field("native_unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:nativeUnit", multiple=False, required=True,
               doc="Determinate quantity used in the original measurement."),
-        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+        Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the common coordinate space registered within a particular ontology."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),

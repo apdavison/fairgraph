@@ -25,6 +25,8 @@ class ContentType(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("display_label", str, "vocab:displayLabel", multiple=False, required=False,
+              doc="no description available"),
         Field("file_extensions", str, "vocab:fileExtension", multiple=True, required=False,
               doc="String of characters attached as suffix to the names of files of a particular format."),
         Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,

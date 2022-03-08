@@ -25,7 +25,7 @@ class CustomAnatomicalEntity(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("has_annotation", "openminds.sands.CustomAnnotation", "vocab:hasAnnotation", multiple=False, required=False,
+        Field("has_annotations", "openminds.sands.CustomAnnotation", "vocab:hasAnnotation", multiple=True, required=False,
               doc="no description available"),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity."),

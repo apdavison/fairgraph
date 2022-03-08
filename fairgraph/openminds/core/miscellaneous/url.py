@@ -25,7 +25,7 @@ class URL(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("url", IRI, "vocab:URL", multiple=False, required=False,
+        Field("url", IRI, "vocab:URL", multiple=False, required=True,
               doc="no description available"),
 
     ]

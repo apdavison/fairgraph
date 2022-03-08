@@ -28,6 +28,5 @@ class Contribution(EmbeddedMetadata):
               doc="Distinct class of what was given or supplied as a part or share."),
         Field("contributor", ["openminds.core.Organization", "openminds.core.Person"], "vocab:contributor", multiple=False, required=True,
               doc="Legal person that gave or supplied something as a part or share."),
-        
-    ]
 
+    ]

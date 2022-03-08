@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Affiliation(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/core/Affiliation"]
     context = {
@@ -30,6 +30,5 @@ class Affiliation(EmbeddedMetadata):
               doc="Date in the Gregorian calendar at which something terminates in time."),
         Field("organization", "openminds.core.Organization", "vocab:organization", multiple=False, required=True,
               doc="Legally accountable, administrative and functional structure."),
-        
-    ]
 
+    ]

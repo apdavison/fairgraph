@@ -28,6 +28,5 @@ class Copyright(EmbeddedMetadata):
               doc="Legal person in possession of something."),
         Field("year", str, "vocab:year", multiple=False, required=True,
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
-        
-    ]
 
+    ]

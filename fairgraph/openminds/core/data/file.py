@@ -46,9 +46,11 @@ class File(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("content", str, "vocab:content", multiple=False, required=False,
-              doc="Something that is contained."),
+        Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
+              doc="no description available"),
         Field("file_repository", "openminds.core.FileRepository", "vocab:fileRepository", multiple=False, required=False,
+              doc="no description available"),
+        Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
@@ -56,7 +58,7 @@ class File(KGObject):
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("iri", IRI, "vocab:IRI", multiple=False, required=True,
               doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
-        Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=True,
+        Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
               doc="Reference to the ensemble of multiple things or beings."),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the file."),

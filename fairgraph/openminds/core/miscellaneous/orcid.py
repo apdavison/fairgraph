@@ -25,7 +25,7 @@ class ORCID(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("identifier", str, "vocab:identifier", multiple=False, required=False,
+        Field("identifier", str, "vocab:identifier", multiple=False, required=True,
               doc="Term or code used to identify the ORCID."),
 
     ]

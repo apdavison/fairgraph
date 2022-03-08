@@ -1,1 +1,1 @@
-from . import computation, controlledterms, core, sands
+from . import computation, controlledterms, core, ephys, publications, sands

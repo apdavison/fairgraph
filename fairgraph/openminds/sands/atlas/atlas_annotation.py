@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class AtlasAnnotation(EmbeddedMetadata):
     """
-    
+
     """
     type = ["https://openminds.ebrains.eu/sands/AtlasAnnotation"]
     context = {
@@ -24,6 +24,8 @@ class AtlasAnnotation(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("annotation_type", "openminds.controlledterms.AnnotationType", "vocab:annotationType", multiple=False, required=False,
+              doc="no description available"),
         Field("best_view_point", "openminds.sands.CoordinatePoint", "vocab:bestViewPoint", multiple=False, required=False,
               doc="Coordinate point from which you get the best view of something."),
         Field("criteria", "openminds.core.ProtocolExecution", "vocab:criteria", multiple=False, required=False,
@@ -38,10 +40,7 @@ class AtlasAnnotation(EmbeddedMetadata):
               doc="Term or code that identifies the atlas annotation within a particular product."),
         Field("laterality", "openminds.controlledterms.Laterality", "vocab:laterality", multiple=True, required=False,
               doc="Differentiation between a pair of lateral homologous parts of the body."),
-        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
-              doc="no description available"),
         Field("visualized_in", "openminds.core.File", "vocab:visualizedIn", multiple=False, required=False,
               doc="Reference to an image in which something is visible."),
-        
-    ]
 
+    ]
