@@ -8,3 +8,4 @@ htmlcov
 doc/_build
 *.py.orig
 build/expanded
+build/target
