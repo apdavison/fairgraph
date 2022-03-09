@@ -42,7 +42,6 @@ class TestEnvironment:
                     "filter": {"op": "CONTAINS", "parameter": "name"},
                     "path": "https://openminds.ebrains.eu/vocab/name",
                     "propertyName": "vocab:name",
-                    "required": True,
                     "sort": True,
                 },
                 {

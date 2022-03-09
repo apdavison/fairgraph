@@ -747,7 +747,7 @@ class KGObject(object, metaclass=Registry):
                             field, client,
                             filter_parameter=field.name
                         )
-                        if field.required or field.name in filter_keys:
+                        if field.name in filter_keys:
                             property.required = True
                         query.properties.append(property)
                 else:
@@ -757,7 +757,7 @@ class KGObject(object, metaclass=Registry):
                                              ensure_order=field.multiple)
                     if field.name == "name":
                         property.sorted = True
-                    if field.required or field.name in filter_keys:
+                    if field.name in filter_keys:
                         property.required = True
                     query.properties.append(property)
         return query.serialize()
@@ -769,9 +769,7 @@ class KGObject(object, metaclass=Registry):
         else:
             label = f"fg-{cls.__name__}-{query_type}-{space}"
         if filter_keys:
-            non_required_keys = sorted(set(filter_keys).difference(cls.required_field_names))
-            if non_required_keys:
-                label += f"-filters-{'-'.join(sorted(non_required_keys))}"
+            label += f"-filters-{'-'.join(sorted(filter_keys))}"
         return label
 
     @classmethod

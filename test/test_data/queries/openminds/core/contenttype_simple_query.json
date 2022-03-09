@@ -96,8 +96,7 @@
         "op": "CONTAINS",
         "parameter": "name"
       },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/specification",
