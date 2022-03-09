@@ -6,24 +6,19 @@ Setting up a connection
 =======================
 
 Communication between fairgraph metadata objects and the Knowledge Graph web service is through
-a client object, for which an access token associated with an HBP Identity account is needed.
-To obtain an HBP Identity account, please see https://services.humanbrainproject.eu/oidc/account/request.
+a client object, for which an access token associated with an EBRAINS account is needed.
+To obtain an EBRAINS account, please see https://ebrains.eu/register.
 
-If you are working in an HBP Collaboratory Jupyter notebook, you have already logged in with your
-user name and password, so you can get an access token as follows::
-
-   token = clb_oauth.get_token()
-
+If you are working in a Collaboratory Jupyter notebook, the client will find your token automatically.
 
 If working outside the Collaboratory, we recommend you obtain a token from whichever authentication endpoint
 is available to you, and save it as an environment variable so the client can find it, e.g. at a shell prompt::
 
    export KG_AUTH_TOKEN=eyJhbGci...nPq
 
-
 You can then create the client object::
 
-   >>> from fairgraph.client_v3 import KGv3Client as KGClient
+   >>> from fairgraph import KGClient
    >>> client = KGClient()
 
 You can also pass the token explicitly to the client::
@@ -173,9 +168,12 @@ a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the c
 Strict mode
 ===========
 
-fairgraph is quite strict about which metadata attributes and data types are expected,
-somewhat stricter than the Knowledge Graph itself.
-If you find that certain queries produce errors, you can relax this strict checking for
-a given node type as follows::
+If you don't provide all of the metadata attributes and data types expected,
+fairgraph will warn you.
 
-    DatasetVersion.set_strict_mode(False)
+If you wish to be certain that all required attributes have been provided,
+you can turn on strict checking for a given node type as follows::
+
+    DatasetVersion.set_strict_mode(True)
+
+This will then raise an Exception if an attribute is missing or of the wrong data type.

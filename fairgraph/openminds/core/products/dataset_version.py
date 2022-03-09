@@ -6,11 +6,12 @@ Structured information on data originating from human/animal studies or simulati
 
 import os
 from datetime import date, datetime
+from unicodedata import name
 from urllib.parse import urlparse, quote_plus, parse_qs, urlencode
 import requests
 from tqdm import tqdm
 
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base_v3 import KGObject, KGQuery, IRI
 from fairgraph.fields import Field
 from fairgraph.utility import in_notebook, TERMS_OF_USE
 
@@ -145,3 +146,19 @@ class DatasetVersion(KGObject):
                     raise IOError(
                         f"Unable to download file '{local_path}'. Response code {response2.status_code}")
         progress_bar.close()
+
+    @property
+    def is_version_of(self):
+        return KGQuery("openminds.core.Dataset", {"versions": self})
+
+    def get_name(self, client, scope="released"):
+        if self.name:
+            return name
+        else:
+            return self.is_version_of.resolve(client, scope=scope).name
+
+    def get_description(self, client, scope="released"):
+        if self.description:
+            return self.description
+        else:
+            return self.is_version_of.resolve(client, scope=scope).description

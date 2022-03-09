@@ -40,6 +40,35 @@ from .queries import QueryProperty, Query, Filter
 logger = logging.getLogger("fairgraph")
 
 
+def get_filter_value(filters, field):
+    value = filters[field.name]
+    if not isinstance(value, field.types):
+    #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
+    #         value = field.types[0](value)
+    #     else:
+        if field.name == "hash":  # bit of a hack
+            filter_value = value
+        else:
+            raise TypeError("{} must be of type {}".format(field.name, field.types))
+    if hasattr(value, "iri"):
+        filter_value = value.iri
+    elif isinstance(value, IRI):
+        filter_value = value.value
+    elif hasattr(value, "id"):
+        filter_value = value.id
+    else:
+        filter_value = value
+    return filter_value
+
+
+def normalize_filter(cls, filter_dict):
+    filter_queries = {}
+    for field in cls.fields:
+        if field.name in filter_dict:
+            filter_queries[field.name] = get_filter_value(filter_dict, field)
+    return filter_queries
+
+
 class IRI(object):
 
     def __init__(self, value):
@@ -361,34 +390,9 @@ class KGObject(object, metaclass=Registry):
              scope="released", resolved=False, space=None, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
-        def get_filter_value(filters, field):
-            value = filters[field.name]
-            if not isinstance(value, field.types):
-            #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
-            #         value = field.types[0](value)
-            #     else:
-                if field.name == "hash":  # bit of a hack
-                    filter_value = value
-                else:
-                    raise TypeError("{} must be of type {}".format(field.name, field.types))
-            if hasattr(value, "iri"):
-                filter_value = value.iri
-            elif isinstance(value, IRI):
-                filter_value = value.value
-            elif hasattr(value, "id"):
-                filter_value = value.id
-            else:
-                filter_value = value
-            return filter_value
-
         space = space or cls.default_space
         if api == "query":
-            filter_queries = {}
-            if filters:
-                for field in cls.fields:
-                    if field.name in filters:
-                        filter_queries[field.name] = get_filter_value(filters, field)
-            filter_query = filter_queries or None
+            filter_query = normalize_filter(cls, filters) or None
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -907,7 +911,7 @@ class KGQuery(object):
         for cls in self.classes:
             instances = client.query(
                 cls,
-                filter=self.filter,
+                filter=normalize_filter(cls, self.filter),
                 space=space,
                 query_type=query_type,
                 size=size,

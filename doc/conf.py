@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = 'fairgraph'
-copyright = '2019-2021, Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen'
+copyright = '2019-2022, Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen'
 author = 'Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen'
 
 # The short X.Y version
-version = '0.6'
+version = '0.7'
 # The full version, including alpha/beta/rc tags
-release = '0.6.1.dev'
+release = '0.7.0.dev'
 
 
 # -- General configuration ---------------------------------------------------

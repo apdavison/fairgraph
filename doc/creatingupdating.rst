@@ -7,10 +7,6 @@ then use the :meth:`save()` method, e.g.::
 
     from fairgraph.openminds.core import SoftwareVersion, URL
 
-    # By default, fairgraph strictly enforces required fields.
-    # For demonstration purposes we turn this enforcement off here.
-    SoftwareVersion.set_strict_mode(False)
-
     sv = SoftwareVersion(
         name="numpy",
         alias="numpy",

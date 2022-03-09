@@ -13,20 +13,28 @@ KG version 3
    modules/openminds_controlledterms
    modules/openminds_sands
    modules/openminds_computation
+   modules/openminds_ephys
+   modules/openminds_publications
 
 **fairgraph** currently provides the following modules for working with KG v3:
 
 :doc:`modules/openminds_core`
-    covers general origin, location and content of research products
+    covers general origin, location and content of research products.
 
 :doc:`modules/openminds_sands`
     covers brain atlases, as well as anatomical locations and relations of non-atlas data.
 
 :doc:`modules/openminds_controlledterms`
-    covers consistent definition of neuroscience terms
+    covers consistent definition of neuroscience terms.
 
 :doc:`modules/openminds_computation`
-    covers provenance of simulations, data analysis and visualizations in neuroscience
+    covers provenance of simulations, data analysis and visualizations in neuroscience.
+
+:doc:`modules/openminds_ephys`
+    covers in-depth metadata for electrophysiology recordings, extending the basic information in openMINDS/core.
+
+:doc:`modules/openminds_publications`
+    covers scientific publications, particularly interactive publications such as live papers.
 
 
 KG version 2

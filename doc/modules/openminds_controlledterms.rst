@@ -107,10 +107,6 @@ openminds.controlledterms
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.controlledterms.phenotype.Phenotype
-   :members:
-   :show-inheritance:
-
 .. autoclass:: fairgraph.openminds.controlledterms.preparation_type.PreparationType
    :members:
    :show-inheritance:
@@ -152,10 +148,6 @@ openminds.controlledterms
    :show-inheritance:
 
 .. autoclass:: fairgraph.openminds.controlledterms.stimulus_type.StimulusType
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.controlledterms.strain.Strain
    :members:
    :show-inheritance:
 
