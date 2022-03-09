@@ -29,7 +29,7 @@ try:
 except ImportError:
     have_v3 = False
 
-from .errors import AuthenticationError, NoQueryFound
+from .errors import AuthenticationError
 
 try:
     import clb_nb_utils.oauth as clb_oauth
@@ -103,10 +103,14 @@ class KGv3Client(object):
                 return None
             raise Exception(f"Error: {response.error()}\n{response.request_args}")
 
-    def query(self, query_label, filter, from_index=0, size=100, scope="released", context=None):
+    def query(self, cls, filter, space=None, query_type="simple", from_index=0, size=100, scope="released", context=None):
+        space = space or cls.default_space
+        query_label = cls.get_query_label(cls, query_type, space)
         query = self.retrieve_query(query_label)
         if query is None:
-            raise NoQueryFound(f"No query was retrieved with label '{query_label}'")
+            resolved = query_type == "resolved"
+            query_definition = cls.generate_query(query_type, space, client=self, resolved=resolved)
+            self.store_query(query_label, query_definition, space=space)
         uuid = self.uuid_from_uri(query["@id"])
         params = {
             "from": from_index,

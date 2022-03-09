@@ -35,7 +35,6 @@ except ImportError:
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
 from .queries import QueryProperty, Query, Filter
-from .errors import NoQueryFound
 
 
 logger = logging.getLogger("fairgraph")
@@ -490,13 +489,13 @@ class KGObject(object, metaclass=Registry):
                 return bool(instances)
 
     def _query_simple(self, query_filter, space, client):
-        query_label = self.get_query_label("simple", space)
-        try:
-            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
-        except NoQueryFound:
-            query_definition = self.__class__.generate_query("simple", space, client, resolved=False)
-            client.store_query(query_label, query_definition, space=space)
-            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
+        instances = client.query(
+            self.__class__, 
+            filter=query_filter, 
+            space=space,
+            query_type="simple",
+            size=1, 
+            scope="latest")
         return instances
 
     def _updated_data(self, data):
@@ -901,8 +900,10 @@ class KGQuery(object):
         objects = []
         for cls in self.classes:
             instances = client.query(
-                query_label=cls.get_query_label(query_type, space),
+                cls,
                 filter=self.filter,
+                space=space,
+                query_type=query_type,
                 size=size,
                 from_index=from_index,
                 scope=scope)
