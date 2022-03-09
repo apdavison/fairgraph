@@ -155,3 +155,7 @@ class Registry(type):
     @property
     def field_names(cls):
         return [f.name for f in cls.fields]
+
+    @property
+    def required_field_names(cls):
+        return [f.name for f in cls.fields if f.required]

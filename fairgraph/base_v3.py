@@ -700,9 +700,8 @@ class KGObject(object, metaclass=Registry):
 
         return property
 
-
     @classmethod
-    def generate_query(cls, query_type, space, client, resolved=False):
+    def generate_query(cls, query_type, space, client, filter_keys=None, resolved=False):
         """
 
         query_type: "simple" or "resolved"
@@ -710,12 +709,12 @@ class KGObject(object, metaclass=Registry):
         if resolved:
             raise NotImplementedError("todo")
 
-        query_label = cls.get_query_label(query_type, space)
+        query_label = cls.get_query_label(query_type, space, filter_keys)
         if space == "myspace":
             real_space = client._private_space
         else:
             real_space = space
-        query = Query(
+        query = Query(  
             node_type=cls.type[0],
             label=query_label,
             space=real_space,
@@ -723,6 +722,8 @@ class KGObject(object, metaclass=Registry):
                 QueryProperty("@type"),
             ]
         )
+        if filter_keys is None:
+            filter_keys = []
         for field in cls.fields:
             if field.intrinsic:
                 if field.types[0] in (int, float, bool, datetime, date):
@@ -746,6 +747,8 @@ class KGObject(object, metaclass=Registry):
                             field, client,
                             filter_parameter=field.name
                         )
+                        if field.required or field.name in filter_keys:
+                            property.required = True
                         query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,
@@ -754,17 +757,22 @@ class KGObject(object, metaclass=Registry):
                                              ensure_order=field.multiple)
                     if field.name == "name":
                         property.sorted = True
-                        if field.required:
-                            property.required = True
+                    if field.required or field.name in filter_keys:
+                        property.required = True
                     query.properties.append(property)
         return query.serialize()
 
     @classmethod
-    def get_query_label(cls, query_type, space):
+    def get_query_label(cls, query_type, space, filter_keys=None):
         if "private" in space:  # temporary work-around
-            return f"fg-{cls.__name__}-{query_type}-myspace"
+            label = f"fg-{cls.__name__}-{query_type}-myspace"
         else:
-            return f"fg-{cls.__name__}-{query_type}-{space}"
+            label = f"fg-{cls.__name__}-{query_type}-{space}"
+        if filter_keys:
+            non_required_keys = sorted(set(filter_keys).difference(cls.required_field_names))
+            if non_required_keys:
+                label += f"-filters-{'-'.join(sorted(non_required_keys))}"
+        return label
 
     @classmethod
     def store_queries(cls, space, client):
@@ -784,8 +792,8 @@ class KGObject(object, metaclass=Registry):
                     raise
 
     @classmethod
-    def retrieve_query(cls, query_type, space, client):
-        query_label = cls.get_query_label(query_type, space)
+    def retrieve_query(cls, query_type, space, client, filter_keys=None):
+        query_label = cls.get_query_label(query_type, space, filter_keys)
         return client.retrieve_query(query_label)
 
     def is_released(self, client):

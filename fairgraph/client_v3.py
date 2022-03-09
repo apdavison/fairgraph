@@ -105,12 +105,16 @@ class KGv3Client(object):
 
     def query(self, cls, filter, space=None, query_type="simple", from_index=0, size=100, scope="released", context=None):
         space = space or cls.default_space
-        query_label = cls.get_query_label(cls, query_type, space)
+        if filter is None:
+            filter_keys = None
+        else:
+            filter_keys = filter.keys()
+        query_label = cls.get_query_label(query_type, space, filter_keys)
         query = self.retrieve_query(query_label)
         if query is None:
             resolved = query_type == "resolved"
-            query_definition = cls.generate_query(query_type, space, client=self, resolved=resolved)
-            self.store_query(query_label, query_definition, space=space)
+            query = cls.generate_query(query_type, space, client=self, filter_keys=filter_keys, resolved=resolved)
+            self.store_query(query_label, query, space=space)
         uuid = self.uuid_from_uri(query["@id"])
         params = {
             "from": from_index,
@@ -136,6 +140,8 @@ class KGv3Client(object):
 
         if api == "core":
             # todo: handle filters, context, resolved, deprecated
+            if filter:
+                raise NotImplementedError("need to use api='query' with filters")
             response = self._kg_client.get_instances(
                 stage=STAGE_MAP[scope],
                 target_type=cls.type,
@@ -150,8 +156,7 @@ class KGv3Client(object):
                 query_type = "resolved"
             else:
                 query_type = "simple"
-            query_label = cls.get_query_label(query_type, space)
-            instances = self.query(query_label, filter=filter, from_index=from_index,
+            instances = self.query(cls, filter, space, query_type, from_index=from_index,
                                    size=size, scope=scope, context=cls.context)
             return [cls.from_kg_instance(instance, self, resolved=resolved)
                     for instance in instances]
@@ -247,6 +252,7 @@ class KGv3Client(object):
                 "space": space
             })
         # todo: handle errors
+        query_definition["@id"] = self.uri_from_uuid(uuid)
 
     def retrieve_query(self, query_label):
         if query_label not in self._query_cache:
@@ -261,9 +267,19 @@ class KGv3Client(object):
             if response.total() == 0:
                 return None
             elif response.total() > 1:
-                raise Exception("Retrieved multiple queries, this shouldn't happen")
+                # check for exact match to query_label
+                found_match = False
+                kgvq = "https://core.kg.ebrains.eu/vocab/query"
+                for result in response.data():
+                    if result[f"{kgvq}/meta"][f"{kgvq}/name"] == query_label:
+                        query_definition = result
+                        found_match = True
+                        break
+                if not found_match:
+                    raise Exception("Retrieved multiple queries, none of which match exactly, this shouldn't happen")
             else:
-                self._query_cache[query_label] = response.data()[0]
+                query_definition = response.data()[0]
+            self._query_cache[query_label] = query_definition
         return self._query_cache[query_label]
 
     def user_info(self):
