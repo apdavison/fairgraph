@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "anatomical_locations"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -62,11 +58,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "laterality"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -79,11 +71,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "origins"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -96,11 +84,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "studied_states"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -113,11 +97,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "types"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -126,11 +106,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
-      "propertyName": "vocab:additionalRemarks",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "additional_remarks"
-      }
+      "propertyName": "vocab:additionalRemarks"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
@@ -138,11 +114,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "biological_sex"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -151,27 +123,15 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "internal_identifier"
-      }
+      "propertyName": "vocab:internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/quantity",
-      "propertyName": "vocab:quantity",
-      "filter": {
-        "op": "EQUALS",
-        "parameter": "quantity"
-      }
+      "propertyName": "vocab:quantity"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
@@ -179,11 +139,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "species"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

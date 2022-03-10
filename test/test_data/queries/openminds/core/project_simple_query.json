@@ -41,19 +41,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
@@ -62,11 +54,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "has_research_products"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -78,11 +66,7 @@
       "propertyName": "vocab:homepage",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "homepage"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -95,11 +79,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "coordinators"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -108,11 +88,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "alias"
-      }
+      "propertyName": "vocab:shortName"
     }
   ]
 }

@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "digital_identifiers"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -61,11 +57,7 @@
       "propertyName": "vocab:contactInformation",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "contact_information"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -74,19 +66,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/familyName",
-      "propertyName": "vocab:familyName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "family_name"
-      }
+      "propertyName": "vocab:familyName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/givenName",
-      "propertyName": "vocab:givenName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "given_name"
-      }
+      "propertyName": "vocab:givenName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/affiliation",

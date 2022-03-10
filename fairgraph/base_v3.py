@@ -747,9 +747,13 @@ class KGObject(object, metaclass=Registry):
                     for child_cls in field.types[:1]:
                         # take only the first entry, since we don't use type filters
                         # for KGObject where resolved=False
+                        if field.name in filter_keys:
+                            filter_parameter = field.name
+                        else:
+                            filter_parameter = None
                         property = child_cls.generate_query_property(
                             field, client,
-                            filter_parameter=field.name
+                            filter_parameter=filter_parameter
                         )
                         if field.name in filter_keys:
                             property.required = True
@@ -757,12 +761,12 @@ class KGObject(object, metaclass=Registry):
                 else:
                     property = QueryProperty(expanded_path,
                                              name=field.path,
-                                             filter=Filter(op, parameter=field.name),
                                              ensure_order=field.multiple)
                     if field.name == "name":
                         property.sorted = True
                     if field.name in filter_keys:
                         property.required = True
+                        property.filter=Filter(op, parameter=field.name)
                     query.properties.append(property)
         return query.serialize()
 

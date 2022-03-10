@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_part_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -62,11 +58,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "laterality"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -78,11 +70,7 @@
       "propertyName": "vocab:origin",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "origin"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -95,11 +83,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "studied_states"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -112,11 +96,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "anatomical_locations"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -128,11 +108,7 @@
       "propertyName": "vocab:type",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -144,11 +120,7 @@
       "propertyName": "vocab:biologicalSex",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "biological_sex"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -157,30 +129,18 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "internal_identifier"
-      }
+      "propertyName": "vocab:internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
       "propertyName": "vocab:species",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "species"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

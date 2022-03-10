@@ -41,11 +41,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/email",
-      "propertyName": "vocab:email",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "email"
-      }
+      "propertyName": "vocab:email"
     }
   ]
 }

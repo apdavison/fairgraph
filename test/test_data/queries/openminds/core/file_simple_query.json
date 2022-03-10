@@ -41,22 +41,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contentDescription",
-      "propertyName": "vocab:contentDescription",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "content_description"
-      }
+      "propertyName": "vocab:contentDescription"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fileRepository",
       "propertyName": "vocab:fileRepository",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "file_repository"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -69,11 +61,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "data_types"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -85,11 +73,7 @@
       "propertyName": "vocab:format",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "format"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -120,11 +104,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "iri"
-      }
+      "propertyName": "vocab:IRI"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
@@ -132,11 +112,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_part_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -146,10 +122,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
@@ -157,11 +129,7 @@
       "propertyName": "vocab:specialUsageRole",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "special_usage_role"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

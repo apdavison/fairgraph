@@ -44,11 +44,7 @@
       "propertyName": "vocab:describedIn",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "described_in"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -57,28 +53,16 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "internal_identifier"
-      }
+      "propertyName": "vocab:internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulation",
@@ -86,11 +70,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "stimulations"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

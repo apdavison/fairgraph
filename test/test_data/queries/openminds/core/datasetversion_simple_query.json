@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "authors"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -62,11 +58,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "behavioral_protocols"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -78,11 +70,7 @@
       "propertyName": "vocab:digitalIdentifier",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "digital_identifier"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -94,11 +82,7 @@
       "propertyName": "vocab:ethicsAssessment",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "ethics_assessment"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -111,11 +95,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "experimental_approachs"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -128,11 +108,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "input_data"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -145,11 +121,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_alternative_version_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -161,11 +133,7 @@
       "propertyName": "vocab:isNewVersionOf",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_new_version_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -177,11 +145,7 @@
       "propertyName": "vocab:license",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "license"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -194,11 +158,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "preparation_designs"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -211,11 +171,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "studied_specimens"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -228,11 +184,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "techniques"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -245,11 +197,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "data_types"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -262,11 +210,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "study_targets"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -278,11 +222,7 @@
       "propertyName": "vocab:accessibility",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "accessibility"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -325,11 +265,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "custodians"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -338,22 +274,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullDocumentation",
       "propertyName": "vocab:fullDocumentation",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "full_documentation"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -363,10 +291,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
@@ -375,11 +299,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "funding"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -391,11 +311,7 @@
       "propertyName": "vocab:homepage",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "homepage"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -404,11 +320,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
-      "propertyName": "vocab:howToCite",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "how_to_cite"
-      }
+      "propertyName": "vocab:howToCite"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/keyword",
@@ -416,11 +328,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "keywords"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -472,11 +380,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "related_publications"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -485,22 +389,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/releaseDate",
-      "propertyName": "vocab:releaseDate",
-      "filter": {
-        "op": "EQUALS",
-        "parameter": "release_date"
-      }
+      "propertyName": "vocab:releaseDate"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/repository",
       "propertyName": "vocab:repository",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "repository"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -509,36 +405,20 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "alias"
-      }
+      "propertyName": "vocab:shortName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/supportChannel",
       "propertyName": "vocab:supportChannel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "support_channels"
-      },
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/versionIdentifier",
-      "propertyName": "vocab:versionIdentifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "version_identifier"
-      }
+      "propertyName": "vocab:versionIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/versionInnovation",
-      "propertyName": "vocab:versionInnovation",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "version_innovation"
-      }
+      "propertyName": "vocab:versionInnovation"
     }
   ]
 }

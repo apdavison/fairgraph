@@ -42,35 +42,19 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/legalCode",
-      "propertyName": "vocab:legalCode",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "legal_code"
-      }
+      "propertyName": "vocab:legalCode"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "alias"
-      }
+      "propertyName": "vocab:shortName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/webpage",
       "propertyName": "vocab:webpage",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "webpages"
-      },
       "ensureOrder": true
     }
   ]

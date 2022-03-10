@@ -44,11 +44,7 @@
       "propertyName": "vocab:dataLocation",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "data_location"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -58,10 +54,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
       "sort": true
     },
     {
@@ -69,11 +61,7 @@
       "propertyName": "vocab:openDataIn",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "open_data_in"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -85,11 +73,7 @@
       "propertyName": "vocab:service",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "service"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

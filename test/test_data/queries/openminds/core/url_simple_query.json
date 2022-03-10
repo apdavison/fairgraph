@@ -41,11 +41,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/URL",
-      "propertyName": "vocab:URL",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "url"
-      }
+      "propertyName": "vocab:URL"
     }
   ]
 }
