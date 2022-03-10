@@ -2,17 +2,17 @@
 About the Knowledge Graph
 =========================
 
-The Human Brain Project/EBRAINS Knowledge Graph is a metadata store for neuroscience.
+The EBRAINS Knowledge Graph is a metadata store for neuroscience.
 
 When sharing neuroscience data, it is essential to also share all of the context and background
 information needed to interpret and understand the data:
 the age of the subject, the sampling rate of the recording system, etc.
-For the HBP/EBRAINS data sharing platform, the actual data files are stored at the Swiss National
+For the EBRAINS data sharing platform, the actual data files are stored at the Swiss National
 Supercomputing Center, CSCS. All of the metadata associated with these files (including the
 precise file locations) is stored in the Knowledge Graph.
 
 There are many ways to access the contents of the Knowledge Graph: through a
-`graphical search interface`_, with an anatomical search through the EBRAINS brain atlases,
+`graphical search interface`_, with an anatomical search through the EBRAINS brain atlases_,
 through web services, and through Python clients.
 
 **fairgraph** is an experimental, high-level Python client for the Knowledge Graph, which aims to
@@ -24,7 +24,7 @@ Alternative ways to access the Knowledge Graph programmatically are summarized i
 Structure
 =========
 
-The HBP/EBRAINS Knowledge Graph is a semantic graph database (in the sense of `graph theory`_).
+The EBRAINS Knowledge Graph is a semantic graph database (in the sense of `graph theory`_).
 It consists of "nodes", each of which contains metadata about a specific aspect of a neuroscience
 experiment. These nodes are connected to each other, and the connections represent the
 relationships between the different pieces of metadata (for example, a node representing a
@@ -49,10 +49,10 @@ _and_ to the semantic connections to other nodes.
 Alternatives
 ------------
 
-.. todo:: write about KG Query API, pyxus, KG Query Python pip
+For more information about developer access to the KG, see https://kg.ebrains.eu/develop.html.
 
 
 
-.. _`graphical search interface`: https://kg.ebrains.eu/search
+.. _`graphical search interface`: https://search.kg.ebrains.eu
 .. _`atlases`: https://ebrains.eu/services/atlases/
 .. _`graph theory`: https://en.wikipedia.org/wiki/Graph_theory

@@ -2,7 +2,7 @@
 
 Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen
 
-Copyright CNRS 2019-2021
+Copyright CNRS 2019-2022
 
 **fairgraph** is an experimental Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
@@ -30,7 +30,7 @@ pip install -U ./fairgraph
 
 This version of fairgraph supports both version 2 and version 3 of the EBRAINS Knowledge Graph (KG).
 Once all metadata and applications have been migrated to version 3, the version 2 features
-will be removed. Unless otherwise specified, all documentation refers accessing KG version 3.
+will be removed. Unless otherwise specified, all documentation refers to accessing KG version 3.
 
 
 ## Basic setup
@@ -51,7 +51,7 @@ export KG_AUTH_TOKEN=eyJhbGci...nPq
 You can then create the client object:
 
 ```
->>> from fairgraph.client_v3 import KGv3Client as KGClient
+>>> from fairgraph import KGClient
 
 >>> client = KGClient()
 ```
@@ -74,20 +74,25 @@ following the openMINDS structure. For example:
 >>> from fairgraph.openminds.controlledterms import Technique
 ```
 
-The following openMINDS modules are currently available: `core`, `controlledterms`, `sands`, `computation`.
+The following openMINDS modules are currently available: `core`, `controlledterms`, `sands`, `computation`, `ephys`, `publications`.
 Using these classes, it is possible to list all metadata matching a particular criterion, e.g.
 
 ```
 >>> patch_techniques = Technique.list(client, name="patch clamp")
 >>> print([technique.name for technique in patch_techniques])
-['cell attached patch clamp', 'patch clamp', 'whole cell patch clamp']
->>> whole_cell_patch = patch_techniques[2]
+['cell attached patch clamp', 'multiple whole cell patch clamp', 'patch clamp', 'patch clamp technique', 'whole cell patch clamp']
+>>> whole_cell_patch = patch_techniques[4]
 ```
 
 ```
->>> DatasetVersion.set_strict_mode(False)  # because migration to verson 3 is not complete,
-                                           # we turn off strict checking
 >>> datasets = DatasetVersion.list(client, techniques=whole_cell_patch, scope="in progress")
+```
+
+For research products that are versioned, such as datasets, models, and software, certain attributes may be inherited from the parent (e.g. a DatasetVersion generally inherits its name from a Dataset). In this case, we have a convenience method to retrieve the parent's name:
+
+```
+>>> print(datasets[0].get_name(client, scope="in progress"))
+'Cholinergic interneurons in the striatum - Single cell patch clamp recordings'
 ```
 
 If you know the unique identifier of an object, you can retrieve it directly:
@@ -107,8 +112,8 @@ to avoid unnecessary network traffic, but can be followed with the `resolve()` m
 The associated metadata is accessible as attributes of the Python objects, e.g.:
 
 ```
->>> print(dataset.description)
-The Golgi cells, together with granule cells and mossy fibers, form a neuronal microcircuit regulating information transfer at the cerebellum input stage. In order to further investigate the Golgi cells properties and their excitatory synapses, whole-cell patch-clamp recordings were performed on acute parasagittal cerebellar slices obtained from juvenile GlyT2-GFP mice (p16-p21). Passive Golgi cells parameters were extracted in voltage-clamp mode by analyzing current relaxation induced by step voltage changes (IV protocol). Excitatory synaptic transmission properties were investigated by electrical stimulation of the mossy fibers bundle (5 pulses at 50 Hz, EPSC protocol, voltage-clamp mode.
+>>> print(dataset.version_innovation)
+This is the first version of this research product.
 ```
 
 To print out all the metadata for a given object, use the `show()` method:

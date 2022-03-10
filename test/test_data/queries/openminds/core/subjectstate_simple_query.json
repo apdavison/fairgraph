@@ -44,11 +44,7 @@
       "propertyName": "vocab:ageCategory",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "age_category"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -60,11 +56,7 @@
       "propertyName": "vocab:handedness",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "handedness"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -77,11 +69,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "attributes"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -90,11 +78,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
-      "propertyName": "vocab:additionalRemarks",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "additional_remarks"
-      }
+      "propertyName": "vocab:additionalRemarks"
     },
     {
       "path": {
@@ -199,11 +183,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/pathology",
@@ -211,11 +191,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "pathologys"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

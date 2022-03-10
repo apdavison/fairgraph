@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "digital_identifiers"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -59,23 +55,14 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasParent",
       "propertyName": "vocab:hasParent",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "has_parent"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -87,11 +74,7 @@
       "propertyName": "vocab:homepage",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "homepage"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -100,11 +83,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "alias"
-      }
+      "propertyName": "vocab:shortName"
     }
   ]
 }

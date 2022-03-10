@@ -41,30 +41,18 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulationApproach",
       "propertyName": "vocab:stimulationApproach",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "stimulation_approach"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -76,11 +64,7 @@
       "propertyName": "vocab:stimulusType",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "stimulus_type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

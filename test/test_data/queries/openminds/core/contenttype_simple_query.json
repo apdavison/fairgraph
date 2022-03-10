@@ -41,19 +41,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/displayLabel",
-      "propertyName": "vocab:displayLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "display_label"
-      }
+      "propertyName": "vocab:displayLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fileExtension",
       "propertyName": "vocab:fileExtension",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "file_extensions"
-      },
       "ensureOrder": true
     },
     {
@@ -62,11 +54,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "data_types"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -75,45 +63,24 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/relatedMediaType",
-      "propertyName": "vocab:relatedMediaType",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "related_media_type"
-      }
+      "propertyName": "vocab:relatedMediaType"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/specification",
-      "propertyName": "vocab:specification",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "specification"
-      }
+      "propertyName": "vocab:specification"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/synonym",
       "propertyName": "vocab:synonym",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "synonyms"
-      },
       "ensureOrder": true
     }
   ]

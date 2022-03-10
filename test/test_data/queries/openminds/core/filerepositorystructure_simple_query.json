@@ -71,11 +71,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     }
   ]
 }

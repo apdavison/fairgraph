@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "background_strains"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -61,11 +57,7 @@
       "propertyName": "vocab:breedingType",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "breeding_type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -74,11 +66,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/diseaseModel",
@@ -86,11 +74,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "disease_models"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -102,11 +86,7 @@
       "propertyName": "vocab:geneticStrainType",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "genetic_strain_type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -116,57 +96,32 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/identifier",
       "propertyName": "vocab:identifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "identifiers"
-      },
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/laboratoryCode",
-      "propertyName": "vocab:laboratoryCode",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "laboratory_code"
-      }
+      "propertyName": "vocab:laboratoryCode"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/ontologyIdentifier",
       "propertyName": "vocab:ontologyIdentifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "ontology_identifiers"
-      },
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/phenotype",
-      "propertyName": "vocab:phenotype",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "phenotype"
-      }
+      "propertyName": "vocab:phenotype"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/RRID",
       "propertyName": "vocab:RRID",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "rrid"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -178,11 +133,7 @@
       "propertyName": "vocab:species",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "species"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -221,10 +172,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/synonym",
       "propertyName": "vocab:synonym",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "synonyms"
-      },
       "ensureOrder": true
     }
   ]

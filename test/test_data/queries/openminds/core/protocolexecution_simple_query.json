@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "behavioral_protocols"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -62,11 +58,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "inputs"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -78,11 +70,7 @@
       "propertyName": "vocab:isPartOf",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_part_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -95,11 +83,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "outputs"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -111,11 +95,7 @@
       "propertyName": "vocab:preparationDesign",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "preparation_design"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -128,11 +108,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "protocols"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -141,27 +117,15 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
-      "propertyName": "vocab:endedAtTime",
-      "filter": {
-        "op": "EQUALS",
-        "parameter": "ended_at_time"
-      }
+      "propertyName": "vocab:endedAtTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "lookup_label"
-      }
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/parameterSet",
@@ -316,11 +280,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/startedAtTime",
-      "propertyName": "vocab:startedAtTime",
-      "filter": {
-        "op": "EQUALS",
-        "parameter": "started_at_time"
-      }
+      "propertyName": "vocab:startedAtTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/studyTarget",
@@ -328,11 +288,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "study_targets"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

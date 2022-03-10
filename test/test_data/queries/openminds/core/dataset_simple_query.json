@@ -45,11 +45,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "authors"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -61,11 +57,7 @@
       "propertyName": "vocab:digitalIdentifier",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "digital_identifier"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -78,11 +70,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "versions"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -95,11 +83,7 @@
       "ensureOrder": true,
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "custodians"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -108,32 +92,19 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "description"
-      }
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
       "propertyName": "vocab:homepage",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "homepage"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -142,19 +113,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
-      "propertyName": "vocab:howToCite",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "how_to_cite"
-      }
+      "propertyName": "vocab:howToCite"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "alias"
-      }
+      "propertyName": "vocab:shortName"
     }
   ]
 }

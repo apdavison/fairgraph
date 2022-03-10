@@ -41,11 +41,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/identifier",
-      "propertyName": "vocab:identifier",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "identifier"
-      }
+      "propertyName": "vocab:identifier"
     }
   ]
 }

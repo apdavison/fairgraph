@@ -41,22 +41,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contentDescription",
-      "propertyName": "vocab:contentDescription",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "content_description"
-      }
+      "propertyName": "vocab:contentDescription"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
       "propertyName": "vocab:descendedFrom",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "descended_from"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -68,11 +60,7 @@
       "propertyName": "vocab:format",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "format"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -84,11 +72,7 @@
       "propertyName": "vocab:groupingType",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "grouping_type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -121,11 +105,7 @@
       "propertyName": "vocab:isPartOf",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "is_part_of"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -135,12 +115,7 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",

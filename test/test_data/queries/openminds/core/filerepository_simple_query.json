@@ -78,11 +78,7 @@
       "propertyName": "vocab:format",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "format"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -115,11 +111,7 @@
       "propertyName": "vocab:hostedBy",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "hosted_by"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -128,32 +120,19 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "iri"
-      }
+      "propertyName": "vocab:IRI"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
       "propertyName": "vocab:name",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "name"
-      },
-      "sort": true,
-      "required": true
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/repositoryType",
       "propertyName": "vocab:repositoryType",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "repository_type"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"
@@ -211,11 +190,7 @@
       "propertyName": "vocab:structurePattern",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "structure_pattern"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

@@ -41,38 +41,22 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/acknowledgement",
-      "propertyName": "vocab:acknowledgement",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "acknowledgement"
-      }
+      "propertyName": "vocab:acknowledgement"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/awardNumber",
-      "propertyName": "vocab:awardNumber",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "award_number"
-      }
+      "propertyName": "vocab:awardNumber"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/awardTitle",
-      "propertyName": "vocab:awardTitle",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "award_title"
-      }
+      "propertyName": "vocab:awardTitle"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/funder",
       "propertyName": "vocab:funder",
       "structure": [
         {
-          "path": "@id",
-          "filter": {
-            "op": "CONTAINS",
-            "parameter": "funder"
-          }
+          "path": "@id"
         },
         {
           "path": "@type"

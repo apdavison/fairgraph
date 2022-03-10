@@ -35,10 +35,38 @@ except ImportError:
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
 from .queries import QueryProperty, Query, Filter
-from .errors import NoQueryFound
 
 
 logger = logging.getLogger("fairgraph")
+
+
+def get_filter_value(filters, field):
+    value = filters[field.name]
+    if not isinstance(value, field.types):
+    #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
+    #         value = field.types[0](value)
+    #     else:
+        if field.name == "hash":  # bit of a hack
+            filter_value = value
+        else:
+            raise TypeError("{} must be of type {}".format(field.name, field.types))
+    if hasattr(value, "iri"):
+        filter_value = value.iri
+    elif isinstance(value, IRI):
+        filter_value = value.value
+    elif hasattr(value, "id"):
+        filter_value = value.id
+    else:
+        filter_value = value
+    return filter_value
+
+
+def normalize_filter(cls, filter_dict):
+    filter_queries = {}
+    for field in cls.fields:
+        if field.name in filter_dict:
+            filter_queries[field.name] = get_filter_value(filter_dict, field)
+    return filter_queries
 
 
 class IRI(object):
@@ -362,34 +390,9 @@ class KGObject(object, metaclass=Registry):
              scope="released", resolved=False, space=None, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
-        def get_filter_value(filters, field):
-            value = filters[field.name]
-            if not isinstance(value, field.types):
-            #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
-            #         value = field.types[0](value)
-            #     else:
-                if field.name == "hash":  # bit of a hack
-                    filter_value = value
-                else:
-                    raise TypeError("{} must be of type {}".format(field.name, field.types))
-            if hasattr(value, "iri"):
-                filter_value = value.iri
-            elif isinstance(value, IRI):
-                filter_value = value.value
-            elif hasattr(value, "id"):
-                filter_value = value.id
-            else:
-                filter_value = value
-            return filter_value
-
         space = space or cls.default_space
         if api == "query":
-            filter_queries = {}
-            if filters:
-                for field in cls.fields:
-                    if field.name in filters:
-                        filter_queries[field.name] = get_filter_value(filters, field)
-            filter_query = filter_queries or None
+            filter_query = normalize_filter(cls, filters) or None
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -490,13 +493,13 @@ class KGObject(object, metaclass=Registry):
                 return bool(instances)
 
     def _query_simple(self, query_filter, space, client):
-        query_label = self.get_query_label("simple", space)
-        try:
-            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
-        except NoQueryFound:
-            query_definition = self.__class__.generate_query("simple", space, client, resolved=False)
-            client.store_query(query_label, query_definition, space=space)
-            instances = client.query(query_label, filter=query_filter, size=1, scope="latest")
+        instances = client.query(
+            self.__class__, 
+            filter=query_filter, 
+            space=space,
+            query_type="simple",
+            size=1, 
+            scope="latest")
         return instances
 
     def _updated_data(self, data):
@@ -701,9 +704,8 @@ class KGObject(object, metaclass=Registry):
 
         return property
 
-
     @classmethod
-    def generate_query(cls, query_type, space, client, resolved=False):
+    def generate_query(cls, query_type, space, client, filter_keys=None, resolved=False):
         """
 
         query_type: "simple" or "resolved"
@@ -711,12 +713,12 @@ class KGObject(object, metaclass=Registry):
         if resolved:
             raise NotImplementedError("todo")
 
-        query_label = cls.get_query_label(query_type, space)
+        query_label = cls.get_query_label(query_type, space, filter_keys)
         if space == "myspace":
             real_space = client._private_space
         else:
             real_space = space
-        query = Query(
+        query = Query(  
             node_type=cls.type[0],
             label=query_label,
             space=real_space,
@@ -724,6 +726,8 @@ class KGObject(object, metaclass=Registry):
                 QueryProperty("@type"),
             ]
         )
+        if filter_keys is None:
+            filter_keys = []
         for field in cls.fields:
             if field.intrinsic:
                 if field.types[0] in (int, float, bool, datetime, date):
@@ -743,29 +747,38 @@ class KGObject(object, metaclass=Registry):
                     for child_cls in field.types[:1]:
                         # take only the first entry, since we don't use type filters
                         # for KGObject where resolved=False
+                        if field.name in filter_keys:
+                            filter_parameter = field.name
+                        else:
+                            filter_parameter = None
                         property = child_cls.generate_query_property(
                             field, client,
-                            filter_parameter=field.name
+                            filter_parameter=filter_parameter
                         )
+                        if field.name in filter_keys:
+                            property.required = True
                         query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,
                                              name=field.path,
-                                             filter=Filter(op, parameter=field.name),
                                              ensure_order=field.multiple)
                     if field.name == "name":
                         property.sorted = True
-                        if field.required:
-                            property.required = True
+                    if field.name in filter_keys:
+                        property.required = True
+                        property.filter=Filter(op, parameter=field.name)
                     query.properties.append(property)
         return query.serialize()
 
     @classmethod
-    def get_query_label(cls, query_type, space):
+    def get_query_label(cls, query_type, space, filter_keys=None):
         if "private" in space:  # temporary work-around
-            return f"fg-{cls.__name__}-{query_type}-myspace"
+            label = f"fg-{cls.__name__}-{query_type}-myspace"
         else:
-            return f"fg-{cls.__name__}-{query_type}-{space}"
+            label = f"fg-{cls.__name__}-{query_type}-{space}"
+        if filter_keys:
+            label += f"-filters-{'-'.join(sorted(filter_keys))}"
+        return label
 
     @classmethod
     def store_queries(cls, space, client):
@@ -785,8 +798,8 @@ class KGObject(object, metaclass=Registry):
                     raise
 
     @classmethod
-    def retrieve_query(cls, query_type, space, client):
-        query_label = cls.get_query_label(query_type, space)
+    def retrieve_query(cls, query_type, space, client, filter_keys=None):
+        query_label = cls.get_query_label(query_type, space, filter_keys)
         return client.retrieve_query(query_label)
 
     def is_released(self, client):
@@ -901,8 +914,10 @@ class KGQuery(object):
         objects = []
         for cls in self.classes:
             instances = client.query(
-                query_label=cls.get_query_label(query_type, space),
-                filter=self.filter,
+                cls,
+                filter=normalize_filter(cls, self.filter),
+                space=space,
+                query_type=query_type,
                 size=size,
                 from_index=from_index,
                 scope=scope)
