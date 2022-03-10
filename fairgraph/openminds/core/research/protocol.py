@@ -25,10 +25,10 @@ class Protocol(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("description", str, "vocab:description", multiple=False, required=True,
-              doc="Longer statement or account giving the characteristics of the protocol."),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the protocol."),
+        Field("description", str, "vocab:description", multiple=False, required=True,
+              doc="Longer statement or account giving the characteristics of the protocol."),
         Field("stimulations", "openminds.core.Stimulation", "vocab:stimulation", multiple=True, required=False,
               doc="no description available"),
         Field("techniques", "openminds.controlledterms.Technique", "vocab:technique", multiple=True, required=True,

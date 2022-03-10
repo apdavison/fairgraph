@@ -25,10 +25,10 @@ class CustomAnatomicalEntity(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("has_annotations", "openminds.sands.CustomAnnotation", "vocab:hasAnnotation", multiple=True, required=False,
-              doc="no description available"),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity."),
+        Field("has_annotations", "openminds.sands.CustomAnnotation", "vocab:hasAnnotation", multiple=True, required=False,
+              doc="no description available"),
         Field("related_uberon_term", "openminds.controlledterms.UBERONParcellation", "vocab:relatedUBERONTerm", multiple=False, required=False,
               doc="no description available"),
         Field("relation_assessments", ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"], "vocab:relationAssessment", multiple=True, required=False,

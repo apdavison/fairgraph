@@ -25,16 +25,16 @@ class Person(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("digital_identifiers", "openminds.core.ORCID", "vocab:digitalIdentifier", multiple=True, required=False,
-              doc="Digital handle to identify objects or legal persons."),
+        Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
+              doc="Declaration of a person being closely associated to an organization."),
         Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=False, required=False,
               doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.)."),
+        Field("digital_identifiers", "openminds.core.ORCID", "vocab:digitalIdentifier", multiple=True, required=False,
+              doc="Digital handle to identify objects or legal persons."),
         Field("family_name", str, "vocab:familyName", multiple=False, required=False,
               doc="Name borne in common by members of a family."),
         Field("given_name", str, "vocab:givenName", multiple=False, required=True,
               doc="Name given to a person, including all potential middle names, but excluding the family name."),
-        Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
-              doc="Declaration of a person being closely associated to an organization."),
 
     ]
     existence_query_fields = ('given_name', 'family_name')
@@ -44,15 +44,9 @@ class Person(KGObject):
     def full_name(self):
         return f"{self.given_name} {self.family_name}"
 
-    @property
-    def full_name(self):
-        return f"{self.given_name} {self.family_name}"
-
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
-        if user_info is None:
-            raise Exception("User information could not be retrieved. You may need to refresh your token.")
         family_name = user_info["http://schema.org/familyName"]
         given_name = user_info["http://schema.org/givenName"]
         possible_matches = cls.list(

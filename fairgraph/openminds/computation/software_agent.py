@@ -27,9 +27,9 @@ class SoftwareAgent(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the software agent."),
-        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=False, required=True,
-              doc="no description available"),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=False,
+              doc="no description available"),
+        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=False, required=True,
               doc="no description available"),
 
     ]

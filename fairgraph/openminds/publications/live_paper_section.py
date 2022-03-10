@@ -25,16 +25,16 @@ class LivePaperSection(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("section_type", "openminds.publications.LivePaperSectionType", "vocab:sectionType", multiple=False, required=True,
-              doc="no description available"),
-        Field("order", int, "vocab:order", multiple=False, required=True,
-              doc="no description available"),
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the live paper section."),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the live paper section."),
         Field("is_part_of", "openminds.publications.LivePaperVersion", "vocab:isPartOf", multiple=False, required=True,
               doc="Reference to the ensemble of multiple things or beings."),
+        Field("order", int, "vocab:order", multiple=False, required=True,
+              doc="no description available"),
+        Field("section_type", "openminds.publications.LivePaperSectionType", "vocab:sectionType", multiple=False, required=True,
+              doc="no description available"),
 
     ]
-    existence_query_fields = ('section_type', 'order', 'name', 'is_part_of')
+    existence_query_fields = ('name', 'is_part_of', 'order', 'section_type')

@@ -25,8 +25,6 @@ class Craniotomy(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("window_type", "openminds.controlledterms.CranialWindowType", "vocab:windowType", multiple=False, required=True,
-              doc="no description available"),
         Field("anesthesia", str, "vocab:anesthesia", multiple=False, required=True,
               doc="no description available"),
         Field("diameter", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:diameter", multiple=False, required=True,
@@ -37,6 +35,8 @@ class Craniotomy(KGObject):
               doc="Something or someone that is put into or participates in a process or machine."),
         Field("output", "openminds.core.SubjectState", "vocab:output", multiple=False, required=False,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
+        Field("window_type", "openminds.controlledterms.CranialWindowType", "vocab:windowType", multiple=False, required=True,
+              doc="no description available"),
 
     ]
-    existence_query_fields = ('window_type', 'anesthesia', 'diameter')
+    existence_query_fields = ('anesthesia', 'diameter', 'window_type')

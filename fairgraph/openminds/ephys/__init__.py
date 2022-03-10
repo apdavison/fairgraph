@@ -2,6 +2,12 @@ import sys
 import inspect
 from ...base_v3 import KGObject
 
+from .activity.brain_slicing_activity import BrainSlicingActivity
+from .activity.patch_clamp_activity import PatchClampActivity
+from .activity.craniotomy import Craniotomy
+from .activity.electrode_placement_activity import ElectrodePlacementActivity
+from .activity.stimulation_experiment import StimulationExperiment
+from .activity.culturing_activity import CulturingActivity
 from .entity.device import Device
 from .entity.electrode_array import ElectrodeArray
 from .entity.patched_cell import PatchedCell
@@ -13,12 +19,6 @@ from .entity.electrode import Electrode
 from .entity.cell import Cell
 from .entity.measurement import Measurement
 from .entity.recording import Recording
-from .activity.brain_slicing_activity import BrainSlicingActivity
-from .activity.patch_clamp_activity import PatchClampActivity
-from .activity.craniotomy import Craniotomy
-from .activity.electrode_placement_activity import ElectrodePlacementActivity
-from .activity.stimulation_experiment import StimulationExperiment
-from .activity.culturing_activity import CulturingActivity
 
 
 def list_kg_classes():

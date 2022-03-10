@@ -25,9 +25,9 @@ class FileRepositoryStructure(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("file_path_patterns", "openminds.core.FilePathPattern", "vocab:filePathPattern", multiple=True, required=True,
-              doc="no description available"),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
+              doc="no description available"),
+        Field("file_path_patterns", "openminds.core.FilePathPattern", "vocab:filePathPattern", multiple=True, required=True,
               doc="no description available"),
 
     ]
