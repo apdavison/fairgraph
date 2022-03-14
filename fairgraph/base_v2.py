@@ -41,7 +41,7 @@ try:
     have_pyxus = True
 except ImportError:
     have_pyxus = False
-from .errors import ResourceExistsError
+from .errors import ResolutionFailure
 from .utility import (compact_uri, expand_uri, standard_context, namespace_from_id, as_list,
                       ATTACHMENT_SIZE_LIMIT)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
@@ -472,10 +472,35 @@ class KGObject(with_metaclass(Registry, object)):
         else:
             return None
 
-    def resolve(self, client, api="query", scope="released", use_cache=True):
+    def resolve(self, client, api="query", scope="released", use_cache=True, follow_links=0):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
+        if follow_links > 0:
+            for field in self.fields:
+                if issubclass(field.types[0], KGObject):
+                    values = getattr(self, field.name)
+                    resolved_values = []
+                    for value in as_list(values):
+                        if isinstance(value, (KGProxy, KGQuery)):
+                            try:
+                                resolved_value = value.resolve(
+                                    client, api=api, scope=scope, use_cache=use_cache,
+                                    follow_links=follow_links - 1)
+                            except ResolutionFailure as err:
+                                warnings.warn(str(err))
+                                resolved_values.append(value)
+                            else:
+                                resolved_values.append(resolved_value)
+                        elif isinstance(value, KGObject):  # already resolved
+                            resolved_values.append(value)
+                    if isinstance(values, (KGProxy, KGObject)):
+                        assert len(resolved_values) == 1
+                        resolved_values = resolved_values[0]
+                    elif values is None:
+                        assert len(resolved_values) == 0
+                        resolved_values = None
+                    setattr(self, field.name, resolved_values)
         return self
 
     @classmethod
@@ -770,13 +795,12 @@ class KGProxy(object):
         else:
             return [self.cls]
 
-    def resolve(self, client, api="query", scope="released", use_cache=True):
+    def resolve(self, client, api="query", scope="released", use_cache=True, follow_links=0):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
             #if obj:
             #    logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
-            return obj
         else:
             if len(self.classes) > 1:
                 obj = None
@@ -787,8 +811,14 @@ class KGProxy(object):
             else:
                 obj = self.cls.from_uri(self.id, client, api=api, scope=scope)
             if obj is None:
-                raise Exception(f"Cannot resolve proxy object {self.id} as {self.cls.__name__}")
+                raise Exception(f"Cannot resolve proxy object {self.id} as {self.classes}")
             KGObject.object_cache[self.id] = obj
+        if follow_links > 0:
+            return obj.resolve(
+                client, api=api, scope=scope, use_cache=use_cache,
+                follow_links=follow_links
+            )
+        else:
             return obj
 
     def __repr__(self):
@@ -831,7 +861,8 @@ class KGQuery(object):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, from_index=0, api="query", scope="released", use_cache=True):
+    def resolve(self, client, size=10000, from_index=0, api="query", scope="released", 
+                use_cache=True, follow_links=0):
         # todo: add from_index argument?
         objects = []
         for cls in self.classes:
@@ -857,6 +888,12 @@ class KGQuery(object):
                            for instance in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
+        if follow_links > 0:
+            for obj in objects:
+                obj.resolve(
+                    client, api=api, scope=scope, use_cache=use_cache,
+                    follow_links=follow_links
+                )
         if len(objects) == 1:
             return objects[0]
         else:

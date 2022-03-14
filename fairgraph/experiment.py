@@ -171,13 +171,6 @@ class Slice(KGObject):  # should move to "core" module?
         Field("activity", ("electrophysiology.PatchClampActivity", "optophysiology.TwoPhotonImaging"), "^prov:used", reverse="recorded_tissue")
     )
 
-    def resolve(self, client, api="query", use_cache=True):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache),
-        if hasattr(self.brain_slicing_activity, "resolve"):
-            self.brain_slicing_activity = self.brain_slicing_activity.resolve(client, api=api, use_cache=use_cache)
-        return self
-
 
 class BrainSlicingActivity(KGObject):
     """The activity of cutting brain tissue into slices."""
@@ -258,17 +251,6 @@ class BrainSlicingActivity(KGObject):
         if "brainRegion" in data:
             data["brainLocation"] = {"brainRegion": data.pop("brainRegion")}
         return data
-
-    def resolve(self, client, api="query", use_cache=True):
-        if hasattr(self.subject, "resolve"):
-            self.subject = self.subject.resolve(client, api=api, use_cache=use_cache)
-        for i, slice in enumerate(self.slices):
-            if hasattr(slice, "resolve"):
-                self.slices[i] = slice.resolve(client, api=api, use_cache=use_cache)
-        for i, person in enumerate(self.people):
-            if hasattr(person, "resolve"):
-                self.people[i] = person.resolve(client, api=api, use_cache=use_cache)
-        return self
 
 
 class VisualStimulus(KGObject):
