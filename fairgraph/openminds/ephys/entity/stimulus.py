@@ -25,16 +25,16 @@ class Stimulus(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("stimulus_type", "openminds.controlledterms.StimulusType", "vocab:stimulusType", multiple=False, required=True,
-              doc="no description available"),
-        Field("stimulus_approach", "openminds.controlledterms.StimulationApproach", "vocab:stimulusApproach", multiple=False, required=True,
+        Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
+              doc="Mention of what deserves additional attention or notice."),
+        Field("data_locations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:dataLocation", multiple=True, required=True,
               doc="no description available"),
         Field("parameter_sets", "openminds.core.ParameterSet", "vocab:parameterSet", multiple=True, required=False,
               doc="Manner, position, or direction in which digital or physical properties are set to determine a particular function, characteristics or behavior of something."),
-        Field("data_locations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:dataLocation", multiple=True, required=True,
+        Field("stimulus_approach", "openminds.controlledterms.StimulationApproach", "vocab:stimulusApproach", multiple=False, required=True,
               doc="no description available"),
-        Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
-              doc="Mention of what deserves additional attention or notice."),
+        Field("stimulus_type", "openminds.controlledterms.StimulusType", "vocab:stimulusType", multiple=False, required=True,
+              doc="no description available"),
 
     ]
-    existence_query_fields = ('stimulus_type', 'stimulus_approach', 'data_locations')
+    existence_query_fields = ('data_locations', 'stimulus_approach', 'stimulus_type')

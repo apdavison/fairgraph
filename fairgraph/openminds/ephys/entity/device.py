@@ -25,6 +25,8 @@ class Device(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("description", str, "vocab:description", multiple=False, required=False,
+              doc="Longer statement or account giving the characteristics of the device."),
         Field("device_type", "openminds.controlledterms.DeviceType", "vocab:deviceType", multiple=False, required=True,
               doc="no description available"),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
@@ -33,14 +35,12 @@ class Device(KGObject):
               doc="no description available"),
         Field("model_name", str, "vocab:modelName", multiple=False, required=True,
               doc="no description available"),
-        Field("serial_number", str, "vocab:serialNumber", multiple=False, required=False,
-              doc="no description available"),
-        Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the device."),
-        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=False, required=False,
-              doc="no description available"),
         Field("parameter_sets", "openminds.core.ParameterSet", "vocab:parameterSet", multiple=True, required=False,
               doc="Manner, position, or direction in which digital or physical properties are set to determine a particular function, characteristics or behavior of something."),
+        Field("serial_number", str, "vocab:serialNumber", multiple=False, required=False,
+              doc="no description available"),
+        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=False, required=False,
+              doc="no description available"),
 
     ]
     existence_query_fields = ('device_type', 'internal_identifier', 'manufacturer', 'model_name')

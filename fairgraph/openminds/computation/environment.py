@@ -27,14 +27,14 @@ class Environment(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the environment."),
-        Field("hardware", "openminds.computation.HardwareSystem", "vocab:hardware", multiple=False, required=True,
-              doc="no description available"),
         Field("configuration", "openminds.core.ParameterSet", "vocab:configuration", multiple=True, required=False,
-              doc="no description available"),
-        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=True, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the environment."),
+        Field("hardware", "openminds.computation.HardwareSystem", "vocab:hardware", multiple=False, required=True,
+              doc="no description available"),
+        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=True, required=False,
+              doc="no description available"),
 
     ]
     existence_query_fields = ('name', 'hardware')

@@ -30,10 +30,3 @@ class Hash(EmbeddedMetadata):
               doc="Summation or condensation of a body of information."),
 
     ]
-
-    def to_jsonld(self, client):
-        return {
-            "@type": self.__class__.type,
-            "vocab:algorithm": self.algorithm,
-            "vocab:digest": self.digest
-        }

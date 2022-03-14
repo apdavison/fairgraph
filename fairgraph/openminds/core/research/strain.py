@@ -25,6 +25,10 @@ class Strain(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("name", str, "vocab:name", multiple=False, required=True,
+              doc="Word or phrase that constitutes the distinctive designation of the strain."),
+        Field("rrid", "openminds.core.RRID", "vocab:RRID", multiple=False, required=False,
+              doc="no description available"),
         Field("background_strains", "openminds.core.Strain", "vocab:backgroundStrain", multiple=True, required=False,
               doc="no description available"),
         Field("breeding_type", "openminds.controlledterms.BreedingType", "vocab:breedingType", multiple=False, required=False,
@@ -39,14 +43,10 @@ class Strain(KGObject):
               doc="Term or code used to identify the strain."),
         Field("laboratory_code", str, "vocab:laboratoryCode", multiple=False, required=False,
               doc="no description available"),
-        Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the strain."),
         Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the strain registered within a particular ontology."),
         Field("phenotype", str, "vocab:phenotype", multiple=False, required=False,
               doc="Physical expression of one or more genes of an organism."),
-        Field("rrid", "openminds.core.RRID", "vocab:RRID", multiple=False, required=False,
-              doc="no description available"),
         Field("species", "openminds.controlledterms.Species", "vocab:species", multiple=False, required=False,
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("stock_number", "openminds.core.StockNumber", "vocab:stockNumber", multiple=False, required=False,
@@ -55,4 +55,4 @@ class Strain(KGObject):
               doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses."),
 
     ]
-    existence_query_fields = ('genetic_strain_type', 'name')
+    existence_query_fields = ('name', 'genetic_strain_type')

@@ -25,12 +25,12 @@ class Cell(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("semantically_anchored_to", "openminds.controlledterms.UBERONParcellation", "vocab:semanticallyAnchoredTo", multiple=False, required=True,
-              doc="Reference to a related anatomical structure without providing a quantitative proof of the claimed relation."),
         Field("cell_type", "openminds.controlledterms.CellType", "vocab:cellType", multiple=False, required=True,
               doc="no description available"),
+        Field("semantically_anchored_to", "openminds.controlledterms.UBERONParcellation", "vocab:semanticallyAnchoredTo", multiple=False, required=True,
+              doc="Reference to a related anatomical structure without providing a quantitative proof of the claimed relation."),
         Field("studied_states", ["openminds.ephys.PatchedCell", "openminds.ephys.TissueSampleState"], "vocab:studiedState", multiple=True, required=True,
               doc="Reference to a point in time at which the cell was studied in a particular mode or condition."),
 
     ]
-    existence_query_fields = ('semantically_anchored_to', 'cell_type', 'studied_states')
+    existence_query_fields = ('cell_type', 'semantically_anchored_to', 'studied_states')

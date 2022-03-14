@@ -27,14 +27,14 @@ class PatchClampActivity(KGObject):
     fields = [
         Field("bath_solution", str, "vocab:bathSolution", multiple=False, required=True,
               doc="no description available"),
-        Field("temperature", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:temperature", multiple=False, required=True,
-              doc="no description available"),
         Field("input", ["openminds.core.SubjectState", "openminds.core.TissueSampleState"], "vocab:input", multiple=False, required=False,
               doc="Something or someone that is put into or participates in a process or machine."),
         Field("outputs", "openminds.ephys.PatchedCell", "vocab:output", multiple=True, required=False,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
         Field("technique", "openminds.controlledterms.PatchClampVariation", "vocab:technique", multiple=False, required=False,
               doc="Method of accomplishing a desired aim."),
+        Field("temperature", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:temperature", multiple=False, required=True,
+              doc="no description available"),
 
     ]
     existence_query_fields = ('bath_solution', 'temperature')

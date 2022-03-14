@@ -25,13 +25,13 @@ class Pipette(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("pipette_resistance", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:pipetteResistance", multiple=False, required=True,
-              doc="no description available"),
-        Field("pipette_solution", str, "vocab:pipetteSolution", multiple=False, required=True,
-              doc="no description available"),
         Field("external_diameter", "openminds.core.QuantitativeValue", "vocab:externalDiameter", multiple=False, required=False,
               doc="no description available"),
         Field("internal_diameter", "openminds.core.QuantitativeValue", "vocab:internalDiameter", multiple=False, required=False,
+              doc="no description available"),
+        Field("pipette_resistance", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:pipetteResistance", multiple=False, required=True,
+              doc="no description available"),
+        Field("pipette_solution", str, "vocab:pipetteSolution", multiple=False, required=True,
               doc="no description available"),
 
     ]

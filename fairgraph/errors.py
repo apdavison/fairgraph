@@ -11,3 +11,8 @@ class ResourceExistsError(Exception):
 class AuthenticationError(Exception):
     """Raised when there is a problem with authentication"""
     pass
+
+
+class ResolutionFailure(Exception):
+    """Raised when unable to resolve a link in the Knowledge Graph"""
+    pass

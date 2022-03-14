@@ -27,10 +27,10 @@ class License(KGObject):
     fields = [
         Field("name", str, "vocab:fullName", multiple=False, required=True,
               doc="Whole, non-abbreviated name of the license."),
-        Field("legal_code", IRI, "vocab:legalCode", multiple=False, required=True,
-              doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted."),
         Field("alias", str, "vocab:shortName", multiple=False, required=True,
               doc="Shortened or fully abbreviated name of the license."),
+        Field("legal_code", IRI, "vocab:legalCode", multiple=False, required=True,
+              doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted."),
         Field("webpages", str, "vocab:webpage", multiple=True, required=False,
               doc="Hypertext document (block of information) found on the World Wide Web."),
 

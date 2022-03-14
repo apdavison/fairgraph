@@ -57,6 +57,7 @@ custom_multiple = {
     "is_part_of": "is_part_of",
     "semantically_anchored_to": "semantically_anchored_to",
     "is_alternative_version_of": "is_alternative_version_of",
+    "experimental_approach": "experimental_approaches"
 }
 
 
@@ -279,6 +280,18 @@ def get_existence_query(cls_name, fields):
     return tuple(required_field_names)
 
 
+def property_name_sort_key(arg):
+    """Sort the name field to be first"""
+    name, property = arg
+    priorities = {
+        "name": "0",
+        "fullName": "1",
+        "shortName": "2",
+        "lookupLabel": "3",
+    }
+    return priorities.get(name, name)
+
+
 class FairgraphGenerator(JinjaGenerator):
 
     def __init__(self, schema_information: List[SchemaStructure]):
@@ -302,7 +315,7 @@ class FairgraphGenerator(JinjaGenerator):
 
         fields = []
         #imports = set([])
-        for name, property in schema["properties"].items():
+        for name, property in sorted(schema["properties"].items(), key=property_name_sort_key):
             allow_multiple = False
             if property.get("type") == "array":
                 allow_multiple = True

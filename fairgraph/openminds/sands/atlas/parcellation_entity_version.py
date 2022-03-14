@@ -25,6 +25,10 @@ class ParcellationEntityVersion(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("name", str, "vocab:name", multiple=False, required=True,
+              doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version."),
+        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
+              doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
         Field("alternative_names", str, "vocab:alternativeName", multiple=True, required=False,
@@ -35,10 +39,6 @@ class ParcellationEntityVersion(KGObject):
               doc="no description available"),
         Field("has_parents", ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:hasParent", multiple=True, required=False,
               doc="Reference to a parent object or legal person."),
-        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
-              doc="no description available"),
-        Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version."),
         Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the parcellation entity version registered within a particular ontology."),
         Field("relation_assessments", ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"], "vocab:relationAssessment", multiple=True, required=False,

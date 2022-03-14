@@ -25,15 +25,15 @@ class LaunchConfiguration(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the launch configuration."),
         Field("name", str, "vocab:name", multiple=False, required=False,
               doc="Word or phrase that constitutes the distinctive designation of the launch configuration."),
-        Field("executable", str, "vocab:executable", multiple=False, required=True,
-              doc="no description available"),
         Field("arguments", str, "vocab:arguments", multiple=True, required=False,
               doc="no description available"),
+        Field("description", str, "vocab:description", multiple=False, required=False,
+              doc="Longer statement or account giving the characteristics of the launch configuration."),
         Field("environment_variables", "openminds.core.ParameterSet", "vocab:environmentVariables", multiple=False, required=False,
+              doc="no description available"),
+        Field("executable", str, "vocab:executable", multiple=False, required=True,
               doc="no description available"),
 
     ]
