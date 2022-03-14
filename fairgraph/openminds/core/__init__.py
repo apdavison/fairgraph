@@ -37,6 +37,7 @@ from .miscellaneous.gridid import GRIDID
 from .miscellaneous.funding import Funding
 from .miscellaneous.stock_number import StockNumber
 from .miscellaneous.quantitative_value_range import QuantitativeValueRange
+from .miscellaneous.handle import HANDLE
 from .miscellaneous.swhid import SWHID
 from .miscellaneous.url import URL
 from .actors.contribution import Contribution

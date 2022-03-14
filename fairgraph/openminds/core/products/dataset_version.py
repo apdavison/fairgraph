@@ -71,7 +71,7 @@ class DatasetVersion(KGObject):
               doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere."),
         Field("preparation_designs", "openminds.controlledterms.PreparationType", "vocab:preparationDesign", multiple=True, required=False,
               doc="no description available"),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),

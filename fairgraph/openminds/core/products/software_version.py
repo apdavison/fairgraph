@@ -75,7 +75,7 @@ class SoftwareVersion(KGObject):
               doc="Format of data that comes out of, is delivered or produced by a process or machine."),
         Field("programming_languages", "openminds.controlledterms.ProgrammingLanguage", "vocab:programmingLanguage", multiple=True, required=True,
               doc="Distinct set of instructions for computer programs in order to produce various kinds of output."),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),

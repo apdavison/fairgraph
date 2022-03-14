@@ -5,16 +5,17 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import EmbeddedMetadata, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class ContentTypePattern(EmbeddedMetadata):
+class ContentTypePattern(KGObject):
     """
 
     """
+    default_space = "files"
     type = ["https://openminds.ebrains.eu/core/ContentTypePattern"]
     context = {
         "schema": "http://schema.org/",
@@ -32,3 +33,4 @@ class ContentTypePattern(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+    existence_query_fields = ('lookup_label',)
