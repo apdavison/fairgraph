@@ -37,7 +37,7 @@ class SubjectState(KGObject):
               doc="no description available"),
         Field("handedness", "openminds.controlledterms.Handedness", "vocab:handedness", multiple=False, required=False,
               doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task."),
-        Field("pathologys", ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"], "vocab:pathology", multiple=True, required=False,
+        Field("pathologies", ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"], "vocab:pathology", multiple=True, required=False,
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("weight", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:weight", multiple=False, required=False,
               doc="Amount that a thing or being weighs."),

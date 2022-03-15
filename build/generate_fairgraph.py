@@ -57,7 +57,8 @@ custom_multiple = {
     "is_part_of": "is_part_of",
     "semantically_anchored_to": "semantically_anchored_to",
     "is_alternative_version_of": "is_alternative_version_of",
-    "experimental_approach": "experimental_approaches"
+    "experimental_approach": "experimental_approaches",
+    "pathology": "pathologies",
 }
 
 
