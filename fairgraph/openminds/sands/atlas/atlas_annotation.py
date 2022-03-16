@@ -24,8 +24,8 @@ class AtlasAnnotation(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        #Field("annotation_type", "openminds.controlledterms.AnnotationType", "vocab:annotationType", multiple=False, required=False,
-        #      doc="no description available"),
+        Field("annotation_type", "openminds.controlledterms.AnnotationType", "vocab:annotationType", multiple=False, required=False,
+              doc="no description available"),
         Field("best_view_point", "openminds.sands.CoordinatePoint", "vocab:bestViewPoint", multiple=False, required=False,
               doc="Coordinate point from which you get the best view of something."),
         Field("criteria", "openminds.core.ProtocolExecution", "vocab:criteria", multiple=False, required=False,

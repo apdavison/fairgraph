@@ -31,6 +31,8 @@ class ServiceLink(KGObject):
               doc="no description available"),
         Field("open_data_in", "openminds.core.URL", "vocab:openDataIn", multiple=False, required=True,
               doc="no description available"),
+        Field("preview_image", "openminds.core.File", "vocab:previewImage", multiple=False, required=False,
+              doc="no description available"),
         Field("service", "openminds.controlledterms.Service", "vocab:service", multiple=False, required=True,
               doc="no description available"),
 

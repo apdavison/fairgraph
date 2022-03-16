@@ -56,6 +56,7 @@ from .disease_model import DiseaseModel
 from .patch_clamp_variation import PatchClampVariation
 from .file_repository_type import FileRepositoryType
 from .atlas_type import AtlasType
+from .annotation_type import AnnotationType
 from .tissue_sample_attribute import TissueSampleAttribute
 
 
