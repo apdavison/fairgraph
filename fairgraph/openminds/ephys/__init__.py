@@ -13,7 +13,6 @@ from .entity.electrode_array import ElectrodeArray
 from .entity.patched_cell import PatchedCell
 from .entity.pipette import Pipette
 from .entity.channel import Channel
-from .entity.stimulus import Stimulus
 from .entity.electrode_contact import ElectrodeContact
 from .entity.electrode import Electrode
 from .entity.cell import Cell
