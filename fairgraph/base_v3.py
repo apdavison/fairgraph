@@ -44,16 +44,12 @@ logger = logging.getLogger("fairgraph")
 def get_filter_value(filters, field):
     value = filters[field.name]
     if not isinstance(value, field.types):
-    #     if isinstance(value, str) and issubclass(field.types[0], OntologyTerm):
-    #         value = field.types[0](value)
-    #     else:
+
         if field.name == "hash":  # bit of a hack
             filter_value = value
         else:
             raise TypeError("{} must be of type {}".format(field.name, field.types))
-    if hasattr(value, "iri"):
-        filter_value = value.iri
-    elif isinstance(value, IRI):
+    if isinstance(value, IRI):
         filter_value = value.value
     elif hasattr(value, "id"):
         filter_value = value.id
@@ -295,7 +291,7 @@ class KGObject(object, metaclass=Registry):
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
                             for field in self.fields if getattr(self, field.name) is not None)
-        template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", id={self.id})"
+        template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", space={self.space}, id={self.id})"
         return template.format(self=self)
 
     @property
@@ -1083,42 +1079,3 @@ def build_kgv3_object(possible_classes, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
-
-
-"""
-id                    https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000
-inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/25975e2e-f186-4c3f-9352-d460c6969761), id=https://kg.ebrains.eu/api/instances/4a10989f-fd9f-4068-b9c2-28d9a6d7342c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/ab0e7c0b-0cae-4a5a-9c75-a0323a3addfb), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/a50435e2-1a64-41c0-ba90-e52bf124a673), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/deaf5b85-bd3d-4937-a1cf-cea45f6e2c2f)]
-outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/06b025ae-43d6-4e7c-8509-ce1eefb4acf6), id=https://kg.ebrains.eu/api/instances/27b8231a-88cf-4264-ace4-dd9fa45d9d60), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/477faf0c-da36-4172-ad18-dfe44ad817d8), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/8859cc17-947b-4167-9e29-81a02868454a)]
-environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/0a467c94-cdf8-41f6-bf86-386ce21749a2), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/a2252d99-2c16-4a96-9e99-5882675f4069), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/22f5ea2f-f7ee-40a8-b759-f3522fcc0b98), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/bfea4e9f-0ca1-4896-a046-3c31384c2328)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/64f65fa0-7338-406c-9c5a-81545bc05299)
-launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/9677046e-2850-44ab-9086-45833f9ccef9)
-started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/8bbe9569-de0c-4a62-93ef-ab4a60a5cf02)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/ca4302b8-f130-4c8f-933f-35d9b2c7fbd4)
-was_informed_by
-status                ActionStatusType(name='queued', id=https://kg.ebrains.eu/api/instances/c3c089db-47aa-4bcd-9646-84b370c16bd3)
-resource_usages
-tags                  ['string']
-description
-ended_at_time         2021-05-28 16:32:58.597000+00:00
-lookup_label
-parameter_sets
-started_at_time       2021-05-28 16:32:58.597000+00:00
-study_targets
-"""
-
-"""
-id                    https://kg.ebrains.eu/api/instances/9c87a285-0dae-4028-b417-9093ecfc9ddc
-inputs                [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/4d046ca8-be25-4c7f-b6d6-5b35bf3a3664), id=https://kg.ebrains.eu/api/instances/a1351964-ad28-4ce7-8ccd-b0418a8f615c), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/be522f07-b61c-4167-a84f-773e8a8b92e7), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/db6971a6-ab1d-4e97-ad10-9ac77532f99f), SoftwareVersion(name='Elephant', alias='Elephant', version_identifier='0.10.0', id=https://kg.ebrains.eu/api/instances/ed290bed-3e8e-4cf1-b95a-85d98760e310)]
-outputs               [File(content='Demonstration data for validation framework', file_repository=FileRepository(hosted_by=KGProxy([<class 'fairgraph.openminds.core.actors.organization.Organization'>], 'https://kg.ebrains.eu/api/instances/7dfdd91f-3d05-424a-80bd-6d1d5dc11cd3'), iri=IRI(self.value), name='VF_paper_demo', repository_type=FileRepositoryType(name='Swift repository', id=https://kg.ebrains.eu/api/instances/bdb2fdca-db72-48c7-867d-24de2e1adc37), id=https://kg.ebrains.eu/api/instances/63513a20-fa0e-4d84-b09c-6927470238f2), format=ContentType(name='application/json', id=https://kg.ebrains.eu/api/instances/87f6330b-8350-41c2-9a33-427d93e0969c), hash=Hash(algorithm='sha1', digest='716c29320b1e329196ce15d904f7d4e3c7c46685'), iri=IRI(self.value), name='InputResistance_data.json', storage_size=QuantitativeValue(value=34.0, unit=UnitOfMeasurement(name='bytes', id=None)), id=https://kg.ebrains.eu/api/instances/488bd6be-e1ec-4463-9e06-0e4c24a51882)]
-environment           Environment(name='SpiNNaker default 2021-10-13', hardware=HardwareSystem(name='spinnaker', version='not specified', id=https://kg.ebrains.eu/api/instances/17f432ae-6876-4407-865b-b9a333114d64), configuration=[ParameterSet(context='hardware configuration for SpiNNaker 1M core machine', parameters=[StringParameter(name='parameter1', value='value1'), StringParameter(name='parameter2', value='value2')])], software=[SoftwareVersion(name='numpy', alias='numpy', version_identifier='1.19.3', id=https://kg.ebrains.eu/api/instances/36f290da-c68b-47b1-afd6-aedf643352a5), SoftwareVersion(name='neo', alias='neo', version_identifier='0.9.0', id=https://kg.ebrains.eu/api/instances/bef421f5-7cf5-45e5-9b4c-58a1b5503241), SoftwareVersion(name='spyNNaker', alias='spyNNaker', version_identifier='5.0.0', id=https://kg.ebrains.eu/api/instances/d21abc35-7245-4123-b3ea-b9bb7574e912)], description='Default environment on SpiNNaker 1M core machine as of 2020-10-13 (not really, this is just for example purposes).', id=https://kg.ebrains.eu/api/instances/9bbf37a3-3d11-42e0-9078-aad505ab5089)
-launch_configuration  LaunchConfiguration(name='LaunchConfiguration-268406ad70a3d2c41727a561547473b66950183a', executable='/usr/bin/python', arguments=['-Werror'], environment_variables=ParameterSet(context='environment variables', parameters=[StringParameter(name='COLLAB_ID', value='myspace')]), id=https://kg.ebrains.eu/api/instances/2eb5e20c-6409-4aec-ab18-7d035c507ee0)
-started_by            Person(digital_identifiers=[ORCID(identifier='https://orcid.org/0000-0001-7405-0455', id=https://kg.ebrains.eu/api/instances/e83b8bc0-b460-4217-ba4f-1fae41a5f1dc)], family_name='Destexhe', given_name='Alain', id=https://kg.ebrains.eu/api/instances/723830ad-2991-4ecd-878f-d16cc2ce2f89)
-was_informed_by
-status                ActionStatusType(name='queued', id=https://kg.ebrains.eu/api/instances/6f91e353-4207-4160-8ba8-c8da9ccea074)
-resource_usages
-tags                  ['string']
-description
-ended_at_time         2021-05-28 16:32:58.597000+00:00
-lookup_label          Data analysis by Alain Destexhe on 2021-05-28T16:32:58.597000+00:00 [0000000]
-parameter_sets
-started_at_time       2021-05-28 16:32:58.597000+00:00
-study_targets
-"""
