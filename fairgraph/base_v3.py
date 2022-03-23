@@ -281,7 +281,7 @@ class KGObject(object, metaclass=Registry):
     # It assumes that "name" is unique within instances of a given type,
     # which may often not be the case.
 
-    def __init__(self, id=None, data=None, space=None, **properties):
+    def __init__(self, id=None, data=None, space=None, scope=None, **properties):
         properties_copy = copy(properties)
         for field in self.fields:
             try:
@@ -313,6 +313,7 @@ class KGObject(object, metaclass=Registry):
         self.id = id
         self._space = space
         self.data = data
+        self.scope = scope
 
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
@@ -370,9 +371,9 @@ class KGObject(object, metaclass=Registry):
         return deserialized_data
 
     @classmethod
-    def from_kg_instance(cls, data, client, resolved=False):
+    def from_kg_instance(cls, data, client, scope=None, resolved=False):
         deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
-        return cls(id=data["@id"], data=data, **deserialized_data)
+        return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
     @classmethod
     def _fix_keys(cls, data):
@@ -576,7 +577,8 @@ class KGObject(object, metaclass=Registry):
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
-                                                 scope="in progress", resolved=False)
+                                                 scope=self.scope or "in progress", resolved=False)
+            # todo: revisit this. Maybe need to query both "releasd" and "latest/in progress" scopes
             if self.data is None:
                 self.data = data
 
@@ -782,10 +784,11 @@ class KGObject(object, metaclass=Registry):
                 "Use 'all=True' to retrieve them all")
             return objects[0]
 
-    def resolve(self, client, scope="released", use_cache=True, follow_links=0):
+    def resolve(self, client, scope=None, use_cache=True, follow_links=0):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
+        use_scope = scope or self.scope or "released"
         if follow_links > 0:
             for field in self.fields:
                 if issubclass(field.types[0], (KGObject, EmbeddedMetadata)):
@@ -795,7 +798,7 @@ class KGObject(object, metaclass=Registry):
                         if isinstance(value, (KGProxy, KGQuery, EmbeddedMetadata)):
                             try:
                                 resolved_value = value.resolve(
-                                    client, scope=scope, use_cache=use_cache, 
+                                    client, scope=use_scope, use_cache=use_cache, 
                                     follow_links=follow_links - 1)
                             except ResolutionFailure as err:
                                 warn(str(err))
@@ -989,7 +992,7 @@ class KGObject(object, metaclass=Registry):
 class KGProxy(object):
     """docstring"""
 
-    def __init__(self, cls, uri):
+    def __init__(self, cls, uri, preferred_scope="released"):
         if isinstance(cls, str):
             self.cls = lookup(cls)
         elif cls is None:
@@ -997,6 +1000,7 @@ class KGProxy(object):
         else:
             self.cls = cls
         self.id = uri
+        self.preferred_scope = preferred_scope
 
     @property
     def type(self):
@@ -1013,13 +1017,14 @@ class KGProxy(object):
         else:
             return [self.cls]
 
-    def resolve(self, client, scope="released", use_cache=True, follow_links=0):
+    def resolve(self, client, scope=None, use_cache=True, follow_links=0):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
             #if obj:
             #    logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
         else:
+            scope = scope or self.preferred_scope
             if len(self.classes) > 1:
                 obj = None
                 for cls in self.classes:
@@ -1068,7 +1073,7 @@ class KGProxy(object):
 class KGQuery(object):
     """docstring"""
 
-    def __init__(self, classes, filter):
+    def __init__(self, classes, filter, preferred_scope="released"):
         self.classes = []
         for cls in as_list(classes):
             if isinstance(cls, str):
@@ -1082,8 +1087,9 @@ class KGQuery(object):
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000, from_index=0, space=None,
-                scope="released", use_cache=True, resolved=False,
+                scope=None, use_cache=True, resolved=False,
                 follow_links=0):
+        scope = scope or self.preferred_scope
         if resolved:
             query_type = "resolved"
         else:
@@ -1116,7 +1122,8 @@ class KGQuery(object):
         else:
             return objects
 
-    def count(self, client, space=None, scope="released"):
+    def count(self, client, space=None, scope=None):
+        scope = scope or self.preferred_scope
         n = 0
         for cls in self.classes:
             n += cls.count(client, api="query", scope=scope,
