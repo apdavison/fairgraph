@@ -40,6 +40,23 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/RRID",
+      "propertyName": "vocab:RRID",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/backgroundStrain",
       "propertyName": "vocab:backgroundStrain",
       "ensureOrder": true,
@@ -103,11 +120,6 @@
       "propertyName": "vocab:laboratoryCode"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/ontologyIdentifier",
       "propertyName": "vocab:ontologyIdentifier",
       "ensureOrder": true
@@ -115,18 +127,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/phenotype",
       "propertyName": "vocab:phenotype"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/RRID",
-      "propertyName": "vocab:RRID",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",

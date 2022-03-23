@@ -40,12 +40,22 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/IRI",
+      "propertyName": "vocab:IRI"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/contentDescription",
       "propertyName": "vocab:contentDescription"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/fileRepository",
-      "propertyName": "vocab:fileRepository",
+      "path": "https://openminds.ebrains.eu/vocab/dataType",
+      "propertyName": "vocab:dataType",
+      "ensureOrder": true,
       "structure": [
         {
           "path": "@id"
@@ -56,9 +66,8 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/dataType",
-      "propertyName": "vocab:dataType",
-      "ensureOrder": true,
+      "path": "https://openminds.ebrains.eu/vocab/fileRepository",
+      "propertyName": "vocab:fileRepository",
       "structure": [
         {
           "path": "@id"
@@ -87,7 +96,6 @@
         "op": "CONTAINS",
         "parameter": "hash"
       },
-      "ensureOrder": true,
       "structure": [
         {
           "path": "@type"
@@ -103,10 +111,6 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
       "propertyName": "vocab:isPartOf",
       "ensureOrder": true,
@@ -118,11 +122,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/specialUsageRole",
@@ -148,15 +147,6 @@
           "path": "@type"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
-          "ensureOrder": true
-        },
-        {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
           "propertyName": "vocab:typeOfUncertainty",
           "structure": [
@@ -169,6 +159,11 @@
           ]
         },
         {
+          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
+        },
+        {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
           "structure": [
@@ -179,6 +174,10 @@
               "path": "@type"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/value",
+          "propertyName": "vocab:value"
         }
       ]
     }

@@ -40,6 +40,27 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/accessibility",
+      "propertyName": "vocab:accessibility",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/author",
       "propertyName": "vocab:author",
       "ensureOrder": true,
@@ -56,170 +77,6 @@
       "path": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
       "propertyName": "vocab:behavioralProtocol",
       "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/ethicsAssessment",
-      "propertyName": "vocab:ethicsAssessment",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/experimentalApproach",
-      "propertyName": "vocab:experimentalApproach",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/inputData",
-      "propertyName": "vocab:inputData",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/isAlternativeVersionOf",
-      "propertyName": "vocab:isAlternativeVersionOf",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/isNewVersionOf",
-      "propertyName": "vocab:isNewVersionOf",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/license",
-      "propertyName": "vocab:license",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
-      "propertyName": "vocab:preparationDesign",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
-      "propertyName": "vocab:studiedSpecimen",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/technique",
-      "propertyName": "vocab:technique",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/dataType",
-      "propertyName": "vocab:dataType",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/studyTarget",
-      "propertyName": "vocab:studyTarget",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/accessibility",
-      "propertyName": "vocab:accessibility",
       "structure": [
         {
           "path": "@id"
@@ -273,8 +130,58 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/dataType",
+      "propertyName": "vocab:dataType",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/description",
       "propertyName": "vocab:description"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/ethicsAssessment",
+      "propertyName": "vocab:ethicsAssessment",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/experimentalApproach",
+      "propertyName": "vocab:experimentalApproach",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullDocumentation",
@@ -287,11 +194,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/funding",
@@ -323,9 +225,59 @@
       "propertyName": "vocab:howToCite"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/inputData",
+      "propertyName": "vocab:inputData",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/isAlternativeVersionOf",
+      "propertyName": "vocab:isAlternativeVersionOf",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/isNewVersionOf",
+      "propertyName": "vocab:isNewVersionOf",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/keyword",
       "propertyName": "vocab:keyword",
       "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/license",
+      "propertyName": "vocab:license",
       "structure": [
         {
           "path": "@id"
@@ -375,6 +327,19 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
+      "propertyName": "vocab:preparationDesign",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/relatedPublication",
       "propertyName": "vocab:relatedPublication",
       "ensureOrder": true,
@@ -404,13 +369,48 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
+      "path": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
+      "propertyName": "vocab:studiedSpecimen",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/studyTarget",
+      "propertyName": "vocab:studyTarget",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/supportChannel",
       "propertyName": "vocab:supportChannel",
       "ensureOrder": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/technique",
+      "propertyName": "vocab:technique",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/versionIdentifier",

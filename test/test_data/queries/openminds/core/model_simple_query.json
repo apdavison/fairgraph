@@ -40,6 +40,15 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/abstractionLevel",
       "propertyName": "vocab:abstractionLevel",
       "structure": [
@@ -50,6 +59,23 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/custodian",
+      "propertyName": "vocab:custodian",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/developer",
@@ -90,6 +116,22 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/homepage",
+      "propertyName": "vocab:homepage",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/howToCite",
+      "propertyName": "vocab:howToCite"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/scope",
       "propertyName": "vocab:scope",
       "structure": [
@@ -113,48 +155,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/custodian",
-      "propertyName": "vocab:custodian",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/howToCite",
-      "propertyName": "vocab:howToCite"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
     }
   ]
 }

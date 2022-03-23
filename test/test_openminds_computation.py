@@ -48,18 +48,6 @@ class TestEnvironment:
                     "sort": True,
                 },
                 {
-                    "path": "https://openminds.ebrains.eu/vocab/hardware",
-                    "propertyName": "vocab:hardware",
-                    "required": True,
-                    "structure": [
-                        {
-                            "filter": {"op": "CONTAINS", "parameter": "hardware"},
-                            "path": "@id",
-                        },
-                        {"path": "@type"},
-                    ],
-                },
-                {
                     "ensureOrder": True,
                     "filter": {"op": "CONTAINS", "parameter": "configuration"},
                     "path": "https://openminds.ebrains.eu/vocab/configuration",
@@ -69,11 +57,6 @@ class TestEnvironment:
                         {
                             "path": "https://openminds.ebrains.eu/vocab/context",
                             "propertyName": "vocab:context",
-                        },
-                        {
-                            "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-                            "propertyName": "vocab:relevantFor",
-                            "structure": [{"path": "@id"}, {"path": "@type"}],
                         },
                         {
                             "path": {
@@ -98,15 +81,6 @@ class TestEnvironment:
                                     "propertyName": "vocab:value__QuantitativeValue",
                                     "structure": [
                                         {
-                                            "path": "https://openminds.ebrains.eu/vocab/value",
-                                            "propertyName": "vocab:value",
-                                        },
-                                        {
-                                            "ensureOrder": True,
-                                            "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-                                            "propertyName": "vocab:uncertainty",
-                                        },
-                                        {
                                             "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
                                             "propertyName": "vocab:typeOfUncertainty",
                                             "structure": [
@@ -115,12 +89,21 @@ class TestEnvironment:
                                             ],
                                         },
                                         {
+                                            "ensureOrder": True,
+                                            "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+                                            "propertyName": "vocab:uncertainty",
+                                        },
+                                        {
                                             "path": "https://openminds.ebrains.eu/vocab/unit",
                                             "propertyName": "vocab:unit",
                                             "structure": [
                                                 {"path": "@id"},
                                                 {"path": "@type"},
                                             ],
+                                        },
+                                        {
+                                            "path": "https://openminds.ebrains.eu/vocab/value",
+                                            "propertyName": "vocab:value",
                                         },
                                     ],
                                 },
@@ -180,6 +163,29 @@ class TestEnvironment:
                                 },
                             ],
                         },
+                        {
+                            "path": "https://openminds.ebrains.eu/vocab/relevantFor",
+                            "propertyName": "vocab:relevantFor",
+                            "structure": [{"path": "@id"}, {"path": "@type"}],
+                        },
+                    ],
+                },
+                {
+                    "filter": {"op": "CONTAINS", "parameter": "description"},
+                    "path": "https://openminds.ebrains.eu/vocab/description",
+                    "propertyName": "vocab:description",
+                    "required": True
+                },
+                {
+                    "path": "https://openminds.ebrains.eu/vocab/hardware",
+                    "propertyName": "vocab:hardware",
+                    "required": True,
+                    "structure": [
+                        {
+                            "filter": {"op": "CONTAINS", "parameter": "hardware"},
+                            "path": "@id",
+                        },
+                        {"path": "@type"},
                     ],
                 },
                 {
@@ -194,12 +200,6 @@ class TestEnvironment:
                         },
                         {"path": "@type"},
                     ],
-                },
-                {
-                    "filter": {"op": "CONTAINS", "parameter": "description"},
-                    "path": "https://openminds.ebrains.eu/vocab/description",
-                    "propertyName": "vocab:description",
-                    "required": True
                 },
             ],
         }

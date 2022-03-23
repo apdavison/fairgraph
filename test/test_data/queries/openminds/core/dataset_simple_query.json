@@ -40,33 +40,17 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/author",
       "propertyName": "vocab:author",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/hasVersion",
-      "propertyName": "vocab:hasVersion",
       "ensureOrder": true,
       "structure": [
         {
@@ -95,9 +79,29 @@
       "propertyName": "vocab:description"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
+      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/hasVersion",
+      "propertyName": "vocab:hasVersion",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
@@ -114,10 +118,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
       "propertyName": "vocab:howToCite"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
     }
   ]
 }

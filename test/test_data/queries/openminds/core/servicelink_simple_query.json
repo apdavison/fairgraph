@@ -40,6 +40,11 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/dataLocation",
       "propertyName": "vocab:dataLocation",
       "structure": [
@@ -52,13 +57,20 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/openDataIn",
       "propertyName": "vocab:openDataIn",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/previewImage",
+      "propertyName": "vocab:previewImage",
       "structure": [
         {
           "path": "@id"

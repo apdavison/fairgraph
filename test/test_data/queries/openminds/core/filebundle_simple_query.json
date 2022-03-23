@@ -40,6 +40,11 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/contentDescription",
       "propertyName": "vocab:contentDescription"
     },
@@ -113,11 +118,6 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
       "propertyName": "vocab:storageSize",
       "filter": {
@@ -127,15 +127,6 @@
       "structure": [
         {
           "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
-          "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
@@ -150,6 +141,11 @@
           ]
         },
         {
+          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
+        },
+        {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
           "structure": [
@@ -160,6 +156,10 @@
               "path": "@type"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/value",
+          "propertyName": "vocab:value"
         }
       ]
     }

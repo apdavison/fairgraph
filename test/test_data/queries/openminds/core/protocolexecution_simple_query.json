@@ -40,6 +40,10 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
       "propertyName": "vocab:behavioralProtocol",
       "ensureOrder": true,
@@ -51,6 +55,14 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
+      "propertyName": "vocab:endedAtTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/input",
@@ -91,43 +103,6 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
-      "propertyName": "vocab:preparationDesign",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/protocol",
-      "propertyName": "vocab:protocol",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
-      "propertyName": "vocab:endedAtTime"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/parameterSet",
       "propertyName": "vocab:parameterSet",
       "filter": {
@@ -142,18 +117,6 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/context",
           "propertyName": "vocab:context"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-          "propertyName": "vocab:relevantFor",
-          "structure": [
-            {
-              "path": "@id"
-            },
-            {
-              "path": "@type"
-            }
-          ]
         },
         {
           "path": {
@@ -178,15 +141,6 @@
               "propertyName": "vocab:value__QuantitativeValue",
               "structure": [
                 {
-                  "path": "https://openminds.ebrains.eu/vocab/value",
-                  "propertyName": "vocab:value"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-                  "propertyName": "vocab:uncertainty",
-                  "ensureOrder": true
-                },
-                {
                   "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
                   "propertyName": "vocab:typeOfUncertainty",
                   "structure": [
@@ -199,6 +153,11 @@
                   ]
                 },
                 {
+                  "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+                  "propertyName": "vocab:uncertainty",
+                  "ensureOrder": true
+                },
+                {
                   "path": "https://openminds.ebrains.eu/vocab/unit",
                   "propertyName": "vocab:unit",
                   "structure": [
@@ -209,6 +168,10 @@
                       "path": "@type"
                     }
                   ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/value",
+                  "propertyName": "vocab:value"
                 }
               ]
             },
@@ -275,6 +238,43 @@
               "propertyName": "vocab:value"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/relevantFor",
+          "propertyName": "vocab:relevantFor",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
+      "propertyName": "vocab:preparationDesign",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/protocol",
+      "propertyName": "vocab:protocol",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
         }
       ]
     },
