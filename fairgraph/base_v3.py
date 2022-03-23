@@ -19,8 +19,6 @@ Base functionality
 
 from collections import defaultdict
 from datetime import datetime, date
-from urllib.parse import SplitResultBytes
-import warnings
 from copy import copy
 import logging
 from uuid import UUID
@@ -43,19 +41,34 @@ logger = logging.getLogger("fairgraph")
 
 def get_filter_value(filters, field):
     value = filters[field.name]
-    if not isinstance(value, field.types):
-
+    if isinstance(value, list) and len(value) > 0:
+        valid_type = all(isinstance(item, (UUID, *field.types)) for item in value)
+        have_multiple = True
+    else:
+        valid_type = isinstance(value, (UUID, *field.types))
+        have_multiple = False
+    if not valid_type:
         if field.name == "hash":  # bit of a hack
             filter_value = value
         else:
             raise TypeError("{} must be of type {}".format(field.name, field.types))
-    if isinstance(value, IRI):
-        filter_value = value.value
-    elif hasattr(value, "id"):
-        filter_value = value.id
+    filter_items = []
+    for item in as_list(value):
+        if isinstance(item, IRI):
+            filter_item = item.value
+        elif hasattr(item, "id"):
+            filter_item = item.id
+        elif isinstance(item, UUID):
+            # todo: consider using client.uri_from_uuid()
+            # would require passing client as arg
+            filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
+        else:
+            filter_item = item
+        filter_items.append(filter_item)
+    if have_multiple:
+        return filter_items
     else:
-        filter_value = value
-    return filter_value
+        return filter_items[0]
 
 
 def normalize_filter(cls, filter_dict):
@@ -100,7 +113,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                     if field.strict_mode:
                         raise ValueError(msg)
                     else:
-                        warnings.warn(msg)
+                        warn(msg)
                 value = None
             if value is None:
                 value = field.default
@@ -135,7 +148,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
     def from_jsonld(cls, data, client, resolved=False):
         if "@id" in data:
             #raise Exception("Expected embedded metadata, but received @id: " + str(data))
-            warnings.warn("Expected embedded metadata, but received @id")
+            warn("Expected embedded metadata, but received @id")
             return None
 
         D = {
@@ -266,7 +279,7 @@ class KGObject(object, metaclass=Registry):
                     if field.strict_mode:
                         raise ValueError(msg)
                     else:
-                        warnings.warn(msg)
+                        warn(msg)
                 value = None
             else:
                 properties_copy.pop(field.name)
@@ -374,10 +387,7 @@ class KGObject(object, metaclass=Registry):
         if data is None:
             return None
         else:
-            #try:
-            return cls.from_kg_instance(data, client, resolved=resolved)
-            #except ValueError as err:
-            #    return None
+            return cls.from_kg_instance(data, client, scope=scope, resolved=resolved)
 
     @classmethod
     def from_uuid(cls, uuid, client, use_cache=True, scope="released", resolved=False):
@@ -615,7 +625,7 @@ class KGObject(object, metaclass=Registry):
 
                     skip_update = False
                     if "vocab:storageSize" in updated_data:
-                        warnings.warn("Removing storage size from update because this field is currently locked by the KG")
+                        warn("Removing storage size from update because this field is currently locked by the KG")
                         updated_data.pop("vocab:storageSize")
                         skip_update = len(updated_data) == 0
 
@@ -842,7 +852,7 @@ class KGObject(object, metaclass=Registry):
                 client.store_query(query_label, query_definition, space=space)
             except HTTPError as err:
                 if err.response.status_code == 401:
-                    warnings.warn("Unable to store query with id '{}': {}".format(
+                    warn("Unable to store query with id '{}': {}".format(
                         query_label, err.response.text))
                 else:
                     raise
