@@ -1,23 +1,12 @@
 from fairgraph.openminds.computation import Environment
-import pytest
 
-from test.utils import generate_random_object
-
-
-class MockKGClient:
-    _private_space = "myspace_1234"
-    pass
-
-
-@pytest.fixture
-def client():
-    return MockKGClient()
+from test.utils_v3 import mock_client
 
 
 class TestEnvironment:
-    def test_generate_query(self, client):
+    def test_generate_query(self, mock_client):
         generated = Environment.generate_query(
-            "simple", "myspace", client, 
+            "simple", "myspace", mock_client, 
             filter_keys=["name", "hardware", "configuration", "software", "description"])
         expected = {
             "@context": {

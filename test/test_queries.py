@@ -2,22 +2,9 @@
 import os
 import json
 import pytest
-from fairgraph.client_v3 import KGv3Client as KGClient
 from fairgraph.queries import Query, QueryProperty, Filter
-from fairgraph.errors import AuthenticationError
 import fairgraph.openminds.core as omcore
-
-
-have_kg_connection = False
-try:
-    kg_client = KGClient(host="core.kg-ppd.ebrains.eu")  # don't use production for testing
-except AuthenticationError:
-    pass
-else:
-    if kg_client.user_info():
-        have_kg_connection = True
-
-no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
+from .utils_v3 import kg_client, mock_client, skip_if_no_connection
 
 
 @pytest.fixture()
@@ -183,9 +170,8 @@ def test_query_builder(example_query_model_version):
     assert generated == expected
 
 
-
-@pytest.mark.skipif(not have_kg_connection, reason=no_kg_err_msg)
-def test_execute_query(example_query_model_version):
+@skip_if_no_connection
+def test_execute_query(kg_client, example_query_model_version):
     params = {
         "from": 0,
         "size": 3,
@@ -216,8 +202,8 @@ def test_execute_query(example_query_model_version):
             assert set(affil0.keys())  == set(["@type", "vocab:organization", "vocab:startDate"])
 
 
-@pytest.mark.skipif(not have_kg_connection, reason=no_kg_err_msg)
-def test_execute_query_with_id_filter(example_query_model):
+@skip_if_no_connection
+def test_execute_query_with_id_filter(kg_client, example_query_model):
     target_id = "https://kg.ebrains.eu/api/instances/3ca9ae35-c9df-451f-ac76-4925bd2c7dc6"
     params = {
         "from": 0,
@@ -239,15 +225,11 @@ def test_execute_query_with_id_filter(example_query_model):
     #assert data[0]["vocab:organization"][0]["vocab:shortName"] == "Destexhe Lab"
 
 
-class MockClient:
-    pass
-
-
-def test_openminds_core_queries():
+def test_openminds_core_queries(mock_client):
     for cls in omcore.list_kg_classes():
         path_expected = os.path.join(os.path.dirname(__file__), "test_data", "queries", "openminds", "core", f"{cls.__name__.lower()}_simple_query.json")
         with open(path_expected) as fp:
-            generated = cls.generate_query("simple", "collab-foobar", MockClient(), resolved=False)
+            generated = cls.generate_query("simple", "collab-foobar", mock_client, resolved=False)
             expected = json.load(fp)
             assert generated == expected
 

@@ -89,10 +89,10 @@ class KGv3Client(object):
         self.cache = {}
         self._query_cache = {}
 
-    def _data_from_response(self, response, ignore_not_found=False):
+    def _check_response(self, response, ignore_not_found=False):
         if response.is_successful():
             if response.status_code < 300:
-                return response.data()
+                return response
             elif response.status_code in (401, 403):
                 raise Exception("Authentication/authorization problem. Your token may have expired. "
                                 f"Status code {response.status_code}")
@@ -100,22 +100,11 @@ class KGv3Client(object):
                 raise Exception(f"Error. Status code {response.status_code} {response.message()}\n{response.request_args}\n{response.request_payload}")
         else:
             if response.error() == "Not Found" and ignore_not_found:
-                return None
+                return response
             raise Exception(f"Error: {response.error()}\n{response.request_args}")
 
-    def query(self, cls, filter, space=None, query_type="simple", from_index=0, size=100, scope="released", context=None):
-        space = space or cls.default_space
-        if filter is None:
-            filter_keys = None
-        else:
-            filter_keys = filter.keys()
-        query_label = cls.get_query_label(query_type, space, filter_keys)
-        query = self.retrieve_query(query_label)
-        if query is None:
-            resolved = query_type == "resolved"
-            query = cls.generate_query(query_type, space, client=self, filter_keys=filter_keys, resolved=resolved)
-            self.store_query(query_label, query, space=space)
-        uuid = self.uuid_from_uri(query["@id"])
+    def query(self, filter, query_id, from_index=0, size=100, scope="released"):
+        uuid = self.uuid_from_uri(query_id)
         params = {
             "from": from_index,
             "size": size,
@@ -128,54 +117,18 @@ class KGv3Client(object):
             path=f"/queries/{uuid}/instances",
             params=params
         )
-        data = self._data_from_response(response)
-        if context:
-            for item in data:
-                item["@context"] = context
-        return data
+        return self._check_response(response)
 
-    def list(self, cls, space=None, from_index=0, size=100, api="core", scope="released",
-             resolved=False, filter=None):
+    def list(self, target_type, space, from_index=0, size=100, scope="released"):
         """docstring"""
-
-        if api == "core":
-            # todo: handle filters, context, resolved, deprecated
-            if filter:
-                raise NotImplementedError("need to use api='query' with filters")
-            response = self._kg_client.get_instances(
-                stage=STAGE_MAP[scope],
-                target_type=cls.type,
-                space=space or cls.default_space,
-                response_configuration=default_response_configuration,
-                pagination=Pagination(start_from=from_index, size=size)
-            )
-            return [cls.from_kg_instance(instance, self, resolved=resolved)
-                    for instance in response.data()]
-        elif api == "query":
-            if resolved:
-                query_type = "resolved"
-            else:
-                query_type = "simple"
-            instances = self.query(cls, filter, space, query_type, from_index=from_index,
-                                   size=size, scope=scope, context=cls.context)
-            return [cls.from_kg_instance(instance, self, resolved=resolved)
-                    for instance in instances]
-        else:
-            raise ValueError("api must be either 'core' or 'query'")
-
-    def count(self, cls, space=None, api="core", scope="released", filter=None):
-        if api == "core":
-            # todo: handle filters, context, resolved, deprecated
-            response = self._kg_client.get_instances(
-                stage=STAGE_MAP[scope],
-                target_type=cls.type,
-                space=space or cls.default_space,
-                #response_configuration=default_response_configuration,
-                pagination=Pagination(start_from=0, size=1)
-            )
-            return response.total()
-        else:
-            raise NotImplementedError("todo")
+        response = self._kg_client.get_instances(
+            stage=STAGE_MAP[scope],
+            target_type=target_type,
+            space=space,
+            response_configuration=default_response_configuration,
+            pagination=Pagination(start_from=from_index, size=size)
+        )
+        return self._check_response(response)
 
     def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False):
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
