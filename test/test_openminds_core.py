@@ -3,9 +3,11 @@ import json
 from random import randint
 from uuid import UUID
 from copy import deepcopy
+from datetime import datetime
 from fairgraph.base_v3 import as_list, IRI, KGProxy, KGQuery
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlledterms as omterms
+from fairgraph.utility import ActivityLog
 
 from test.utils_v3 import mock_client, kg_client
 
@@ -145,3 +147,33 @@ def test_KGQuery_count(kg_client):
     n_models_direct = omcore.Model.count(kg_client, scope="released", space="model", api="query", **filters)
     assert n_models_q == n_models_direct
     assert n_models_q > 1
+
+
+def test_save_new_mock(mock_client):
+    timestamp = datetime.now()
+    new_model = omcore.Model(
+        name=f"Dummy new model created for testing at {timestamp}",
+        alias=f"DummyModel-{timestamp.isoformat()}",
+        abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
+        custodians=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        description="This model should never actually appear in the KG. If it does, please remove it.",
+        developers=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        digital_identifier=None,
+        versions=None,
+        homepage=omcore.URL(url="http://example.com", id="fake_uuid_2", space="common"),
+        how_to_cite=None,
+        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        study_targets=[omterms.Species.by_name("Mus musculus", mock_client), 
+                       omterms.CellType.by_name("astrocyte", mock_client), 
+                       omterms.UBERONParcellation.by_name("amygdala", mock_client)]
+    )
+    log = ActivityLog()
+    new_model.save(mock_client, space="myspace", recursive=False, activity_log=log)
+    assert len(log.entries) == 1
+    assert log.entries[0].cls == "Model"
+    assert log.entries[0].space == "myspace"
+    assert log.entries[0].type == "create"
+  
+
+#def test_save_existing_with_id_mock(mock_client):
+#    existing_model = mock_client.instances[]

@@ -50,6 +50,8 @@ def get_filter_value(filters, field):
     if not valid_type:
         if field.name == "hash":  # bit of a hack
             filter_value = value
+        elif isinstance(value, str) and value.startswith("http"):  # for @id
+            filter_value = value
         else:
             raise TypeError("{} must be of type {}".format(field.name, field.types))
     filter_items = []
