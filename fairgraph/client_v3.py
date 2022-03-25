@@ -161,7 +161,7 @@ class KGv3Client(object):
             instance_id=instance_id,  # if already have id
             response_configuration=default_response_configuration
         )
-        return self._data_from_response(response)
+        return self._check_response(response).data()
 
     def update_instance(self, instance_id, data):
         response = self._kg_client.partially_update_contribution_to_instance(
@@ -170,7 +170,7 @@ class KGv3Client(object):
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        return self._data_from_response(response)
+        return self._check_response(response).data()
 
     def replace_instance(self, instance_id, data):
         response = self._kg_client.replace_contribution_to_instance(
@@ -179,11 +179,11 @@ class KGv3Client(object):
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        return self._data_from_response(response)
+        return self._check_response(response).data()
 
     def delete_instance(self, instance_id, ignore_not_found=True):
         response = self._kg_client.deprecate_instance(instance_id)
-        return self._data_from_response(response, ignore_not_found=ignore_not_found)
+        return self._check_response(response, ignore_not_found=ignore_not_found).data()
 
     def uri_from_uuid(self, uuid):
         return self._kg_client.absolute_id(uuid)
@@ -252,7 +252,7 @@ class KGv3Client(object):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        accessible_spaces = self._data_from_response(response)
+        accessible_spaces = self._check_response(response).data()
         if permissions:
             filtered_spaces = []
             for space in accessible_spaces:
