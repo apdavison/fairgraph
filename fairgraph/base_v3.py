@@ -665,6 +665,11 @@ class KGObject(object, metaclass=Registry):
                                 target_space = self.space
                             else:
                                 target_space = space
+                            if target_space == "controlled":
+                                if value.exists(client, space="controlled"):
+                                    continue
+                                else:
+                                    raise Exception("Cannot write to controlled space")
                             value.save(client, space=target_space, recursive=True,
                                        activity_log=activity_log)
                         # todo: handle EmbeddedMetadata object that _contain_ KGObjects (e.g. QuantitativeValue->UnitOfMeasurement)
