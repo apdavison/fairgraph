@@ -194,7 +194,12 @@ class EmbeddedMetadata(object, metaclass=Registry):
                     QueryProperty("@type")
                 ])
         else:
-            property = QueryProperty(expanded_path, name=field.path)
+            property = QueryProperty(
+                expanded_path, 
+                name=field.path,
+                properties=[
+                    QueryProperty("@type")
+                ])
 
         if use_type_filter:
             property.type_filter = cls.type
@@ -808,7 +813,7 @@ class KGObject(object, metaclass=Registry):
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
-    def generate_query_property(cls, field, client, filter_parameter=None):
+    def generate_query_property(cls, field, client, filter_parameter=None, name=None):
 
         expanded_path = expand_uri(field.path, cls.context, client)[0]
 
@@ -818,7 +823,7 @@ class KGObject(object, metaclass=Registry):
             filter = None
         property = QueryProperty(
             expanded_path,
-            name=field.path,
+            name=name or field.path,
             ensure_order=field.multiple,
             properties=[
                 QueryProperty("@id", filter=filter),
@@ -857,6 +862,10 @@ class KGObject(object, metaclass=Registry):
                     op = "EQUALS"
                 else:
                     op = "CONTAINS"
+                if field.name in filter_keys:
+                    filter_parameter = field.name
+                else:
+                    filter_parameter = None
                 expanded_path = expand_uri(field.path, cls.context, client)[0]
                 if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
                     for child_cls in field.types:
@@ -871,16 +880,23 @@ class KGObject(object, metaclass=Registry):
                         # take only the first entry, since we don't use type filters
                         # for KGObject where resolved=False
                         if field.name in filter_keys:
-                            filter_parameter = field.name
-                        else:
-                            filter_parameter = None
-                        property = child_cls.generate_query_property(
-                            field, client,
-                            filter_parameter=filter_parameter
-                        )
-                        if field.name in filter_keys:
+                            property = child_cls.generate_query_property(
+                                field, client,
+                                filter_parameter=field.name,
+                                name=field.multiple and f"Q{field.name}" or None
+                            )
                             property.required = True
-                        query.properties.append(property)
+                            query.properties.append(property)
+                            if field.multiple:
+                                # if filtering by a field that can have multiple values,
+                                # the first property will return only the elements in the array
+                                # that match, so we add a second property with the same path
+                                # to get the full array
+                                property = child_cls.generate_query_property(field, client)
+                                query.properties.append(property)
+                        else:
+                            property = child_cls.generate_query_property(field, client)
+                            query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,
                                              name=field.path,

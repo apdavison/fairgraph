@@ -56,6 +56,7 @@ class TestEnvironment:
                             },
                             "propertyName": "vocab:parameter__NumericalParameter",
                             "structure": [
+                                {'path': '@type'},
                                 {
                                     "path": "https://openminds.ebrains.eu/vocab/name",
                                     "propertyName": "vocab:name",
@@ -69,6 +70,7 @@ class TestEnvironment:
                                     },
                                     "propertyName": "vocab:value__QuantitativeValue",
                                     "structure": [
+                                        {'path': '@type'},
                                         {
                                             "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
                                             "propertyName": "vocab:typeOfUncertainty",
@@ -105,6 +107,7 @@ class TestEnvironment:
                                     },
                                     "propertyName": "vocab:value__QuantitativeValueRange",
                                     "structure": [
+                                        {'path': '@type'},
                                         {
                                             "path": "https://openminds.ebrains.eu/vocab/maxValue",
                                             "propertyName": "vocab:maxValue",
@@ -142,6 +145,7 @@ class TestEnvironment:
                             },
                             "propertyName": "vocab:parameter__StringParameter",
                             "structure": [
+                                {'path': '@type'},
                                 {
                                     "path": "https://openminds.ebrains.eu/vocab/name",
                                     "propertyName": "vocab:name",
@@ -180,13 +184,22 @@ class TestEnvironment:
                 {
                     "ensureOrder": True,
                     "path": "https://openminds.ebrains.eu/vocab/software",
-                    "propertyName": "vocab:software",
+                    "propertyName": "Qsoftware",
                     "required": True,
                     "structure": [
                         {
                             "filter": {"op": "CONTAINS", "parameter": "software"},
                             "path": "@id",
                         },
+                        {"path": "@type"},
+                    ],
+                },
+                {
+                    "ensureOrder": True,
+                    "path": "https://openminds.ebrains.eu/vocab/software",
+                    "propertyName": "vocab:software",
+                    "structure": [
+                        {"path": "@id"},
                         {"path": "@type"},
                     ],
                 },

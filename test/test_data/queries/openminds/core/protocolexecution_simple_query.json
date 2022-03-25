@@ -128,6 +128,9 @@
           "propertyName": "vocab:parameter__NumericalParameter",
           "structure": [
             {
+              "path": "@type"
+            },
+            {
               "path": "https://openminds.ebrains.eu/vocab/name",
               "propertyName": "vocab:name"
             },
@@ -140,6 +143,9 @@
               },
               "propertyName": "vocab:value__QuantitativeValue",
               "structure": [
+                {
+                  "path": "@type"
+                },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
                   "propertyName": "vocab:typeOfUncertainty",
@@ -185,6 +191,9 @@
               "propertyName": "vocab:value__QuantitativeValueRange",
               "structure": [
                 {
+                  "path": "@type"
+                },
+                {
                   "path": "https://openminds.ebrains.eu/vocab/maxValue",
                   "propertyName": "vocab:maxValue"
                 },
@@ -229,6 +238,9 @@
           },
           "propertyName": "vocab:parameter__StringParameter",
           "structure": [
+            {
+              "path": "@type"
+            },
             {
               "path": "https://openminds.ebrains.eu/vocab/name",
               "propertyName": "vocab:name"
