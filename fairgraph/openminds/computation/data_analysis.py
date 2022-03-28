@@ -53,7 +53,7 @@ class DataAnalysis(KGObject):
               doc="Structure or function that was targeted within a study."),
         Field("tags", str, "vocab:tags", multiple=True, required=False,
               doc="no description available"),
-        Field("was_informed_by", "openminds.computation.Computation", "vocab:wasInformedBy", multiple=False, required=False,
+        Field("was_informed_by", ["openminds.computation.DataAnalysis", "openminds.computation.Simulation"], "vocab:wasInformedBy", multiple=False, required=False,
               doc="no description available"),
 
     ]

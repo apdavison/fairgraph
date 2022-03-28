@@ -40,17 +40,8 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/studiedState",
-      "propertyName": "vocab:studiedState",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
@@ -74,16 +65,25 @@
       "propertyName": "vocab:internalIdentifier"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/quantity",
       "propertyName": "vocab:quantity"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
       "propertyName": "vocab:species",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/studiedState",
+      "propertyName": "vocab:studiedState",
       "ensureOrder": true,
       "structure": [
         {

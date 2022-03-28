@@ -40,30 +40,8 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
-      "propertyName": "vocab:descendedFrom",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/attribute",
-      "propertyName": "vocab:attribute",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
@@ -86,15 +64,6 @@
           "path": "@type"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
-          "ensureOrder": true
-        },
-        {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
           "propertyName": "vocab:typeOfUncertainty",
           "structure": [
@@ -107,6 +76,11 @@
           ]
         },
         {
+          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
+        },
+        {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
           "structure": [
@@ -117,6 +91,10 @@
               "path": "@type"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/value",
+          "propertyName": "vocab:value"
         }
       ]
     },
@@ -171,8 +149,30 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
+      "path": "https://openminds.ebrains.eu/vocab/attribute",
+      "propertyName": "vocab:attribute",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
+      "propertyName": "vocab:descendedFrom",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/pathology",
@@ -204,15 +204,6 @@
           "path": "@type"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
-          "ensureOrder": true
-        },
-        {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
           "propertyName": "vocab:typeOfUncertainty",
           "structure": [
@@ -225,6 +216,11 @@
           ]
         },
         {
+          "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+          "propertyName": "vocab:uncertainty",
+          "ensureOrder": true
+        },
+        {
           "path": "https://openminds.ebrains.eu/vocab/unit",
           "propertyName": "vocab:unit",
           "structure": [
@@ -235,6 +231,10 @@
               "path": "@type"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/value",
+          "propertyName": "vocab:value"
         }
       ]
     },

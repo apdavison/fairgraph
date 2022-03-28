@@ -40,39 +40,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/contactInformation",
-      "propertyName": "vocab:contactInformation",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/familyName",
-      "propertyName": "vocab:familyName"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/givenName",
-      "propertyName": "vocab:givenName"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/affiliation",
       "propertyName": "vocab:affiliation",
       "filter": {
@@ -83,10 +50,6 @@
       "structure": [
         {
           "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/startDate",
-          "propertyName": "vocab:startDate"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/endDate",
@@ -103,8 +66,45 @@
               "path": "@type"
             }
           ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/startDate",
+          "propertyName": "vocab:startDate"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/contactInformation",
+      "propertyName": "vocab:contactInformation",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/familyName",
+      "propertyName": "vocab:familyName"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/givenName",
+      "propertyName": "vocab:givenName"
     }
   ]
 }

@@ -40,13 +40,30 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
       "propertyName": "vocab:fullName",
       "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/coordinator",
+      "propertyName": "vocab:coordinator",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/description",
+      "propertyName": "vocab:description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasResearchProducts",
@@ -72,23 +89,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/coordinator",
-      "propertyName": "vocab:coordinator",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
     }
   ]
 }

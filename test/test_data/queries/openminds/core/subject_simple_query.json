@@ -40,30 +40,8 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/isPartOf",
-      "propertyName": "vocab:isPartOf",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/studiedState",
-      "propertyName": "vocab:studiedState",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
@@ -82,12 +60,34 @@
       "propertyName": "vocab:internalIdentifier"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
+      "path": "https://openminds.ebrains.eu/vocab/isPartOf",
+      "propertyName": "vocab:isPartOf",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
       "propertyName": "vocab:species",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/studiedState",
+      "propertyName": "vocab:studiedState",
+      "ensureOrder": true,
       "structure": [
         {
           "path": "@id"

@@ -40,6 +40,10 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/filePathPattern",
       "propertyName": "vocab:filePathPattern",
       "filter": {
@@ -68,10 +72,6 @@
           "propertyName": "vocab:regex"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
     }
   ]
 }

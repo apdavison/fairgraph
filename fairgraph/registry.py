@@ -100,6 +100,8 @@ def generate_cache_key(qd, space=None):
             cache_key.append(tuple(sub_key))
         elif isinstance(value, dict):
             cache_key.append((key, str(value)))
+        elif value.__class__.__name__ == "IRI":  # a bit hacky
+            cache_key.append((key, str(value)))
         else:
             if not isinstance(value, (str, int, float)):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"

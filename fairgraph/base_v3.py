@@ -42,13 +42,15 @@ logger = logging.getLogger("fairgraph")
 def get_filter_value(filters, field):
     value = filters[field.name]
     if isinstance(value, list) and len(value) > 0:
-        valid_type = all(isinstance(item, (UUID, *field.types)) for item in value)
+        valid_type = all(isinstance(item, (IRI, UUID, *field.types)) for item in value)
         have_multiple = True
     else:
-        valid_type = isinstance(value, (UUID, *field.types))
+        valid_type = isinstance(value, (IRI, UUID, *field.types))
         have_multiple = False
     if not valid_type:
         if field.name == "hash":  # bit of a hack
+            filter_value = value
+        elif isinstance(value, str) and value.startswith("http"):  # for @id
             filter_value = value
         else:
             raise TypeError("{} must be of type {}".format(field.name, field.types))
@@ -194,7 +196,12 @@ class EmbeddedMetadata(object, metaclass=Registry):
                     QueryProperty("@type")
                 ])
         else:
-            property = QueryProperty(expanded_path, name=field.path)
+            property = QueryProperty(
+                expanded_path, 
+                name=field.path,
+                properties=[
+                    QueryProperty("@type")
+                ])
 
         if use_type_filter:
             property.type_filter = cls.type
@@ -387,7 +394,7 @@ class KGObject(object, metaclass=Registry):
         if data is None:
             return None
         else:
-            return cls.from_kg_instance(data, client, scope=scope, resolved=resolved)
+            return cls.from_kg_instance(data, client, resolved=resolved)
 
     @classmethod
     def from_uuid(cls, uuid, client, use_cache=True, scope="released", resolved=False):
@@ -421,25 +428,65 @@ class KGObject(object, metaclass=Registry):
         return client.uri_from_uuid(uuid)
 
     @classmethod
+    def _get_query_definition(cls, client, normalized_filters, space, resolved=False):
+        if resolved:
+            query_type = "resolved"
+        else:
+            query_type = "simple"
+        if normalized_filters is None:
+            filter_keys = None
+        else:
+            filter_keys = normalized_filters.keys()
+        query_label = cls.get_query_label(query_type, space, filter_keys)
+        query = client.retrieve_query(query_label)
+        if query is None:
+            query = cls.generate_query(query_type, space, client=client, filter_keys=filter_keys, resolved=resolved) 
+            client.store_query(query_label, query, space=space)
+        return query
+
+    @classmethod
     def list(cls, client, size=100, from_index=0, api="query",
              scope="released", resolved=False, space=None, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
         space = space or cls.default_space
         if api == "query":
-            filter_query = normalize_filter(cls, filters) or None
+            normalized_filters = normalize_filter(cls, filters) or None
+            query = cls._get_query_definition(client, normalized_filters, space, resolved)
+            instances = client.query(
+                normalized_filters, query["@id"],
+                from_index=from_index, size=size,
+                scope=scope
+            ).data()
+            for instance in instances:
+                instance["@context"] = cls.context
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
-            filter_query = None
+            instances = client.list(
+                cls.type, 
+                space, 
+                from_index=from_index, size=size, 
+                scope=scope
+            ).data()
         else:
             raise ValueError("'api' must be either 'query', or 'core'")
-        return client.list(cls, space=space, from_index=from_index, size=size, api=api,
-                           scope=scope, resolved=resolved, filter=filter_query)
+
+        return [cls.from_kg_instance(instance, client, resolved=resolved)
+                for instance in instances]
 
     @classmethod
-    def count(cls, client, api="core", scope="released"):
-        return client.count(cls, api=api, scope=scope)
+    def count(cls, client, api="core", scope="released", space=None, **filters):
+        if api == "query":
+            normalized_filters = normalize_filter(cls, filters) or None
+            query = cls._get_query_definition(client, normalized_filters, space, resolved=False)
+            response = client.query(normalized_filters, query["@id"],
+                                    from_index=0, size=1, scope=scope)
+        elif api == "core":
+            if filters:
+                raise ValueError("Cannot use filters with api='core'")
+            response = client.list(cls.type, space, scope=scope, from_index=0, size=1)
+        return response.total()
 
     def _build_existence_query(self):
         if self.existence_query_fields is None:
@@ -469,13 +516,42 @@ class KGObject(object, metaclass=Registry):
             if current_value is None:
                 setattr(self, field.name, deserialized_data[field.name])
 
+    def __eq__(self, other):
+        return not self.__ne__(other)
+
+    def __ne__(self, other):
+        if not isinstance(other, self.__class__):
+            return True
+        if self.id and other.id and self.id != other.id:
+            return True
+        for field in self.fields:
+            val_self = getattr(self, field.name)
+            val_other = getattr(other, field.name)
+            if val_self != val_other:
+                return True
+        return False
+
+    def diff(self, other):
+        differences = defaultdict(dict)
+        if not isinstance(other, self.__class__):
+            differences["type"] = (self.__class__, other.__class__)
+        else:
+            if self.id != other.id:
+                differences["id"] = (self.id, other.id)
+            for field in self.fields:
+                val_self = getattr(self, field.name)
+                val_other = getattr(other, field.name)
+                if val_self != val_other:
+                    differences["fields"][field.name] = (val_self, val_other)
+        return differences
+
     def exists(self, client, space=None):
         """Check if this object already exists in the KnowledgeGraph"""
         if self.id:
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
-                                                 scope="latest", resolved=False)
+                                                 scope="in progress", resolved=False)
             if self.data is None:
                 self.data = data
 
@@ -517,7 +593,11 @@ class KGObject(object, metaclass=Registry):
                         self.data = cached_obj.data  # copy or update needed?
                     return True
 
-                instances = self._query_simple(query_filter, space, client)
+                normalized_filters = normalize_filter(self.__class__, query_filter) or None
+                query = self.__class__._get_query_definition(client, normalized_filters, space, resolved=False)
+                instances = client.query(normalized_filters, query["@id"], size=1, 
+                                         scope="in progress").data()
+
                 if instances:
                     self.id = instances[0]["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
@@ -526,16 +606,6 @@ class KGObject(object, metaclass=Registry):
                         self.data = instances[0]
                     self._update(instances[0], client)
                 return bool(instances)
-
-    def _query_simple(self, query_filter, space, client):
-        instances = client.query(
-            self.__class__, 
-            filter=query_filter, 
-            space=space,
-            query_type="simple",
-            size=1, 
-            scope="latest")
-        return instances
 
     def _updated_data(self, data):
         updated_data = {}
@@ -597,6 +667,11 @@ class KGObject(object, metaclass=Registry):
                                 target_space = self.space
                             else:
                                 target_space = space
+                            if target_space == "controlled":
+                                if value.exists(client, space="controlled"):
+                                    continue
+                                else:
+                                    raise Exception("Cannot write to controlled space")
                             value.save(client, space=target_space, recursive=True,
                                        activity_log=activity_log)
                         # todo: handle EmbeddedMetadata object that _contain_ KGObjects (e.g. QuantitativeValue->UnitOfMeasurement)
@@ -662,7 +737,7 @@ class KGObject(object, metaclass=Registry):
 
     def delete(self, client):
         """Deprecate"""
-        client.delete_instance(self.id)
+        client.delete_instance(self.uuid)
         if self.id in KGObject.object_cache:
             KGObject.object_cache.pop(self.id)
 
@@ -745,7 +820,7 @@ class KGObject(object, metaclass=Registry):
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
-    def generate_query_property(cls, field, client, filter_parameter=None):
+    def generate_query_property(cls, field, client, filter_parameter=None, name=None):
 
         expanded_path = expand_uri(field.path, cls.context, client)[0]
 
@@ -755,7 +830,7 @@ class KGObject(object, metaclass=Registry):
             filter = None
         property = QueryProperty(
             expanded_path,
-            name=field.path,
+            name=name or field.path,
             ensure_order=field.multiple,
             properties=[
                 QueryProperty("@id", filter=filter),
@@ -794,6 +869,10 @@ class KGObject(object, metaclass=Registry):
                     op = "EQUALS"
                 else:
                     op = "CONTAINS"
+                if field.name in filter_keys:
+                    filter_parameter = field.name
+                else:
+                    filter_parameter = None
                 expanded_path = expand_uri(field.path, cls.context, client)[0]
                 if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
                     for child_cls in field.types:
@@ -808,16 +887,23 @@ class KGObject(object, metaclass=Registry):
                         # take only the first entry, since we don't use type filters
                         # for KGObject where resolved=False
                         if field.name in filter_keys:
-                            filter_parameter = field.name
-                        else:
-                            filter_parameter = None
-                        property = child_cls.generate_query_property(
-                            field, client,
-                            filter_parameter=filter_parameter
-                        )
-                        if field.name in filter_keys:
+                            property = child_cls.generate_query_property(
+                                field, client,
+                                filter_parameter=field.name,
+                                name=field.multiple and f"Q{field.name}" or None
+                            )
                             property.required = True
-                        query.properties.append(property)
+                            query.properties.append(property)
+                            if field.multiple:
+                                # if filtering by a field that can have multiple values,
+                                # the first property will return only the elements in the array
+                                # that match, so we add a second property with the same path
+                                # to get the full array
+                                property = child_cls.generate_query_property(field, client)
+                                query.properties.append(property)
+                        else:
+                            property = child_cls.generate_query_property(field, client)
+                            query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,
                                              name=field.path,
@@ -936,11 +1022,11 @@ class KGProxy(object):
                 '{self.classes!r}, {self.id!r})'.format(self=self))
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.cls == other.cls and self.id == other.id
+        return isinstance(other, self.__class__) and set(self.classes).intersection(other.classes) and self.id == other.id
 
     def __ne__(self, other):
         return (not isinstance(other, self.__class__)
-                or self.cls != other.cls
+                or set(self.classes).isdisjoint(other.classes)
                 or self.id != other.id)
 
     @property
@@ -949,7 +1035,7 @@ class KGProxy(object):
 
     def delete(self, client):
         """Delete the instance which this proxy represents"""
-        obj = self.resolve(client, scope="latest")
+        obj = self.resolve(client, scope="in progress")
         if obj:
             obj.delete(client)
 
@@ -979,14 +1065,15 @@ class KGQuery(object):
             query_type = "simple"
         objects = []
         for cls in self.classes:
+            space = space or cls.default_space
+            normalized_filters = normalize_filter(cls, self.filter) or None
+            query = cls._get_query_definition(client, normalized_filters, space, resolved)
             instances = client.query(
-                cls,
-                filter=normalize_filter(cls, self.filter),
-                space=space,
-                query_type=query_type,
+                normalized_filters,
+                query["@id"],
                 size=size,
                 from_index=from_index,
-                scope=scope)
+                scope=scope).data()
             objects.extend(cls.from_kg_instance(instance_data, client)
                            for instance_data in instances)
         for obj in objects:
@@ -1007,7 +1094,8 @@ class KGQuery(object):
     def count(self, client, space=None, scope="released"):
         n = 0
         for cls in self.classes:
-            n += client.count(space=space, filter=self.filter, scope=scope)
+            n += cls.count(client, api="query", scope=scope,
+                           space=space, **self.filter)
         return n
 
 

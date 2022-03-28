@@ -1,23 +1,12 @@
 from fairgraph.openminds.computation import Environment
-import pytest
 
-from test.utils import generate_random_object
-
-
-class MockKGClient:
-    _private_space = "myspace_1234"
-    pass
-
-
-@pytest.fixture
-def client():
-    return MockKGClient()
+from test.utils_v3 import mock_client
 
 
 class TestEnvironment:
-    def test_generate_query(self, client):
+    def test_generate_query(self, mock_client):
         generated = Environment.generate_query(
-            "simple", "myspace", client, 
+            "simple", "myspace", mock_client, 
             filter_keys=["name", "hardware", "configuration", "software", "description"])
         expected = {
             "@context": {
@@ -48,18 +37,6 @@ class TestEnvironment:
                     "sort": True,
                 },
                 {
-                    "path": "https://openminds.ebrains.eu/vocab/hardware",
-                    "propertyName": "vocab:hardware",
-                    "required": True,
-                    "structure": [
-                        {
-                            "filter": {"op": "CONTAINS", "parameter": "hardware"},
-                            "path": "@id",
-                        },
-                        {"path": "@type"},
-                    ],
-                },
-                {
                     "ensureOrder": True,
                     "filter": {"op": "CONTAINS", "parameter": "configuration"},
                     "path": "https://openminds.ebrains.eu/vocab/configuration",
@@ -71,11 +48,6 @@ class TestEnvironment:
                             "propertyName": "vocab:context",
                         },
                         {
-                            "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-                            "propertyName": "vocab:relevantFor",
-                            "structure": [{"path": "@id"}, {"path": "@type"}],
-                        },
-                        {
                             "path": {
                                 "@id": "https://openminds.ebrains.eu/vocab/parameter",
                                 "typeFilter": [
@@ -84,6 +56,7 @@ class TestEnvironment:
                             },
                             "propertyName": "vocab:parameter__NumericalParameter",
                             "structure": [
+                                {'path': '@type'},
                                 {
                                     "path": "https://openminds.ebrains.eu/vocab/name",
                                     "propertyName": "vocab:name",
@@ -97,15 +70,7 @@ class TestEnvironment:
                                     },
                                     "propertyName": "vocab:value__QuantitativeValue",
                                     "structure": [
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/value",
-                                            "propertyName": "vocab:value",
-                                        },
-                                        {
-                                            "ensureOrder": True,
-                                            "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-                                            "propertyName": "vocab:uncertainty",
-                                        },
+                                        {'path': '@type'},
                                         {
                                             "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
                                             "propertyName": "vocab:typeOfUncertainty",
@@ -115,12 +80,21 @@ class TestEnvironment:
                                             ],
                                         },
                                         {
+                                            "ensureOrder": True,
+                                            "path": "https://openminds.ebrains.eu/vocab/uncertainty",
+                                            "propertyName": "vocab:uncertainty",
+                                        },
+                                        {
                                             "path": "https://openminds.ebrains.eu/vocab/unit",
                                             "propertyName": "vocab:unit",
                                             "structure": [
                                                 {"path": "@id"},
                                                 {"path": "@type"},
                                             ],
+                                        },
+                                        {
+                                            "path": "https://openminds.ebrains.eu/vocab/value",
+                                            "propertyName": "vocab:value",
                                         },
                                     ],
                                 },
@@ -133,6 +107,7 @@ class TestEnvironment:
                                     },
                                     "propertyName": "vocab:value__QuantitativeValueRange",
                                     "structure": [
+                                        {'path': '@type'},
                                         {
                                             "path": "https://openminds.ebrains.eu/vocab/maxValue",
                                             "propertyName": "vocab:maxValue",
@@ -170,6 +145,7 @@ class TestEnvironment:
                             },
                             "propertyName": "vocab:parameter__StringParameter",
                             "structure": [
+                                {'path': '@type'},
                                 {
                                     "path": "https://openminds.ebrains.eu/vocab/name",
                                     "propertyName": "vocab:name",
@@ -180,12 +156,35 @@ class TestEnvironment:
                                 },
                             ],
                         },
+                        {
+                            "path": "https://openminds.ebrains.eu/vocab/relevantFor",
+                            "propertyName": "vocab:relevantFor",
+                            "structure": [{"path": "@id"}, {"path": "@type"}],
+                        },
+                    ],
+                },
+                {
+                    "filter": {"op": "CONTAINS", "parameter": "description"},
+                    "path": "https://openminds.ebrains.eu/vocab/description",
+                    "propertyName": "vocab:description",
+                    "required": True
+                },
+                {
+                    "path": "https://openminds.ebrains.eu/vocab/hardware",
+                    "propertyName": "vocab:hardware",
+                    "required": True,
+                    "structure": [
+                        {
+                            "filter": {"op": "CONTAINS", "parameter": "hardware"},
+                            "path": "@id",
+                        },
+                        {"path": "@type"},
                     ],
                 },
                 {
                     "ensureOrder": True,
                     "path": "https://openminds.ebrains.eu/vocab/software",
-                    "propertyName": "vocab:software",
+                    "propertyName": "Qsoftware",
                     "required": True,
                     "structure": [
                         {
@@ -196,10 +195,13 @@ class TestEnvironment:
                     ],
                 },
                 {
-                    "filter": {"op": "CONTAINS", "parameter": "description"},
-                    "path": "https://openminds.ebrains.eu/vocab/description",
-                    "propertyName": "vocab:description",
-                    "required": True
+                    "ensureOrder": True,
+                    "path": "https://openminds.ebrains.eu/vocab/software",
+                    "propertyName": "vocab:software",
+                    "structure": [
+                        {"path": "@id"},
+                        {"path": "@type"},
+                    ],
                 },
             ],
         }

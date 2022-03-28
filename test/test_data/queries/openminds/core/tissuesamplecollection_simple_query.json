@@ -40,6 +40,14 @@
       "path": "@type"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
+      "propertyName": "vocab:additionalRemarks"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/anatomicalLocation",
       "propertyName": "vocab:anatomicalLocation",
       "ensureOrder": true,
@@ -51,6 +59,23 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
+      "propertyName": "vocab:biologicalSex",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
+      "propertyName": "vocab:internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/laterality",
@@ -79,6 +104,23 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/quantity",
+      "propertyName": "vocab:quantity"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/species",
+      "propertyName": "vocab:species",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/studiedState",
       "propertyName": "vocab:studiedState",
       "ensureOrder": true,
@@ -94,48 +136,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/type",
       "propertyName": "vocab:type",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
-      "propertyName": "vocab:additionalRemarks"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
-      "propertyName": "vocab:biologicalSex",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/quantity",
-      "propertyName": "vocab:quantity"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/species",
-      "propertyName": "vocab:species",
       "ensureOrder": true,
       "structure": [
         {
