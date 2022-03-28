@@ -94,8 +94,9 @@ class KGv3Client(object):
             if response.status_code < 300:
                 return response
             elif response.status_code in (401, 403):
-                raise Exception("Authentication/authorization problem. Your token may have expired. "
-                                f"Status code {response.status_code}")
+                raise AuthenticationError("Authentication/authorization problem. Your token may have expired. "
+                                          f"Status code {response.status_code}. {response.message()}"
+                                          f"\n{response.request_args}\n{response.request_payload}")
             else:
                 raise Exception(f"Error. Status code {response.status_code} {response.message()}\n{response.request_args}\n{response.request_payload}")
         else:
