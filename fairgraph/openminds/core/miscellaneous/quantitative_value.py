@@ -26,7 +26,7 @@ class QuantitativeValue(EmbeddedMetadata):
     fields = [
         Field("type_of_uncertainty", "openminds.controlledterms.TypeOfUncertainty", "vocab:typeOfUncertainty", multiple=False, required=False,
               doc="Distinct technique used to quantify the uncertainty of a measurement."),
-        Field("uncertaintys", float, "vocab:uncertainty", multiple=True, required=False,
+        Field("uncertainties", float, "vocab:uncertainty", multiple=True, required=False,
               doc="Quantitative value range defining the uncertainty of a measurement."),
         Field("unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:unit", multiple=False, required=False,
               doc="Determinate quantity adopted as a standard of measurement."),

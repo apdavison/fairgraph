@@ -1,5 +1,5 @@
 """
-Structured information on a bundle of file instances.
+
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class FileBundle(KGObject):
+class LocalFile(KGObject):
     """
-    Structured information on a bundle of file instances.
+
     """
-    default_space = "files"
-    type = ["https://openminds.ebrains.eu/core/FileBundle"]
+    default_space = "computation"
+    type = ["https://openminds.ebrains.eu/computation/LocalFile"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,21 +26,21 @@ class FileBundle(KGObject):
     }
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the file bundle."),
+              doc="Word or phrase that constitutes the distinctive designation of the local file."),
         Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
               doc="no description available"),
-        Field("descended_from", ["openminds.computation.LocalFile", "openminds.controlledterms.Technique", "openminds.core.BehavioralProtocol", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.Subject", "openminds.core.SubjectGroup", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSample", "openminds.core.TissueSampleCollection", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState", "openminds.ephys.Cell", "openminds.ephys.PatchedCell"], "vocab:descendedFrom", multiple=False, required=False,
+        Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
-        Field("grouping_type", "openminds.controlledterms.FileBundleGrouping", "vocab:groupingType", multiple=False, required=False,
-              doc="no description available"),
         Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
-        Field("is_part_of", ["openminds.core.FileBundle", "openminds.core.FileRepository"], "vocab:isPartOf", multiple=False, required=True,
-              doc="Reference to the ensemble of multiple things or beings."),
+        Field("path", str, "vocab:path", multiple=False, required=True,
+              doc="no description available"),
+        Field("special_usage_role", "openminds.controlledterms.FileUsageRole", "vocab:specialUsageRole", multiple=False, required=False,
+              doc="Particular function of something when it is used."),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
 
     ]
-    existence_query_fields = ('name', 'is_part_of')
+    existence_query_fields = ('name', 'path')
