@@ -45,4 +45,4 @@ class WorkflowRecipe(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
 
     ]
-    existence_query_fields = ('name', 'alias', 'description', 'developers', 'versions')
+    existence_query_fields = ('name',)

@@ -77,4 +77,4 @@ class WorkflowRecipeVersion(KGObject):
               doc="Documentation on what changed in comparison to a previously published form of something."),
 
     ]
-    existence_query_fields = ('alias', 'accessibility', 'format', 'full_documentation', 'release_date', 'version_identifier', 'version_innovation')
+    existence_query_fields = ('name', 'version_identifier')
