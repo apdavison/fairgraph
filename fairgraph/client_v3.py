@@ -230,7 +230,7 @@ class KGv3Client(object):
                         found_match = True
                         break
                 if not found_match:
-                    raise Exception("Retrieved multiple queries, none of which match exactly, this shouldn't happen")
+                    return None
             else:
                 query_definition = response.data()[0]
             self._query_cache[query_label] = query_definition
