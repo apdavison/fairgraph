@@ -401,7 +401,7 @@ class KGObject(object, metaclass=Registry):
         if data is None:
             return None
         else:
-            return cls.from_kg_instance(data, client, resolved=resolved)
+            return cls.from_kg_instance(data, client, scope=scope, resolved=resolved)
 
     @classmethod
     def from_uuid(cls, uuid, client, use_cache=True, scope="released", resolved=False):
@@ -498,7 +498,7 @@ class KGObject(object, metaclass=Registry):
         else:
             raise ValueError("'api' must be either 'query', or 'core'")
 
-        return [cls.from_kg_instance(instance, client, resolved=resolved)
+        return [cls.from_kg_instance(instance, client, scope=scope, resolved=resolved)
                 for instance in instances]
 
     @classmethod
