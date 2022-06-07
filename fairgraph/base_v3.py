@@ -64,6 +64,12 @@ def get_filter_value(filters, field):
             # todo: consider using client.uri_from_uuid()
             # would require passing client as arg
             filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
+        elif isinstance(item, str) and "+" in item:  # workaround for KG bug
+            invalid_char_index = item.index("+") 
+            if invalid_char_index < 3:
+                raise ValueError(f"Cannot use {item} as filter, contains invalid characters")
+            filter_item = item[:invalid_char_index]
+            warn(f"Truncating filter value {item} --> {filter_item}")
         else:
             filter_item = item
         filter_items.append(filter_item)
