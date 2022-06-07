@@ -199,13 +199,25 @@ class KGv3Client(object):
         else:
             uuid = uuid4()
 
-        response = self._kg_client.put(
-            path=f"/queries/{uuid}",
-            payload=query_definition,
-            params={
-                "space": space
-            })
-        # todo: handle errors
+        try:
+            response = self._check_response(
+                self._kg_client.put(
+                    path=f"/queries/{uuid}",
+                    payload=query_definition,
+                    params={
+                        "space": space
+                    })
+            )
+        except AuthenticationError:
+            response = self._check_response(
+                self._kg_client.put(
+                    path=f"/queries/{uuid}",
+                    payload=query_definition,
+                    params={
+                        "space": "myspace"
+                    })
+            )
+        
         query_definition["@id"] = self.uri_from_uuid(uuid)
 
     def retrieve_query(self, query_label):
