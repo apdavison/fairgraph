@@ -762,9 +762,9 @@ class KGObject(object, metaclass=Registry):
         logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
         KGObject.object_cache[self.id] = self
 
-    def delete(self, client):
+    def delete(self, client, ignore_not_found=True):
         """Deprecate"""
-        client.delete_instance(self.uuid)
+        client.delete_instance(self.uuid, ignore_not_found=ignore_not_found)
         if self.id in KGObject.object_cache:
             KGObject.object_cache.pop(self.id)
 
@@ -1063,11 +1063,13 @@ class KGProxy(object):
     def uuid(self):
         return self.id.split("/")[-1]
 
-    def delete(self, client):
+    def delete(self, client, ignore_not_found=True):
         """Delete the instance which this proxy represents"""
         obj = self.resolve(client, scope="in progress")
         if obj:
-            obj.delete(client)
+            obj.delete(client, ignore_not_found=ignore_not_found)
+        elif not ignore_not_found:
+            raise ResolutionFailure("Couldn't resolve object to delete")
 
 
 class KGQuery(object):
