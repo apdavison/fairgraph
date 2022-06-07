@@ -421,6 +421,25 @@ class KGObject(object, metaclass=Registry):
         else:
             return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
 
+    @classmethod
+    def from_alias(cls, alias, client, space, scope="released", resolved=False):
+        if "alias" not in cls.field_names:
+            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
+        candidates = as_list(
+            cls.list(client, size=20, from_index=0, api="query",
+                     scope=scope, resolved=resolved, space=space, alias=alias))
+        if len(candidates) == 0:
+            return None
+        elif len(candidates) == 1:
+            return candidates[0]
+        else:  # KG query does a "contains" lookup, so can get multiple results
+            for candidate in candidates:
+                if candidate.alias == alias:
+                    return candidate
+            warn("Multiple objects found with a similar alias, but none match exactly."
+                 "Returning the first one found.")
+            return candidates[0]
+
     @property
     def uuid(self):
         # todo: consider using client._kg_client.uuid_from_absolute_id
