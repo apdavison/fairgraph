@@ -33,7 +33,7 @@ class Simulation(KGObject):
               doc="no description available"),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=True,
               doc="no description available"),
-        Field("inputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
+        Field("inputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.ModelVersion", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
         Field("launch_configuration", "openminds.computation.LaunchConfiguration", "vocab:launchConfiguration", multiple=False, required=True,
               doc="no description available"),
