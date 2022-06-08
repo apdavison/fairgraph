@@ -43,7 +43,7 @@ class TissueSample(KGObject):
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("studied_states", "openminds.core.TissueSampleState", "vocab:studiedState", multiple=True, required=True,
               doc="Reference to a point in time at which the tissue sample was studied in a particular mode or condition."),
-        Field("type_", "openminds.controlledterms.TissueSampleType", "vocab:type", multiple=False, required=True,
+        Field("type", "openminds.controlledterms.TissueSampleType", "vocab:type", multiple=False, required=True,
               doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]

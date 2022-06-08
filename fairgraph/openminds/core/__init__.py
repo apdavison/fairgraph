@@ -52,6 +52,7 @@ from .data.file_repository import FileRepository
 from .data.license import License
 from .data.file import File
 from .data.hash import Hash
+from .data.file_archive import FileArchive
 from .data.file_path_pattern import FilePathPattern
 from .data.content_type import ContentType
 from .data.file_repository_structure import FileRepositoryStructure

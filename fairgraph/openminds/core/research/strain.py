@@ -47,7 +47,7 @@ class Strain(KGObject):
               doc="Term or code used to identify the strain registered within a particular ontology."),
         Field("phenotype", str, "vocab:phenotype", multiple=False, required=False,
               doc="Physical expression of one or more genes of an organism."),
-        Field("species", "openminds.controlledterms.Species", "vocab:species", multiple=False, required=False,
+        Field("species", "openminds.controlledterms.Species", "vocab:species", multiple=False, required=True,
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("stock_number", "openminds.core.StockNumber", "vocab:stockNumber", multiple=False, required=False,
               doc="no description available"),
@@ -55,4 +55,4 @@ class Strain(KGObject):
               doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses."),
 
     ]
-    existence_query_fields = ('name', 'genetic_strain_type')
+    existence_query_fields = ('name', 'genetic_strain_type', 'species')

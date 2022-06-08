@@ -157,6 +157,7 @@ DEFAULT_SPACES = {
                 "DOI",
                 "Dataset",
                 "DatasetVersion",
+                "FileArchive",
                 "FileRepository",
                 "ISBN",
                 "ISSN",
