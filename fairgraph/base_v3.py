@@ -41,11 +41,14 @@ logger = logging.getLogger("fairgraph")
 
 def get_filter_value(filters, field):
     value = filters[field.name]
+    def is_valid(val):
+        return (isinstance(val, (IRI, UUID, *field.types)) 
+                or (isinstance(val, KGProxy) and val.cls in field.types))
     if isinstance(value, list) and len(value) > 0:
-        valid_type = all(isinstance(item, (IRI, UUID, *field.types)) for item in value)
+        valid_type = all(is_valid(item) for item in value)
         have_multiple = True
     else:
-        valid_type = isinstance(value, (IRI, UUID, *field.types))
+        valid_type = is_valid(value)
         have_multiple = False
     if not valid_type:
         if field.name == "hash":  # bit of a hack
