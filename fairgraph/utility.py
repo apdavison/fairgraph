@@ -17,6 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import warnings
 from pyld import jsonld
 from urllib.parse import urlparse, quote_plus
 
@@ -261,3 +262,21 @@ Your citation may help them to get their next job or next grant and will
 ultimately encourage researchers to produce and release more useful open data
 and open source. Make science more reproducible and more efficient.
 """
+
+
+def accepted_terms_of_use(client, accept_terms_of_use=False):
+    if accept_terms_of_use or client.accepted_terms_of_use:
+        return True
+    else:
+        if in_notebook():
+            from IPython.display import display, Markdown
+            display(Markdown(TERMS_OF_USE))
+        else:
+            print(TERMS_OF_USE)
+        user_response = input("Do you accept the EBRAINS KG Terms of Service? ")
+        if user_response in ('y', 'Y', 'yes', 'YES'):
+            client.accepted_terms_of_use = True
+            return True
+        else:
+            warnings.warn("Please accept the terms of use before downloading the dataset")
+            return False

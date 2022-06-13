@@ -5,8 +5,12 @@ Structured information on a file instances.
 # this file was auto-generated
 
 from datetime import date, datetime
+from pathlib import Path
+from urllib.request import urlretrieve
+from urllib.parse import quote, urlparse, urlunparse
 from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
+from fairgraph.utility import accepted_terms_of_use
 
 
 import os
@@ -70,7 +74,6 @@ class File(KGObject):
     ]
     existence_query_fields = ('iri', 'hash')
 
-
     @classmethod
     def from_local_file(cls, relative_path):
         cls.set_strict_mode(False)
@@ -84,3 +87,21 @@ class File(KGObject):
         )
         cls.set_strict_mode(True)
         return obj
+
+    def download(self, local_path, client, accept_terms_of_use=False):
+        if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
+            local_path = Path(local_path)
+            if local_path.is_dir():
+                local_filename = local_path / self.name
+            else:
+                local_filename = local_path
+                local_filename.parent.mkdir(parents=True, exist_ok=True)
+            url_parts = urlparse(self.iri.value)
+            url_parts = url_parts._replace(path=quote(url_parts.path))
+            url = urlunparse(url_parts)
+            local_filename, headers = urlretrieve(url, local_filename)
+            # todo: check hash value of downloaded file
+            # todo: if local_path isn't an existing directory but looks like a directory name
+            #       rather than a filename, create that directory and save a file called self.name
+            #       within it
+            return local_filename

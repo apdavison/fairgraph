@@ -88,6 +88,7 @@ class KGv3Client(object):
         self._user_info = None
         self.cache = {}
         self._query_cache = {}
+        self.accepted_terms_of_use = False
 
     def _check_response(self, response, ignore_not_found=False):
         if response.is_successful():
