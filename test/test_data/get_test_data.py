@@ -92,7 +92,7 @@ def fix_fields(data):
     return data
 
 
-for module in (core, brainsimulation, electrophysiology, minds, uniminds, analysis:
+for module in (core, brainsimulation, electrophysiology, minds, uniminds, analysis):
     for cls in module.list_kg_classes():
         save_nexus_query_result(module, cls)
         for label in ("simple", "resolved"):

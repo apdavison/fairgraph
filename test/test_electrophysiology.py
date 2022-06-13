@@ -468,7 +468,7 @@ class TestQualifiedMultiTraceGeneration(BaseTestKG):
 
     def test_list_nexus(self, kg_client):
         tracegens = QualifiedMultiTraceGeneration.list(kg_client, api="nexus", size=10)
-        assert len(tracegens) == 10, len(objects)
+        assert len(tracegens) == 10, len(tracegens)
 
     def test_list_kgquery_simple(self, kg_client):
         cls = self.class_under_test

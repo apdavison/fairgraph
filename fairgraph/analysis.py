@@ -23,6 +23,7 @@ import logging
 from datetime import datetime, date
 import sys
 import inspect
+import mimetypes
 from .base_v2 import KGObject, Distribution, as_list, upload_attachment
 from .fields import Field
 from .core import Person
@@ -194,6 +195,7 @@ class AnalysisResult(KGObject):
             self.upload_attachment(self._file_to_upload, client)
 
     def upload_attachment(self, file_path, client):
+        import requests
         assert os.path.isfile(file_path)
         statinfo = os.stat(file_path)
         if statinfo.st_size > ATTACHMENT_SIZE_LIMIT:

@@ -622,7 +622,7 @@ class Age(StructuredMetadata):
     def __init__(self, value, period):
         self.value = value
         if period not in Age.allowed_periods:
-            raise ValueError(f"period must be one of {allowed_periods}")
+            raise ValueError(f"period must be one of {Age.allowed_periods}")
         self.period = period
 
     def __repr__(self):
