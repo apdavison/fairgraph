@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='fairgraph',
-    version='0.7.0.dev',
+    version='0.7.0',
     description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -23,12 +23,12 @@ setup(
         'Topic :: Scientific/Engineering',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
-    keywords='nar hbp metadata electrophysiology nexus shacl',
+    keywords='ebrains hbp metadata electrophysiology knowledge-graph',
     packages=find_packages(),
     install_requires=[
         #"openid_http_client @ git+https://github.com/HumanBrainProject/openid_http_client.git#subdirectory=openid_http_client",
