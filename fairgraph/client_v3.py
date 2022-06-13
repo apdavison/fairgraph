@@ -251,10 +251,13 @@ class KGv3Client(object):
 
     def user_info(self):
         if self._user_info is None:
-            self._user_info = self._kg_client.get(
-                path="/users/me",
-                params={}
-            ).data()
+            try:
+                self._user_info = self._kg_client.get(
+                    path="/users/me",
+                    params={}
+                ).data()
+            except KeyError:
+                self._user_info is None
         return self._user_info
 
     def spaces(self, permissions=None, names_only=False):
