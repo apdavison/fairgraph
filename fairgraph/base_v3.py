@@ -599,6 +599,8 @@ class KGObject(object, metaclass=Registry):
                      # following 2 lines are a temporary workaround
                     elif space == "myspace" and data[key] == client._private_space:
                         obj_exists = True
+                    elif space == client._private_space and data[key] == "myspace":
+                        obj_exists = True
                     else:
                         obj_exists = False
                 else:
