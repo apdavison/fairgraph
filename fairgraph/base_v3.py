@@ -42,7 +42,7 @@ logger = logging.getLogger("fairgraph")
 def get_filter_value(filters, field):
     value = filters[field.name]
     def is_valid(val):
-        return (isinstance(val, (IRI, UUID, *field.types)) 
+        return (isinstance(val, (IRI, UUID, *field.types))
                 or (isinstance(val, KGProxy) and val.cls in field.types))
     if isinstance(value, list) and len(value) > 0:
         valid_type = all(is_valid(item) for item in value)
@@ -68,7 +68,7 @@ def get_filter_value(filters, field):
             # would require passing client as arg
             filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
         elif isinstance(item, str) and "+" in item:  # workaround for KG bug
-            invalid_char_index = item.index("+") 
+            invalid_char_index = item.index("+")
             if invalid_char_index < 3:
                 raise ValueError(f"Cannot use {item} as filter, contains invalid characters")
             filter_item = item[:invalid_char_index]
@@ -206,7 +206,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 ])
         else:
             property = QueryProperty(
-                expanded_path, 
+                expanded_path,
                 name=field.path,
                 properties=[
                     QueryProperty("@type")
@@ -254,7 +254,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                         if isinstance(value, (KGProxy, KGQuery, EmbeddedMetadata)):
                             try:
                                 resolved_value = value.resolve(
-                                    client, scope=scope, use_cache=use_cache, 
+                                    client, scope=scope, use_cache=use_cache,
                                     follow_links=follow_links - 1)
                             except ResolutionFailure as err:
                                 warn(str(err))
@@ -469,7 +469,7 @@ class KGObject(object, metaclass=Registry):
         query_label = cls.get_query_label(query_type, space, filter_keys)
         query = client.retrieve_query(query_label)
         if query is None:
-            query = cls.generate_query(query_type, space, client=client, filter_keys=filter_keys, resolved=resolved) 
+            query = cls.generate_query(query_type, space, client=client, filter_keys=filter_keys, resolved=resolved)
             client.store_query(query_label, query, space=space)
         return query
 
@@ -493,9 +493,9 @@ class KGObject(object, metaclass=Registry):
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
             instances = client.list(
-                cls.type, 
-                space, 
-                from_index=from_index, size=size, 
+                cls.type,
+                space,
+                from_index=from_index, size=size,
                 scope=scope
             ).data()
         else:
@@ -633,7 +633,7 @@ class KGObject(object, metaclass=Registry):
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
                 query = self.__class__._get_query_definition(client, normalized_filters, space, resolved=False)
-                instances = client.query(normalized_filters, query["@id"], size=1, 
+                instances = client.query(normalized_filters, query["@id"], size=1,
                                          scope="in progress").data()
 
                 if instances:
@@ -809,7 +809,7 @@ class KGObject(object, metaclass=Registry):
                         if isinstance(value, (KGProxy, KGQuery, EmbeddedMetadata)):
                             try:
                                 resolved_value = value.resolve(
-                                    client, scope=use_scope, use_cache=use_cache, 
+                                    client, scope=use_scope, use_cache=use_cache,
                                     follow_links=follow_links - 1)
                             except ResolutionFailure as err:
                                 warn(str(err))
@@ -892,7 +892,7 @@ class KGObject(object, metaclass=Registry):
             real_space = client._private_space
         else:
             real_space = space
-        query = Query(  
+        query = Query(
             node_type=cls.type[0],
             label=query_label,
             space=real_space,
@@ -1122,7 +1122,7 @@ class KGQuery(object):
                            for instance_data in instances)
         for obj in objects:
             KGObject.object_cache[obj.id] = obj
-        
+
         if follow_links > 0:
             for obj in objects:
                 obj.resolve(
