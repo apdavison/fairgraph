@@ -505,7 +505,13 @@ class KGObject(object, metaclass=Registry):
                 for instance in instances]
 
     @classmethod
-    def count(cls, client, api="core", scope="released", space=None, **filters):
+    def count(cls, client, api=None, scope="released", space=None, **filters):
+        if api is None:
+            if filters:
+                api = "query"
+            else:
+                api = "core"
+        space = space or cls.default_space
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved=False)
