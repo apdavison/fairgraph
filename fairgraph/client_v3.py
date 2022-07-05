@@ -40,11 +40,14 @@ except ImportError:
 logger = logging.getLogger("fairgraph")
 
 
-STAGE_MAP = {
-    "released": Stage.RELEASED,
-    "latest": Stage.IN_PROGRESS,
-    "in progress": Stage.IN_PROGRESS
-}
+if have_v3:
+    STAGE_MAP = {
+        "released": Stage.RELEASED,
+        "latest": Stage.IN_PROGRESS,
+        "in progress": Stage.IN_PROGRESS
+    }
+    default_response_configuration = ResponseConfiguration(return_embedded=True)
+
 
 AVAILABLE_PERMISSIONS = [
     "CREATE",
@@ -60,8 +63,6 @@ AVAILABLE_PERMISSIONS = [
     "WRITE"
 ]
 
-default_response_configuration = ResponseConfiguration(return_embedded=True)
-
 
 class KGv3Client(object):
 
@@ -72,6 +73,8 @@ class KGv3Client(object):
         client_id: str = None,
         client_secret: str = None
     ):
+        if not have_v3:
+            raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
         if client_id and client_secret:
             token_handler = ClientCredentials(client_id, client_secret)
         elif token:
@@ -218,7 +221,7 @@ class KGv3Client(object):
                         "space": "myspace"
                     })
             )
-        
+
         query_definition["@id"] = self.uri_from_uuid(uuid)
 
     def retrieve_query(self, query_label):
