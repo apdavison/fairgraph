@@ -6,7 +6,7 @@ from test.utils_v3 import mock_client
 class TestEnvironment:
     def test_generate_query(self, mock_client):
         generated = Environment.generate_query(
-            "simple", "myspace", mock_client, 
+            "simple", "myspace", mock_client,
             filter_keys=["name", "hardware", "configuration", "software", "description"])
         expected = {
             "@context": {
@@ -37,130 +37,13 @@ class TestEnvironment:
                     "sort": True,
                 },
                 {
-                    "ensureOrder": True,
-                    "filter": {"op": "CONTAINS", "parameter": "configuration"},
                     "path": "https://openminds.ebrains.eu/vocab/configuration",
                     "propertyName": "vocab:configuration",
+                    "required": True,
                     "structure": [
-                        {"path": "@type"},
-                        {
-                            "path": "https://openminds.ebrains.eu/vocab/context",
-                            "propertyName": "vocab:context",
-                        },
-                        {
-                            "path": {
-                                "@id": "https://openminds.ebrains.eu/vocab/parameter",
-                                "typeFilter": [
-                                    "https://openminds.ebrains.eu/core/NumericalParameter"
-                                ],
-                            },
-                            "propertyName": "vocab:parameter__NumericalParameter",
-                            "structure": [
-                                {'path': '@type'},
-                                {
-                                    "path": "https://openminds.ebrains.eu/vocab/name",
-                                    "propertyName": "vocab:name",
-                                },
-                                {
-                                    "path": {
-                                        "@id": "https://openminds.ebrains.eu/vocab/value",
-                                        "typeFilter": [
-                                            "https://openminds.ebrains.eu/core/QuantitativeValue"
-                                        ],
-                                    },
-                                    "propertyName": "vocab:value__QuantitativeValue",
-                                    "structure": [
-                                        {'path': '@type'},
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-                                            "propertyName": "vocab:typeOfUncertainty",
-                                            "structure": [
-                                                {"path": "@id"},
-                                                {"path": "@type"},
-                                            ],
-                                        },
-                                        {
-                                            "ensureOrder": True,
-                                            "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-                                            "propertyName": "vocab:uncertainty",
-                                        },
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/unit",
-                                            "propertyName": "vocab:unit",
-                                            "structure": [
-                                                {"path": "@id"},
-                                                {"path": "@type"},
-                                            ],
-                                        },
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/value",
-                                            "propertyName": "vocab:value",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "path": {
-                                        "@id": "https://openminds.ebrains.eu/vocab/value",
-                                        "typeFilter": [
-                                            "https://openminds.ebrains.eu/core/QuantitativeValueRange"
-                                        ],
-                                    },
-                                    "propertyName": "vocab:value__QuantitativeValueRange",
-                                    "structure": [
-                                        {'path': '@type'},
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/maxValue",
-                                            "propertyName": "vocab:maxValue",
-                                        },
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-                                            "propertyName": "vocab:maxValueUnit",
-                                            "structure": [
-                                                {"path": "@id"},
-                                                {"path": "@type"},
-                                            ],
-                                        },
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/minValue",
-                                            "propertyName": "vocab:minValue",
-                                        },
-                                        {
-                                            "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-                                            "propertyName": "vocab:minValueUnit",
-                                            "structure": [
-                                                {"path": "@id"},
-                                                {"path": "@type"},
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        {
-                            "path": {
-                                "@id": "https://openminds.ebrains.eu/vocab/parameter",
-                                "typeFilter": [
-                                    "https://openminds.ebrains.eu/core/StringParameter"
-                                ],
-                            },
-                            "propertyName": "vocab:parameter__StringParameter",
-                            "structure": [
-                                {'path': '@type'},
-                                {
-                                    "path": "https://openminds.ebrains.eu/vocab/name",
-                                    "propertyName": "vocab:name",
-                                },
-                                {
-                                    "path": "https://openminds.ebrains.eu/vocab/value",
-                                    "propertyName": "vocab:value",
-                                },
-                            ],
-                        },
-                        {
-                            "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-                            "propertyName": "vocab:relevantFor",
-                            "structure": [{"path": "@id"}, {"path": "@type"}],
-                        },
+                        {"filter": {"op": "CONTAINS", "parameter": "configuration"},
+                         "path": "@id"},
+                        {"path": "@type"}
                     ],
                 },
                 {
