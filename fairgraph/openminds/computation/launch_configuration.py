@@ -31,7 +31,7 @@ class LaunchConfiguration(KGObject):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the launch configuration."),
-        Field("environment_variables", "openminds.core.ParameterSet", "vocab:environmentVariables", multiple=False, required=False,
+        Field("environment_variables", "openminds.core.PropertyValueList", "vocab:environmentVariables", multiple=False, required=False,
               doc="no description available"),
         Field("executable", str, "vocab:executable", multiple=False, required=True,
               doc="no description available"),

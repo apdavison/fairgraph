@@ -27,7 +27,7 @@ class Environment(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the environment."),
-        Field("configuration", "openminds.core.ParameterSet", "vocab:configuration", multiple=True, required=False,
+        Field("configuration", "openminds.core.Configuration", "vocab:configuration", multiple=False, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the environment."),
