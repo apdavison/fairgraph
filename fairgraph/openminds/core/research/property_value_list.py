@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class PublicationVolume(KGObject):
+class PropertyValueList(KGObject):
     """
 
     """
-    default_space = "publications"
-    type = ["https://openminds.ebrains.eu/publications/PublicationVolume"]
+    default_space = "dataset"
+    type = ["https://openminds.ebrains.eu/core/PropertyValueList"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,10 +25,10 @@ class PublicationVolume(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("is_part_of", "openminds.publications.Periodical", "vocab:isPartOf", multiple=False, required=True,
-              doc="Reference to the ensemble of multiple things or beings."),
-        Field("volume_number", str, "vocab:volumeNumber", multiple=False, required=True,
+        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
+              doc="no description available"),
+        Field("property_value_pairs", ["openminds.core.NumericalProperty", "openminds.core.StringProperty"], "vocab:propertyValuePair", multiple=True, required=True,
               doc="no description available"),
 
     ]
-    existence_query_fields = ('is_part_of', 'volume_number')
+    existence_query_fields = ('lookup_label',)

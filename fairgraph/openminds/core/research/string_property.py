@@ -11,11 +11,11 @@ from fairgraph.fields import Field
 
 
 
-class NumericalParameter(EmbeddedMetadata):
+class StringProperty(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/core/NumericalParameter"]
+    type = ["https://openminds.ebrains.eu/core/StringProperty"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,8 +25,8 @@ class NumericalParameter(EmbeddedMetadata):
     }
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the numerical parameter."),
-        Field("values", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:value", multiple=True, required=True,
+              doc="Word or phrase that constitutes the distinctive designation of the string property."),
+        Field("value", str, "vocab:value", multiple=False, required=True,
               doc="Entry for a property."),
 
     ]

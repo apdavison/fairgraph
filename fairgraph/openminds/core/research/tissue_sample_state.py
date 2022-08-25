@@ -37,6 +37,8 @@ class TissueSampleState(KGObject):
               doc="no description available"),
         Field("pathologies", ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"], "vocab:pathology", multiple=True, required=False,
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
+        Field("relative_time_indication", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:relativeTimeIndication", multiple=False, required=False,
+              doc="no description available"),
         Field("weight", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:weight", multiple=False, required=False,
               doc="Amount that a thing or being weighs."),
 

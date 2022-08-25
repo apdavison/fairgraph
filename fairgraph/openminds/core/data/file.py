@@ -5,17 +5,16 @@ Structured information on a file instances.
 # this file was auto-generated
 
 from datetime import date, datetime
-from pathlib import Path
-from urllib.request import urlretrieve
-from urllib.parse import quote, urlparse, urlunparse
 from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
-from fairgraph.utility import accepted_terms_of_use
 
 
 import os
 import hashlib
 import mimetypes
+from pathlib import Path
+from urllib.request import urlretrieve
+from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
@@ -73,6 +72,7 @@ class File(KGObject):
 
     ]
     existence_query_fields = ('iri', 'hash')
+
 
     @classmethod
     def from_local_file(cls, relative_path):

@@ -29,10 +29,10 @@ class LivePaperResourceItem(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of the live paper resource item."),
         Field("iri", IRI, "vocab:IRI", multiple=False, required=False,
               doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
+        Field("hosted_by", "openminds.core.Organization", "vocab:hostedBy", multiple=False, required=True,
+              doc="Reference to an organization that provides facilities and services for something."),
         Field("is_part_of", "openminds.publications.LivePaperSection", "vocab:isPartOf", multiple=False, required=True,
               doc="Reference to the ensemble of multiple things or beings."),
-        Field("resource_type", "openminds.publications.LivePaperResourceType", "vocab:resourceType", multiple=False, required=True,
-              doc="no description available"),
 
     ]
-    existence_query_fields = ('name', 'is_part_of', 'resource_type')
+    existence_query_fields = ('name', 'hosted_by', 'is_part_of')

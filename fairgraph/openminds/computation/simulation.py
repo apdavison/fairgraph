@@ -27,6 +27,8 @@ class Simulation(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
+        Field("custom_property_sets", "openminds.core.CustomPropertySet", "vocab:customPropertySet", multiple=True, required=False,
+              doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the simulation."),
         Field("ended_at_time", datetime, "vocab:endedAtTime", multiple=False, required=False,
@@ -39,8 +41,6 @@ class Simulation(KGObject):
               doc="no description available"),
         Field("outputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle"], "vocab:output", multiple=True, required=True,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
-        Field("parameter_sets", "openminds.core.ParameterSet", "vocab:parameterSet", multiple=True, required=False,
-              doc="Manner, position, or direction in which digital or physical properties are set to determine a particular function, characteristics or behavior of something."),
         Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", multiple=False, required=False,
               doc="no description available"),
         Field("resource_usages", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:resourceUsage", multiple=True, required=False,

@@ -33,7 +33,7 @@ class Project(KGObject):
               doc="Legal person who organizes the collaborative work of people or groups."),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the project."),
-        Field("has_research_products", ["openminds.computation.WorkflowRecipe", "openminds.computation.WorkflowRecipeVersion", "openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion", "openminds.publications.LivePaper", "openminds.publications.LivePaperVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
+        Field("has_research_products", ["openminds.computation.WorkflowRecipe", "openminds.computation.WorkflowRecipeVersion", "openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion", "openminds.publications.LivePaper", "openminds.publications.LivePaperVersion", "openminds.sands.BrainAtlas", "openminds.sands.BrainAtlasVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
               doc="Reference to subsidiary research products."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
               doc="Main website of the project."),

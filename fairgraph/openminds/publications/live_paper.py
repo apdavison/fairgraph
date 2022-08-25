@@ -43,8 +43,6 @@ class LivePaper(KGObject):
               doc="Main website of the live paper."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
-        Field("related_publications", ["openminds.publications.Book", "openminds.publications.Chapter", "openminds.publications.ScholarlyArticle"], "vocab:relatedPublication", multiple=True, required=False,
-              doc="Reference to something that was made available for the general public to see or buy."),
 
     ]
     existence_query_fields = ('name', 'alias', 'authors', 'description', 'versions')

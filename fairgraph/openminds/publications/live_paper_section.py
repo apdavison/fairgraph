@@ -33,7 +33,7 @@ class LivePaperSection(KGObject):
               doc="Reference to the ensemble of multiple things or beings."),
         Field("order", int, "vocab:order", multiple=False, required=True,
               doc="no description available"),
-        Field("section_type", "openminds.publications.LivePaperSectionType", "vocab:sectionType", multiple=False, required=True,
+        Field("section_type", str, "vocab:sectionType", multiple=False, required=True,
               doc="no description available"),
 
     ]

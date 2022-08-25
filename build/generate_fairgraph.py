@@ -83,6 +83,7 @@ type_name_map = {
     "string": "str",
     "integer": "int",
     "number": "float",
+    "array": "list"
 }
 
 format_map = {
@@ -129,6 +130,8 @@ DEFAULT_SPACES = {
         {
             "common": [
                 "Affiliation",
+                "Configuration",
+                "Comment",
                 "Funding",
                 "GRIDID",
                 "HANDLE",
@@ -163,10 +166,13 @@ DEFAULT_SPACES = {
                 "ISSN",
                 "NumericalParameter",
                 "ParameterSet",
+                "PropertyValueList",
                 "Protocol",
+                "ExperimentalActivity",
                 "ProtocolExecution",
                 "QuantitativeValue",
                 "QuantitativeValueRange",
+                "QuantitativeValueArray",
                 "ServiceLink",
                 "StringParameter",
                 "Subject",
@@ -484,6 +490,9 @@ preamble = {
 import os
 import hashlib
 import mimetypes
+from pathlib import Path
+from urllib.request import urlretrieve
+from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
@@ -501,6 +510,12 @@ def sha1sum(filename):
                 break
             h.update(data)
     return h.hexdigest()
+    """,
+    "DatasetVersion":
+    """
+from urllib.request import urlretrieve
+from pathlib import Path
+from fairgraph.utility import accepted_terms_of_use
     """
 }
 
@@ -547,6 +562,43 @@ additional_methods = {
         )
         cls.set_strict_mode(True)
         return obj
+
+    def download(self, local_path, client, accept_terms_of_use=False):
+        if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
+            local_path = Path(local_path)
+            if local_path.is_dir():
+                local_filename = local_path / self.name
+            else:
+                local_filename = local_path
+                local_filename.parent.mkdir(parents=True, exist_ok=True)
+            url_parts = urlparse(self.iri.value)
+            url_parts = url_parts._replace(path=quote(url_parts.path))
+            url = urlunparse(url_parts)
+            local_filename, headers = urlretrieve(url, local_filename)
+            # todo: check hash value of downloaded file
+            # todo: if local_path isn't an existing directory but looks like a directory name
+            #       rather than a filename, create that directory and save a file called self.name
+            #       within it
+            return local_filename
+    """,
+    "DatasetVersion":
+    """
+    def download(self, local_path, client, accept_terms_of_use=False):
+        if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
+            repo = self.repository.resolve(client)
+            if (repo.iri.value.startswith("https://object.cscs.ch/v1/AUTH")
+                or repo.iri.value.startswith("https://data-proxy.ebrains.eu/api/v1/public")
+            ):
+                zip_archive_url = f"https://data.kg.ebrains.eu/zip?container={repo.iri.value}"
+            else:
+                raise NotImplementedError("Download not yet implemented for this repository type")
+            if local_path.endswith(".zip"):
+                local_filename = Path(local_path)
+            else:
+                local_filename = Path(local_path) / (zip_archive_url.split("/")[-1] + ".zip")
+            local_filename.parent.mkdir(parents=True, exist_ok=True)
+            local_filename, headers = urlretrieve(zip_archive_url, local_filename)
+            return local_filename
     """
 }
 

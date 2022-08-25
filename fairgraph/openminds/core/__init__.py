@@ -4,20 +4,23 @@ from ...base_v3 import KGObject
 
 from .research.subject_group import SubjectGroup
 from .research.protocol_execution import ProtocolExecution
-from .research.parameter_set import ParameterSet
 from .research.behavioral_protocol import BehavioralProtocol
+from .research.string_property import StringProperty
+from .research.custom_property_set import CustomPropertySet
 from .research.subject import Subject
 from .research.strain import Strain
-from .research.numerical_parameter import NumericalParameter
 from .research.tissue_sample_collection import TissueSampleCollection
 from .research.stimulation import Stimulation
-from .research.string_parameter import StringParameter
+from .research.configuration import Configuration
 from .research.tissue_sample_state import TissueSampleState
 from .research.subject_state import SubjectState
+from .research.experimental_activity import ExperimentalActivity
 from .research.tissue_sample import TissueSample
 from .research.tissue_sample_collection_state import TissueSampleCollectionState
 from .research.protocol import Protocol
 from .research.subject_group_state import SubjectGroupState
+from .research.property_value_list import PropertyValueList
+from .research.numerical_property import NumericalProperty
 from .products.dataset import Dataset
 from .products.project import Project
 from .products.software_version import SoftwareVersion
@@ -29,6 +32,7 @@ from .products.meta_data_model import MetaDataModel
 from .products.model_version import ModelVersion
 from .miscellaneous.doi import DOI
 from .miscellaneous.rorid import RORID
+from .miscellaneous.issn import ISSN
 from .miscellaneous.isbn import ISBN
 from .miscellaneous.quantitative_value import QuantitativeValue
 from .miscellaneous.rrid import RRID
@@ -36,7 +40,9 @@ from .miscellaneous.orcid import ORCID
 from .miscellaneous.gridid import GRIDID
 from .miscellaneous.funding import Funding
 from .miscellaneous.stock_number import StockNumber
+from .miscellaneous.comment import Comment
 from .miscellaneous.quantitative_value_range import QuantitativeValueRange
+from .miscellaneous.quantitative_value_array import QuantitativeValueArray
 from .miscellaneous.handle import HANDLE
 from .miscellaneous.swhid import SWHID
 from .miscellaneous.url import URL

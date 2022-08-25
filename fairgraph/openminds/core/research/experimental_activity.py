@@ -1,5 +1,5 @@
 """
-Structured information on a protocol execution.
+
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class ProtocolExecution(KGObject):
+class ExperimentalActivity(KGObject):
     """
-    Structured information on a protocol execution.
+
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/ProtocolExecution"]
+    type = ["https://openminds.ebrains.eu/core/ExperimentalActivity"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -27,19 +27,17 @@ class ProtocolExecution(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("behavioral_protocols", "openminds.core.BehavioralProtocol", "vocab:behavioralProtocol", multiple=True, required=False,
-              doc="no description available"),
         Field("custom_property_sets", "openminds.core.CustomPropertySet", "vocab:customPropertySet", multiple=True, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the protocol execution."),
+              doc="Longer statement or account giving the characteristics of the experimental activity."),
         Field("ended_at_time", datetime, "vocab:endedAtTime", multiple=False, required=False,
               doc="no description available"),
-        Field("inputs", ["openminds.core.File", "openminds.core.FileBundle", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:input", multiple=True, required=True,
+        Field("inputs", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
         Field("is_part_of", "openminds.core.DatasetVersion", "vocab:isPartOf", multiple=False, required=True,
               doc="Reference to the ensemble of multiple things or beings."),
-        Field("outputs", ["openminds.core.File", "openminds.core.FileBundle", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:output", multiple=True, required=True,
+        Field("outputs", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:output", multiple=True, required=True,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
         Field("preparation_design", "openminds.controlledterms.PreparationType", "vocab:preparationDesign", multiple=False, required=False,
               doc="no description available"),

@@ -5,16 +5,17 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import EmbeddedMetadata, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class PublicationIssue(EmbeddedMetadata):
+class PublicationIssue(KGObject):
     """
 
     """
+    default_space = "publications"
     type = ["https://openminds.ebrains.eu/publications/PublicationIssue"]
     context = {
         "schema": "http://schema.org/",
@@ -30,3 +31,4 @@ class PublicationIssue(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+    existence_query_fields = ('is_part_of', 'issue_number')
