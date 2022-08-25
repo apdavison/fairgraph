@@ -214,15 +214,19 @@ DEFAULT_SPACES = {
                 "QuantitativeRelationAssessment"
             ],
             "atlas": [
+                "AnatomicalTargetPosition",
                 "AtlasAnnotation",
                 "BrainAtlas",
                 "BrainAtlasVersion",
+                "Circle",
                 "CommonCoordinateSpace",
                 "CoordinatePoint",
+                "Ellipse",
                 "ParcellationEntity",
                 "ParcellationTerminology",
                 "ParcellationTerminologyVersion",
-                "ParcellationEntityVersion"
+                "ParcellationEntityVersion",
+                "Rectangle"
             ]
         }),
     "publications": {

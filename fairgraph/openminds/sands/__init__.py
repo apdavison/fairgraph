@@ -2,9 +2,13 @@ import sys
 import inspect
 from ...base_v3 import KGObject
 
+from .mathematicalShapes.ellipse import Ellipse
+from .mathematicalShapes.rectangle import Rectangle
+from .mathematicalShapes.circle import Circle
 from .non_atlas.custom_coordinate_space import CustomCoordinateSpace
 from .non_atlas.custom_annotation import CustomAnnotation
 from .non_atlas.custom_anatomical_entity import CustomAnatomicalEntity
+from .miscellaneous.anatomical_target_position import AnatomicalTargetPosition
 from .miscellaneous.qualitative_relation_assessment import QualitativeRelationAssessment
 from .miscellaneous.quantitative_relation_assessment import QuantitativeRelationAssessment
 from .miscellaneous.coordinate_point import CoordinatePoint

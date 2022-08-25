@@ -5,16 +5,17 @@ Structured information on a coordinate point.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import EmbeddedMetadata, IRI
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class CoordinatePoint(EmbeddedMetadata):
+class CoordinatePoint(KGObject):
     """
     Structured information on a coordinate point.
     """
+    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/CoordinatePoint"]
     context = {
         "schema": "http://schema.org/",
@@ -30,3 +31,4 @@ class CoordinatePoint(EmbeddedMetadata):
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),
 
     ]
+    existence_query_fields = ('coordinate_space', 'coordinates')
