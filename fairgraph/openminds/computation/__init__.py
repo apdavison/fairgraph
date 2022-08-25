@@ -11,8 +11,11 @@ from .data_analysis import DataAnalysis
 from .environment import Environment
 from .workflow_execution import WorkflowExecution
 from .software_agent import SoftwareAgent
+from .validation_test import ValidationTest
+from .model_validation import ModelValidation
 from .workflow_recipe import WorkflowRecipe
 from .hardware_system import HardwareSystem
+from .validation_test_version import ValidationTestVersion
 from .simulation import Simulation
 
 

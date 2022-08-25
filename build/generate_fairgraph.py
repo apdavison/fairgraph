@@ -523,6 +523,16 @@ def sha1sum(filename):
 from urllib.request import urlretrieve
 from pathlib import Path
 from fairgraph.utility import accepted_terms_of_use
+    """,
+    "ModelVersion":
+    """
+from fairgraph.errors import ResolutionFailure
+from .model import Model
+    """,
+    "ValidationTestVersion":
+    """
+from fairgraph.errors import ResolutionFailure
+from .validation_test import ValidationTest
     """
 }
 
@@ -606,6 +616,26 @@ additional_methods = {
             local_filename.parent.mkdir(parents=True, exist_ok=True)
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
             return local_filename
+    """,
+    "ModelVersion":
+    """
+    def is_version_of(self, client):
+        parents = Model.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
+    """,
+    "ValidationTestVersion":
+    """
+    def is_version_of(self, client):
+        parents = ValidationTest.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
     """
 }
 

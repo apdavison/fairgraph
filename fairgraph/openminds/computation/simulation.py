@@ -55,7 +55,7 @@ class Simulation(KGObject):
               doc="Structure or function that was targeted within a study."),
         Field("tags", str, "vocab:tags", multiple=True, required=False,
               doc="no description available"),
-        Field("was_informed_by", ["openminds.computation.DataAnalysis", "openminds.computation.Optimization", "openminds.computation.Simulation", "openminds.computation.Visualization"], "vocab:wasInformedBy", multiple=False, required=False,
+        Field("was_informed_by", ["openminds.computation.DataAnalysis", "openminds.computation.ModelValidation", "openminds.computation.Optimization", "openminds.computation.Simulation", "openminds.computation.Visualization"], "vocab:wasInformedBy", multiple=False, required=False,
               doc="no description available"),
 
     ]

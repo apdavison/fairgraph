@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class Optimization(KGObject):
+class ModelValidation(KGObject):
     """
 
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/Optimization"]
+    type = ["https://openminds.ebrains.eu/computation/ModelValidation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -30,20 +30,22 @@ class Optimization(KGObject):
         Field("custom_property_sets", "openminds.core.CustomPropertySet", "vocab:customPropertySet", multiple=True, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the optimization."),
+              doc="Longer statement or account giving the characteristics of the model validation."),
         Field("ended_at_time", datetime, "vocab:endedAtTime", multiple=False, required=False,
               doc="no description available"),
         Field("environment", "openminds.computation.Environment", "vocab:environment", multiple=False, required=True,
               doc="no description available"),
-        Field("inputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.ModelVersion", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
+        Field("inputs", ["openminds.computation.LocalFile", "openminds.computation.ValidationTestVersion", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.ModelVersion", "openminds.core.SoftwareVersion"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
         Field("launch_configuration", "openminds.computation.LaunchConfiguration", "vocab:launchConfiguration", multiple=False, required=True,
               doc="no description available"),
-        Field("outputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.ModelVersion"], "vocab:output", multiple=True, required=True,
+        Field("outputs", ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle"], "vocab:output", multiple=True, required=True,
               doc="Something or someone that comes out of, is delivered or produced by a process or machine."),
         Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", multiple=False, required=False,
               doc="no description available"),
         Field("resource_usages", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:resourceUsage", multiple=True, required=False,
+              doc="no description available"),
+        Field("score", float, "vocab:score", multiple=False, required=False,
               doc="no description available"),
         Field("started_at_time", datetime, "vocab:startedAtTime", multiple=False, required=True,
               doc="no description available"),
