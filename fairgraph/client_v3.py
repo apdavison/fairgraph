@@ -19,12 +19,13 @@ define client
 
 import os
 import logging
-from uuid import uuid4
+from typing import Iterable
+from uuid import uuid4, UUID
 
 try:
-    from kg_core.oauth import SimpleToken, ClientCredentials
-    from kg_core.kg import KGv3
-    from kg_core.models import Stage, Pagination, ResponseConfiguration
+    from kg_core.kg import kg
+    from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
+    from kg_core.response import ResultPage, JsonLdDocument
     have_v3 = True
 except ImportError:
     have_v3 = False
@@ -46,7 +47,7 @@ if have_v3:
         "latest": Stage.IN_PROGRESS,
         "in progress": Stage.IN_PROGRESS
     }
-    default_response_configuration = ResponseConfiguration(return_embedded=True)
+    default_response_configuration = ExtendedResponseConfiguration(return_embedded=True)
 
 
 AVAILABLE_PERMISSIONS = [
@@ -76,39 +77,36 @@ class KGv3Client(object):
         if not have_v3:
             raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
         if client_id and client_secret:
-            token_handler = ClientCredentials(client_id, client_secret)
+            self._kg_client = kg(host).with_credentials(client_id, client_secret).build()
         elif token:
-            token_handler = SimpleToken(token)
+            self._kg_client = kg(host).with_token(token).build()
         elif clb_oauth:
-            token_handler = SimpleToken(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
+            self._kg_client = kg(host).with_token(clb_oauth.get_token()).build()  # running in EBRAINS Jupyter Lab
         else:
             try:
-                token_handler = SimpleToken(os.environ["KG_AUTH_TOKEN"])
+                self._kg_client = kg(host).with_token(os.environ["KG_AUTH_TOKEN"]).build()
             except KeyError:
                 raise AuthenticationError("Need to provide either token or client id/secret.")
         self.host = host
-        self._kg_client = KGv3(host=host, token_handler=token_handler)
         self._user_info = None
         self.cache = {}
         self._query_cache = {}
         self.accepted_terms_of_use = False
 
     def _check_response(self, response, ignore_not_found=False):
-        if response.is_successful():
-            if response.status_code < 300:
-                return response
-            elif response.status_code in (401, 403):
-                raise AuthenticationError("Authentication/authorization problem. Your token may have expired. "
-                                          f"Status code {response.status_code}. {response.message()}"
-                                          f"\n{response.request_args}\n{response.request_payload}")
-            else:
-                raise Exception(f"Error. Status code {response.status_code} {response.message()}\n{response.request_args}\n{response.request_payload}")
+        if response.error:
+            # todo: handle "ignore_not_found"
+            raise Exception(f"Error: {response.error}")
         else:
-            if response.error() == "Not Found" and ignore_not_found:
-                return response
-            raise Exception(f"Error: {response.error()}\n{response.request_args}")
+            return response
 
     def query(self, filter, query_id, from_index=0, size=100, scope="released"):
+        # results = self._kg_client.queries.execute_query_by_id(
+        #     query_id=self.uuid_from_uri(query_id),
+        #     all_request_params=filter,
+        #     stage=STAGE_MAP[scope],
+        #     pagination=Pagination(start=from_index, size=size),
+        # )
         uuid = self.uuid_from_uri(query_id)
         params = {
             "from": from_index,
@@ -118,20 +116,21 @@ class KGv3Client(object):
         }
         if filter:
             params.update(filter)
-        response = self._kg_client.get(
+        response = self._kg_client.queries._get(
             path=f"/queries/{uuid}/instances",
             params=params
         )
-        return self._check_response(response)
+        results = ResultPage[JsonLdDocument](response=response, constructor=JsonLdDocument)
+        return self._check_response(results)
 
     def list(self, target_type, space, from_index=0, size=100, scope="released"):
         """docstring"""
-        response = self._kg_client.get_instances(
+        response = self._kg_client.instances.list(
             stage=STAGE_MAP[scope],
             target_type=target_type,
             space=space,
             response_configuration=default_response_configuration,
-            pagination=Pagination(start_from=from_index, size=size)
+            pagination=Pagination(start=from_index, size=size)
         )
         return self._check_response(response)
 
@@ -144,10 +143,10 @@ class KGv3Client(object):
             data = self.cache[uri]
         else:
             try:
-                response = self._kg_client.get_instance(
+                response = self._kg_client.instances.get_by_id(
                     stage=STAGE_MAP[scope],
-                    instance_id=self._kg_client.uuid_from_absolute_id(uri),
-                    response_configuration=default_response_configuration
+                    instance_id=self.uuid_from_uri(uri),
+                    extended_response_configuration=default_response_configuration
                 )
             except Exception as err:
                 if "404" in str(err):
@@ -155,92 +154,98 @@ class KGv3Client(object):
                 else:
                     raise
             else:
-                data = response.data()
+                data = response.data
         return data
 
     def create_new_instance(self, data=None, space=None, instance_id=None):
-        response = self._kg_client.create_instance(
-            space=space,
-            payload=data,
-            normalize_payload=True,
-            instance_id=instance_id,  # if already have id
-            response_configuration=default_response_configuration
-        )
-        return self._check_response(response).data()
+        if instance_id:
+            response = self._kg_client.instances.create_new_with_id(
+                space=space,
+                payload=data,
+                normalize_payload=True,
+                instance_id=instance_id,
+                response_configuration=default_response_configuration
+            )
+        else:
+            response = self._kg_client.instances.create_new(
+                space=space,
+                payload=data,
+                normalize_payload=True,
+                response_configuration=default_response_configuration
+            )
+        return self._check_response(response).data
 
     def update_instance(self, instance_id, data):
-        response = self._kg_client.partially_update_contribution_to_instance(
+        response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        return self._check_response(response).data()
+        return self._check_response(response).data
 
     def replace_instance(self, instance_id, data):
-        response = self._kg_client.replace_contribution_to_instance(
+        response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
             normalize_payload=True,
             response_configuration=default_response_configuration
         )
-        return self._check_response(response).data()
+        return self._check_response(response).data
 
     def delete_instance(self, instance_id, ignore_not_found=True):
-        response = self._kg_client.deprecate_instance(instance_id)
-        return self._check_response(response, ignore_not_found=ignore_not_found).data()
+        response = self._kg_client.instances.delete(instance_id)
+        return self._check_response(response, ignore_not_found=ignore_not_found).data
 
     def uri_from_uuid(self, uuid):
-        return self._kg_client.absolute_id(uuid)
+        namespace = self._kg_client.instances._kg_config.id_namespace
+        return f"{namespace}{uuid}"
 
     def uuid_from_uri(self, uri):
-        return self._kg_client.uuid_from_absolute_id(uri)
+        namespace = self._kg_client.instances._kg_config.id_namespace
+        assert uri.startswith(namespace)
+        return UUID(uri[len(namespace):])
 
     def store_query(self, query_label, query_definition, space):
         existing_query = self.retrieve_query(query_label)
         if existing_query:
-            uuid = self.uuid_from_uri(existing_query["@id"])
+            query_id = self.uuid_from_uri(existing_query["@id"])
         else:
-            uuid = uuid4()
+            query_id = uuid4()
 
         try:
             response = self._check_response(
-                self._kg_client.put(
-                    path=f"/queries/{uuid}",
+                self._kg_client.queries.save_query(
+                    query_id=query_id,
                     payload=query_definition,
-                    params={
-                        "space": space
-                    })
+                    space=space
+                )
             )
         except AuthenticationError:
             response = self._check_response(
-                self._kg_client.put(
-                    path=f"/queries/{uuid}",
+                self._kg_client.queries.save_query(
+                    query_id=query_id,
                     payload=query_definition,
-                    params={
-                        "space": "myspace"
-                    })
+                    space="myspace"
+                )
             )
 
-        query_definition["@id"] = self.uri_from_uuid(uuid)
+        query_definition["@id"] = self.uri_from_uuid(query_id)
 
     def retrieve_query(self, query_label):
         if query_label not in self._query_cache:
-            response = self._kg_client.get(
-                path=f"/queries/",
-                params={
-                    "search": query_label
-                }
+            response = self._check_response(
+                self._kg_client.queries.list_per_root_type(
+                    search=query_label
+                )
             )
-            if response.status_code == 401:
-                raise AuthenticationError("Could not retrieve query. Has your token expired?")
-            if response.total() == 0:
+            if response.total == 0:
                 return None
-            elif response.total() > 1:
+            elif response.total > 1:
                 # check for exact match to query_label
                 found_match = False
                 kgvq = "https://core.kg.ebrains.eu/vocab/query"
-                for result in response.data():
+                for result in response.data:
                     if result[f"{kgvq}/meta"][f"{kgvq}/name"] == query_label:
                         query_definition = result
                         found_match = True
@@ -248,44 +253,41 @@ class KGv3Client(object):
                 if not found_match:
                     return None
             else:
-                query_definition = response.data()[0]
+                query_definition = response.data[0]
             self._query_cache[query_label] = query_definition
         return self._query_cache[query_label]
 
     def user_info(self):
         if self._user_info is None:
             try:
-                self._user_info = self._kg_client.get(
-                    path="/users/me",
-                    params={}
-                ).data()
+                self._user_info = self._kg_client.users.my_info().data
             except KeyError:
                 self._user_info is None
         return self._user_info
 
     def spaces(self, permissions=None, names_only=False):
-        response = self._kg_client.spaces(
-            with_permissions=True,
-            pagination=Pagination(start_from=0, size=100)
-        )
-        if permissions:
+        if permissions and isinstance(permissions, Iterable):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        accessible_spaces = self._check_response(response).data()
-        if permissions:
+        response = self._kg_client.spaces.list(
+            permissions=bool(permissions),
+            pagination=Pagination(start=0, size=100)
+        )
+        accessible_spaces = self._check_response(response).data
+        if permissions and isinstance(permissions, Iterable):
             filtered_spaces = []
             for space in accessible_spaces:
                 for permission in permissions:
-                    if permission.upper() in space["https://core.kg.ebrains.eu/vocab/meta/permissions"]:
+                    if permission.upper() in space.permissions:
                         if names_only:
-                            filtered_spaces.append(space["http://schema.org/name"])
+                            filtered_spaces.append(space.name)
                         else:
                             filtered_spaces.append(space)
             return filtered_spaces
         else:
             if names_only:
-                return [space["http://schema.org/name"] for space in accessible_spaces]
+                return [space.name for space in accessible_spaces]
             else:
                 return accessible_spaces
 
@@ -293,3 +295,23 @@ class KGv3Client(object):
     def _private_space(self):
         # temporary workaround
         return f"private-{self.user_info()['https://schema.hbp.eu/users/nativeId']}"
+
+    def is_released(self, uri):
+        """Release status of the node"""
+        response = self._kg_client.instances.get_release_status(
+            instance_id=self.uuid_from_uri(uri),
+            release_tree_scope=ReleaseTreeScope.TOP_INSTANCE_ONLY  # ?? or CHILDREN_ONLY?
+        )
+        return response.json()["status"] == "RELEASED"
+
+    def release(self, uri):
+        """Release the node with the given uri"""
+        response = self._kg_client.instances.release(self.uuid_from_uri(uri))
+        if response.status_code not in (200, 201):
+            raise Exception("Can't release node with id {}".format(uri))
+
+    def unrelease(self, uri):
+        """Unrelease the node with the given uri"""
+        response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
+        if response.status_code not in (200, 204):
+            raise Exception("Can't unrelease node with id {}".format(uri))

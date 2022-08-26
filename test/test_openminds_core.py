@@ -23,7 +23,7 @@ def test_query_generation(mock_client):
 
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_core(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="core", size=20, from_index=randint(0, 80))
     assert len(models) == 20
     for m in models:
@@ -32,7 +32,7 @@ def test_retrieve_released_models_no_filter_api_core(kg_client):
 
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_query(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="query", size=20, from_index=randint(0, 80))
     assert len(models) == 20
 
@@ -40,19 +40,21 @@ def test_retrieve_released_models_no_filter_api_query(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_obj(kg_client):
     rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    assert rat.name == "Rattus norvegicus"
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="query", study_targets=rat)
     assert len(models) > 0
     for model in models:
-        study_targets = model.study_targets.resolve(kg_client, scope="released")
+        study_targets = [st.resolve(kg_client, scope="released")
+                         for st in as_list(model.study_targets)]
         if study_targets:
-            assert rat in as_list(study_targets)
+            assert rat in study_targets
 
 
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_uuid(kg_client):
     human = omterms.Species.by_name("Homo sapiens", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="query", study_targets=UUID(human.uuid))
     assert len(models) > 0
     for model in models:
@@ -63,7 +65,7 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="query", study_targets=IRI(mouse.id))
     # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
@@ -76,7 +78,7 @@ def test_retrieve_released_models_filter_species_by_id(kg_client):
 def test_retrieve_released_models_filter_custodian(kg_client):
     alain = omcore.Person.list(kg_client, family_name="Destexhe", given_name="Alain")[0]
     assert alain.given_name == "Alain"
-    models = omcore.Model.list(kg_client, scope="released", space="model", 
+    models = omcore.Model.list(kg_client, scope="released", space="model",
                                api="query", custodians=alain)
     assert len(models) > 0
     for model in models:
@@ -176,8 +178,8 @@ def test_save_new_mock(mock_client):
         homepage=omcore.URL(url="http://example.com", id="fake_uuid_2", space="common"),
         how_to_cite=None,
         model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
-        study_targets=[omterms.Species.by_name("Mus musculus", mock_client), 
-                       omterms.CellType.by_name("astrocyte", mock_client), 
+        study_targets=[omterms.Species.by_name("Mus musculus", mock_client),
+                       omterms.CellType.by_name("astrocyte", mock_client),
                        omterms.UBERONParcellation.by_name("amygdala", mock_client)]
     )
     log = ActivityLog()
@@ -186,7 +188,7 @@ def test_save_new_mock(mock_client):
     assert log.entries[0].cls == "Model"
     assert log.entries[0].space == "myspace"
     assert log.entries[0].type == "create"
-  
+
 
 #def test_save_existing_with_id_mock(mock_client):
 #    existing_model = mock_client.instances[]

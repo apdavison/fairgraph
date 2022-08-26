@@ -486,7 +486,7 @@ class KGObject(object, metaclass=Registry):
                 normalized_filters, query["@id"],
                 from_index=from_index, size=size,
                 scope=scope
-            ).data()
+            ).data
             for instance in instances:
                 instance["@context"] = cls.context
         elif api == "core":
@@ -497,7 +497,7 @@ class KGObject(object, metaclass=Registry):
                 space,
                 from_index=from_index, size=size,
                 scope=scope
-            ).data()
+            ).data
         else:
             raise ValueError("'api' must be either 'query', or 'core'")
 
@@ -521,7 +521,7 @@ class KGObject(object, metaclass=Registry):
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
             response = client.list(cls.type, space, scope=scope, from_index=0, size=1)
-        return response.total()
+        return response.total
 
     def _build_existence_query(self):
         if self.existence_query_fields is None:
@@ -634,7 +634,7 @@ class KGObject(object, metaclass=Registry):
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
                 query = self.__class__._get_query_definition(client, normalized_filters, space, resolved=False)
                 instances = client.query(normalized_filters, query["@id"], size=1,
-                                         scope="in progress").data()
+                                         scope="in progress").data
 
                 if instances:
                     self.id = instances[0]["@id"]
@@ -1117,7 +1117,7 @@ class KGQuery(object):
                 query["@id"],
                 size=size,
                 from_index=from_index,
-                scope=scope).data()
+                scope=scope).data
             objects.extend(cls.from_kg_instance(instance_data, client)
                            for instance_data in instances)
         for obj in objects:

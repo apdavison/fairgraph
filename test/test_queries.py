@@ -2,6 +2,7 @@
 import os
 import json
 import pytest
+from kg_core.request import Stage, Pagination
 from fairgraph.queries import Query, QueryProperty, Filter
 import fairgraph.openminds.core as omcore
 from .utils_v3 import kg_client, mock_client, skip_if_no_connection
@@ -172,19 +173,12 @@ def test_query_builder(example_query_model_version):
 
 @skip_if_no_connection
 def test_execute_query(kg_client, example_query_model_version):
-    params = {
-        "from": 0,
-        "size": 3,
-        "stage": "IN_PROGRESS",
-        "returnEmbedded": True
-    }
-    response = kg_client._kg_client.post(
-        path=f"/queries",
-        params=params,
-        payload=example_query_model_version.serialize()
+    response = kg_client._kg_client.queries.test_query(
+        payload=example_query_model_version.serialize(),
+        stage=Stage.IN_PROGRESS,
+        pagination=Pagination(start=0, size=3)
     )
-    assert response.status_code == 200
-    data = response.data()
+    data = response.data
     assert len(data) == 3
     expected_keys = set([
         "@id", "@type", "https://schema.hbp.eu/myQuery/space",
@@ -205,20 +199,26 @@ def test_execute_query(kg_client, example_query_model_version):
 @skip_if_no_connection
 def test_execute_query_with_id_filter(kg_client, example_query_model):
     target_id = "https://kg.ebrains.eu/api/instances/3ca9ae35-c9df-451f-ac76-4925bd2c7dc6"
-    params = {
-        "from": 0,
-        "size": 10,
-        "stage": "IN_PROGRESS",
-        "returnEmbedded": True,
-        "id": target_id
-    }
-    response = kg_client._kg_client.post(
-        path=f"/queries",
-        params=params,
-        payload=example_query_model.serialize()
+    # params = {
+    #     "from": 0,
+    #     "size": 10,
+    #     "stage": "IN_PROGRESS",
+    #     "returnEmbedded": True,
+    #     "id": target_id
+    # }
+    # response = kg_client._kg_client.post(
+    #     path=f"/queries",
+    #     params=params,
+    #     payload=example_query_model.serialize()
+    # )
+    response = kg_client._kg_client.queries.test_query(
+        payload=example_query_model.serialize(),
+        instance_id=kg_client.uuid_from_uri(target_id),
+        stage=Stage.IN_PROGRESS,
+        pagination=Pagination(start=0, size=10)
     )
-    assert response.status_code == 200
-    data = response.data()
+    #assert response.status_code == 200
+    data = response.data
     assert len(data) == 1
     assert data[0]["vocab:fullName"] == "AdEx Neuron Models with PyNN"
     assert data[0]["vocab:custodian"][0]["vocab:familyName"] == "Destexhe"
@@ -232,4 +232,3 @@ def test_openminds_core_queries(mock_client):
             generated = cls.generate_query("simple", "collab-foobar", mock_client, resolved=False)
             expected = json.load(fp)
             assert generated == expected
-

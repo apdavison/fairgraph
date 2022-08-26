@@ -31,10 +31,7 @@ def kg_client():
 class MockKGResponse:
 
     def __init__(self, data):
-        self._data = data
-
-    def data(self):
-        return self._data
+        self.data = data
 
 
 class MockKGClient:
@@ -54,36 +51,36 @@ class MockKGClient:
                 return MockKGResponse(None)
             elif "protein structure" in filters["name"]:
                 return MockKGResponse([{
-                    "vocab:name": filters["name"], 
-                    "@id": "fake_uuid", 
+                    "vocab:name": filters["name"],
+                    "@id": "fake_uuid",
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel']
                 }])
             elif "subcellular" in filters["name"]:
                 return MockKGResponse([{
-                    "vocab:name": filters["name"], 
-                    "@id": "fake_uuid", 
+                    "vocab:name": filters["name"],
+                    "@id": "fake_uuid",
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/ModelScope']
                 }])
             elif "Mus musculus" in filters["name"]:
                 return MockKGResponse([{
-                    "vocab:name": filters["name"], 
-                    "@id": "fake_uuid", 
+                    "vocab:name": filters["name"],
+                    "@id": "fake_uuid",
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/Species']
                 }])
             elif "astrocyte" in filters["name"]:
                 return MockKGResponse([{
-                    "vocab:name": filters["name"], 
-                    "@id": "fake_uuid", 
+                    "vocab:name": filters["name"],
+                    "@id": "fake_uuid",
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/CellType']
                 }])
             elif "amygdala" in filters["name"]:
                 return MockKGResponse([{
-                    "vocab:name": filters["name"], 
-                    "@id": "fake_uuid", 
+                    "vocab:name": filters["name"],
+                    "@id": "fake_uuid",
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/UBERONParcellation']
                 }])
