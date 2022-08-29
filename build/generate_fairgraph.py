@@ -503,6 +503,7 @@ from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
 from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+from fairgraph.utility import accepted_terms_of_use
 
 mimetypes.init()
 
