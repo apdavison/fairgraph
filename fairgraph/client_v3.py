@@ -162,16 +162,14 @@ class KGv3Client(object):
             response = self._kg_client.instances.create_new_with_id(
                 space=space,
                 payload=data,
-                normalize_payload=True,
                 instance_id=instance_id,
-                response_configuration=default_response_configuration
+                extended_response_configuration=default_response_configuration
             )
         else:
             response = self._kg_client.instances.create_new(
                 space=space,
                 payload=data,
-                normalize_payload=True,
-                response_configuration=default_response_configuration
+                extended_response_configuration=default_response_configuration
             )
         return self._check_response(response).data
 
@@ -179,8 +177,7 @@ class KGv3Client(object):
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
-            normalize_payload=True,
-            response_configuration=default_response_configuration
+            extended_response_configuration=default_response_configuration
         )
         return self._check_response(response).data
 
@@ -188,14 +185,14 @@ class KGv3Client(object):
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
-            normalize_payload=True,
-            response_configuration=default_response_configuration
+            extended_response_configuration=default_response_configuration
         )
         return self._check_response(response).data
 
     def delete_instance(self, instance_id, ignore_not_found=True):
         response = self._kg_client.instances.delete(instance_id)
-        return self._check_response(response, ignore_not_found=ignore_not_found).data
+        # response is None if no errors
+        return response
 
     def uri_from_uuid(self, uuid):
         namespace = self._kg_client.instances._kg_config.id_namespace
@@ -294,7 +291,7 @@ class KGv3Client(object):
     @property
     def _private_space(self):
         # temporary workaround
-        return f"private-{self.user_info()['https://schema.hbp.eu/users/nativeId']}"
+        return f"private-{self.user_info().identifiers[0]}"
 
     def is_released(self, uri):
         """Release status of the node"""

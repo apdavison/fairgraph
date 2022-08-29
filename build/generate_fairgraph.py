@@ -48,6 +48,7 @@ custom_multiple = {
     "data": "data",
     "input_data": "input_data",
     "output_data": "output_data",
+    "reference_data": "reference_data",
     "funding": "funding",
     "biological_sex": "biological_sex",
     "age_category": "age_categories",
@@ -61,7 +62,8 @@ custom_multiple = {
     "experimental_approach": "experimental_approaches",
     "pathology": "pathologies",
     "uncertainty": "uncertainties",
-    "application_category": "application_categories"
+    "application_category": "application_categories",
+    "about": "about"
 }
 
 
