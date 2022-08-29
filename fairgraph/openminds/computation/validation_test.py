@@ -47,7 +47,7 @@ class ValidationTest(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
         Field("model_scope", "openminds.controlledterms.ModelScope", "vocab:scope", multiple=False, required=False,
               doc="Extent of something."),
-        Field("score_type", "openminds.controlledterms.MeasureType", "vocab:scoreType", multiple=False, required=False,
+        Field("score_type", "openminds.controlledterms.DifferenceMeasure", "vocab:scoreType", multiple=False, required=False,
               doc="no description available"),
         Field("study_targets", ["openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.Organ", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),

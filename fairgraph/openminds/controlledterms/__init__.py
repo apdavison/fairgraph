@@ -2,6 +2,7 @@ import sys
 import inspect
 from ...base_v3 import KGObject
 
+from .difference_measure import DifferenceMeasure
 from .programming_language import ProgrammingLanguage
 from .measured_quantity import MeasuredQuantity
 from .laterality import Laterality
