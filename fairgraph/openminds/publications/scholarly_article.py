@@ -5,17 +5,18 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base_v3 import KGObject, IRI, as_list
 from fairgraph.fields import Field
 
-
+from .publication_issue import PublicationIssue
+from .periodical import Periodical
 
 
 class ScholarlyArticle(KGObject):
     """
 
     """
-    default_space = "publications"
+    default_space = "livepapers"
     type = ["https://openminds.ebrains.eu/publications/ScholarlyArticle"]
     context = {
         "schema": "http://schema.org/",
@@ -65,4 +66,44 @@ class ScholarlyArticle(KGObject):
               doc="Term or code used to identify the version of something."),
 
     ]
-    existence_query_fields = ('name', 'authors', 'date_published', 'is_part_of')
+    existence_query_fields = ('name',)
+
+    def get_journal(self, client, with_volume=False, with_issue=False):
+        journal = volume = issue = None
+        if self.is_part_of:
+            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links=1)
+            if isinstance(issue_or_volume, PublicationIssue):
+                volume = issue_or_volume.is_part_of
+                issue = issue_or_volume
+            else:
+                volume = issue_or_volume
+                issue = None
+            journal = volume.is_part_of
+            assert isinstance(journal, Periodical)
+        retval = [journal]
+        if with_volume:
+            retval.append(volume)
+        if with_issue:
+            retval.append(issue)
+        return tuple(retval)
+
+    def get_citation_string(self, client):
+        #Eyal, G., Verhoog, M. B., Testa-Silva, G., Deitcher, Y., Lodder, '
+        #     -              'J. C., Benavides-Piccione, R., ... & Segev, I. (2016). Unique '
+        #     -              'membrane properties and enhanced signal processing in human '
+        #     -              'neocortical neurons. Elife, 5, e16553.
+        self.resolve(client, follow_links=1)
+        authors = as_list(self.authors)
+        if len(authors) == 1:
+            author_str = authors[0].full_name
+        elif len(authors) > 1:
+            author_str = ", ".join(au.full_name for au in authors[:-1])
+            author_str += " & " + self.authors[-1].full_name
+        journal, volume, issue = self.get_journal(client, with_volume=True, with_issue=True)
+        title = self.name
+        if title[-1] != ".":
+            title += "."
+        journal_name = journal.name if journal else ""
+        volume_number = volume.volume_number if volume else ""
+        #breakpoint()
+        return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number} {self.pagination}."

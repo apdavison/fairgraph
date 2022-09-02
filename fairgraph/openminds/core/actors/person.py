@@ -27,7 +27,7 @@ class Person(KGObject):
     fields = [
         Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
               doc="Declaration of a person being closely associated to an organization."),
-        Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=False, required=False,
+        Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=True, required=False,
               doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.)."),
         Field("digital_identifiers", "openminds.core.ORCID", "vocab:digitalIdentifier", multiple=True, required=False,
               doc="Digital handle to identify objects or legal persons."),

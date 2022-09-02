@@ -15,7 +15,7 @@ class Periodical(KGObject):
     """
 
     """
-    default_space = "publications"
+    default_space = "livepapers"
     type = ["https://openminds.ebrains.eu/publications/Periodical"]
     context = {
         "schema": "http://schema.org/",

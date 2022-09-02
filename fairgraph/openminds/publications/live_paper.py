@@ -15,7 +15,7 @@ class LivePaper(KGObject):
     """
 
     """
-    default_space = "publications"
+    default_space = "livepapers"
     type = ["https://openminds.ebrains.eu/publications/LivePaper"]
     context = {
         "schema": "http://schema.org/",
@@ -45,4 +45,4 @@ class LivePaper(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
 
     ]
-    existence_query_fields = ('name', 'alias', 'authors', 'description', 'versions')
+    existence_query_fields = ('name', 'alias')

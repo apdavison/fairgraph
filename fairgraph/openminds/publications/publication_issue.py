@@ -15,7 +15,7 @@ class PublicationIssue(KGObject):
     """
 
     """
-    default_space = "publications"
+    default_space = "livepapers"
     type = ["https://openminds.ebrains.eu/publications/PublicationIssue"]
     context = {
         "schema": "http://schema.org/",
