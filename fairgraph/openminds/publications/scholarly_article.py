@@ -85,7 +85,10 @@ class ScholarlyArticle(KGObject):
             retval.append(volume)
         if with_issue:
             retval.append(issue)
-        return tuple(retval)
+        if not with_volume and not with_issue:
+            return journal
+        else:
+            return tuple(retval)
 
     def get_citation_string(self, client):
         #Eyal, G., Verhoog, M. B., Testa-Silva, G., Deitcher, Y., Lodder, '
@@ -106,4 +109,4 @@ class ScholarlyArticle(KGObject):
         journal_name = journal.name if journal else ""
         volume_number = volume.volume_number if volume else ""
         #breakpoint()
-        return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number} {self.pagination}."
+        return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
