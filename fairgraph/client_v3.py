@@ -77,21 +77,29 @@ class KGv3Client(object):
         if not have_v3:
             raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
         if client_id and client_secret:
-            self._kg_client = kg(host).with_credentials(client_id, client_secret).build()
+            self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
         elif token:
-            self._kg_client = kg(host).with_token(token).build()
+            self._kg_client_builder = kg(host).with_token(token)
         elif clb_oauth:
-            self._kg_client = kg(host).with_token(clb_oauth.get_token()).build()  # running in EBRAINS Jupyter Lab
+            self._kg_client_builder = kg(host).with_token(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
         else:
             try:
-                self._kg_client = kg(host).with_token(os.environ["KG_AUTH_TOKEN"]).build()
+                self._kg_client_builder = kg(host).with_token(os.environ["KG_AUTH_TOKEN"])
             except KeyError:
                 raise AuthenticationError("Need to provide either token or client id/secret.")
+        self._kg_client = self._kg_client_builder.build()
+        self.__kg_admin_client = None
         self.host = host
         self._user_info = None
         self.cache = {}
         self._query_cache = {}
         self.accepted_terms_of_use = False
+
+    @property
+    def _kg_admin_client(self):
+        if self.__kg_admin_client is None:
+            self.__kg_admin_client = self._kg_client_builder.build_admin()
+        return self.__kg_admin_client
 
     def _check_response(self, response, ignore_not_found=False):
         if response.error:
@@ -292,6 +300,18 @@ class KGv3Client(object):
     def _private_space(self):
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
+
+    def configure_space(self, collab_id, types):
+        space_name = f"collab-{collab_id}"
+        result = self._kg_admin_client.create_space_definition(space=space_name)
+        if result:  # error
+            raise Exception(f"Unable to configure KG space for collab {collab_id}: {result}")
+        for cls in types:
+            result = self._kg_admin_client.assign_type_to_space(space=space_name,
+                                                                target_type=cls.type[0])
+            if result:  # error
+                raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
+        return space_name
 
     def is_released(self, uri):
         """Release status of the node"""
