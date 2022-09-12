@@ -14,7 +14,6 @@ The API is not stable, and is subject to change.
 To get the latest release:
 
 ```
-pip install https://github.com/HumanBrainProject/kg-core-python/archive/refs/heads/master.zip
 pip install fairgraph
 ```
 

@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='fairgraph',
-    version='0.7.1',
+    version='0.8.0',
     description='Python API for the Human Brain Project Knowledge Graph',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -18,7 +18,7 @@ setup(
     author='Andrew P. Davison',
     author_email='andrew.davison@cnrs.fr',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering',
         'License :: OSI Approved :: Apache Software License',
@@ -33,7 +33,7 @@ setup(
     install_requires=[
         #"openid_http_client @ git+https://github.com/HumanBrainProject/openid_http_client.git#subdirectory=openid_http_client",
         #"pyxus @ git+https://github.com/apdavison/pyxus.git@pystache-jinja2#egg=pyxus&subdirectory=pyxus",
-        #"kg-core @ https://github.com/apdavison/kg-core-python/archive/refs/heads/master.zip",
+        "ebrains-kg-core",
         "pathlib2",
         "python-dateutil",
         "six",

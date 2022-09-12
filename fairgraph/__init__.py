@@ -22,7 +22,7 @@ limitations under the License.
 import re
 from .client_v3 import KGv3Client as KGClient
 
-__version__ = "0.7.1"
+__version__ = "0.8.0"
 
 from . import (
     analysis, base_v2, base_v3, brainsimulation, client_v2, client_v3, commons, core, data,
