@@ -426,7 +426,7 @@ class KGObject(object, metaclass=Registry):
             return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
 
     @classmethod
-    def from_alias(cls, alias, client, space, scope="released", resolved=False):
+    def from_alias(cls, alias, client, space=None, scope="released", resolved=False):
         if "alias" not in cls.field_names:
             raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
         candidates = as_list(
@@ -457,7 +457,7 @@ class KGObject(object, metaclass=Registry):
         return client.uri_from_uuid(uuid)
 
     @classmethod
-    def _get_query_definition(cls, client, normalized_filters, space, resolved=False):
+    def _get_query_definition(cls, client, normalized_filters, space=None, resolved=False):
         if resolved:
             query_type = "resolved"
         else:
@@ -474,16 +474,22 @@ class KGObject(object, metaclass=Registry):
         return query
 
     @classmethod
-    def list(cls, client, size=100, from_index=0, api="query",
+    def list(cls, client, size=100, from_index=0, api="auto",
              scope="released", resolved=False, space=None, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
-        space = space or cls.default_space
+        if api == "auto":
+            if filters:
+                api = "query"
+            else:
+                api = "core"
+
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved)
             instances = client.query(
                 normalized_filters, query["@id"],
+                space=space,
                 from_index=from_index, size=size,
                 scope=scope
             ).data
@@ -494,33 +500,32 @@ class KGObject(object, metaclass=Registry):
                 raise ValueError("Cannot use filters with api='core'")
             instances = client.list(
                 cls.type,
-                space,
+                space=space,
                 from_index=from_index, size=size,
                 scope=scope
             ).data
         else:
-            raise ValueError("'api' must be either 'query', or 'core'")
+            raise ValueError("'api' must be either 'query', 'core', or 'auto'")
 
         return [cls.from_kg_instance(instance, client, scope=scope, resolved=resolved)
                 for instance in instances]
 
     @classmethod
-    def count(cls, client, api=None, scope="released", space=None, **filters):
-        if api is None:
+    def count(cls, client, api="auto", scope="released", space=None, **filters):
+        if api == "auto":
             if filters:
                 api = "query"
             else:
                 api = "core"
-        space = space or cls.default_space
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved=False)
-            response = client.query(normalized_filters, query["@id"],
+            response = client.query(normalized_filters, query["@id"], space=space,
                                     from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
-            response = client.list(cls.type, space, scope=scope, from_index=0, size=1)
+            response = client.list(cls.type, space=space, scope=scope, from_index=0, size=1)
         return response.total
 
     def _build_existence_query(self):
@@ -587,7 +592,7 @@ class KGObject(object, metaclass=Registry):
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
                                                  scope=self.scope or "in progress", resolved=False)
-            # todo: revisit this. Maybe need to query both "releasd" and "latest/in progress" scopes
+            # todo: revisit this. Maybe need to query both "released" and "latest/in progress" scopes
             if self.data is None:
                 self.data = data
 
@@ -618,7 +623,6 @@ class KGObject(object, metaclass=Registry):
                 # duplicate entries
                 return False
             else:
-                space = space or self.default_space
                 query_cache_key = generate_cache_key(query_filter, space)
                 if query_cache_key in self.save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
@@ -957,7 +961,7 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def get_query_label(cls, query_type, space, filter_keys=None):
-        if "private" in space:  # temporary work-around
+        if space and "private" in space:  # temporary work-around
             label = f"fg-{cls.__name__}-{query_type}-myspace"
         else:
             label = f"fg-{cls.__name__}-{query_type}-{space}"
@@ -967,8 +971,6 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def store_queries(cls, space, client):
-        # todo: we don't necessarily have to store the queries in the same space they're querying
-        #       might be useful to have some queries that span multiple spaces, e.g. 'model' + 'myspace'
         #for query_type, resolved in (("simple", False), ("resolved", True)):
         for query_type, resolved in (("simple", False),):  # temporary until resolved is reimplemented
             query_label = cls.get_query_label(query_type, space)
@@ -1135,12 +1137,12 @@ class KGQuery(object):
             query_type = "simple"
         objects = []
         for cls in self.classes:
-            space = space or cls.default_space
             normalized_filters = normalize_filter(cls, self.filter) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved)
             instances = client.query(
                 normalized_filters,
                 query["@id"],
+                space=space,
                 size=size,
                 from_index=from_index,
                 scope=scope).data
