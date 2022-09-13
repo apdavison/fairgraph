@@ -160,10 +160,16 @@ a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the c
     'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International'
 
 
-.. note:: It is rather cumbersome to have to follow all these connections manually.
-          In the near future, you will be able to ask fairgraph to resolve the connections for you,
-          although with the risk of poor performance if your node of interest is indirectly
-          connected to many other nodes in the graph.
+It is rather cumbersome to have to follow all these connections manually.
+You can ask fairgraph to resolve the connections for you, using the :attr`follow_links` argument, e.g.::
+
+    >>> dataset_of_interest.resolve(client, follow_links=3)
+
+The value of the argument is the depth to which links are followed.
+Using high values risks poor performance if your node of interest is indirectly
+connected to many other nodes in the graph.
+Note that links are only followed in the "downstream" direction.
+
 
 Strict mode
 ===========

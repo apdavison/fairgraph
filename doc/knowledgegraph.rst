@@ -9,7 +9,7 @@ information needed to interpret and understand the data:
 the age of the subject, the sampling rate of the recording system, etc.
 For the EBRAINS data sharing platform, the actual data files are stored at the Swiss National
 Supercomputing Center, CSCS. All of the metadata associated with these files (including the
-precise file locations) is stored in the Knowledge Graph.
+precise file locations) are stored in the Knowledge Graph.
 
 There are many ways to access the contents of the Knowledge Graph: through a
 `graphical search interface`_, with an anatomical search through the EBRAINS brain atlases_,

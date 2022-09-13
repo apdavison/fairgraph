@@ -17,8 +17,11 @@ The following people have contributed to fairgraph. Their affiliations at the ti
 Acknowledgements
 ================
 
-<div><img src="https://www.braincouncil.eu/wp-content/uploads/2018/11/wsi-imageoptim-EU-Logo.jpg"
-      alt="EU Logo" height="23%" width="15%" align="right" style="margin-left: 10px"></div>
+.. image:: https://www.braincouncil.eu/wp-content/uploads/2018/11/wsi-imageoptim-EU-Logo.jpg
+   :alt: EU Logo
+   :height: 100px
+   :width: 150px
+   :align: right
 
 This open source software code was developed in part or in whole in the Human Brain Project,
 funded from the European Union's Horizon 2020 Framework Programme for Research and Innovation

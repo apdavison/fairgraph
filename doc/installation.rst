@@ -4,7 +4,6 @@ Installation
 
 To get the latest release::
 
-   pip install git+https://github.com/HumanBrainProject/kg-core-python.git#egg=kg-core
    pip install fairgraph
 
 
