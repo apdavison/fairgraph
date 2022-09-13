@@ -109,6 +109,10 @@ class Field(object):
         """
         return not self.path.startswith("^")
 
+    @property
+    def is_link(self):
+        return issubclass(self.types[0], (KGObjectV2, KGObjectV3, EmbeddedMetadata))
+
     def serialize(self, value, client, for_query=False, with_type=True):
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):

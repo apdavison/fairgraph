@@ -313,22 +313,26 @@ class KGv3Client(object):
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
 
-    def is_released(self, uri):
+    def is_released(self, uri, with_children=False):
         """Release status of the node"""
+        if with_children:
+            release_tree_scope = ReleaseTreeScope.CHILDREN_ONLY
+        else:
+            release_tree_scope = ReleaseTreeScope.TOP_INSTANCE_ONLY
         response = self._kg_client.instances.get_release_status(
             instance_id=self.uuid_from_uri(uri),
-            release_tree_scope=ReleaseTreeScope.TOP_INSTANCE_ONLY  # ?? or CHILDREN_ONLY?
+            release_tree_scope=release_tree_scope
         )
-        return response.json()["status"] == "RELEASED"
+        return response.data == "RELEASED"
 
     def release(self, uri):
         """Release the node with the given uri"""
         response = self._kg_client.instances.release(self.uuid_from_uri(uri))
-        if response.status_code not in (200, 201):
-            raise Exception("Can't release node with id {}".format(uri))
+        if response:
+            raise Exception(f"Can't release node with id {uri}. Error message: {response}")
 
     def unrelease(self, uri):
         """Unrelease the node with the given uri"""
         response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
-        if response.status_code not in (200, 204):
-            raise Exception("Can't unrelease node with id {}".format(uri))
+        if response:
+            raise Exception(f"Can't unrelease node with id {uri}. Error message: {response}")

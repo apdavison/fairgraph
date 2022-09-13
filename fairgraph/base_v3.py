@@ -987,17 +987,39 @@ class KGObject(object, metaclass=Registry):
         query_label = cls.get_query_label(query_type, space, filter_keys)
         return client.retrieve_query(query_label)
 
-    def is_released(self, client):
+    def children(self, client, follow_links=0):
+        if follow_links:
+            self.resolve(client, follow_links=follow_links)
+        all_children = []
+        for field in self.fields:
+            if field.is_link:
+                children = as_list(getattr(self, field.name))
+                all_children.extend(children)
+                if follow_links:
+                    for child in children:
+                        all_children.extend(child.children(client))
+        return all_children
+
+    def is_released(self, client, with_children=False):
         """Release status of the node"""
-        return client.is_released(self.id)
+        return client.is_released(self.id, with_children=with_children)
 
-    def release(self, client):
+    def release(self, client, with_children=False):
         """Release this node (make it available in public search)."""
-        return client.release(self.id)
+        if not self.is_released(client, with_children=with_children):
+            if with_children:
+                for child in self.children(client):
+                    if not child.is_released(client, with_children=False):
+                        client.release(child.id)
+            return client.release(self.id)
 
-    def unrelease(self, client):
-        """Urelease this node (remove it from public search)."""
-        return client.unrelease(self.id)
+    def unrelease(self, client, with_children=False):
+        """Un-release this node (remove it from public search)."""
+        response = client.unrelease(self.id)
+        if with_children:
+            for child in self.children(client):
+                client.unrelease(child.id)
+        return response
 
 
 class KGProxy(object):
@@ -1081,6 +1103,10 @@ class KGProxy(object):
             obj.delete(client, ignore_not_found=ignore_not_found)
         elif not ignore_not_found:
             raise ResolutionFailure("Couldn't resolve object to delete")
+
+    def is_released(self, client, with_children=False):
+        """Release status of the node"""
+        return client.is_released(self.id, with_children=with_children)
 
 
 class KGQuery(object):
