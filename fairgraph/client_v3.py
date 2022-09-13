@@ -165,7 +165,7 @@ class KGv3Client(object):
                 data = response.data
         return data
 
-    def create_new_instance(self, data=None, space=None, instance_id=None):
+    def create_new_instance(self, data, space, instance_id=None):
         if instance_id:
             response = self._kg_client.instances.create_new_with_id(
                 space=space,

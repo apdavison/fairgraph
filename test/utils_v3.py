@@ -86,7 +86,7 @@ class MockKGClient:
                 }])
         raise NotImplementedError("case not yet handled by mock client")
 
-    def create_new_instance(self, space, data, instance_id=None):
+    def create_new_instance(self, data, space, instance_id=None):
         assert space is not None
         assert data is not None
         instance = deepcopy(data)

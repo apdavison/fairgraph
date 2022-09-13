@@ -762,8 +762,8 @@ class KGObject(object, metaclass=Registry):
             data["@context"] = self.context
             data["@type"] = self.type
             instance_data = client.create_new_instance(
-                space=space or self.__class__.default_space,
-                data=data,
+                data,
+                space or self.__class__.default_space,
                 instance_id=self.uuid)
             self.id = instance_data["@id"]
             self.data = instance_data
