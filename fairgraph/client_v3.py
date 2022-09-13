@@ -108,30 +108,32 @@ class KGv3Client(object):
         else:
             return response
 
-    def query(self, filter, query_id, from_index=0, size=100, scope="released"):
-        # results = self._kg_client.queries.execute_query_by_id(
-        #     query_id=self.uuid_from_uri(query_id),
-        #     all_request_params=filter,
-        #     stage=STAGE_MAP[scope],
-        #     pagination=Pagination(start=from_index, size=size),
-        # )
-        uuid = self.uuid_from_uri(query_id)
-        params = {
-            "from": from_index,
-            "size": size,
-            "stage": STAGE_MAP[scope],
-            "returnEmbedded": True
-        }
-        if filter:
-            params.update(filter)
-        response = self._kg_client.queries._get(
-            path=f"/queries/{uuid}/instances",
-            params=params
+    def query(self, filter, query_id, space=None, from_index=0, size=100, scope="released"):
+        breakpoint()
+        results = self._kg_client.queries.execute_query_by_id(
+            query_id=self.uuid_from_uri(query_id),
+            additional_request_params=filter or {},
+            stage=STAGE_MAP[scope],
+            pagination=Pagination(start=from_index, size=size),
+            #restrict_to_spaces=[space] if space else None,
         )
-        results = ResultPage[JsonLdDocument](response=response, constructor=JsonLdDocument)
+        # uuid = self.uuid_from_uri(query_id)
+        # params = {
+        #     "from": from_index,
+        #     "size": size,
+        #     "stage": STAGE_MAP[scope],
+        #     "returnEmbedded": True
+        # }
+        # if filter:
+        #     params.update(filter)
+        # response = self._kg_client.queries._get(
+        #     path=f"/queries/{uuid}/instances",
+        #     params=params
+        # )
+        # results = ResultPage[JsonLdDocument](response=response, constructor=JsonLdDocument)
         return self._check_response(results)
 
-    def list(self, target_type, space, from_index=0, size=100, scope="released"):
+    def list(self, target_type, space=None, from_index=0, size=100, scope="released"):
         """docstring"""
         response = self._kg_client.instances.list(
             stage=STAGE_MAP[scope],
@@ -223,7 +225,7 @@ class KGv3Client(object):
                 self._kg_client.queries.save_query(
                     query_id=query_id,
                     payload=query_definition,
-                    space=space
+                    space=space or "myspace"
                 )
             )
         except AuthenticationError:

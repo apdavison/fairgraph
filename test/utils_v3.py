@@ -45,7 +45,7 @@ class MockKGClient:
             "@id": f"mock-query-{query_label}"
         }
 
-    def query(self, filters, query_id, size=100, from_index=0, scope="released"):
+    def query(self, filters, query_id, space=None, size=100, from_index=0, scope="released"):
         if "name" in filters:
             if "Dummy new model" in filters["name"]:
                 return MockKGResponse(None)

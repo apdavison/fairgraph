@@ -8,11 +8,14 @@ class Query:
         self.label = label
         self.space = space
         self.properties = [
-            QueryProperty("@id", filter=Filter("EQUALS", parameter="id")),
-            QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space",
-                      name="query:space",
-                      filter=Filter("EQUALS", value=self.space))
+            QueryProperty("@id", filter=Filter("EQUALS", parameter="id"))
         ]
+        if space:
+            self.properties.append(
+                QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space",
+                              name="query:space",
+                              filter=Filter("EQUALS", value=self.space))
+            )
         if properties:
             self.properties.extend(properties)
 
