@@ -361,7 +361,7 @@ class TestKGObject(object):
         assert new_obj.data is None
         assert new_obj.a_required_embedded_object == None
 
-        assert new_obj.exists(MockClient(), space="collab-foobar")  # has the side-effect of setting .data
+        assert new_obj.exists(MockClient()) and new_obj.space == "collab-foobar"  # has the side-effect of setting .data
 
         assert new_obj.a_required_embedded_object == MockEmbeddedObject(a_number=41.0)
         expected = {

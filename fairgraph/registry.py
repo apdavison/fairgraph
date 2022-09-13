@@ -86,7 +86,7 @@ def lookup_by_id(id):
     return registry["paths"][path]
 
 
-def generate_cache_key(qd, space=None):
+def generate_cache_key(qd):
     """From a query dict, generate an object suitable as a key for caching"""
     if not isinstance(qd, dict):
         raise TypeError("generate_cache_key expects a query dict. You provided '{}'".format(qd))
@@ -107,8 +107,6 @@ def generate_cache_key(qd, space=None):
                 errmsg = "Expected a string, integer or float for key '{}', not a {}"
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
-    if space:
-        cache_key.append(("space", space))
     return tuple(cache_key)
 
 

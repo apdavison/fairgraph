@@ -585,8 +585,9 @@ class KGObject(object, metaclass=Registry):
                     differences["fields"][field.name] = (val_self, val_other)
         return differences
 
-    def exists(self, client, space=None):
+    def exists(self, client):
         """Check if this object already exists in the KnowledgeGraph"""
+
         if self.id:
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
@@ -595,23 +596,7 @@ class KGObject(object, metaclass=Registry):
             # todo: revisit this. Maybe need to query both "released" and "latest/in progress" scopes
             if self.data is None:
                 self.data = data
-
-            if space:
-                key = "https://core.kg.ebrains.eu/vocab/meta/space"
-                if data and key in data:
-                    if data[key] == space:
-                        obj_exists = True
-                     # following 2 lines are a temporary workaround
-                    elif space == "myspace" and data[key] == client._private_space:
-                        obj_exists = True
-                    elif space == client._private_space and data[key] == "myspace":
-                        obj_exists = True
-                    else:
-                        obj_exists = False
-                else:
-                    obj_exists = False
-            else:
-                obj_exists = bool(data)
+            obj_exists = bool(data)
             if obj_exists:
                 self._update(data, client)
             return obj_exists
@@ -623,7 +608,7 @@ class KGObject(object, metaclass=Registry):
                 # duplicate entries
                 return False
             else:
-                query_cache_key = generate_cache_key(query_filter, space)
+                query_cache_key = generate_cache_key(query_filter)
                 if query_cache_key in self.save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
                     # that has just been written to the KG may not appear in the query.
@@ -636,7 +621,7 @@ class KGObject(object, metaclass=Registry):
                     return True
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
-                query = self.__class__._get_query_definition(client, normalized_filters, space, resolved=False)
+                query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
                 instances = client.query(normalized_filters, query["@id"], size=1,
                                          scope="in progress").data
 
@@ -703,14 +688,14 @@ class KGObject(object, metaclass=Registry):
                         if isinstance(value, KGObject):
                             if value.space:
                                 target_space = value.space
-                            elif value.__class__.default_space == "controlled" and value.exists(client, space="controlled"):
+                            elif value.__class__.default_space == "controlled" and value.exists(client) and value.space == "controlled":
                                 continue
                             elif space is None and self.space is not None:
                                 target_space = self.space
                             else:
                                 target_space = space
                             if target_space == "controlled":
-                                if value.exists(client, space="controlled"):
+                                if value.exists(client) and value.space == "controlled":
                                     continue
                                 else:
                                     raise Exception("Cannot write to controlled space")
@@ -723,7 +708,7 @@ class KGObject(object, metaclass=Registry):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        if self.exists(client, space=space):
+        if self.exists(client):
             # update
             data = self._build_data(client, all_fields=True)
             if replace:
