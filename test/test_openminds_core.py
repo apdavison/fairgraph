@@ -140,7 +140,6 @@ def test_exists_method_without_id(kg_client):
     assert new_model == model
 
 
-
 @skip_if_no_connection
 def test_KGQuery_resolve(kg_client):
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
@@ -188,6 +187,27 @@ def test_save_new_mock(mock_client):
     assert log.entries[0].cls == "Model"
     assert log.entries[0].space == "myspace"
     assert log.entries[0].type == "create"
+
+
+def test_save_new_recursive_mock(mock_client):
+    new_person = omcore.Person(
+        given_name="Thorin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(
+            organization=omcore.Organization(name="The Lonely Mountain")
+        )
+    )
+    log = ActivityLog()
+    new_person.save(mock_client, space="myspace", recursive=True, activity_log=log)
+    assert len(log.entries) == 2
+    assert log.entries[0].cls == "Organization"
+    assert log.entries[0].space == "myspace"
+    assert log.entries[0].type == "create"
+    assert log.entries[1].cls == "Person"
+    assert log.entries[1].space == "myspace"
+    assert log.entries[1].type == "create"
+    assert UUID(new_person.uuid)
+    assert UUID(new_person.affiliations.organization.uuid)
 
 
 #def test_save_existing_with_id_mock(mock_client):

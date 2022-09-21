@@ -84,6 +84,11 @@ class MockKGClient:
                     "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
                     "@type": ['https://openminds.ebrains.eu/controlledTerms/UBERONParcellation']
                 }])
+            elif "The Lonely Mountain" in filters["name"]:
+                return MockKGResponse([])
+        elif "given_name" in filters:
+            if filters["given_name"] == "Thorin":
+                return MockKGResponse([])
         raise NotImplementedError("case not yet handled by mock client")
 
     def create_new_instance(self, data, space, instance_id=None):

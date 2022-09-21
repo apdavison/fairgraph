@@ -101,10 +101,15 @@ class KGv3Client(object):
             self.__kg_admin_client = self._kg_client_builder.build_admin()
         return self.__kg_admin_client
 
-    def _check_response(self, response, ignore_not_found=False):
+    def _check_response(self, response, ignore_not_found=False, error_context=""):
         if response.error:
             # todo: handle "ignore_not_found"
-            raise Exception(f"Error: {response.error}")
+            if response.error.code == 403:
+                raise AuthenticationError()
+            elif response.error.code == 404 and ignore_not_found:
+                return response
+            else:
+                raise Exception(f"Error: {response.error} {error_context}")
         else:
             return response
 
@@ -153,6 +158,8 @@ class KGv3Client(object):
         return data
 
     def create_new_instance(self, data, space, instance_id=None):
+        if "'@id': None" in str(data):
+            raise Exception("payload contains undefined ids")
         if instance_id:
             response = self._kg_client.instances.create_new_with_id(
                 space=space,
@@ -166,7 +173,8 @@ class KGv3Client(object):
                 payload=data,
                 extended_response_configuration=default_response_configuration
             )
-        return self._check_response(response).data
+        error_context = f"create_new_instance(data={data}, space={space}, instance_id={instance_id})"
+        return self._check_response(response, error_context=error_context).data
 
     def update_instance(self, instance_id, data):
         response = self._kg_client.instances.contribute_to_partial_replacement(

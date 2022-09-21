@@ -136,6 +136,14 @@ class EmbeddedMetadata(object, metaclass=Registry):
             setattr(self, field.name, value)
         self.data = data
 
+    @property
+    def space(self):
+        return None
+
+    @property
+    def default_space(self):
+        return None
+
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
                             for field in self.fields if getattr(self, field.name) is not None)
@@ -171,6 +179,28 @@ class EmbeddedMetadata(object, metaclass=Registry):
             data_item = D.get(field.path)
             args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
         return cls(data=D, **args)
+
+    def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
+        for field in self.fields:
+            if field.intrinsic:
+                values = getattr(self, field.name)
+                for value in as_list(values):
+                    if isinstance(value, (KGObject, EmbeddedMetadata)):
+                        if value.space:
+                            target_space = value.space
+                        elif value.__class__.default_space == "controlled" and value.exists(client) and value.space == "controlled":
+                            continue
+                        elif space is None and self.space is not None:
+                            target_space = self.space
+                        else:
+                            target_space = space
+                        if target_space == "controlled":
+                            if value.exists(client) and value.space == "controlled":
+                                continue
+                            else:
+                                raise Exception("Cannot write to controlled space")
+                        value.save(client, space=target_space, recursive=True,
+                                    activity_log=activity_log)
 
     @classmethod
     def set_strict_mode(cls, value, field_names=None):
@@ -685,7 +715,7 @@ class KGObject(object, metaclass=Registry):
                 if field.intrinsic:
                     values = getattr(self, field.name)
                     for value in as_list(values):
-                        if isinstance(value, KGObject):
+                        if isinstance(value, (KGObject, EmbeddedMetadata)):
                             if value.space:
                                 target_space = value.space
                             elif value.__class__.default_space == "controlled" and value.exists(client) and value.space == "controlled":
@@ -701,7 +731,6 @@ class KGObject(object, metaclass=Registry):
                                     raise Exception("Cannot write to controlled space")
                             value.save(client, space=target_space, recursive=True,
                                        activity_log=activity_log)
-                        # todo: handle EmbeddedMetadata object that _contain_ KGObjects (e.g. QuantitativeValue->UnitOfMeasurement)
         if space is None:
             if self.space is None:
                 space = self.__class__.default_space
@@ -833,8 +862,8 @@ class KGObject(object, metaclass=Registry):
     def show(self, max_width=None):
         if not have_tabulate:
             raise Exception("You need to install the tabulate module to use the `show()` method")
-        data = [("id", self.id)] + [(field.name, str(getattr(self, field.name, None)))
-                                    for field in self.fields]
+        data = [("id", self.id), ("space", self.space)] + [
+                (field.name, str(getattr(self, field.name, None))) for field in self.fields]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
@@ -961,7 +990,7 @@ class KGObject(object, metaclass=Registry):
             query_label = cls.get_query_label(query_type, space)
             query_definition = cls.generate_query(query_type, space, client, resolved=resolved)
             try:
-                client.store_query(query_label, query_definition, space=space)
+                client.store_query(query_label, query_definition, space=space or cls.default_space)
             except HTTPError as err:
                 if err.response.status_code == 401:
                     warn("Unable to store query with id '{}': {}".format(

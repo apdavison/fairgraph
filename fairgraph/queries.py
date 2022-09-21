@@ -16,6 +16,11 @@ class Query:
                               name="query:space",
                               filter=Filter("EQUALS", value=self.space))
             )
+        else:
+            self.properties.append(
+                QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space",
+                              name="query:space")
+            )
         if properties:
             self.properties.extend(properties)
 
