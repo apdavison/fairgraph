@@ -74,6 +74,7 @@
       ]
     },
     {
+      "ensureOrder": true,
       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
       "propertyName": "vocab:contactInformation",
       "structure": [
