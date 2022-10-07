@@ -151,6 +151,8 @@ class Field(object):
                     return value[0]
                 else:
                     return value
+            elif len(value) == 1:
+                return serialize_single(value[0])
             else:
                 return value
         else:

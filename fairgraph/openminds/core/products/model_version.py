@@ -44,7 +44,7 @@ class ModelVersion(KGObject):
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
         Field("digital_identifier", ["openminds.core.DOI", "openminds.core.SWHID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
-        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=True,
+        Field("format", "openminds.core.ContentType", "vocab:format", multiple=True, required=True,
               doc="Method of digitally organizing and structuring data or information."),
         Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:fullDocumentation", multiple=False, required=True,
               doc="Non-abridged instructions, comments, and information for using a particular product."),

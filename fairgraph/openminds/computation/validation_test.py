@@ -53,4 +53,4 @@ class ValidationTest(KGObject):
               doc="Structure or function that was targeted within a study."),
 
     ]
-    existence_query_fields = ('name', 'alias', 'description', 'developers', 'versions')
+    existence_query_fields = ('name', 'alias')
