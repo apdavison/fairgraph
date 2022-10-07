@@ -133,6 +133,7 @@
       ]
     },
     {
+      "ensureOrder": true,
       "path": "https://openminds.ebrains.eu/vocab/format",
       "propertyName": "vocab:format",
       "structure": [
