@@ -113,12 +113,13 @@ class KGv3Client(object):
         else:
             return response
 
-    def query(self, filter, query_id, space=None, from_index=0, size=100, scope="released"):
+    def query(self, filter, query_id, space=None, instance_id=None, from_index=0, size=100, scope="released"):
         response = self._kg_client.queries.execute_query_by_id(
             query_id=self.uuid_from_uri(query_id),
             additional_request_params=filter or {},
             stage=STAGE_MAP[scope],
             pagination=Pagination(start=from_index, size=size),
+            instance_id=instance_id
             #restrict_to_spaces=[space] if space else None,
         )
         return self._check_response(response)
