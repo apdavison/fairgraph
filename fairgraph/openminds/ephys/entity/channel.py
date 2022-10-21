@@ -24,9 +24,9 @@ class Channel(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
+        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
               doc="Term or code that identifies the channel within a particular product."),
-        Field("unit_of_measurement", "openminds.controlledterms.UnitOfMeasurement", "vocab:unitOfMeasurement", multiple=False, required=False,
+        Field("unit_of_measurement", "openminds.controlledterms.UnitOfMeasurement", "vocab:unitOfMeasurement", multiple=False, required=True,
               doc="no description available"),
 
     ]

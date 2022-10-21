@@ -27,6 +27,7 @@ from .model_abstraction_level import ModelAbstractionLevel
 from .ethics_assessment import EthicsAssessment
 from .organ import Organ
 from .technique import Technique
+from .chemical_mixture_type import ChemicalMixtureType
 from .qualitative_overlap import QualitativeOverlap
 from .anatomical_axes_orientation import AnatomicalAxesOrientation
 from .molecular_entity import MolecularEntity
@@ -41,6 +42,7 @@ from .model_scope import ModelScope
 from .stimulus_type import StimulusType
 from .term_suggestion import TermSuggestion
 from .disease import Disease
+from .setup_type import SetupType
 from .terminology import Terminology
 from .handedness import Handedness
 from .tissue_sample_type import TissueSampleType

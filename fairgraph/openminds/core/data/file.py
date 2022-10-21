@@ -8,7 +8,6 @@ from datetime import date, datetime
 from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
-
 import os
 import hashlib
 import mimetypes

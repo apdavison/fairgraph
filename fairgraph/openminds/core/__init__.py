@@ -26,6 +26,7 @@ from .products.project import Project
 from .products.software_version import SoftwareVersion
 from .products.dataset_version import DatasetVersion
 from .products.meta_data_model_version import MetaDataModelVersion
+from .products.setup import Setup
 from .products.model import Model
 from .products.software import Software
 from .products.meta_data_model import MetaDataModel
@@ -63,6 +64,7 @@ from .data.file_path_pattern import FilePathPattern
 from .data.content_type import ContentType
 from .data.file_repository_structure import FileRepositoryStructure
 from .data.file_bundle import FileBundle
+from .data.measurement import Measurement
 
 
 def list_kg_classes():

@@ -25,22 +25,22 @@ class Recording(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("channels", "openminds.ephys.Channel", "vocab:channels", multiple=True, required=False,
+        Field("name", str, "vocab:name", multiple=False, required=False,
+              doc="Word or phrase that constitutes the distinctive designation of the recording."),
+        Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
+              doc="Mention of what deserves additional attention or notice."),
+        Field("channels", "openminds.ephys.Channel", "vocab:channel", multiple=True, required=True,
               doc="no description available"),
-        Field("data_locations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:dataLocation", multiple=True, required=False,
-              doc="no description available"),
-        Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the recording."),
-        Field("devices", ["openminds.ephys.Device", "openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"], "vocab:devices", multiple=True, required=False,
+        Field("data_location", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:dataLocation", multiple=False, required=True,
               doc="no description available"),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the recording within a particular product."),
-        Field("orders", int, "vocab:order", multiple=True, required=False,
+        Field("previous_recording", "openminds.ephys.Recording", "vocab:previousRecording", multiple=False, required=False,
               doc="no description available"),
-        Field("time_step", "openminds.core.QuantitativeValue", "vocab:timeStep", multiple=False, required=True,
+        Field("recorded_with", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage"], "vocab:recordedWith", multiple=False, required=True,
               doc="no description available"),
-        Field("unit_of_measurement", "openminds.controlledterms.UnitOfMeasurement", "vocab:unitOfMeasurement", multiple=False, required=False,
+        Field("sampling_frequency", "openminds.core.QuantitativeValue", "vocab:samplingFrequency", multiple=False, required=True,
               doc="no description available"),
 
     ]
-    existence_query_fields = ('time_step',)
+    existence_query_fields = ('channels', 'data_location', 'recorded_with', 'sampling_frequency')

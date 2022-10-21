@@ -238,7 +238,7 @@ DEFAULT_SPACES = {
             ]
         }),
     "publications": {
-        "default": "publications"
+        "default": "livepapers"
     },
     "ephys": {
         "default": "electrophysiology"
@@ -289,6 +289,11 @@ custom_existence_queries = {
     "CustomCoordinateSpace": ("name",),
     "WorkflowRecipe": ("name",),
     "WorkflowRecipeVersion": ("name", "version_identifier"),
+    "ValidationTest": ("name", "alias"),
+    "ValidationTestVersion": ("alias", "version_identifier"),
+    "LivePaper": ("name", "alias"),
+    "LivePaperVersion": ("alias", "version_identifier"),
+    "ScholarlyArticle": ("name",)
 }
 
 
@@ -499,8 +504,7 @@ def strip_trailing_whitespace(s):
 
 preamble = {
     "File":
-    """
-import os
+    """import os
 import hashlib
 import mimetypes
 from pathlib import Path
@@ -526,21 +530,22 @@ def sha1sum(filename):
     return h.hexdigest()
     """,
     "DatasetVersion":
-    """
-from urllib.request import urlretrieve
+    """from urllib.request import urlretrieve
 from pathlib import Path
-from fairgraph.utility import accepted_terms_of_use
-    """,
+from fairgraph.utility import accepted_terms_of_use""",
     "ModelVersion":
-    """
-from fairgraph.errors import ResolutionFailure
-from .model import Model
-    """,
+    """from fairgraph.errors import ResolutionFailure
+from .model import Model""",
     "ValidationTestVersion":
-    """
-from fairgraph.errors import ResolutionFailure
-from .validation_test import ValidationTest
-    """
+    """from fairgraph.errors import ResolutionFailure
+from .validation_test import ValidationTest""",
+    "LivePaperVersion":
+    """from fairgraph.errors import ResolutionFailure
+from .live_paper import LivePaper""",
+    "ScholarlyArticle":
+    """from fairgraph.base_v3 import as_list
+from .publication_issue import PublicationIssue
+from .periodical import Periodical"""
 }
 
 additional_methods = {
@@ -643,6 +648,59 @@ additional_methods = {
         else:
             assert len(parents) == 1
             return parents[0]
+    """,
+    "LivePaperVersion":
+    """    def is_version_of(self, client):
+        parents = LivePaper.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
+    """,
+    "ScholarlyArticle":
+    """    def get_journal(self, client, with_volume=False, with_issue=False):
+        journal = volume = issue = None
+        if self.is_part_of:
+            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links=1)
+            if isinstance(issue_or_volume, PublicationIssue):
+                volume = issue_or_volume.is_part_of
+                issue = issue_or_volume
+            else:
+                volume = issue_or_volume
+                issue = None
+            journal = volume.is_part_of
+            assert isinstance(journal, Periodical)
+        retval = [journal]
+        if with_volume:
+            retval.append(volume)
+        if with_issue:
+            retval.append(issue)
+        if not with_volume and not with_issue:
+            return journal
+        else:
+            return tuple(retval)
+
+    def get_citation_string(self, client):
+        #Eyal, G., Verhoog, M. B., Testa-Silva, G., Deitcher, Y., Lodder, '
+        #     -              'J. C., Benavides-Piccione, R., ... & Segev, I. (2016). Unique '
+        #     -              'membrane properties and enhanced signal processing in human '
+        #     -              'neocortical neurons. Elife, 5, e16553.
+        self.resolve(client, follow_links=1)
+        authors = as_list(self.authors)
+        if len(authors) == 1:
+            author_str = authors[0].full_name
+        elif len(authors) > 1:
+            author_str = ", ".join(au.full_name for au in authors[:-1])
+            author_str += " & " + self.authors[-1].full_name
+        journal, volume, issue = self.get_journal(client, with_volume=True, with_issue=True)
+        title = self.name
+        if title[-1] != ".":
+            title += "."
+        journal_name = journal.name if journal else ""
+        volume_number = volume.volume_number if volume else ""
+        #breakpoint()
+        return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
     """
 }
 

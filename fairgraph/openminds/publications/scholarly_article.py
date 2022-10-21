@@ -5,9 +5,10 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI, as_list
+from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
 
+from fairgraph.base_v3 import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical
 

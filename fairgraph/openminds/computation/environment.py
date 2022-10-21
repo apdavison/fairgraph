@@ -1,5 +1,5 @@
 """
-
+Structured information on the computer system or set of systems in which a computation is deployed and executed.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Environment(KGObject):
     """
-
+    Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Environment"]
