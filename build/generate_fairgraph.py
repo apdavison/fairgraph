@@ -11,6 +11,8 @@ import re
 from typing import List
 from collections import defaultdict
 import warnings
+from jinja2 import FileSystemLoader
+
 
 from generator.commons import (
     JinjaGenerator,
@@ -127,6 +129,9 @@ def invert_dict(D):
 
 
 DEFAULT_SPACES = {
+    "chemicals": {
+        "default": "dataset"
+    },
     "core":
     invert_dict(
         {
@@ -187,7 +192,8 @@ DEFAULT_SPACES = {
                 "TissueSampleState",
                 "BehavioralProtocol",
                 "Stimulation",
-                "Strain"
+                "Strain",
+                "Setup"
             ],
             "model": ["Model", "ModelVersion"],
             "software": ["SWHID", "Software", "SoftwareVersion"],
@@ -317,6 +323,7 @@ class FairgraphGenerator(JinjaGenerator):
 
     def __init__(self, schema_information: List[SchemaStructure]):
         super().__init__("py", None, "fairgraph_module_template.py.txt")
+        self.env.loader=FileSystemLoader(os.path.dirname(os.path.realpath(__file__)))
         self.target_path = os.path.join("..", "fairgraph", "openminds")
         self.schema_information = schema_information
         self.schema_information_by_type = {}
