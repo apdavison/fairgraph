@@ -319,7 +319,7 @@ class KGv3Client(object):
             instance_id=self.uuid_from_uri(uri),
             release_tree_scope=release_tree_scope
         )
-        return response.data == "RELEASED"
+        return response.data in ("RELEASED", "HAS_CHANGED")
 
     def release(self, uri):
         """Release the node with the given uri"""
