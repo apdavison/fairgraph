@@ -47,8 +47,8 @@ class Person(KGObject):
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
-        family_name = user_info["http://schema.org/familyName"]
-        given_name = user_info["http://schema.org/givenName"]
+        family_name = user_info.family_name
+        given_name = user_info.given_name
         possible_matches = cls.list(
             client, scope="in progress", space="common",
             resolved=resolved,
