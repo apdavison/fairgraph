@@ -113,7 +113,7 @@ class KGv3Client(object):
         else:
             return response
 
-    def query(self, filter, query_id, space=None, instance_id=None, from_index=0, size=100, scope="released"):
+    def query(self, filter, query_id, space=None, instance_id=None, from_index=0, size=100, scope="released", id_key="@id"):
 
         def _query(scope, from_index, size):
             response = self._kg_client.queries.execute_query_by_id(
@@ -136,12 +136,12 @@ class KGv3Client(object):
             # first we get the released instances
             response = _query("released", 0, 100000)
             for instance in response.data:
-                instances[instance["@id"]] = instance
+                instances[instance[id_key]] = instance
             # now we get the "in progress" instances, and overwrite
             # any existing released instances which have the same id
             response = _query("in progress", 0, 100000)
             for instance in response.data:
-                instances[instance["@id"]] = instance
+                instances[instance[id_key]] = instance
             response.data = list(instances.values())[from_index : from_index + size]
             response.size = len(response.data)
             response.total = len(instances)
