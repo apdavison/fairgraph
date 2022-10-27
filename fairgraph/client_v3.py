@@ -114,26 +114,72 @@ class KGv3Client(object):
             return response
 
     def query(self, filter, query_id, space=None, instance_id=None, from_index=0, size=100, scope="released"):
-        response = self._kg_client.queries.execute_query_by_id(
-            query_id=self.uuid_from_uri(query_id),
-            additional_request_params=filter or {},
-            stage=STAGE_MAP[scope],
-            pagination=Pagination(start=from_index, size=size),
-            instance_id=instance_id
-            #restrict_to_spaces=[space] if space else None,
-        )
-        return self._check_response(response)
+
+        def _query(scope, from_index, size):
+            response = self._kg_client.queries.execute_query_by_id(
+                query_id=self.uuid_from_uri(query_id),
+                additional_request_params=filter or {},
+                stage=STAGE_MAP[scope],
+                pagination=Pagination(start=from_index, size=size),
+                instance_id=instance_id
+                #restrict_to_spaces=[space] if space else None,
+            )
+            return self._check_response(response)
+
+        if scope == "any":
+            # the following implementation is simple but very inefficient
+            # because we retrieve _all_ instances and then apply the limits
+            # from_index and size.
+            # todo: make this more efficient, but be sure to clearly
+            #       explain the algorithm
+            instances = {}
+            # first we get the released instances
+            response = _query("released", 0, 100000)
+            for instance in response.data:
+                instances[instance["@id"]] = instance
+            # now we get the "in progress" instances, and overwrite
+            # any existing released instances which have the same id
+            response = _query("in progress", 0, 100000)
+            for instance in response.data:
+                instances[instance["@id"]] = instance
+            response.data = list(instances.values())[from_index : from_index + size]
+            response.size = len(response.data)
+            response.total = len(instances)
+            return response
+        else:
+            return _query(scope, from_index, size)
 
     def list(self, target_type, space=None, from_index=0, size=100, scope="released"):
         """docstring"""
-        response = self._kg_client.instances.list(
-            stage=STAGE_MAP[scope],
-            target_type=target_type,
-            space=space,
-            response_configuration=default_response_configuration,
-            pagination=Pagination(start=from_index, size=size)
-        )
-        return self._check_response(response)
+
+        def _list(scope, from_index, size):
+            response = self._kg_client.instances.list(
+                stage=STAGE_MAP[scope],
+                target_type=target_type,
+                space=space,
+                response_configuration=default_response_configuration,
+                pagination=Pagination(start=from_index, size=size)
+            )
+            return self._check_response(response)
+
+        if scope == "any":
+            # see comments in query() about this implementation
+            instances = {}
+            # first we get the released instances
+            response = _list("released", 0, 100000)
+            for instance in response.data:
+                instances[instance["@id"]] = instance
+            # now we get the "in progress" instances, and overwrite
+            # any existing released instances which have the same id
+            response = _list("in progress", 0, 100000)
+            for instance in response.data:
+                instances[instance["@id"]] = instance
+            response.data = list(instances.values())[from_index : from_index + size]
+            response.size = len(response.data)
+            response.total = len(instances)
+            return response
+        else:
+            return _list(scope, from_index, size)
 
     def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False):
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
