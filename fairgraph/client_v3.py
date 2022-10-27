@@ -189,19 +189,28 @@ class KGv3Client(object):
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
         else:
-            try:
-                response = self._kg_client.instances.get_by_id(
-                    stage=STAGE_MAP[scope],
-                    instance_id=self.uuid_from_uri(uri),
-                    extended_response_configuration=default_response_configuration
-                )
-            except Exception as err:
-                if "404" in str(err):
-                    data = None
+            def _get_instance(scope):
+                try:
+                    response = self._kg_client.instances.get_by_id(
+                        stage=STAGE_MAP[scope],
+                        instance_id=self.uuid_from_uri(uri),
+                        extended_response_configuration=default_response_configuration
+                    )
+                except Exception as err:
+                    if "404" in str(err):
+                        data = None
+                    else:
+                        raise
                 else:
-                    raise
+                    data = response.data
+                return data
+
+            if scope == "any":
+                data = _get_instance("in progress")
+                if data is None:
+                    data = _get_instance("released")
             else:
-                data = response.data
+                data = _get_instance(scope)
         return data
 
     def create_new_instance(self, data, space, instance_id=None):
