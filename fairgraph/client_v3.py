@@ -364,6 +364,14 @@ class KGv3Client(object):
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
 
+    def move_to_space(self, uri, destination_space):
+        response = self._kg_client.instances.move(
+            instance_id=self.uuid_from_uri(uri),
+            space=destination_space
+        )
+        if response.error:
+            raise Exception(response.error)
+
     def is_released(self, uri, with_children=False):
         """Release status of the node"""
         if with_children:
