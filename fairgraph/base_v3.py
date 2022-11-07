@@ -638,7 +638,10 @@ class KGObject(object, metaclass=Registry):
                 # duplicate entries
                 return False
             else:
-                query_cache_key = generate_cache_key(query_filter)
+                try:
+                    query_cache_key = generate_cache_key(query_filter)
+                except TypeError as err:
+                    raise TypeError(f"Error in generating cache key for {self.__class__.__name__} object: {err}")
                 if query_cache_key in self.save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
                     # that has just been written to the KG may not appear in the query.
