@@ -1,4 +1,4 @@
-# fairgraph: a Python API for the Human Brain Project Knowledge Graph.
+# fairgraph: a Python API for the EBRAINS Knowledge Graph.
 
 Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen
 
