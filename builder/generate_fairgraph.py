@@ -247,6 +247,8 @@ DEFAULT_SPACES = {
 
 
 def get_default_space(schema_group, cls_name):
+    if schema_group not in DEFAULT_SPACES:
+        raise Exception(f"Please update DEFAULT_SPACES for the {schema_group} module")
     if cls_name in DEFAULT_SPACES[schema_group]:
         return DEFAULT_SPACES[schema_group][cls_name]
     else:
