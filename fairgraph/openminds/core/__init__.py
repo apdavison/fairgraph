@@ -10,7 +10,6 @@ from .research.custom_property_set import CustomPropertySet
 from .research.subject import Subject
 from .research.strain import Strain
 from .research.tissue_sample_collection import TissueSampleCollection
-from .research.stimulation import Stimulation
 from .research.configuration import Configuration
 from .research.tissue_sample_state import TissueSampleState
 from .research.subject_state import SubjectState
@@ -30,7 +29,9 @@ from .products.setup import Setup
 from .products.model import Model
 from .products.software import Software
 from .products.meta_data_model import MetaDataModel
+from .products.web_service_version import WebServiceVersion
 from .products.model_version import ModelVersion
+from .products.web_service import WebService
 from .miscellaneous.doi import DOI
 from .miscellaneous.rorid import RORID
 from .miscellaneous.issn import ISSN
@@ -47,7 +48,9 @@ from .miscellaneous.quantitative_value_array import QuantitativeValueArray
 from .miscellaneous.handle import HANDLE
 from .miscellaneous.swhid import SWHID
 from .miscellaneous.url import URL
+from .actors.account_information import AccountInformation
 from .actors.contribution import Contribution
+from .actors.consortium import Consortium
 from .actors.organization import Organization
 from .actors.contact_information import ContactInformation
 from .actors.affiliation import Affiliation

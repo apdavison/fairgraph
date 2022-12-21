@@ -31,9 +31,9 @@ class BrainAtlas(KGObject):
               doc="Shortened or fully abbreviated name of the brain atlas."),
         Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
               doc="no description available"),
-        Field("authors", ["openminds.core.Organization", "openminds.core.Person"], "vocab:author", multiple=True, required=True,
+        Field("authors", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:author", multiple=True, required=True,
               doc="Creator of a literary or creative work, as well as a dataset publication."),
-        Field("custodians", ["openminds.core.Organization", "openminds.core.Person"], "vocab:custodian", multiple=True, required=False,
+        Field("custodians", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:custodian", multiple=True, required=False,
               doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product."),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the brain atlas."),
@@ -47,6 +47,8 @@ class BrainAtlas(KGObject):
               doc="Main website of the brain atlas."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
+        Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
+              doc="Term or code used to identify the brain atlas registered within a particular ontology."),
 
     ]
     existence_query_fields = ('digital_identifier',)

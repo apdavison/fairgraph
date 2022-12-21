@@ -15,7 +15,7 @@ class ElectrodeUsage(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/ElectrodeUsage"]
     context = {
         "schema": "http://schema.org/",
@@ -35,7 +35,7 @@ class ElectrodeUsage(KGObject):
               doc="no description available"),
         Field("coordinate_point", "openminds.sands.CoordinatePoint", "vocab:coordinatePoint", multiple=False, required=False,
               doc="Pair or triplet of numbers defining the position in a particular two- or three dimensional plane or space."),
-        Field("electrode", ["openminds..", "openminds..", "openminds..", "openminds..", "openminds..", "openminds..", "openminds.:", "openminds.E", "openminds.a", "openminds.b", "openminds.c", "openminds.d", "openminds.d", "openminds.e", "openminds.e", "openminds.e", "openminds.e", "openminds.e", "openminds.e", "openminds.h", "openminds.h", "openminds.i", "openminds.i", "openminds.l", "openminds.m", "openminds.n", "openminds.n", "openminds.n", "openminds.o", "openminds.o", "openminds.p", "openminds.p", "openminds.p", "openminds.r", "openminds.r", "openminds.s", "openminds.s", "openminds.s", "openminds.s", "openminds.t", "openminds.t", "openminds.t", "openminds.u", "openminds.y"], "vocab:electrode", multiple=False, required=True,
+        Field("electrode", "openminds.ephys.Electrode", "vocab:electrode", multiple=False, required=True,
               doc="no description available"),
         Field("used_specimen", ["openminds.core.SubjectState", "openminds.core.TissueSampleState"], "vocab:usedSpecimen", multiple=False, required=False,
               doc="no description available"),

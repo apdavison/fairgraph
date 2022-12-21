@@ -4,8 +4,10 @@ from ...base_v3 import KGObject
 
 from .difference_measure import DifferenceMeasure
 from .programming_language import ProgrammingLanguage
+from .stimulation_technique import StimulationTechnique
 from .measured_quantity import MeasuredQuantity
 from .laterality import Laterality
+from .auditory_stimulus_type import AuditoryStimulusType
 from .software_application_category import SoftwareApplicationCategory
 from .service import Service
 from .age_category import AgeCategory
@@ -23,10 +25,14 @@ from .software_feature import SoftwareFeature
 from .cell_type import CellType
 from .type_of_uncertainty import TypeOfUncertainty
 from .genetic_strain_type import GeneticStrainType
+from .electrical_stimulus_type import ElectricalStimulusType
 from .model_abstraction_level import ModelAbstractionLevel
+from .olfactory_stimulus_type import OlfactoryStimulusType
+from .learning_resource_type import LearningResourceType
 from .ethics_assessment import EthicsAssessment
 from .organ import Organ
 from .technique import Technique
+from .tactile_stimulus_type import TactileStimulusType
 from .chemical_mixture_type import ChemicalMixtureType
 from .qualitative_overlap import QualitativeOverlap
 from .anatomical_axes_orientation import AnatomicalAxesOrientation
@@ -39,7 +45,8 @@ from .biological_sex import BiologicalSex
 from .data_type import DataType
 from .stimulation_approach import StimulationApproach
 from .model_scope import ModelScope
-from .stimulus_type import StimulusType
+from .optical_stimulus_type import OpticalStimulusType
+from .cranial_window_reinforcement_type import CranialWindowReinforcementType
 from .term_suggestion import TermSuggestion
 from .disease import Disease
 from .setup_type import SetupType
@@ -48,8 +55,10 @@ from .handedness import Handedness
 from .tissue_sample_type import TissueSampleType
 from .contribution_type import ContributionType
 from .product_accessibility import ProductAccessibility
+from .cranial_window_construction_type import CranialWindowConstructionType
 from .biological_order import BiologicalOrder
-from .cranial_window_type import CranialWindowType
+from .educational_level import EducationalLevel
+from .visual_stimulus_type import VisualStimulusType
 from .language import Language
 from .cell_culture_type import CellCultureType
 from .action_status_type import ActionStatusType
@@ -61,6 +70,7 @@ from .file_repository_type import FileRepositoryType
 from .atlas_type import AtlasType
 from .subcellular_entity import SubcellularEntity
 from .annotation_type import AnnotationType
+from .gustatory_stimulus_type import GustatoryStimulusType
 from .tissue_sample_attribute import TissueSampleAttribute
 
 

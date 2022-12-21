@@ -27,7 +27,9 @@ class Person(KGObject):
     fields = [
         Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
               doc="Declaration of a person being closely associated to an organization."),
-        Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=True, required=False,
+        Field("associated_accounts", "openminds.core.AccountInformation", "vocab:associatedAccount", multiple=True, required=False,
+              doc="no description available"),
+        Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=False, required=False,
               doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.)."),
         Field("digital_identifiers", "openminds.core.ORCID", "vocab:digitalIdentifier", multiple=True, required=False,
               doc="Digital handle to identify objects or legal persons."),
@@ -47,8 +49,8 @@ class Person(KGObject):
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
-        family_name = user_info.family_name
-        given_name = user_info.given_name
+        family_name = user_info["http://schema.org/familyName"]
+        given_name = user_info["http://schema.org/givenName"]
         possible_matches = cls.list(
             client, scope="in progress", space="common",
             resolved=resolved,

@@ -15,7 +15,7 @@ class Pipette(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/Pipette"]
     context = {
         "schema": "http://schema.org/",
@@ -41,11 +41,11 @@ class Pipette(KGObject):
               doc="no description available"),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the pipette within a particular product."),
-        Field("manufacturers", ["openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=True,
+        Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=True,
               doc="no description available"),
         Field("material", ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance", "openminds.controlledterms.MolecularEntity"], "vocab:material", multiple=False, required=False,
               doc="no description available"),
-        Field("owners", ["openminds.core.Organization", "openminds.core.Person"], "vocab:owner", multiple=True, required=False,
+        Field("owners", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:owner", multiple=True, required=False,
               doc="no description available"),
         Field("serial_number", str, "vocab:serialNumber", multiple=False, required=False,
               doc="no description available"),

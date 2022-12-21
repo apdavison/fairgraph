@@ -33,7 +33,9 @@ class BehavioralProtocol(KGObject):
               doc="Longer statement or account giving the characteristics of the behavioral protocol."),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the behavioral protocol within a particular product."),
-        Field("stimulations", "openminds.core.Stimulation", "vocab:stimulation", multiple=True, required=False,
+        Field("stimulations", ["openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique"], "vocab:stimulation", multiple=True, required=False,
+              doc="no description available"),
+        Field("stimulus_types", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.VisualStimulusType"], "vocab:stimulusType", multiple=True, required=False,
               doc="no description available"),
 
     ]

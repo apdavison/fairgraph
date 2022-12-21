@@ -5,17 +5,16 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Circle(KGObject):
+class Circle(EmbeddedMetadata):
     """
 
     """
-    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/Circle"]
     context = {
         "schema": "http://schema.org/",
@@ -29,4 +28,3 @@ class Circle(KGObject):
               doc="no description available"),
 
     ]
-    existence_query_fields = ('radius',)

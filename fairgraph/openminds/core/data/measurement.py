@@ -28,7 +28,7 @@ class Measurement(EmbeddedMetadata):
               doc="Mention of what deserves additional attention or notice."),
         Field("measured_quantity", "openminds.controlledterms.MeasuredQuantity", "vocab:measuredQuantity", multiple=False, required=True,
               doc="no description available"),
-        Field("measured_with", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage"], "vocab:measuredWith", multiple=False, required=False,
+        Field("measured_with", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage", "openminds.specimenprep.SlicingDeviceUsage"], "vocab:measuredWith", multiple=False, required=False,
               doc="no description available"),
         Field("timestamp", datetime, "vocab:timestamp", multiple=False, required=False,
               doc="no description available"),

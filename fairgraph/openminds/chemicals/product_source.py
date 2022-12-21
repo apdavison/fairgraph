@@ -15,7 +15,7 @@ class ProductSource(KGObject):
     """
 
     """
-    default_space = "dataset"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/ProductSource"]
     context = {
         "schema": "http://schema.org/",
@@ -31,7 +31,7 @@ class ProductSource(KGObject):
               doc="Term or code used to identify the product source."),
         Field("product_name", str, "vocab:productName", multiple=False, required=True,
               doc="no description available"),
-        Field("provider", ["openminds.core.Organization", "openminds.core.Person"], "vocab:provider", multiple=False, required=True,
+        Field("provider", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:provider", multiple=False, required=True,
               doc="no description available"),
         Field("purity", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:purity", multiple=False, required=False,
               doc="no description available"),

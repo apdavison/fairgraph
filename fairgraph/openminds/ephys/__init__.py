@@ -3,6 +3,7 @@ import inspect
 from ...base_v3 import KGObject
 
 from .activity.recording_activity import RecordingActivity
+from .activity.electrode_placement import ElectrodePlacement
 from .activity.cell_patching import CellPatching
 from .entity.channel import Channel
 from .entity.recording import Recording

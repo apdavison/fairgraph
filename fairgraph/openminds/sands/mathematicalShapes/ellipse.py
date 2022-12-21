@@ -5,17 +5,16 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
 
 
-class Ellipse(KGObject):
+class Ellipse(EmbeddedMetadata):
     """
 
     """
-    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/Ellipse"]
     context = {
         "schema": "http://schema.org/",
@@ -31,4 +30,3 @@ class Ellipse(KGObject):
               doc="no description available"),
 
     ]
-    existence_query_fields = ('semi_major_axis', 'semi_minor_axis')

@@ -27,6 +27,8 @@ class URL(KGObject):
     fields = [
         Field("url", IRI, "vocab:URL", multiple=False, required=True,
               doc="no description available"),
+        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
+              doc="Method of digitally organizing and structuring data or information."),
 
     ]
     existence_query_fields = ('url',)

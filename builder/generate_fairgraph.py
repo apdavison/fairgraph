@@ -65,7 +65,8 @@ custom_multiple = {
     "pathology": "pathologies",
     "uncertainty": "uncertainties",
     "application_category": "application_categories",
-    "about": "about"
+    "about": "about",
+    "performed_by": "performed_by"
 }
 
 
@@ -137,8 +138,9 @@ DEFAULT_SPACES = {
         {
             "common": [
                 "Affiliation",
-                "Configuration",
                 "Comment",
+                "Configuration",
+                "Consortium",
                 "Funding",
                 "GRIDID",
                 "HANDLE",
@@ -151,7 +153,8 @@ DEFAULT_SPACES = {
                 "RORID",
                 "TermSuggestion",
                 "URL",
-                "RRID"
+                "RRID",
+                "AccountInformation",  # or does this go in "restricted"?
             ],
             "files": [
                 "ContentTypePattern",
@@ -199,7 +202,8 @@ DEFAULT_SPACES = {
             "software": ["SWHID", "Software", "SoftwareVersion"],
             "restricted": ["ContactInformation"],
             "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
-            "controlled": ["License", "ContentType"]
+            "controlled": ["License", "ContentType"],
+            "webservice": ["WebService", "WebServiceVersion"]
         }),
     "computation": {
         "default": "computation"
@@ -241,7 +245,16 @@ DEFAULT_SPACES = {
         "default": "livepapers"
     },
     "ephys": {
-        "default": "electrophysiology"
+        "default": "in-depth"
+    },
+    "chemicals": {
+        "default": "in-depth"
+    },
+    "specimenPrep": {
+        "default": "in-depth"
+    },
+    "stimulation": {
+        "default": "in-depth"
     }
 }
 
@@ -252,7 +265,10 @@ def get_default_space(schema_group, cls_name):
     if cls_name in DEFAULT_SPACES[schema_group]:
         return DEFAULT_SPACES[schema_group][cls_name]
     else:
-        return DEFAULT_SPACES[schema_group]["default"]
+        try:
+            return DEFAULT_SPACES[schema_group]["default"]
+        except KeyError:
+            raise KeyError(f"An entry for '{cls_name}' is missing from DEFAULT_SPACES['{schema_group}']")
 
 
 # in general, we use the required fields when deciding whether a given object already exists
@@ -467,6 +483,8 @@ class FairgraphGenerator(JinjaGenerator):
     def _pre_generate(self, ignore=None):
         self._linked_types = set()
         self._embedded_types = set()
+        _linked_from = defaultdict(list)
+        _embedded_in = defaultdict(list)
         expanded_path = os.path.join(ROOT_PATH, EXPANDED_DIR)
         for schema_group in find_resource_directories(expanded_path,
                                                       file_ending=SCHEMA_FILE_ENDING,
@@ -480,10 +498,16 @@ class FairgraphGenerator(JinjaGenerator):
                 for property in schema["properties"].values():
                     if TEMPLATE_PROPERTY_EMBEDDED_TYPES in property:
                         self._embedded_types.update(property[TEMPLATE_PROPERTY_EMBEDDED_TYPES])
+                        for item in property[TEMPLATE_PROPERTY_EMBEDDED_TYPES]:
+                            _embedded_in[item].append(schema["_type"])
                     elif TEMPLATE_PROPERTY_LINKED_TYPES in property:
                         self._linked_types.update(property[TEMPLATE_PROPERTY_LINKED_TYPES])
-        if len(self._linked_types.intersection(self._embedded_types)) > 0:
-            warnings.warn("Found type(s) that are both embedded and linked")
+                        for item in property[TEMPLATE_PROPERTY_LINKED_TYPES]:
+                            _linked_from[item].append(schema["_type"])
+        conflicts = self._linked_types.intersection(self._embedded_types)
+        if len(conflicts) > 0:
+            for type_ in conflicts:
+                warnings.warn(f"{type_} is linked from {_linked_from[type_]} and embedded in {_embedded_in[type_]}")
 
     def generate(self, ignore=None):
         super().generate(ignore=ignore)

@@ -5,17 +5,16 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base_v3 import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
 
 
-class AnatomicalTargetPosition(KGObject):
+class AnatomicalTargetPosition(EmbeddedMetadata):
     """
 
     """
-    default_space = "atlas"
     type = ["https://openminds.ebrains.eu/sands/AnatomicalTargetPosition"]
     context = {
         "schema": "http://schema.org/",
@@ -37,4 +36,3 @@ class AnatomicalTargetPosition(KGObject):
               doc="no description available"),
 
     ]
-    existence_query_fields = ('lookup_label',)

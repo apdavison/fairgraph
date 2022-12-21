@@ -15,7 +15,7 @@ class Electrode(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/Electrode"]
     context = {
         "schema": "http://schema.org/",
@@ -43,9 +43,9 @@ class Electrode(KGObject):
               doc="Term or code that identifies the electrode within a particular product."),
         Field("intrinsic_resistance", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:intrinsicResistance", multiple=False, required=False,
               doc="no description available"),
-        Field("manufacturers", ["openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=True,
+        Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=True,
               doc="no description available"),
-        Field("owners", ["openminds.core.Organization", "openminds.core.Person"], "vocab:owner", multiple=True, required=False,
+        Field("owners", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:owner", multiple=True, required=False,
               doc="no description available"),
         Field("serial_number", str, "vocab:serialNumber", multiple=False, required=False,
               doc="no description available"),

@@ -49,6 +49,8 @@ class CommonCoordinateSpace(KGObject):
               doc="Term or code used to identify the common coordinate space registered within a particular ontology."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),
+        Field("used_specimens", ["openminds.core.Subject", "openminds.core.SubjectGroup", "openminds.core.TissueSample", "openminds.core.TissueSampleCollection"], "vocab:usedSpecimen", multiple=True, required=False,
+              doc="no description available"),
         Field("version_identifier", str, "vocab:versionIdentifier", multiple=False, required=True,
               doc="Term or code used to identify the version of something."),
 

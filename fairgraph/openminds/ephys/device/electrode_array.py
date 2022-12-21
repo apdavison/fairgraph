@@ -15,7 +15,7 @@ class ElectrodeArray(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/ElectrodeArray"]
     context = {
         "schema": "http://schema.org/",

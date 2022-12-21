@@ -26,8 +26,8 @@ class Affiliation(EmbeddedMetadata):
     fields = [
         Field("end_date", date, "vocab:endDate", multiple=False, required=False,
               doc="Date in the Gregorian calendar at which something terminates in time."),
-        Field("organization", "openminds.core.Organization", "vocab:organization", multiple=False, required=True,
-              doc="Legally accountable, administrative and functional structure."),
+        Field("member_of", ["openminds.core.Consortium", "openminds.core.Organization"], "vocab:memberOf", multiple=False, required=False,
+              doc="no description available"),
         Field("start_date", date, "vocab:startDate", multiple=False, required=False,
               doc="Date in the Gregorian calendar at which something begins in time"),
 

@@ -15,7 +15,7 @@ class PipetteUsage(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/PipetteUsage"]
     context = {
         "schema": "http://schema.org/",

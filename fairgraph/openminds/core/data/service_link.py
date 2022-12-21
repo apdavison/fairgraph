@@ -27,7 +27,7 @@ class ServiceLink(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=False,
               doc="Word or phrase that constitutes the distinctive designation of the service link."),
-        Field("data_location", ["openminds.core.File", "openminds.core.FileArchive", "openminds.core.FileBundle", "openminds.publications.LivePaperResourceItem", "openminds.sands.ParcellationEntityVersion"], "vocab:dataLocation", multiple=False, required=True,
+        Field("data_location", ["openminds.core.File", "openminds.core.FileArchive", "openminds.core.FileBundle", "openminds.core.ModelVersion", "openminds.publications.LivePaperResourceItem", "openminds.sands.ParcellationEntityVersion"], "vocab:dataLocation", multiple=False, required=True,
               doc="no description available"),
         Field("open_data_in", "openminds.core.URL", "vocab:openDataIn", multiple=False, required=True,
               doc="no description available"),

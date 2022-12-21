@@ -31,7 +31,7 @@ class Funding(KGObject):
               doc="Machine-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need."),
         Field("award_title", str, "vocab:awardTitle", multiple=False, required=False,
               doc="Human-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need."),
-        Field("funder", ["openminds.core.Organization", "openminds.core.Person"], "vocab:funder", multiple=False, required=True,
+        Field("funder", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:funder", multiple=False, required=True,
               doc="Legal person that provides money for a particular purpose."),
 
     ]

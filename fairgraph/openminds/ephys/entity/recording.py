@@ -15,7 +15,7 @@ class Recording(KGObject):
     """
 
     """
-    default_space = "electrophysiology"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/ephys/Recording"]
     context = {
         "schema": "http://schema.org/",
@@ -37,7 +37,7 @@ class Recording(KGObject):
               doc="Term or code that identifies the recording within a particular product."),
         Field("previous_recording", "openminds.ephys.Recording", "vocab:previousRecording", multiple=False, required=False,
               doc="no description available"),
-        Field("recorded_with", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage"], "vocab:recordedWith", multiple=False, required=True,
+        Field("recorded_with", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage", "openminds.specimenprep.SlicingDeviceUsage"], "vocab:recordedWith", multiple=False, required=True,
               doc="no description available"),
         Field("sampling_frequency", "openminds.core.QuantitativeValue", "vocab:samplingFrequency", multiple=False, required=True,
               doc="no description available"),

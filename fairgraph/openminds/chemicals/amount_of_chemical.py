@@ -15,7 +15,7 @@ class AmountOfChemical(KGObject):
     """
 
     """
-    default_space = "dataset"
+    default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/AmountOfChemical"]
     context = {
         "schema": "http://schema.org/",

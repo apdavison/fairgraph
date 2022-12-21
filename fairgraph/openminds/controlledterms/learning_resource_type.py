@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class CranialWindowType(KGObject):
+class LearningResourceType(KGObject):
     """
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/CranialWindowType"]
+    type = ["https://openminds.ebrains.eu/controlledTerms/LearningResourceType"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,11 +26,11 @@ class CranialWindowType(KGObject):
     }
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the cranial window type."),
+              doc="Word or phrase that constitutes the distinctive designation of the learning resource type."),
         Field("definition", str, "vocab:definition", multiple=False, required=False,
               doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol."),
         Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the cranial window type."),
+              doc="Longer statement or account giving the characteristics of the learning resource type."),
         Field("interlex_identifier", IRI, "vocab:interlexIdentifier", multiple=False, required=False,
               doc="Persistent identifier for a term registered in the InterLex project."),
         Field("knowledge_space_link", IRI, "vocab:knowledgeSpaceLink", multiple=False, required=False,
