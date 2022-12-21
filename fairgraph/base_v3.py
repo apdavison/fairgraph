@@ -656,7 +656,7 @@ class KGObject(object, metaclass=Registry):
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
                 query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
                 instances = client.query(normalized_filters, query["@id"], size=1,
-                                         scope="in progress").data
+                                         scope="any").data
 
                 if instances:
                     self.id = instances[0]["@id"]
@@ -1117,7 +1117,11 @@ class KGProxy(object):
 
     def delete(self, client, ignore_not_found=True):
         """Delete the instance which this proxy represents"""
-        obj = self.resolve(client, scope="in progress")
+        try:
+            obj = self.resolve(client, scope="in progress")
+        except ResolutionFailure as err:
+            logger.warning(str(err))
+            obj = None
         if obj:
             obj.delete(client, ignore_not_found=ignore_not_found)
         elif not ignore_not_found:

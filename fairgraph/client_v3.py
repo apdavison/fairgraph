@@ -105,7 +105,7 @@ class KGv3Client(object):
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
-                raise AuthenticationError()
+                raise AuthenticationError(str(response))
             elif response.error.code == 404 and ignore_not_found:
                 return response
             else:
@@ -121,7 +121,7 @@ class KGv3Client(object):
                 additional_request_params=filter or {},
                 stage=STAGE_MAP[scope],
                 pagination=Pagination(start=from_index, size=size),
-                instance_id=instance_id
+                instance_id=instance_id,
                 #restrict_to_spaces=[space] if space else None,
             )
             return self._check_response(response)
