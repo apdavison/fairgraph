@@ -74,7 +74,19 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/associatedAccount",
+      "propertyName": "vocab:associatedAccount",
       "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
       "propertyName": "vocab:contactInformation",
       "structure": [

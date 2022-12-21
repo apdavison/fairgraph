@@ -45,9 +45,9 @@ def test_query_filter_by_space(kg_client):
         size=1000,
         scope="in progress",
         id_key="uri",
-        space="collab-model-validation"
+        space="model"
     )
     spaces = set(result["project_id"] for result in results.data)
     if len(spaces) > 0:  # not a great test, needs to be improved
         assert len(spaces) == 1
-        assert "collab-model-validation" == list(spaces)[0]
+        assert "model" == list(spaces)[0]

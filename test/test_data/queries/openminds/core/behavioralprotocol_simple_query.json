@@ -76,6 +76,19 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/stimulusType",
+      "propertyName": "vocab:stimulusType",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

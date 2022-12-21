@@ -49,6 +49,40 @@
       "propertyName": "vocab:shortName"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/affiliation",
+      "propertyName": "vocab:affiliation",
+      "filter": {
+        "op": "CONTAINS",
+        "parameter": "affiliations"
+      },
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@type"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/endDate",
+          "propertyName": "vocab:endDate"
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/organization",
+          "propertyName": "vocab:organization",
+          "structure": [
+            {
+              "path": "@id"
+            },
+            {
+              "path": "@type"
+            }
+          ]
+        },
+        {
+          "path": "https://openminds.ebrains.eu/vocab/startDate",
+          "propertyName": "vocab:startDate"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
       "propertyName": "vocab:digitalIdentifier",
       "ensureOrder": true,
@@ -64,6 +98,7 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/hasParent",
       "propertyName": "vocab:hasParent",
+      "ensureOrder": true,
       "structure": [
         {
           "path": "@id"

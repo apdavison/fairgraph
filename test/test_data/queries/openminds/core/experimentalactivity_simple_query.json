@@ -132,6 +132,19 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/performedBy",
+      "propertyName": "vocab:performedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
       "propertyName": "vocab:preparationDesign",
       "structure": [

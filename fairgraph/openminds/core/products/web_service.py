@@ -35,7 +35,7 @@ class WebService(KGObject):
               doc="Longer statement or account giving the characteristics of the web service."),
         Field("developers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:developer", multiple=True, required=True,
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
-        Field("versions", "openminds.computation.WebServiceVersion", "vocab:hasVersion", multiple=True, required=True,
+        Field("versions", "openminds.core.WebServiceVersion", "vocab:hasVersion", multiple=True, required=True,
               doc="Reference to variants of an original."),
         Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
               doc="Main website of the web service."),

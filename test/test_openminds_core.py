@@ -92,10 +92,10 @@ def test_resolve_model(kg_client):
     assert isinstance(model.versions, KGProxy)
     resolved_model2 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=2)
     assert isinstance(resolved_model2.versions, omcore.ModelVersion)
-    assert isinstance(resolved_model2.custodians[0].affiliations[0].organization, KGProxy)
+    assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
 
     resolved_model4 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=3)
-    assert isinstance(resolved_model4.custodians[0].affiliations[0].organization, omcore.Organization)
+    assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
 
 
 @skip_if_no_connection
@@ -194,7 +194,7 @@ def test_save_new_recursive_mock(mock_client):
         given_name="Thorin",
         family_name="Oakenshield",
         affiliations=omcore.Affiliation(
-            organization=omcore.Organization(name="The Lonely Mountain")
+            member_of=omcore.Organization(name="The Lonely Mountain")
         )
     )
     log = ActivityLog()
@@ -207,7 +207,7 @@ def test_save_new_recursive_mock(mock_client):
     assert log.entries[1].space == "myspace"
     assert log.entries[1].type == "create"
     assert UUID(new_person.uuid)
-    assert UUID(new_person.affiliations.organization.uuid)
+    assert UUID(new_person.affiliations.member_of.uuid)
 
 
 #def test_save_existing_with_id_mock(mock_client):
