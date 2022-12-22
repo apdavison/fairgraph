@@ -15,7 +15,7 @@ Structured information on the technique.
          - 'Stochastic online matrix factorization' is a matrix-factorization algorithm that scales to input matrices with both huge number of rows and columns [(Mensch et al., 2018)](https://doi.org/10.1109/TSP.2017.2752697).
        * - semiquantitative analysis
          - An analysis technique which constitutes or involves less than quantitative precision.
-       * - light sheet fluorescence microscopy
+       * - `light sheet fluorescence microscopy <http://uri.interlex.org/tgbugs/uris/readable/technique/lightSheetMicroscopyFluorescent>`_
          - Lightsheet fluorescence microscopy is a fluorescence microscopy technique that uses a thin sheet of light to excite only fluorophores within the plane of illumination.
        * - beta-galactosidase staining
          -
@@ -41,7 +41,7 @@ Structured information on the technique.
          -
        * - transformation
          - A 'transformation' is a mathematical function to map coordinates between two different coordinate systems.
-       * - electron tomography
+       * - `electron tomography <http://id.nlm.nih.gov/mesh/2018/M0512939>`_
          - Electron tomography is a microscopy technique that takes a series of images of a thick sample at different angles (tilts) so that tomography can be applied to increase the resolution of the ticker sample.
        * - ultra high-field functional magnetic resonance imaging
          - 'Ultra high-field functional magnetic resonance imaging' comprises all functional MRI techniques conducted with a MRI scanner with a magnetic field strength equal or above 7 Tesla.
@@ -77,7 +77,7 @@ class Technique(KGObject):
          - 'Stochastic online matrix factorization' is a matrix-factorization algorithm that scales to input matrices with both huge number of rows and columns [(Mensch et al., 2018)](https://doi.org/10.1109/TSP.2017.2752697).
        * - semiquantitative analysis
          - An analysis technique which constitutes or involves less than quantitative precision.
-       * - light sheet fluorescence microscopy
+       * - `light sheet fluorescence microscopy <http://uri.interlex.org/tgbugs/uris/readable/technique/lightSheetMicroscopyFluorescent>`_
          - Lightsheet fluorescence microscopy is a fluorescence microscopy technique that uses a thin sheet of light to excite only fluorophores within the plane of illumination.
        * - beta-galactosidase staining
          -
@@ -103,7 +103,7 @@ class Technique(KGObject):
          -
        * - transformation
          - A 'transformation' is a mathematical function to map coordinates between two different coordinate systems.
-       * - electron tomography
+       * - `electron tomography <http://id.nlm.nih.gov/mesh/2018/M0512939>`_
          - Electron tomography is a microscopy technique that takes a series of images of a thick sample at different angles (tilts) so that tomography can be applied to increase the resolution of the ticker sample.
        * - ultra high-field functional magnetic resonance imaging
          - 'Ultra high-field functional magnetic resonance imaging' comprises all functional MRI techniques conducted with a MRI scanner with a magnetic field strength equal or above 7 Tesla.

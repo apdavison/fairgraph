@@ -7,11 +7,11 @@ Structured information on the biological sex of a subject.
 
        * - not detectable
          - Can be stated if the biological sex in visually not detectable at a specific point in time.
-       * - male
+       * - `male <http://purl.obolibrary.org/obo/PATO_0000384>`_
          - Biological sex that produces sperm cells (spermatozoa).
-       * - female
+       * - `female <http://purl.obolibrary.org/obo/PATO_0000383>`_
          - Biological sex that produces egg cells (ova).
-       * - hermaphrodite
+       * - `hermaphrodite <http://purl.obolibrary.org/obo/PATO_0001340>`_
          - Biological sex with both male and female reproductive organs.
 
 """
@@ -35,11 +35,11 @@ class BiologicalSex(KGObject):
 
        * - not detectable
          - Can be stated if the biological sex in visually not detectable at a specific point in time.
-       * - male
+       * - `male <http://purl.obolibrary.org/obo/PATO_0000384>`_
          - Biological sex that produces sperm cells (spermatozoa).
-       * - female
+       * - `female <http://purl.obolibrary.org/obo/PATO_0000383>`_
          - Biological sex that produces egg cells (ova).
-       * - hermaphrodite
+       * - `hermaphrodite <http://purl.obolibrary.org/obo/PATO_0001340>`_
          - Biological sex with both male and female reproductive organs.
 
     """

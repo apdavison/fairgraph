@@ -7,7 +7,7 @@
 
        * - deterministic atlas
          - A 'deterministic atlas' is an anatomical or anatomopathological atlases based on a definite composite of a single specimen.
-       * - parcellation scheme
+       * - `parcellation scheme <http://uri.neuinfo.org/nif/nifstd/nlx_144019>`_
          - A 'parcellation scheme' is a set of parcels occupying a part or all of an anatomical entity that has been delineated or annotated using a common approach or set of criteria.
        * - probabilistic atlas
          - A 'probabilistic atlas' is an anatomical or anatomopathological atlases based on statistically-weighted composites of many specimens.
@@ -33,7 +33,7 @@ class AtlasType(KGObject):
 
        * - deterministic atlas
          - A 'deterministic atlas' is an anatomical or anatomopathological atlases based on a definite composite of a single specimen.
-       * - parcellation scheme
+       * - `parcellation scheme <http://uri.neuinfo.org/nif/nifstd/nlx_144019>`_
          - A 'parcellation scheme' is a set of parcels occupying a part or all of an anatomical entity that has been delineated or annotated using a common approach or set of criteria.
        * - probabilistic atlas
          - A 'probabilistic atlas' is an anatomical or anatomopathological atlases based on statistically-weighted composites of many specimens.

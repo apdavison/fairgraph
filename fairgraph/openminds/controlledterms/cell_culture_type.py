@@ -5,9 +5,9 @@
        :widths: 20 80
        :header-rows: 0
 
-       * - primary cell culture
+       * - `primary cell culture <http://id.nlm.nih.gov/mesh/2018/M0452904>`_
          - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
-       * - secondary cell culture
+       * - `secondary cell culture <http://purl.obolibrary.org/obo/OBI_0001905>`_
          - A cultured cell population that is derived through one or more passages in culture.
 
 """
@@ -29,9 +29,9 @@ class CellCultureType(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - primary cell culture
+       * - `primary cell culture <http://id.nlm.nih.gov/mesh/2018/M0452904>`_
          - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
-       * - secondary cell culture
+       * - `secondary cell culture <http://purl.obolibrary.org/obo/OBI_0001905>`_
          - A cultured cell population that is derived through one or more passages in culture.
 
     """

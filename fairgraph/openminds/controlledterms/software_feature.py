@@ -5,45 +5,45 @@
        :widths: 20 80
        :header-rows: 0
 
-       * - raster image data types
+       * - `raster image data types <https://www.wikidata.org/wiki/Q182270>`_
          - https://www.wikidata.org/wiki/Q182270
-       * - simulation
+       * - `simulation <https://www.wikidata.org/wiki/Q925667>`_
          - https://www.wikidata.org/wiki/Q925667
        * - 3D scalar data types
          -
-       * - control
+       * - `control <https://www.wikidata.org/wiki/Q29017603>`_
          - https://www.wikidata.org/wiki/Q29017603
        * - interactive analysis
          -
-       * - provenance
+       * - `provenance <https://www.wikidata.org/wiki/Q30105403>`_
          - https://www.wikidata.org/wiki/Q30105403
        * - 3D vector data types
          -
-       * - statistical data types
+       * - `statistical data types <https://www.wikidata.org/wiki/Q7604387>`_
          - https://www.wikidata.org/wiki/Q7604387
        * - tiled display wall
          -
        * - scripting interface
          -
-       * - mobile device
+       * - `mobile device <https://www.wikidata.org/wiki/Q5082128>`_
          - https://www.wikidata.org/wiki/Q5082128
-       * - augmented reality
+       * - `augmented reality <https://www.wikidata.org/wiki/Q254183>`_
          - https://www.wikidata.org/wiki/Q254183
-       * - time series data types
+       * - `time series data types <https://www.wikidata.org/wiki/Q186588>`_
          - https://www.wikidata.org/wiki/Q186588
-       * - metadata data types
+       * - `metadata data types <https://www.wikidata.org/wiki/Q180160>`_
          - https://www.wikidata.org/wiki/Q180160
-       * - graphical user interface
+       * - `graphical user interface <https://www.wikidata.org/wiki/Q782543>`_
          - https://www.wikidata.org/wiki/Q782543
-       * - modelling
+       * - `modelling <https://www.wikidata.org/wiki/Q1116876>`_
          - https://www.wikidata.org/wiki/Q1116876
-       * - presentation visualisation
+       * - `presentation visualisation <https://www.wikidata.org/wiki/Q451553>`_
          - https://www.wikidata.org/wiki/Q451553
-       * - graph data types
+       * - `graph data types <https://www.wikidata.org/wiki/Q2479726>`_
          - https://www.wikidata.org/wiki/Q2479726
-       * - heterogeneous architecture
+       * - `heterogeneous architecture <https://www.wikidata.org/wiki/Q17111997>`_
          - https://www.wikidata.org/wiki/Q17111997
-       * - positional data types
+       * - `positional data types <https://www.wikidata.org/wiki/Q1477538>`_
          - https://www.wikidata.org/wiki/Q1477538
 
 Here we show the first 20 values, an additional 12 values are not shown.
@@ -67,45 +67,45 @@ class SoftwareFeature(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - raster image data types
+       * - `raster image data types <https://www.wikidata.org/wiki/Q182270>`_
          - https://www.wikidata.org/wiki/Q182270
-       * - simulation
+       * - `simulation <https://www.wikidata.org/wiki/Q925667>`_
          - https://www.wikidata.org/wiki/Q925667
        * - 3D scalar data types
          -
-       * - control
+       * - `control <https://www.wikidata.org/wiki/Q29017603>`_
          - https://www.wikidata.org/wiki/Q29017603
        * - interactive analysis
          -
-       * - provenance
+       * - `provenance <https://www.wikidata.org/wiki/Q30105403>`_
          - https://www.wikidata.org/wiki/Q30105403
        * - 3D vector data types
          -
-       * - statistical data types
+       * - `statistical data types <https://www.wikidata.org/wiki/Q7604387>`_
          - https://www.wikidata.org/wiki/Q7604387
        * - tiled display wall
          -
        * - scripting interface
          -
-       * - mobile device
+       * - `mobile device <https://www.wikidata.org/wiki/Q5082128>`_
          - https://www.wikidata.org/wiki/Q5082128
-       * - augmented reality
+       * - `augmented reality <https://www.wikidata.org/wiki/Q254183>`_
          - https://www.wikidata.org/wiki/Q254183
-       * - time series data types
+       * - `time series data types <https://www.wikidata.org/wiki/Q186588>`_
          - https://www.wikidata.org/wiki/Q186588
-       * - metadata data types
+       * - `metadata data types <https://www.wikidata.org/wiki/Q180160>`_
          - https://www.wikidata.org/wiki/Q180160
-       * - graphical user interface
+       * - `graphical user interface <https://www.wikidata.org/wiki/Q782543>`_
          - https://www.wikidata.org/wiki/Q782543
-       * - modelling
+       * - `modelling <https://www.wikidata.org/wiki/Q1116876>`_
          - https://www.wikidata.org/wiki/Q1116876
-       * - presentation visualisation
+       * - `presentation visualisation <https://www.wikidata.org/wiki/Q451553>`_
          - https://www.wikidata.org/wiki/Q451553
-       * - graph data types
+       * - `graph data types <https://www.wikidata.org/wiki/Q2479726>`_
          - https://www.wikidata.org/wiki/Q2479726
-       * - heterogeneous architecture
+       * - `heterogeneous architecture <https://www.wikidata.org/wiki/Q17111997>`_
          - https://www.wikidata.org/wiki/Q17111997
-       * - positional data types
+       * - `positional data types <https://www.wikidata.org/wiki/Q1477538>`_
          - https://www.wikidata.org/wiki/Q1477538
 
 Here we show the first 20 values, an additional 12 values are not shown.

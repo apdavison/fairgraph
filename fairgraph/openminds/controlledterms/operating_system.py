@@ -5,23 +5,23 @@ Structured information on the operating system.
        :widths: 20 80
        :header-rows: 0
 
-       * - platform independent
+       * - `platform independent <https://www.wikidata.org/wiki/Q174666>`_
          - https://www.wikidata.org/wiki/Q174666
-       * - Android
+       * - `Android <https://www.wikidata.org/wiki/Q94>`_
          - https://www.wikidata.org/wiki/Q94
-       * - Windows Phone
+       * - `Windows Phone <https://www.wikidata.org/wiki/Q4885200>`_
          - https://www.wikidata.org/wiki/Q4885200
-       * - Unix
+       * - `Unix <https://www.wikidata.org/wiki/Q11368>`_
          - https://www.wikidata.org/wiki/Q11368
-       * - iOS
+       * - `iOS <https://www.wikidata.org/wiki/Q48493>`_
          - https://www.wikidata.org/wiki/Q48493
-       * - Linux
+       * - `Linux <https://www.wikidata.org/wiki/Q388>`_
          - https://www.wikidata.org/wiki/Q388
-       * - Solaris
+       * - `Solaris <https://www.wikidata.org/wiki/Q14646>`_
          - https://www.wikidata.org/wiki/Q14646
-       * - Windows
+       * - `Windows <https://www.wikidata.org/wiki/Q1406>`_
          - https://www.wikidata.org/wiki/Q1406
-       * - MacOS
+       * - `MacOS <https://www.wikidata.org/wiki/Q43627>`_
          - https://www.wikidata.org/wiki/Q43627
 
 """
@@ -43,23 +43,23 @@ class OperatingSystem(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - platform independent
+       * - `platform independent <https://www.wikidata.org/wiki/Q174666>`_
          - https://www.wikidata.org/wiki/Q174666
-       * - Android
+       * - `Android <https://www.wikidata.org/wiki/Q94>`_
          - https://www.wikidata.org/wiki/Q94
-       * - Windows Phone
+       * - `Windows Phone <https://www.wikidata.org/wiki/Q4885200>`_
          - https://www.wikidata.org/wiki/Q4885200
-       * - Unix
+       * - `Unix <https://www.wikidata.org/wiki/Q11368>`_
          - https://www.wikidata.org/wiki/Q11368
-       * - iOS
+       * - `iOS <https://www.wikidata.org/wiki/Q48493>`_
          - https://www.wikidata.org/wiki/Q48493
-       * - Linux
+       * - `Linux <https://www.wikidata.org/wiki/Q388>`_
          - https://www.wikidata.org/wiki/Q388
-       * - Solaris
+       * - `Solaris <https://www.wikidata.org/wiki/Q14646>`_
          - https://www.wikidata.org/wiki/Q14646
-       * - Windows
+       * - `Windows <https://www.wikidata.org/wiki/Q1406>`_
          - https://www.wikidata.org/wiki/Q1406
-       * - MacOS
+       * - `MacOS <https://www.wikidata.org/wiki/Q43627>`_
          - https://www.wikidata.org/wiki/Q43627
 
     """

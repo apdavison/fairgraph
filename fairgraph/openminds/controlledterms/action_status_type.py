@@ -5,17 +5,17 @@ The status of an action.
        :widths: 20 80
        :header-rows: 0
 
-       * - active
+       * - `active <https://schema.org/ActiveActionStatus>`_
          - An in-progress action.
-       * - completed
+       * - `completed <https://schema.org/CompletedActionStatus>`_
          - An action that has already taken place with a successful outcome.
        * - inactive
          - A pending or suspended action.
-       * - failed
+       * - `failed <https://schema.org/FailedActionStatus>`_
          - An action that failed to complete or completed but produced an error.
        * - paused
          - A temporarily stopped action that can be resumed at a later point in time.
-       * - potential
+       * - `potential <https://schema.org/PotentialActionStatus>`_
          - A description of an action that is supported.
        * - pending
          - An action which is awaiting execution.
@@ -39,17 +39,17 @@ class ActionStatusType(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - active
+       * - `active <https://schema.org/ActiveActionStatus>`_
          - An in-progress action.
-       * - completed
+       * - `completed <https://schema.org/CompletedActionStatus>`_
          - An action that has already taken place with a successful outcome.
        * - inactive
          - A pending or suspended action.
-       * - failed
+       * - `failed <https://schema.org/FailedActionStatus>`_
          - An action that failed to complete or completed but produced an error.
        * - paused
          - A temporarily stopped action that can be resumed at a later point in time.
-       * - potential
+       * - `potential <https://schema.org/PotentialActionStatus>`_
          - A description of an action that is supported.
        * - pending
          - An action which is awaiting execution.

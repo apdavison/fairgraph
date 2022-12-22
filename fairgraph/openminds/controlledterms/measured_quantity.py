@@ -19,7 +19,7 @@
          - Measured membrane potetial during a voltage-clamp protocol.
        * - seal resistance
          - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
-       * - membrane potential
+       * - `membrane potential <http://uri.interlex.org/base/ilx_0106774>`_
          - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
        * - chloride reversal potential
          - The reversal potential for chloride ions.
@@ -57,7 +57,7 @@ class MeasuredQuantity(KGObject):
          - Measured membrane potetial during a voltage-clamp protocol.
        * - seal resistance
          - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
-       * - membrane potential
+       * - `membrane potential <http://uri.interlex.org/base/ilx_0106774>`_
          - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
        * - chloride reversal potential
          - The reversal potential for chloride ions.

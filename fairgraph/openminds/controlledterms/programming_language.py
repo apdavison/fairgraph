@@ -5,45 +5,45 @@ Structured information on the programming language.
        :widths: 20 80
        :header-rows: 0
 
-       * - JavaScript
+       * - `JavaScript <https://www.wikidata.org/wiki/Q2005>`_
          - https://www.wikidata.org/wiki/Q2005
-       * - C#
+       * - `C# <https://www.wikidata.org/wiki/Q2370>`_
          - https://www.wikidata.org/wiki/Q2370
-       * - C++
+       * - `C++ <https://www.wikidata.org/wiki/Q2407>`_
          - https://www.wikidata.org/wiki/Q2407
-       * - Scala
+       * - `Scala <https://www.wikidata.org/wiki/Q460584>`_
          - https://www.wikidata.org/wiki/Q460584
-       * - GLSL
+       * - `GLSL <https://www.wikidata.org/wiki/Q779819>`_
          - https://www.wikidata.org/wiki/Q779819
-       * - Python
+       * - `Python <https://www.wikidata.org/wiki/Q28865>`_
          - https://www.wikidata.org/wiki/Q28865
-       * - Pascal
+       * - `Pascal <https://www.wikidata.org/wiki/Q81571>`_
          - https://www.wikidata.org/wiki/Q81571
-       * - TypeScript
+       * - `TypeScript <https://www.wikidata.org/wiki/Q978185>`_
          - https://www.wikidata.org/wiki/Q978185
-       * - Ruby
+       * - `Ruby <https://www.wikidata.org/wiki/Q161053>`_
          - https://www.wikidata.org/wiki/Q161053
-       * - HTML
+       * - `HTML <https://www.wikidata.org/wiki/Q8811>`_
          - https://www.wikidata.org/wiki/Q8811
-       * - R
+       * - `R <https://www.wikidata.org/wiki/Q206904>`_
          - https://www.wikidata.org/wiki/Q206904
-       * - Fortran
+       * - `Fortran <https://www.wikidata.org/wiki/Q83303>`_
          - https://www.wikidata.org/wiki/Q83303
-       * - Shell
+       * - `Shell <https://www.wikidata.org/wiki/Q14663>`_
          - https://www.wikidata.org/wiki/Q14663
-       * - C
+       * - `C <https://www.wikidata.org/wiki/Q15777>`_
          - https://www.wikidata.org/wiki/Q15777
        * - AMPL
          -
-       * - PHP
+       * - `PHP <https://www.wikidata.org/wiki/Q59>`_
          - https://www.wikidata.org/wiki/Q59
-       * - T-SQL
+       * - `T-SQL <https://www.wikidata.org/wiki/Q1411245>`_
          - https://www.wikidata.org/wiki/Q1411245
-       * - Bash
+       * - `Bash <https://www.wikidata.org/wiki/Q189248>`_
          - https://www.wikidata.org/wiki/Q189248
-       * - MATLAB
+       * - `MATLAB <https://www.wikidata.org/wiki/Q37805571>`_
          - https://www.wikidata.org/wiki/Q37805571
-       * - Java
+       * - `Java <https://www.wikidata.org/wiki/Q251>`_
          - https://www.wikidata.org/wiki/Q251
 
 """
@@ -65,45 +65,45 @@ class ProgrammingLanguage(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - JavaScript
+       * - `JavaScript <https://www.wikidata.org/wiki/Q2005>`_
          - https://www.wikidata.org/wiki/Q2005
-       * - C#
+       * - `C# <https://www.wikidata.org/wiki/Q2370>`_
          - https://www.wikidata.org/wiki/Q2370
-       * - C++
+       * - `C++ <https://www.wikidata.org/wiki/Q2407>`_
          - https://www.wikidata.org/wiki/Q2407
-       * - Scala
+       * - `Scala <https://www.wikidata.org/wiki/Q460584>`_
          - https://www.wikidata.org/wiki/Q460584
-       * - GLSL
+       * - `GLSL <https://www.wikidata.org/wiki/Q779819>`_
          - https://www.wikidata.org/wiki/Q779819
-       * - Python
+       * - `Python <https://www.wikidata.org/wiki/Q28865>`_
          - https://www.wikidata.org/wiki/Q28865
-       * - Pascal
+       * - `Pascal <https://www.wikidata.org/wiki/Q81571>`_
          - https://www.wikidata.org/wiki/Q81571
-       * - TypeScript
+       * - `TypeScript <https://www.wikidata.org/wiki/Q978185>`_
          - https://www.wikidata.org/wiki/Q978185
-       * - Ruby
+       * - `Ruby <https://www.wikidata.org/wiki/Q161053>`_
          - https://www.wikidata.org/wiki/Q161053
-       * - HTML
+       * - `HTML <https://www.wikidata.org/wiki/Q8811>`_
          - https://www.wikidata.org/wiki/Q8811
-       * - R
+       * - `R <https://www.wikidata.org/wiki/Q206904>`_
          - https://www.wikidata.org/wiki/Q206904
-       * - Fortran
+       * - `Fortran <https://www.wikidata.org/wiki/Q83303>`_
          - https://www.wikidata.org/wiki/Q83303
-       * - Shell
+       * - `Shell <https://www.wikidata.org/wiki/Q14663>`_
          - https://www.wikidata.org/wiki/Q14663
-       * - C
+       * - `C <https://www.wikidata.org/wiki/Q15777>`_
          - https://www.wikidata.org/wiki/Q15777
        * - AMPL
          -
-       * - PHP
+       * - `PHP <https://www.wikidata.org/wiki/Q59>`_
          - https://www.wikidata.org/wiki/Q59
-       * - T-SQL
+       * - `T-SQL <https://www.wikidata.org/wiki/Q1411245>`_
          - https://www.wikidata.org/wiki/Q1411245
-       * - Bash
+       * - `Bash <https://www.wikidata.org/wiki/Q189248>`_
          - https://www.wikidata.org/wiki/Q189248
-       * - MATLAB
+       * - `MATLAB <https://www.wikidata.org/wiki/Q37805571>`_
          - https://www.wikidata.org/wiki/Q37805571
-       * - Java
+       * - `Java <https://www.wikidata.org/wiki/Q251>`_
          - https://www.wikidata.org/wiki/Q251
 
     """

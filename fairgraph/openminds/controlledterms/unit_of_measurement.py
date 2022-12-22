@@ -21,7 +21,7 @@ Structured information on the unit of measurement.
          - An electric current unit current which is equal to one thousand millionth of an ampere or 10^[-9] A.
        * - second
          -
-       * - ampere
+       * - `ampere <http://purl.obolibrary.org/obo/UO_0000011>`_
          - An electric current unit which is equal to the constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 m apart in vacuum, would produce between these conductors a force equal to 2 x 10^[-7] newton per meter of length.
        * - degree Rankine
          - The 'degree Rankine' is a unit of temperature on the Rankine scale where the freezing point of water is at 491.67 °R and the boiling point of water is at 671.64102 °R under standard atmospheric pressure.
@@ -83,7 +83,7 @@ class UnitOfMeasurement(KGObject):
          - An electric current unit current which is equal to one thousand millionth of an ampere or 10^[-9] A.
        * - second
          -
-       * - ampere
+       * - `ampere <http://purl.obolibrary.org/obo/UO_0000011>`_
          - An electric current unit which is equal to the constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 m apart in vacuum, would produce between these conductors a force equal to 2 x 10^[-7] newton per meter of length.
        * - degree Rankine
          - The 'degree Rankine' is a unit of temperature on the Rankine scale where the freezing point of water is at 491.67 °R and the boiling point of water is at 671.64102 °R under standard atmospheric pressure.

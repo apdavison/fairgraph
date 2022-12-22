@@ -5,17 +5,17 @@
        :widths: 20 80
        :header-rows: 0
 
-       * - in utero
+       * - `in utero <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/90>`_
          - Something happening in, within, or while inside the uterus.
-       * - in vivo
+       * - `in vivo <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/89>`_
          - Something happening or existing inside a living body.
-       * - ex vivo
+       * - `ex vivo <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/88>`_
          - Something happening or existing outside a living body.
-       * - in vitro
+       * - `in vitro <http://uri.interlex.org/tgbugs/uris/readable/technique/inVitro>`_
          - Something happening outside the body in artificial conditions (e.g., in a test tube or culture dish).
-       * - in silico
+       * - `in silico <http://id.nlm.nih.gov/mesh/2018/M0572590>`_
          - Conducted or produced by means of computer modelling or simulation.
-       * - in situ
+       * - `in situ <http://uri.interlex.org/tgbugs/uris/readable/technique/inSitu>`_
          - Something happening or being examined in the original place instead of being moved to another place
 
 """
@@ -37,17 +37,17 @@ class PreparationType(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - in utero
+       * - `in utero <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/90>`_
          - Something happening in, within, or while inside the uterus.
-       * - in vivo
+       * - `in vivo <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/89>`_
          - Something happening or existing inside a living body.
-       * - ex vivo
+       * - `ex vivo <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/88>`_
          - Something happening or existing outside a living body.
-       * - in vitro
+       * - `in vitro <http://uri.interlex.org/tgbugs/uris/readable/technique/inVitro>`_
          - Something happening outside the body in artificial conditions (e.g., in a test tube or culture dish).
-       * - in silico
+       * - `in silico <http://id.nlm.nih.gov/mesh/2018/M0572590>`_
          - Conducted or produced by means of computer modelling or simulation.
-       * - in situ
+       * - `in situ <http://uri.interlex.org/tgbugs/uris/readable/technique/inSitu>`_
          - Something happening or being examined in the original place instead of being moved to another place
 
     """

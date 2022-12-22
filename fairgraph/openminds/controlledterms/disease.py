@@ -7,35 +7,35 @@ Structured information on a disease.
 
        * - congenital blindness
          - Congenital blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision before/during birth or in early childhood.
-       * - Alzheimer's disease
+       * - `Alzheimer's disease <http://purl.obolibrary.org/obo/DOID_10652>`_
          - http://purl.obolibrary.org/obo/DOID_10652
-       * - Williams-Beuren syndrome
+       * - `Williams-Beuren syndrome <http://purl.obolibrary.org/obo/DOID_1928>`_
          - http://purl.obolibrary.org/obo/DOID_1928
-       * - cerebral atrophy
+       * - `cerebral atrophy <http://purl.obolibrary.org/obo/HP_0002059>`_
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
-       * - epilepsy
+       * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
          - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
-       * - acquired blindness
+       * - `acquired blindness <http://id.nlm.nih.gov/mesh/2018/M0336554>`_
          - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
        * - unresponsive wakefulness syndrome
          - The 'unresponsive wakefulness syndrome' (UWS) is a disorder of consciousness, formerly known as vegetative state, with only reflexive behavior and no sign of conscious awareness [[Laureys et al. 2010](https://doi.org/10.1186/1741-7015-8-68)].
        * - disorder of consciousness
          - A 'disorder of consciousness' is a state where a subject's consciousness has been affected by damage to the brain.
-       * - mental disorder
+       * - `mental disorder <http://uri.interlex.org/base/ilx_0106792>`_
          - A 'mental disorder' is characterized by a clinically significant disturbance in an individual’s cognition, emotional regulation, or behaviour and is usually associated with distress or impairment in important areas of functioning. [adapted from [WHO fact-sheets](https://www.who.int/news-room/fact-sheets/detail/mental-disorders)]
-       * - Parkinson's disease
+       * - `Parkinson's disease <http://purl.obolibrary.org/obo/DOID_14330>`_
          - Parkinson's is a progressive central nervous system disorder that affects the motor system.
-       * - glioma
+       * - `glioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12618>`_
          - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
-       * - meningioma
+       * - `meningioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12601>`_
          - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
        * - minimally conscious state
          - A 'minimally conscious state' (MCS) is a disorder of consciousness with partial preservation of conscious awareness. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Minimally_conscious_state)]
-       * - autism sprectrum disorder
+       * - `autism sprectrum disorder <http://purl.obolibrary.org/obo/DOID_0060041>`_
          - http://purl.obolibrary.org/obo/DOID_0060041
-       * - fragile X syndrome
+       * - `fragile X syndrome <http://purl.obolibrary.org/obo/DOID_14261>`_
          - http://purl.obolibrary.org/obo/DOID_14261
-       * - stroke
+       * - `stroke <http://purl.obolibrary.org/obo/DOID_6713>`_
          - A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event.
 
 """
@@ -59,35 +59,35 @@ class Disease(KGObject):
 
        * - congenital blindness
          - Congenital blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision before/during birth or in early childhood.
-       * - Alzheimer's disease
+       * - `Alzheimer's disease <http://purl.obolibrary.org/obo/DOID_10652>`_
          - http://purl.obolibrary.org/obo/DOID_10652
-       * - Williams-Beuren syndrome
+       * - `Williams-Beuren syndrome <http://purl.obolibrary.org/obo/DOID_1928>`_
          - http://purl.obolibrary.org/obo/DOID_1928
-       * - cerebral atrophy
+       * - `cerebral atrophy <http://purl.obolibrary.org/obo/HP_0002059>`_
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
-       * - epilepsy
+       * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
          - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
-       * - acquired blindness
+       * - `acquired blindness <http://id.nlm.nih.gov/mesh/2018/M0336554>`_
          - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
        * - unresponsive wakefulness syndrome
          - The 'unresponsive wakefulness syndrome' (UWS) is a disorder of consciousness, formerly known as vegetative state, with only reflexive behavior and no sign of conscious awareness [[Laureys et al. 2010](https://doi.org/10.1186/1741-7015-8-68)].
        * - disorder of consciousness
          - A 'disorder of consciousness' is a state where a subject's consciousness has been affected by damage to the brain.
-       * - mental disorder
+       * - `mental disorder <http://uri.interlex.org/base/ilx_0106792>`_
          - A 'mental disorder' is characterized by a clinically significant disturbance in an individual’s cognition, emotional regulation, or behaviour and is usually associated with distress or impairment in important areas of functioning. [adapted from [WHO fact-sheets](https://www.who.int/news-room/fact-sheets/detail/mental-disorders)]
-       * - Parkinson's disease
+       * - `Parkinson's disease <http://purl.obolibrary.org/obo/DOID_14330>`_
          - Parkinson's is a progressive central nervous system disorder that affects the motor system.
-       * - glioma
+       * - `glioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12618>`_
          - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
-       * - meningioma
+       * - `meningioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12601>`_
          - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
        * - minimally conscious state
          - A 'minimally conscious state' (MCS) is a disorder of consciousness with partial preservation of conscious awareness. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Minimally_conscious_state)]
-       * - autism sprectrum disorder
+       * - `autism sprectrum disorder <http://purl.obolibrary.org/obo/DOID_0060041>`_
          - http://purl.obolibrary.org/obo/DOID_0060041
-       * - fragile X syndrome
+       * - `fragile X syndrome <http://purl.obolibrary.org/obo/DOID_14261>`_
          - http://purl.obolibrary.org/obo/DOID_14261
-       * - stroke
+       * - `stroke <http://purl.obolibrary.org/obo/DOID_6713>`_
          - A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event.
 
     """

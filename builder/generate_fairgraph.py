@@ -380,12 +380,12 @@ def get_controlled_terms_table(type_):
         for item in response.data:
             vocab = "https://openminds.ebrains.eu/vocab"
             name = item[f"{vocab}/name"]
-            if f"{vocab}/definition" in item:
-                definition = item[f"{vocab}/definition"]
-            elif f"{vocab}/preferredOntologyIdentifier" in item:
-                definition = item[f"{vocab}/preferredOntologyIdentifier"]
-            else:
-                definition = " "
+            definition = item.get(f"{vocab}/definition", None)
+            link = item.get(f"{vocab}/preferredOntologyIdentifier", None)
+            if definition is None:
+                definition = link or " "
+            if link:
+                name = f"`{name} <{link}>`_"
             lines.append(f"       * - {name}")
             lines.append(f"         - {definition}")
         if response.total > response.size:

@@ -5,17 +5,17 @@ Structured information on the category of the software application.
        :widths: 20 80
        :header-rows: 0
 
-       * - library
+       * - `library <https://www.wikidata.org/wiki/Q188860>`_
          - https://www.wikidata.org/wiki/Q188860
-       * - middleware
+       * - `middleware <https://www.wikidata.org/wiki/Q146768>`_
          - https://www.wikidata.org/wiki/Q146768
-       * - plugin
+       * - `plugin <https://www.wikidata.org/wiki/Q184148>`_
          - https://www.wikidata.org/wiki/Q184148
-       * - module
+       * - `module <https://www.wikidata.org/wiki/Q11883090>`_
          - https://www.wikidata.org/wiki/Q11883090
-       * - notebook
+       * - `notebook <https://www.wikidata.org/wiki/Q28405706>`_
          - https://www.wikidata.org/wiki/Q28405706
-       * - application
+       * - `application <https://www.wikidata.org/wiki/Q166142>`_
          - https://www.wikidata.org/wiki/Q166142
 
 """
@@ -37,17 +37,17 @@ class SoftwareApplicationCategory(KGObject):
        :widths: 20 80
        :header-rows: 0
 
-       * - library
+       * - `library <https://www.wikidata.org/wiki/Q188860>`_
          - https://www.wikidata.org/wiki/Q188860
-       * - middleware
+       * - `middleware <https://www.wikidata.org/wiki/Q146768>`_
          - https://www.wikidata.org/wiki/Q146768
-       * - plugin
+       * - `plugin <https://www.wikidata.org/wiki/Q184148>`_
          - https://www.wikidata.org/wiki/Q184148
-       * - module
+       * - `module <https://www.wikidata.org/wiki/Q11883090>`_
          - https://www.wikidata.org/wiki/Q11883090
-       * - notebook
+       * - `notebook <https://www.wikidata.org/wiki/Q28405706>`_
          - https://www.wikidata.org/wiki/Q28405706
-       * - application
+       * - `application <https://www.wikidata.org/wiki/Q166142>`_
          - https://www.wikidata.org/wiki/Q166142
 
     """

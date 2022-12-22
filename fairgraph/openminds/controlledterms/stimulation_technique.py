@@ -19,7 +19,7 @@
          -
        * - whisker stimulation
          - 'Whisker stimulation' comprises all stimulation techniques in which a single whisker or a group of whiskers is deflected in repeatable manner.
-       * - electrical stimulation
+       * - `electrical stimulation <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/188>`_
          - A technique used to elicit a reaction by an electrical stimulus.
        * - natural image visual stimulation
          - In a 'natural image visual stimulation' a subject is visually stimulated with a static image that shows a natural scene (e.g., landscape or a person).
@@ -73,7 +73,7 @@ class StimulationTechnique(KGObject):
          -
        * - whisker stimulation
          - 'Whisker stimulation' comprises all stimulation techniques in which a single whisker or a group of whiskers is deflected in repeatable manner.
-       * - electrical stimulation
+       * - `electrical stimulation <http://uri.interlex.org/tgbugs/uris/indexes/ontologies/methods/188>`_
          - A technique used to elicit a reaction by an electrical stimulus.
        * - natural image visual stimulation
          - In a 'natural image visual stimulation' a subject is visually stimulated with a static image that shows a natural scene (e.g., landscape or a person).

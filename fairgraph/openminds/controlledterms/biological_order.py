@@ -7,15 +7,15 @@
 
        * - Didelphimorphia
          - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
-       * - Rodentia
+       * - `Rodentia <http://purl.obolibrary.org/obo/NCBITaxon_9989>`_
          - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
-       * - Nudibranchia
+       * - `Nudibranchia <http://purl.obolibrary.org/obo/NCBITaxon_70849>`_
          - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
-       * - Carnivora
+       * - `Carnivora <http://purl.obolibrary.org/obo/NCBITaxon_33554>`_
          - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
-       * - Primates
+       * - `Primates <http://id.nlm.nih.gov/mesh/2018/M0017579>`_
          - The biological order *Primates* belongs to the class *Mammalia* (mammals).
-       * - Cypriniformes
+       * - `Cypriniformes <http://id.nlm.nih.gov/mesh/2018/M0005508>`_
          - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
 
 """
@@ -39,15 +39,15 @@ class BiologicalOrder(KGObject):
 
        * - Didelphimorphia
          - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
-       * - Rodentia
+       * - `Rodentia <http://purl.obolibrary.org/obo/NCBITaxon_9989>`_
          - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
-       * - Nudibranchia
+       * - `Nudibranchia <http://purl.obolibrary.org/obo/NCBITaxon_70849>`_
          - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
-       * - Carnivora
+       * - `Carnivora <http://purl.obolibrary.org/obo/NCBITaxon_33554>`_
          - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
-       * - Primates
+       * - `Primates <http://id.nlm.nih.gov/mesh/2018/M0017579>`_
          - The biological order *Primates* belongs to the class *Mammalia* (mammals).
-       * - Cypriniformes
+       * - `Cypriniformes <http://id.nlm.nih.gov/mesh/2018/M0005508>`_
          - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
 
     """

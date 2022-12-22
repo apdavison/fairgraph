@@ -13,7 +13,7 @@ Structured information on the general type of the tissue sample.
          - One of the symmetric halves excised from a bilateral organ tissue sample (e.g., a brain) from a living or deceased multicellular organism body.
        * - single cell
          - A single cell sample from a living or deceased multicellular organism body.
-       * - biopsy sample
+       * - `biopsy sample <http://purl.obolibrary.org/obo/OBI_0002650>`_
          - Typically very small sample of tissue that was excised from a living or deceased multicellular organism body.
        * - brain hemisphere
          -
@@ -21,7 +21,7 @@ Structured information on the general type of the tissue sample.
          - A thin and often flat sample of tissue that was excised from a larger tissue sample (e.g., a tissue block or a whole organ) from a living or deceased multicellular organism body.
        * - fluid specimen
          - A fluid sample either taken directly from a living or deceased multicellular organism body (i.e. body fluids) or produced in a laboratory.
-       * - cell culture
+       * - `cell culture <http://purl.obolibrary.org/obo/BTO_0000214>`_
          - Cells taken from a living organism and grown under controlled conditions (in culture).
        * - tissue block
          - A cube-like sample of tissue that was excised from a larger tissue sample (e.g., a whole organ) from a living or deceased multicellular organism body.
@@ -59,7 +59,7 @@ class TissueSampleType(KGObject):
          - One of the symmetric halves excised from a bilateral organ tissue sample (e.g., a brain) from a living or deceased multicellular organism body.
        * - single cell
          - A single cell sample from a living or deceased multicellular organism body.
-       * - biopsy sample
+       * - `biopsy sample <http://purl.obolibrary.org/obo/OBI_0002650>`_
          - Typically very small sample of tissue that was excised from a living or deceased multicellular organism body.
        * - brain hemisphere
          -
@@ -67,7 +67,7 @@ class TissueSampleType(KGObject):
          - A thin and often flat sample of tissue that was excised from a larger tissue sample (e.g., a tissue block or a whole organ) from a living or deceased multicellular organism body.
        * - fluid specimen
          - A fluid sample either taken directly from a living or deceased multicellular organism body (i.e. body fluids) or produced in a laboratory.
-       * - cell culture
+       * - `cell culture <http://purl.obolibrary.org/obo/BTO_0000214>`_
          - Cells taken from a living organism and grown under controlled conditions (in culture).
        * - tissue block
          - A cube-like sample of tissue that was excised from a larger tissue sample (e.g., a whole organ) from a living or deceased multicellular organism body.

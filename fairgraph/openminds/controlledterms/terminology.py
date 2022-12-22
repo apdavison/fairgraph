@@ -13,7 +13,7 @@
          -
        * - biological order
          -
-       * - anatomical plane
+       * - `anatomical plane <http://purl.obolibrary.org/obo/UBERON_0035085>`_
          - A flat anatomical 2D surface that bisects an anatomical structure or an anatomical space.
        * - dataset type
          -
@@ -25,7 +25,7 @@
          -
        * - patch clamp variation
          - A variation of the patch clamp technique
-       * - age category
+       * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
          - The age category describes a specific spatiotemporal part of the life cycle of an organism.
        * - contribution type
          -
@@ -75,7 +75,7 @@ class Terminology(KGObject):
          -
        * - biological order
          -
-       * - anatomical plane
+       * - `anatomical plane <http://purl.obolibrary.org/obo/UBERON_0035085>`_
          - A flat anatomical 2D surface that bisects an anatomical structure or an anatomical space.
        * - dataset type
          -
@@ -87,7 +87,7 @@ class Terminology(KGObject):
          -
        * - patch clamp variation
          - A variation of the patch clamp technique
-       * - age category
+       * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
          - The age category describes a specific spatiotemporal part of the life cycle of an organism.
        * - contribution type
          -
