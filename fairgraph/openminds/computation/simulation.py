@@ -1,5 +1,5 @@
 """
-
+Structured information about a process of running simulations of a computational model.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Simulation(KGObject):
     """
-
+    Structured information about a process of running simulations of a computational model.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Simulation"]

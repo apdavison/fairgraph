@@ -1,5 +1,5 @@
 """
-
+Structured information about a measurement performed during a scientific experiment.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Measurement(EmbeddedMetadata):
     """
-
+    Structured information about a measurement performed during a scientific experiment.
     """
     type = ["https://openminds.ebrains.eu/core/Measurement"]
     context = {

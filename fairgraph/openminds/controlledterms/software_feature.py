@@ -1,5 +1,53 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - raster image data types
+         - https://www.wikidata.org/wiki/Q182270
+       * - simulation
+         - https://www.wikidata.org/wiki/Q925667
+       * - 3D scalar data types
+         -
+       * - control
+         - https://www.wikidata.org/wiki/Q29017603
+       * - interactive analysis
+         -
+       * - provenance
+         - https://www.wikidata.org/wiki/Q30105403
+       * - 3D vector data types
+         -
+       * - statistical data types
+         - https://www.wikidata.org/wiki/Q7604387
+       * - tiled display wall
+         -
+       * - scripting interface
+         -
+       * - mobile device
+         - https://www.wikidata.org/wiki/Q5082128
+       * - augmented reality
+         - https://www.wikidata.org/wiki/Q254183
+       * - time series data types
+         - https://www.wikidata.org/wiki/Q186588
+       * - metadata data types
+         - https://www.wikidata.org/wiki/Q180160
+       * - graphical user interface
+         - https://www.wikidata.org/wiki/Q782543
+       * - modelling
+         - https://www.wikidata.org/wiki/Q1116876
+       * - presentation visualisation
+         - https://www.wikidata.org/wiki/Q451553
+       * - graph data types
+         - https://www.wikidata.org/wiki/Q2479726
+       * - heterogeneous architecture
+         - https://www.wikidata.org/wiki/Q17111997
+       * - positional data types
+         - https://www.wikidata.org/wiki/Q1477538
+
+Here we show the first 20 values, an additional 12 values are not shown.
+
 """
 
 # this file was auto-generated
@@ -13,6 +61,54 @@ from fairgraph.fields import Field
 
 class SoftwareFeature(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - raster image data types
+         - https://www.wikidata.org/wiki/Q182270
+       * - simulation
+         - https://www.wikidata.org/wiki/Q925667
+       * - 3D scalar data types
+         -
+       * - control
+         - https://www.wikidata.org/wiki/Q29017603
+       * - interactive analysis
+         -
+       * - provenance
+         - https://www.wikidata.org/wiki/Q30105403
+       * - 3D vector data types
+         -
+       * - statistical data types
+         - https://www.wikidata.org/wiki/Q7604387
+       * - tiled display wall
+         -
+       * - scripting interface
+         -
+       * - mobile device
+         - https://www.wikidata.org/wiki/Q5082128
+       * - augmented reality
+         - https://www.wikidata.org/wiki/Q254183
+       * - time series data types
+         - https://www.wikidata.org/wiki/Q186588
+       * - metadata data types
+         - https://www.wikidata.org/wiki/Q180160
+       * - graphical user interface
+         - https://www.wikidata.org/wiki/Q782543
+       * - modelling
+         - https://www.wikidata.org/wiki/Q1116876
+       * - presentation visualisation
+         - https://www.wikidata.org/wiki/Q451553
+       * - graph data types
+         - https://www.wikidata.org/wiki/Q2479726
+       * - heterogeneous architecture
+         - https://www.wikidata.org/wiki/Q17111997
+       * - positional data types
+         - https://www.wikidata.org/wiki/Q1477538
+
+Here we show the first 20 values, an additional 12 values are not shown.
 
     """
     default_space = "controlled"

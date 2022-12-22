@@ -1,5 +1,5 @@
 """
-
+Structured information about an activity performed as part of a scientific experiment.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ExperimentalActivity(KGObject):
     """
-
+    Structured information about an activity performed as part of a scientific experiment.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ExperimentalActivity"]

@@ -1,5 +1,5 @@
 """
-
+A persistent identifier for a research organization, provided by the Research Organization Registry.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class RORID(KGObject):
     """
-
+    A persistent identifier for a research organization, provided by the Research Organization Registry.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/RORID"]

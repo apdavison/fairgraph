@@ -1,5 +1,13 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - direct current
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +21,14 @@ from fairgraph.fields import Field
 
 class ElectricalStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - direct current
+         -
 
     """
     default_space = "controlled"

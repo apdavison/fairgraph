@@ -1,5 +1,29 @@
 """
 Structured information on the available language setting.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - French
+         -
+       * - English
+         -
+       * - Dutch
+         -
+       * - Norwegian
+         -
+       * - German
+         -
+       * - Greek
+         -
+       * - Italian
+         -
+       * - Spanish
+         -
+       * - Swedish
+         -
+
 """
 
 # this file was auto-generated
@@ -14,6 +38,30 @@ from fairgraph.fields import Field
 class Language(KGObject):
     """
     Structured information on the available language setting.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - French
+         -
+       * - English
+         -
+       * - Dutch
+         -
+       * - Norwegian
+         -
+       * - German
+         -
+       * - Greek
+         -
+       * - Italian
+         -
+       * - Spanish
+         -
+       * - Swedish
+         -
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Language"]

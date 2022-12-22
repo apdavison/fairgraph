@@ -1,5 +1,5 @@
 """
-
+Structured information about the definition of a process for validating a computational model.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ValidationTest(KGObject):
     """
-
+    Structured information about the definition of a process for validating a computational model.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/ValidationTest"]

@@ -1,5 +1,5 @@
 """
-
+Structured information about a user account for a web service.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class AccountInformation(KGObject):
     """
-
+    Structured information about a user account for a web service.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/AccountInformation"]

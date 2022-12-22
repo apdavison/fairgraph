@@ -1,5 +1,5 @@
 """
-
+Structured information about the launch of a computational process.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class LaunchConfiguration(KGObject):
     """
-
+    Structured information about the launch of a computational process.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/LaunchConfiguration"]

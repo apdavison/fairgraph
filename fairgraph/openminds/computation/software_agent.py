@@ -1,5 +1,5 @@
 """
-
+Structured information about a piece of software or web service that can perform a task autonomously.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class SoftwareAgent(KGObject):
     """
-
+    Structured information about a piece of software or web service that can perform a task autonomously.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]

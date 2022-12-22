@@ -1,5 +1,25 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - vibrating microtome
+         - A 'vibrating microtome' is an mechanical instrument with a vibrating steel blade used to cut (typically) biological specimens into thin segments for further treatment and ultimately microscopic or histologic examination.
+       * - CT scanner
+         - A 'CT scanner' is an x-ray machine that creates and combines serial two-dimensional x-ray images (sections) with the aid of a computer to generate cross-sectional views and/or three-dimensional images of internal body structures (e.g., bones, blood vessels or soft tissues).
+       * - magnetic resonance imaging scanner
+         - A type of device used for magnetic resonance imaging.
+       * - MRI scanner
+         - An 'MRI scanner' is a machine that uses strong magnetic fields, magnetic field gradients, and radio waves to generate static or time-resolved three-dimensional images of the anatomy and physiological processes of the body.
+       * - microscope
+         - A 'microscope' is an instrument used to obtain a magnified image of small objects and reveal details of structures not otherwise distinguishable.
+       * - microtome
+         - A 'microtome' is a mechanical instrument with a steel, glass or diamond blade used to cut (typically) biological specimens into very thin segments for further treatment and ultimately microscopic or histologic examination.
+       * - electronic amplifier
+         - An 'electronic amplifier' is a device that increases the power (voltage or current) of a time-varying signal.
+
 """
 
 # this file was auto-generated
@@ -13,6 +33,26 @@ from fairgraph.fields import Field
 
 class DeviceType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - vibrating microtome
+         - A 'vibrating microtome' is an mechanical instrument with a vibrating steel blade used to cut (typically) biological specimens into thin segments for further treatment and ultimately microscopic or histologic examination.
+       * - CT scanner
+         - A 'CT scanner' is an x-ray machine that creates and combines serial two-dimensional x-ray images (sections) with the aid of a computer to generate cross-sectional views and/or three-dimensional images of internal body structures (e.g., bones, blood vessels or soft tissues).
+       * - magnetic resonance imaging scanner
+         - A type of device used for magnetic resonance imaging.
+       * - MRI scanner
+         - An 'MRI scanner' is a machine that uses strong magnetic fields, magnetic field gradients, and radio waves to generate static or time-resolved three-dimensional images of the anatomy and physiological processes of the body.
+       * - microscope
+         - A 'microscope' is an instrument used to obtain a magnified image of small objects and reveal details of structures not otherwise distinguishable.
+       * - microtome
+         - A 'microtome' is a mechanical instrument with a steel, glass or diamond blade used to cut (typically) biological specimens into very thin segments for further treatment and ultimately microscopic or histologic examination.
+       * - electronic amplifier
+         - An 'electronic amplifier' is a device that increases the power (voltage or current) of a time-varying signal.
 
     """
     default_space = "controlled"

@@ -1,5 +1,5 @@
 """
-
+Structured information about the amount of a given chemical that was used.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class AmountOfChemical(KGObject):
     """
-
+    Structured information about the amount of a given chemical that was used.
     """
     default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/AmountOfChemical"]

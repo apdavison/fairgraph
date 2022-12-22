@@ -1,5 +1,5 @@
 """
-
+Structured information about the properties or parameters of an entity or process.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Configuration(KGObject):
     """
-
+    Structured information about the properties or parameters of an entity or process.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/Configuration"]

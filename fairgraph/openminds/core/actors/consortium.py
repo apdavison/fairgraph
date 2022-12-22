@@ -1,5 +1,5 @@
 """
-
+Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Consortium(KGObject):
     """
-
+    Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/Consortium"]

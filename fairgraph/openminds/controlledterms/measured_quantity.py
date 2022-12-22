@@ -1,5 +1,29 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - holding potential
+         - Measured membrane potential during a voltage-clamp protocol.
+       * - compensation current
+         - Current injected into a cell to maintain the membrane potential at a target value.
+       * - input resistance
+         - Total resistance observed by the amplifier during an electrophysiological recording.
+       * - series resistance
+         - Resistance of the electrode during an electrophysiological recording.
+       * - liquid junction potential
+         - A potential difference that develops when two solutions of electrolytes of different concentrations are in contact with each other.
+       * - measured holding potential
+         - Measured membrane potetial during a voltage-clamp protocol.
+       * - seal resistance
+         - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
+       * - membrane potential
+         - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
+       * - chloride reversal potential
+         - The reversal potential for chloride ions.
+
 """
 
 # this file was auto-generated
@@ -13,6 +37,30 @@ from fairgraph.fields import Field
 
 class MeasuredQuantity(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - holding potential
+         - Measured membrane potential during a voltage-clamp protocol.
+       * - compensation current
+         - Current injected into a cell to maintain the membrane potential at a target value.
+       * - input resistance
+         - Total resistance observed by the amplifier during an electrophysiological recording.
+       * - series resistance
+         - Resistance of the electrode during an electrophysiological recording.
+       * - liquid junction potential
+         - A potential difference that develops when two solutions of electrolytes of different concentrations are in contact with each other.
+       * - measured holding potential
+         - Measured membrane potetial during a voltage-clamp protocol.
+       * - seal resistance
+         - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
+       * - membrane potential
+         - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
+       * - chloride reversal potential
+         - The reversal potential for chloride ions.
 
     """
     default_space = "controlled"

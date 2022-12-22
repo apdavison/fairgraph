@@ -1,5 +1,5 @@
 """
-
+A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class HANDLE(KGObject):
     """
-
+    A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/HANDLE"]

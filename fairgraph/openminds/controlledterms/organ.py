@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - muscle
+         - 'Muscle' is part of the musculoskeletal system.
+       * - skin
+         - 'Skin' is the organ covering the body that consists of the dermis and epidermis.
+       * - heart
+         - 'Heart' is part of the cardiovascular system
+       * - brain
+         - 'Brain' is part of the central nervous system.
+       * - blood
+         - 'Blood' is a body fluid composed of blood plasma and erythrocytes in the circular system of vertebrates that delivers necessary substances such as nutrients and oxygen to the cells, and transports metabolic waste products away from those same cells. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Blood)]
+       * - liver
+         - 'Liver' is an organ that is part of the digestive system of vertebrate animals.
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class Organ(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - muscle
+         - 'Muscle' is part of the musculoskeletal system.
+       * - skin
+         - 'Skin' is the organ covering the body that consists of the dermis and epidermis.
+       * - heart
+         - 'Heart' is part of the cardiovascular system
+       * - brain
+         - 'Brain' is part of the central nervous system.
+       * - blood
+         - 'Blood' is a body fluid composed of blood plasma and erythrocytes in the circular system of vertebrates that delivers necessary substances such as nutrients and oxygen to the cells, and transports metabolic waste products away from those same cells. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Blood)]
+       * - liver
+         - 'Liver' is an organ that is part of the digestive system of vertebrate animals.
 
     """
     default_space = "controlled"

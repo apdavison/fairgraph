@@ -1,5 +1,5 @@
 """
-
+Structured information about a specific implementation of a validation test.
 """
 
 # this file was auto-generated
@@ -14,7 +14,7 @@ from .validation_test import ValidationTest
 
 class ValidationTestVersion(KGObject):
     """
-
+    Structured information about a specific implementation of a validation test.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/ValidationTestVersion"]

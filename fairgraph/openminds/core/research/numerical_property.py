@@ -1,5 +1,5 @@
 """
-
+Structured information about a property of some entity or process whose value is a number.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class NumericalProperty(EmbeddedMetadata):
     """
-
+    Structured information about a property of some entity or process whose value is a number.
     """
     type = ["https://openminds.ebrains.eu/core/NumericalProperty"]
     context = {

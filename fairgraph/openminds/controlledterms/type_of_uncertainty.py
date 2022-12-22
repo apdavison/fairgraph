@@ -1,5 +1,15 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - standard deviation
+         -
+       * - standard error
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +23,16 @@ from fairgraph.fields import Field
 
 class TypeOfUncertainty(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - standard deviation
+         -
+       * - standard error
+         -
 
     """
     default_space = "controlled"

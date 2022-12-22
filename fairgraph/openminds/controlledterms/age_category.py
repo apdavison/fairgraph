@@ -1,5 +1,31 @@
 """
 Structured information on the life cycle (semantic term) of a specific age group.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - perinatal
+         - 'Perinatal' categorizes the life cycle stage of an animal or human that starts right before birth and ends right after birth.
+       * - young adult
+         - 'Young adult' categorizes the early adult stage of an animal or human when sexual maturity has been reached, but not the cessation of growth.
+       * - adult
+         - 'Adult' categorizes the life cycle stage of an animal or human that reached sexual maturity.
+       * - embryo
+         - 'Embryo' categorizes the life cycle stage of an animal or human that starts with fertilitzation and ends with the fully formed embryo.
+       * - adolescent
+         - 'Adolescent' categorizes a transitional life cycle stage of growth and development between childhood and adulthood, often described as 'puberty'.
+       * - neonate
+         - 'Neonate' categorizes the life cycle stage of an animal or human that immediately follows birth.
+       * - infant
+         - 'Infant' categorizes the life cycle stage of mammals (animal or human) that follows the neonate stage and ends at weaning.
+       * - prime adult
+         - 'Prime adult' categorizes the life cycle stage of an animal or human that starts at the onset of sexual maturity or the cessation of growth, whichever comes last, and ends before senescence.
+       * - juvenile
+         - 'Juvenile' categorizes the life cycle stage of an animal or human that starts with the independence of the nest and/or caregivers and ends with sexual maturity.
+       * - late adult
+         - 'Late adult' categorizes the life cycle stage of an animal or human that follows the prime adult stage.
+
 """
 
 # this file was auto-generated
@@ -14,6 +40,32 @@ from fairgraph.fields import Field
 class AgeCategory(KGObject):
     """
     Structured information on the life cycle (semantic term) of a specific age group.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - perinatal
+         - 'Perinatal' categorizes the life cycle stage of an animal or human that starts right before birth and ends right after birth.
+       * - young adult
+         - 'Young adult' categorizes the early adult stage of an animal or human when sexual maturity has been reached, but not the cessation of growth.
+       * - adult
+         - 'Adult' categorizes the life cycle stage of an animal or human that reached sexual maturity.
+       * - embryo
+         - 'Embryo' categorizes the life cycle stage of an animal or human that starts with fertilitzation and ends with the fully formed embryo.
+       * - adolescent
+         - 'Adolescent' categorizes a transitional life cycle stage of growth and development between childhood and adulthood, often described as 'puberty'.
+       * - neonate
+         - 'Neonate' categorizes the life cycle stage of an animal or human that immediately follows birth.
+       * - infant
+         - 'Infant' categorizes the life cycle stage of mammals (animal or human) that follows the neonate stage and ends at weaning.
+       * - prime adult
+         - 'Prime adult' categorizes the life cycle stage of an animal or human that starts at the onset of sexual maturity or the cessation of growth, whichever comes last, and ends before senescence.
+       * - juvenile
+         - 'Juvenile' categorizes the life cycle stage of an animal or human that starts with the independence of the nest and/or caregivers and ends with sexual maturity.
+       * - late adult
+         - 'Late adult' categorizes the life cycle stage of an animal or human that follows the prime adult stage.
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/AgeCategory"]

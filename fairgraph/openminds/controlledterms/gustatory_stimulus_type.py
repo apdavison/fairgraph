@@ -1,5 +1,19 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - sweet substance
+         - Any chemical compound that tastes sweet.
+       * - salty substance
+         - Any chemical compound that tastes salty.
+       * - bitter substance
+         - Any chemical compound that tastes bitter.
+       * - sour substance
+         - Any chemical compound that tastes sour.
+
 """
 
 # this file was auto-generated
@@ -13,6 +27,20 @@ from fairgraph.fields import Field
 
 class GustatoryStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - sweet substance
+         - Any chemical compound that tastes sweet.
+       * - salty substance
+         - Any chemical compound that tastes salty.
+       * - bitter substance
+         - Any chemical compound that tastes bitter.
+       * - sour substance
+         - Any chemical compound that tastes sour.
 
     """
     default_space = "controlled"

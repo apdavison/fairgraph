@@ -1,5 +1,5 @@
 """
-
+Structured information about a chemical substance.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ChemicalSubstance(KGObject):
     """
-
+    Structured information about a chemical substance.
     """
     default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/ChemicalSubstance"]

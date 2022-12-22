@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - in utero
+         - Something happening in, within, or while inside the uterus.
+       * - in vivo
+         - Something happening or existing inside a living body.
+       * - ex vivo
+         - Something happening or existing outside a living body.
+       * - in vitro
+         - Something happening outside the body in artificial conditions (e.g., in a test tube or culture dish).
+       * - in silico
+         - Conducted or produced by means of computer modelling or simulation.
+       * - in situ
+         - Something happening or being examined in the original place instead of being moved to another place
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class PreparationType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - in utero
+         - Something happening in, within, or while inside the uterus.
+       * - in vivo
+         - Something happening or existing inside a living body.
+       * - ex vivo
+         - Something happening or existing outside a living body.
+       * - in vitro
+         - Something happening outside the body in artificial conditions (e.g., in a test tube or culture dish).
+       * - in silico
+         - Conducted or produced by means of computer modelling or simulation.
+       * - in situ
+         - Something happening or being examined in the original place instead of being moved to another place
 
     """
     default_space = "controlled"

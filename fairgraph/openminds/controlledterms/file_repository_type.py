@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Seafile repository
+         - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
+       * - GPFS repository
+         - GPFS, short for General Parallel File System is a high-performance clustered file system developed by IBM
+       * - GitHub repository
+         - A GitHub repository offers version control and source code management functionalities of Git, plus some GitHub features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
+       * - GitLab repository
+         - A GitLab repository offers version control and source code management functionalities of Git, plus some GitLab features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
+       * - Swift repository
+         - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
+       * - FTP repository
+         - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class FileRepositoryType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Seafile repository
+         - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
+       * - GPFS repository
+         - GPFS, short for General Parallel File System is a high-performance clustered file system developed by IBM
+       * - GitHub repository
+         - A GitHub repository offers version control and source code management functionalities of Git, plus some GitHub features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
+       * - GitLab repository
+         - A GitLab repository offers version control and source code management functionalities of Git, plus some GitLab features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
+       * - Swift repository
+         - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
+       * - FTP repository
+         - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
 
     """
     default_space = "controlled"

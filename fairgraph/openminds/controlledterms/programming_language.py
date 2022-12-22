@@ -1,5 +1,51 @@
 """
 Structured information on the programming language.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - JavaScript
+         - https://www.wikidata.org/wiki/Q2005
+       * - C#
+         - https://www.wikidata.org/wiki/Q2370
+       * - C++
+         - https://www.wikidata.org/wiki/Q2407
+       * - Scala
+         - https://www.wikidata.org/wiki/Q460584
+       * - GLSL
+         - https://www.wikidata.org/wiki/Q779819
+       * - Python
+         - https://www.wikidata.org/wiki/Q28865
+       * - Pascal
+         - https://www.wikidata.org/wiki/Q81571
+       * - TypeScript
+         - https://www.wikidata.org/wiki/Q978185
+       * - Ruby
+         - https://www.wikidata.org/wiki/Q161053
+       * - HTML
+         - https://www.wikidata.org/wiki/Q8811
+       * - R
+         - https://www.wikidata.org/wiki/Q206904
+       * - Fortran
+         - https://www.wikidata.org/wiki/Q83303
+       * - Shell
+         - https://www.wikidata.org/wiki/Q14663
+       * - C
+         - https://www.wikidata.org/wiki/Q15777
+       * - AMPL
+         -
+       * - PHP
+         - https://www.wikidata.org/wiki/Q59
+       * - T-SQL
+         - https://www.wikidata.org/wiki/Q1411245
+       * - Bash
+         - https://www.wikidata.org/wiki/Q189248
+       * - MATLAB
+         - https://www.wikidata.org/wiki/Q37805571
+       * - Java
+         - https://www.wikidata.org/wiki/Q251
+
 """
 
 # this file was auto-generated
@@ -14,6 +60,52 @@ from fairgraph.fields import Field
 class ProgrammingLanguage(KGObject):
     """
     Structured information on the programming language.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - JavaScript
+         - https://www.wikidata.org/wiki/Q2005
+       * - C#
+         - https://www.wikidata.org/wiki/Q2370
+       * - C++
+         - https://www.wikidata.org/wiki/Q2407
+       * - Scala
+         - https://www.wikidata.org/wiki/Q460584
+       * - GLSL
+         - https://www.wikidata.org/wiki/Q779819
+       * - Python
+         - https://www.wikidata.org/wiki/Q28865
+       * - Pascal
+         - https://www.wikidata.org/wiki/Q81571
+       * - TypeScript
+         - https://www.wikidata.org/wiki/Q978185
+       * - Ruby
+         - https://www.wikidata.org/wiki/Q161053
+       * - HTML
+         - https://www.wikidata.org/wiki/Q8811
+       * - R
+         - https://www.wikidata.org/wiki/Q206904
+       * - Fortran
+         - https://www.wikidata.org/wiki/Q83303
+       * - Shell
+         - https://www.wikidata.org/wiki/Q14663
+       * - C
+         - https://www.wikidata.org/wiki/Q15777
+       * - AMPL
+         -
+       * - PHP
+         - https://www.wikidata.org/wiki/Q59
+       * - T-SQL
+         - https://www.wikidata.org/wiki/Q1411245
+       * - Bash
+         - https://www.wikidata.org/wiki/Q189248
+       * - MATLAB
+         - https://www.wikidata.org/wiki/Q37805571
+       * - Java
+         - https://www.wikidata.org/wiki/Q251
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/ProgrammingLanguage"]

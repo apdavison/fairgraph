@@ -1,5 +1,19 @@
 """
 Structured information on the usage role of a file instance or bundle.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - logo
+         - A logo is a graphic used to aid and promote public identification and recognition.used to aid and promote public identification and recognition.
+       * - data descriptor
+         - A 'data descriptor' describes the provenance, the structure, the applied quality assessment, and possible (re)usage of the data. It should not present hypotheses tests, new interpretations, new methods or in-depth analyses.
+       * - screenshot
+         - A screenshot is an image of the content displayed on the screen of a computer or mobile device.
+       * - preview
+         - A preview is a representative image or short movie used to peak interest for a product.
+
 """
 
 # this file was auto-generated
@@ -14,6 +28,20 @@ from fairgraph.fields import Field
 class FileUsageRole(KGObject):
     """
     Structured information on the usage role of a file instance or bundle.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - logo
+         - A logo is a graphic used to aid and promote public identification and recognition.used to aid and promote public identification and recognition.
+       * - data descriptor
+         - A 'data descriptor' describes the provenance, the structure, the applied quality assessment, and possible (re)usage of the data. It should not present hypotheses tests, new interpretations, new methods or in-depth analyses.
+       * - screenshot
+         - A screenshot is an image of the content displayed on the screen of a computer or mobile device.
+       * - preview
+         - A preview is a representative image or short movie used to peak interest for a product.
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/FileUsageRole"]

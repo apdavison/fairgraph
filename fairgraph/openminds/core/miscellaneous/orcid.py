@@ -1,5 +1,5 @@
 """
-
+A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ORCID(KGObject):
     """
-
+    A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/ORCID"]

@@ -1,5 +1,5 @@
 """
-
+A representation of an array of quantitative values, optionally with uncertainties.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class QuantitativeValueArray(KGObject):
     """
-
+    A representation of an array of quantitative values, optionally with uncertainties.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/QuantitativeValueArray"]

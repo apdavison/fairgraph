@@ -1,4 +1,24 @@
 """
+The status of an action.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - active
+         - An in-progress action.
+       * - completed
+         - An action that has already taken place with a successful outcome.
+       * - inactive
+         - A pending or suspended action.
+       * - failed
+         - An action that failed to complete or completed but produced an error.
+       * - paused
+         - A temporarily stopped action that can be resumed at a later point in time.
+       * - potential
+         - A description of an action that is supported.
+       * - pending
+         - An action which is awaiting execution.
 
 """
 
@@ -23,16 +43,16 @@ class ActionStatusType(KGObject):
          - An in-progress action.
        * - completed
          - An action that has already taken place with a successful outcome.
-       * - failed
-         - An action that failed to complete or completed but produced an error.
        * - inactive
          - A pending or suspended action.
+       * - failed
+         - An action that failed to complete or completed but produced an error.
        * - paused
          - A temporarily stopped action that can be resumed at a later point in time.
-       * - pending
-         - An action which is awaiting execution.
        * - potential
          - A description of an action that is supported.
+       * - pending
+         - An action which is awaiting execution.
 
     """
     default_space = "controlled"

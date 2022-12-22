@@ -7,6 +7,7 @@ The contents of target/fairgraph should be copied into the fairgraph/openminds d
 import glob
 import json
 import os
+import sys
 import re
 from typing import List
 from collections import defaultdict
@@ -342,6 +343,58 @@ def property_name_sort_key(arg):
     return priorities.get(name, name)
 
 
+def get_controlled_terms_table(type_):
+    from kg_core.kg import kg
+    from kg_core.request import Stage, Pagination
+    host = "core.kg.ebrains.eu"
+    limit = 20
+    try:
+        token = os.environ["KG_AUTH_TOKEN"]
+    except KeyError:
+        warnings.warn(
+            "Cannot get controlled terms."
+            "Please obtain an EBRAINS auth token and put it in an environment variable 'KG_AUTH_TOKEN'"
+        )
+        return ""
+    kg_client = kg(host).with_token(token).build()
+    response = kg_client.instances.list(
+        stage=Stage.RELEASED,
+        target_type=type_,
+        space="controlled",
+        pagination=Pagination(start=0, size=limit)
+    )
+    if response.error:
+        warnings.warn(f"Error trying to retrieve values for {type_}: {response.error}")
+        return ""
+    else:
+        if response.total == 0:
+            return ""
+        lines = [
+            "",
+            "",
+            "    .. list-table:: **Possible values**",
+            "       :widths: 20 80",
+            "       :header-rows: 0",
+            ""
+        ]
+        for item in response.data:
+            vocab = "https://openminds.ebrains.eu/vocab"
+            name = item[f"{vocab}/name"]
+            if f"{vocab}/definition" in item:
+                definition = item[f"{vocab}/definition"]
+            elif f"{vocab}/preferredOntologyIdentifier" in item:
+                definition = item[f"{vocab}/preferredOntologyIdentifier"]
+            else:
+                definition = " "
+            lines.append(f"       * - {name}")
+            lines.append(f"         - {definition}")
+        if response.total > response.size:
+            assert response.size == limit
+            lines.extend(["", f"Here we show the first {limit} values, an additional {response.total - limit} values are not shown."])
+        lines.append("")
+        return "\n".join(lines)
+
+
 class FairgraphGenerator(JinjaGenerator):
 
     def __init__(self, schema_information: List[SchemaStructure]):
@@ -435,6 +488,8 @@ class FairgraphGenerator(JinjaGenerator):
             "preamble": preamble.get(schema["simpleTypeName"], ""),
             "additional_methods": additional_methods.get(schema["simpleTypeName"], "")
         }
+        if schema["schemaGroup"] == "controlledTerms":
+            context["docstring"] += get_controlled_terms_table(schema["_type"])
         schema.update(context)
         self.import_data[schema["schemaGroup"]][schema[TEMPLATE_PROPERTY_TYPE]] = {
             "class_name": context["class_name"]

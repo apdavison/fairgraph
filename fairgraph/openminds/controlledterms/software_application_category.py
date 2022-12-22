@@ -1,5 +1,23 @@
 """
 Structured information on the category of the software application.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - library
+         - https://www.wikidata.org/wiki/Q188860
+       * - middleware
+         - https://www.wikidata.org/wiki/Q146768
+       * - plugin
+         - https://www.wikidata.org/wiki/Q184148
+       * - module
+         - https://www.wikidata.org/wiki/Q11883090
+       * - notebook
+         - https://www.wikidata.org/wiki/Q28405706
+       * - application
+         - https://www.wikidata.org/wiki/Q166142
+
 """
 
 # this file was auto-generated
@@ -14,6 +32,24 @@ from fairgraph.fields import Field
 class SoftwareApplicationCategory(KGObject):
     """
     Structured information on the category of the software application.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - library
+         - https://www.wikidata.org/wiki/Q188860
+       * - middleware
+         - https://www.wikidata.org/wiki/Q146768
+       * - plugin
+         - https://www.wikidata.org/wiki/Q184148
+       * - module
+         - https://www.wikidata.org/wiki/Q11883090
+       * - notebook
+         - https://www.wikidata.org/wiki/Q28405706
+       * - application
+         - https://www.wikidata.org/wiki/Q166142
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/SoftwareApplicationCategory"]

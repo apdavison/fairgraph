@@ -1,5 +1,5 @@
 """
-
+A persistent identifier for a research resource provided by the Resource Identification Initiative.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class RRID(KGObject):
     """
-
+    A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/RRID"]

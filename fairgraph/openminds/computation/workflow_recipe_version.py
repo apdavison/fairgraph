@@ -1,5 +1,5 @@
 """
-
+Structured information about a specific implemented version of a workflow recipe.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class WorkflowRecipeVersion(KGObject):
     """
-
+    Structured information about a specific implemented version of a workflow recipe.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/WorkflowRecipeVersion"]

@@ -1,5 +1,17 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - axial plane
+         - An anatomical plane which divides the body into cranial and caudal (head and tail) parts.
+       * - sagittal plane
+         - An anatomical plane which divides the body into right and left parts.
+       * - coronal plane
+         - An anatomical plane which divides the body into divides the body into dorsal and ventral (back and front, or posterior and anterior) parts.
+
 """
 
 # this file was auto-generated
@@ -13,6 +25,18 @@ from fairgraph.fields import Field
 
 class AnatomicalPlane(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - axial plane
+         - An anatomical plane which divides the body into cranial and caudal (head and tail) parts.
+       * - sagittal plane
+         - An anatomical plane which divides the body into right and left parts.
+       * - coronal plane
+         - An anatomical plane which divides the body into divides the body into dorsal and ventral (back and front, or posterior and anterior) parts.
 
     """
     default_space = "controlled"

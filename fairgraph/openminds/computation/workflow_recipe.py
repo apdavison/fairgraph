@@ -1,5 +1,5 @@
 """
-
+Structured information about the description of a prospective workflow.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class WorkflowRecipe(KGObject):
     """
-
+    Structured information about the description of a prospective workflow.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/WorkflowRecipe"]

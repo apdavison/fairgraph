@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - outbred
+         - 'Outbred' breeding (or outbreeding) is the production of offspring from mating organisms that belong to two different background breeds.
+       * - coisogenic
+         - 'Coisogenic' breeding  is a type of inbreeding where the offspring differs at only a single locus through a mutation occurring in the original inbred strain.
+       * - selective inbred
+         - 'Selective inbred' breeding (or selective inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed) and have been selected based on a particular phenotype.
+       * - congenic
+         - 'Congenic' breeding is the production of offspring from repeated backcrossing into an inbred (background) strain, with selection for a particular marker, ideally a single gene from another strain.
+       * - hybrid
+         - A 'hybrid' is an organism that resulted from special outbreeding of two species (normally within the same genus).
+       * - inbred
+         - 'Inbred' breeding (or inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed).
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class BreedingType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - outbred
+         - 'Outbred' breeding (or outbreeding) is the production of offspring from mating organisms that belong to two different background breeds.
+       * - coisogenic
+         - 'Coisogenic' breeding  is a type of inbreeding where the offspring differs at only a single locus through a mutation occurring in the original inbred strain.
+       * - selective inbred
+         - 'Selective inbred' breeding (or selective inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed) and have been selected based on a particular phenotype.
+       * - congenic
+         - 'Congenic' breeding is the production of offspring from repeated backcrossing into an inbred (background) strain, with selection for a particular marker, ideally a single gene from another strain.
+       * - hybrid
+         - A 'hybrid' is an organism that resulted from special outbreeding of two species (normally within the same genus).
+       * - inbred
+         - 'Inbred' breeding (or inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed).
 
     """
     default_space = "controlled"

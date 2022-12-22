@@ -1,5 +1,5 @@
 """
-
+A GRID (Global Research Identifier Database) identifier.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class GRIDID(KGObject):
     """
-
+    A GRID (Global Research Identifier Database) identifier.
     """
     default_space = "common"
     type = ["https://openminds.ebrains.eu/core/GRIDID"]

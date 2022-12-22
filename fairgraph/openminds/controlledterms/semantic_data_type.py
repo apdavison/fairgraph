@@ -1,5 +1,19 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - raw data
+         -
+       * - derived data
+         -
+       * - simulated data
+         -
+       * - experimental data
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +27,20 @@ from fairgraph.fields import Field
 
 class SemanticDataType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - raw data
+         -
+       * - derived data
+         -
+       * - simulated data
+         -
+       * - experimental data
+         -
 
     """
     default_space = "controlled"

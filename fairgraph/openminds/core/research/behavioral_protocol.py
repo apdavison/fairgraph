@@ -1,5 +1,5 @@
 """
-
+Structured information about a protocol used in an experiment studying human or animal behavior.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class BehavioralProtocol(KGObject):
     """
-
+    Structured information about a protocol used in an experiment studying human or animal behavior.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]

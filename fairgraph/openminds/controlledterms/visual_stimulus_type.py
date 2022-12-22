@@ -1,5 +1,27 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - moving checkerboard
+         -
+       * - natural movie
+         -
+       * - moving symbol
+         -
+       * - static symbol
+         -
+       * - static grating
+         -
+       * - natural scene
+         -
+       * - moving grating
+         -
+       * - static checkerboard
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +35,28 @@ from fairgraph.fields import Field
 
 class VisualStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - moving checkerboard
+         -
+       * - natural movie
+         -
+       * - moving symbol
+         -
+       * - static symbol
+         -
+       * - static grating
+         -
+       * - natural scene
+         -
+       * - moving grating
+         -
+       * - static checkerboard
+         -
 
     """
     default_space = "controlled"

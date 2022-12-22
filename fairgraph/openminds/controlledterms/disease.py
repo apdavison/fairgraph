@@ -1,5 +1,43 @@
 """
 Structured information on a disease.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - congenital blindness
+         - Congenital blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision before/during birth or in early childhood.
+       * - Alzheimer's disease
+         - http://purl.obolibrary.org/obo/DOID_10652
+       * - Williams-Beuren syndrome
+         - http://purl.obolibrary.org/obo/DOID_1928
+       * - cerebral atrophy
+         - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
+       * - epilepsy
+         - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
+       * - acquired blindness
+         - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
+       * - unresponsive wakefulness syndrome
+         - The 'unresponsive wakefulness syndrome' (UWS) is a disorder of consciousness, formerly known as vegetative state, with only reflexive behavior and no sign of conscious awareness [[Laureys et al. 2010](https://doi.org/10.1186/1741-7015-8-68)].
+       * - disorder of consciousness
+         - A 'disorder of consciousness' is a state where a subject's consciousness has been affected by damage to the brain.
+       * - mental disorder
+         - A 'mental disorder' is characterized by a clinically significant disturbance in an individual’s cognition, emotional regulation, or behaviour and is usually associated with distress or impairment in important areas of functioning. [adapted from [WHO fact-sheets](https://www.who.int/news-room/fact-sheets/detail/mental-disorders)]
+       * - Parkinson's disease
+         - Parkinson's is a progressive central nervous system disorder that affects the motor system.
+       * - glioma
+         - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
+       * - meningioma
+         - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
+       * - minimally conscious state
+         - A 'minimally conscious state' (MCS) is a disorder of consciousness with partial preservation of conscious awareness. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Minimally_conscious_state)]
+       * - autism sprectrum disorder
+         - http://purl.obolibrary.org/obo/DOID_0060041
+       * - fragile X syndrome
+         - http://purl.obolibrary.org/obo/DOID_14261
+       * - stroke
+         - A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event.
+
 """
 
 # this file was auto-generated
@@ -14,6 +52,44 @@ from fairgraph.fields import Field
 class Disease(KGObject):
     """
     Structured information on a disease.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - congenital blindness
+         - Congenital blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision before/during birth or in early childhood.
+       * - Alzheimer's disease
+         - http://purl.obolibrary.org/obo/DOID_10652
+       * - Williams-Beuren syndrome
+         - http://purl.obolibrary.org/obo/DOID_1928
+       * - cerebral atrophy
+         - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
+       * - epilepsy
+         - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
+       * - acquired blindness
+         - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
+       * - unresponsive wakefulness syndrome
+         - The 'unresponsive wakefulness syndrome' (UWS) is a disorder of consciousness, formerly known as vegetative state, with only reflexive behavior and no sign of conscious awareness [[Laureys et al. 2010](https://doi.org/10.1186/1741-7015-8-68)].
+       * - disorder of consciousness
+         - A 'disorder of consciousness' is a state where a subject's consciousness has been affected by damage to the brain.
+       * - mental disorder
+         - A 'mental disorder' is characterized by a clinically significant disturbance in an individual’s cognition, emotional regulation, or behaviour and is usually associated with distress or impairment in important areas of functioning. [adapted from [WHO fact-sheets](https://www.who.int/news-room/fact-sheets/detail/mental-disorders)]
+       * - Parkinson's disease
+         - Parkinson's is a progressive central nervous system disorder that affects the motor system.
+       * - glioma
+         - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
+       * - meningioma
+         - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
+       * - minimally conscious state
+         - A 'minimally conscious state' (MCS) is a disorder of consciousness with partial preservation of conscious awareness. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Minimally_conscious_state)]
+       * - autism sprectrum disorder
+         - http://purl.obolibrary.org/obo/DOID_0060041
+       * - fragile X syndrome
+         - http://purl.obolibrary.org/obo/DOID_14261
+       * - stroke
+         - A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event.
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Disease"]

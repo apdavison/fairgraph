@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Didelphimorphia
+         - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
+       * - Rodentia
+         - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
+       * - Nudibranchia
+         - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
+       * - Carnivora
+         - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
+       * - Primates
+         - The biological order *Primates* belongs to the class *Mammalia* (mammals).
+       * - Cypriniformes
+         - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class BiologicalOrder(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Didelphimorphia
+         - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
+       * - Rodentia
+         - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
+       * - Nudibranchia
+         - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
+       * - Carnivora
+         - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
+       * - Primates
+         - The biological order *Primates* belongs to the class *Mammalia* (mammals).
+       * - Cypriniformes
+         - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
 
     """
     default_space = "controlled"

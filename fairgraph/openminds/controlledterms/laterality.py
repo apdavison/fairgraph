@@ -1,5 +1,15 @@
 """
 Structured information on the lateral direction.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - left
+         -
+       * - right
+         -
+
 """
 
 # this file was auto-generated
@@ -14,6 +24,16 @@ from fairgraph.fields import Field
 class Laterality(KGObject):
     """
     Structured information on the lateral direction.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - left
+         -
+       * - right
+         -
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/Laterality"]

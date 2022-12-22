@@ -1,5 +1,53 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - auditory cortex
+         - The auditory cortex consists of neocortical areas that are functionally activated predominantly to sound, with the shortest latency.
+       * - uncinate fasciculus
+         - 'Uncinate fasciculus' is a fasciculus of brain. It is part of the pontine tegmentum.
+       * - cortical amygdaloid nucleus
+         - 'Cortical amygdaloid nucleus' is a telencephalic nucleus. It is part of the corticomedial nuclear complex.
+       * - cerebellar cortex
+         - 'Cerebellar cortex' is a gray matter of hindbrain. It is part of the cerebellum.
+       * - transverse gyrus of Heschl
+         - 'Transverse gyrus of Heschl' is a gyrus. It is part of the auditory cortex.
+       * - spinocerebellum
+         - 'Spinocerebellum' is a regional part of brain. It is part of the cerebellum.
+       * - septal nuclear complex
+         - 'Septal nuclear complex' is a cerebral hemisphere gray matter and nuclear complex of neuraxis. It is part of the septum of telencephalon and basal forebrain.
+       * - lateral superior olivary nucleus
+         - 'Lateral superior olivary nucleus' is a nucleus of superior olivary complex. It is part of the primary superior olive.
+       * - lamina of septum pellucidum
+         - 'Lamina of septum pellucidum' is a central nervous system cell part cluster and nervous system cell part layer. It is part of the septum pellucidum.
+       * - occipital cortex
+         - 'Occipital cortex' is a cortex of cerebral lobe. It is part of the occipital lobe.
+       * - cephalopod optic lobe
+         - 'Cephalopod optic lobe' is a visual processing part of nervous system. It is part of the brain.
+       * - choroid plexus of lateral ventricle
+         - 'Choroid plexus of lateral ventricle' is a choroid plexus. It is part of the telencephalic ventricle.
+       * - medial globus pallidus
+         - 'Medial globus pallidus' is a cerebral hemisphere gray matter. It is part of the globus pallidus.
+       * - brain ependyma
+         - 'Brain ependyma' is an ependyma. It is part of the brain ventricle.
+       * - superior temporal sulcus
+         - The 'superior temporal sulcus' is the sulcus separating the superior temporal gyrus from the middle temporal gyrus in the temporal lobe of the brain. [from [wikipedia](http://en.wikipedia.org/wiki/Superior_temporal_sulcus)]
+       * - dorsal raphe nucleus
+         - 'Dorsal raphe nucleus' is a nucleus of midbrain reticular formation. It is part of the raphe nuclei.
+       * - rhombic lip
+         - 'Rhombic lip' is part of the future metencephalon.
+       * - lentiform nucleus
+         - 'Lentiform nucleus' is a telencephalic nucleus. It is part of the ventral striatum.
+       * - temporal cortex cingulum
+         - The 'temporal cortex cingulum' is a white matter fibre bundle. It is part of cingulum of brain.
+       * - white matter lamina of cerebellum
+         - 'White matter lamina of cerebellum' is a white matter lamina of neuraxis. It is part of the cerebellum.
+
+Here we show the first 20 values, an additional 813 values are not shown.
+
 """
 
 # this file was auto-generated
@@ -13,6 +61,54 @@ from fairgraph.fields import Field
 
 class UBERONParcellation(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - auditory cortex
+         - The auditory cortex consists of neocortical areas that are functionally activated predominantly to sound, with the shortest latency.
+       * - uncinate fasciculus
+         - 'Uncinate fasciculus' is a fasciculus of brain. It is part of the pontine tegmentum.
+       * - cortical amygdaloid nucleus
+         - 'Cortical amygdaloid nucleus' is a telencephalic nucleus. It is part of the corticomedial nuclear complex.
+       * - cerebellar cortex
+         - 'Cerebellar cortex' is a gray matter of hindbrain. It is part of the cerebellum.
+       * - transverse gyrus of Heschl
+         - 'Transverse gyrus of Heschl' is a gyrus. It is part of the auditory cortex.
+       * - spinocerebellum
+         - 'Spinocerebellum' is a regional part of brain. It is part of the cerebellum.
+       * - septal nuclear complex
+         - 'Septal nuclear complex' is a cerebral hemisphere gray matter and nuclear complex of neuraxis. It is part of the septum of telencephalon and basal forebrain.
+       * - lateral superior olivary nucleus
+         - 'Lateral superior olivary nucleus' is a nucleus of superior olivary complex. It is part of the primary superior olive.
+       * - lamina of septum pellucidum
+         - 'Lamina of septum pellucidum' is a central nervous system cell part cluster and nervous system cell part layer. It is part of the septum pellucidum.
+       * - occipital cortex
+         - 'Occipital cortex' is a cortex of cerebral lobe. It is part of the occipital lobe.
+       * - cephalopod optic lobe
+         - 'Cephalopod optic lobe' is a visual processing part of nervous system. It is part of the brain.
+       * - choroid plexus of lateral ventricle
+         - 'Choroid plexus of lateral ventricle' is a choroid plexus. It is part of the telencephalic ventricle.
+       * - medial globus pallidus
+         - 'Medial globus pallidus' is a cerebral hemisphere gray matter. It is part of the globus pallidus.
+       * - brain ependyma
+         - 'Brain ependyma' is an ependyma. It is part of the brain ventricle.
+       * - superior temporal sulcus
+         - The 'superior temporal sulcus' is the sulcus separating the superior temporal gyrus from the middle temporal gyrus in the temporal lobe of the brain. [from [wikipedia](http://en.wikipedia.org/wiki/Superior_temporal_sulcus)]
+       * - dorsal raphe nucleus
+         - 'Dorsal raphe nucleus' is a nucleus of midbrain reticular formation. It is part of the raphe nuclei.
+       * - rhombic lip
+         - 'Rhombic lip' is part of the future metencephalon.
+       * - lentiform nucleus
+         - 'Lentiform nucleus' is a telencephalic nucleus. It is part of the ventral striatum.
+       * - temporal cortex cingulum
+         - The 'temporal cortex cingulum' is a white matter fibre bundle. It is part of cingulum of brain.
+       * - white matter lamina of cerebellum
+         - 'White matter lamina of cerebellum' is a white matter lamina of neuraxis. It is part of the cerebellum.
+
+Here we show the first 20 values, an additional 813 values are not shown.
 
     """
     default_space = "controlled"

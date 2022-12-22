@@ -1,5 +1,53 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - modality
+         -
+       * - atlas type
+         -
+       * - operating system
+         -
+       * - biological order
+         -
+       * - anatomical plane
+         - A flat anatomical 2D surface that bisects an anatomical structure or an anatomical space.
+       * - dataset type
+         -
+       * - criteria quality type
+         -
+       * - learning resource type
+         - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
+       * - technique
+         -
+       * - patch clamp variation
+         - A variation of the patch clamp technique
+       * - age category
+         - The age category describes a specific spatiotemporal part of the life cycle of an organism.
+       * - contribution type
+         -
+       * - (meta)data model type
+         -
+       * - species
+         -
+       * - tissue sample attribute
+         -
+       * - handedness
+         -
+       * - operating device
+         -
+       * - type of uncertainty
+         -
+       * - UBERON parcellation
+         -
+       * - subject attribute
+         -
+
+Here we show the first 20 values, an additional 56 values are not shown.
+
 """
 
 # this file was auto-generated
@@ -13,6 +61,54 @@ from fairgraph.fields import Field
 
 class Terminology(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - modality
+         -
+       * - atlas type
+         -
+       * - operating system
+         -
+       * - biological order
+         -
+       * - anatomical plane
+         - A flat anatomical 2D surface that bisects an anatomical structure or an anatomical space.
+       * - dataset type
+         -
+       * - criteria quality type
+         -
+       * - learning resource type
+         - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
+       * - technique
+         -
+       * - patch clamp variation
+         - A variation of the patch clamp technique
+       * - age category
+         - The age category describes a specific spatiotemporal part of the life cycle of an organism.
+       * - contribution type
+         -
+       * - (meta)data model type
+         -
+       * - species
+         -
+       * - tissue sample attribute
+         -
+       * - handedness
+         -
+       * - operating device
+         -
+       * - type of uncertainty
+         -
+       * - UBERON parcellation
+         -
+       * - subject attribute
+         -
+
+Here we show the first 20 values, an additional 56 values are not shown.
 
     """
     default_space = "controlled"

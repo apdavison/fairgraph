@@ -1,5 +1,5 @@
 """
-
+An identifiable list of property-value pairs
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class PropertyValueList(KGObject):
     """
-
+    An identifiable list of property-value pairs
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/PropertyValueList"]

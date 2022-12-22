@@ -1,5 +1,5 @@
 """
-
+Structured information about the source of a chemical substance or mixture.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ProductSource(KGObject):
     """
-
+    Structured information about the source of a chemical substance or mixture.
     """
     default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/ProductSource"]

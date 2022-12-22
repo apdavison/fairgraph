@@ -1,5 +1,5 @@
 """
-
+Structured information about a process of visualizing a computational model, a computational process, or a dataset.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Visualization(KGObject):
     """
-
+    Structured information about a process of visualizing a computational model, a computational process, or a dataset.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Visualization"]

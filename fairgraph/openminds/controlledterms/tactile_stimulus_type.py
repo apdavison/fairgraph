@@ -1,5 +1,17 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - vibrating surface
+         -
+       * - textured surface
+         -
+       * - vibrating object
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +25,18 @@ from fairgraph.fields import Field
 
 class TactileStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - vibrating surface
+         -
+       * - textured surface
+         -
+       * - vibrating object
+         -
 
     """
     default_space = "controlled"

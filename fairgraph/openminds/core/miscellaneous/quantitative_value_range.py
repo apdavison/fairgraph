@@ -1,5 +1,5 @@
 """
-
+A representation of a range of quantitative values.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class QuantitativeValueRange(EmbeddedMetadata):
     """
-
+    A representation of a range of quantitative values.
     """
     type = ["https://openminds.ebrains.eu/core/QuantitativeValueRange"]
     context = {

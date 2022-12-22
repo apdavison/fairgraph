@@ -1,5 +1,5 @@
 """
-
+Structured information about an execution of a computational workflow.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class WorkflowExecution(KGObject):
     """
-
+    Structured information about an execution of a computational workflow.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/WorkflowExecution"]

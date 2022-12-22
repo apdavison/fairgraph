@@ -1,5 +1,5 @@
 """
-
+An International Standard Serial Number of the ISSN International Centre.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ISSN(KGObject):
     """
-
+    An International Standard Serial Number of the ISSN International Centre.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ISSN"]

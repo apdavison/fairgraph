@@ -1,5 +1,15 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - primary cell culture
+         - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
+       * - secondary cell culture
+         - A cultured cell population that is derived through one or more passages in culture.
+
 """
 
 # this file was auto-generated
@@ -13,6 +23,16 @@ from fairgraph.fields import Field
 
 class CellCultureType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - primary cell culture
+         - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
+       * - secondary cell culture
+         - A cultured cell population that is derived through one or more passages in culture.
 
     """
     default_space = "controlled"

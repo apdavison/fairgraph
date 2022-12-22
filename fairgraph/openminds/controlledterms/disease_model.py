@@ -1,5 +1,27 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - autism spectrum disorder model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal autism sprectrum disorder.
+       * - Alzheimer's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Alzheimer's disease.
+       * - Huntington's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Huntington's disease.
+       * - fragile X syndrome model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal fragile X syndrome.
+       * - Williams-Beuren syndrome model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Williams-Beuren syndrome.
+       * - stroke model
+         - An animal or cell displaying all or some of the pathological processes that are observed during stroke in humans or animals.
+       * - Parkinson's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Parkinson's disease.
+       * - epilepsy model
+         - An animal or cell displaying all or some of the pathological processes that are observed for epilepsy in humans or animals.
+
 """
 
 # this file was auto-generated
@@ -13,6 +35,28 @@ from fairgraph.fields import Field
 
 class DiseaseModel(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - autism spectrum disorder model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal autism sprectrum disorder.
+       * - Alzheimer's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Alzheimer's disease.
+       * - Huntington's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Huntington's disease.
+       * - fragile X syndrome model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal fragile X syndrome.
+       * - Williams-Beuren syndrome model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Williams-Beuren syndrome.
+       * - stroke model
+         - An animal or cell displaying all or some of the pathological processes that are observed during stroke in humans or animals.
+       * - Parkinson's disease model
+         - An animal or cell displaying all or some of the pathological processes that are observed in the actual human or animal Parkinson's disease.
+       * - epilepsy model
+         - An animal or cell displaying all or some of the pathological processes that are observed for epilepsy in humans or animals.
 
     """
     default_space = "controlled"

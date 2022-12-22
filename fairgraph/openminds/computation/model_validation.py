@@ -1,5 +1,5 @@
 """
-
+Structured information about a process of validating a computational model.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ModelValidation(KGObject):
     """
-
+    Structured information about a process of validating a computational model.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/ModelValidation"]

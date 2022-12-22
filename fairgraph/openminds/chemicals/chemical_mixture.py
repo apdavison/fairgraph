@@ -1,5 +1,5 @@
 """
-
+Structured information about a mixture of chemical substances.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ChemicalMixture(KGObject):
     """
-
+    Structured information about a mixture of chemical substances.
     """
     default_space = "in-depth"
     type = ["https://openminds.ebrains.eu/chemicals/ChemicalMixture"]

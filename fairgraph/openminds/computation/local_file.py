@@ -1,5 +1,5 @@
 """
-
+Structured information about a file that is not accessible via a URL.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class LocalFile(KGObject):
     """
-
+    Structured information about a file that is not accessible via a URL.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/LocalFile"]

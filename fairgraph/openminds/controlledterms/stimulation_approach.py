@@ -1,5 +1,23 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - visual stimulation
+         - A stimulation of the visual (sight) system.
+       * - olfactory stimulation
+         - A stimulation of the olfactory (smelling) system.
+       * - tactile stimulation
+         - A stimulation of the tactile (touch) system.
+       * - gustatory stimulation
+         - A stimulation of the gustatory (taste and flavor perception) system.
+       * - interoceptive stimulation
+         - A stimulation that arises from inside an organism.
+       * - auditory stimulation
+         - A stimulation of the auditory (hearing) system.
+
 """
 
 # this file was auto-generated
@@ -13,6 +31,24 @@ from fairgraph.fields import Field
 
 class StimulationApproach(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - visual stimulation
+         - A stimulation of the visual (sight) system.
+       * - olfactory stimulation
+         - A stimulation of the olfactory (smelling) system.
+       * - tactile stimulation
+         - A stimulation of the tactile (touch) system.
+       * - gustatory stimulation
+         - A stimulation of the gustatory (taste and flavor perception) system.
+       * - interoceptive stimulation
+         - A stimulation that arises from inside an organism.
+       * - auditory stimulation
+         - A stimulation of the auditory (hearing) system.
 
     """
     default_space = "controlled"

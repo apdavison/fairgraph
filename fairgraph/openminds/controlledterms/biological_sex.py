@@ -1,5 +1,19 @@
 """
 Structured information on the biological sex of a subject.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - not detectable
+         - Can be stated if the biological sex in visually not detectable at a specific point in time.
+       * - male
+         - Biological sex that produces sperm cells (spermatozoa).
+       * - female
+         - Biological sex that produces egg cells (ova).
+       * - hermaphrodite
+         - Biological sex with both male and female reproductive organs.
+
 """
 
 # this file was auto-generated
@@ -14,6 +28,20 @@ from fairgraph.fields import Field
 class BiologicalSex(KGObject):
     """
     Structured information on the biological sex of a subject.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - not detectable
+         - Can be stated if the biological sex in visually not detectable at a specific point in time.
+       * - male
+         - Biological sex that produces sperm cells (spermatozoa).
+       * - female
+         - Biological sex that produces egg cells (ova).
+       * - hermaphrodite
+         - Biological sex with both male and female reproductive organs.
+
     """
     default_space = "controlled"
     type = ["https://openminds.ebrains.eu/controlledTerms/BiologicalSex"]

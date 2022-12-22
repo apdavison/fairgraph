@@ -1,5 +1,25 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - wildtype
+         -
+       * - transgenic
+         -
+       * - knockout
+         -
+       * - knockin
+         -
+       * - conditional knockout ready
+         -
+       * - conditional ready
+         -
+       * - conditional knockin ready
+         -
+
 """
 
 # this file was auto-generated
@@ -13,6 +33,26 @@ from fairgraph.fields import Field
 
 class GeneticStrainType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - wildtype
+         -
+       * - transgenic
+         -
+       * - knockout
+         -
+       * - knockin
+         -
+       * - conditional knockout ready
+         -
+       * - conditional ready
+         -
+       * - conditional knockin ready
+         -
 
     """
     default_space = "controlled"

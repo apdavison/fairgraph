@@ -1,5 +1,5 @@
 """
-
+Structured information about a process of optimizing a model or a piece of code.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Optimization(KGObject):
     """
-
+    Structured information about a process of optimizing a model or a piece of code.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/Optimization"]

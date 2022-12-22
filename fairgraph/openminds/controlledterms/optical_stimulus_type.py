@@ -1,5 +1,13 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - infrared neural stimulus
+         - An 'infrared neural stimulus' is a pulsed IR light (between the wavelength of 1400–2100 nm) used to generate a highly controlled temperature transients in neurons (dT/dz or dT/dt), leading them to fire action potentials. [adapted from [Horváth et al., (2020)](https://doi.org/10.1038/s41378-020-0153-3)]
+
 """
 
 # this file was auto-generated
@@ -13,6 +21,14 @@ from fairgraph.fields import Field
 
 class OpticalStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - infrared neural stimulus
+         - An 'infrared neural stimulus' is a pulsed IR light (between the wavelength of 1400–2100 nm) used to generate a highly controlled temperature transients in neurons (dT/dz or dT/dt), leading them to fire action potentials. [adapted from [Horváth et al., (2020)](https://doi.org/10.1038/s41378-020-0153-3)]
 
     """
     default_space = "controlled"

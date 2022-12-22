@@ -1,5 +1,5 @@
 """
-
+An International Standard Book Number of the International ISBN Agency.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ISBN(KGObject):
     """
-
+    An International Standard Book Number of the International ISBN Agency.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/ISBN"]

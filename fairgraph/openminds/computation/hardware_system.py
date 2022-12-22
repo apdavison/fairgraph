@@ -1,5 +1,5 @@
 """
-
+Structured information about computing hardware.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class HardwareSystem(KGObject):
     """
-
+    Structured information about computing hardware.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/HardwareSystem"]

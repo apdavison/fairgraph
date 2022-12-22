@@ -1,5 +1,19 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - is identical to
+         - A set/object (A) is identical to another set/object (B) if they look exactly the same.
+       * - is subset of
+         - A set/object (A) is a subset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (A) are also elements/incidents of (B).
+       * - partially overlaps with
+         - Two sets/objects (A and B) partially overlap when some elements/incidents are part of both original objects (A and B).
+       * - is superset of
+         - A set/object (A) is a superset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (B) are also elements/incidents of (A).
+
 """
 
 # this file was auto-generated
@@ -13,6 +27,20 @@ from fairgraph.fields import Field
 
 class QualitativeOverlap(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - is identical to
+         - A set/object (A) is identical to another set/object (B) if they look exactly the same.
+       * - is subset of
+         - A set/object (A) is a subset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (A) are also elements/incidents of (B).
+       * - partially overlaps with
+         - Two sets/objects (A and B) partially overlap when some elements/incidents are part of both original objects (A and B).
+       * - is superset of
+         - A set/object (A) is a superset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (B) are also elements/incidents of (A).
 
     """
     default_space = "controlled"

@@ -1,5 +1,5 @@
 """
-
+Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class DOI(KGObject):
     """
-
+    Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
     default_space = "dataset"
     type = ["https://openminds.ebrains.eu/core/DOI"]

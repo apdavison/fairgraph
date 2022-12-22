@@ -1,5 +1,13 @@
 """
 
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - floral odor
+         - Any chemical compound that smells floral.
+
 """
 
 # this file was auto-generated
@@ -13,6 +21,14 @@ from fairgraph.fields import Field
 
 class OlfactoryStimulusType(KGObject):
     """
+
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - floral odor
+         - Any chemical compound that smells floral.
 
     """
     default_space = "controlled"
