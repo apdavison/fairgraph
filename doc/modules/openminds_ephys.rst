@@ -2,72 +2,50 @@
 openminds.ephys
 ===============
 
+In-depth metadata for electrophysiology recordings.
 
-.. autoclass:: fairgraph.openminds.ephys.entity.device.Device
+
+.. autoclass:: fairgraph.openminds.ephys.CellPatching
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.electrode_array.ElectrodeArray
+
+.. autoclass:: fairgraph.openminds.ephys.ElectrodePlacement
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.patched_cell.PatchedCell
+.. autoclass:: fairgraph.openminds.ephys.RecordingActivity
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.pipette.Pipette
+.. autoclass:: fairgraph.openminds.ephys.Pipette
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.channel.Channel
+.. autoclass:: fairgraph.openminds.ephys.PipetteUsage
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.stimulus.Stimulus
+.. autoclass:: fairgraph.openminds.ephys.Electrode
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.electrode_contact.ElectrodeContact
+.. autoclass:: fairgraph.openminds.ephys.ElectrodeUsage
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.electrode.Electrode
+.. autoclass:: fairgraph.openminds.ephys.ElectrodeArray
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.cell.Cell
+.. autoclass:: fairgraph.openminds.ephys.ElectrodeArrayUsage
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.measurement.Measurement
+.. autoclass:: fairgraph.openminds.ephys.Channel
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.ephys.entity.recording.Recording
+.. autoclass:: fairgraph.openminds.ephys.Recording
    :members:
    :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.brain_slicing_activity.BrainSlicingActivity
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.patch_clamp_activity.PatchClampActivity
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.craniotomy.Craniotomy
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.electrode_placement_activity.ElectrodePlacementActivity
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.stimulation_experiment.StimulationExperiment
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.ephys.activity.culturing_activity.CulturingActivity
-   :members:
-   :show-inheritance:
-

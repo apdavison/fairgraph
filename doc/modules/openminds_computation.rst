@@ -2,39 +2,64 @@
 openminds.computation
 =====================
 
+Provenance of computational workflows in neuroscience, including simulations, data analysis and visualizations.
 
-.. autoclass:: fairgraph.openminds.computation.environment.Environment
+.. autoclass:: fairgraph.openminds.computation.Environment
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.hardware_system.HardwareSystem
+.. autoclass:: fairgraph.openminds.computation.HardwareSystem
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.launch_configuration.LaunchConfiguration
+.. autoclass:: fairgraph.openminds.computation.LaunchConfiguration
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.data_analysis.DataAnalysis
+.. autoclass:: fairgraph.openminds.computation.DataAnalysis
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.simulation.Simulation
+.. autoclass:: fairgraph.openminds.computation.Simulation
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.visualization.Visualization
+.. autoclass:: fairgraph.openminds.computation.ModelValidation
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.optimization.Optimization
+.. autoclass:: fairgraph.openminds.computation.ValidationTest
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.software_agent.SoftwareAgent
+.. autoclass:: fairgraph.openminds.computation.ValidationTestVersion
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.computation.workflow_execution.WorkflowExecution
+.. autoclass:: fairgraph.openminds.computation.Visualization
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.Optimization
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.SoftwareAgent
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.WorkflowExecution
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.WorkflowRecipe
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.WorkflowRecipeVersion
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.LocalFile
    :members:
    :show-inheritance:

@@ -2,35 +2,91 @@
 openminds.sands
 ===============
 
+Metadata about brain atlases, as well as anatomical locations and relations of non-atlas data.
 
-.. autoclass:: fairgraph.openminds.sands.atlas.brain_atlas.BrainAtlas
+Brain Atlases
+=============
+
+.. autoclass:: fairgraph.openminds.sands.AtlasAnnotation
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.atlas.brain_atlas_version.BrainAtlasVersion
+.. autoclass:: fairgraph.openminds.sands.BrainAtlas
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.atlas.common_coordinate_space.CommonCoordinateSpace
+.. autoclass:: fairgraph.openminds.sands.BrainAtlasVersion
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.non_atlas.custom_anatomical_entity.CustomAnatomicalEntity
+.. autoclass:: fairgraph.openminds.sands.CommonCoordinateSpace
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.non_atlas.custom_coordinate_space.CustomCoordinateSpace
+.. autoclass:: fairgraph.openminds.sands.ParcellationEntity
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.atlas.parcellation_entity.ParcellationEntity
+.. autoclass:: fairgraph.openminds.sands.ParcellationEntityVersion
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.atlas.parcellation_entity_version.ParcellationEntityVersion
+.. autoclass:: fairgraph.openminds.sands.ParcellationTerminology
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.sands.atlas.parcellation_terminology_version.ParcellationTerminologyVersion
+.. autoclass:: fairgraph.openminds.sands.ParcellationTerminologyVersion
+   :members:
+   :show-inheritance:
+
+
+Non-atlas-related
+=================
+
+.. autoclass:: fairgraph.openminds.sands.CustomAnatomicalEntity
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.CustomAnnotation
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.CustomCoordinateSpace
+   :members:
+   :show-inheritance:
+
+
+Shapes
+======
+
+.. autoclass:: fairgraph.openminds.sands.Circle
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.Ellipse
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.Rectangle
+   :members:
+   :show-inheritance:
+
+
+Miscellaneous
+=============
+
+.. autoclass:: fairgraph.openminds.sands.AnatomicalTargetPosition
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.CoordinatePoint
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.QualitativeRelationAssessment
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.sands.QuantitativeRelationAssessment
    :members:
    :show-inheritance:

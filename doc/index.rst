@@ -208,7 +208,7 @@ For those users who have the necessary permissions to store and edit metadata in
 Getting help
 ------------
 
-In case of questions about **fairgraph**, please e-mail support@humanbrainproject.eu.
+In case of questions about **fairgraph**, please e-mail support@ebrains.eu.
 If you find a bug or would like to suggest an enhancement or new feature,
 please open a ticket in the `issue tracker`_.
 
