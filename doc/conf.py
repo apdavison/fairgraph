@@ -24,9 +24,9 @@ copyright = '2019-2022, Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, G
 author = 'Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen'
 
 # The short X.Y version
-version = '0.8'
+version = '0.9'
 # The full version, including alpha/beta/rc tags
-release = '0.8.2'
+release = '0.9.0.dev.0'
 
 
 # -- General configuration ---------------------------------------------------
