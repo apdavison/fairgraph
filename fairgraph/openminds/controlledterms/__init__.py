@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .difference_measure import DifferenceMeasure
 from .programming_language import ProgrammingLanguage

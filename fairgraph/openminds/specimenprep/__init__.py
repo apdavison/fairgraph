@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .activity.cranial_window_preparation import CranialWindowPreparation
 from .activity.tissue_culture_preparation import TissueCulturePreparation

@@ -5,7 +5,7 @@ Structured information about a protocol used in an experiment studying human or 
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
 
 

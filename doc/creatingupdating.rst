@@ -16,7 +16,7 @@ then use the :meth:`save()` method, e.g.::
 
 To update a node, edit the attributes of the corresponding Python object, then :meth:`save()` again::
 
-    from fairgraph.base_v3 import IRI
+    from fairgraph.base import IRI
 
     sv.homepage = URL(url=IRI("https://numpy.org"))
     sv.save(client)

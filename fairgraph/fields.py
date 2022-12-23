@@ -25,13 +25,13 @@ from collections.abc import Iterable, Mapping
 from dateutil import parser as date_parser
 
 from .registry import lookup
-from .base_v3 import (
+from .base import (
     KGObject as KGObjectV3,
     KGProxy as KGProxyV3,
     KGQuery as KGQueryV3,
     EmbeddedMetadata,
-    build_kgv3_object,
-    IRI as IRIv3,
+    build_kg_object,
+    IRI,
     as_list)
 
 
@@ -151,13 +151,13 @@ class Field(object):
         else:
             return serialize_single(value)
 
-    def deserialize_v3(self, data, client, resolved=False):
+    def deserialize(self, data, client, resolved=False):
         assert self.intrinsic
         if data is None or data == []:
             return None
         try:
             if issubclass(self.types[0], KGObjectV3):
-                return build_kgv3_object(self.types, data, resolved=resolved, client=client)
+                return build_kg_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
                 deserialized = []
                 for item in as_list(data):
@@ -188,8 +188,8 @@ class Field(object):
                     return [int(item) for item in data]
                 else:
                     return int(data)
-            elif self.types[0] == IRIv3:
-                return IRIv3(data)
+            elif self.types[0] == IRI:
+                return IRI(data)
             else:
                 return data
         except Exception as err:

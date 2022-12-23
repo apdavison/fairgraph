@@ -5,7 +5,7 @@ Tests of fairgraph.base_v2 module.
 
 from datetime import date, datetime
 from uuid import UUID
-from fairgraph.base_v3 import EmbeddedMetadata, KGObject
+from fairgraph.base import EmbeddedMetadata, KGObject
 from fairgraph.fields import Field
 import pytest
 

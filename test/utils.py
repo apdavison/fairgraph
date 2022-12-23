@@ -1,6 +1,6 @@
 from copy import deepcopy
 from uuid import uuid4
-from fairgraph.client_v3 import KGv3Client as KGClient
+from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError
 
 import pytest

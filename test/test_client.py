@@ -1,6 +1,6 @@
 
 
-from .utils_v3 import kg_client, skip_if_no_connection
+from .utils import kg_client, skip_if_no_connection
 
 
 @skip_if_no_connection

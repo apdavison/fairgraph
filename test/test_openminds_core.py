@@ -4,12 +4,12 @@ from random import randint
 from uuid import UUID
 from copy import deepcopy
 from datetime import datetime
-from fairgraph.base_v3 import as_list, IRI, KGProxy, KGQuery
+from fairgraph.base import as_list, IRI, KGProxy, KGQuery
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlledterms as omterms
 from fairgraph.utility import ActivityLog
 
-from test.utils_v3 import mock_client, kg_client, skip_if_no_connection
+from test.utils import mock_client, kg_client, skip_if_no_connection
 
 
 def test_query_generation(mock_client):

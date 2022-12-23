@@ -5,7 +5,7 @@ Structured information about the definition of a process for validating a comput
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
 
 

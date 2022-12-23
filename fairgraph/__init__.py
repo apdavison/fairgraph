@@ -20,9 +20,9 @@ limitations under the License.
 """
 
 import re
-from .client_v3 import KGv3Client as KGClient
+from .client import KGClient
 
 __version__ = "0.9.0"
 
 from . import (
-    base_v3, client_v3, errors, utility, openminds)
+    base, client, errors, utility, openminds)
