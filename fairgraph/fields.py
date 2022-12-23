@@ -25,23 +25,14 @@ from collections.abc import Iterable, Mapping
 from dateutil import parser as date_parser
 
 from .registry import lookup
-from .base_v2 import (
-    KGObject as KGObjectV2,
-    KGProxy as KGProxyV2,
-    KGQuery as KGQueryV2,
-    MockKGObject,
-    Distribution,
-    StructuredMetadata,
-    IRI as IRIv2,
-    build_kg_object,
-    as_list)
 from .base_v3 import (
     KGObject as KGObjectV3,
     KGProxy as KGProxyV3,
     KGQuery as KGQueryV3,
     EmbeddedMetadata,
     build_kgv3_object,
-    IRI as IRIv3)
+    IRI as IRIv3,
+    as_list)
 
 
 class Field(object):
@@ -82,19 +73,18 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxyV2, KGQueryV2, KGProxyV3, KGQueryV3, EmbeddedMetadata))
+                if not (isinstance(item, (KGProxyV3, KGQueryV3, EmbeddedMetadata))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
-                    if not isinstance(item, MockKGObject):  # this check could be stricter
-                        if item is None and self.required:
-                            errmsg = "Field '{}' is required but was not provided.".format(
-                                     self.name)
-                        else:
-                            errmsg = "Field '{}' should be of type {}, not {}".format(
-                                     self.name, self.types, type(item))
-                        if self.strict_mode:
-                            raise ValueError(errmsg)
-                        else:
-                            warnings.warn(errmsg)
+                    if item is None and self.required:
+                        errmsg = "Field '{}' is required but was not provided.".format(
+                                    self.name)
+                    else:
+                        errmsg = "Field '{}' should be of type {}, not {}".format(
+                                    self.name, self.types, type(item))
+                    if self.strict_mode:
+                        raise ValueError(errmsg)
+                    else:
+                        warnings.warn(errmsg)
         if self.required or value is not None:
             if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
                 for item in value:
@@ -112,7 +102,7 @@ class Field(object):
 
     @property
     def is_link(self):
-        return issubclass(self.types[0], (KGObjectV2, KGObjectV3, EmbeddedMetadata))
+        return issubclass(self.types[0], (KGObjectV3, EmbeddedMetadata))
 
     def serialize(self, value, client, for_query=False, with_type=True):
         def serialize_single(value):
@@ -120,7 +110,7 @@ class Field(object):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
-            elif isinstance(value, (KGObjectV2, KGObjectV3, KGProxyV2, KGProxyV3)):
+            elif isinstance(value, (KGObjectV3, KGProxyV3)):
                 if for_query:
                     return value.id
                 else:
@@ -128,7 +118,7 @@ class Field(object):
                         "@id": value.id,
                     }
                     if with_type:
-                        if isinstance(value, (KGProxyV2, KGProxyV3)):
+                        if isinstance(value, KGProxyV3):
                             if len(value.classes) == 1:
                                 data["@type"] = value.classes[0].type
                             else:
@@ -160,56 +150,6 @@ class Field(object):
                 return value
         else:
             return serialize_single(value)
-
-    def deserialize(self, data, client, resolved=False):
-
-        if data is None:
-            return data
-        try:
-            if not self.intrinsic:
-                query_filter = {
-                    "nexus": {
-                        "path": self.path[1:],  # remove initial ^
-                        "op": "eq",  # OR? "eq" if self.multiple else "in",  # maybe ok for 1:n and n:1, but not n:n
-                        "value": data
-                    },
-                    "query": {
-                        self.reverse: data
-                    }
-                }
-                # context_key = query_filter["path"].split(":")[0]  # e.g. --> 'prov', 'nsg'
-                # query_context = {context_key: TODO: lookup contexts}
-                query_context = {
-                    "prov": "http://www.w3.org/ns/prov#",
-                    "schema": "http://schema.org/",
-                    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-                }
-                return KGQueryV2(self.types, query_filter, query_context)
-            if Distribution in self.types:
-                return build_kg_object(Distribution, data)
-            elif issubclass(self.types[0], (KGObjectV2, StructuredMetadata)):
-                if len(self.types) > 1 or self.types[0] == KGObjectV2:
-                    return build_kg_object(None, data, resolved=resolved, client=client)
-                return build_kg_object(self.types[0], data, resolved=resolved, client=client)
-            elif self.types[0] in (datetime, date):
-                return date_parser.parse(data)
-            elif self.types[0] == IRIv2:
-                return data["@id"]
-            elif self.types[0] == int:
-                if isinstance(data, str):
-                    return int(data)
-                elif isinstance(data, Iterable):
-                    return [int(item) for item in data]
-                else:
-                    return int(data)
-            else:
-                return data
-        except Exception as err:
-            if self.strict_mode:
-                raise
-            else:
-                warnings.warn(str(err))
-                return None
 
     def deserialize_v3(self, data, client, resolved=False):
         assert self.intrinsic
