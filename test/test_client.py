@@ -51,3 +51,26 @@ def test_query_filter_by_space(kg_client):
     if len(spaces) > 0:  # not a great test, needs to be improved
         assert len(spaces) == 1
         assert "model" == list(spaces)[0]
+
+
+@skip_if_no_connection
+def test_get_admin_client(kg_client):
+    admin_client = kg_client._kg_admin_client
+
+
+@skip_if_no_connection
+def test_list_scopes(kg_client):
+    def _get_models(scope):
+        return kg_client.list(
+            target_type="https://openminds.ebrains.eu/core/Model",
+            space="model",
+            from_index=0,
+            size=10000,
+            scope=scope
+        )
+
+    released_models = _get_models("released")
+    in_progress_models = _get_models("in progress")
+    all_models = _get_models("any")
+    # following assertion is because some models will appear in both released and in progress
+    assert released_models.total + in_progress_models.total >= all_models.total
