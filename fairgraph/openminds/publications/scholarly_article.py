@@ -109,5 +109,4 @@ class ScholarlyArticle(KGObject):
             title += "."
         journal_name = journal.name if journal else ""
         volume_number = volume.volume_number if volume else ""
-        #breakpoint()
         return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
