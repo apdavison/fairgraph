@@ -669,15 +669,27 @@ class KGObject(object, metaclass=Registry):
 
     def _updated_data(self, data):
         updated_data = {}
+        def _expand_key(key):
+            if key.startswith("@"):
+                return key
+            return expand_uri(key, {"vocab": "https://openminds.ebrains.eu/vocab/"})[0]
+
         for key, value in data.items():
-            if self.data is None or key not in self.data:
+            expanded_key = _expand_key(key)
+            if self.data is None or (key not in self.data and expanded_key not in self.data):
                 if value is not None:
                     logger.info(f"    - new field '{key}' with value {value}")  # todo: change to debug
                     updated_data[key] = value
             else:
-                existing = self.data[key]
+                existing = self.data.get(key, self.data.get(expanded_key))
                 if existing != value:
-                    if (isinstance(existing, list) and len(existing) == 0 and value is None):
+                    if (isinstance(existing, dict) and isinstance(value, dict)):
+                        expanded_value = {
+                            _expand_key(k): v for k, v in value.items()
+                        }
+                        if existing != expanded_value:
+                            updated_data[key] = value
+                    elif (isinstance(existing, list) and len(existing) == 0 and value is None):
                         # we treat empty list and None as equivalent
                         pass
                     elif (
