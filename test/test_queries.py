@@ -41,8 +41,8 @@ def example_query_model_version():
                                     name="vocab:affiliation",
                                     properties=[
                                         QueryProperty("@type"),
-                                        QueryProperty("https://openminds.ebrains.eu/vocab/organization",
-                                                  name="vocab:organization",
+                                        QueryProperty("https://openminds.ebrains.eu/vocab/memberOf",
+                                                  name="vocab:memberOf",
                                                   properties=[QueryProperty("@id")]),
                                         QueryProperty("https://openminds.ebrains.eu/vocab/startDate",
                                                   name="vocab:startDate")
@@ -152,8 +152,8 @@ def test_query_builder(example_query_model_version):
                         'structure': [
                             {'path': '@type'},
                             {
-                                'path': 'https://openminds.ebrains.eu/vocab/organization',
-                                'propertyName': 'vocab:organization',
+                                'path': 'https://openminds.ebrains.eu/vocab/memberOf',
+                                'propertyName': 'vocab:memberOf',
                                 'structure': [
                                     {'path': '@id'}
                                 ]

@@ -65,8 +65,8 @@
           "propertyName": "vocab:endDate"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/organization",
-          "propertyName": "vocab:organization",
+          "path": "https://openminds.ebrains.eu/vocab/memberOf",
+          "propertyName": "vocab:memberOf",
           "structure": [
             {
               "path": "@id"
