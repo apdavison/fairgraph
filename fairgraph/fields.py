@@ -145,7 +145,7 @@ class Field(object):
             else:
                 raise ValueError("don't know how to serialize this value")
         if isinstance(value, (list, tuple)):
-            if self.multiple:
+            if self.multiple or not self.strict_mode:
                 value = [serialize_single(item) for item in value]
                 if len(value) == 1:
                     return value[0]
@@ -153,6 +153,8 @@ class Field(object):
                     return value
             elif len(value) == 1:
                 return serialize_single(value[0])
+            elif self.strict_mode:
+                raise AttributeError(f"Single item expected for field {self.name} but received multiple")
             else:
                 return value
         else:

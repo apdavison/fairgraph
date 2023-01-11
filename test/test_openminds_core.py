@@ -140,6 +140,39 @@ def test_exists_method_without_id(kg_client):
     assert new_model == model
 
 
+def test__update():
+    example_data = {
+        '@id': 'https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008',
+        '@type': ['https://openminds.ebrains.eu/core/Person'],
+        'http://schema.org/identifier': [
+            'ba78ffe138e3a79a7514f26441fba6ff',
+            'https://nexus.humanbrainproject.org/v0/data/uniminds/core/person/v1.0.0/e90fc25a-fc35-4066-9ff2-ca3583a2d008',
+            'https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008'
+        ],
+        'https://core.kg.ebrains.eu/vocab/meta/revision': '_fCLxIMC---',
+        'https://core.kg.ebrains.eu/vocab/meta/space': 'common',
+        'https://openminds.ebrains.eu/vocab/affiliation': {
+            '@type': ['https://openminds.ebrains.eu/core/Affiliation'],
+            'https://openminds.ebrains.eu/vocab/memberOf': {
+                '@id': 'https://kg.ebrains.eu/api/instances/05c23d56-b27e-4cf2-8c47-ed12c1a441e7'
+            }
+        },
+        'https://openminds.ebrains.eu/vocab/contactInformation': [
+            {'@id': 'https://kg.ebrains.eu/api/instances/4b88cd1e-e222-47e9-9b4a-32b648bddbca'},
+            {'@id': 'https://kg.ebrains.eu/api/instances/bc036c71-084b-4ffa-8430-4543095660f2'}
+        ],
+        'https://openminds.ebrains.eu/vocab/familyName': 'Bianchi',
+        'https://openminds.ebrains.eu/vocab/givenName': 'Daniela'
+    }
+    client = None
+    person = omcore.Person.from_kg_instance(example_data, client=client, scope="in progress")
+    assert person.data == example_data
+    # this follows the sequence in person.save()
+    data = person._build_data(client, all_fields=True)
+    updated_data = person._updated_data(data)
+    assert len(updated_data) == 0
+
+
 @skip_if_no_connection
 def test_KGQuery_resolve(kg_client):
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
