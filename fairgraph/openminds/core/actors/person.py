@@ -49,16 +49,15 @@ class Person(KGObject):
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
-        family_name = user_info["http://schema.org/familyName"]
-        given_name = user_info["http://schema.org/givenName"]
         possible_matches = cls.list(
             client, scope="in progress", space="common",
             resolved=resolved,
-            family_name=family_name,
-            given_name=given_name
+            family_name=user_info.family_name,
+            given_name=user_info.given_name
         )
         if len(possible_matches) == 0:
-            person = Person(family_name=family_name, given_name=given_name)
+            person = Person(family_name=user_info.family_name,
+                            given_name=user_info.given_name)
         elif len(possible_matches) == 1:
             person = possible_matches[0]
         elif allow_multiple:
