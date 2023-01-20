@@ -105,7 +105,7 @@ class KGv3Client(object):
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
-                raise AuthenticationError(str(response))
+                raise AuthenticationError(f"{response} {error_context}")
             elif response.error.code == 404 and ignore_not_found:
                 return response
             else:
@@ -124,7 +124,8 @@ class KGv3Client(object):
                 instance_id=instance_id,
                 #restrict_to_spaces=[space] if space else None,
             )
-            return self._check_response(response)
+            error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+            return self._check_response(response, error_context=error_context)
 
         if scope == "any":
             # the following implementation is simple but very inefficient
@@ -160,7 +161,8 @@ class KGv3Client(object):
                 response_configuration=default_response_configuration,
                 pagination=Pagination(start=from_index, size=size)
             )
-            return self._check_response(response)
+            error_context = f"_list(scope={scope} space={space} target_type={target_type} size={size} from_index={from_index})"
+            return self._check_response(response, error_context=error_context)
 
         if scope == "any":
             # see comments in query() about this implementation
@@ -238,7 +240,8 @@ class KGv3Client(object):
             payload=data,
             extended_response_configuration=default_response_configuration
         )
-        return self._check_response(response).data
+        error_context = f"update_instance(data={data}, instance_id={instance_id})"
+        return self._check_response(response, error_context=error_context).data
 
     def replace_instance(self, instance_id, data):
         response = self._kg_client.instances.contribute_to_full_replacement(
@@ -246,7 +249,8 @@ class KGv3Client(object):
             payload=data,
             extended_response_configuration=default_response_configuration
         )
-        return self._check_response(response).data
+        error_context = f"replace_instance(data={data}, instance_id={instance_id})"
+        return self._check_response(response, error_context=error_context).data
 
     def delete_instance(self, instance_id, ignore_not_found=True):
         response = self._kg_client.instances.delete(instance_id)
