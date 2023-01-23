@@ -205,12 +205,19 @@ class KGv3Client(object):
                         raise
                 else:
                     data = response.data
+                # in some circumstances, the KG returns "minimal" metadata,
+                # e.g. with just the id and fullName fields
+                # this means the user does not have full access, so we count this as no data
+                if data and "http://schema.org/identifier" not in data:
+                    data = None
                 return data
 
             if scope == "any":
-                data = _get_instance("in progress")
-                if data is None:
-                    data = _get_instance("released")
+                data_ip = _get_instance("in progress")
+                data_rel = _get_instance("released")
+                data = data_rel or data_ip
+                if data_ip is not None:
+                    data.update(data_ip)
             else:
                 data = _get_instance(scope)
         return data
@@ -386,7 +393,12 @@ class KGv3Client(object):
             instance_id=self.uuid_from_uri(uri),
             release_tree_scope=release_tree_scope
         )
-        return response.data in ("RELEASED", "HAS_CHANGED")
+        if response.data in ("RELEASED", "HAS_CHANGED"):
+            return True
+        elif response.data == "UNRELEASED":
+            return False
+        else:
+            raise AuthenticationError("You are not able to access the release status")
 
     def release(self, uri):
         """Release the node with the given uri"""

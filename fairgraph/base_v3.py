@@ -33,7 +33,7 @@ except ImportError:
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
 from .queries import QueryProperty, Query, Filter
-from .errors import ResolutionFailure
+from .errors import ResolutionFailure, AuthenticationError
 
 
 logger = logging.getLogger("fairgraph")
@@ -1039,7 +1039,13 @@ class KGObject(object, metaclass=Registry):
 
     def is_released(self, client, with_children=False):
         """Release status of the node"""
-        return client.is_released(self.id, with_children=with_children)
+        try:
+            return client.is_released(self.id, with_children=with_children)
+        except AuthenticationError:
+            # for unprivileged users
+            if "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.data:
+                return True
+            return False
 
     def release(self, client, with_children=False):
         """Release this node (make it available in public search)."""
