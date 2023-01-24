@@ -725,7 +725,7 @@ class KGObject(object, metaclass=Registry):
         else:
             raise NotImplementedError("to be implemented by child classes")
 
-    def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
+    def save(self, client, space=None, recursive=True, activity_log=None, replace=False, ignore_auth_errors=False):
         if recursive:
             for field in self.fields:
                 if field.intrinsic:
@@ -765,7 +765,13 @@ class KGObject(object, metaclass=Registry):
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
                         activity_log.update(item=self, delta=data, space=space, entry_type="replacement")
-                    client.replace_instance(self.uuid, data)
+                    try:
+                        client.replace_instance(self.uuid, data)
+                    except AuthenticationError as err:
+                        if ignore_auth_errors:
+                            logger.error(str(err))
+                        else:
+                            raise
                 else:
                     updated_data = self._updated_data(data)
                     if updated_data:
@@ -786,7 +792,13 @@ class KGObject(object, metaclass=Registry):
                                 activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
                         else:
                             updated_data["@context"] = self.context
-                            client.update_instance(self.uuid, updated_data)
+                            try:
+                                client.update_instance(self.uuid, updated_data)
+                            except AuthenticationError as err:
+                                if ignore_auth_errors:
+                                    logger.error(str(err))
+                                else:
+                                    raise
                             if activity_log:
                                 updated_data.pop("@context")
                                 activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
