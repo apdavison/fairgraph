@@ -30,7 +30,7 @@ try:
 except ImportError:
     have_v3 = False
 
-from .errors import AuthenticationError
+from .errors import AuthenticationError, AuthorizationError
 
 try:
     import clb_nb_utils.oauth as clb_oauth
@@ -105,6 +105,8 @@ class KGv3Client(object):
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
+                raise AuthorizationError(f"{response} {error_context}")
+            elif response.error.code == 401:
                 raise AuthenticationError(f"{response} {error_context}")
             elif response.error.code == 404 and ignore_not_found:
                 return response
@@ -288,7 +290,7 @@ class KGv3Client(object):
                     space=space or "myspace"
                 )
             )
-        except AuthenticationError:
+        except AuthorizationError:
             response = self._check_response(
                 self._kg_client.queries.save_query(
                     query_id=query_id,
@@ -398,7 +400,7 @@ class KGv3Client(object):
         elif response.data == "UNRELEASED":
             return False
         else:
-            raise AuthenticationError("You are not able to access the release status")
+            raise AuthorizationError("You are not able to access the release status")
 
     def release(self, uri):
         """Release the node with the given uri"""

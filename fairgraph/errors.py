@@ -13,6 +13,11 @@ class AuthenticationError(Exception):
     pass
 
 
+class AuthorizationError(Exception):
+    """Raised when there is a problem with authorization"""
+    pass
+
+
 class ResolutionFailure(Exception):
     """Raised when unable to resolve a link in the Knowledge Graph"""
     pass

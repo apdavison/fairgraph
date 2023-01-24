@@ -33,7 +33,7 @@ except ImportError:
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
 from .queries import QueryProperty, Query, Filter
-from .errors import ResolutionFailure, AuthenticationError
+from .errors import ResolutionFailure, AuthorizationError
 
 
 logger = logging.getLogger("fairgraph")
@@ -767,7 +767,7 @@ class KGObject(object, metaclass=Registry):
                         activity_log.update(item=self, delta=data, space=space, entry_type="replacement")
                     try:
                         client.replace_instance(self.uuid, data)
-                    except AuthenticationError as err:
+                    except AuthorizationError as err:
                         if ignore_auth_errors:
                             logger.error(str(err))
                         else:
@@ -794,7 +794,7 @@ class KGObject(object, metaclass=Registry):
                             updated_data["@context"] = self.context
                             try:
                                 client.update_instance(self.uuid, updated_data)
-                            except AuthenticationError as err:
+                            except AuthorizationError as err:
                                 if ignore_auth_errors:
                                     logger.error(str(err))
                                 else:
@@ -1053,7 +1053,7 @@ class KGObject(object, metaclass=Registry):
         """Release status of the node"""
         try:
             return client.is_released(self.id, with_children=with_children)
-        except AuthenticationError:
+        except AuthorizationError:
             # for unprivileged users
             if "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.data:
                 return True
