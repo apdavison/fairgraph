@@ -33,7 +33,7 @@ except ImportError:
 from .utility import (compact_uri, expand_uri, as_list)
 from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
 from .queries import QueryProperty, Query, Filter
-from .errors import ResolutionFailure, AuthorizationError
+from .errors import ResolutionFailure, AuthorizationError, ResourceExistsError
 
 
 logger = logging.getLogger("fairgraph")
@@ -812,17 +812,29 @@ class KGObject(object, metaclass=Registry):
             logger.info("  - creating instance with data {}".format(data))
             data["@context"] = self.context
             data["@type"] = self.type
-            instance_data = client.create_new_instance(
-                data,
-                space or self.__class__.default_space,
-                instance_id=self.uuid)
-            self.id = instance_data["@id"]
-            self.data = instance_data
-            if activity_log:
-                activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
+            try:
+                instance_data = client.create_new_instance(
+                    data,
+                    space or self.__class__.default_space,
+                    instance_id=self.uuid)
+            except (AuthorizationError, ResourceExistsError) as err:
+                if ignore_auth_errors:
+                    logger.error(str(err))
+                    if activity_log:
+                        activity_log.update(item=self, delta=data, space=self.space, entry_type="create-error")
+                else:
+                    raise
+            else:
+                self.id = instance_data["@id"]
+                self.data = instance_data
+                if activity_log:
+                    activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
-        logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
-        KGObject.object_cache[self.id] = self
+        if self.id:
+            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
+            KGObject.object_cache[self.id] = self
+        else:
+            logger.warning("Object has no id - see log for the underlying error")
 
     def delete(self, client, ignore_not_found=True):
         """Deprecate"""
@@ -1166,6 +1178,15 @@ class KGProxy(object):
     def is_released(self, client, with_children=False):
         """Release status of the node"""
         return client.is_released(self.id, with_children=with_children)
+
+    def release(self, client, with_children=False):
+        """Release this node (make it available in public search)."""
+        if not self.is_released(client, with_children=with_children):
+            if with_children:
+                for child in self.children(client):
+                    if not child.is_released(client, with_children=False):
+                        client.release(child.id)
+            return client.release(self.id)
 
 
 class KGQuery(object):

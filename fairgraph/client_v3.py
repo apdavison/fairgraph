@@ -30,7 +30,7 @@ try:
 except ImportError:
     have_v3 = False
 
-from .errors import AuthenticationError, AuthorizationError
+from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
 
 try:
     import clb_nb_utils.oauth as clb_oauth
@@ -110,6 +110,8 @@ class KGv3Client(object):
                 raise AuthenticationError(f"{response} {error_context}")
             elif response.error.code == 404 and ignore_not_found:
                 return response
+            elif response.error.code == 409:
+                raise ResourceExistsError(f"{response} {error_context}")
             else:
                 raise Exception(f"Error: {response.error} {error_context}")
         else:
