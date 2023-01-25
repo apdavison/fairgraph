@@ -35,4 +35,5 @@ class LivePaperResourceItem(KGObject):
               doc="Reference to the ensemble of multiple things or beings."),
 
     ]
-    existence_query_fields = ('name', 'iri', 'hosted_by', 'is_part_of')
+    #existence_query_fields = ('name', 'iri', 'hosted_by', 'is_part_of')
+    existence_query_fields = ('name', 'iri', 'is_part_of')

@@ -105,7 +105,7 @@ class ScholarlyArticle(KGObject):
             author_str += " & " + self.authors[-1].full_name
         journal, volume, issue = self.get_journal(client, with_volume=True, with_issue=True)
         title = self.name
-        if title[-1] != ".":
+        if title and title[-1] != ".":
             title += "."
         journal_name = journal.name if journal else ""
         volume_number = volume.volume_number if volume else ""
