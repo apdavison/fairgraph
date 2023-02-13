@@ -98,7 +98,7 @@ class DatasetVersion(KGObject):
 
     def download(self, local_path, client, accept_terms_of_use=False):
         if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
-            repo = self.repository.resolve(client)
+            repo = self.repository.resolve(client, scope=self.scope or None)
             if (repo.iri.value.startswith("https://object.cscs.ch/v1/AUTH")
                 or repo.iri.value.startswith("https://data-proxy.ebrains.eu/api/v1/public")
             ):
