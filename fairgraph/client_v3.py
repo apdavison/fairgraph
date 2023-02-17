@@ -367,11 +367,14 @@ class KGv3Client(object):
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
 
-    def configure_space(self, collab_id, types):
-        space_name = f"collab-{collab_id}"
+    def configure_space(self, space_name, types):
+        """
+
+        For a collab space, the space_name should be f"collab-{collab_id}"
+        """
         result = self._kg_admin_client.create_space_definition(space=space_name)
         if result:  # error
-            raise Exception(f"Unable to configure KG space for collab {collab_id}: {result}")
+            raise Exception(f"Unable to configure KG space for space '{space_name}': {result}")
         for cls in types:
             result = self._kg_admin_client.assign_type_to_space(space=space_name,
                                                                 target_type=cls.type[0])
