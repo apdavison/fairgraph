@@ -845,8 +845,9 @@ class KGObject(object, metaclass=Registry):
     @classmethod
     def by_name(cls, name, client, match="equals", all=False,
                 space=None, scope="released", resolved=False):
-        # todo: implement 'match'
         objects = cls.list(client, space=space, scope=scope, resolved=resolved, api="query", name=name)
+        if match == "equals":
+            objects = [obj for obj in objects if obj.name == name]
         if len(objects) == 0:
             return None
         elif len(objects) == 1:
