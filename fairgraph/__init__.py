@@ -1,10 +1,10 @@
 """
 Python client for the EBRAINS Knowledge Graph
 
-Authors: Andrew Davison et al., CNRS, 2018-2022 (see authors.rst)
+Authors: Andrew Davison et al., CNRS (see authors.rst)
 
 
-Copyright 2018-2022 CNRS
+Copyright 2018-2023 CNRS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ limitations under the License.
 import re
 from .client_v3 import KGv3Client as KGClient
 
-__version__ = "0.9.0.dev.0"
+__version__ = "0.9.0"
 
 from . import (
     analysis, base_v2, base_v3, brainsimulation, client_v2, client_v3, commons, core, data,
