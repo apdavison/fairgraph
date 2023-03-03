@@ -33,4 +33,4 @@ class Configuration(KGObject):
               doc="no description available"),
 
     ]
-    existence_query_fields = ('lookup_label',)
+    existence_query_fields = ('configuration',)

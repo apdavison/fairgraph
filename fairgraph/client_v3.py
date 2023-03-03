@@ -101,6 +101,10 @@ class KGv3Client(object):
             self.__kg_admin_client = self._kg_client_builder.build_admin()
         return self.__kg_admin_client
 
+    @property
+    def token(self):
+        return self._kg_client.instances._kg_config.token_handler._fetch_token()
+
     def _check_response(self, response, ignore_not_found=False, error_context=""):
         if response.error:
             # todo: handle "ignore_not_found"

@@ -7,8 +7,8 @@
 from datetime import date, datetime
 from fairgraph.base_v3 import KGObject, IRI
 from fairgraph.fields import Field
-
-
+from fairgraph.errors import ResolutionFailure
+from .software import Software
 
 
 class SoftwareVersion(KGObject):
@@ -92,3 +92,11 @@ class SoftwareVersion(KGObject):
 
     ]
     existence_query_fields = ('alias', 'version_identifier')
+
+    def is_version_of(self, client):
+        parents = Software.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
