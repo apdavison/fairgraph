@@ -13,6 +13,7 @@ from .service import Service
 from .age_category import AgeCategory
 from .semantic_data_type import SemanticDataType
 from .preparation_type import PreparationType
+from .organism_substance import OrganismSubstance
 from .criteria_quality_type import CriteriaQualityType
 from .operating_system import OperatingSystem
 from .operating_device import OperatingDevice
@@ -29,6 +30,7 @@ from .electrical_stimulus_type import ElectricalStimulusType
 from .model_abstraction_level import ModelAbstractionLevel
 from .olfactory_stimulus_type import OlfactoryStimulusType
 from .learning_resource_type import LearningResourceType
+from .annotation_criteria_type import AnnotationCriteriaType
 from .ethics_assessment import EthicsAssessment
 from .organ import Organ
 from .technique import Technique
@@ -36,6 +38,7 @@ from .tactile_stimulus_type import TactileStimulusType
 from .chemical_mixture_type import ChemicalMixtureType
 from .qualitative_overlap import QualitativeOverlap
 from .anatomical_axes_orientation import AnatomicalAxesOrientation
+from .analysis_technique import AnalysisTechnique
 from .molecular_entity import MolecularEntity
 from .meta_data_model_type import MetaDataModelType
 from .species import Species
@@ -53,6 +56,7 @@ from .setup_type import SetupType
 from .terminology import Terminology
 from .handedness import Handedness
 from .tissue_sample_type import TissueSampleType
+from .organism_system import OrganismSystem
 from .contribution_type import ContributionType
 from .product_accessibility import ProductAccessibility
 from .cranial_window_construction_type import CranialWindowConstructionType

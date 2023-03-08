@@ -29,6 +29,8 @@ class LocalFile(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of the local file."),
         Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
               doc="no description available"),
+        Field("copy_of", "openminds.core.File", "vocab:copyOf", multiple=False, required=False,
+              doc="no description available"),
         Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,

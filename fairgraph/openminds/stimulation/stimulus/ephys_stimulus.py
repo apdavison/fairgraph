@@ -25,8 +25,8 @@ class EphysStimulus(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("stimulus_type", "openminds.controlledterms.ElectricalStimulusType", "vocab:stimulusType", multiple=False, required=False,
-              doc="no description available"),
+        Field("type", "openminds.controlledterms.ElectricalStimulusType", "vocab:type", multiple=False, required=False,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
     existence_query_fields = ()

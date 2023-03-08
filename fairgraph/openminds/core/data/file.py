@@ -61,7 +61,7 @@ class File(KGObject):
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
-        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
+        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=True, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
               doc="Reference to the ensemble of multiple things or beings."),

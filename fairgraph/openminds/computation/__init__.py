@@ -3,6 +3,7 @@ import inspect
 from ...base import KGObject
 
 from .launch_configuration import LaunchConfiguration
+from .data_copy import DataCopy
 from .workflow_recipe_version import WorkflowRecipeVersion
 from .optimization import Optimization
 from .local_file import LocalFile
@@ -17,6 +18,7 @@ from .workflow_recipe import WorkflowRecipe
 from .hardware_system import HardwareSystem
 from .validation_test_version import ValidationTestVersion
 from .simulation import Simulation
+from .generic_computation import GenericComputation
 
 
 def list_kg_classes():

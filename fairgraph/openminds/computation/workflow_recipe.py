@@ -39,7 +39,7 @@ class WorkflowRecipe(KGObject):
               doc="Digital handle to identify objects or legal persons."),
         Field("versions", "openminds.computation.WorkflowRecipeVersion", "vocab:hasVersion", multiple=True, required=True,
               doc="Reference to variants of an original."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the workflow recipe."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),

@@ -24,9 +24,9 @@ class Contribution(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("contribution_types", "openminds.controlledterms.ContributionType", "vocab:contributionType", multiple=True, required=True,
-              doc="Distinct class of what was given or supplied as a part or share."),
         Field("contributor", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:contributor", multiple=False, required=True,
               doc="Legal person that gave or supplied something as a part or share."),
+        Field("types", "openminds.controlledterms.ContributionType", "vocab:type", multiple=True, required=True,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]

@@ -26,9 +26,9 @@ class CustomPropertySet(EmbeddedMetadata):
     fields = [
         Field("context", str, "vocab:context", multiple=False, required=True,
               doc="no description available"),
-        Field("defined_in", ["openminds.core.Configuration", "openminds.core.File", "openminds.core.PropertyValueList"], "vocab:definedIn", multiple=False, required=True,
-              doc="Reference to a file instance in which something is stored."),
-        Field("relevant_for", "openminds.controlledterms.Technique", "vocab:relevantFor", multiple=False, required=True,
+        Field("data_location", ["openminds.core.Configuration", "openminds.core.File", "openminds.core.PropertyValueList"], "vocab:dataLocation", multiple=False, required=True,
+              doc="no description available"),
+        Field("relevant_for", ["openminds.controlledterms.AnalysisTechnique", "openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique", "openminds.controlledterms.Technique"], "vocab:relevantFor", multiple=False, required=True,
               doc="Reference to what or whom the custom property set bears siginificance."),
 
     ]

@@ -26,7 +26,7 @@ class Channel(EmbeddedMetadata):
     fields = [
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
               doc="Term or code that identifies the channel within a particular product."),
-        Field("unit_of_measurement", "openminds.controlledterms.UnitOfMeasurement", "vocab:unitOfMeasurement", multiple=False, required=True,
-              doc="no description available"),
+        Field("unit", "openminds.controlledterms.UnitOfMeasurement", "vocab:unit", multiple=False, required=True,
+              doc="Determinate quantity adopted as a standard of measurement."),
 
     ]

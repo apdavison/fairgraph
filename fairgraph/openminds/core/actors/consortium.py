@@ -31,7 +31,7 @@ class Consortium(KGObject):
               doc="Shortened or fully abbreviated name of the consortium."),
         Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=False, required=False,
               doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.)."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the consortium."),
 
     ]

@@ -24,7 +24,7 @@ class FilePathPattern(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("grouping_type", "openminds.controlledterms.FileBundleGrouping", "vocab:groupingType", multiple=False, required=True,
+        Field("grouping_types", "openminds.controlledterms.FileBundleGrouping", "vocab:groupingType", multiple=True, required=True,
               doc="no description available"),
         Field("regex", str, "vocab:regex", multiple=False, required=True,
               doc="no description available"),

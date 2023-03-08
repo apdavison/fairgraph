@@ -35,8 +35,8 @@ class Setup(KGObject):
               doc="no description available"),
         Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=False,
               doc="no description available"),
-        Field("setup_types", "openminds.controlledterms.SetupType", "vocab:setupType", multiple=True, required=False,
-              doc="no description available"),
+        Field("types", "openminds.controlledterms.SetupType", "vocab:type", multiple=True, required=False,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
     existence_query_fields = ('name', 'components', 'description')

@@ -153,7 +153,7 @@ DEFAULT_SPACES = {
                 "Query",
                 "RORID",
                 "TermSuggestion",
-                "URL",
+                "WebResource",
                 "RRID",
                 "AccountInformation",  # or does this go in "restricted"?
             ],
@@ -232,14 +232,17 @@ DEFAULT_SPACES = {
                 "BrainAtlas",
                 "BrainAtlasVersion",
                 "Circle",
+                "ColorMap",
                 "CommonCoordinateSpace",
+                "CommonCoordinateSpaceVersion",
                 "CoordinatePoint",
                 "Ellipse",
                 "ParcellationEntity",
                 "ParcellationTerminology",
                 "ParcellationTerminologyVersion",
                 "ParcellationEntityVersion",
-                "Rectangle"
+                "Rectangle",
+                "SingleColor"
             ]
         }),
     "publications": {
@@ -288,7 +291,7 @@ custom_existence_queries = {
     "ORCID": ("identifier",),
     "RORID": ("identifier",),
     "SWHID": ("identifier",),
-    "URL": ("url",),
+    "WebResource": ("url",),
     "Dataset": ("alias", ),
     "DatasetVersion": ("alias", "version_identifier"),
     "MetaDataModel": ("alias", ),

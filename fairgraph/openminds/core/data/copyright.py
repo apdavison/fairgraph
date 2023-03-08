@@ -26,7 +26,7 @@ class Copyright(EmbeddedMetadata):
     fields = [
         Field("holders", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:holder", multiple=True, required=True,
               doc="Legal person in possession of something."),
-        Field("year", str, "vocab:year", multiple=False, required=True,
+        Field("years", str, "vocab:year", multiple=True, required=True,
               doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December."),
 
     ]

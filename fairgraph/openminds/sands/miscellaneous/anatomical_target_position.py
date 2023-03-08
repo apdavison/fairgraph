@@ -24,11 +24,9 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
-              doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
-        Field("anatomical_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalTarget", multiple=True, required=True,
+        Field("anatomical_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalTarget", multiple=True, required=True,
               doc="no description available"),
         Field("coordinates", "openminds.sands.CoordinatePoint", "vocab:coordinates", multiple=False, required=False,
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),

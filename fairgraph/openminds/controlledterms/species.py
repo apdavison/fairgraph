@@ -37,6 +37,8 @@ Structured information on the species.
          - The species *Mus musculus* (house mouse) belongs to the family of *muridae* (murids).
        * - `Mustela putorius <http://purl.obolibrary.org/obo/NCBITaxon_9668>`_
          - The species *Mustela putorius* (European polecat) belongs to the family of *mustelidae* (mustelids).
+       * - `Trachemys scripta elegans <http://purl.obolibrary.org/obo/NCBITaxon_31138>`_
+         - The red-eared slider or red-eared terrapin (Trachemys scripta elegans) is a subspecies of the pond slider (Trachemys scripta), a semiaquatic turtle belonging to the family Emydidae ([Wikipedia](https://en.wikipedia.org/wiki/Red-eared_slider)).
 
 """
 
@@ -89,6 +91,8 @@ class Species(KGObject):
          - The species *Mus musculus* (house mouse) belongs to the family of *muridae* (murids).
        * - `Mustela putorius <http://purl.obolibrary.org/obo/NCBITaxon_9668>`_
          - The species *Mustela putorius* (European polecat) belongs to the family of *mustelidae* (mustelids).
+       * - `Trachemys scripta elegans <http://purl.obolibrary.org/obo/NCBITaxon_31138>`_
+         - The red-eared slider or red-eared terrapin (Trachemys scripta elegans) is a subspecies of the pond slider (Trachemys scripta), a semiaquatic turtle belonging to the family Emydidae ([Wikipedia](https://en.wikipedia.org/wiki/Red-eared_slider)).
 
     """
     default_space = "controlled"

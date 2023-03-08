@@ -7,6 +7,8 @@
 
        * - modality
          -
+       * - analysis technique
+         -
        * - atlas type
          -
        * - operating system
@@ -41,12 +43,10 @@
          -
        * - type of uncertainty
          -
-       * - UBERON parcellation
-         -
-       * - subject attribute
-         -
+       * - body system
+         - Any anatomical or functional system in the body, regardless of scale.
 
-Here we show the first 20 values, an additional 56 values are not shown.
+Here we show the first 20 values, an additional 61 values are not shown.
 
 """
 
@@ -69,6 +69,8 @@ class Terminology(KGObject):
 
        * - modality
          -
+       * - analysis technique
+         -
        * - atlas type
          -
        * - operating system
@@ -103,12 +105,10 @@ class Terminology(KGObject):
          -
        * - type of uncertainty
          -
-       * - UBERON parcellation
-         -
-       * - subject attribute
-         -
+       * - body system
+         - Any anatomical or functional system in the body, regardless of scale.
 
-Here we show the first 20 values, an additional 56 values are not shown.
+Here we show the first 20 values, an additional 61 values are not shown.
 
     """
     default_space = "controlled"

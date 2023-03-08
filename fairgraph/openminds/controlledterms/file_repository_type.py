@@ -17,6 +17,8 @@
          - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
        * - FTP repository
          - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
+       * - Git repository
+         - A Git repository offers version control and source code management functionalities.
 
 """
 
@@ -49,6 +51,8 @@ class FileRepositoryType(KGObject):
          - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
        * - FTP repository
          - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
+       * - Git repository
+         - A Git repository offers version control and source code management functionalities.
 
     """
     default_space = "controlled"

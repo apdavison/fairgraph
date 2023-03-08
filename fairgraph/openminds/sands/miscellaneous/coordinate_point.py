@@ -24,7 +24,7 @@ class CoordinatePoint(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("coordinate_space", ["openminds.sands.CommonCoordinateSpace", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
+        Field("coordinate_space", ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
         Field("coordinates", "openminds.core.QuantitativeValue", "vocab:coordinates", multiple=True, required=True,
               doc="Pair or triplet of numbers defining a location in a given coordinate space."),

@@ -29,7 +29,7 @@ class ElectrodeArray(KGObject):
               doc="no description available"),
         Field("conductor_material", ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance", "openminds.controlledterms.MolecularEntity"], "vocab:conductorMaterial", multiple=False, required=False,
               doc="no description available"),
-        Field("electrode_identifiers", str, "vocab:electrodeIdentifier", multiple=True, required=True,
+        Field("electrode_identifiers", str, "vocab:electrodeIdentifiers", multiple=True, required=True,
               doc="no description available"),
         Field("insulator_material", ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance", "openminds.controlledterms.MolecularEntity"], "vocab:insulatorMaterial", multiple=False, required=False,
               doc="no description available"),

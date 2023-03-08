@@ -37,12 +37,12 @@ class FileRepository(KGObject):
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("hosted_by", "openminds.core.Organization", "vocab:hostedBy", multiple=False, required=True,
               doc="Reference to an organization that provides facilities and services for something."),
-        Field("repository_type", "openminds.controlledterms.FileRepositoryType", "vocab:repositoryType", multiple=False, required=False,
-              doc="no description available"),
         Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
               doc="Quantitative value defining how much disk space is used by an object on a computer system."),
         Field("structure_pattern", "openminds.core.FileRepositoryStructure", "vocab:structurePattern", multiple=False, required=False,
               doc="no description available"),
+        Field("type", "openminds.controlledterms.FileRepositoryType", "vocab:type", multiple=False, required=False,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
     existence_query_fields = ('iri',)

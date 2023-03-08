@@ -27,7 +27,7 @@ class WorkflowExecution(KGObject):
     fields = [
         Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", multiple=False, required=False,
               doc="no description available"),
-        Field("stages", ["openminds.computation.DataAnalysis", "openminds.computation.ModelValidation", "openminds.computation.Optimization", "openminds.computation.Simulation", "openminds.computation.Visualization"], "vocab:stages", multiple=True, required=True,
+        Field("stages", ["openminds.computation.DataAnalysis", "openminds.computation.DataCopy", "openminds.computation.GenericComputation", "openminds.computation.ModelValidation", "openminds.computation.Optimization", "openminds.computation.Simulation", "openminds.computation.Visualization"], "vocab:stage", multiple=True, required=False,
               doc="no description available"),
         Field("started_by", ["openminds.computation.SoftwareAgent", "openminds.core.Person"], "vocab:startedBy", multiple=False, required=False,
               doc="no description available"),
