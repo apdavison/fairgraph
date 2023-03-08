@@ -55,7 +55,7 @@ If you are working in a Collaboratory Jupyter notebook, the client will take its
 
    >>> from fairgraph import KGClient
 
-   >>> client = KGClient()
+   >>> client = KGClient(host="core.kg.ebrains.eu")
 
 If working outside the Collaboratory, you will need to obtain a token
 (for example from the KG Editor if you are a curator, or using `clb_oauth.get_token()` in a Collaboratory Jupyter notebook)
