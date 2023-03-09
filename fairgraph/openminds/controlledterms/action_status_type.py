@@ -1,5 +1,5 @@
 """
-The status of an action.
+Structured information about the status of an action.
 
     .. list-table:: **Possible values**
        :widths: 20 80
@@ -33,7 +33,7 @@ from fairgraph.fields import Field
 
 class ActionStatusType(KGObject):
     """
-    The status of an action.
+    Structured information about the status of an action.
 
     .. list-table:: **Possible values**
        :widths: 20 80

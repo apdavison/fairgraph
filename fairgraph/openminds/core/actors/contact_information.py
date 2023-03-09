@@ -1,5 +1,5 @@
 """
-Structured information about how to contact a given person.
+Structured information about how to contact a given person or consortium.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class ContactInformation(KGObject):
     """
-    Structured information about how to contact a given person.
+    Structured information about how to contact a given person or consortium.
     """
     default_space = "restricted"
     type_ = ["https://openminds.ebrains.eu/core/ContactInformation"]

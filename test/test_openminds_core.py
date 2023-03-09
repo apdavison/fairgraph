@@ -207,7 +207,7 @@ def test_save_new_mock(mock_client):
         developers=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
         digital_identifier=None,
         versions=None,
-        homepage=omcore.URL(url="http://example.com", id="fake_uuid_2", space="common"),
+        homepage=IRI("http://example.com"),
         how_to_cite=None,
         model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[omterms.Species.by_name("Mus musculus", mock_client),

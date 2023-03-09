@@ -1,5 +1,5 @@
 """
-Structured information about properties of an entity that cannot be represented with a more general openMINDS schema.
+Structured information about properties of an entity that are not represented in an openMINDS schema.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class CustomPropertySet(EmbeddedMetadata):
     """
-    Structured information about properties of an entity that cannot be represented with a more general openMINDS schema.
+    Structured information about properties of an entity that are not represented in an openMINDS schema.
     """
     type_ = ["https://openminds.ebrains.eu/core/CustomPropertySet"]
     context = {

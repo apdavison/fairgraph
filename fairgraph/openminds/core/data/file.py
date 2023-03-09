@@ -1,5 +1,5 @@
 """
-Structured information on a file instance.
+Structured information on a file instance that is accessible via a URL.
 """
 
 # this file was auto-generated
@@ -37,7 +37,7 @@ def sha1sum(filename):
 
 class File(KGObject):
     """
-    Structured information on a file instance.
+    Structured information on a file instance that is accessible via a URL.
     """
     default_space = "files"
     type_ = ["https://openminds.ebrains.eu/core/File"]

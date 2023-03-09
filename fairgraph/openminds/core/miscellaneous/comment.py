@@ -1,5 +1,5 @@
 """
-Structured information about a short text associated with some entity.
+Structured information about a short text expressing an opinion on, or giving information about some entity.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class Comment(KGObject):
     """
-    Structured information about a short text associated with some entity.
+    Structured information about a short text expressing an opinion on, or giving information about some entity.
     """
     default_space = "common"
     type_ = ["https://openminds.ebrains.eu/core/Comment"]

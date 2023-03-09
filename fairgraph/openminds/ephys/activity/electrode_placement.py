@@ -31,7 +31,7 @@ class ElectrodePlacement(KGObject):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the electrode placement."),
-        Field("device", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage", "openminds.specimenprep.SlicingDeviceUsage"], "vocab:device", multiple=False, required=True,
+        Field("devices", ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage", "openminds.specimenprep.SlicingDeviceUsage"], "vocab:device", multiple=True, required=True,
               doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function."),
         Field("end_time", datetime, "vocab:endTime", multiple=False, required=False,
               doc="no description available"),
