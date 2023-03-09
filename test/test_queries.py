@@ -5,7 +5,7 @@ import pytest
 from kg_core.request import Stage, Pagination
 from fairgraph.queries import Query, QueryProperty, Filter
 import fairgraph.openminds.core as omcore
-from .utils_v3 import kg_client, mock_client, skip_if_no_connection
+from .utils import kg_client, mock_client, skip_if_no_connection
 
 
 @pytest.fixture()

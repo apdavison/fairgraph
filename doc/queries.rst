@@ -148,7 +148,7 @@ Python object, e.g.::
 Connections between graph nodes are also available as attributes::
 
     >>> dataset_of_interest.license
-    KGProxyV3([<class 'fairgraph.openminds.core.data.license.License'>], 'https://kg.ebrains.eu/api/instances/6ebce971-7f99-4fbc-9621-eeae47a70d85')
+    KGProxy([<class 'fairgraph.openminds.core.data.license.License'>], 'https://kg.ebrains.eu/api/instances/6ebce971-7f99-4fbc-9621-eeae47a70d85')
 
 By default, for performance reasons, connections are not followed, and instead you will see either
 a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the connection using the

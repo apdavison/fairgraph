@@ -569,7 +569,7 @@ class FairgraphGenerator(JinjaGenerator):
         for schema_group, group_contents in self.import_data.items():
             path = os.path.join(self.target_path, schema_group, "__init__.py")
             with open(path, "w") as fp:
-                fp.write("import sys\nimport inspect\nfrom ...base_v3 import KGObject\n\n")
+                fp.write("import sys\nimport inspect\nfrom ...base import KGObject\n\n")
                 for module in group_contents.values():
                     fp.write(f"from {module['path']} import {module['class_name']}\n")
                 fp.write(LIST_CLASSES_TEMPATE)
@@ -624,7 +624,7 @@ from .validation_test import ValidationTest""",
     """from fairgraph.errors import ResolutionFailure
 from .live_paper import LivePaper""",
     "ScholarlyArticle":
-    """from fairgraph.base_v3 import as_list
+    """from fairgraph.base import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical"""
 }

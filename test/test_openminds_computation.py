@@ -1,6 +1,6 @@
 from fairgraph.openminds.computation import Environment
 
-from test.utils_v3 import mock_client
+from test.utils import mock_client
 
 
 class TestEnvironment:

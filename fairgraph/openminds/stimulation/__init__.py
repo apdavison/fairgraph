@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .stimulus.ephys_stimulus import EphysStimulus
 from .activity.stimulation_activity import StimulationActivity

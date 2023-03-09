@@ -5,7 +5,7 @@ Structured information about properties of an entity that cannot be represented 
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import EmbeddedMetadata, IRI
+from fairgraph.base import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 

@@ -25,7 +25,7 @@ The status of an action.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base_v3 import KGObject, IRI
+from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
 
 

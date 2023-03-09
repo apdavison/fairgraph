@@ -20,11 +20,9 @@ limitations under the License.
 """
 
 import re
-from .client_v3 import KGv3Client as KGClient
+from .client import KGClient
 
 __version__ = "0.9.0"
 
 from . import (
-    analysis, base_v2, base_v3, brainsimulation, client_v2, client_v3, commons, core, data,
-    experiment, electrophysiology, errors, minds, optophysiology, software, uniminds, utility,
-    livepapers, openminds)
+    base, client, errors, utility, openminds)

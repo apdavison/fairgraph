@@ -1,7 +1,7 @@
 from datetime import date
 from uuid import uuid4
 from fairgraph.fields import Field
-from fairgraph.base_v3 import KGObject, EmbeddedMetadata, KGProxy
+from fairgraph.base import KGObject, EmbeddedMetadata, KGProxy
 import pytest
 
 

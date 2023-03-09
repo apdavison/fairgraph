@@ -26,9 +26,9 @@ try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
     from kg_core.response import ResultPage, JsonLdDocument
-    have_v3 = True
+    have_kg_core = True
 except ImportError:
-    have_v3 = False
+    have_kg_core = False
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
 
@@ -41,7 +41,7 @@ except ImportError:
 logger = logging.getLogger("fairgraph")
 
 
-if have_v3:
+if have_kg_core:
     STAGE_MAP = {
         "released": Stage.RELEASED,
         "latest": Stage.IN_PROGRESS,
@@ -65,7 +65,7 @@ AVAILABLE_PERMISSIONS = [
 ]
 
 
-class KGv3Client(object):
+class KGClient(object):
 
     def __init__(
         self,
@@ -74,7 +74,7 @@ class KGv3Client(object):
         client_id: str = None,
         client_secret: str = None
     ):
-        if not have_v3:
+        if not have_kg_core:
             raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)

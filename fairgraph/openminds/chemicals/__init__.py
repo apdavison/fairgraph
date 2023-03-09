@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .chemical_mixture import ChemicalMixture
 from .product_source import ProductSource

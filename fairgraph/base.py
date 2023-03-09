@@ -177,7 +177,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
         args = {}
         for field in cls.fields:
             data_item = D.get(field.path, D.get(field.alternate_path))
-            args[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+            args[field.name] = field.deserialize(data_item, client, resolved=resolved)
         return cls(data=D, **args)
 
     def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
@@ -399,7 +399,7 @@ class KGObject(object, metaclass=Registry):
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
-            deserialized_data[field.name] = field.deserialize_v3(data_item, client, resolved=resolved)
+            deserialized_data[field.name] = field.deserialize(data_item, client, resolved=resolved)
         # if cls.__name__ == "ModelVersion":
         #     raise Exception()
         return deserialized_data
@@ -1251,7 +1251,7 @@ class KGQuery(object):
         return n
 
 
-def build_kgv3_object(possible_classes, data, resolved=False, client=None):
+def build_kg_object(possible_classes, data, resolved=False, client=None):
     """
     Build a KGObject, a KGProxy, or a list of such, based on the data provided.
 

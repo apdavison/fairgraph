@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .research.subject_group import SubjectGroup
 from .research.protocol_execution import ProtocolExecution

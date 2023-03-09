@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base_v3 import KGObject
+from ...base import KGObject
 
 from .activity.recording_activity import RecordingActivity
 from .activity.electrode_placement import ElectrodePlacement

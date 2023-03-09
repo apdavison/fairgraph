@@ -2,7 +2,6 @@
 Contributing to fairgraph
 =========================
 
-.. contents:: :local:
 
 Contributions
 =============
@@ -25,7 +24,7 @@ Changes should be proposed through pull requests.
 Improve documentation
 ---------------------
 
-fairgraph could always use better documentation, whether as part of the official docs, 
+fairgraph could always use better documentation, whether as part of the official docs,
 in docstrings, or elsewhere (articles, tutorials, videos).
 
 Submit feedback
@@ -38,6 +37,3 @@ Contributor guide
 =================
 
 Coming soon.
-
-
-
