@@ -67,7 +67,15 @@ custom_multiple = {
     "uncertainty": "uncertainties",
     "application_category": "application_categories",
     "about": "about",
-    "performed_by": "performed_by"
+    "performed_by": "performed_by",
+    "grouped_by": "grouped_by",
+    "hash": "hash",
+}
+
+# in a small number of cases, a single item is allowed but this item itself has an
+# array-like character, e.g. PropertyValueList
+custom_singular = {
+    "environment_variable": "environment_variables"
 }
 
 
@@ -82,6 +90,8 @@ def generate_python_name(json_name, allow_multiple=False):
                 python_name = custom_multiple[python_name]
             else:
                 python_name += "s"
+        elif python_name in custom_singular:
+            python_name = custom_singular[python_name]
     return python_name
 
 
@@ -184,6 +194,7 @@ DEFAULT_SPACES = {
                 "QuantitativeValue",
                 "QuantitativeValueRange",
                 "QuantitativeValueArray",
+                "ResearchProductGroup",
                 "ServiceLink",
                 "StringParameter",
                 "Subject",
@@ -315,7 +326,11 @@ custom_existence_queries = {
     "ValidationTestVersion": ("alias", "version_identifier"),
     "LivePaper": ("name", "alias"),
     "LivePaperVersion": ("alias", "version_identifier"),
-    "ScholarlyArticle": ("name",)
+    "LivePaperResourceItem": ("name", "iri", "is_part_of"),
+    "ScholarlyArticle": ("name",),
+    "WorkflowExecution": ("stages",),
+    "Configuration": ("configuration",),
+    "Periodical": ("abbreviation",),
 }
 
 
@@ -629,7 +644,13 @@ from .live_paper import LivePaper""",
     "ScholarlyArticle":
     """from fairgraph.base import as_list
 from .publication_issue import PublicationIssue
-from .periodical import Periodical"""
+from .periodical import Periodical""",
+    "SoftwareVersion":
+    """from fairgraph.errors import ResolutionFailure
+from .software import Software""",
+    "WebServiceVersion":
+    """from fairgraph.errors import ResolutionFailure
+from .web_service import WebService""",
 }
 
 additional_methods = {
@@ -642,16 +663,15 @@ additional_methods = {
     @classmethod
     def me(cls, client, allow_multiple=False, resolved=False):
         user_info = client.user_info()
-        family_name = user_info["http://schema.org/familyName"]
-        given_name = user_info["http://schema.org/givenName"]
         possible_matches = cls.list(
             client, scope="in progress", space="common",
             resolved=resolved,
-            family_name=family_name,
-            given_name=given_name
+            family_name=user_info.family_name,
+            given_name=user_info.given_name
         )
         if len(possible_matches) == 0:
-            person = Person(family_name=family_name, given_name=given_name)
+            person = Person(family_name=user_info.family_name,
+                            given_name=user_info.given_name)
         elif len(possible_matches) == 1:
             person = possible_matches[0]
         elif allow_multiple:
@@ -779,12 +799,30 @@ additional_methods = {
             author_str += " & " + self.authors[-1].full_name
         journal, volume, issue = self.get_journal(client, with_volume=True, with_issue=True)
         title = self.name
-        if title[-1] != ".":
+        if title and title[-1] != ".":
             title += "."
         journal_name = journal.name if journal else ""
         volume_number = volume.volume_number if volume else ""
         return f"{author_str} ({self.date_published.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
-    """
+    """,
+    "SoftwareVersion":
+    """    def is_version_of(self, client):
+        parents = Software.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
+    """,
+    "WebServiceVersion":
+    """    def is_version_of(self, client):
+        parents = WebService.list(client, scope=self.scope, space=self.space, versions=self)
+        if len(parents) == 0:
+            raise ResolutionFailure("Unable to find parent")
+        else:
+            assert len(parents) == 1
+            return parents[0]
+    """,
 }
 
 if __name__ == "__main__":

@@ -37,6 +37,8 @@ class ElectrodeArrayUsage(KGObject):
               doc="Pair or triplet of numbers defining the position in a particular two- or three dimensional plane or space."),
         Field("electrode_array", "openminds.ephys.ElectrodeArray", "vocab:electrodeArray", multiple=False, required=True,
               doc="no description available"),
+        Field("metadata_locations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:metadataLocation", multiple=True, required=False,
+              doc="no description available"),
         Field("used_electrodes", str, "vocab:usedElectrode", multiple=True, required=False,
               doc="no description available"),
         Field("used_specimen", ["openminds.core.SubjectState", "openminds.core.TissueSampleState"], "vocab:usedSpecimen", multiple=False, required=False,

@@ -13,7 +13,6 @@ from .research.tissue_sample_collection import TissueSampleCollection
 from .research.configuration import Configuration
 from .research.tissue_sample_state import TissueSampleState
 from .research.subject_state import SubjectState
-from .research.experimental_activity import ExperimentalActivity
 from .research.tissue_sample import TissueSample
 from .research.tissue_sample_collection_state import TissueSampleCollectionState
 from .research.protocol import Protocol
@@ -42,6 +41,7 @@ from .digitalIdentifier.gridid import GRIDID
 from .digitalIdentifier.stock_number import StockNumber
 from .digitalIdentifier.handle import HANDLE
 from .digitalIdentifier.swhid import SWHID
+from .miscellaneous.research_product_group import ResearchProductGroup
 from .miscellaneous.quantitative_value import QuantitativeValue
 from .miscellaneous.funding import Funding
 from .miscellaneous.web_resource import WebResource

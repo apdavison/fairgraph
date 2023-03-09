@@ -1,5 +1,5 @@
 """
-
+Structured information about a computation whose type is unknown or unspecified.
 """
 
 # this file was auto-generated
@@ -13,7 +13,7 @@ from fairgraph.fields import Field
 
 class GenericComputation(KGObject):
     """
-
+    Structured information about a computation whose type is unknown or unspecified.
     """
     default_space = "computation"
     type = ["https://openminds.ebrains.eu/computation/GenericComputation"]

@@ -7,6 +7,7 @@
 from datetime import date, datetime
 from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
+
 from fairgraph.errors import ResolutionFailure
 from .software import Software
 
@@ -47,11 +48,11 @@ class SoftwareVersion(KGObject):
               doc="Digital handle to identify objects or legal persons."),
         Field("features", "openminds.controlledterms.SoftwareFeature", "vocab:feature", multiple=True, required=True,
               doc="Structure, form, or appearance that characterizes the software version."),
-        Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:fullDocumentation", multiple=False, required=True,
+        Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"], "vocab:fullDocumentation", multiple=False, required=True,
               doc="Non-abridged instructions, comments, and information for using a particular product."),
         Field("funding", "openminds.core.Funding", "vocab:funding", multiple=True, required=False,
               doc="Money provided by a legal person for a particular purpose."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the software version."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
@@ -75,7 +76,7 @@ class SoftwareVersion(KGObject):
               doc="Format of data that comes out of, is delivered or produced by a process or machine."),
         Field("programming_languages", "openminds.controlledterms.ProgrammingLanguage", "vocab:programmingLanguage", multiple=True, required=True,
               doc="Distinct set of instructions for computer programs in order to produce various kinds of output."),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),

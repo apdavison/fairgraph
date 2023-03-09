@@ -7,10 +7,9 @@
 from datetime import date, datetime
 from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
+
 from fairgraph.errors import ResolutionFailure
 from .web_service import WebService
-
-
 
 
 class WebServiceVersion(KGObject):
@@ -41,13 +40,13 @@ class WebServiceVersion(KGObject):
               doc="Longer statement or account giving the characteristics of the web service version."),
         Field("developers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:developer", multiple=True, required=False,
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
-        Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:fullDocumentation", multiple=False, required=True,
+        Field("full_documentation", ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"], "vocab:fullDocumentation", multiple=False, required=True,
               doc="Non-abridged instructions, comments, and information for using a particular product."),
         Field("funding", "openminds.core.Funding", "vocab:funding", multiple=True, required=False,
               doc="Money provided by a legal person for a particular purpose."),
         Field("has_components", "openminds.core.SoftwareVersion", "vocab:hasComponent", multiple=True, required=False,
               doc="Reference to an element of a collection."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the web service version."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
@@ -63,7 +62,7 @@ class WebServiceVersion(KGObject):
               doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere."),
         Field("output_formats", "openminds.core.ContentType", "vocab:outputFormat", multiple=True, required=False,
               doc="Format of data that comes out of, is delivered or produced by a process or machine."),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),

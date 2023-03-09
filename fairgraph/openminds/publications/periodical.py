@@ -33,4 +33,4 @@ class Periodical(KGObject):
               doc="Digital handle to identify objects or legal persons."),
 
     ]
-    existence_query_fields = ("abbreviation")
+    existence_query_fields = ('abbreviation',)
