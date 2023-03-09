@@ -155,11 +155,11 @@ Identifiers
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.URL
+.. autoclass:: fairgraph.openminds.core.StockNumber
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.StockNumber
+.. autoclass:: fairgraph.openminds.core.WebResource
    :members:
    :show-inheritance:
 
