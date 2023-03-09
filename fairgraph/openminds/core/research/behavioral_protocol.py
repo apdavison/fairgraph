@@ -16,7 +16,7 @@ class BehavioralProtocol(KGObject):
     Structured information about a protocol used in an experiment studying human or animal behavior.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]
+    type_ = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

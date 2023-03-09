@@ -16,7 +16,7 @@ class ISBN(KGObject):
     An International Standard Book Number of the International ISBN Agency.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/ISBN"]
+    type_ = ["https://openminds.ebrains.eu/core/ISBN"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

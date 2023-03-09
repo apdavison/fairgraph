@@ -16,7 +16,7 @@ class RecordingActivity(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/ephys/RecordingActivity"]
+    type_ = ["https://openminds.ebrains.eu/ephys/RecordingActivity"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

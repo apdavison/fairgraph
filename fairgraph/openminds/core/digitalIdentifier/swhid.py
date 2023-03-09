@@ -16,7 +16,7 @@ class SWHID(KGObject):
 
     """
     default_space = "software"
-    type = ["https://openminds.ebrains.eu/core/SWHID"]
+    type_ = ["https://openminds.ebrains.eu/core/SWHID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

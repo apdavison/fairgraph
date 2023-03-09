@@ -16,7 +16,7 @@ class WorkflowRecipe(KGObject):
     Structured information about the description of a prospective workflow.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/WorkflowRecipe"]
+    type_ = ["https://openminds.ebrains.eu/computation/WorkflowRecipe"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

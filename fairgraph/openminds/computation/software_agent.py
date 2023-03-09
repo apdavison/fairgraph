@@ -16,7 +16,7 @@ class SoftwareAgent(KGObject):
     Structured information about a piece of software or web service that can perform a task autonomously.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]
+    type_ = ["https://openminds.ebrains.eu/computation/SoftwareAgent"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

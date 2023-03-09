@@ -16,7 +16,7 @@ class License(KGObject):
     Structured information on a used license.
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/core/License"]
+    type_ = ["https://openminds.ebrains.eu/core/License"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

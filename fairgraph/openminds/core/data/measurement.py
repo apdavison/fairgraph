@@ -15,7 +15,7 @@ class Measurement(EmbeddedMetadata):
     """
     Structured information about a measurement performed during a scientific experiment.
     """
-    type = ["https://openminds.ebrains.eu/core/Measurement"]
+    type_ = ["https://openminds.ebrains.eu/core/Measurement"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

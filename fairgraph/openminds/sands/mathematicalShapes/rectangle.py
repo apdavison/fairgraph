@@ -15,7 +15,7 @@ class Rectangle(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/sands/Rectangle"]
+    type_ = ["https://openminds.ebrains.eu/sands/Rectangle"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

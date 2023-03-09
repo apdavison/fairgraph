@@ -16,7 +16,7 @@ class ElectrodePlacement(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/ephys/ElectrodePlacement"]
+    type_ = ["https://openminds.ebrains.eu/ephys/ElectrodePlacement"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

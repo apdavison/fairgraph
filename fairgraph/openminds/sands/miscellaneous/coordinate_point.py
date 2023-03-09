@@ -15,7 +15,7 @@ class CoordinatePoint(EmbeddedMetadata):
     """
     Structured information on a coordinate point.
     """
-    type = ["https://openminds.ebrains.eu/sands/CoordinatePoint"]
+    type_ = ["https://openminds.ebrains.eu/sands/CoordinatePoint"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

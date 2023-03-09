@@ -16,7 +16,7 @@ class ColorMap(KGObject):
 
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/ColorMap"]
+    type_ = ["https://openminds.ebrains.eu/sands/ColorMap"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

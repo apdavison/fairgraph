@@ -120,12 +120,12 @@ class Field(object):
                     if with_type:
                         if isinstance(value, KGProxyV3):
                             if len(value.classes) == 1:
-                                data["@type"] = value.classes[0].type
+                                data["@type"] = value.classes[0].type_
                             else:
                                 # need to resolve proxy to determine the actual type
-                                data["@type"] = value.resolve(client, scope="in progress").type
+                                data["@type"] = value.resolve(client, scope="in progress").type_
                         else:
-                            data["@type"] = value.type
+                            data["@type"] = value.type_
                         assert (isinstance(data["@type"], str)
                                 or (isinstance(data["@type"], list) and isinstance(data["@type"][0], str)))
                     return data
@@ -163,7 +163,7 @@ class Field(object):
                 for item in as_list(data):
                     d_item = None
                     for cls in self.types:
-                        if "@type" in item and item["@type"] == cls.type:
+                        if "@type" in item and item["@type"] == cls.type_:
                             d_item = cls.from_jsonld(item, client, resolved=resolved)
                     if d_item is None:  # if @type is not available
                         d_item = self.types[0].from_jsonld(item, client, resolved=resolved)

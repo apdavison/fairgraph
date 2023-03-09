@@ -16,7 +16,7 @@ class Protocol(KGObject):
     Structured information on a research project.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/Protocol"]
+    type_ = ["https://openminds.ebrains.eu/core/Protocol"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

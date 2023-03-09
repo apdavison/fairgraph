@@ -16,7 +16,7 @@ class Dataset(KGObject):
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/Dataset"]
+    type_ = ["https://openminds.ebrains.eu/core/Dataset"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

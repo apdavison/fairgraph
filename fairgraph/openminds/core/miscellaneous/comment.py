@@ -16,7 +16,7 @@ class Comment(KGObject):
     Structured information about a short text associated with some entity.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Comment"]
+    type_ = ["https://openminds.ebrains.eu/core/Comment"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

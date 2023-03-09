@@ -16,7 +16,7 @@ class ValidationTest(KGObject):
     Structured information about the definition of a process for validating a computational model.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/ValidationTest"]
+    type_ = ["https://openminds.ebrains.eu/computation/ValidationTest"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

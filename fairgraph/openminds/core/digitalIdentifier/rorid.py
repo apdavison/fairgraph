@@ -16,7 +16,7 @@ class RORID(KGObject):
     A persistent identifier for a research organization, provided by the Research Organization Registry.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/RORID"]
+    type_ = ["https://openminds.ebrains.eu/core/RORID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

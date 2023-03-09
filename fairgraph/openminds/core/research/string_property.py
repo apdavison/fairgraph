@@ -15,7 +15,7 @@ class StringProperty(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/core/StringProperty"]
+    type_ = ["https://openminds.ebrains.eu/core/StringProperty"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

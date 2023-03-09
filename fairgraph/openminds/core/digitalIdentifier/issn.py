@@ -16,7 +16,7 @@ class ISSN(KGObject):
     An International Standard Serial Number of the ISSN International Centre.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/ISSN"]
+    type_ = ["https://openminds.ebrains.eu/core/ISSN"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

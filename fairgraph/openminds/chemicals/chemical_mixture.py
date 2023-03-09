@@ -16,7 +16,7 @@ class ChemicalMixture(KGObject):
     Structured information about a mixture of chemical substances.
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/chemicals/ChemicalMixture"]
+    type_ = ["https://openminds.ebrains.eu/chemicals/ChemicalMixture"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

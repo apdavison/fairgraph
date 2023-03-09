@@ -16,7 +16,7 @@ class DataAnalysis(KGObject):
     Structured information on inspecting, cleansing, transforming, and modelling data.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/DataAnalysis"]
+    type_ = ["https://openminds.ebrains.eu/computation/DataAnalysis"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

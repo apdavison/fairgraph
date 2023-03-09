@@ -16,7 +16,7 @@ class TissueSampleState(KGObject):
     Structured information on a temporary state of a tissue sample.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/TissueSampleState"]
+    type_ = ["https://openminds.ebrains.eu/core/TissueSampleState"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

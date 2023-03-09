@@ -16,7 +16,7 @@ class TissueSample(KGObject):
     Structured information on a tissue sample.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/TissueSample"]
+    type_ = ["https://openminds.ebrains.eu/core/TissueSample"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

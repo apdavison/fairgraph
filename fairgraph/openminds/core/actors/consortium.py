@@ -16,7 +16,7 @@ class Consortium(KGObject):
     Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Consortium"]
+    type_ = ["https://openminds.ebrains.eu/core/Consortium"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

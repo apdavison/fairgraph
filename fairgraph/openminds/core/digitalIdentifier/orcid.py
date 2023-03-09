@@ -16,7 +16,7 @@ class ORCID(KGObject):
     A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/ORCID"]
+    type_ = ["https://openminds.ebrains.eu/core/ORCID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

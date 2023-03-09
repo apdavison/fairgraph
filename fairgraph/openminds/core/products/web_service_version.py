@@ -17,7 +17,7 @@ class WebServiceVersion(KGObject):
 
     """
     default_space = "webservice"
-    type = ["https://openminds.ebrains.eu/core/WebServiceVersion"]
+    type_ = ["https://openminds.ebrains.eu/core/WebServiceVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

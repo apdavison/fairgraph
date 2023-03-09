@@ -16,7 +16,7 @@ class BrainAtlasVersion(KGObject):
     Structured information on a brain atlas (version level).
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/BrainAtlasVersion"]
+    type_ = ["https://openminds.ebrains.eu/sands/BrainAtlasVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

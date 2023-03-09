@@ -16,7 +16,7 @@ class RRID(KGObject):
     A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/RRID"]
+    type_ = ["https://openminds.ebrains.eu/core/RRID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -16,7 +16,7 @@ class Simulation(KGObject):
     Structured information about a process of running simulations of a computational model.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/Simulation"]
+    type_ = ["https://openminds.ebrains.eu/computation/Simulation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

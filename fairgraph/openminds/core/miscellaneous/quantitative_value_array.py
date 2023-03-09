@@ -16,7 +16,7 @@ class QuantitativeValueArray(KGObject):
     A representation of an array of quantitative values, optionally with uncertainties.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/QuantitativeValueArray"]
+    type_ = ["https://openminds.ebrains.eu/core/QuantitativeValueArray"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -16,7 +16,7 @@ class PipetteUsage(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/ephys/PipetteUsage"]
+    type_ = ["https://openminds.ebrains.eu/ephys/PipetteUsage"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

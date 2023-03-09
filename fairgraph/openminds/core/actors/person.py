@@ -16,7 +16,7 @@ class Person(KGObject):
     Structured information on a person.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Person"]
+    type_ = ["https://openminds.ebrains.eu/core/Person"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

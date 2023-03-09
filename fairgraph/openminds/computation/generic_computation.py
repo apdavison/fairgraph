@@ -16,7 +16,7 @@ class GenericComputation(KGObject):
     Structured information about a computation whose type is unknown or unspecified.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/GenericComputation"]
+    type_ = ["https://openminds.ebrains.eu/computation/GenericComputation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

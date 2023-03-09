@@ -16,7 +16,7 @@ class WorkflowExecution(KGObject):
     Structured information about an execution of a computational workflow.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/WorkflowExecution"]
+    type_ = ["https://openminds.ebrains.eu/computation/WorkflowExecution"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

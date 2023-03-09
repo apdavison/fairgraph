@@ -16,7 +16,7 @@ class MetaDataModel(KGObject):
 
     """
     default_space = "metadatamodel"
-    type = ["https://openminds.ebrains.eu/core/MetaDataModel"]
+    type_ = ["https://openminds.ebrains.eu/core/MetaDataModel"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

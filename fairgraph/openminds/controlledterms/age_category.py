@@ -68,7 +68,7 @@ class AgeCategory(KGObject):
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/AgeCategory"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/AgeCategory"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

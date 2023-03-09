@@ -112,7 +112,7 @@ Here we show the first 20 values, an additional 67 values are not shown.
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/MolecularEntity"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/MolecularEntity"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

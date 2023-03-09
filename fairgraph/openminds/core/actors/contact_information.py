@@ -16,7 +16,7 @@ class ContactInformation(KGObject):
     Structured information about how to contact a given person.
     """
     default_space = "restricted"
-    type = ["https://openminds.ebrains.eu/core/ContactInformation"]
+    type_ = ["https://openminds.ebrains.eu/core/ContactInformation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

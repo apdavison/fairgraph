@@ -16,7 +16,7 @@ class HANDLE(KGObject):
     A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/HANDLE"]
+    type_ = ["https://openminds.ebrains.eu/core/HANDLE"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

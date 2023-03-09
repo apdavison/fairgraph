@@ -16,7 +16,7 @@ class FileBundle(KGObject):
     Structured information on a bundle of file instances.
     """
     default_space = "files"
-    type = ["https://openminds.ebrains.eu/core/FileBundle"]
+    type_ = ["https://openminds.ebrains.eu/core/FileBundle"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

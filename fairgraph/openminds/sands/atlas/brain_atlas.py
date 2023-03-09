@@ -16,7 +16,7 @@ class BrainAtlas(KGObject):
     Structured information on a brain atlas (concept level).
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/BrainAtlas"]
+    type_ = ["https://openminds.ebrains.eu/sands/BrainAtlas"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

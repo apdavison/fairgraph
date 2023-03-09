@@ -16,7 +16,7 @@ class LivePaperResourceItem(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/LivePaperResourceItem"]
+    type_ = ["https://openminds.ebrains.eu/publications/LivePaperResourceItem"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

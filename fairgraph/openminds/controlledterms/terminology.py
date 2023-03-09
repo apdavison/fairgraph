@@ -112,7 +112,7 @@ Here we show the first 20 values, an additional 61 values are not shown.
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/Terminology"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/Terminology"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

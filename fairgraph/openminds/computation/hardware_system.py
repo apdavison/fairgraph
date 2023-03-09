@@ -16,7 +16,7 @@ class HardwareSystem(KGObject):
     Structured information about computing hardware.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/HardwareSystem"]
+    type_ = ["https://openminds.ebrains.eu/computation/HardwareSystem"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

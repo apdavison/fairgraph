@@ -16,7 +16,7 @@ class SlicingDevice(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/specimenPrep/SlicingDevice"]
+    type_ = ["https://openminds.ebrains.eu/specimenPrep/SlicingDevice"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -18,7 +18,7 @@ class ScholarlyArticle(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/ScholarlyArticle"]
+    type_ = ["https://openminds.ebrains.eu/publications/ScholarlyArticle"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

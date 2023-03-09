@@ -16,7 +16,7 @@ class GRIDID(KGObject):
     A GRID (Global Research Identifier Database) identifier.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/GRIDID"]
+    type_ = ["https://openminds.ebrains.eu/core/GRIDID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -52,7 +52,7 @@ class DifferenceMeasure(KGObject):
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/DifferenceMeasure"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/DifferenceMeasure"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

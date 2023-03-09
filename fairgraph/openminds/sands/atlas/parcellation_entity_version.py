@@ -16,7 +16,7 @@ class ParcellationEntityVersion(KGObject):
 
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/ParcellationEntityVersion"]
+    type_ = ["https://openminds.ebrains.eu/sands/ParcellationEntityVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -16,7 +16,7 @@ class CustomAnatomicalEntity(KGObject):
 
     """
     default_space = "spatial"
-    type = ["https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"]
+    type_ = ["https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

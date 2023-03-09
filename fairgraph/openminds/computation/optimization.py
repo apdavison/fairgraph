@@ -16,7 +16,7 @@ class Optimization(KGObject):
     Structured information about a process of optimizing a model or a piece of code.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/Optimization"]
+    type_ = ["https://openminds.ebrains.eu/computation/Optimization"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

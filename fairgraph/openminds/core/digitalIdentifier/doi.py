@@ -16,7 +16,7 @@ class DOI(KGObject):
     Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/DOI"]
+    type_ = ["https://openminds.ebrains.eu/core/DOI"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

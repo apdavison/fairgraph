@@ -16,7 +16,7 @@ class Book(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/Book"]
+    type_ = ["https://openminds.ebrains.eu/publications/Book"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

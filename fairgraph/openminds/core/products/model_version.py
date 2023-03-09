@@ -17,7 +17,7 @@ class ModelVersion(KGObject):
     Structured information on a computational model (version level).
     """
     default_space = "model"
-    type = ["https://openminds.ebrains.eu/core/ModelVersion"]
+    type_ = ["https://openminds.ebrains.eu/core/ModelVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

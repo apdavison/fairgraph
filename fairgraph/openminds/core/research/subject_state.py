@@ -16,7 +16,7 @@ class SubjectState(KGObject):
     Structured information on a temporary state of a subject.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/SubjectState"]
+    type_ = ["https://openminds.ebrains.eu/core/SubjectState"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

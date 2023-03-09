@@ -381,7 +381,7 @@ class KGClient(object):
             raise Exception(f"Unable to configure KG space for space '{space_name}': {result}")
         for cls in types:
             result = self._kg_admin_client.assign_type_to_space(space=space_name,
-                                                                target_type=cls.type[0])
+                                                                target_type=cls.type_[0])
             if result:  # error
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name

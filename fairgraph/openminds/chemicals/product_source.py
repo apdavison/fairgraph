@@ -16,7 +16,7 @@ class ProductSource(KGObject):
     Structured information about the source of a chemical substance or mixture.
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/chemicals/ProductSource"]
+    type_ = ["https://openminds.ebrains.eu/chemicals/ProductSource"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

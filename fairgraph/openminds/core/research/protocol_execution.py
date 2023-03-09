@@ -16,7 +16,7 @@ class ProtocolExecution(KGObject):
     Structured information on a protocol execution.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/ProtocolExecution"]
+    type_ = ["https://openminds.ebrains.eu/core/ProtocolExecution"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

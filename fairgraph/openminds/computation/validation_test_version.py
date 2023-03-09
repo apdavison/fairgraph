@@ -17,7 +17,7 @@ class ValidationTestVersion(KGObject):
     Structured information about a specific implementation of a validation test.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/ValidationTestVersion"]
+    type_ = ["https://openminds.ebrains.eu/computation/ValidationTestVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
