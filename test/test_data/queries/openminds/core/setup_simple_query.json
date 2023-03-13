@@ -79,8 +79,8 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/setupType",
-      "propertyName": "vocab:setupType",
+      "path": "https://openminds.ebrains.eu/vocab/type",
+      "propertyName": "vocab:type",
       "ensureOrder": true,
       "structure": [
         {

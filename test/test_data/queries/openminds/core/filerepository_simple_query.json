@@ -107,18 +107,6 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/repositoryType",
-      "propertyName": "vocab:repositoryType",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
       "propertyName": "vocab:storageSize",
       "filter": {
@@ -167,6 +155,18 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/structurePattern",
       "propertyName": "vocab:structurePattern",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/type",
+      "propertyName": "vocab:type",
       "structure": [
         {
           "path": "@id"

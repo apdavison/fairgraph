@@ -65,8 +65,8 @@
       "propertyName": "vocab:internalIdentifier"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/quantity",
-      "propertyName": "vocab:quantity"
+      "path": "https://openminds.ebrains.eu/vocab/numberOfSubjects",
+      "propertyName": "vocab:numberOfSubjects"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",

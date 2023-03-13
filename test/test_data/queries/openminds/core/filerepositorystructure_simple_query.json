@@ -58,6 +58,7 @@
         {
           "path": "https://openminds.ebrains.eu/vocab/groupingType",
           "propertyName": "vocab:groupingType",
+          "ensureOrder": true,
           "structure": [
             {
               "path": "@id"

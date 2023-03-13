@@ -91,6 +91,10 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/numberOfTissueSamples",
+      "propertyName": "vocab:numberOfTissueSamples"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/origin",
       "propertyName": "vocab:origin",
       "ensureOrder": true,
@@ -102,10 +106,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/quantity",
-      "propertyName": "vocab:quantity"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",

@@ -40,8 +40,8 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/commenter",
-      "propertyName": "vocab:commenter",
+      "path": "https://openminds.ebrains.eu/vocab/about",
+      "propertyName": "vocab:about",
       "structure": [
         {
           "path": "@id"
@@ -52,12 +52,12 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/content",
-      "propertyName": "vocab:content"
+      "path": "https://openminds.ebrains.eu/vocab/comment",
+      "propertyName": "vocab:comment"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/subject",
-      "propertyName": "vocab:subject",
+      "path": "https://openminds.ebrains.eu/vocab/commenter",
+      "propertyName": "vocab:commenter",
       "structure": [
         {
           "path": "@id"
