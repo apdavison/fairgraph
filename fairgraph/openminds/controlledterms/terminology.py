@@ -25,6 +25,8 @@
          - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
        * - technique
          -
+       * - colormap
+         - A colormap is a lookup table specifying the colors to be used in rendering a palettized image, [adapted from [Wiktionary](https://en.wiktionary.org/wiki/colormap)].
        * - patch clamp variation
          - A variation of the patch clamp technique
        * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
@@ -43,10 +45,8 @@
          -
        * - type of uncertainty
          -
-       * - body system
-         - Any anatomical or functional system in the body, regardless of scale.
 
-Here we show the first 20 values, an additional 61 values are not shown.
+Here we show the first 20 values, an additional 62 values are not shown.
 
 """
 
@@ -87,6 +87,8 @@ class Terminology(KGObject):
          - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
        * - technique
          -
+       * - colormap
+         - A colormap is a lookup table specifying the colors to be used in rendering a palettized image, [adapted from [Wiktionary](https://en.wiktionary.org/wiki/colormap)].
        * - patch clamp variation
          - A variation of the patch clamp technique
        * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
@@ -105,10 +107,8 @@ class Terminology(KGObject):
          -
        * - type of uncertainty
          -
-       * - body system
-         - Any anatomical or functional system in the body, regardless of scale.
 
-Here we show the first 20 values, an additional 61 values are not shown.
+Here we show the first 20 values, an additional 62 values are not shown.
 
     """
     default_space = "controlled"

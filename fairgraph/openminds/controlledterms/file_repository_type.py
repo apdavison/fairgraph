@@ -5,6 +5,8 @@
        :widths: 20 80
        :header-rows: 0
 
+       * - Amazon S3 repository
+         - An S3 repository uses the cloud storage of the Amazon S3 service.
        * - Seafile repository
          - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
        * - GPFS repository
@@ -19,6 +21,8 @@
          - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
        * - Git repository
          - A Git repository offers version control and source code management functionalities.
+       * - git-annex repository
+         - git-annex allows managing large files with git, without storing the file contents in git.
 
 """
 
@@ -39,6 +43,8 @@ class FileRepositoryType(KGObject):
        :widths: 20 80
        :header-rows: 0
 
+       * - Amazon S3 repository
+         - An S3 repository uses the cloud storage of the Amazon S3 service.
        * - Seafile repository
          - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
        * - GPFS repository
@@ -53,6 +59,8 @@ class FileRepositoryType(KGObject):
          - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
        * - Git repository
          - A Git repository offers version control and source code management functionalities.
+       * - git-annex repository
+         - git-annex allows managing large files with git, without storing the file contents in git.
 
     """
     default_space = "controlled"

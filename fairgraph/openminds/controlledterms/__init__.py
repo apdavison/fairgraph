@@ -70,6 +70,7 @@ from .unit_of_measurement import UnitOfMeasurement
 from .file_bundle_grouping import FileBundleGrouping
 from .disease_model import DiseaseModel
 from .patch_clamp_variation import PatchClampVariation
+from .colormap import Colormap
 from .file_repository_type import FileRepositoryType
 from .atlas_type import AtlasType
 from .subcellular_entity import SubcellularEntity

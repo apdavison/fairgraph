@@ -30,7 +30,7 @@ class ViewerSpecification(EmbeddedMetadata):
               doc="no description available"),
         Field("camera_position", "openminds.sands.CoordinatePoint", "vocab:cameraPosition", multiple=False, required=False,
               doc="no description available"),
-        Field("preferred_display_color", ["openminds.sands.ColorMap", "openminds.sands.SingleColor"], "vocab:preferredDisplayColor", multiple=False, required=False,
+        Field("preferred_display_color", ["openminds.controlledterms.Colormap", "openminds.sands.SingleColor"], "vocab:preferredDisplayColor", multiple=False, required=False,
               doc="no description available"),
 
     ]

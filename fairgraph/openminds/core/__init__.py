@@ -34,6 +34,7 @@ from .products.web_service import WebService
 from .digitalIdentifier.doi import DOI
 from .digitalIdentifier.rorid import RORID
 from .digitalIdentifier.issn import ISSN
+from .digitalIdentifier.identifiers_dot_org_id import IdentifiersDotOrgID
 from .digitalIdentifier.isbn import ISBN
 from .digitalIdentifier.rrid import RRID
 from .digitalIdentifier.orcid import ORCID

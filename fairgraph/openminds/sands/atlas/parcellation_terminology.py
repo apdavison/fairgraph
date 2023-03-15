@@ -24,8 +24,8 @@ class ParcellationTerminology(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("defined_ins", "openminds.core.File", "vocab:definedIn", multiple=True, required=False,
-              doc="Reference to a file instance in which something is stored."),
+        Field("data_locations", "openminds.core.File", "vocab:dataLocation", multiple=True, required=False,
+              doc="no description available"),
         Field("entities", "openminds.sands.ParcellationEntity", "vocab:hasEntity", multiple=True, required=True,
               doc="no description available"),
         Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,

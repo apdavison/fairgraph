@@ -49,6 +49,8 @@ class BrainAtlas(KGObject):
               doc="Preferred format for citing a particular object or legal person."),
         Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
               doc="Term or code used to identify the brain atlas registered within a particular ontology."),
+        Field("used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", multiple=False, required=False,
+              doc="no description available"),
 
     ]
     existence_query_fields = ('digital_identifier',)

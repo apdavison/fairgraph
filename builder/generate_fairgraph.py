@@ -156,6 +156,7 @@ DEFAULT_SPACES = {
                 "GRIDID",
                 "HANDLE",
                 "HardwareSystem",
+                "IdentifiersDotOrgID",
                 "ORCID",
                 "Organization",
                 "Person",

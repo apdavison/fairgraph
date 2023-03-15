@@ -29,6 +29,8 @@ class ParcellationEntityVersion(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version."),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
+        Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
+              doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
         Field("alternative_names", str, "vocab:alternativeName", multiple=True, required=False,
