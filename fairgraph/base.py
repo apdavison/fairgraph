@@ -488,7 +488,7 @@ class KGObject(object, metaclass=Registry):
         return client.uri_from_uuid(uuid)
 
     @classmethod
-    def _get_query_definition(cls, client, normalized_filters, space=None, resolved=False):
+    def _get_query_definition(cls, client, normalized_filters, space=None, resolved=False, use_stored_query=False):
         if resolved:
             query_type = "resolved"
         else:
@@ -497,11 +497,14 @@ class KGObject(object, metaclass=Registry):
             filter_keys = None
         else:
             filter_keys = normalized_filters.keys()
-        query_label = cls.get_query_label(query_type, space, filter_keys)
-        query = client.retrieve_query(query_label)
+        query = None
+        if use_stored_query:
+            query_label = cls.get_query_label(query_type, space, filter_keys)
+            query = client.retrieve_query(query_label)
         if query is None:
             query = cls.generate_query(query_type, space, client=client, filter_keys=filter_keys, resolved=resolved)
-            client.store_query(query_label, query, space=space)
+            if use_stored_query:
+                client.store_query(query_label, query, space=space)
         return query
 
     @classmethod
@@ -519,7 +522,7 @@ class KGObject(object, metaclass=Registry):
             normalized_filters = normalize_filter(cls, filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved)
             instances = client.query(
-                normalized_filters, query["@id"],
+                normalized_filters, query,
                 space=space,
                 from_index=from_index, size=size,
                 scope=scope
@@ -551,7 +554,7 @@ class KGObject(object, metaclass=Registry):
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, resolved=False)
-            response = client.query(normalized_filters, query["@id"], space=space,
+            response = client.query(normalized_filters, query, space=space,
                                     from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
@@ -656,7 +659,7 @@ class KGObject(object, metaclass=Registry):
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
                 query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
-                instances = client.query(normalized_filters, query["@id"], size=1,
+                instances = client.query(normalized_filters, query, size=1,
                                          scope="any").data
 
                 if instances:
@@ -1220,7 +1223,7 @@ class KGQuery(object):
             query = cls._get_query_definition(client, normalized_filters, space, resolved)
             instances = client.query(
                 normalized_filters,
-                query["@id"],
+                query,
                 space=space,
                 size=size,
                 from_index=from_index,
