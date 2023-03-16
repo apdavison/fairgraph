@@ -193,7 +193,7 @@ def test_execute_query(kg_client, example_query_model_version):
         assert set(custodian0.keys()) == set(["@id", "vocab:affiliation"])
         if custodian0["vocab:affiliation"]:
             affil0 = custodian0["vocab:affiliation"][0]
-            assert set(affil0.keys())  == set(["@type", "vocab:organization", "vocab:startDate"])
+            assert set(affil0.keys())  == set(["@type", "vocab:memberOf", "vocab:startDate"])
 
 
 @skip_if_no_connection
