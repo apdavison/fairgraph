@@ -45,16 +45,9 @@
       "sort": true
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/RRID",
-      "propertyName": "vocab:RRID",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "path": "https://openminds.ebrains.eu/vocab/alternateIdentifier",
+      "propertyName": "vocab:alternateIdentifier",
+      "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/backgroundStrain",
@@ -86,6 +79,18 @@
       "propertyName": "vocab:description"
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+      "propertyName": "vocab:digitalIdentifier",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/diseaseModel",
       "propertyName": "vocab:diseaseModel",
       "ensureOrder": true,
@@ -109,11 +114,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/identifier",
-      "propertyName": "vocab:identifier",
-      "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/laboratoryCode",

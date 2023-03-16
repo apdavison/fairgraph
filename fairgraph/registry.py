@@ -59,9 +59,6 @@ def lookup(class_name):
 
 
 def lookup_type(class_type, client=None):
-    if 'https://schema.hbp.eu/Inference' in class_type:  # temporary workaround
-        class_type = list(class_type)
-        class_type.remove('https://schema.hbp.eu/Inference')
     if isinstance(class_type, str):
         if class_type in registry['types']:
             return registry['types'][class_type]

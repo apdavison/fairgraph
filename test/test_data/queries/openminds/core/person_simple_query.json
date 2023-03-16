@@ -74,6 +74,16 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/alternateFamilyName",
+      "propertyName": "vocab:alternateFamilyName",
+      "ensureOrder": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/alternateGivenName",
+      "propertyName": "vocab:alternateGivenName",
+      "ensureOrder": true
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/associatedAccount",
       "propertyName": "vocab:associatedAccount",
       "ensureOrder": true,

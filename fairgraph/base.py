@@ -388,7 +388,6 @@ class KGObject(object, metaclass=Registry):
 
         for otype in compact_uri(as_list(cls.type_), cls.context):  # todo: update class generation to ensure classes are already compacted
             if otype not in D["@type"]:
-                #print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         deserialized_data = {}
         for field in cls.fields:
@@ -400,8 +399,6 @@ class KGObject(object, metaclass=Registry):
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
             deserialized_data[field.name] = field.deserialize(data_item, client, resolved=resolved)
-        # if cls.__name__ == "ModelVersion":
-        #     raise Exception()
         return deserialized_data
 
     @classmethod

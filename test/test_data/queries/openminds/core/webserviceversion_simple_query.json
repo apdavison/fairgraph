@@ -147,8 +147,8 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/hasComponent",
-      "propertyName": "vocab:hasComponent",
+      "path": "https://openminds.ebrains.eu/vocab/hasPart",
+      "propertyName": "vocab:hasPart",
       "ensureOrder": true,
       "structure": [
         {
