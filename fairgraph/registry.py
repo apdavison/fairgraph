@@ -30,7 +30,7 @@ def register_class(target_class):
         pass
     except ValueError:  # core classes do not have a namespace set
         pass            # we may want to register the path when the namespace is set
-    if hasattr(target_class, 'type'):
+    if hasattr(target_class, 'type_'):
         if isinstance(target_class.type_, str):
             type_ = target_class.type_
         else:
