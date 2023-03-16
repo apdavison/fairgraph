@@ -16,7 +16,7 @@ class ParcellationEntityVersion(KGObject):
 
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/ParcellationEntityVersion"]
+    type_ = ["https://openminds.ebrains.eu/sands/ParcellationEntityVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -28,6 +28,8 @@ class ParcellationEntityVersion(KGObject):
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version."),
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
+              doc="no description available"),
+        Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
               doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),

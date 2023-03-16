@@ -48,8 +48,8 @@
       "propertyName": "vocab:configuration"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/definitionFormat",
-      "propertyName": "vocab:definitionFormat",
+      "path": "https://openminds.ebrains.eu/vocab/format",
+      "propertyName": "vocab:format",
       "structure": [
         {
           "path": "@id"

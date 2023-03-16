@@ -73,8 +73,8 @@
           "propertyName": "vocab:context"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/definedIn",
-          "propertyName": "vocab:definedIn",
+          "path": "https://openminds.ebrains.eu/vocab/dataLocation",
+          "propertyName": "vocab:dataLocation",
           "structure": [
             {
               "path": "@id"
@@ -103,8 +103,8 @@
       "propertyName": "vocab:description"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
-      "propertyName": "vocab:endedAtTime"
+      "path": "https://openminds.ebrains.eu/vocab/endTime",
+      "propertyName": "vocab:endTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/input",
@@ -183,8 +183,8 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/startedAtTime",
-      "propertyName": "vocab:startedAtTime"
+      "path": "https://openminds.ebrains.eu/vocab/startTime",
+      "propertyName": "vocab:startTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/studyTarget",

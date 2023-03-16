@@ -16,7 +16,7 @@ class FileBundle(KGObject):
     Structured information on a bundle of file instances.
     """
     default_space = "files"
-    type = ["https://openminds.ebrains.eu/core/FileBundle"]
+    type_ = ["https://openminds.ebrains.eu/core/FileBundle"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -29,11 +29,11 @@ class FileBundle(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of the file bundle."),
         Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
               doc="no description available"),
-        Field("descended_from", ["openminds.computation.LocalFile", "openminds.controlledterms.StimulationTechnique", "openminds.controlledterms.Technique", "openminds.core.BehavioralProtocol", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.Subject", "openminds.core.SubjectGroup", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSample", "openminds.core.TissueSampleCollection", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:descendedFrom", multiple=False, required=False,
-              doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
-        Field("grouping_type", "openminds.controlledterms.FileBundleGrouping", "vocab:groupingType", multiple=False, required=False,
+        Field("grouped_by", ["openminds.computation.LocalFile", "openminds.controlledterms.AnalysisTechnique", "openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.OrganismSystem", "openminds.controlledterms.Species", "openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.Technique", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.core.BehavioralProtocol", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.Subject", "openminds.core.SubjectGroup", "openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSample", "openminds.core.TissueSampleCollection", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState", "openminds.sands.CommonCoordinateSpace", "openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.CustomCoordinateSpace", "openminds.sands.ParcellationEntityVersion"], "vocab:groupedBy", multiple=True, required=False,
+              doc="Reference to the aspect used to group something."),
+        Field("grouping_types", "openminds.controlledterms.FileBundleGrouping", "vocab:groupingType", multiple=True, required=False,
               doc="no description available"),
         Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),

@@ -16,7 +16,7 @@ class WebService(KGObject):
 
     """
     default_space = "webservice"
-    type = ["https://openminds.ebrains.eu/core/WebService"]
+    type_ = ["https://openminds.ebrains.eu/core/WebService"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -37,7 +37,7 @@ class WebService(KGObject):
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
         Field("versions", "openminds.core.WebServiceVersion", "vocab:hasVersion", multiple=True, required=True,
               doc="Reference to variants of an original."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the web service."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),

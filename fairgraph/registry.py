@@ -30,11 +30,11 @@ def register_class(target_class):
         pass
     except ValueError:  # core classes do not have a namespace set
         pass            # we may want to register the path when the namespace is set
-    if hasattr(target_class, 'type'):
-        if isinstance(target_class.type, str):
-            type_ = target_class.type
+    if hasattr(target_class, 'type_'):
+        if isinstance(target_class.type_, str):
+            type_ = target_class.type_
         else:
-            type_ = tuple(sorted(target_class.type))
+            type_ = tuple(sorted(target_class.type_))
         if type_ in registry['types']:
             if isinstance(registry['types'][type_], list):
                 registry['types'][type_].append(target_class)
@@ -59,9 +59,6 @@ def lookup(class_name):
 
 
 def lookup_type(class_type, client=None):
-    if 'https://schema.hbp.eu/Inference' in class_type:  # temporary workaround
-        class_type = list(class_type)
-        class_type.remove('https://schema.hbp.eu/Inference')
     if isinstance(class_type, str):
         if class_type in registry['types']:
             return registry['types'][class_type]

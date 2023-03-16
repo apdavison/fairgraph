@@ -1,5 +1,5 @@
 """
-A GRID (Global Research Identifier Database) identifier.
+A persistent identifier for a research organization, provided by the Research Organization Registry.
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class GRIDID(KGObject):
+class RORID(KGObject):
     """
-    A GRID (Global Research Identifier Database) identifier.
+    A persistent identifier for a research organization, provided by the Research Organization Registry.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/GRIDID"]
+    type_ = ["https://openminds.ebrains.eu/core/RORID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,7 +26,7 @@ class GRIDID(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the GRIDID."),
+              doc="Term or code used to identify the RORID."),
 
     ]
     existence_query_fields = ('identifier',)

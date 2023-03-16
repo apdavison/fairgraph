@@ -15,7 +15,7 @@ class ParcellationTerminologyVersion(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/sands/ParcellationTerminologyVersion"]
+    type_ = ["https://openminds.ebrains.eu/sands/ParcellationTerminologyVersion"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -24,9 +24,9 @@ class ParcellationTerminologyVersion(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("defined_ins", "openminds.core.File", "vocab:definedIn", multiple=True, required=False,
-              doc="Reference to a file instance in which something is stored."),
-        Field("has_entity_versions", "openminds.sands.ParcellationEntityVersion", "vocab:hasEntityVersion", multiple=True, required=True,
+        Field("data_locations", "openminds.core.File", "vocab:dataLocation", multiple=True, required=False,
+              doc="no description available"),
+        Field("entities", "openminds.sands.ParcellationEntityVersion", "vocab:hasEntity", multiple=True, required=True,
               doc="no description available"),
         Field("ontology_identifiers", str, "vocab:ontologyIdentifier", multiple=True, required=False,
               doc="Term or code used to identify the parcellation terminology version registered within a particular ontology."),

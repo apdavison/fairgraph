@@ -15,7 +15,7 @@ class CustomAnnotation(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/sands/CustomAnnotation"]
+    type_ = ["https://openminds.ebrains.eu/sands/CustomAnnotation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -24,25 +24,27 @@ class CustomAnnotation(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("annotation_type", "openminds.controlledterms.AnnotationType", "vocab:annotationType", multiple=False, required=False,
+        Field("anchor_point", "openminds.sands.CoordinatePoint", "vocab:anchorPoint", multiple=False, required=False,
               doc="no description available"),
-        Field("best_view_point", "openminds.sands.CoordinatePoint", "vocab:bestViewPoint", multiple=False, required=False,
-              doc="Coordinate point from which you get the best view of something."),
-        Field("coordinate_space", ["openminds.sands.CommonCoordinateSpace", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
+        Field("coordinate_space", ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"], "vocab:coordinateSpace", multiple=False, required=True,
               doc="Two or three dimensional geometric setting."),
         Field("criteria", "openminds.core.ProtocolExecution", "vocab:criteria", multiple=False, required=False,
               doc="Aspects or standards on which a judgement or decision is based."),
         Field("criteria_quality_type", "openminds.controlledterms.CriteriaQualityType", "vocab:criteriaQualityType", multiple=False, required=True,
               doc="Distinct class that defines how the judgement or decision was made for a particular criteria."),
-        Field("display_color", str, "vocab:displayColor", multiple=False, required=False,
-              doc="Preferred coloring."),
+        Field("criteria_type", "openminds.controlledterms.AnnotationCriteriaType", "vocab:criteriaType", multiple=False, required=True,
+              doc="no description available"),
         Field("inspired_bys", "openminds.core.File", "vocab:inspiredBy", multiple=True, required=False,
               doc="Reference to an inspiring element."),
-        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=True,
+        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the custom annotation within a particular product."),
         Field("laterality", "openminds.controlledterms.Laterality", "vocab:laterality", multiple=True, required=False,
               doc="Differentiation between a pair of lateral homologous parts of the body."),
-        Field("visualized_in", "openminds.core.File", "vocab:visualizedIn", multiple=False, required=True,
-              doc="Reference to an image in which something is visible."),
+        Field("preferred_visualization", "openminds.sands.ViewerSpecification", "vocab:preferredVisualization", multiple=False, required=False,
+              doc="no description available"),
+        Field("specification", ["openminds.core.File", "openminds.core.PropertyValueList"], "vocab:specification", multiple=False, required=False,
+              doc="Detailed and precise presentation of, or proposal for something."),
+        Field("type", "openminds.controlledterms.AnnotationType", "vocab:type", multiple=False, required=True,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]

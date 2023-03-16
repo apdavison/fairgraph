@@ -9,6 +9,8 @@
          - An inhibitory interneuron in the caudate nucleus and putamen which mainly uses the neurotrasmitter acetylcholine (ACh).
        * - microglial cell
          - 'Microglial cells' are small, migratory, phagocytic, interstitial glial cells in the central nervous system.
+       * - granule neuron
+         - The term 'granule neuron' refers to a set of neuron types typically found in granular layers across brain regions whose only common feature is that they all have very small cell bodies [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Granule_cell)].
        * - granule cell
          -
        * - neocortex layer 5 tufted pyramidal neuron
@@ -43,10 +45,8 @@
          - 'Cerebellum granule cells' form the thick granular layer of the cerebellar cortex and typically have small cell bodies but varying functions.
        * - nitric oxide synthase expressing neuron
          - Any neuron that expresses nitric oxide synthase.
-       * - somatostatin expressing neuron
-         - Any neuron that expresses somatostatin.
 
-Here we show the first 20 values, an additional 34 values are not shown.
+Here we show the first 20 values, an additional 35 values are not shown.
 
 """
 
@@ -71,6 +71,8 @@ class CellType(KGObject):
          - An inhibitory interneuron in the caudate nucleus and putamen which mainly uses the neurotrasmitter acetylcholine (ACh).
        * - microglial cell
          - 'Microglial cells' are small, migratory, phagocytic, interstitial glial cells in the central nervous system.
+       * - granule neuron
+         - The term 'granule neuron' refers to a set of neuron types typically found in granular layers across brain regions whose only common feature is that they all have very small cell bodies [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Granule_cell)].
        * - granule cell
          -
        * - neocortex layer 5 tufted pyramidal neuron
@@ -105,14 +107,12 @@ class CellType(KGObject):
          - 'Cerebellum granule cells' form the thick granular layer of the cerebellar cortex and typically have small cell bodies but varying functions.
        * - nitric oxide synthase expressing neuron
          - Any neuron that expresses nitric oxide synthase.
-       * - somatostatin expressing neuron
-         - Any neuron that expresses somatostatin.
 
-Here we show the first 20 values, an additional 34 values are not shown.
+Here we show the first 20 values, an additional 35 values are not shown.
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/CellType"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/CellType"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

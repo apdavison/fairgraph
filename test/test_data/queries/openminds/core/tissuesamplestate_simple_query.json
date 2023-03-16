@@ -175,6 +175,10 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
+      "propertyName": "vocab:internalIdentifier"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/pathology",
       "propertyName": "vocab:pathology",
       "ensureOrder": true,

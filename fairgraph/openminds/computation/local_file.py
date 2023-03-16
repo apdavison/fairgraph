@@ -16,7 +16,7 @@ class LocalFile(KGObject):
     Structured information about a file that is not accessible via a URL.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/LocalFile"]
+    type_ = ["https://openminds.ebrains.eu/computation/LocalFile"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -28,6 +28,8 @@ class LocalFile(KGObject):
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the local file."),
         Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
+              doc="no description available"),
+        Field("copy_of", "openminds.core.File", "vocab:copyOf", multiple=False, required=False,
               doc="no description available"),
         Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,
               doc="no description available"),

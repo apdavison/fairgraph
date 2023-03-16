@@ -16,7 +16,7 @@ class LivePaperResourceItem(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/LivePaperResourceItem"]
+    type_ = ["https://openminds.ebrains.eu/publications/LivePaperResourceItem"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -35,5 +35,4 @@ class LivePaperResourceItem(KGObject):
               doc="Reference to the ensemble of multiple things or beings."),
 
     ]
-    #existence_query_fields = ('name', 'iri', 'hosted_by', 'is_part_of')
     existence_query_fields = ('name', 'iri', 'is_part_of')

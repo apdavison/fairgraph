@@ -16,7 +16,7 @@ class TissueSampleSlicing(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/specimenPrep/TissueSampleSlicing"]
+    type_ = ["https://openminds.ebrains.eu/specimenPrep/TissueSampleSlicing"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -31,7 +31,9 @@ class TissueSampleSlicing(KGObject):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the tissue sample slicing."),
-        Field("ended_at_time", datetime, "vocab:endedAtTime", multiple=False, required=False,
+        Field("device", "openminds.specimenprep.SlicingDeviceUsage", "vocab:device", multiple=False, required=True,
+              doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function."),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False,
               doc="no description available"),
         Field("inputs", ["openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
@@ -45,11 +47,9 @@ class TissueSampleSlicing(KGObject):
               doc="no description available"),
         Field("protocols", "openminds.core.Protocol", "vocab:protocol", multiple=True, required=True,
               doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure."),
-        Field("slicing_device", "openminds.specimenprep.SlicingDeviceUsage", "vocab:slicingDevice", multiple=False, required=True,
+        Field("start_time", datetime, "vocab:startTime", multiple=False, required=False,
               doc="no description available"),
-        Field("started_at_time", datetime, "vocab:startedAtTime", multiple=False, required=False,
-              doc="no description available"),
-        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
+        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.OrganismSystem", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
         Field("temperature", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:temperature", multiple=False, required=False,
               doc="no description available"),

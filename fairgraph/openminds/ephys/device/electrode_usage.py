@@ -16,7 +16,7 @@ class ElectrodeUsage(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/ephys/ElectrodeUsage"]
+    type_ = ["https://openminds.ebrains.eu/ephys/ElectrodeUsage"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -27,15 +27,15 @@ class ElectrodeUsage(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("additional_informations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:additionalInformation", multiple=True, required=False,
-              doc="no description available"),
-        Field("anatomical_location", ["openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=False, required=False,
+        Field("anatomical_location", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=False, required=False,
               doc="no description available"),
         Field("contact_resistance", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:contactResistance", multiple=False, required=False,
               doc="no description available"),
-        Field("coordinate_point", "openminds.sands.CoordinatePoint", "vocab:coordinatePoint", multiple=False, required=False,
-              doc="Pair or triplet of numbers defining the position in a particular two- or three dimensional plane or space."),
-        Field("electrode", "openminds.ephys.Electrode", "vocab:electrode", multiple=False, required=True,
+        Field("device", "openminds.ephys.Electrode", "vocab:device", multiple=False, required=True,
+              doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function."),
+        Field("metadata_locations", ["openminds.core.File", "openminds.core.FileBundle"], "vocab:metadataLocation", multiple=True, required=False,
+              doc="no description available"),
+        Field("spatial_location", "openminds.sands.CoordinatePoint", "vocab:spatialLocation", multiple=False, required=False,
               doc="no description available"),
         Field("used_specimen", ["openminds.core.SubjectState", "openminds.core.TissueSampleState"], "vocab:usedSpecimen", multiple=False, required=False,
               doc="no description available"),

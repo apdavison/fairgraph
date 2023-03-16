@@ -86,7 +86,8 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/year",
-          "propertyName": "vocab:year"
+          "propertyName": "vocab:year",
+          "ensureOrder": true
         }
       ]
     },
@@ -146,8 +147,8 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/hasComponent",
-      "propertyName": "vocab:hasComponent",
+      "path": "https://openminds.ebrains.eu/vocab/hasPart",
+      "propertyName": "vocab:hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -160,15 +161,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "propertyName": "vocab:homepage"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
@@ -238,9 +231,8 @@
           "path": "@type"
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/contributionType",
-          "propertyName": "vocab:contributionType",
-          "ensureOrder": true,
+          "path": "https://openminds.ebrains.eu/vocab/contributor",
+          "propertyName": "vocab:contributor",
           "structure": [
             {
               "path": "@id"
@@ -251,8 +243,9 @@
           ]
         },
         {
-          "path": "https://openminds.ebrains.eu/vocab/contributor",
-          "propertyName": "vocab:contributor",
+          "path": "https://openminds.ebrains.eu/vocab/type",
+          "propertyName": "vocab:type",
+          "ensureOrder": true,
           "structure": [
             {
               "path": "@id"

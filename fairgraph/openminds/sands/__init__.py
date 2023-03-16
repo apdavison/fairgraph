@@ -9,12 +9,14 @@ from .non_atlas.custom_coordinate_space import CustomCoordinateSpace
 from .non_atlas.custom_annotation import CustomAnnotation
 from .non_atlas.custom_anatomical_entity import CustomAnatomicalEntity
 from .miscellaneous.anatomical_target_position import AnatomicalTargetPosition
+from .miscellaneous.viewer_specification import ViewerSpecification
 from .miscellaneous.qualitative_relation_assessment import QualitativeRelationAssessment
 from .miscellaneous.quantitative_relation_assessment import QuantitativeRelationAssessment
 from .miscellaneous.coordinate_point import CoordinatePoint
-from .atlas.parcellation_entity import ParcellationEntity
+from .miscellaneous.single_color import SingleColor
 from .atlas.common_coordinate_space import CommonCoordinateSpace
 from .atlas.parcellation_terminology import ParcellationTerminology
+from .atlas.common_coordinate_space_version import CommonCoordinateSpaceVersion
 from .atlas.parcellation_terminology_version import ParcellationTerminologyVersion
 from .atlas.brain_atlas import BrainAtlas
 from .atlas.atlas_annotation import AtlasAnnotation

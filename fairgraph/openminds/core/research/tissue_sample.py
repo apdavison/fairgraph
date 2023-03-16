@@ -16,7 +16,7 @@ class TissueSample(KGObject):
     Structured information on a tissue sample.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/TissueSample"]
+    type_ = ["https://openminds.ebrains.eu/core/TissueSample"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -27,7 +27,7 @@ class TissueSample(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("anatomical_locations", ["openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=True, required=False,
+        Field("anatomical_locations", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=True, required=False,
               doc="no description available"),
         Field("biological_sex", "openminds.controlledterms.BiologicalSex", "vocab:biologicalSex", multiple=False, required=False,
               doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce."),
@@ -37,7 +37,7 @@ class TissueSample(KGObject):
               doc="Reference to the ensemble of multiple things or beings."),
         Field("laterality", "openminds.controlledterms.Laterality", "vocab:laterality", multiple=True, required=False,
               doc="Differentiation between a pair of lateral homologous parts of the body."),
-        Field("origin", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ"], "vocab:origin", multiple=False, required=True,
+        Field("origin", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance"], "vocab:origin", multiple=False, required=True,
               doc="Source at which something begins or rises, or from which something derives."),
         Field("species", ["openminds.controlledterms.Species", "openminds.core.Strain"], "vocab:species", multiple=False, required=True,
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),

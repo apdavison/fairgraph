@@ -16,7 +16,7 @@ class Electrode(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/ephys/Electrode"]
+    type_ = ["https://openminds.ebrains.eu/ephys/Electrode"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -33,7 +33,7 @@ class Electrode(KGObject):
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the electrode."),
-        Field("device_type", "openminds.controlledterms.DeviceType", "vocab:deviceType", multiple=False, required=False,
+        Field("device_type", "openminds.controlledterms.DeviceType", "vocab:deviceType", multiple=False, required=True,
               doc="no description available"),
         Field("digital_identifier", ["openminds.core.DOI", "openminds.core.RRID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
@@ -43,7 +43,7 @@ class Electrode(KGObject):
               doc="Term or code that identifies the electrode within a particular product."),
         Field("intrinsic_resistance", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:intrinsicResistance", multiple=False, required=False,
               doc="no description available"),
-        Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=True,
+        Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=False,
               doc="no description available"),
         Field("owners", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:owner", multiple=True, required=False,
               doc="no description available"),

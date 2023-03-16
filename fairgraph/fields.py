@@ -26,9 +26,9 @@ from dateutil import parser as date_parser
 
 from .registry import lookup
 from .base import (
-    KGObject as KGObjectV3,
-    KGProxy as KGProxyV3,
-    KGQuery as KGQueryV3,
+    KGObject,
+    KGProxy,
+    KGQuery,
     EmbeddedMetadata,
     build_kg_object,
     IRI,
@@ -73,7 +73,7 @@ class Field(object):
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxyV3, KGQueryV3, EmbeddedMetadata))
+                if not (isinstance(item, (KGProxy, KGQuery, EmbeddedMetadata))
                         and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
                     if item is None and self.required:
                         errmsg = "Field '{}' is required but was not provided.".format(
@@ -102,7 +102,7 @@ class Field(object):
 
     @property
     def is_link(self):
-        return issubclass(self.types[0], (KGObjectV3, EmbeddedMetadata))
+        return issubclass(self.types[0], (KGObject, EmbeddedMetadata))
 
     def serialize(self, value, client, for_query=False, with_type=True):
         def serialize_single(value):
@@ -110,7 +110,7 @@ class Field(object):
                 return value
             elif hasattr(value, "to_jsonld"):
                 return value.to_jsonld(client)
-            elif isinstance(value, (KGObjectV3, KGProxyV3)):
+            elif isinstance(value, (KGObject, KGProxy)):
                 if for_query:
                     return value.id
                 else:
@@ -118,14 +118,14 @@ class Field(object):
                         "@id": value.id,
                     }
                     if with_type:
-                        if isinstance(value, KGProxyV3):
+                        if isinstance(value, KGProxy):
                             if len(value.classes) == 1:
-                                data["@type"] = value.classes[0].type
+                                data["@type"] = value.classes[0].type_
                             else:
                                 # need to resolve proxy to determine the actual type
-                                data["@type"] = value.resolve(client, scope="in progress").type
+                                data["@type"] = value.resolve(client, scope="in progress").type_
                         else:
-                            data["@type"] = value.type
+                            data["@type"] = value.type_
                         assert (isinstance(data["@type"], str)
                                 or (isinstance(data["@type"], list) and isinstance(data["@type"][0], str)))
                     return data
@@ -156,14 +156,14 @@ class Field(object):
         if data is None or data == []:
             return None
         try:
-            if issubclass(self.types[0], KGObjectV3):
+            if issubclass(self.types[0], KGObject):
                 return build_kg_object(self.types, data, resolved=resolved, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
                 deserialized = []
                 for item in as_list(data):
                     d_item = None
                     for cls in self.types:
-                        if "@type" in item and item["@type"] == cls.type:
+                        if "@type" in item and item["@type"] == cls.type_:
                             d_item = cls.from_jsonld(item, client, resolved=resolved)
                     if d_item is None:  # if @type is not available
                         d_item = self.types[0].from_jsonld(item, client, resolved=resolved)

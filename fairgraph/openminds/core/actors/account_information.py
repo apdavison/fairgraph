@@ -16,7 +16,7 @@ class AccountInformation(KGObject):
     Structured information about a user account for a web service.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/AccountInformation"]
+    type_ = ["https://openminds.ebrains.eu/core/AccountInformation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

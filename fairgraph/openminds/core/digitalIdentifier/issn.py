@@ -1,5 +1,5 @@
 """
-A persistent identifier for a research organization, provided by the Research Organization Registry.
+An International Standard Serial Number of the ISSN International Centre.
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class RORID(KGObject):
+class ISSN(KGObject):
     """
-    A persistent identifier for a research organization, provided by the Research Organization Registry.
+    An International Standard Serial Number of the ISSN International Centre.
     """
-    default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/RORID"]
+    default_space = "dataset"
+    type_ = ["https://openminds.ebrains.eu/core/ISSN"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,7 +26,7 @@ class RORID(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the RORID."),
+              doc="Term or code used to identify the ISSN."),
 
     ]
     existence_query_fields = ('identifier',)

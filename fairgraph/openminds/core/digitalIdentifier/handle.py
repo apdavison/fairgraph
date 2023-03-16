@@ -1,5 +1,5 @@
 """
-
+A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class SWHID(KGObject):
+class HANDLE(KGObject):
     """
-
+    A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
     """
-    default_space = "software"
-    type = ["https://openminds.ebrains.eu/core/SWHID"]
+    default_space = "common"
+    type_ = ["https://openminds.ebrains.eu/core/HANDLE"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,7 +26,7 @@ class SWHID(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the SWHID."),
+              doc="Term or code used to identify the HANDLE."),
 
     ]
     existence_query_fields = ('identifier',)

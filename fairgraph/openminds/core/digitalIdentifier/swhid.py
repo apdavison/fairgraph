@@ -5,17 +5,18 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph.base import KGObject, IRI
 from fairgraph.fields import Field
 
 
 
 
-class StockNumber(EmbeddedMetadata):
+class SWHID(KGObject):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/core/StockNumber"]
+    default_space = "software"
+    type_ = ["https://openminds.ebrains.eu/core/SWHID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,8 +26,7 @@ class StockNumber(EmbeddedMetadata):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the stock number."),
-        Field("vendor", "openminds.core.Organization", "vocab:vendor", multiple=False, required=True,
-              doc="no description available"),
+              doc="Term or code used to identify the SWHID."),
 
     ]
+    existence_query_fields = ('identifier',)

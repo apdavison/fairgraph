@@ -1,5 +1,5 @@
 """
-A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
+A persistent identifier for a research resource provided by the Resource Identification Initiative.
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class ORCID(KGObject):
+class RRID(KGObject):
     """
-    A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
+    A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/ORCID"]
+    type_ = ["https://openminds.ebrains.eu/core/RRID"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,7 +26,7 @@ class ORCID(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the ORCID."),
+              doc="Term or code used to identify the RRID."),
 
     ]
     existence_query_fields = ('identifier',)

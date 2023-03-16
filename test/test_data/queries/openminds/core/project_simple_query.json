@@ -66,8 +66,8 @@
       "propertyName": "vocab:description"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/hasResearchProducts",
-      "propertyName": "vocab:hasResearchProducts",
+      "path": "https://openminds.ebrains.eu/vocab/hasPart",
+      "propertyName": "vocab:hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -80,15 +80,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "propertyName": "vocab:homepage"
     }
   ]
 }

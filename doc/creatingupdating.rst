@@ -5,7 +5,7 @@ Creating and updating metadata nodes
 To create a new metadata node, create an instance of the appropriate Python class,
 then use the :meth:`save()` method, e.g.::
 
-    from fairgraph.openminds.core import SoftwareVersion, URL
+    from fairgraph.openminds.core import SoftwareVersion
 
     sv = SoftwareVersion(
         name="numpy",
@@ -18,7 +18,7 @@ To update a node, edit the attributes of the corresponding Python object, then :
 
     from fairgraph.base import IRI
 
-    sv.homepage = URL(url=IRI("https://numpy.org"))
+    sv.homepage = IRI("https://numpy.org")
     sv.save(client)
 
 (Note that for updating existing objects you don't need to specify the space.)

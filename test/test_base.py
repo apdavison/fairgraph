@@ -11,7 +11,7 @@ import pytest
 
 
 class MockEmbeddedObject(EmbeddedMetadata):
-    type = ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"]
+    type_ = ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -29,7 +29,7 @@ class MockEmbeddedObject(EmbeddedMetadata):
 
 class MockKGObject2(KGObject):
     default_space = "mock"
-    type = ["https://openminds.ebrains.eu/mock/MockKGObject2"]
+    type_ = ["https://openminds.ebrains.eu/mock/MockKGObject2"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -43,7 +43,7 @@ class MockKGObject2(KGObject):
 
 class MockKGObject(KGObject):
     default_space = "mock"
-    type = ["https://openminds.ebrains.eu/mock/MockKGObject"]
+    type_ = ["https://openminds.ebrains.eu/mock/MockKGObject"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -241,7 +241,7 @@ class TestKGObject(object):
         assert obj.an_optional_datetime == None
         new_data = {
             "@id": obj.id,
-            "@type": obj.type,
+            "@type": obj.type_,
             "vocab:aRequiredListOfString": ["kumquat", "bilberry"],
             "vocab:anOptionalDateTime": "1789-07-14T00:00:00"
         }
@@ -258,7 +258,7 @@ class TestKGObject(object):
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
-                data["@type"] = orig_object.type
+                data["@type"] = orig_object.type_
                 return data
         MockKGObject.set_strict_mode(False)  # stop the constructor from complaining
         new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
@@ -273,7 +273,7 @@ class TestKGObject(object):
         expected = {
             "@context": MockKGObject.context,
             "@id": orig_object.id,
-            "@type": MockKGObject.type,
+            "@type": MockKGObject.type_,
             "https://core.kg.ebrains.eu/vocab/meta/space": "collab-foobar",
             "vocab:aRequiredDateTime": "1789-07-14T00:00:00",
             "vocab:aRequiredEmbeddedObject": {

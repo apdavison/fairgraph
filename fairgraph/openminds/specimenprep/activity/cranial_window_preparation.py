@@ -16,7 +16,7 @@ class CranialWindowPreparation(KGObject):
 
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/specimenPrep/CranialWindowPreparation"]
+    type_ = ["https://openminds.ebrains.eu/specimenPrep/CranialWindowPreparation"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -35,7 +35,7 @@ class CranialWindowPreparation(KGObject):
               doc="Longer statement or account giving the characteristics of the cranial window preparation."),
         Field("dimension", ["openminds.sands.Circle", "openminds.sands.Ellipse", "openminds.sands.Rectangle"], "vocab:dimension", multiple=False, required=False,
               doc="no description available"),
-        Field("ended_at_time", datetime, "vocab:endedAtTime", multiple=False, required=False,
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False,
               doc="no description available"),
         Field("inputs", "openminds.core.SubjectState", "vocab:input", multiple=True, required=True,
               doc="Something or someone that is put into or participates in a process or machine."),
@@ -51,9 +51,9 @@ class CranialWindowPreparation(KGObject):
               doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure."),
         Field("reinforcement_type", "openminds.controlledterms.CranialWindowReinforcementType", "vocab:reinforcementType", multiple=False, required=False,
               doc="no description available"),
-        Field("started_at_time", datetime, "vocab:startedAtTime", multiple=False, required=False,
+        Field("start_time", datetime, "vocab:startTime", multiple=False, required=False,
               doc="no description available"),
-        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
+        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.OrganismSystem", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
 
     ]

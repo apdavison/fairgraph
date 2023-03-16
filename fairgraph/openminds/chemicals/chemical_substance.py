@@ -16,7 +16,7 @@ class ChemicalSubstance(KGObject):
     Structured information about a chemical substance.
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/chemicals/ChemicalSubstance"]
+    type_ = ["https://openminds.ebrains.eu/chemicals/ChemicalSubstance"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

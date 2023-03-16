@@ -16,7 +16,7 @@ class BrainAtlas(KGObject):
     Structured information on a brain atlas (concept level).
     """
     default_space = "atlas"
-    type = ["https://openminds.ebrains.eu/sands/BrainAtlas"]
+    type_ = ["https://openminds.ebrains.eu/sands/BrainAtlas"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -43,12 +43,14 @@ class BrainAtlas(KGObject):
               doc="no description available"),
         Field("versions", "openminds.sands.BrainAtlasVersion", "vocab:hasVersion", multiple=True, required=True,
               doc="Reference to variants of an original."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the brain atlas."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
         Field("ontology_identifier", IRI, "vocab:ontologyIdentifier", multiple=False, required=False,
               doc="Term or code used to identify the brain atlas registered within a particular ontology."),
+        Field("used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", multiple=False, required=False,
+              doc="no description available"),
 
     ]
     existence_query_fields = ('digital_identifier',)

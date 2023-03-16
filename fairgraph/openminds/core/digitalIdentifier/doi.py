@@ -1,5 +1,5 @@
 """
-An International Standard Book Number of the International ISBN Agency.
+Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
 """
 
 # this file was auto-generated
@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class ISBN(KGObject):
+class DOI(KGObject):
     """
-    An International Standard Book Number of the International ISBN Agency.
+    Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/ISBN"]
+    type_ = ["https://openminds.ebrains.eu/core/DOI"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -26,7 +26,7 @@ class ISBN(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", multiple=False, required=True,
-              doc="Term or code used to identify the ISBN."),
+              doc="Term or code used to identify the DOI."),
 
     ]
     existence_query_fields = ('identifier',)

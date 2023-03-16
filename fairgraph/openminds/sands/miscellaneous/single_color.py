@@ -11,12 +11,12 @@ from fairgraph.fields import Field
 
 
 
-class URL(KGObject):
+class SingleColor(KGObject):
     """
 
     """
-    default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/URL"]
+    default_space = "atlas"
+    type_ = ["https://openminds.ebrains.eu/sands/SingleColor"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,10 +25,8 @@ class URL(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("url", IRI, "vocab:URL", multiple=False, required=True,
-              doc="no description available"),
-        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
-              doc="Method of digitally organizing and structuring data or information."),
+        Field("value", str, "vocab:value", multiple=False, required=True,
+              doc="Entry for a property."),
 
     ]
-    existence_query_fields = ('url',)
+    existence_query_fields = ('value',)

@@ -16,7 +16,7 @@ class ChemicalMixture(KGObject):
     Structured information about a mixture of chemical substances.
     """
     default_space = "in-depth"
-    type = ["https://openminds.ebrains.eu/chemicals/ChemicalMixture"]
+    type_ = ["https://openminds.ebrains.eu/chemicals/ChemicalMixture"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -29,7 +29,7 @@ class ChemicalMixture(KGObject):
               doc="Word or phrase that constitutes the distinctive designation of the chemical mixture."),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
-        Field("components", "openminds.chemicals.AmountOfChemical", "vocab:components", multiple=True, required=True,
+        Field("has_parts", "openminds.chemicals.AmountOfChemical", "vocab:hasPart", multiple=True, required=True,
               doc="no description available"),
         Field("product_source", "openminds.chemicals.ProductSource", "vocab:productSource", multiple=False, required=False,
               doc="no description available"),
@@ -37,4 +37,4 @@ class ChemicalMixture(KGObject):
               doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
-    existence_query_fields = ('components', 'type')
+    existence_query_fields = ('has_parts', 'type')

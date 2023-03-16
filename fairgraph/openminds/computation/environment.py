@@ -16,7 +16,7 @@ class Environment(KGObject):
     Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/Environment"]
+    type_ = ["https://openminds.ebrains.eu/computation/Environment"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

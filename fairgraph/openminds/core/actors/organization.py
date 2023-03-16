@@ -16,7 +16,7 @@ class Organization(KGObject):
     Structured information on an organization.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Organization"]
+    type_ = ["https://openminds.ebrains.eu/core/Organization"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -35,7 +35,7 @@ class Organization(KGObject):
               doc="Digital handle to identify objects or legal persons."),
         Field("has_parents", "openminds.core.Organization", "vocab:hasParent", multiple=True, required=False,
               doc="Reference to a parent object or legal person."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the organization."),
 
     ]

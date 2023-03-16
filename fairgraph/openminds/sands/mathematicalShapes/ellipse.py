@@ -15,7 +15,7 @@ class Ellipse(EmbeddedMetadata):
     """
 
     """
-    type = ["https://openminds.ebrains.eu/sands/Ellipse"]
+    type_ = ["https://openminds.ebrains.eu/sands/Ellipse"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

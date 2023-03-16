@@ -11,6 +11,8 @@ Structured information on a disease.
          - http://purl.obolibrary.org/obo/DOID_10652
        * - `Williams-Beuren syndrome <http://purl.obolibrary.org/obo/DOID_1928>`_
          - http://purl.obolibrary.org/obo/DOID_1928
+       * - focal cerebral ischemia
+         - A 'focal brain ischemia' occurs when a blood clot has occluded a cerebral vessel reducing the blood flow to a specific brain region which increases the risk of cell death in that particular area. [adapted from [Wikipedia](https://en.wikipedia.org/wiki/Brain_ischemia#Focal_brain_ischemia)]
        * - `cerebral atrophy <http://purl.obolibrary.org/obo/HP_0002059>`_
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
        * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
@@ -27,6 +29,8 @@ Structured information on a disease.
          - Parkinson's is a progressive central nervous system disorder that affects the motor system.
        * - `glioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12618>`_
          - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
+       * - `multiple sclerosis <http://purl.obolibrary.org/obo/DOID_2377>`_
+         - 'Multiple sclerosis' is a disorder in which the body's immune system attacks the protective meylin covering of the nerve cells in the brain, optic nerve and spinal cord (adaped from the [Mayo clinic](https://www.mayoclinic.org/diseases-conditions/multiple-sclerosis/symptoms-causes/syc-20350269#:~:text=Multiple%20sclerosis%20is%20a%20disorder,insulation%20on%20an%20electrical%20wire.))
        * - `meningioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12601>`_
          - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
        * - minimally conscious state
@@ -63,6 +67,8 @@ class Disease(KGObject):
          - http://purl.obolibrary.org/obo/DOID_10652
        * - `Williams-Beuren syndrome <http://purl.obolibrary.org/obo/DOID_1928>`_
          - http://purl.obolibrary.org/obo/DOID_1928
+       * - focal cerebral ischemia
+         - A 'focal brain ischemia' occurs when a blood clot has occluded a cerebral vessel reducing the blood flow to a specific brain region which increases the risk of cell death in that particular area. [adapted from [Wikipedia](https://en.wikipedia.org/wiki/Brain_ischemia#Focal_brain_ischemia)]
        * - `cerebral atrophy <http://purl.obolibrary.org/obo/HP_0002059>`_
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
        * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
@@ -79,6 +85,8 @@ class Disease(KGObject):
          - Parkinson's is a progressive central nervous system disorder that affects the motor system.
        * - `glioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12618>`_
          - A benign or malignant brain and spinal cord tumor that arises from glial cells (astrocytes, oligodendrocytes, ependymal cells).
+       * - `multiple sclerosis <http://purl.obolibrary.org/obo/DOID_2377>`_
+         - 'Multiple sclerosis' is a disorder in which the body's immune system attacks the protective meylin covering of the nerve cells in the brain, optic nerve and spinal cord (adaped from the [Mayo clinic](https://www.mayoclinic.org/diseases-conditions/multiple-sclerosis/symptoms-causes/syc-20350269#:~:text=Multiple%20sclerosis%20is%20a%20disorder,insulation%20on%20an%20electrical%20wire.))
        * - `meningioma <http://uri.neuinfo.org/nif/nifstd/birnlex_12601>`_
          - A generally slow growing tumor attached to the dura mater and composed of neoplastic meningothelial (arachnoidal) cells.
        * - minimally conscious state
@@ -92,7 +100,7 @@ class Disease(KGObject):
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/Disease"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/Disease"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

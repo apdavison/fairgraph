@@ -7,6 +7,8 @@
 
        * - modality
          -
+       * - analysis technique
+         -
        * - atlas type
          -
        * - operating system
@@ -23,6 +25,8 @@
          - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
        * - technique
          -
+       * - colormap
+         - A colormap is a lookup table specifying the colors to be used in rendering a palettized image, [adapted from [Wiktionary](https://en.wiktionary.org/wiki/colormap)].
        * - patch clamp variation
          - A variation of the patch clamp technique
        * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
@@ -41,12 +45,8 @@
          -
        * - type of uncertainty
          -
-       * - UBERON parcellation
-         -
-       * - subject attribute
-         -
 
-Here we show the first 20 values, an additional 56 values are not shown.
+Here we show the first 20 values, an additional 62 values are not shown.
 
 """
 
@@ -69,6 +69,8 @@ class Terminology(KGObject):
 
        * - modality
          -
+       * - analysis technique
+         -
        * - atlas type
          -
        * - operating system
@@ -85,6 +87,8 @@ class Terminology(KGObject):
          - A 'learning resource type' groups persistent resources that explicitly entail learning activities or learning experiences in a certain format (e.g., in a physical or digital presentation).
        * - technique
          -
+       * - colormap
+         - A colormap is a lookup table specifying the colors to be used in rendering a palettized image, [adapted from [Wiktionary](https://en.wiktionary.org/wiki/colormap)].
        * - patch clamp variation
          - A variation of the patch clamp technique
        * - `age category <http://purl.obolibrary.org/obo/UBERON_0000105>`_
@@ -103,16 +107,12 @@ class Terminology(KGObject):
          -
        * - type of uncertainty
          -
-       * - UBERON parcellation
-         -
-       * - subject attribute
-         -
 
-Here we show the first 20 values, an additional 56 values are not shown.
+Here we show the first 20 values, an additional 62 values are not shown.
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/Terminology"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/Terminology"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

@@ -96,6 +96,7 @@
         "op": "CONTAINS",
         "parameter": "hash"
       },
+      "ensureOrder": true,
       "structure": [
         {
           "path": "@type"

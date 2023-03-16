@@ -1,5 +1,5 @@
 """
-Structured information on a file instance.
+Structured information on a file instance that is accessible via a URL.
 """
 
 # this file was auto-generated
@@ -37,10 +37,10 @@ def sha1sum(filename):
 
 class File(KGObject):
     """
-    Structured information on a file instance.
+    Structured information on a file instance that is accessible via a URL.
     """
     default_space = "files"
-    type = ["https://openminds.ebrains.eu/core/File"]
+    type_ = ["https://openminds.ebrains.eu/core/File"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -61,7 +61,7 @@ class File(KGObject):
               doc="no description available"),
         Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
               doc="Method of digitally organizing and structuring data or information."),
-        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=False, required=False,
+        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=True, required=False,
               doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
         Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
               doc="Reference to the ensemble of multiple things or beings."),

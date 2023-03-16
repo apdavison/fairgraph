@@ -16,7 +16,7 @@ class ValidationTest(KGObject):
     Structured information about the definition of a process for validating a computational model.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/ValidationTest"]
+    type_ = ["https://openminds.ebrains.eu/computation/ValidationTest"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -37,19 +37,19 @@ class ValidationTest(KGObject):
               doc="Legal person that creates or improves products or services (e.g., software, applications, etc.)."),
         Field("digital_identifier", "openminds.core.DOI", "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
-        Field("experimental_technique", "openminds.controlledterms.Technique", "vocab:experimentalTechnique", multiple=False, required=False,
-              doc="no description available"),
         Field("versions", "openminds.computation.ValidationTestVersion", "vocab:hasVersion", multiple=True, required=True,
               doc="Reference to variants of an original."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the validation test."),
         Field("how_to_cite", str, "vocab:howToCite", multiple=False, required=False,
               doc="Preferred format for citing a particular object or legal person."),
+        Field("reference_data_acquisitions", "openminds.controlledterms.Technique", "vocab:referenceDataAcquisition", multiple=True, required=False,
+              doc="no description available"),
         Field("model_scope", "openminds.controlledterms.ModelScope", "vocab:scope", multiple=False, required=False,
               doc="Extent of something."),
         Field("score_type", "openminds.controlledterms.DifferenceMeasure", "vocab:scoreType", multiple=False, required=False,
               doc="no description available"),
-        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
+        Field("study_targets", ["openminds.controlledterms.AuditoryStimulusType", "openminds.controlledterms.BiologicalOrder", "openminds.controlledterms.BiologicalSex", "openminds.controlledterms.BreedingType", "openminds.controlledterms.CellCultureType", "openminds.controlledterms.CellType", "openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel", "openminds.controlledterms.ElectricalStimulusType", "openminds.controlledterms.GeneticStrainType", "openminds.controlledterms.GustatoryStimulusType", "openminds.controlledterms.Handedness", "openminds.controlledterms.MolecularEntity", "openminds.controlledterms.OlfactoryStimulusType", "openminds.controlledterms.OpticalStimulusType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.OrganismSystem", "openminds.controlledterms.Species", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.TactileStimulusType", "openminds.controlledterms.TermSuggestion", "openminds.controlledterms.UBERONParcellation", "openminds.controlledterms.VisualStimulusType", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:studyTarget", multiple=True, required=False,
               doc="Structure or function that was targeted within a study."),
 
     ]

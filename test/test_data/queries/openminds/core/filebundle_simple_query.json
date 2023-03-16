@@ -49,18 +49,6 @@
       "propertyName": "vocab:contentDescription"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
-      "propertyName": "vocab:descendedFrom",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/format",
       "propertyName": "vocab:format",
       "structure": [
@@ -73,8 +61,22 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/groupedBy",
+      "propertyName": "vocab:groupedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/groupingType",
       "propertyName": "vocab:groupingType",
+      "ensureOrder": true,
       "structure": [
         {
           "path": "@id"

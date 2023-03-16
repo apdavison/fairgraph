@@ -16,7 +16,7 @@ class SubjectGroup(KGObject):
 
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/SubjectGroup"]
+    type_ = ["https://openminds.ebrains.eu/core/SubjectGroup"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -33,8 +33,8 @@ class SubjectGroup(KGObject):
               doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce."),
         Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
               doc="Term or code that identifies the subject group within a particular product."),
-        Field("quantity", int, "vocab:quantity", multiple=False, required=False,
-              doc="Total amount or number of things or beings."),
+        Field("number_of_subjects", int, "vocab:numberOfSubjects", multiple=False, required=False,
+              doc="no description available"),
         Field("species", ["openminds.controlledterms.Species", "openminds.core.Strain"], "vocab:species", multiple=True, required=True,
               doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective."),
         Field("studied_states", "openminds.core.SubjectGroupState", "vocab:studiedState", multiple=True, required=True,

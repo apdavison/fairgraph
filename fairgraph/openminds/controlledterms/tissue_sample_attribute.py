@@ -56,7 +56,7 @@ class TissueSampleAttribute(KGObject):
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/TissueSampleAttribute"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/TissueSampleAttribute"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

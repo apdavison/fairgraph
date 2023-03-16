@@ -16,7 +16,7 @@ class TissueSampleCollectionState(KGObject):
 
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/TissueSampleCollectionState"]
+    type_ = ["https://openminds.ebrains.eu/core/TissueSampleCollectionState"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -35,6 +35,8 @@ class TissueSampleCollectionState(KGObject):
               doc="no description available"),
         Field("descended_from", ["openminds.core.SubjectGroupState", "openminds.core.SubjectState", "openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"], "vocab:descendedFrom", multiple=True, required=False,
               doc="no description available"),
+        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
+              doc="Term or code that identifies the tissue sample collection state within a particular product."),
         Field("pathologies", ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"], "vocab:pathology", multiple=True, required=False,
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("relative_time_indication", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:relativeTimeIndication", multiple=False, required=False,

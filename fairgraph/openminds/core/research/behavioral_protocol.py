@@ -16,7 +16,7 @@ class BehavioralProtocol(KGObject):
     Structured information about a protocol used in an experiment studying human or animal behavior.
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]
+    type_ = ["https://openminds.ebrains.eu/core/BehavioralProtocol"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -27,7 +27,7 @@ class BehavioralProtocol(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol."),
-        Field("described_in", ["openminds.core.DOI", "openminds.core.File", "openminds.core.URL"], "vocab:describedIn", multiple=False, required=False,
+        Field("described_in", ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"], "vocab:describedIn", multiple=False, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the behavioral protocol."),

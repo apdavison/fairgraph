@@ -16,7 +16,7 @@ class LaunchConfiguration(KGObject):
     Structured information about the launch of a computational process.
     """
     default_space = "computation"
-    type = ["https://openminds.ebrains.eu/computation/LaunchConfiguration"]
+    type_ = ["https://openminds.ebrains.eu/computation/LaunchConfiguration"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -27,11 +27,11 @@ class LaunchConfiguration(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=False,
               doc="Word or phrase that constitutes the distinctive designation of the launch configuration."),
-        Field("arguments", str, "vocab:arguments", multiple=True, required=False,
+        Field("arguments", str, "vocab:argument", multiple=True, required=False,
               doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=False,
               doc="Longer statement or account giving the characteristics of the launch configuration."),
-        Field("environment_variables", "openminds.core.PropertyValueList", "vocab:environmentVariables", multiple=False, required=False,
+        Field("environment_variables", "openminds.core.PropertyValueList", "vocab:environmentVariable", multiple=False, required=False,
               doc="no description available"),
         Field("executable", str, "vocab:executable", multiple=False, required=True,
               doc="no description available"),

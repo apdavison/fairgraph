@@ -155,7 +155,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
 
     def to_jsonld(self, client=None, with_type=False):
         data = {
-            "@type": self.type
+            "@type": self.type_
         }
         for field in self.fields:
             value = getattr(self, field.name)
@@ -243,7 +243,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 ])
 
         if use_type_filter:
-            property.type_filter = cls.type
+            property.type_filter = cls.type_
             property.name = f"{property.name}__{cls.__name__}"
 
         properties = []
@@ -386,9 +386,8 @@ class KGObject(object, metaclass=Registry):
                 normalised_key = compact_uri(key, cls.context)
                 D[normalised_key] = value
 
-        for otype in compact_uri(as_list(cls.type), cls.context):  # todo: update class generation to ensure classes are already compacted
+        for otype in compact_uri(as_list(cls.type_), cls.context):  # todo: update class generation to ensure classes are already compacted
             if otype not in D["@type"]:
-                #print("Warning: type mismatch {} - {}".format(otype, D["@type"]))
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         deserialized_data = {}
         for field in cls.fields:
@@ -400,8 +399,6 @@ class KGObject(object, metaclass=Registry):
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
             deserialized_data[field.name] = field.deserialize(data_item, client, resolved=resolved)
-        # if cls.__name__ == "ModelVersion":
-        #     raise Exception()
         return deserialized_data
 
     @classmethod
@@ -533,7 +530,7 @@ class KGObject(object, metaclass=Registry):
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
             instances = client.list(
-                cls.type,
+                cls.type_,
                 space=space,
                 from_index=from_index, size=size,
                 scope=scope
@@ -559,7 +556,7 @@ class KGObject(object, metaclass=Registry):
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
-            response = client.list(cls.type, space=space, scope=scope, from_index=0, size=1)
+            response = client.list(cls.type_, space=space, scope=scope, from_index=0, size=1)
         return response.total
 
     def _build_existence_query(self):
@@ -814,7 +811,7 @@ class KGObject(object, metaclass=Registry):
             data = self._build_data(client)
             logger.info("  - creating instance with data {}".format(data))
             data["@context"] = self.context
-            data["@type"] = self.type
+            data["@type"] = self.type_
             try:
                 instance_data = client.create_new_instance(
                     data,
@@ -960,7 +957,7 @@ class KGObject(object, metaclass=Registry):
         else:
             real_space = space
         query = Query(
-            node_type=cls.type[0],
+            node_type=cls.type_[0],
             label=query_label,
             space=real_space,
             properties=[
@@ -1109,7 +1106,7 @@ class KGProxy(object):
     @property
     def type(self):
         try:
-            return self.cls.type
+            return self.cls.type_
         except AttributeError as err:
             raise AttributeError(f"{err} self.cls={self.cls}")
 
@@ -1289,7 +1286,7 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
         if len(possible_classes) > 1:
             if "@type" in item:
                 for cls in possible_classes:
-                    if item["@type"] == cls.type:
+                    if item["@type"] == cls.type_:
                         kg_cls = cls
                         break
             else:

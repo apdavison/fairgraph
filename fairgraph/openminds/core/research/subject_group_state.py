@@ -16,7 +16,7 @@ class SubjectGroupState(KGObject):
 
     """
     default_space = "dataset"
-    type = ["https://openminds.ebrains.eu/core/SubjectGroupState"]
+    type_ = ["https://openminds.ebrains.eu/core/SubjectGroupState"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -39,6 +39,8 @@ class SubjectGroupState(KGObject):
               doc="no description available"),
         Field("handedness", "openminds.controlledterms.Handedness", "vocab:handedness", multiple=True, required=False,
               doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task."),
+        Field("internal_identifier", str, "vocab:internalIdentifier", multiple=False, required=False,
+              doc="Term or code that identifies the subject group state within a particular product."),
         Field("pathologies", ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"], "vocab:pathology", multiple=True, required=False,
               doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease."),
         Field("relative_time_indication", ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"], "vocab:relativeTimeIndication", multiple=False, required=False,

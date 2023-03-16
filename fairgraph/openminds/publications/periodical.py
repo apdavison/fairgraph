@@ -16,7 +16,7 @@ class Periodical(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/Periodical"]
+    type_ = ["https://openminds.ebrains.eu/publications/Periodical"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -25,12 +25,12 @@ class Periodical(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
-        Field("name", str, "vocab:fullName", multiple=False, required=False,
-              doc="Whole, non-abbreviated name of the periodical."),
-        Field("alias", str, "vocab:shortName", multiple=False, required=True,
-              doc="Shortened or fully abbreviated name of the periodical."),
+        Field("name", str, "vocab:name", multiple=False, required=False,
+              doc="Word or phrase that constitutes the distinctive designation of the periodical."),
+        Field("abbreviation", str, "vocab:abbreviation", multiple=False, required=False,
+              doc="no description available"),
         Field("digital_identifier", "openminds.core.ISSN", "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
 
     ]
-    existence_query_fields = ('alias',)
+    existence_query_fields = ('abbreviation',)

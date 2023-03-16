@@ -5,6 +5,8 @@
        :widths: 20 80
        :header-rows: 0
 
+       * - is homologous to
+         - A set/object (A) has the same relative position, function, or structure as a set/object (B).
        * - is identical to
          - A set/object (A) is identical to another set/object (B) if they look exactly the same.
        * - is subset of
@@ -33,6 +35,8 @@ class QualitativeOverlap(KGObject):
        :widths: 20 80
        :header-rows: 0
 
+       * - is homologous to
+         - A set/object (A) has the same relative position, function, or structure as a set/object (B).
        * - is identical to
          - A set/object (A) is identical to another set/object (B) if they look exactly the same.
        * - is subset of
@@ -44,7 +48,7 @@ class QualitativeOverlap(KGObject):
 
     """
     default_space = "controlled"
-    type = ["https://openminds.ebrains.eu/controlledTerms/QualitativeOverlap"]
+    type_ = ["https://openminds.ebrains.eu/controlledTerms/QualitativeOverlap"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

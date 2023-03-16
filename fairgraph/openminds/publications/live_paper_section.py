@@ -16,7 +16,7 @@ class LivePaperSection(KGObject):
 
     """
     default_space = "livepapers"
-    type = ["https://openminds.ebrains.eu/publications/LivePaperSection"]
+    type_ = ["https://openminds.ebrains.eu/publications/LivePaperSection"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -33,8 +33,8 @@ class LivePaperSection(KGObject):
               doc="Reference to the ensemble of multiple things or beings."),
         Field("order", int, "vocab:order", multiple=False, required=True,
               doc="no description available"),
-        Field("section_type", str, "vocab:sectionType", multiple=False, required=True,
-              doc="no description available"),
+        Field("type", str, "vocab:type", multiple=False, required=True,
+              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
-    existence_query_fields = ('name', 'is_part_of', 'order', 'section_type')
+    existence_query_fields = ('name', 'is_part_of', 'order', 'type')

@@ -77,7 +77,7 @@ To get a list of classes in a given module, import the module and then run
     fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection,
     fairgraph.openminds.core.research.tissue_sample_collection_state.TissueSampleCollectionState,
     fairgraph.openminds.core.research.tissue_sample_state.TissueSampleState,
-    fairgraph.openminds.core.miscellaneous.url.URL]
+    fairgraph.openminds.core.miscellaneous.web_resource.WebResource]
 
 
 Listing all metadata nodes of a given type

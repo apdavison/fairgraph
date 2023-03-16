@@ -16,7 +16,7 @@ class Project(KGObject):
     Structured information on a research project.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Project"]
+    type_ = ["https://openminds.ebrains.eu/core/Project"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -33,9 +33,9 @@ class Project(KGObject):
               doc="Legal person who organizes the collaborative work of people or groups."),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the project."),
-        Field("has_research_products", ["openminds.computation.ValidationTest", "openminds.computation.ValidationTestVersion", "openminds.computation.WorkflowRecipe", "openminds.computation.WorkflowRecipeVersion", "openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion", "openminds.core.WebService", "openminds.core.WebServiceVersion", "openminds.publications.LivePaper", "openminds.publications.LivePaperVersion", "openminds.sands.BrainAtlas", "openminds.sands.BrainAtlasVersion"], "vocab:hasResearchProducts", multiple=True, required=True,
-              doc="Reference to subsidiary research products."),
-        Field("homepage", "openminds.core.URL", "vocab:homepage", multiple=False, required=False,
+        Field("has_parts", ["openminds.computation.ValidationTest", "openminds.computation.ValidationTestVersion", "openminds.computation.WorkflowRecipe", "openminds.computation.WorkflowRecipeVersion", "openminds.core.Dataset", "openminds.core.DatasetVersion", "openminds.core.MetaDataModel", "openminds.core.MetaDataModelVersion", "openminds.core.Model", "openminds.core.ModelVersion", "openminds.core.Software", "openminds.core.SoftwareVersion", "openminds.core.WebService", "openminds.core.WebServiceVersion", "openminds.publications.LivePaper", "openminds.publications.LivePaperVersion", "openminds.sands.BrainAtlas", "openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpace", "openminds.sands.CommonCoordinateSpaceVersion"], "vocab:hasPart", multiple=True, required=True,
+              doc="no description available"),
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False,
               doc="Main website of the project."),
 
     ]

@@ -16,7 +16,7 @@ class Configuration(KGObject):
     Structured information about the properties or parameters of an entity or process.
     """
     default_space = "common"
-    type = ["https://openminds.ebrains.eu/core/Configuration"]
+    type_ = ["https://openminds.ebrains.eu/core/Configuration"]
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -29,8 +29,8 @@ class Configuration(KGObject):
               doc="no description available"),
         Field("configuration", str, "vocab:configuration", multiple=False, required=True,
               doc="no description available"),
-        Field("definition_format", "openminds.core.ContentType", "vocab:definitionFormat", multiple=False, required=True,
-              doc="no description available"),
+        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=True,
+              doc="Method of digitally organizing and structuring data or information."),
 
     ]
     existence_query_fields = ('configuration',)
