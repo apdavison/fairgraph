@@ -27,6 +27,10 @@ class Person(KGObject):
     fields = [
         Field("affiliations", "openminds.core.Affiliation", "vocab:affiliation", multiple=True, required=False,
               doc="Declaration of a person being closely associated to an organization."),
+        Field("alternate_family_names", str, "vocab:alternateFamilyName", multiple=True, required=False,
+              doc="no description available"),
+        Field("alternate_given_names", str, "vocab:alternateGivenName", multiple=True, required=False,
+              doc="no description available"),
         Field("associated_accounts", "openminds.core.AccountInformation", "vocab:associatedAccount", multiple=True, required=False,
               doc="no description available"),
         Field("contact_information", "openminds.core.ContactInformation", "vocab:contactInformation", multiple=False, required=False,

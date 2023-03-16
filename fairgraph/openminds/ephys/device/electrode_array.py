@@ -37,7 +37,7 @@ class ElectrodeArray(KGObject):
               doc="no description available"),
         Field("digital_identifier", ["openminds.core.DOI", "openminds.core.RRID"], "vocab:digitalIdentifier", multiple=False, required=False,
               doc="Digital handle to identify objects or legal persons."),
-        Field("electrode_identifiers", str, "vocab:electrodeIdentifiers", multiple=True, required=True,
+        Field("electrode_identifiers", str, "vocab:electrodeIdentifier", multiple=True, required=True,
               doc="no description available"),
         Field("insulator_material", ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance", "openminds.controlledterms.MolecularEntity"], "vocab:insulatorMaterial", multiple=False, required=False,
               doc="no description available"),

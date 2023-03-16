@@ -27,10 +27,10 @@ class Setup(KGObject):
     fields = [
         Field("name", str, "vocab:name", multiple=False, required=True,
               doc="Word or phrase that constitutes the distinctive designation of the setup."),
-        Field("components", ["openminds.core.Setup", "openminds.core.SoftwareVersion", "openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette", "openminds.specimenprep.SlicingDevice"], "vocab:components", multiple=True, required=True,
-              doc="no description available"),
         Field("description", str, "vocab:description", multiple=False, required=True,
               doc="Longer statement or account giving the characteristics of the setup."),
+        Field("has_parts", ["openminds.core.Setup", "openminds.core.SoftwareVersion", "openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette", "openminds.specimenprep.SlicingDevice"], "vocab:hasPart", multiple=True, required=True,
+              doc="no description available"),
         Field("location", str, "vocab:location", multiple=False, required=False,
               doc="no description available"),
         Field("manufacturers", ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"], "vocab:manufacturer", multiple=True, required=False,
@@ -39,4 +39,4 @@ class Setup(KGObject):
               doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
-    existence_query_fields = ('name', 'components', 'description')
+    existence_query_fields = ('name', 'description', 'has_parts')

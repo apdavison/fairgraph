@@ -15,6 +15,7 @@ from .semantic_data_type import SemanticDataType
 from .preparation_type import PreparationType
 from .organism_substance import OrganismSubstance
 from .criteria_quality_type import CriteriaQualityType
+from .anatomical_identification_type import AnatomicalIdentificationType
 from .operating_system import OperatingSystem
 from .operating_device import OperatingDevice
 from .experimental_approach import ExperimentalApproach

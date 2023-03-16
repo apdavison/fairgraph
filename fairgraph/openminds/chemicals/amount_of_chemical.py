@@ -5,17 +5,16 @@ Structured information about the amount of a given chemical that was used.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph.base import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
 
 
-class AmountOfChemical(KGObject):
+class AmountOfChemical(EmbeddedMetadata):
     """
     Structured information about the amount of a given chemical that was used.
     """
-    default_space = "in-depth"
     type_ = ["https://openminds.ebrains.eu/chemicals/AmountOfChemical"]
     context = {
         "schema": "http://schema.org/",
@@ -31,4 +30,3 @@ class AmountOfChemical(KGObject):
               doc="no description available"),
 
     ]
-    existence_query_fields = ('chemical_product',)
