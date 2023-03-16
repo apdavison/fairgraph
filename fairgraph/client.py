@@ -121,19 +121,34 @@ class KGClient(object):
         else:
             return response
 
-    def query(self, filter, query_id, space=None, instance_id=None, from_index=0, size=100, scope="released", id_key="@id"):
+    def query(self, filter, query, space=None, instance_id=None, from_index=0, size=100, scope="released", id_key="@id", use_stored_query=False):
 
-        def _query(scope, from_index, size):
-            response = self._kg_client.queries.execute_query_by_id(
-                query_id=self.uuid_from_uri(query_id),
-                additional_request_params=filter or {},
-                stage=STAGE_MAP[scope],
-                pagination=Pagination(start=from_index, size=size),
-                instance_id=instance_id,
-                #restrict_to_spaces=[space] if space else None,
-            )
-            error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
-            return self._check_response(response, error_context=error_context)
+        query_id = query.get("@id", None)
+        if use_stored_query:
+            def _query(scope, from_index, size):
+                raise Exception()
+                response = self._kg_client.queries.execute_query_by_id(
+                    query_id=self.uuid_from_uri(query_id),
+                    additional_request_params=filter or {},
+                    stage=STAGE_MAP[scope],
+                    pagination=Pagination(start=from_index, size=size),
+                    instance_id=instance_id,
+                    #restrict_to_spaces=[space] if space else None,
+                )
+                error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                return self._check_response(response, error_context=error_context)
+        else:
+            def _query(scope, from_index, size):
+                response = self._kg_client.queries.test_query(
+                    query,
+                    additional_request_params=filter or {},
+                    stage=STAGE_MAP[scope],
+                    pagination=Pagination(start=from_index, size=size),
+                    instance_id=instance_id,
+                    #restrict_to_spaces=[space] if space else None,
+                )
+                error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                return self._check_response(response, error_context=error_context)
 
         if scope == "any":
             # the following implementation is simple but very inefficient
