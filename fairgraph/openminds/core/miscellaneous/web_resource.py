@@ -33,7 +33,7 @@ class WebResource(KGObject):
               doc="Method of digitally organizing and structuring data or information."),
 
     ]
-    existence_query_fields = ('url',)
+    existence_query_fields = ('iri',)
 
     def __init__(self, iri=None, content_description=None, format=None, id=None, data=None, space=None, scope=None):
         return super().__init__(id=id, data=data, space=space, scope=scope, iri=iri, content_description=content_description, format=format)

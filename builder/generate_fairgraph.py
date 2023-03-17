@@ -303,7 +303,7 @@ custom_existence_queries = {
     "ORCID": ("identifier",),
     "RORID": ("identifier",),
     "SWHID": ("identifier",),
-    "WebResource": ("url",),
+    "WebResource": ("iri",),
     "Dataset": ("alias", ),
     "DatasetVersion": ("alias", "version_identifier"),
     "MetaDataModel": ("alias", ),
