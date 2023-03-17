@@ -52,3 +52,6 @@ class Pipette(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, name=None, lookup_label=None, description=None, device_type=None, digital_identifier=None, external_diameter=None, internal_diameter=None, internal_identifier=None, manufacturers=None, material=None, owners=None, serial_number=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, description=description, device_type=device_type, digital_identifier=digital_identifier, external_diameter=external_diameter, internal_diameter=internal_diameter, internal_identifier=internal_identifier, manufacturers=manufacturers, material=material, owners=owners, serial_number=serial_number)

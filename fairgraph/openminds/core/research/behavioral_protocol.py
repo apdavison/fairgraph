@@ -40,3 +40,6 @@ class BehavioralProtocol(KGObject):
 
     ]
     existence_query_fields = ('name', 'description')
+
+    def __init__(self, name=None, described_in=None, description=None, internal_identifier=None, stimulations=None, stimulus_types=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, described_in=described_in, description=description, internal_identifier=internal_identifier, stimulations=stimulations, stimulus_types=stimulus_types)

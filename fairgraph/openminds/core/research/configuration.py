@@ -34,3 +34,6 @@ class Configuration(KGObject):
 
     ]
     existence_query_fields = ('configuration',)
+
+    def __init__(self, lookup_label=None, configuration=None, format=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, configuration=configuration, format=format)

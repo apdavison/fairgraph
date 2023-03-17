@@ -34,3 +34,6 @@ class ViewerSpecification(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, additional_remarks=None, anchor_point=None, camera_position=None, preferred_display_color=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, anchor_point=anchor_point, camera_position=camera_position, preferred_display_color=preferred_display_color)

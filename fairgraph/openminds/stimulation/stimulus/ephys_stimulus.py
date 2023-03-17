@@ -30,3 +30,6 @@ class EphysStimulus(KGObject):
 
     ]
     existence_query_fields = ()
+
+    def __init__(self, type=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, type=type)

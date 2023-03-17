@@ -32,3 +32,6 @@ class ParcellationTerminology(EmbeddedMetadata):
               doc="Term or code used to identify the parcellation terminology registered within a particular ontology."),
 
     ]
+
+    def __init__(self, data_locations=None, entities=None, ontology_identifiers=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, data_locations=data_locations, entities=entities, ontology_identifiers=ontology_identifiers)

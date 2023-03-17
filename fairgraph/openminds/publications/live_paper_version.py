@@ -64,7 +64,7 @@ class LivePaperVersion(KGObject):
               doc="no description available"),
         Field("other_contributions", "openminds.core.Contribution", "vocab:otherContribution", multiple=True, required=False,
               doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere."),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN", "openminds.publications.Book", "openminds.publications.Chapter", "openminds.publications.ScholarlyArticle"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),
@@ -80,6 +80,8 @@ class LivePaperVersion(KGObject):
     ]
     existence_query_fields = ('alias', 'version_identifier')
 
+    def __init__(self, name=None, alias=None, about=None, accessibility=None, authors=None, copyright=None, custodians=None, description=None, digital_identifier=None, full_documentation=None, funding=None, homepage=None, how_to_cite=None, is_alternative_version_of=None, is_new_version_of=None, keywords=None, license=None, modification_date=None, other_contributions=None, related_publications=None, release_date=None, repository=None, support_channels=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, about=about, accessibility=accessibility, authors=authors, copyright=copyright, custodians=custodians, description=description, digital_identifier=digital_identifier, full_documentation=full_documentation, funding=funding, homepage=homepage, how_to_cite=how_to_cite, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, license=license, modification_date=modification_date, other_contributions=other_contributions, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, version_identifier=version_identifier, version_innovation=version_innovation)
     def is_version_of(self, client):
         parents = LivePaper.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:

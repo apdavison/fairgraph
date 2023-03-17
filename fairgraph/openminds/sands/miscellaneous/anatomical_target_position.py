@@ -34,3 +34,6 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, additional_remarks=None, anatomical_targets=None, spatial_locations=None, target_identification_type=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, anatomical_targets=anatomical_targets, spatial_locations=spatial_locations, target_identification_type=target_identification_type)

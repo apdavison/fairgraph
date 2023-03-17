@@ -30,3 +30,6 @@ class FilePathPattern(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, grouping_types=grouping_types, regex=regex)

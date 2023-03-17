@@ -78,6 +78,8 @@ class WebServiceVersion(KGObject):
     ]
     existence_query_fields = ('alias', 'accessibility', 'full_documentation', 'release_date', 'version_identifier', 'version_innovation')
 
+    def __init__(self, name=None, alias=None, accessibility=None, copyright=None, custodians=None, description=None, developers=None, full_documentation=None, funding=None, has_parts=None, homepage=None, how_to_cite=None, input_formats=None, is_alternative_version_of=None, is_new_version_of=None, keywords=None, other_contributions=None, output_formats=None, related_publications=None, release_date=None, repository=None, support_channels=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, accessibility=accessibility, copyright=copyright, custodians=custodians, description=description, developers=developers, full_documentation=full_documentation, funding=funding, has_parts=has_parts, homepage=homepage, how_to_cite=how_to_cite, input_formats=input_formats, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, other_contributions=other_contributions, output_formats=output_formats, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, version_identifier=version_identifier, version_innovation=version_innovation)
     def is_version_of(self, client):
         parents = WebService.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:

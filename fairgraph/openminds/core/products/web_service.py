@@ -44,3 +44,6 @@ class WebService(KGObject):
 
     ]
     existence_query_fields = ('name', 'alias', 'description', 'developers', 'versions')
+
+    def __init__(self, name=None, alias=None, custodians=None, description=None, developers=None, versions=None, homepage=None, how_to_cite=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, custodians=custodians, description=description, developers=developers, versions=versions, homepage=homepage, how_to_cite=how_to_cite)

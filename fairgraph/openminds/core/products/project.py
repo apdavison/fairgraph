@@ -40,3 +40,6 @@ class Project(KGObject):
 
     ]
     existence_query_fields = ('alias',)
+
+    def __init__(self, name=None, alias=None, coordinators=None, description=None, has_parts=None, homepage=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, coordinators=coordinators, description=description, has_parts=has_parts, homepage=homepage)

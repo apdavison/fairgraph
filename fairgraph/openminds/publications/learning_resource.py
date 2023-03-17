@@ -78,3 +78,6 @@ class LearningResource(KGObject):
 
     ]
     existence_query_fields = ('name', 'about', 'publication_date')
+
+    def __init__(self, name=None, iri=None, about=None, abstract=None, authors=None, cited_publications=None, copyright=None, creation_date=None, custodians=None, digital_identifier=None, editors=None, educational_level=None, funding=None, keywords=None, learning_outcome=None, license=None, modification_date=None, order=None, prerequisite=None, publication_date=None, publisher=None, required_time=None, topic=None, type=None, version_identifier=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, iri=iri, about=about, abstract=abstract, authors=authors, cited_publications=cited_publications, copyright=copyright, creation_date=creation_date, custodians=custodians, digital_identifier=digital_identifier, editors=editors, educational_level=educational_level, funding=funding, keywords=keywords, learning_outcome=learning_outcome, license=license, modification_date=modification_date, order=order, prerequisite=prerequisite, publication_date=publication_date, publisher=publisher, required_time=required_time, topic=topic, type=type, version_identifier=version_identifier)

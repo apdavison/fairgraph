@@ -34,3 +34,6 @@ class HardwareSystem(KGObject):
 
     ]
     existence_query_fields = ('name',)
+
+    def __init__(self, name=None, description=None, version_identifier=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, description=description, version_identifier=version_identifier)

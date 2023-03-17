@@ -50,3 +50,6 @@ class TissueSampleCollection(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, additional_remarks=None, anatomical_locations=None, biological_sex=None, internal_identifier=None, laterality=None, number_of_tissue_samples=None, origins=None, species=None, studied_states=None, types=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, additional_remarks=additional_remarks, anatomical_locations=anatomical_locations, biological_sex=biological_sex, internal_identifier=internal_identifier, laterality=laterality, number_of_tissue_samples=number_of_tissue_samples, origins=origins, species=species, studied_states=studied_states, types=types)

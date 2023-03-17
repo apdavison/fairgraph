@@ -54,3 +54,6 @@ class ValidationTest(KGObject):
 
     ]
     existence_query_fields = ('name', 'alias')
+
+    def __init__(self, name=None, alias=None, custodians=None, description=None, developers=None, digital_identifier=None, versions=None, homepage=None, how_to_cite=None, reference_data_acquisitions=None, model_scope=None, score_type=None, study_targets=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite, reference_data_acquisitions=reference_data_acquisitions, model_scope=model_scope, score_type=score_type, study_targets=study_targets)

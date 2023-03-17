@@ -32,3 +32,6 @@ class QuantitativeRelationAssessment(EmbeddedMetadata):
               doc="Numerical characterization of how much two things occupy the same space."),
 
     ]
+
+    def __init__(self, criteria=None, in_relation_to=None, quantitative_overlap=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, criteria=criteria, in_relation_to=in_relation_to, quantitative_overlap=quantitative_overlap)

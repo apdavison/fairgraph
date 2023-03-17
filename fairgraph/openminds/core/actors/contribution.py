@@ -30,3 +30,6 @@ class Contribution(EmbeddedMetadata):
               doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
 
     ]
+
+    def __init__(self, contributor=None, types=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, contributor=contributor, types=types)

@@ -50,3 +50,6 @@ class SubjectState(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, additional_remarks=None, age=None, age_category=None, attributes=None, descended_from=None, handedness=None, internal_identifier=None, pathologies=None, relative_time_indication=None, weight=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, additional_remarks=additional_remarks, age=age, age_category=age_category, attributes=attributes, descended_from=descended_from, handedness=handedness, internal_identifier=internal_identifier, pathologies=pathologies, relative_time_indication=relative_time_indication, weight=weight)

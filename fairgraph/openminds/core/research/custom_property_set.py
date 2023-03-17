@@ -32,3 +32,6 @@ class CustomPropertySet(EmbeddedMetadata):
               doc="Reference to what or whom the custom property set bears siginificance."),
 
     ]
+
+    def __init__(self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, context=context, data_location=data_location, relevant_for=relevant_for)

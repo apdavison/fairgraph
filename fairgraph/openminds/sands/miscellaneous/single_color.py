@@ -30,3 +30,6 @@ class SingleColor(KGObject):
 
     ]
     existence_query_fields = ('value',)
+
+    def __init__(self, value=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, value=value)

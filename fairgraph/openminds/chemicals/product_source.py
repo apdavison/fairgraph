@@ -38,3 +38,6 @@ class ProductSource(KGObject):
 
     ]
     existence_query_fields = ('product_name', 'provider')
+
+    def __init__(self, digital_identifier=None, identifier=None, product_name=None, provider=None, purity=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, digital_identifier=digital_identifier, identifier=identifier, product_name=product_name, provider=provider, purity=purity)

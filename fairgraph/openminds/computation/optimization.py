@@ -64,3 +64,6 @@ class Optimization(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, custom_property_sets=None, description=None, end_time=None, environment=None, inputs=None, launch_configuration=None, outputs=None, performed_by=None, recipe=None, resource_usages=None, start_time=None, started_by=None, status=None, study_targets=None, tags=None, techniques=None, was_informed_by=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, custom_property_sets=custom_property_sets, description=description, end_time=end_time, environment=environment, inputs=inputs, launch_configuration=launch_configuration, outputs=outputs, performed_by=performed_by, recipe=recipe, resource_usages=resource_usages, start_time=start_time, started_by=started_by, status=status, study_targets=study_targets, tags=tags, techniques=techniques, was_informed_by=was_informed_by)

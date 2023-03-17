@@ -32,3 +32,6 @@ class Affiliation(EmbeddedMetadata):
               doc="Date in the Gregorian calendar at which something begins in time"),
 
     ]
+
+    def __init__(self, end_date=None, member_of=None, start_date=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, end_date=end_date, member_of=member_of, start_date=start_date)

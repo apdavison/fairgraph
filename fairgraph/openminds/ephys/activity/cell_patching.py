@@ -62,3 +62,6 @@ class CellPatching(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, bath_temperature=None, custom_property_sets=None, description=None, devices=None, end_time=None, inputs=None, is_part_of=None, outputs=None, performed_by=None, preparation_design=None, protocols=None, start_time=None, study_targets=None, target_position=None, tissue_bath_solution=None, variation=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, bath_temperature=bath_temperature, custom_property_sets=custom_property_sets, description=description, devices=devices, end_time=end_time, inputs=inputs, is_part_of=is_part_of, outputs=outputs, performed_by=performed_by, preparation_design=preparation_design, protocols=protocols, start_time=start_time, study_targets=study_targets, target_position=target_position, tissue_bath_solution=tissue_bath_solution, variation=variation)

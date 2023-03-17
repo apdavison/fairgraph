@@ -34,3 +34,6 @@ class QuantitativeValueRange(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, max_value=None, max_value_unit=None, min_value=None, min_value_unit=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, max_value=max_value, max_value_unit=max_value_unit, min_value=min_value, min_value_unit=min_value_unit)

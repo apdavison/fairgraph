@@ -30,3 +30,6 @@ class Hash(EmbeddedMetadata):
               doc="Summation or condensation of a body of information."),
 
     ]
+
+    def __init__(self, algorithm=None, digest=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, algorithm=algorithm, digest=digest)

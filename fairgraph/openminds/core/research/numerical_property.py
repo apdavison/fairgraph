@@ -30,3 +30,6 @@ class NumericalProperty(EmbeddedMetadata):
               doc="Entry for a property."),
 
     ]
+
+    def __init__(self, name=None, values=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, values=values)

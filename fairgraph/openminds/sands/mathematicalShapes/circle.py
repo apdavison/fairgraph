@@ -28,3 +28,6 @@ class Circle(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, radius=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, radius=radius)

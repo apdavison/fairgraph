@@ -32,3 +32,6 @@ class FileRepositoryStructure(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, file_path_patterns=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, file_path_patterns=file_path_patterns)

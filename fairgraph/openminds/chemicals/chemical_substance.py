@@ -38,3 +38,6 @@ class ChemicalSubstance(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, additional_remarks=None, molecular_entity=None, product_source=None, purity=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, additional_remarks=additional_remarks, molecular_entity=molecular_entity, product_source=product_source, purity=purity)

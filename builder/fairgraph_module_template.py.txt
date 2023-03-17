@@ -36,4 +36,6 @@ class {{ class_name }}({{ base_class }}):
     existence_query_fields = {{ existence_query_fields }}
     {%- endif %}
 
+    def __init__(self {%- for field in fields -%}, {{field.name}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope {%- for field in fields -%}, {{field.name}}={{field.name}} {%- endfor -%})
 {{ additional_methods }}

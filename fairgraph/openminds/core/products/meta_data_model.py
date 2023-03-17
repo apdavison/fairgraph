@@ -46,3 +46,6 @@ class MetaDataModel(KGObject):
 
     ]
     existence_query_fields = ('alias',)
+
+    def __init__(self, name=None, alias=None, custodians=None, description=None, developers=None, digital_identifier=None, versions=None, homepage=None, how_to_cite=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite)

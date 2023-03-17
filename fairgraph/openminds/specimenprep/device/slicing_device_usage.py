@@ -48,3 +48,6 @@ class SlicingDeviceUsage(KGObject):
 
     ]
     existence_query_fields = ('lookup_label',)
+
+    def __init__(self, lookup_label=None, device=None, metadata_locations=None, oscillation_amplitude=None, slice_thickness=None, slicing_angles=None, slicing_plane=None, slicing_speed=None, used_specimen=None, vibration_frequency=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, device=device, metadata_locations=metadata_locations, oscillation_amplitude=oscillation_amplitude, slice_thickness=slice_thickness, slicing_angles=slicing_angles, slicing_plane=slicing_plane, slicing_speed=slicing_speed, used_specimen=used_specimen, vibration_frequency=vibration_frequency)

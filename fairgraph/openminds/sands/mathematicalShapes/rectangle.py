@@ -30,3 +30,6 @@ class Rectangle(EmbeddedMetadata):
               doc="no description available"),
 
     ]
+
+    def __init__(self, length=None, width=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, length=length, width=width)

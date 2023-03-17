@@ -40,3 +40,6 @@ class Organization(KGObject):
 
     ]
     existence_query_fields = ('name',)
+
+    def __init__(self, name=None, alias=None, affiliations=None, digital_identifiers=None, has_parents=None, homepage=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, affiliations=affiliations, digital_identifiers=digital_identifiers, has_parents=has_parents, homepage=homepage)

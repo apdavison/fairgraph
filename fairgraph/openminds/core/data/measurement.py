@@ -36,3 +36,6 @@ class Measurement(EmbeddedMetadata):
               doc="Entry for a property."),
 
     ]
+
+    def __init__(self, additional_remarks=None, measured_quantity=None, measured_with=None, timestamp=None, values=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, measured_quantity=measured_quantity, measured_with=measured_with, timestamp=timestamp, values=values)
