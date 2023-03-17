@@ -126,7 +126,6 @@ class KGClient(object):
         query_id = query.get("@id", None)
         if use_stored_query:
             def _query(scope, from_index, size):
-                raise Exception()
                 response = self._kg_client.queries.execute_query_by_id(
                     query_id=self.uuid_from_uri(query_id),
                     additional_request_params=filter or {},
