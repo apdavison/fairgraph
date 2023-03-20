@@ -25,6 +25,8 @@ class WorkflowExecution(KGObject):
         "core": "https://openminds.ebrains.eu/core/"
     }
     fields = [
+        Field("configuration", ["openminds.core.Configuration", "openminds.core.File"], "vocab:configuration", multiple=False, required=False,
+              doc="no description available"),
         Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", multiple=False, required=False,
               doc="no description available"),
         Field("stages", ["openminds.computation.DataAnalysis", "openminds.computation.DataCopy", "openminds.computation.GenericComputation", "openminds.computation.ModelValidation", "openminds.computation.Optimization", "openminds.computation.Simulation", "openminds.computation.Visualization"], "vocab:stage", multiple=True, required=False,
@@ -35,5 +37,5 @@ class WorkflowExecution(KGObject):
     ]
     existence_query_fields = ('stages',)
 
-    def __init__(self, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, recipe=recipe, stages=stages, started_by=started_by)
+    def __init__(self, configuration=None, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, configuration=configuration, recipe=recipe, stages=stages, started_by=started_by)

@@ -63,7 +63,7 @@ class WorkflowRecipeVersion(KGObject):
               doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something."),
         Field("other_contributions", "openminds.core.Contribution", "vocab:otherContribution", multiple=True, required=False,
               doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere."),
-        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN"], "vocab:relatedPublication", multiple=True, required=False,
+        Field("related_publications", ["openminds.core.DOI", "openminds.core.HANDLE", "openminds.core.ISBN", "openminds.core.ISSN", "openminds.publications.Book", "openminds.publications.Chapter", "openminds.publications.ScholarlyArticle"], "vocab:relatedPublication", multiple=True, required=False,
               doc="Reference to something that was made available for the general public to see or buy."),
         Field("release_date", date, "vocab:releaseDate", multiple=False, required=True,
               doc="Fixed date on which a product is due to become or was made available for the general public to see or buy"),
