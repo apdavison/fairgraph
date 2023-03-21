@@ -23,8 +23,7 @@ dependencies=[
     "six",
     "tabulate",
     "requests",
-    "tqdm",
-    "pyld==0.8.2"
+    "tqdm"
 ]
 
 [project.urls]

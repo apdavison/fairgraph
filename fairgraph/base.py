@@ -221,9 +221,9 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_property(cls, field, client, filter_parameter=None, use_type_filter=False):
+    def generate_query_property(cls, field, filter_parameter=None, use_type_filter=False):
 
-        expanded_path = expand_uri(field.path, cls.context, client)[0]
+        expanded_path = expand_uri(field.path, cls.context)[0]
 
         if filter_parameter:
             property = QueryProperty(
@@ -253,7 +253,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                     for child_cls in subfield.types:
                         properties.append(
                             child_cls.generate_query_property(
-                                subfield, client,
+                                subfield,
                                 use_type_filter=bool(len(subfield.types) > 1)
                             )
                         )
@@ -261,11 +261,11 @@ class EmbeddedMetadata(object, metaclass=Registry):
                     for child_cls in subfield.types[:1]:
                         properties.append(
                             child_cls.generate_query_property(
-                                subfield, client
+                                subfield
                             )
                         )
                 else:
-                    expanded_subpath = expand_uri(subfield.path, cls.context, client)[0]
+                    expanded_subpath = expand_uri(subfield.path, cls.context)[0]
                     properties.append(
                         QueryProperty(expanded_subpath,
                                       name=subfield.path,
@@ -933,9 +933,9 @@ class KGObject(object, metaclass=Registry):
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
-    def generate_query_property(cls, field, client, filter_parameter=None, name=None):
+    def generate_query_property(cls, field, filter_parameter=None, name=None):
 
-        expanded_path = expand_uri(field.path, cls.context, client)[0]
+        expanded_path = expand_uri(field.path, cls.context)[0]
 
         if filter_parameter:
             filter = Filter("CONTAINS", parameter=filter_parameter)  # should be "EQUALS" for consistency, here we use "CONTAINS" for backwards compatibility
@@ -986,11 +986,11 @@ class KGObject(object, metaclass=Registry):
                     filter_parameter = field.name
                 else:
                     filter_parameter = None
-                expanded_path = expand_uri(field.path, cls.context, client)[0]
+                expanded_path = expand_uri(field.path, cls.context)[0]
                 if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
                     for child_cls in field.types:
                         property = child_cls.generate_query_property(
-                            field, client,
+                            field,
                             filter_parameter=field.name,
                             use_type_filter=bool(len(field.types) > 1)
                         )
@@ -1001,7 +1001,7 @@ class KGObject(object, metaclass=Registry):
                         # for KGObject where resolved=False
                         if field.name in filter_keys:
                             property = child_cls.generate_query_property(
-                                field, client,
+                                field,
                                 filter_parameter=field.name,
                                 name=field.multiple and f"Q{field.name}" or None
                             )
@@ -1012,10 +1012,10 @@ class KGObject(object, metaclass=Registry):
                                 # the first property will return only the elements in the array
                                 # that match, so we add a second property with the same path
                                 # to get the full array
-                                property = child_cls.generate_query_property(field, client)
+                                property = child_cls.generate_query_property(field)
                                 query.properties.append(property)
                         else:
-                            property = child_cls.generate_query_property(field, client)
+                            property = child_cls.generate_query_property(field)
                             query.properties.append(property)
                 else:
                     property = QueryProperty(expanded_path,

@@ -18,94 +18,10 @@
 # limitations under the License.
 
 import warnings
-from pyld import jsonld
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import urlparse
 
 
 ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
-
-
-standard_context = {
-    # workaround. Need to implement context handling properly
-    "dcterms": "http://purl.org/dc/terms/",
-    "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
-    "nsg": "https://bbp-nexus.epfl.ch/vocabs/bbp/neurosciencegraph/core/v0.1.0/",
-    "minds": "https://schema.hbp.eu/minds/",
-    "uniminds": "https://schema.hbp.eu/uniminds/",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "name": "schema:name",
-    "description": "schema:description",
-    "brainRegion": "nsg:brainRegion",
-    "species": "nsg:species",
-    "modelOf": "nsg:modelOf",
-    "mainModelScript": "nsg:mainModelScript",
-    "release": "nsg:release",
-    "version": "schema:version",
-    "generatedAtTime": "prov:generatedAtTime",
-    "isPartOf": "nsg:isPartOf",  # not sure about prefix,
-    "partOf": "nsg:partOf",
-    "parameters": "nsg:parameters",
-    "morphology": "nsg:morphology",
-    "eModel": "nsg:eModel",
-    "images": "nsg:images",
-    "address": "schema:address",
-    "parentOrganization": "schema:parentOrganization",
-    "code_format": "nsg:code_format",
-    "license": "schema:license",
-    "distribution": "schema:distribution",
-    "oldUUID": "nsg:providerId",
-    "wasAssociatedWith": "prov:wasAssociatedWith",
-    "strain": "nsg:strain",
-    "sex": "nsg:sex",
-    "age": "nsg:age",
-    "deathDate": "schema:deathDate",
-    "eType": "nsg:eType",
-    "protocol": "nsg:protocol",
-    "wasDerivedFrom": "prov:wasDerivedFrom",
-    "hadMember": "prov:hadMember",
-    "channelName": "nsg:channelName",
-    "author": "schema:author",
-    "dateCreated": "schema:dateCreated",
-    "alias": "nsg:alias",
-    "celltype": "nsg:celltype",
-    "testType": "nsg:testType",
-    "referenceData": "nsg:referenceData",
-    "dataType": "nsg:dataType",
-    "recordingModality": "nsg:recordingModality",
-    "scoreType": "nsg:scoreType",
-    "score": "nsg:score",
-    "status": "nsg:status",
-    "used": "prov:used",
-    "modelUsed": "prov:used",
-    "testUsed": "prov:used",
-    "dataUsed": "prov:used",
-    "startedAtTime": "prov:startedAtTime",
-    "endedAtTime": "prov:endedAtTime",
-    "generated": "prov:generated",
-    "wasGeneratedBy": "prov:wasGeneratedBy",
-    "wasAttributedTo": "prov:wasAttributedTo",
-    "passedValidation": "nsg:passedValidation",
-    "passed": "nsg:passedValidation",
-    "repository": "schema:codeRepository",
-    "path": "nsg:path",
-    "implements": "nsg:implements",
-    "normalizedScore": "nsg:normalizedScore",
-    "collabID": "nsg:collabID",
-    "hash": "nsg:digest",
-    "familyName": "schema:familyName",
-    "givenName": "schema:givenName",
-    "email": "schema:email",
-    "affiliation": "schema:affiliation",
-    "organization": "nsg:organization",
-    "channelType": "nsg:channelType",
-    "morphologyType": "nsg:morphologyType",
-    "atTime" : "nsg:atTime",
-    "identifier": "schema:identifier",
-    "abstract": "schema:abstract",
-    "label": "rdfs:label",
-    "associatedIdentifier": "nsg:associatedIdentifier"
-}
 
 
 def as_list(obj):
@@ -120,39 +36,45 @@ def as_list(obj):
     return L
 
 
-def expand_uri(uri_list, context, client=None):
-    if client:
-        full_context = [standard_context]
-        for item in as_list(context):
-            if "{{base}}" in item:
-                pass  # tmp hack, need to implement context handling properly
-                #full_context.append(item.replace("{{base}}", client.nexus_endpoint))
-            else:
-                full_context.append(item)
-    else:
-        full_context = context
-    doc = {
-        "@type": uri_list,
-        "@context": full_context
-    }
-    # print(doc)
-    # print(jsonld.expand(doc))
-    # print("----")
-    expanded_uris = tuple(jsonld.expand(doc)[0]["@type"])
-    for uri in expanded_uris:
-        if not uri.startswith("http"):
-            raise ValueError(f"Problem expanding '{uri_list}'. Context = {full_context}")
-    return expanded_uris
+def expand_uri(uri_list, context):
+    expanded_uris = []
+    for uri in as_list(uri_list):
+        if uri.startswith("http") or uri.startswith("@"):
+            expanded_uris.append(uri)
+        else:
+            prefix, identifier = uri.split(":")
+            if prefix not in context:
+                raise ValueError("prefix {prefix} not found in context")
+            base_url = context[prefix]
+            if not base_url.endswith("/"):
+                base_url.append("/")
+            expanded_uris.append(f"{base_url}{identifier}")
+    return tuple(expanded_uris)
 
 
-def compact_uri(uri_list, context):
-    if isinstance(uri_list, str):
-        return jsonld.compact({"@type": uri_list}, context)["@type"]
+def compact_uri(uri_list, context, strict=False):
+    compacted_uris = []
+    for uri in as_list(uri_list):
+        if uri.startswith("http"):
+            found = False
+            for prefix, base_url in context.items():
+                if uri.startswith(base_url):
+                    start = len(base_url)
+                    identifier = uri[start:].strip("/")
+                    compacted_uris.append(f"{prefix}:{identifier}")
+                    found = True
+                    break
+            if not found:
+                if strict:
+                    raise ValueError(f"Unable to compact {uri} with the provided context")
+                else:
+                    compacted_uris.append(uri)
+        else:
+            compacted_uris.append(uri)
+    if len(compacted_uris) == 1:
+        return compacted_uris[0]
     else:
-        try:
-            return tuple(as_list(jsonld.compact({"@type": uri_list}, context)["@type"]))
-        except Exception as err:
-            raise Exception(f"{err} uri_list={uri_list} context={context}")
+        return tuple(compacted_uris)
 
 
 def namespace_from_id(id):
@@ -173,7 +95,6 @@ def in_notebook():
             return False
     except NameError:
         return False
-
 
 
 class LogEntry:

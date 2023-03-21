@@ -1,4 +1,3 @@
-pyld<1.0
 ebrains-kg-core
 pathlib2
 python-dateutil
