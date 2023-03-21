@@ -253,7 +253,7 @@ class TestKGObject(object):
     def test_exists__it_does_exist(self):
         orig_object = self._construct_object_required_fields()
         class MockClient:
-            def instance_from_full_uri(self, id, use_cache=True, scope="in progress", resolved=False):
+            def instance_from_full_uri(self, id, use_cache=True, scope="in progress", resolved=False, require_full_data=True):
                 data = orig_object._build_data(client=None, all_fields=True)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id

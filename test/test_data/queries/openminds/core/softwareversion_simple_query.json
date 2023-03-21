@@ -198,6 +198,19 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/hasPart",
+      "propertyName": "vocab:hasPart",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
       "propertyName": "vocab:homepage"
     },
