@@ -448,10 +448,19 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def from_id(cls, id, client, use_cache=True, scope="released", resolved=False):
-        if id.startswith("http"):
-            return cls.from_uri(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
+        if hasattr(cls, "type_") and cls.type_:
+            if id.startswith("http"):
+                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
+            else:
+                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
         else:
-            return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
+            if id.startswith("http"):
+                uri = id
+            else:
+                uri = client.uri_from_uuid(id)
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope, resolved=resolved)
+            cls_from_data = lookup_type(data["@type"])
+            return cls_from_data.from_kg_instance(data, client, scope=scope, resolved=resolved)
 
     @classmethod
     def from_alias(cls, alias, client, space=None, scope="released", resolved=False):
