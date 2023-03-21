@@ -53,8 +53,8 @@ def test_serialize_embedded():
     result = field_embedded_metadata.serialize(test_affiliation, client, for_query=False, with_type=True)
     expected = {
         '@type': SomeAffiliation.type_,
-        'vocab:memberOf': {'@id': test_affiliation.member_of.id},
-        'vocab:startDate': '2023-01-01'
+        'https://openminds.ebrains.eu/vocab/memberOf': {'@id': test_affiliation.member_of.id},
+        'https://openminds.ebrains.eu/vocab/startDate': '2023-01-01'
     }
     assert result == expected
 

@@ -49,7 +49,7 @@ def expand_uri(uri_list, context):
             if not base_url.endswith("/"):
                 base_url.append("/")
             expanded_uris.append(f"{base_url}{identifier}")
-    if len(expanded_uris) == 1:
+    if isinstance(uri_list, str):
         return expanded_uris[0]
     else:
         return tuple(expanded_uris)
@@ -74,7 +74,7 @@ def compact_uri(uri_list, context, strict=False):
                     compacted_uris.append(uri)
         else:
             compacted_uris.append(uri)
-    if len(compacted_uris) == 1:
+    if isinstance(uri_list, str):
         return compacted_uris[0]
     else:
         return tuple(compacted_uris)

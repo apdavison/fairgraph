@@ -19,10 +19,10 @@ class MockEmbeddedObject(EmbeddedMetadata):
         "mock": "https://openminds.ebrains.eu/mock/"
     }
     fields = [
-        Field("a_string", str, "vocab:aString",
+        Field("a_string", str, "https://openminds.ebrains.eu/vocab/aString",
               multiple=False, required=False),
-        Field("a_date", date, "vocab:aDate", multiple=False, required=False),
-        Field("a_number", float, "vocab:aNumber",
+        Field("a_date", date, "https://openminds.ebrains.eu/vocab/aDate", multiple=False, required=False),
+        Field("a_number", float, "https://openminds.ebrains.eu/vocab/aNumber",
               multiple=False, required=True),
     ]
 
@@ -37,7 +37,7 @@ class MockKGObject2(KGObject):
         "mock": "https://openminds.ebrains.eu/mock/"
     }
     fields = [
-        Field("a", int, "vocab:A", multiple=False, required=True)
+        Field("a", int, "https://openminds.ebrains.eu/vocab/A", multiple=False, required=True)
     ]
 
 
@@ -51,38 +51,38 @@ class MockKGObject(KGObject):
         "mock": "https://openminds.ebrains.eu/mock/"
     }
     fields = [
-        Field("a_required_string", str, "vocab:aRequiredString",
+        Field("a_required_string", str, "https://openminds.ebrains.eu/vocab/aRequiredString",
               multiple=False, required=True),
         Field("a_required_list_of_strings", str,
-              "vocab:aRequiredListOfStrings", multiple=True, required=True),
-        Field("an_optional_string", str, "vocab:anOptionalString",
+              "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings", multiple=True, required=True),
+        Field("an_optional_string", str, "https://openminds.ebrains.eu/vocab/anOptionalString",
               multiple=False, required=False),
         Field("an_optional_list_of_strings", str,
-              "vocab:anOptionalListOfStrings", multiple=True, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings", multiple=True, required=False),
         Field("a_required_datetime", datetime,
-              "vocab:aRequiredDateTime", multiple=False, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredDateTime", multiple=False, required=True),
         Field("a_required_list_of_datetimes", datetime,
-              "vocab:aRequiredListOfDateTimes", multiple=True, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes", multiple=True, required=True),
         Field("an_optional_datetime", datetime,
-              "vocab:anOptionalDateTime", multiple=False, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalDateTime", multiple=False, required=False),
         Field("an_optional_list_of_datetimes", datetime,
-              "vocab:anOptionalListOfDateTimes", multiple=True, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes", multiple=True, required=False),
         Field("a_required_linked_object", ["test_base.MockKGObject", MockKGObject2],
-              "vocab:aRequiredLinkedObject", multiple=False, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject", multiple=False, required=True),
         Field("a_required_list_of_linked_objects", ["test_base.MockKGObject", MockKGObject2],
-              "vocab:aRequiredListOfLinkedObjects", multiple=True, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects", multiple=True, required=True),
         Field("an_optional_linked_object", MockKGObject2,
-              "vocab:anOptionalLinkedObject", multiple=False, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject", multiple=False, required=False),
         Field("an_optional_list_of_linked_objects", ["test_base.MockKGObject", MockKGObject2],
-              "vocab:anOptionalListOfLinkedObjects", multiple=True, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects", multiple=True, required=False),
         Field("a_required_embedded_object", MockEmbeddedObject,
-              "vocab:aRequiredEmbeddedObject", multiple=False, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject", multiple=False, required=True),
         Field("a_required_list_of_embedded_objects", MockEmbeddedObject,
-              "vocab:aRequiredListOfEmbeddedObjects", multiple=True, required=True),
+              "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects", multiple=True, required=True),
         Field("an_optional_embedded_object", MockEmbeddedObject,
-              "vocab:anOptionalEmbeddedObject", multiple=False, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject", multiple=False, required=False),
         Field("an_optional_list_of_embedded_objects", MockEmbeddedObject,
-              "vocab:anOptionalListOfEmbeddedObjects", multiple=True, required=False),
+              "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects", multiple=True, required=False),
     ]
     existence_query_fields = ("a_required_string", "a_required_datetime",
                               "a_required_linked_object", "a_required_embedded_object")
@@ -168,7 +168,7 @@ class TestKGObject(object):
             "a_required_datetime": "1789-07-14T00:00:00",
             "a_required_embedded_object": {
                 "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "vocab:aNumber": -1.0
+                "https://openminds.ebrains.eu/vocab/aNumber": -1.0
             },
             "a_required_linked_object": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
             "a_required_string": "apple"
@@ -178,41 +178,41 @@ class TestKGObject(object):
     def test_build_data_all_fields(self):
         obj = self._construct_object_all_fields()
         expected = {
-            "vocab:aRequiredDateTime": "1789-07-14T00:00:00",
-            "vocab:aRequiredEmbeddedObject": {
+            "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
+            "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
                 "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "vocab:aNumber": -1.0
+                "https://openminds.ebrains.eu/vocab/aNumber": -1.0
             },
-            "vocab:aRequiredLinkedObject": {
+            "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
             },
-            "vocab:aRequiredListOfDateTimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
-            "vocab:aRequiredListOfEmbeddedObjects": [
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 100.0},
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 200.0}],
-            "vocab:aRequiredListOfLinkedObjects": [
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 100.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 200.0}],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}
             ],
-            "vocab:aRequiredListOfStrings": ["banana", "pear"],
-            "vocab:aRequiredString": "apple",
-            "vocab:anOptionalDateTime": "1605-11-05T00:00:00",
-            "vocab:anOptionalEmbeddedObject": {
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["banana", "pear"],
+            "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
+            "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1605-11-05T00:00:00",
+            "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": {
                 "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "vocab:aNumber": 17.0
+                "https://openminds.ebrains.eu/vocab/aNumber": 17.0
             },
-            "vocab:anOptionalLinkedObject": {
+            "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000123"
             },
-            "vocab:anOptionalListOfDateTimes": ["1899-12-31T00:00:00", "1999-12-31T00:00:00"],
-            "vocab:anOptionalListOfEmbeddedObjects": [
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 18.0},
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 19.0}],
-            "vocab:anOptionalListOfLinkedObjects": [
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes": ["1899-12-31T00:00:00", "1999-12-31T00:00:00"],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 18.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 19.0}],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": [
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"},
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}],
-            "vocab:anOptionalListOfStrings": "plum, peach, apricot",
-            "vocab:anOptionalString": "melon"}
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
+            "https://openminds.ebrains.eu/vocab/anOptionalString": "melon"}
         assert obj._build_data(client=None, all_fields=True) == expected
 
     def test_updated_data(self):
@@ -227,10 +227,10 @@ class TestKGObject(object):
             self._construct_embedded_object_required_fields(19),
         ]
         expected = {
-            "vocab:aRequiredString": "pomme",
-            "vocab:anOptionalListOfEmbeddedObjects": [
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": -18},
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 19}
+            "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": -18},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 19}
             ]
         }
         new_data = obj._build_data(client=None, all_fields=True)
@@ -242,8 +242,8 @@ class TestKGObject(object):
         new_data = {
             "@id": obj.id,
             "@type": obj.type_,
-            "vocab:aRequiredListOfString": ["kumquat", "bilberry"],
-            "vocab:anOptionalDateTime": "1789-07-14T00:00:00"
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfString": ["kumquat", "bilberry"],
+            "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00"
         }
         obj._update(new_data, client=None, resolved=False)
         assert obj.a_required_list_of_strings == ["banana", "pear"]  # unchanged because already set
@@ -275,41 +275,41 @@ class TestKGObject(object):
             "@id": orig_object.id,
             "@type": MockKGObject.type_,
             "https://core.kg.ebrains.eu/vocab/meta/space": "collab-foobar",
-            "vocab:aRequiredDateTime": "1789-07-14T00:00:00",
-            "vocab:aRequiredEmbeddedObject": {
+            "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
+            "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
                 "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "vocab:aNumber": 41.0
+                "https://openminds.ebrains.eu/vocab/aNumber": 41.0
             },
-            "vocab:aRequiredLinkedObject": {
+            "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
             },
-            "vocab:aRequiredListOfDateTimes": ["1900-01-01T00:00:00",
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes": ["1900-01-01T00:00:00",
                                                "2000-01-01T00:00:00"],
-            "vocab:aRequiredListOfEmbeddedObjects": [
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 42.0},
-                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "vocab:aNumber": 43.0}],
-            "vocab:aRequiredListOfLinkedObjects": [
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 42.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 43.0}],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002345"},
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456"}
             ],
-            "vocab:aRequiredListOfStrings": ["banana", "pear"],  # still the same value, represents what is thought to be in the KG
-            "vocab:aRequiredString": "apple",
-            "vocab:anOptionalDateTime": None,
-            "vocab:anOptionalEmbeddedObject": None,
-            "vocab:anOptionalLinkedObject": None,
-            "vocab:anOptionalListOfDateTimes": None,
-            "vocab:anOptionalListOfEmbeddedObjects": None,
-            "vocab:anOptionalListOfLinkedObjects": None,
-            "vocab:anOptionalListOfStrings": None,
-            "vocab:anOptionalString": None}
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["banana", "pear"],  # still the same value, represents what is thought to be in the KG
+            "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
+            "https://openminds.ebrains.eu/vocab/anOptionalDateTime": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": None,
+            "https://openminds.ebrains.eu/vocab/anOptionalString": None}
         assert new_obj.data == expected
         assert new_obj.a_required_list_of_strings == ["coconut"]
         assert new_obj.an_optional_string == "lime"
         assert new_obj.a_required_datetime == datetime(1789, 7, 14)
 
         expected = {
-            "vocab:aRequiredListOfStrings": "coconut",  # note no square brackets, single item in list. Is this desired?
-            "vocab:anOptionalString": "lime"
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": "coconut",  # note no square brackets, single item in list. Is this desired?
+            "https://openminds.ebrains.eu/vocab/anOptionalString": "lime"
         }
         assert new_obj._updated_data(new_obj._build_data(client=None, all_fields=True)) == expected
 

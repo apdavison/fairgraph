@@ -56,7 +56,7 @@ def get_filter_value(filters, field):
         elif isinstance(value, str) and value.startswith("http"):  # for @id
             filter_value = value
         else:
-            raise TypeError("{} must be of type {}".format(field.name, field.types))
+            raise TypeError("{} must be of type {}, not {}".format(field.name, field.types, type(value)))
     filter_items = []
     for item in as_list(value):
         if isinstance(item, IRI):
@@ -158,9 +158,10 @@ class EmbeddedMetadata(object, metaclass=Registry):
             "@type": self.type_
         }
         for field in self.fields:
+            expanded_path = expand_uri(field.path, self.context)
             value = getattr(self, field.name)
             if value is not None:
-                data[field.path] = field.serialize(value, client, with_type=with_type)
+                data[expanded_path] = field.serialize(value, client, with_type=with_type)
         return data
 
     @classmethod
@@ -170,15 +171,12 @@ class EmbeddedMetadata(object, metaclass=Registry):
             warn("Expected embedded metadata, but received @id")
             return None
 
-        D = {
-            compact_uri(key, cls.context): value
-            for key, value in data.items() if key[0] != "@"
-        }
         args = {}
         for field in cls.fields:
-            data_item = data.get(field.path)
+            expanded_path = expand_uri(field.path, cls.context)
+            data_item = data.get(field.path, data.get(expanded_path))
             args[field.name] = field.deserialize(data_item, client, resolved=resolved)
-        return cls(data=D, **args)
+        return cls(data=data, **args)
 
     def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
         for field in self.fields:
@@ -366,33 +364,35 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def _deserialize_data(cls, data, client, resolved=False):
-        # normalize data by compacting keys
+        # normalize data by expanding keys
         D = {
             "@id": data["@id"],
-            "@type": compact_uri(data["@type"], cls.context),
-            "@context": data.get("@context", cls.context)
+            "@type": data["@type"]
         }
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
-                normalised_key = compact_uri(key, cls.context)
+                normalised_key = expand_uri(key, cls.context)
                 value = [item for item in as_list(value)
                          if item["@type"][0].endswith(type_filter)]
                 if normalised_key in D:
                     D[normalised_key].extend(value)
                 else:
                     D[normalised_key] = value
+            elif key.startswith("Q"):  # for 'Q' fields in data from queries
+                D[key] = value
             elif key[0] != "@":
-                normalised_key = compact_uri(key, cls.context)
+                normalised_key = expand_uri(key, cls.context)
                 D[normalised_key] = value
 
-        for otype in compact_uri(as_list(cls.type_), cls.context):  # todo: update class generation to ensure classes are already compacted
+        for otype in expand_uri(as_list(cls.type_), cls.context):
             if otype not in D["@type"]:
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         deserialized_data = {}
         for field in cls.fields:
+            expanded_path = expand_uri(field.path, cls.context)
             if field.intrinsic:
-                data_item = D.get(field.path)
+                data_item = D.get(expanded_path)
             else:
                 data_item = D["@id"]
             # sometimes queries put single items in a list, this removes the enclosing list
@@ -680,7 +680,7 @@ class KGObject(object, metaclass=Registry):
 
     def _updated_data(self, data):
         updated_data = {}
-        def _expand_key(key):
+        def _expand_key(key):   # todo: remove this? keys should already be expanded by this point
             if key.startswith("@"):
                 return key
             return expand_uri(key, {"vocab": "https://openminds.ebrains.eu/vocab/"})
@@ -721,16 +721,17 @@ class KGObject(object, metaclass=Registry):
             data = {}
             for field in self.fields:
                 if field.intrinsic:
+                    expanded_path = expand_uri(field.path, self.context)
                     value = getattr(self, field.name)
                     if all_fields or field.required or value is not None:
                         serialized = field.serialize(value, client, with_type=False)
-                        if field.path in data:
-                            if isinstance(data[field.path], list):
-                                data[field.path].append(serialized)
+                        if expanded_path in data:
+                            if isinstance(data[expanded_path], list):
+                                data[expanded_path].append(serialized)
                             else:
-                                data[field.path] = [data[field.path], serialized]
+                                data[expanded_path] = [data[expanded_path], serialized]
                         else:
-                            data[field.path] = serialized
+                            data[expanded_path] = serialized
             return data
         else:
             raise NotImplementedError("to be implemented by child classes")
@@ -1099,6 +1100,20 @@ class KGObject(object, metaclass=Registry):
                 client.unrelease(child.id)
         return response
 
+    def export(self, path, single_file=False):
+        """
+        Export metadata as files in JSON-LD format.
+
+        If any objects do not have IDs, these will be generated.
+
+        If `single_file` is False, then `path` must be the path to a directory,
+        and each object will be exported as a file named for the object ID.
+
+        If `single_file` is True, then `path` should be the path to a file
+        with extension ".jsonld". This file will contain metadata for all objects.
+        """
+        raise NotImplementedError("todo")
+
 
 class KGProxy(object):
     """docstring"""
@@ -1306,6 +1321,8 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
             kg_cls = possible_classes[0]
 
         if "@id" in item:
+            # the following line is only relevant to test data,
+            # for real data it is always an expanded uris
             item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})
             # here is where we check the "resolved" keyword,
             # and return an actual object if we have the data
