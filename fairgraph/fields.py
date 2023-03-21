@@ -39,7 +39,7 @@ class Field(object):
     """Representation of a metadata field"""
 
     def __init__(self, name, types, path, required=False, default=None, multiple=False,
-                 strict=False, reverse=None, doc="", alternate_path=None):
+                 strict=False, reverse=None, doc=""):
         self.name = name
         if isinstance(types, (type, str)):
             self._types = (types,)
@@ -53,7 +53,6 @@ class Field(object):
         self.multiple = multiple
         self.strict_mode = strict
         self.reverse = reverse
-        self.alternate_path = alternate_path  # for backwards compatibility when schemas are changed but KG not yet modified accordingly
         self.doc = doc
 
     def __repr__(self):

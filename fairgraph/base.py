@@ -176,7 +176,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
         }
         args = {}
         for field in cls.fields:
-            data_item = D.get(field.path, D.get(field.alternate_path))
+            data_item = data.get(field.path)
             args[field.name] = field.deserialize(data_item, client, resolved=resolved)
         return cls(data=D, **args)
 
@@ -392,7 +392,7 @@ class KGObject(object, metaclass=Registry):
         deserialized_data = {}
         for field in cls.fields:
             if field.intrinsic:
-                data_item = D.get(field.path, D.get(field.alternate_path))
+                data_item = D.get(field.path)
             else:
                 data_item = D["@id"]
             # sometimes queries put single items in a list, this removes the enclosing list
