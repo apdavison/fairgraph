@@ -623,8 +623,9 @@ class KGObject(object, metaclass=Registry):
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
-                                                 scope=self.scope or "in progress", resolved=False)
-            # todo: revisit this. Maybe need to query both "released" and "latest/in progress" scopes
+                                                 scope=self.scope or "any",
+                                                 resolved=False,
+                                                 require_full_data=False)
             if self.data is None:
                 self.data = data
             obj_exists = bool(data)

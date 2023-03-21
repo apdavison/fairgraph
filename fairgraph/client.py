@@ -205,7 +205,7 @@ class KGClient(object):
         else:
             return _list(scope, from_index, size)
 
-    def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False):
+    def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False, require_full_data=True):
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
         if resolved:
             raise NotImplementedError
@@ -230,7 +230,7 @@ class KGClient(object):
                 # in some circumstances, the KG returns "minimal" metadata,
                 # e.g. with just the id and fullName fields
                 # this means the user does not have full access, so we count this as no data
-                if data and "http://schema.org/identifier" not in data:
+                if require_full_data and data and "http://schema.org/identifier" not in data:
                     data = None
                 return data
 
