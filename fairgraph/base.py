@@ -223,7 +223,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
     @classmethod
     def generate_query_property(cls, field, filter_parameter=None, use_type_filter=False):
 
-        expanded_path = expand_uri(field.path, cls.context)[0]
+        expanded_path = expand_uri(field.path, cls.context)
 
         if filter_parameter:
             property = QueryProperty(
@@ -265,7 +265,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                             )
                         )
                 else:
-                    expanded_subpath = expand_uri(subfield.path, cls.context)[0]
+                    expanded_subpath = expand_uri(subfield.path, cls.context)
                     properties.append(
                         QueryProperty(expanded_subpath,
                                       name=subfield.path,
@@ -683,7 +683,7 @@ class KGObject(object, metaclass=Registry):
         def _expand_key(key):
             if key.startswith("@"):
                 return key
-            return expand_uri(key, {"vocab": "https://openminds.ebrains.eu/vocab/"})[0]
+            return expand_uri(key, {"vocab": "https://openminds.ebrains.eu/vocab/"})
 
         for key, value in data.items():
             expanded_key = _expand_key(key)
@@ -935,7 +935,7 @@ class KGObject(object, metaclass=Registry):
     @classmethod
     def generate_query_property(cls, field, filter_parameter=None, name=None):
 
-        expanded_path = expand_uri(field.path, cls.context)[0]
+        expanded_path = expand_uri(field.path, cls.context)
 
         if filter_parameter:
             filter = Filter("CONTAINS", parameter=filter_parameter)  # should be "EQUALS" for consistency, here we use "CONTAINS" for backwards compatibility
@@ -986,7 +986,7 @@ class KGObject(object, metaclass=Registry):
                     filter_parameter = field.name
                 else:
                     filter_parameter = None
-                expanded_path = expand_uri(field.path, cls.context)[0]
+                expanded_path = expand_uri(field.path, cls.context)
                 if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
                     for child_cls in field.types:
                         property = child_cls.generate_query_property(
@@ -1306,7 +1306,7 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
             kg_cls = possible_classes[0]
 
         if "@id" in item:
-            item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})[0]
+            item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})
             # here is where we check the "resolved" keyword,
             # and return an actual object if we have the data
             # or resolve the proxy if we don't
