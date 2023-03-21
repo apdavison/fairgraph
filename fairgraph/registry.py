@@ -9,8 +9,7 @@ from urllib.parse import urlparse
 
 registry = {
     'names': {},
-    'types': {},
-    'paths': {}
+    'types': {}
 }
 
 # todo: add namespaces to avoid name clashes, e.g. "Person" exists in several namespaces
@@ -24,12 +23,6 @@ def register_class(target_class):
         name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
 
     registry['names'][name] = target_class
-    try:
-        registry['paths'][target_class.path] = target_class
-    except AttributeError:  # base classes do not have a namespace / path
-        pass
-    except ValueError:  # core classes do not have a namespace set
-        pass            # we may want to register the path when the namespace is set
     if hasattr(target_class, 'type_'):
         if isinstance(target_class.type_, str):
             type_ = target_class.type_
@@ -42,16 +35,6 @@ def register_class(target_class):
                 registry['types'][type_] = [registry['types'][type_], target_class]
         else:
             registry['types'][type_] = target_class
-
-    if hasattr(target_class, "previous_types"):
-        for prev_type in target_class.previous_types:
-            if prev_type in registry['types']:
-                if isinstance(registry['types'][prev_type], list):
-                    registry['types'][prev_type].append(target_class)
-                else:
-                    registry['types'][prev_type] = [registry['types'][prev_type], target_class]
-            else:
-                registry['types'][prev_type] = target_class
 
 
 def lookup(class_name):
@@ -73,14 +56,6 @@ def lookup_by_iri(iri):
         if hasattr(cls, "iri_map") and iri in cls.iri_map.values():
             return cls
     raise ValueError("Can't resolve iri '{}'".format(iri))
-
-
-def lookup_by_id(id):
-    parts = urlparse(id)
-    path_parts = parts.path.split("/")
-    assert path_parts[2] == "data"
-    path = "/".join(path_parts[3:-1])
-    return registry["paths"][path]
 
 
 def generate_cache_key(qd):

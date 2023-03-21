@@ -31,7 +31,7 @@ try:
 except ImportError:
     have_tabulate = False
 from .utility import (compact_uri, expand_uri, as_list)
-from .registry import Registry, generate_cache_key, lookup, lookup_by_id, lookup_type, lookup_by_iri
+from .registry import Registry, generate_cache_key, lookup, lookup_type
 from .queries import QueryProperty, Query, Filter
 from .errors import ResolutionFailure, AuthorizationError, ResourceExistsError
 
@@ -1113,8 +1113,6 @@ class KGProxy(object):
     def __init__(self, cls, uri, preferred_scope="released"):
         if isinstance(cls, str):
             self.cls = lookup(cls)
-        elif cls is None:
-            self.cls = lookup_by_id(uri)
         else:
             self.cls = cls
         self.id = uri

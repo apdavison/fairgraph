@@ -80,11 +80,6 @@ def compact_uri(uri_list, context, strict=False):
         return tuple(compacted_uris)
 
 
-def namespace_from_id(id):
-    parts = urlparse(id)
-    path_parts = parts.path.split("/")
-    assert path_parts[2] == "data"
-    return path_parts[3]
 
 
 def in_notebook():
