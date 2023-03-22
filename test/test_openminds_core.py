@@ -167,7 +167,7 @@ def test__update():
     }
     client = None
     person = omcore.Person.from_kg_instance(example_data, client=client, scope="in progress")
-    assert person.data == example_data
+    assert person.remote_data == example_data
     # this follows the sequence in person.save()
     data = person._build_data(client, all_fields=True)
     updated_data = person._updated_data(data)

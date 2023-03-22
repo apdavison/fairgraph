@@ -217,9 +217,9 @@ class TestKGObject(object):
 
     def test_updated_data(self):
         obj = self._construct_object_all_fields()
-        obj.data = obj._build_data(client=None, all_fields=True)
+        obj.remote_data = obj._build_data(client=None, all_fields=True)
         expected = {}
-        assert obj._updated_data(obj.data) == expected
+        assert obj._updated_data(obj.remote_data) == expected
 
         obj.a_required_string = "pomme"
         obj.an_optional_list_of_embedded_objects = [
@@ -245,7 +245,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfString": ["kumquat", "bilberry"],
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00"
         }
-        obj._update(new_data, client=None, resolved=False)
+        obj._update_empty_fields(new_data, client=None, resolved=False)
         assert obj.a_required_list_of_strings == ["banana", "pear"]  # unchanged because already set
         assert obj.an_optional_datetime == datetime(1789, 7, 14)
 
@@ -264,7 +264,7 @@ class TestKGObject(object):
         new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
         MockKGObject.set_strict_mode(True)
         assert new_obj.a_required_list_of_strings == ["coconut"]
-        assert new_obj.data is None
+        assert new_obj.remote_data is None
         assert new_obj.a_required_embedded_object == None
 
         assert new_obj.exists(MockClient()) and new_obj.space == "collab-foobar"  # has the side-effect of setting .data
@@ -294,15 +294,8 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["banana", "pear"],  # still the same value, represents what is thought to be in the KG
             "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
-            "https://openminds.ebrains.eu/vocab/anOptionalDateTime": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": None,
-            "https://openminds.ebrains.eu/vocab/anOptionalString": None}
-        assert new_obj.data == expected
+        }
+        assert new_obj.remote_data == expected
         assert new_obj.a_required_list_of_strings == ["coconut"]
         assert new_obj.an_optional_string == "lime"
         assert new_obj.a_required_datetime == datetime(1789, 7, 14)

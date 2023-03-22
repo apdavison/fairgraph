@@ -30,7 +30,7 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
-from .utility import (compact_uri, expand_uri, as_list)
+from .utility import (compact_uri, expand_uri, as_list, normalize_data)
 from .registry import Registry, generate_cache_key, lookup, lookup_type
 from .queries import QueryProperty, Query, Filter
 from .errors import ResolutionFailure, AuthorizationError, ResourceExistsError
@@ -134,7 +134,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 value = None
             field.check_value(value)
             setattr(self, field.name, value)
-        self.data = data
+        self.remote_data = data
 
     @property
     def space(self):
@@ -143,6 +143,14 @@ class EmbeddedMetadata(object, metaclass=Registry):
     @property
     def default_space(self):
         return None
+
+    def _get_remote_data(self):
+        return self._data
+
+    def _set_remote_data(self, value):
+        self._data = normalize_data(value, self.context)
+
+    data = property(fget=_get_remote_data, fset=_set_remote_data)
 
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
@@ -162,7 +170,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
             value = getattr(self, field.name)
             if value is not None:
                 data[expanded_path] = field.serialize(value, client, with_type=with_type)
-        return data
+        return normalize_data(data, self.context)
 
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
@@ -343,9 +351,17 @@ class KGObject(object, metaclass=Registry):
 
         self.id = id
         self._space = space
-        self.data = data
+        self.remote_data = data
         self.scope = scope
         self.allow_update = True
+
+    def _get_remote_data(self):
+        return self._data
+
+    def _set_remote_data(self, value):
+        self._data = normalize_data(value, self.context)
+
+    remote_data = property(fget=_get_remote_data, fset=_set_remote_data)
 
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
@@ -355,11 +371,11 @@ class KGObject(object, metaclass=Registry):
 
     @property
     def space(self):
-        if self.data:
-            if "https://schema.hbp.eu/myQuery/space" in self.data:
-                self._space = self.data["https://schema.hbp.eu/myQuery/space"]
-            elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.data:
-                self._space = self.data["https://core.kg.ebrains.eu/vocab/meta/space"]
+        if self.remote_data:
+            if "https://schema.hbp.eu/myQuery/space" in self.remote_data:
+                self._space = self.remote_data["https://schema.hbp.eu/myQuery/space"]
+            elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.remote_data:
+                self._space = self.remote_data["https://core.kg.ebrains.eu/vocab/meta/space"]
         return self._space
 
     @classmethod
@@ -585,11 +601,9 @@ class KGObject(object, metaclass=Registry):
             for field in query_fields
         }
 
-    def _update(self, data, client, resolved=False):
+    def _update_empty_fields(self, data, client, resolved=False):
         """Replace any empty fields (value None) with the supplied data"""
         cls = self.__class__
-        if self.data:
-            self.data.update(data)
         deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
         for field in cls.fields:
             current_value = getattr(self, field.name, None)
@@ -635,11 +649,11 @@ class KGObject(object, metaclass=Registry):
                                                  scope=self.scope or "any",
                                                  resolved=False,
                                                  require_full_data=False)
-            if self.data is None:
-                self.data = data
+            if self.remote_data is None:
+                self.remote_data = data
             obj_exists = bool(data)
             if obj_exists:
-                self._update(data, client)
+                self._update_empty_fields(data, client)
             return obj_exists
         else:
             query_filter = self._build_existence_query()
@@ -660,8 +674,8 @@ class KGObject(object, metaclass=Registry):
                     # where exists() returns True
                     self.id = self.save_cache[self.__class__][query_cache_key]
                     cached_obj = self.object_cache.get(self.id)
-                    if cached_obj and cached_obj.data:
-                        self.data = cached_obj.data  # copy or update needed?
+                    if cached_obj and cached_obj.remote_data:
+                        self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
@@ -672,40 +686,26 @@ class KGObject(object, metaclass=Registry):
                 if instances:
                     self.id = instances[0]["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
-
-                    if self.data is None:
-                        self.data = instances[0]
-                    self._update(instances[0], client)
+                    if self.remote_data is None:
+                        self.remote_data = instances[0]
+                    self._update_empty_fields(instances[0], client)
                 return bool(instances)
 
     def _updated_data(self, data):
         updated_data = {}
-        for key, value in data.items():
+        local_data = normalize_data(data, self.context)
+        remote_data = self.remote_data  # already normalized
+        for key, value in local_data.items():
             assert key.startswith("http")  # keys should all be expanded by this point
-            if self.data is None or key not in self.data:
+            if remote_data is None or key not in remote_data:
                 if value is not None:
                     logger.info(f"    - new field '{key}' with value {value}")  # todo: change to debug
                     updated_data[key] = value
             else:
-                existing = self.data.get(key, self.data.get(key))
+                existing = remote_data.get(key)
                 if existing != value:
-                    if (isinstance(existing, dict) and isinstance(value, dict)):
-                        if existing != value:
-                            updated_data[key] = value
-                    elif (isinstance(existing, list) and len(existing) == 0 and value is None):
-                        # we treat empty list and None as equivalent
-                        pass
-                    elif (
-                        isinstance(existing, list)
-                        and len(existing) == 1
-                        and isinstance(existing[0], dict)
-                        and existing[0] == value
-                    ):
-                        # we treat a list containing a single dict as equivalent to that dict
-                        pass
-                    else:
-                        logger.info(f"    -  change to field '{key}' from {existing} to {value}")
-                        updated_data[key] = value
+                    logger.info(f"    -  change to field '{key}' from {existing} to {value}")
+                    updated_data[key] = value
         return updated_data
 
     def _build_data(self, client, all_fields=False):
@@ -724,7 +724,7 @@ class KGObject(object, metaclass=Registry):
                                 data[expanded_path] = [data[expanded_path], serialized]
                         else:
                             data[expanded_path] = serialized
-            return data
+            return normalize_data(data, self.context)  # todo: normalize_data shouldn't be necessary here
         else:
             raise NotImplementedError("to be implemented by child classes")
 
@@ -763,27 +763,24 @@ class KGObject(object, metaclass=Registry):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                data = self._build_data(client, all_fields=True)
+                local_data = self._build_data(client, all_fields=True)
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
-                        activity_log.update(item=self, delta=data, space=space, entry_type="replacement")
+                        activity_log.update(item=self, delta=local_data, space=space, entry_type="replacement")
                     try:
-                        client.replace_instance(self.uuid, data)
+                        client.replace_instance(self.uuid, local_data)
                     except AuthorizationError as err:
                         if ignore_auth_errors:
                             logger.error(str(err))
                         else:
                             raise
+                    else:
+                        self.remote_data = local_data
                 else:
-                    updated_data = self._updated_data(data)
+                    updated_data = self._updated_data(local_data)
                     if updated_data:
                         logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {updated_data.keys()}")
-                        if self.data is None:
-                            self.data = data
-                        else:
-                            self.data.update(data)
-
                         skip_update = False
                         if "vocab:storageSize" in updated_data:
                             warn("Removing storage size from update because this field is currently locked by the KG")
@@ -794,7 +791,6 @@ class KGObject(object, metaclass=Registry):
                             if activity_log:
                                 activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
                         else:
-                            updated_data["@context"] = self.context
                             try:
                                 client.update_instance(self.uuid, updated_data)
                             except AuthorizationError as err:
@@ -802,8 +798,9 @@ class KGObject(object, metaclass=Registry):
                                     logger.error(str(err))
                                 else:
                                     raise
+                            else:
+                                self.remote_data = local_data
                             if activity_log:
-                                updated_data.pop("@context")
                                 activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
                     else:
                         logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
@@ -811,27 +808,26 @@ class KGObject(object, metaclass=Registry):
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            data = self._build_data(client)
-            logger.info("  - creating instance with data {}".format(data))
-            data["@context"] = self.context
-            data["@type"] = self.type_
+            local_data = self._build_data(client)
+            logger.info("  - creating instance with data {}".format(local_data))
+            local_data["@type"] = self.type_
             try:
                 instance_data = client.create_new_instance(
-                    data,
+                    local_data,
                     space or self.__class__.default_space,
                     instance_id=self.uuid)
             except (AuthorizationError, ResourceExistsError) as err:
                 if ignore_auth_errors:
                     logger.error(str(err))
                     if activity_log:
-                        activity_log.update(item=self, delta=data, space=self.space, entry_type="create-error")
+                        activity_log.update(item=self, delta=local_data, space=self.space, entry_type="create-error")
                 else:
                     raise
             else:
                 self.id = instance_data["@id"]
-                self.data = instance_data
+                self.remote_data = instance_data
                 if activity_log:
-                    activity_log.update(item=self, delta=data, space=self.space, entry_type="create")
+                    activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         if self.id:
             logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
@@ -1071,7 +1067,7 @@ class KGObject(object, metaclass=Registry):
             return client.is_released(self.id, with_children=with_children)
         except AuthorizationError:
             # for unprivileged users
-            if "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.data:
+            if "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.remote_data:
                 return True
             return False
 

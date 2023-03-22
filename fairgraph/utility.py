@@ -80,6 +80,36 @@ def compact_uri(uri_list, context, strict=False):
         return tuple(compacted_uris)
 
 
+def normalize_data(data, context):
+    """Used for comparing values in KG data"""
+    if data is None:
+        return data
+    normalized = {}
+    for key, value in data.items():
+        if key.startswith("Q"):
+            expanded_key = key
+        else:
+            expanded_key = expand_uri(key, context)
+        assert expanded_key.startswith("http") or expanded_key.startswith("@") or expanded_key.startswith("Q")
+        if hasattr(value, "__len__") and len(value) == 0:
+            pass
+        elif value is None:
+            pass
+        elif isinstance(value, (list, tuple)) and key != "@type":
+            # note that we special-case "@type" for now
+            normalized[expanded_key] = []
+            for item in value:
+                if isinstance(item, dict):
+                    normalized[expanded_key].append(normalize_data(item, context))
+                else:
+                    normalized[expanded_key].append(item)
+            if len(value) == 1:
+                normalized[expanded_key] = normalized[expanded_key][0]
+        elif isinstance(value, dict) and expanded_key != "@context":
+            normalized[expanded_key] = normalize_data(value, context)
+        else:
+            normalized[expanded_key] = value
+    return normalized
 
 
 def in_notebook():
