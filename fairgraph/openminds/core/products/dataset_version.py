@@ -115,4 +115,4 @@ class DatasetVersion(KGObject):
                 local_filename = Path(local_path) / (zip_archive_url.split("/")[-1] + ".zip")
             local_filename.parent.mkdir(parents=True, exist_ok=True)
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
-            return local_filename
+            return local_filename, repo.iri.value
