@@ -3,7 +3,7 @@
 
 class Query:
 
-    def __init__(self, node_type, label, space, properties=None):
+    def __init__(self, node_type, label, space=None, properties=None):
         self.node_type = node_type
         self.label = label
         self.space = space
@@ -38,8 +38,8 @@ class Query:
                     "@type": "@id"
                 },
                 "merge": {
-                    "@type": "@id",
-                    "@id": "merge"
+                   "@type": "@id",
+                   "@id": "merge"
                 },
                 "path": {
                     "@id": "path",
@@ -62,7 +62,8 @@ class QueryProperty:
 
     def __init__(self, path, name=None, filter=None,
                  sorted=False, required=False, ensure_order=False,
-                 properties=None, type_filter=None):
+                 properties=None, type_filter=None, reverse=False,
+                 expect_single=False):
         self.path = path
         self.name = name
         self.filter = filter
@@ -71,6 +72,8 @@ class QueryProperty:
         self.ensure_order = ensure_order
         self.properties = properties or []
         self.type_filter = type_filter
+        self.reverse = reverse
+        self.expect_single = expect_single
 
     def __repr__(self):
         return f"QueryProperty({self.path}, name={self.name})"
@@ -97,11 +100,16 @@ class QueryProperty:
             data["structure"] = [
                 property.serialize() for property in self.properties
             ]
-        if self.type_filter:
+        if self.type_filter or self.reverse:
             data["path"] = {
-                "@id": data["path"],
-                "typeFilter": self.type_filter
+                "@id": data["path"]
             }
+            if self.type_filter:
+                data["path"]["typeFilter"] = self.type_filter
+            if self.reverse:
+                data["path"]["reverse"] = True
+        if self.expect_single:
+            data["singleValue"] = "FIRST"
         return data
 
 
