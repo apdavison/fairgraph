@@ -390,7 +390,7 @@ class KGClient(object):
         if space_name is None:
             collab_id=os.environ.get("LAB_COLLAB_ID")
             if collab_id is None:
-                raise Exception("If you are not in Ebrain's collab you should provide a space name")
+                raise Exception("If you are not launching this from inside an Ebrain's collab, you should provide a space name with the following format: collab-collab_id.")
             else:
                 space_name=f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
