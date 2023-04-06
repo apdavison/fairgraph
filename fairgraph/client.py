@@ -385,12 +385,31 @@ class KGClient(object):
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
 
-    def configure_space(self, types, space_name=None):
+    def configure_space(self, space_name=None, types=None ):
+        """
+        Creates and configures a Knowledge Graph (KG) space with the specified name and types.
 
+        Args:
+            space_name (str, optional(if you run inside a collab)): The name of the KG space to create and configure.
+                If not provided, the method will try to obtain the collab ID from the environment
+                variables and use it to generate a default space name in the format "collab-collab_id".
+                If you are not launching this from inside an Ebrain's collab, you should provide a space name.
+            types (list of Type, optional): An array containing the Type classes that should be included
+                in this space. 
+
+        Returns:
+            str: The name of the configured KG space.
+
+        Example usage:
+            types = [Dataset, DatasetVersion, Software, SoftwareVersion]
+            space_name = "collab-MyCollab"
+            kg_client = KGClient()
+            kg_client.configure_space(space_name, types)
+        """
         if space_name is None:
-            collab_id=os.environ.get("LAB_COLLAB_ID")
+            collab_id = os.environ.get("LAB_COLLAB_ID")
             if collab_id is None:
-                raise Exception("If you are not launching this from inside an Ebrain's collab, you should provide a space name with the following format: collab-collab_id.")
+                raise ValueError("If you are not launching this from inside an Ebrain's collab, you should provide a space name with the following format: collab-collab_id.")
             else:
                 space_name=f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
