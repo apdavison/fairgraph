@@ -390,11 +390,11 @@ class KGClient(object):
         Creates and configures a Knowledge Graph (KG) space with the specified name and types.
 
         Args:
-            space_name (str, optional(if you run inside a collab)): The name of the KG space to create and configure.
+            space_name (str, required (optional only if you run inside a collab)): The name of the KG space to create and configure.
                 If not provided, the method will try to obtain the collab ID from the environment
                 variables and use it to generate a default space name in the format "collab-collab_id".
                 If you are not launching this from inside an Ebrain's collab, you should provide a space name.
-            types (list of Type, optional): An array containing the Type classes that should be included
+            types (list of Type, required): An array containing the Type classes that should be included
                 in this space. 
 
         Returns:
