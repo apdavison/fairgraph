@@ -92,11 +92,10 @@ def test_resolve_model(kg_client):
     assert isinstance(model.versions, KGProxy)
     resolved_model2 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=2)
     assert isinstance(resolved_model2.versions, omcore.ModelVersion)
-    # temporarily commenting out following lines until KG updates for latest openMINDS changes are done
-    # assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
+    assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
 
-    # resolved_model4 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=3)
-    # assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
+    resolved_model4 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=3)
+    assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
 
 
 @skip_if_no_connection
