@@ -662,11 +662,11 @@ additional_methods = {
         return f"{self.given_name} {self.family_name}"
 
     @classmethod
-    def me(cls, client, allow_multiple=False, resolved=False):
+    def me(cls, client, allow_multiple=False, follow_links=0):
         user_info = client.user_info()
         possible_matches = cls.list(
             client, scope="in progress", space="common",
-            resolved=resolved,
+            follow_links=follow_links,
             family_name=user_info.family_name,
             given_name=user_info.given_name
         )

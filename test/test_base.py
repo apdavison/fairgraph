@@ -303,7 +303,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["kumquat", "bilberry"],
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00"
         }
-        obj._update_empty_fields(new_data, client=None, resolved=False)
+        obj._update_empty_fields(new_data, client=None)
         assert obj.a_required_list_of_strings == ["banana", "pear"]  # unchanged because already set
         assert obj.an_optional_datetime == datetime(1789, 7, 14)
 
@@ -311,8 +311,8 @@ class TestKGObject(object):
     def test_exists__it_does_exist(self):
         orig_object = self._construct_object_required_fields()
         class MockClient:
-            def instance_from_full_uri(self, id, use_cache=True, scope="in progress", resolved=False, require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_fields=True)
+            def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
+                data = orig_object._build_data(include_empty_fields=True)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context

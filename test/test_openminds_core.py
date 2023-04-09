@@ -99,6 +99,56 @@ def test_resolve_model(kg_client):
 
 
 @skip_if_no_connection
+def test_retrieve_released_models_resolve_one_step(kg_client):
+    models = omcore.Model.list(kg_client, scope="released", space="model",
+                               api="query", size=5, from_index=randint(0, 80),
+                               follow_links=1)
+    assert len(models) == 5
+    for model in models:
+        # check first level links have been resolved
+        for version in as_list(model.versions):
+            assert isinstance(version, omcore.ModelVersion)
+        if model.abstraction_level:
+            assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)
+        for developer in as_list(model.developers):
+            assert isinstance(developer, (omcore.Person, omcore.Organization, omcore.Consortium))
+        # check second level links have _not_ been resolved
+        for version in as_list(model.versions):
+            if version.accessibility:
+                assert isinstance(version.accessibility, KGProxy)
+            if version.repository:
+                assert isinstance(version.repository, KGProxy)
+
+
+# @skip_if_no_connection
+# def test_retrieve_released_models_resolve_two_steps(kg_client):
+#     models = omcore.Model.list(kg_client, scope="released", space="model",
+#                                api="query", size=10, from_index=randint(0, 80),
+#                                follow_links=2)
+#     assert len(models) == 10
+#     for model in models:
+#         # check first level links have been resolved
+#         for version in as_list(model.versions):
+#             assert isinstance(version, omcore.ModelVersion)
+#         if model.abstraction_level:
+#             assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)
+#         for developer in as_list(model.developers):
+#             assert isinstance(developer, (omcore.Person, omcore.Organization, omcore.Consortium))
+#         # check second level links have been resolved
+#         for version in as_list(model.versions):
+#             if version.accessibility:
+#                 assert isinstance(version.accessibility, omterms.ProductAccessibility)
+#             if version.repository:
+#                 assert isinstance(version.repository, omcore.FileRepository)
+#         # check third level links have _not_ been resolved
+#         for version in as_list(model.versions):
+#             if version.repository:
+#                 assert isinstance(version.repository.type, KGProxy)
+#             if version.hosted_by:
+#                 assert isinstance(version.repository.hosted_by, KGProxy)
+
+
+@skip_if_no_connection
 def test_count_released_models(kg_client):
     models = omcore.Model.list(kg_client, scope="released", space="model", api="core", size=1000)
     n_models = omcore.Model.count(kg_client, scope="released", space="model", api="core")

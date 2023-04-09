@@ -33,6 +33,13 @@ from .base import (
     build_kg_object,
     IRI,
     as_list)
+from .utility import expand_uri
+from .queries import Filter, QueryProperty
+
+
+global_context = {
+    "vocab": "https://openminds.ebrains.eu/vocab/",
+}
 
 
 class Field(object):
@@ -103,6 +110,10 @@ class Field(object):
     def is_link(self):
         return issubclass(self.types[0], (KGObject, EmbeddedMetadata))
 
+    @property
+    def expanded_path(self):
+        return expand_uri(self.path, global_context)
+
     def serialize(self, value, follow_links=False):
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):
@@ -140,22 +151,22 @@ class Field(object):
         else:
             return serialize_single(value)
 
-    def deserialize(self, data, client, resolved=False):
+    def deserialize(self, data, client):
         assert self.intrinsic
         if data is None or data == []:
             return None
         try:
             if issubclass(self.types[0], KGObject):
-                return build_kg_object(self.types, data, resolved=resolved, client=client)
+                return build_kg_object(self.types, data, client=client)
             elif issubclass(self.types[0], EmbeddedMetadata):
                 deserialized = []
                 for item in as_list(data):
                     d_item = None
                     for cls in self.types:
                         if "@type" in item and item["@type"] == cls.type_:
-                            d_item = cls.from_jsonld(item, client, resolved=resolved)
+                            d_item = cls.from_jsonld(item, client)
                     if d_item is None:  # if @type is not available
-                        d_item = self.types[0].from_jsonld(item, client, resolved=resolved)
+                        d_item = self.types[0].from_jsonld(item, client)
                     deserialized.append(d_item)
                 if not self.multiple:
                     assert len(deserialized) == 1
@@ -187,3 +198,129 @@ class Field(object):
             else:
                 warnings.warn(str(err))
                 return None
+
+    def get_query_properties(self, use_filter=False, follow_links=0):
+
+        if use_filter:
+            if self.types[0] in (int, float, bool, datetime, date):
+                op = "EQUALS"
+            else:
+                op = "CONTAINS"
+            filter = Filter(op, parameter=self.name)
+        else:
+            filter = None
+
+        properties = []
+        if any(issubclass(_type, EmbeddedMetadata) for _type in self.types):
+            assert all(issubclass(_type, EmbeddedMetadata) for _type in self.types)
+            for cls in self.types:
+                if len(self.types) > 1:
+                    property_name = f"{self.path}__{cls.__name__}"
+                    type_filter = cls.type_[0]
+                else:
+                    property_name = self.path
+                    type_filter = None
+                properties.append(
+                    QueryProperty(
+                        self.expanded_path,
+                        name=property_name,
+                        filter=filter,
+                        required=bool(filter),
+                        type_filter=type_filter,
+                        ensure_order=self.multiple,
+                        properties=cls.generate_query_properties(filter_keys=None, follow_links=follow_links)
+                    )
+                )
+        elif any(issubclass(_type, KGObject) for _type in self.types):
+            assert all(issubclass(_type, KGObject) for _type in self.types)
+            if follow_links > 0:
+                for cls in self.types:
+                    property_name = self.path
+                    if len(self.types) > 1:
+                        property_name = f"{self.path}__{cls.__name__}"
+                        type_filter = cls.type_[0]
+                    else:
+                        type_filter = None
+
+                    have_Q = False
+                    if filter and self.multiple:
+                        property_name = f"Q{self.name}"
+                        if len(self.types) > 1:
+                            property_name = f"{property_name}__{cls.__name__}"
+                        # if filtering by a field that can have multiple values,
+                        # the first property will return only the elements in the array
+                        # that match, so we add a second property with the same path
+                        # to get the full array
+                        have_Q = True
+                        properties.append(
+                            QueryProperty(
+                                self.expanded_path,
+                                name=property_name,
+                                required=bool(filter),
+                                type_filter=None,
+                                ensure_order=self.multiple,
+                                properties=[
+                                    QueryProperty("@id", filter=filter),
+                                    QueryProperty("@type")
+                                ]
+                            )
+                        )
+                    properties.append(
+                        QueryProperty(
+                            self.expanded_path,
+                            name=property_name,
+                            required=filter and not have_Q,
+                            type_filter=type_filter,
+                            ensure_order=self.multiple,
+                            properties=[
+                                QueryProperty("@id", filter=None if have_Q else filter),
+                                *cls.generate_query_properties(filter_keys=None, follow_links=follow_links - 1)
+                            ]
+                        )
+                    )
+            else:
+                have_Q = False
+                if filter and self.multiple:
+                    # if filtering by a field that can have multiple values,
+                    # the first property will return only the elements in the array
+                    # that match, so we add a second property with the same path
+                    # to get the full array
+                    have_Q = True
+                    properties.append(
+                        QueryProperty(
+                            self.expanded_path,
+                            name=f"Q{self.name}",
+                            required=bool(filter),
+                            type_filter=None,
+                            ensure_order=self.multiple,
+                            properties=[
+                                QueryProperty("@id", filter=filter),
+                                QueryProperty("@type")
+                            ]
+                        )
+                    )
+                properties.append(
+                    QueryProperty(
+                        self.expanded_path,
+                        name=self.path,
+                        required=filter and not have_Q,
+                        type_filter=None,
+                        ensure_order=self.multiple,
+                        properties=[
+                            QueryProperty("@id", filter=None if have_Q else filter),
+                            QueryProperty("@type")
+                        ]
+                    )
+                )
+        else:
+            properties.append(
+                QueryProperty(
+                    self.expanded_path,
+                    name=self.path,
+                    filter=filter,
+                    required=bool(filter),
+                    sorted=bool(self.name == "name"),
+                    ensure_order=self.multiple
+                )
+            )
+        return properties

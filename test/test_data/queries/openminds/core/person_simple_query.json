@@ -42,10 +42,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/affiliation",
       "propertyName": "vocab:affiliation",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "affiliations"
-      },
       "ensureOrder": true,
       "structure": [
         {

@@ -418,7 +418,25 @@ def test_openminds_core_queries(mock_client):
         )
         with open(path_expected) as fp:
             generated = cls.generate_query(
-                "simple", "collab-foobar", mock_client, resolved=False
+                "simple", "collab-foobar", mock_client, follow_links=0,
+            )
+            expected = json.load(fp)
+            assert generated == expected
+
+
+def test_generate_query_with_follow_links(mock_client):
+    for cls in (omcore.Person,):
+        path_expected = os.path.join(
+            os.path.dirname(__file__),
+            "test_data",
+            "queries",
+            "openminds",
+            "core",
+            f"{cls.__name__.lower()}_resolved-1_query.json",
+        )
+        with open(path_expected) as fp:
+            generated = cls.generate_query(
+                "resolved-1", space=None, client=mock_client, filter_keys=None, follow_links=1
             )
             expected = json.load(fp)
             assert generated == expected

@@ -46,10 +46,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/filePathPattern",
       "propertyName": "vocab:filePathPattern",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "file_path_patterns"
-      },
       "ensureOrder": true,
       "structure": [
         {

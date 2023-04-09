@@ -50,15 +50,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/age",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValue"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
       },
       "propertyName": "vocab:age__QuantitativeValue",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "age"
-      },
       "structure": [
         {
           "path": "@type"
@@ -101,15 +95,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/age",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValueRange"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
       },
       "propertyName": "vocab:age__QuantitativeValueRange",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "age"
-      },
       "structure": [
         {
           "path": "@type"
@@ -194,15 +182,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/relativeTimeIndication",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValue"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
       },
       "propertyName": "vocab:relativeTimeIndication__QuantitativeValue",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "relative_time_indication"
-      },
       "structure": [
         {
           "path": "@type"
@@ -245,15 +227,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/relativeTimeIndication",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValueRange"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
       },
       "propertyName": "vocab:relativeTimeIndication__QuantitativeValueRange",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "relative_time_indication"
-      },
       "structure": [
         {
           "path": "@type"
@@ -295,15 +271,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/weight",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValue"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
       },
       "propertyName": "vocab:weight__QuantitativeValue",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "weight"
-      },
       "structure": [
         {
           "path": "@type"
@@ -346,15 +316,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/weight",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/QuantitativeValueRange"
-        ]
+        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
       },
       "propertyName": "vocab:weight__QuantitativeValueRange",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "weight"
-      },
       "structure": [
         {
           "path": "@type"
