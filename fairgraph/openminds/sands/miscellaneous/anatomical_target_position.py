@@ -26,7 +26,7 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
     fields = [
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
-        Field("anatomical_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalTarget", multiple=True, required=True,
+        Field("anatomical_targets", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalTarget", multiple=True, required=True,
               doc="no description available"),
         Field("spatial_locations", "openminds.sands.CoordinatePoint", "vocab:spatialLocation", multiple=True, required=False,
               doc="no description available"),

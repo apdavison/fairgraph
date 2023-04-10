@@ -27,7 +27,7 @@ class PipetteUsage(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", multiple=False, required=False,
               doc="no description available"),
-        Field("anatomical_location", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=False, required=False,
+        Field("anatomical_location", ["openminds.controlledterms.CellType", "openminds.controlledterms.Organ", "openminds.controlledterms.OrganismSubstance", "openminds.controlledterms.SubcellularEntity", "openminds.controlledterms.UBERONParcellation", "openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"], "vocab:anatomicalLocation", multiple=False, required=False,
               doc="no description available"),
         Field("chloride_reversal_potentials", "openminds.core.Measurement", "vocab:chlorideReversalPotential", multiple=True, required=False,
               doc="no description available"),

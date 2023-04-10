@@ -14,6 +14,7 @@ from .miscellaneous.qualitative_relation_assessment import QualitativeRelationAs
 from .miscellaneous.quantitative_relation_assessment import QuantitativeRelationAssessment
 from .miscellaneous.coordinate_point import CoordinatePoint
 from .miscellaneous.single_color import SingleColor
+from .atlas.parcellation_entity import ParcellationEntity
 from .atlas.common_coordinate_space import CommonCoordinateSpace
 from .atlas.parcellation_terminology import ParcellationTerminology
 from .atlas.common_coordinate_space_version import CommonCoordinateSpaceVersion

@@ -46,7 +46,7 @@ Structured information on the technique.
        * - ultra high-field functional magnetic resonance imaging
          - 'Ultra high-field functional magnetic resonance imaging' comprises all functional MRI techniques conducted with a MRI scanner with a magnetic field strength equal or above 7 Tesla.
 
-Here we show the first 20 values, an additional 275 values are not shown.
+Here we show the first 20 values, an additional 277 values are not shown.
 
 """
 
@@ -108,7 +108,7 @@ class Technique(KGObject):
        * - ultra high-field functional magnetic resonance imaging
          - 'Ultra high-field functional magnetic resonance imaging' comprises all functional MRI techniques conducted with a MRI scanner with a magnetic field strength equal or above 7 Tesla.
 
-Here we show the first 20 values, an additional 275 values are not shown.
+Here we show the first 20 values, an additional 277 values are not shown.
 
     """
     default_space = "controlled"

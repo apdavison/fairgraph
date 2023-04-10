@@ -26,7 +26,7 @@ class ViewerSpecification(EmbeddedMetadata):
     fields = [
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
-        Field("anchor_point", "openminds.sands.CoordinatePoint", "vocab:anchorPoint", multiple=False, required=True,
+        Field("anchor_points", "openminds.core.QuantitativeValue", "vocab:anchorPoint", multiple=True, required=True,
               doc="no description available"),
         Field("camera_position", "openminds.sands.CoordinatePoint", "vocab:cameraPosition", multiple=False, required=False,
               doc="no description available"),
@@ -35,5 +35,5 @@ class ViewerSpecification(EmbeddedMetadata):
 
     ]
 
-    def __init__(self, additional_remarks=None, anchor_point=None, camera_position=None, preferred_display_color=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, anchor_point=anchor_point, camera_position=camera_position, preferred_display_color=preferred_display_color)
+    def __init__(self, additional_remarks=None, anchor_points=None, camera_position=None, preferred_display_color=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, anchor_points=anchor_points, camera_position=camera_position, preferred_display_color=preferred_display_color)

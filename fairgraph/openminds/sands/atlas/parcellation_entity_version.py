@@ -33,7 +33,7 @@ class ParcellationEntityVersion(KGObject):
               doc="no description available"),
         Field("additional_remarks", str, "vocab:additionalRemarks", multiple=False, required=False,
               doc="Mention of what deserves additional attention or notice."),
-        Field("alternative_names", str, "vocab:alternativeName", multiple=True, required=False,
+        Field("alternate_names", str, "vocab:alternateName", multiple=True, required=False,
               doc="no description available"),
         Field("corrected_name", str, "vocab:correctedName", multiple=False, required=False,
               doc="no description available"),
@@ -53,5 +53,5 @@ class ParcellationEntityVersion(KGObject):
     ]
     existence_query_fields = ('name', 'version_identifier')
 
-    def __init__(self, name=None, lookup_label=None, abbreviation=None, additional_remarks=None, alternative_names=None, corrected_name=None, has_annotations=None, has_parents=None, ontology_identifiers=None, relation_assessments=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, abbreviation=abbreviation, additional_remarks=additional_remarks, alternative_names=alternative_names, corrected_name=corrected_name, has_annotations=has_annotations, has_parents=has_parents, ontology_identifiers=ontology_identifiers, relation_assessments=relation_assessments, version_identifier=version_identifier, version_innovation=version_innovation)
+    def __init__(self, name=None, lookup_label=None, abbreviation=None, additional_remarks=None, alternate_names=None, corrected_name=None, has_annotations=None, has_parents=None, ontology_identifiers=None, relation_assessments=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, abbreviation=abbreviation, additional_remarks=additional_remarks, alternate_names=alternate_names, corrected_name=corrected_name, has_annotations=has_annotations, has_parents=has_parents, ontology_identifiers=ontology_identifiers, relation_assessments=relation_assessments, version_identifier=version_identifier, version_innovation=version_innovation)

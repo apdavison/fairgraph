@@ -5,12 +5,22 @@
        :widths: 20 80
        :header-rows: 0
 
+       * - `glutamatergic system <http://purl.obolibrary.org/obo/UBERON_0025592>`_
+         - The glutamatergic system is composed of any molecule, protein, cell, tissue or organ that is related to glutamate (when in the role of a neurotransmitter).
        * - `cardiovascular system <http://purl.obolibrary.org/obo/UBERON_0004535>`_
          - 'The 'cardiovascular system' is an anatomical organ system where the heart pumps blood through blood vessels to and from all parts of the body.
+       * - `gabaergic system <http://purl.obolibrary.org/obo/UBERON_0025591>`_
+         - The gabaergic system is composed of any molecule, protein, cell, tissue or organ that is related to GABA.
+       * - `noradrenergic system <http://purl.obolibrary.org/obo/UBERON_0027225>`_
+         - The noradrenergic system is composed of any molecule, protein, cell, tissue or organ that is related to norepinephrine (also known as noradrenaline).
        * - `central nervous system <http://purl.obolibrary.org/obo/UBERON_0001017>`_
          - The 'central nervous system' is the main processing center in most organisms. Its function is to take in sensory information, process information, and send out motor signals.
+       * - `cholinergic system <http://purl.obolibrary.org/obo/UBERON_0002204http://purl.obolibrary.org/obo/UBERON_0025595>`_
+         - The cholinergic system is composed of any molecule, protein, cell, tissue or organ that is related to acetylcholine.
        * - `musculoskeletal system <http://purl.obolibrary.org/obo/UBERON_0002204>`_
          - The 'musculoskeletal system' is an anatomical organ system composed of organs providing the body with movement, stability, shape and support.
+       * - `serotonergic system <http://purl.obolibrary.org/obo/UBERON_0025593>`_
+         - The serotonergic system is composed of any molecule, protein, cell, tissue or organ that is related to serotonin.
        * - `digestive system <http://purl.obolibrary.org/obo/UBERON_0001007>`_
          - The 'digestive system' is an anatomical organ system composed of organs devoted to the ingestion, digestion, the assimilation of food and the discharge of residual wastes.
        * - `vascular system <http://purl.obolibrary.org/obo/UBERON_0007798>`_
@@ -35,12 +45,22 @@ class OrganismSystem(KGObject):
        :widths: 20 80
        :header-rows: 0
 
+       * - `glutamatergic system <http://purl.obolibrary.org/obo/UBERON_0025592>`_
+         - The glutamatergic system is composed of any molecule, protein, cell, tissue or organ that is related to glutamate (when in the role of a neurotransmitter).
        * - `cardiovascular system <http://purl.obolibrary.org/obo/UBERON_0004535>`_
          - 'The 'cardiovascular system' is an anatomical organ system where the heart pumps blood through blood vessels to and from all parts of the body.
+       * - `gabaergic system <http://purl.obolibrary.org/obo/UBERON_0025591>`_
+         - The gabaergic system is composed of any molecule, protein, cell, tissue or organ that is related to GABA.
+       * - `noradrenergic system <http://purl.obolibrary.org/obo/UBERON_0027225>`_
+         - The noradrenergic system is composed of any molecule, protein, cell, tissue or organ that is related to norepinephrine (also known as noradrenaline).
        * - `central nervous system <http://purl.obolibrary.org/obo/UBERON_0001017>`_
          - The 'central nervous system' is the main processing center in most organisms. Its function is to take in sensory information, process information, and send out motor signals.
+       * - `cholinergic system <http://purl.obolibrary.org/obo/UBERON_0002204http://purl.obolibrary.org/obo/UBERON_0025595>`_
+         - The cholinergic system is composed of any molecule, protein, cell, tissue or organ that is related to acetylcholine.
        * - `musculoskeletal system <http://purl.obolibrary.org/obo/UBERON_0002204>`_
          - The 'musculoskeletal system' is an anatomical organ system composed of organs providing the body with movement, stability, shape and support.
+       * - `serotonergic system <http://purl.obolibrary.org/obo/UBERON_0025593>`_
+         - The serotonergic system is composed of any molecule, protein, cell, tissue or organ that is related to serotonin.
        * - `digestive system <http://purl.obolibrary.org/obo/UBERON_0001007>`_
          - The 'digestive system' is an anatomical organ system composed of organs devoted to the ingestion, digestion, the assimilation of food and the discharge of residual wastes.
        * - `vascular system <http://purl.obolibrary.org/obo/UBERON_0007798>`_
