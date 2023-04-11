@@ -50,7 +50,9 @@
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/memberOf",
-            "typeFilter": "https://openminds.ebrains.eu/core/Consortium"
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/Consortium"
+            }
           },
           "propertyName": "vocab:memberOf__Consortium",
           "structure": [
@@ -94,7 +96,9 @@
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/memberOf",
-            "typeFilter": "https://openminds.ebrains.eu/core/Organization"
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/Organization"
+            }
           },
           "propertyName": "vocab:memberOf__Organization",
           "structure": [
@@ -128,7 +132,9 @@
                 {
                   "path": {
                     "@id": "https://openminds.ebrains.eu/vocab/memberOf",
-                    "typeFilter": "https://openminds.ebrains.eu/core/Consortium"
+                    "typeFilter": {
+                      "@id": "https://openminds.ebrains.eu/core/Consortium"
+                    }
                   },
                   "propertyName": "vocab:memberOf__Consortium",
                   "structure": [
@@ -168,7 +174,9 @@
                 {
                   "path": {
                     "@id": "https://openminds.ebrains.eu/vocab/memberOf",
-                    "typeFilter": "https://openminds.ebrains.eu/core/Organization"
+                    "typeFilter": {
+                      "@id": "https://openminds.ebrains.eu/core/Organization"
+                    }
                   },
                   "propertyName": "vocab:memberOf__Organization",
                   "structure": [
@@ -258,7 +266,9 @@
             {
               "path": {
                 "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-                "typeFilter": "https://openminds.ebrains.eu/core/GRIDID"
+                "typeFilter": {
+                  "@id": "https://openminds.ebrains.eu/core/GRIDID"
+                }
               },
               "propertyName": "vocab:digitalIdentifier__GRIDID",
               "ensureOrder": true,
@@ -278,7 +288,9 @@
             {
               "path": {
                 "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-                "typeFilter": "https://openminds.ebrains.eu/core/RORID"
+                "typeFilter": {
+                  "@id": "https://openminds.ebrains.eu/core/RORID"
+                }
               },
               "propertyName": "vocab:digitalIdentifier__RORID",
               "ensureOrder": true,
@@ -298,7 +310,9 @@
             {
               "path": {
                 "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-                "typeFilter": "https://openminds.ebrains.eu/core/RRID"
+                "typeFilter": {
+                  "@id": "https://openminds.ebrains.eu/core/RRID"
+                }
               },
               "propertyName": "vocab:digitalIdentifier__RRID",
               "ensureOrder": true,

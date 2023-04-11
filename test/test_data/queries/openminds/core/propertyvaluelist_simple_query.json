@@ -46,7 +46,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/propertyValuePair",
-        "typeFilter": "https://openminds.ebrains.eu/core/NumericalProperty"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/NumericalProperty"
+        }
       },
       "propertyName": "vocab:propertyValuePair__NumericalProperty",
       "ensureOrder": true,
@@ -62,7 +64,9 @@
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/value",
-            "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
+            }
           },
           "propertyName": "vocab:value__QuantitativeValue",
           "ensureOrder": true,
@@ -108,7 +112,9 @@
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/value",
-            "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+            }
           },
           "propertyName": "vocab:value__QuantitativeValueRange",
           "ensureOrder": true,
@@ -155,7 +161,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/propertyValuePair",
-        "typeFilter": "https://openminds.ebrains.eu/core/StringProperty"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/StringProperty"
+        }
       },
       "propertyName": "vocab:propertyValuePair__StringProperty",
       "ensureOrder": true,

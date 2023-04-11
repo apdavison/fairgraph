@@ -50,7 +50,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/age",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        }
       },
       "propertyName": "vocab:age__QuantitativeValue",
       "structure": [
@@ -95,7 +97,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/age",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        }
       },
       "propertyName": "vocab:age__QuantitativeValueRange",
       "structure": [
@@ -207,7 +211,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/relativeTimeIndication",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        }
       },
       "propertyName": "vocab:relativeTimeIndication__QuantitativeValue",
       "structure": [
@@ -252,7 +258,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/relativeTimeIndication",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        }
       },
       "propertyName": "vocab:relativeTimeIndication__QuantitativeValueRange",
       "structure": [
@@ -296,7 +304,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/weight",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
+        }
       },
       "propertyName": "vocab:weight__QuantitativeValue",
       "structure": [
@@ -341,7 +351,9 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/weight",
-        "typeFilter": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+        }
       },
       "propertyName": "vocab:weight__QuantitativeValueRange",
       "structure": [

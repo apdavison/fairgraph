@@ -223,7 +223,9 @@ def test_query_builder(example_query_model_version):
                 "ensureOrder": True,
                 "path": {
                     "@id": "https://openminds.ebrains.eu/vocab/custodian",
-                    "typeFilter": "https://openminds.ebrains.eu/core/Person",
+                    "typeFilter": {
+                        "@id": "https://openminds.ebrains.eu/core/Person"
+                    }
                 },
                 "propertyName": "vocab:custodian",
                 "structure": [
