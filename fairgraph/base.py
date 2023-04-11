@@ -230,62 +230,6 @@ class EmbeddedMetadata(object, metaclass=Registry):
             for field in cls.fields:
                 field.strict_mode = value
 
-    # @classmethod
-    # def generate_query_property(cls, field, filter_parameter=None, use_type_filter=True, follow_links=0):
-
-    #     expanded_path = expand_uri(field.path, cls.context)
-
-    #     if filter_parameter:
-    #         property = QueryProperty(
-    #             expanded_path,
-    #             name=field.path,
-    #             filter=Filter("CONTAINS", parameter=filter_parameter),
-    #             ensure_order=field.multiple,
-    #             properties=[
-    #                 QueryProperty("@type")
-    #             ])
-    #     else:
-    #         property = QueryProperty(
-    #             expanded_path,
-    #             name=field.path,
-    #             properties=[
-    #                 QueryProperty("@type")
-    #             ])
-
-    #     if use_type_filter and len(field._types) > 1:
-    #         property.type_filter = cls.type_
-    #         property.name = f"{property.name}__{cls.__name__}"
-
-    #     properties = []
-    #     for subfield in cls.fields:
-    #         if subfield.intrinsic:
-    #             if any(issubclass(_type, EmbeddedMetadata) for _type in subfield.types):
-    #                 for child_cls in subfield.types:
-    #                     properties.append(
-    #                         child_cls.generate_query_property(
-    #                             subfield,
-    #                             follow_links=follow_links
-    #                         )
-    #                     )
-    #             elif any(issubclass(_type, KGObject) for _type in subfield.types):
-    #                 for child_cls in subfield.types:
-    #                     properties.append(
-    #                         child_cls.generate_query_property(
-    #                             subfield,
-    #                             follow_links=follow_links
-    #                         )
-    #                     )
-    #             else:
-    #                 expanded_subpath = expand_uri(subfield.path, cls.context)
-    #                 properties.append(
-    #                     QueryProperty(expanded_subpath,
-    #                                   name=subfield.path,
-    #                                   ensure_order=subfield.multiple))
-
-    #     property.properties.extend(properties)
-    #     #breakpoint()
-    #     return property
-
     @classmethod
     def generate_query_properties(cls, filter_keys=None, follow_links=0):
         if filter_keys is None:
@@ -958,65 +902,6 @@ class KGObject(object, metaclass=Registry):
         print(tabulate(data, tablefmt="plain"))
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
-    # @classmethod
-    # def generate_query_property(cls, field, filter_parameter=None, name=None,
-    #                             use_type_filter=True, follow_links=0):
-
-    #     expanded_path = expand_uri(field.path, cls.context)
-
-    #     if filter_parameter:
-    #         filter = Filter("CONTAINS", parameter=filter_parameter)  # should be "EQUALS" for consistency, here we use "CONTAINS" for backwards compatibility
-    #     else:
-    #         filter = None
-
-    #     children = []
-    #     if follow_links > 0:
-    #         for child_field in cls.fields:
-    #             if child_field.intrinsic:
-    #                 expanded_child_path = expand_uri(child_field.path, cls.context)
-    #                 if any(issubclass(_type, EmbeddedMetadata) for _type in child_field.types):
-    #                     for child_cls in child_field.types:
-    #                         child_property = child_cls.generate_query_property(
-    #                             child_field,
-    #                             follow_links=follow_links - 1
-    #                         )
-    #                         children.append(child_property)
-    #                 elif any(issubclass(_type, KGObject) for _type in child_field.types):
-    #                     if follow_links > 1:
-    #                         include_types = child_field.types
-    #                         use_type_filter = True
-    #                     else:
-    #                         include_types = child_field.types[0:1]
-    #                         use_type_filter = False
-    #                     for child_cls in include_types:
-    #                         child_property = child_cls.generate_query_property(
-    #                             child_field,
-    #                             use_type_filter=use_type_filter,
-    #                             follow_links=follow_links - 1)
-    #                         children.append(child_property)
-    #                 else:
-    #                     child_property = QueryProperty(expanded_child_path,
-    #                                                    name=child_field.path,
-    #                                                    ensure_order=child_field.multiple)
-    #                     if child_field.name == "name":
-    #                         child_property.sorted = True
-    #                     children.append(child_property)
-
-    #     property = QueryProperty(
-    #         expanded_path,
-    #         name=name or field.path,
-    #         ensure_order=field.multiple,
-    #         properties=[
-    #             QueryProperty("@id", filter=filter),
-    #             QueryProperty("@type")
-    #         ] + children)
-
-    #     if use_type_filter and len(field.types) > 1:
-    #         property.type_filter = cls.type_[0]
-    #         property.name = f"{property.name}__{cls.__name__}"
-
-    #     return property
-
     @classmethod
     def generate_query_properties(cls, filter_keys=None, follow_links=0):
         if filter_keys is None:
@@ -1052,70 +937,6 @@ class KGObject(object, metaclass=Registry):
             space=real_space,
             properties=cls.generate_query_properties(filter_keys, follow_links=follow_links)
         )
-        # for field in cls.fields:
-        #     if field.intrinsic:
-        #         if field.types[0] in (int, float, bool, datetime, date):
-        #             op = "EQUALS"
-        #         else:
-        #             op = "CONTAINS"
-        #         if field.name in filter_keys:
-        #             filter_parameter = field.name
-        #         else:
-        #             filter_parameter = None
-        #         expanded_path = expand_uri(field.path, cls.context)
-        #         if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
-        #             for child_cls in field.types:
-        #                 property = child_cls.generate_query_property(
-        #                     field,
-        #                     filter_parameter=filter_parameter,
-        #                     follow_links=follow_links
-        #                 )
-        #                 query.properties.append(property)
-        #         elif any(issubclass(_type, KGObject) for _type in field.types):
-        #             if query_type == "simple":  # equivalent: if follow_links == 0
-        #                 types_slice = slice(None, 1, None)
-        #                 # take only the first entry, since we don't use type filters
-        #                 # for KGObject where we're not following links
-        #                 use_type_filter = False
-        #             else:
-        #                 types_slice = slice(None)
-        #                 use_type_filter = True
-        #             for child_cls in field.types[types_slice]:
-        #                 if field.name in filter_keys:
-        #                     property = child_cls.generate_query_property(
-        #                         field,
-        #                         filter_parameter=filter_parameter,
-        #                         use_type_filter=use_type_filter,
-        #                         name=field.multiple and f"Q{field.name}" or None
-        #                     )
-        #                     property.required = True
-        #                     query.properties.append(property)
-        #                     if field.multiple:
-        #                         # if filtering by a field that can have multiple values,
-        #                         # the first property will return only the elements in the array
-        #                         # that match, so we add a second property with the same path
-        #                         # to get the full array
-        #                         property = child_cls.generate_query_property(
-        #                             field,
-        #                             use_type_filter=use_type_filter,
-        #                             follow_links=follow_links)
-        #                         query.properties.append(property)
-        #                 else:
-        #                     property = child_cls.generate_query_property(
-        #                         field,
-        #                         follow_links=follow_links,
-        #                         use_type_filter=use_type_filter)
-        #                     query.properties.append(property)
-        #         else:
-        #             property = QueryProperty(expanded_path,
-        #                                      name=field.path,
-        #                                      ensure_order=field.multiple)
-        #             if field.name == "name":
-        #                 property.sorted = True
-        #             if field.name in filter_keys:
-        #                 property.required = True
-        #                 property.filter=Filter(op, parameter=field.name)
-        #             query.properties.append(property)
         return query.serialize()
 
     @classmethod
