@@ -156,22 +156,8 @@ class Field(object):
         if data is None or data == []:
             return None
         try:
-            if issubclass(self.types[0], KGObject):
+            if issubclass(self.types[0], (KGObject, EmbeddedMetadata)):
                 return build_kg_object(self.types, data, client=client)
-            elif issubclass(self.types[0], EmbeddedMetadata):
-                deserialized = []
-                for item in as_list(data):
-                    d_item = None
-                    for cls in self.types:
-                        if "@type" in item and item["@type"] == cls.type_:
-                            d_item = cls.from_jsonld(item, client)
-                    if d_item is None:  # if @type is not available
-                        d_item = self.types[0].from_jsonld(item, client)
-                    deserialized.append(d_item)
-                if not self.multiple:
-                    assert len(deserialized) == 1
-                    deserialized = deserialized[0]
-                return deserialized
             elif self.types[0] in (datetime, date):
                 if isinstance(data, str):
                     if data == "":  # seems like the KG Editor puts empty strings here rather than None?

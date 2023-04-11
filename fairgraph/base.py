@@ -178,17 +178,50 @@ class EmbeddedMetadata(object, metaclass=Registry):
 
     @classmethod
     def from_jsonld(cls, data, client):
+        return cls.from_kg_instance(data, client)
+
+    @classmethod
+    def from_kg_instance(cls, data, client):
         if "@id" in data:
-            #raise Exception("Expected embedded metadata, but received @id: " + str(data))
             warn("Expected embedded metadata, but received @id")
             return None
+        deserialized_data = cls._deserialize_data(data, client)
+        return cls(data=data, **deserialized_data)
 
-        args = {}
+
+    @classmethod
+    def _deserialize_data(cls, data, client):
+        D = {
+            "@type": data["@type"]
+        }
+        for key, value in data.items():
+            if "__" in key:
+                key, type_filter = key.split("__")
+                normalised_key = expand_uri(key, cls.context)
+                value = [item for item in as_list(value)
+                         if item["@type"][0].endswith(type_filter)]
+                if normalised_key in D:
+                    D[normalised_key].extend(value)
+                else:
+                    D[normalised_key] = value
+            elif key[0] != "@":
+                normalised_key = expand_uri(key, cls.context)
+                D[normalised_key] = value
+        for otype in expand_uri(as_list(cls.type_), cls.context):
+            if otype not in D["@type"]:
+                raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
+        deserialized_data = {}
         for field in cls.fields:
             expanded_path = expand_uri(field.path, cls.context)
-            data_item = data.get(field.path, data.get(expanded_path))
-            args[field.name] = field.deserialize(data_item, client)
-        return cls(data=data, **args)
+            if field.intrinsic:
+                data_item = D.get(expanded_path)
+            else:
+                data_item = D["@id"]
+            # sometimes queries put single items in a list, this removes the enclosing list
+            if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
+                data_item = data_item[0]
+            deserialized_data[field.name] = field.deserialize(data_item, client)
+        return deserialized_data
 
     def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
         for field in self.fields:
@@ -1185,7 +1218,7 @@ def is_resolved(item):
 
 def build_kg_object(possible_classes, data, client=None):
     """
-    Build a KGObject, a KGProxy, or a list of such, based on the data provided.
+    Build a KGObject, an EmbeddedMetadata, a KGProxy, or a list of such, based on the data provided.
 
     This takes care of the JSON-LD quirk that you get a list if there are multiple
     objects, but you get the object directly if there is only one.
@@ -1214,7 +1247,11 @@ def build_kg_object(possible_classes, data, client=None):
             raise NotImplementedError
 
         assert isinstance(possible_classes, (list, tuple))
-        assert all(issubclass(item, KGObject) for item in possible_classes)
+        assert (
+            all(issubclass(item, KGObject) for item in possible_classes)
+            or
+            all(issubclass(item, EmbeddedMetadata) for item in possible_classes)
+        )
         if len(possible_classes) > 1:
             if "@type" in item:
                 for cls in possible_classes:
@@ -1247,6 +1284,8 @@ def build_kg_object(possible_classes, data, client=None):
                     obj = None
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
+        elif "@type" in item:  # Embedded metadata
+            obj = kg_cls.from_kg_instance(item, client)
         else:
             # todo: add a logger.warning that we have dud data
             obj = None
