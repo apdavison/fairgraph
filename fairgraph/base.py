@@ -440,15 +440,24 @@ class KGObject(object, metaclass=Registry):
     #     return data
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, scope="released"):
-        data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
+    def from_uri(cls, uri, client, use_cache=True, scope="released", follow_links=0):
+        if follow_links:
+            query = cls._get_query_definition(client, normalized_filters={}, space=None, follow_links=follow_links)
+            results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
+            if results:
+                data = results[0]
+                data["@context"] = cls.context
+            else:
+                data = None
+        else:
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
         if data is None:
             return None
         else:
             return cls.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_uuid(cls, uuid, client, use_cache=True, scope="released"):
+    def from_uuid(cls, uuid, client, use_cache=True, scope="released", follow_links=0):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -457,31 +466,33 @@ class KGObject(object, metaclass=Registry):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope)
+        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
 
     @classmethod
-    def from_id(cls, id, client, use_cache=True, scope="released"):
+    def from_id(cls, id, client, use_cache=True, scope="released", follow_links=0):
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
-                return cls.from_uri(id, client, use_cache=use_cache, scope=scope)
+                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
             else:
-                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope)
+                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
         else:
             if id.startswith("http"):
                 uri = id
             else:
                 uri = client.uri_from_uuid(id)
+            if follow_links > 0:
+                raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
             cls_from_data = lookup_type(data["@type"])
             return cls_from_data.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_alias(cls, alias, client, space=None, scope="released"):
+    def from_alias(cls, alias, client, space=None, scope="released", follow_links=0):
         if "alias" not in cls.field_names:
             raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
         candidates = as_list(
             cls.list(client, size=20, from_index=0, api="query",
-                     scope=scope, space=space, alias=alias))
+                     scope=scope, space=space, alias=alias, follow_links=follow_links))
         if len(candidates) == 0:
             return None
         elif len(candidates) == 1:
@@ -688,14 +699,8 @@ class KGObject(object, metaclass=Registry):
                     return True
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
-<<<<<<< HEAD
-                query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
-                instances = client.query(normalized_filters, query, size=1, scope="any").data
-=======
                 query = self.__class__._get_query_definition(client, normalized_filters)
-                instances = client.query(normalized_filters, query, size=1,
-                                         scope="any").data
->>>>>>> abc63c9 (Remove "resolved" keyword argument and replace (partially) with "follow_links".)
+                instances = client.query(normalized_filters, query, size=1, scope="any").data
 
                 if instances:
                     self.id = instances[0]["@id"]
@@ -857,8 +862,9 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def by_name(cls, name, client, match="equals", all=False,
-                space=None, scope="released"):
-        objects = cls.list(client, space=space, scope=scope, api="query", name=name)
+                space=None, scope="released", follow_links=0):
+        objects = cls.list(client, space=space, scope=scope, api="query", name=name,
+                           follow_links=follow_links)
         if match == "equals":
             objects = [obj for obj in objects if obj.name == name]
         if len(objects) == 0:

@@ -312,7 +312,7 @@ class TestKGObject(object):
         orig_object = self._construct_object_required_fields()
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
-                data = orig_object._build_data(include_empty_fields=True)
+                data = orig_object.to_jsonld(include_empty_fields=True)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
