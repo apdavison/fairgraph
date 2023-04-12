@@ -391,9 +391,9 @@ class KGClient(object):
             space_name (str, required (optional only if you run inside a collab)): The name of the KG space to create and configure.
                 If not provided, the method will try to obtain the collab ID from the environment
                 variables and use it to generate a default space name in the format "collab-collab_id".
-                If you are not launching this from inside an Ebrain's collab, you should provide a space name.
+                If you are not launching this from inside an EBRAINS collab, you should provide a space name.
             types (list of Type, required): An array containing the Type classes that should be included
-                in this space. 
+                in this space.
 
         Returns:
             str: The name of the configured KG space.
@@ -407,7 +407,7 @@ class KGClient(object):
         if space_name is None:
             collab_id = os.environ.get("LAB_COLLAB_ID")
             if collab_id is None:
-                raise ValueError("If you are not launching this from inside an Ebrain's collab, you should provide a space name with the following format: collab-collab_id.")
+                raise ValueError("If you are not launching this from inside an EBRAINS collab, you should provide a space name with the following format: collab-collab_id.")
             else:
                 space_name=f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
