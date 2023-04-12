@@ -46,15 +46,11 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/propertyValuePair",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/NumericalProperty"
-        ]
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/NumericalProperty"
+        }
       },
       "propertyName": "vocab:propertyValuePair__NumericalProperty",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "property_value_pairs"
-      },
       "ensureOrder": true,
       "structure": [
         {
@@ -62,16 +58,18 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/name",
-          "propertyName": "vocab:name"
+          "propertyName": "vocab:name",
+          "sort": true
         },
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/value",
-            "typeFilter": [
-              "https://openminds.ebrains.eu/core/QuantitativeValue"
-            ]
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
+            }
           },
           "propertyName": "vocab:value__QuantitativeValue",
+          "ensureOrder": true,
           "structure": [
             {
               "path": "@type"
@@ -114,11 +112,12 @@
         {
           "path": {
             "@id": "https://openminds.ebrains.eu/vocab/value",
-            "typeFilter": [
-              "https://openminds.ebrains.eu/core/QuantitativeValueRange"
-            ]
+            "typeFilter": {
+              "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
+            }
           },
           "propertyName": "vocab:value__QuantitativeValueRange",
+          "ensureOrder": true,
           "structure": [
             {
               "path": "@type"
@@ -162,15 +161,11 @@
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/propertyValuePair",
-        "typeFilter": [
-          "https://openminds.ebrains.eu/core/StringProperty"
-        ]
+        "typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/StringProperty"
+        }
       },
       "propertyName": "vocab:propertyValuePair__StringProperty",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "property_value_pairs"
-      },
       "ensureOrder": true,
       "structure": [
         {
@@ -178,7 +173,8 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/name",
-          "propertyName": "vocab:name"
+          "propertyName": "vocab:name",
+          "sort": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",

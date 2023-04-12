@@ -105,7 +105,7 @@ class QueryProperty:
                 "@id": data["path"]
             }
             if self.type_filter:
-                data["path"]["typeFilter"] = self.type_filter
+                data["path"]["typeFilter"] = {"@id": self.type_filter}
             if self.reverse:
                 data["path"]["reverse"] = True
         if self.expect_single:

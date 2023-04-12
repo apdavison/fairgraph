@@ -59,10 +59,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/customPropertySet",
       "propertyName": "vocab:customPropertySet",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "custom_property_sets"
-      },
       "ensureOrder": true,
       "structure": [
         {

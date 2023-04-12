@@ -177,18 +177,51 @@ class EmbeddedMetadata(object, metaclass=Registry):
             return data
 
     @classmethod
-    def from_jsonld(cls, data, client, resolved=False):
+    def from_jsonld(cls, data, client):
+        return cls.from_kg_instance(data, client)
+
+    @classmethod
+    def from_kg_instance(cls, data, client):
         if "@id" in data:
-            #raise Exception("Expected embedded metadata, but received @id: " + str(data))
             warn("Expected embedded metadata, but received @id")
             return None
+        deserialized_data = cls._deserialize_data(data, client)
+        return cls(data=data, **deserialized_data)
 
-        args = {}
+
+    @classmethod
+    def _deserialize_data(cls, data, client):
+        D = {
+            "@type": data["@type"]
+        }
+        for key, value in data.items():
+            if "__" in key:
+                key, type_filter = key.split("__")
+                normalised_key = expand_uri(key, cls.context)
+                value = [item for item in as_list(value)
+                         if item["@type"][0].endswith(type_filter)]
+                if normalised_key in D:
+                    D[normalised_key].extend(value)
+                else:
+                    D[normalised_key] = value
+            elif key[0] != "@":
+                normalised_key = expand_uri(key, cls.context)
+                D[normalised_key] = value
+        for otype in expand_uri(as_list(cls.type_), cls.context):
+            if otype not in D["@type"]:
+                raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
+        deserialized_data = {}
         for field in cls.fields:
             expanded_path = expand_uri(field.path, cls.context)
-            data_item = data.get(field.path, data.get(expanded_path))
-            args[field.name] = field.deserialize(data_item, client, resolved=resolved)
-        return cls(data=data, **args)
+            if field.intrinsic:
+                data_item = D.get(expanded_path)
+            else:
+                data_item = D["@id"]
+            # sometimes queries put single items in a list, this removes the enclosing list
+            if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
+                data_item = data_item[0]
+            deserialized_data[field.name] = field.deserialize(data_item, client)
+        return deserialized_data
 
     def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
         for field in self.fields:
@@ -231,58 +264,21 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_property(cls, field, filter_parameter=None, use_type_filter=False):
-
-        expanded_path = expand_uri(field.path, cls.context)
-
-        if filter_parameter:
-            property = QueryProperty(
-                expanded_path,
-                name=field.path,
-                filter=Filter("CONTAINS", parameter=filter_parameter),
-                ensure_order=field.multiple,
-                properties=[
-                    QueryProperty("@type")
-                ])
-        else:
-            property = QueryProperty(
-                expanded_path,
-                name=field.path,
-                properties=[
-                    QueryProperty("@type")
-                ])
-
-        if use_type_filter:
-            property.type_filter = cls.type_
-            property.name = f"{property.name}__{cls.__name__}"
-
-        properties = []
-        for subfield in cls.fields:
-            if subfield.intrinsic:
-                if any(issubclass(_type, EmbeddedMetadata) for _type in subfield.types):
-                    for child_cls in subfield.types:
-                        properties.append(
-                            child_cls.generate_query_property(
-                                subfield,
-                                use_type_filter=bool(len(subfield.types) > 1)
-                            )
-                        )
-                elif any(issubclass(_type, KGObject) for _type in subfield.types):
-                    for child_cls in subfield.types[:1]:
-                        properties.append(
-                            child_cls.generate_query_property(
-                                subfield
-                            )
-                        )
-                else:
-                    expanded_subpath = expand_uri(subfield.path, cls.context)
-                    properties.append(
-                        QueryProperty(expanded_subpath,
-                                      name=subfield.path,
-                                      ensure_order=subfield.multiple))
-
-        property.properties.extend(properties)
-        return property
+    def generate_query_properties(cls, filter_keys=None, follow_links=0):
+        if filter_keys is None:
+            filter_keys = []
+        properties=[
+            QueryProperty("@type")
+        ]
+        for field in cls.fields:
+            if field.intrinsic:
+                properties.extend(
+                    field.get_query_properties(
+                        use_filter=field.name in filter_keys,
+                        follow_links=follow_links
+                    )
+                )
+        return properties
 
     def resolve(self, client, scope="released", use_cache=True, follow_links=0):
         if follow_links > 0:
@@ -381,7 +377,7 @@ class KGObject(object, metaclass=Registry):
         return self._space
 
     @classmethod
-    def _deserialize_data(cls, data, client, resolved=False):
+    def _deserialize_data(cls, data, client):
         # normalize data by expanding keys
         D = {
             "@id": data["@id"],
@@ -416,12 +412,12 @@ class KGObject(object, metaclass=Registry):
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
-            deserialized_data[field.name] = field.deserialize(data_item, client, resolved=resolved)
+            deserialized_data[field.name] = field.deserialize(data_item, client)
         return deserialized_data
 
     @classmethod
-    def from_kg_instance(cls, data, client, scope=None, resolved=False):
-        deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
+    def from_kg_instance(cls, data, client, scope=None):
+        deserialized_data = cls._deserialize_data(data, client)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
     # @classmethod
@@ -444,16 +440,24 @@ class KGObject(object, metaclass=Registry):
     #     return data
 
     @classmethod
-    def from_uri(cls, uri, client, use_cache=True, scope="released", resolved=False):
-        data = client.instance_from_full_uri(uri, use_cache=use_cache,
-                                             scope=scope, resolved=resolved)
+    def from_uri(cls, uri, client, use_cache=True, scope="released", follow_links=0):
+        if follow_links:
+            query = cls._get_query_definition(client, normalized_filters={}, space=None, follow_links=follow_links)
+            results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
+            if results:
+                data = results[0]
+                data["@context"] = cls.context
+            else:
+                data = None
+        else:
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
         if data is None:
             return None
         else:
-            return cls.from_kg_instance(data, client, scope=scope, resolved=resolved)
+            return cls.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_uuid(cls, uuid, client, use_cache=True, scope="released", resolved=False):
+    def from_uuid(cls, uuid, client, use_cache=True, scope="released", follow_links=0):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -462,31 +466,33 @@ class KGObject(object, metaclass=Registry):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, resolved=resolved)
+        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
 
     @classmethod
-    def from_id(cls, id, client, use_cache=True, scope="released", resolved=False):
+    def from_id(cls, id, client, use_cache=True, scope="released", follow_links=0):
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
-                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
+                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
             else:
-                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, resolved=resolved)
+                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
         else:
             if id.startswith("http"):
                 uri = id
             else:
                 uri = client.uri_from_uuid(id)
-            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope, resolved=resolved)
+            if follow_links > 0:
+                raise NotImplementedError
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
             cls_from_data = lookup_type(data["@type"])
-            return cls_from_data.from_kg_instance(data, client, scope=scope, resolved=resolved)
+            return cls_from_data.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_alias(cls, alias, client, space=None, scope="released", resolved=False):
+    def from_alias(cls, alias, client, space=None, scope="released", follow_links=0):
         if "alias" not in cls.field_names:
             raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
         candidates = as_list(
             cls.list(client, size=20, from_index=0, api="query",
-                     scope=scope, resolved=resolved, space=space, alias=alias))
+                     scope=scope, space=space, alias=alias, follow_links=follow_links))
         if len(candidates) == 0:
             return None
         elif len(candidates) == 1:
@@ -512,9 +518,9 @@ class KGObject(object, metaclass=Registry):
         return client.uri_from_uuid(uuid)
 
     @classmethod
-    def _get_query_definition(cls, client, normalized_filters, space=None, resolved=False, use_stored_query=False):
-        if resolved:
-            query_type = "resolved"
+    def _get_query_definition(cls, client, normalized_filters, space=None, follow_links=0, use_stored_query=False):
+        if follow_links:
+            query_type = f"resolved-{follow_links}"
         else:
             query_type = "simple"
         if normalized_filters is None:
@@ -526,14 +532,17 @@ class KGObject(object, metaclass=Registry):
             query_label = cls.get_query_label(query_type, space, filter_keys)
             query = client.retrieve_query(query_label)
         if query is None:
-            query = cls.generate_query(query_type, space, client=client, filter_keys=filter_keys, resolved=resolved)
+            query = cls.generate_query(
+                query_type, space, client=client,
+                filter_keys=filter_keys, follow_links=follow_links)
             if use_stored_query:
                 client.store_query(query_label, query, space=space)
         return query
 
     @classmethod
     def list(cls, client, size=100, from_index=0, api="auto",
-             scope="released", resolved=False, space=None, **filters):
+             scope="released", space=None,
+             follow_links=0, **filters):
         """List all objects of this type in the Knowledge Graph"""
 
         if api == "auto":
@@ -544,7 +553,7 @@ class KGObject(object, metaclass=Registry):
 
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
-            query = cls._get_query_definition(client, normalized_filters, space, resolved)
+            query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
             instances = client.query(
                 normalized_filters, query,
                 space=space,
@@ -556,6 +565,8 @@ class KGObject(object, metaclass=Registry):
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
+            if follow_links:
+                raise NotImplementedError("Following links with api='core' not yet implemented")
             instances = client.list(
                 cls.type_,
                 space=space,
@@ -565,7 +576,7 @@ class KGObject(object, metaclass=Registry):
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
 
-        return [cls.from_kg_instance(instance, client, scope=scope, resolved=resolved)
+        return [cls.from_kg_instance(instance, client, scope=scope)
                 for instance in instances]
 
     @classmethod
@@ -577,7 +588,7 @@ class KGObject(object, metaclass=Registry):
                 api = "core"
         if api == "query":
             normalized_filters = normalize_filter(cls, filters) or None
-            query = cls._get_query_definition(client, normalized_filters, space, resolved=False)
+            query = cls._get_query_definition(client, normalized_filters, space)
             response = client.query(normalized_filters, query, space=space,
                                     from_index=0, size=1, scope=scope)
         elif api == "core":
@@ -606,10 +617,10 @@ class KGObject(object, metaclass=Registry):
             query[field.name] = value
         return query
 
-    def _update_empty_fields(self, data, client, resolved=False):
+    def _update_empty_fields(self, data, client):
         """Replace any empty fields (value None) with the supplied data"""
         cls = self.__class__
-        deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
+        deserialized_data = cls._deserialize_data(data, client)
         for field in cls.fields:
             current_value = getattr(self, field.name, None)
             if current_value is None:
@@ -656,7 +667,6 @@ class KGObject(object, metaclass=Registry):
             # an id means the object exists
             data = client.instance_from_full_uri(self.id, use_cache=True,
                                                  scope=self.scope or "any",
-                                                 resolved=False,
                                                  require_full_data=False)
             if self._raw_remote_data is None:
                 self._raw_remote_data = data
@@ -689,7 +699,7 @@ class KGObject(object, metaclass=Registry):
                     return True
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
-                query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
+                query = self.__class__._get_query_definition(client, normalized_filters)
                 instances = client.query(normalized_filters, query, size=1, scope="any").data
 
                 if instances:
@@ -852,8 +862,9 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def by_name(cls, name, client, match="equals", all=False,
-                space=None, scope="released", resolved=False):
-        objects = cls.list(client, space=space, scope=scope, resolved=resolved, api="query", name=name)
+                space=None, scope="released", follow_links=0):
+        objects = cls.list(client, space=space, scope=scope, api="query", name=name,
+                           follow_links=follow_links)
         if match == "equals":
             objects = [obj for obj in objects if obj.name == name]
         if len(objects) == 0:
@@ -931,33 +942,28 @@ class KGObject(object, metaclass=Registry):
         #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
-    def generate_query_property(cls, field, filter_parameter=None, name=None):
-
-        expanded_path = expand_uri(field.path, cls.context)
-
-        if filter_parameter:
-            filter = Filter("CONTAINS", parameter=filter_parameter)  # should be "EQUALS" for consistency, here we use "CONTAINS" for backwards compatibility
-        else:
-            filter = None
-        property = QueryProperty(
-            expanded_path,
-            name=name or field.path,
-            ensure_order=field.multiple,
-            properties=[
-                QueryProperty("@id", filter=filter),
-                QueryProperty("@type")
-            ])
-
-        return property
+    def generate_query_properties(cls, filter_keys=None, follow_links=0):
+        if filter_keys is None:
+            filter_keys = []
+        properties=[
+            QueryProperty("@type")
+        ]
+        for field in cls.fields:
+            if field.intrinsic:
+                properties.extend(
+                    field.get_query_properties(
+                        use_filter=field.name in filter_keys,
+                        follow_links=follow_links
+                    )
+                )
+        return properties
 
     @classmethod
-    def generate_query(cls, query_type, space, client, filter_keys=None, resolved=False):
+    def generate_query(cls, query_type, space, client, filter_keys=None, follow_links=0):
         """
 
-        query_type: "simple" or "resolved"
+        query_type: "simple" or "resolved-n"
         """
-        if resolved:
-            raise NotImplementedError("todo")
 
         query_label = cls.get_query_label(query_type, space, filter_keys)
         if space == "myspace":
@@ -968,63 +974,8 @@ class KGObject(object, metaclass=Registry):
             node_type=cls.type_[0],
             label=query_label,
             space=real_space,
-            properties=[
-                QueryProperty("@type"),
-            ]
+            properties=cls.generate_query_properties(filter_keys, follow_links=follow_links)
         )
-        if filter_keys is None:
-            filter_keys = []
-        for field in cls.fields:
-            if field.intrinsic:
-                if field.types[0] in (int, float, bool, datetime, date):
-                    op = "EQUALS"
-                else:
-                    op = "CONTAINS"
-                if field.name in filter_keys:
-                    filter_parameter = field.name
-                else:
-                    filter_parameter = None
-                expanded_path = expand_uri(field.path, cls.context)
-                if any(issubclass(_type, EmbeddedMetadata) for _type in field.types):
-                    for child_cls in field.types:
-                        property = child_cls.generate_query_property(
-                            field,
-                            filter_parameter=field.name,
-                            use_type_filter=bool(len(field.types) > 1)
-                        )
-                        query.properties.append(property)
-                elif any(issubclass(_type, KGObject) for _type in field.types):
-                    for child_cls in field.types[:1]:
-                        # take only the first entry, since we don't use type filters
-                        # for KGObject where resolved=False
-                        if field.name in filter_keys:
-                            property = child_cls.generate_query_property(
-                                field,
-                                filter_parameter=field.name,
-                                name=field.multiple and f"Q{field.name}" or None
-                            )
-                            property.required = True
-                            query.properties.append(property)
-                            if field.multiple:
-                                # if filtering by a field that can have multiple values,
-                                # the first property will return only the elements in the array
-                                # that match, so we add a second property with the same path
-                                # to get the full array
-                                property = child_cls.generate_query_property(field)
-                                query.properties.append(property)
-                        else:
-                            property = child_cls.generate_query_property(field)
-                            query.properties.append(property)
-                else:
-                    property = QueryProperty(expanded_path,
-                                             name=field.path,
-                                             ensure_order=field.multiple)
-                    if field.name == "name":
-                        property.sorted = True
-                    if field.name in filter_keys:
-                        property.required = True
-                        property.filter=Filter(op, parameter=field.name)
-                    query.properties.append(property)
         return query.serialize()
 
     @classmethod
@@ -1039,10 +990,9 @@ class KGObject(object, metaclass=Registry):
 
     @classmethod
     def store_queries(cls, space, client):
-        #for query_type, resolved in (("simple", False), ("resolved", True)):
-        for query_type, resolved in (("simple", False),):  # temporary until resolved is reimplemented
+        for query_type, follow_links in (("simple", 0), ("resolved-1", 1)):
             query_label = cls.get_query_label(query_type, space)
-            query_definition = cls.generate_query(query_type, space, client, resolved=resolved)
+            query_definition = cls.generate_query(query_type, space, client, follow_links=follow_links)
             try:
                 client.store_query(query_label, query_definition, space=space or cls.default_space)
             except HTTPError as err:
@@ -1225,17 +1175,16 @@ class KGQuery(object):
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
     def resolve(self, client, size=10000, from_index=0, space=None,
-                scope=None, use_cache=True, resolved=False,
-                follow_links=0):
+                scope=None, use_cache=True, follow_links=0):
         scope = scope or self.preferred_scope
-        if resolved:
-            query_type = "resolved"
+        if follow_links > 0:
+            query_type = f"resolved-{follow_links}"
         else:
             query_type = "simple"
         objects = []
         for cls in self.classes:
             normalized_filters = normalize_filter(cls, self.filter) or None
-            query = cls._get_query_definition(client, normalized_filters, space, resolved)
+            query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
             instances = client.query(
                 normalized_filters,
                 query,
@@ -1269,9 +1218,13 @@ class KGQuery(object):
         return n
 
 
-def build_kg_object(possible_classes, data, resolved=False, client=None):
+def is_resolved(item):
+    return set(item.keys()) not in (set(["@id", "@type"]), set(["@id"]))
+
+
+def build_kg_object(possible_classes, data, client=None):
     """
-    Build a KGObject, a KGProxy, or a list of such, based on the data provided.
+    Build a KGObject, an EmbeddedMetadata, a KGProxy, or a list of such, based on the data provided.
 
     This takes care of the JSON-LD quirk that you get a list if there are multiple
     objects, but you get the object directly if there is only one.
@@ -1300,7 +1253,11 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
             raise NotImplementedError
 
         assert isinstance(possible_classes, (list, tuple))
-        assert all(issubclass(item, KGObject) for item in possible_classes)
+        assert (
+            all(issubclass(item, KGObject) for item in possible_classes)
+            or
+            all(issubclass(item, EmbeddedMetadata) for item in possible_classes)
+        )
         if len(possible_classes) > 1:
             if "@type" in item:
                 for cls in possible_classes:
@@ -1315,21 +1272,16 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
 
         if "@id" in item:
             # the following line is only relevant to test data,
-            # for real data it is always an expanded uris
+            # for real data it is always an expanded uri
             item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})
-            # here is where we check the "resolved" keyword,
-            # and return an actual object if we have the data
-            # or resolve the proxy if we don't
-            if resolved:
+            if is_resolved(item):
                 try:
-                    obj = kg_cls.from_kg_instance(item, client, resolved=resolved)
+                    obj = kg_cls.from_kg_instance(item, client)
                 except (ValueError, KeyError) as err:
                     # to add: emit a warning
                     logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
-                    obj = KGProxy(kg_cls, item["@id"]).resolve(
-                        client,
-                        # todo: provide space and scope
-                        resolved=resolved)
+                    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                    # todo: provide space and scope
             else:
                 if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
                         lookup_type(item["@type"])):
@@ -1338,6 +1290,8 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
                     obj = None
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
+        elif "@type" in item:  # Embedded metadata
+            obj = kg_cls.from_kg_instance(item, client)
         else:
             # todo: add a logger.warning that we have dud data
             obj = None
@@ -1349,3 +1303,9 @@ def build_kg_object(possible_classes, data, resolved=False, client=None):
         return objects[0]
     else:
         return objects
+
+"""
+fp = open(path_expected, "w")
+json.dump(generated, fp, indent=2)
+fp.close()
+"""

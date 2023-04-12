@@ -89,10 +89,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/hash",
       "propertyName": "vocab:hash",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "hash"
-      },
       "structure": [
         {
           "path": "@type"
@@ -122,10 +118,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
       "propertyName": "vocab:storageSize",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "storage_size"
-      },
       "structure": [
         {
           "path": "@type"

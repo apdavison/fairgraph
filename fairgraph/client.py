@@ -205,10 +205,8 @@ class KGClient(object):
         else:
             return _list(scope, from_index, size)
 
-    def instance_from_full_uri(self, uri, use_cache=True, scope="released", resolved=False, require_full_data=True):
+    def instance_from_full_uri(self, uri, use_cache=True, scope="released", require_full_data=True):
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
-        if resolved:
-            raise NotImplementedError
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]

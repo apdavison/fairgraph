@@ -89,10 +89,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/copyright",
       "propertyName": "vocab:copyright",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "copyright"
-      },
       "structure": [
         {
           "path": "@type"
@@ -283,10 +279,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/otherContribution",
       "propertyName": "vocab:otherContribution",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "other_contributions"
-      },
       "ensureOrder": true,
       "structure": [
         {

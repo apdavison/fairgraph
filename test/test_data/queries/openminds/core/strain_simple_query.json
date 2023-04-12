@@ -143,10 +143,6 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/stockNumber",
       "propertyName": "vocab:stockNumber",
-      "filter": {
-        "op": "CONTAINS",
-        "parameter": "stock_number"
-      },
       "structure": [
         {
           "path": "@type"
