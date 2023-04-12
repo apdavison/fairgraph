@@ -103,31 +103,21 @@ class Field(object):
     def is_link(self):
         return issubclass(self.types[0], (KGObject, EmbeddedMetadata))
 
-    def serialize(self, value, client, for_query=False, with_type=True):
+    def serialize(self, value, follow_links=False):
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):
                 return value
-            elif hasattr(value, "to_jsonld"):
-                return value.to_jsonld(client)
-            elif isinstance(value, (KGObject, KGProxy)):
-                if for_query:
-                    return value.id
+            elif isinstance(value, EmbeddedMetadata):
+                return value.to_jsonld(follow_links=follow_links)
+            elif isinstance(value, IRI):
+                return value.to_jsonld()
+            elif isinstance(value, KGObject):
+                if follow_links:
+                    return value.to_jsonld(follow_links=follow_links)
                 else:
-                    data = {
-                        "@id": value.id,
-                    }
-                    if with_type:
-                        if isinstance(value, KGProxy):
-                            if len(value.classes) == 1:
-                                data["@type"] = value.classes[0].type_
-                            else:
-                                # need to resolve proxy to determine the actual type
-                                data["@type"] = value.resolve(client, scope="in progress").type_
-                        else:
-                            data["@type"] = value.type_
-                        assert (isinstance(data["@type"], str)
-                                or (isinstance(data["@type"], list) and isinstance(data["@type"][0], str)))
-                    return data
+                    return {"@id": value.id}
+            elif isinstance(value, KGProxy):
+                return {"@id": value.id}
             elif isinstance(value, (datetime, date)):
                 return value.isoformat()
             elif value is None:

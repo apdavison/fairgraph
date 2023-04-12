@@ -50,7 +50,7 @@ def test_serialize_embedded():
         start_date=date(2023, 1, 1),
         member_of=SomeOrganization(name="Acme Corporation", alias="acme", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}")
     )
-    result = field_embedded_metadata.serialize(test_affiliation, client, for_query=False, with_type=True)
+    result = field_embedded_metadata.serialize(test_affiliation, follow_links=False)
     expected = {
         '@type': SomeAffiliation.type_,
         'https://openminds.ebrains.eu/vocab/memberOf': {'@id': test_affiliation.member_of.id},
@@ -65,7 +65,7 @@ def test_serialize_no_multiple():
 
     # single object
     test_info = SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}")
-    result = field_no_multiple.serialize(test_info, client, for_query=False, with_type=False)
+    result = field_no_multiple.serialize(test_info, follow_links=False)
     expected = {
         "@id": test_info.id
     }
@@ -73,7 +73,7 @@ def test_serialize_no_multiple():
 
     # single proxy
     test_info = KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}")
-    result = field_no_multiple.serialize(test_info, client, for_query=False, with_type=False)
+    result = field_no_multiple.serialize(test_info, follow_links=False)
     expected = {
         "@id": test_info.id
     }
@@ -85,7 +85,7 @@ def test_serialize_no_multiple():
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
     with pytest.raises(AttributeError):
-        result = field_no_multiple.serialize(test_info, client, for_query=False, with_type=False)
+        result = field_no_multiple.serialize(test_info, follow_links=False)
 
     # two objects, not strict
     field_no_multiple.strict_mode = False
@@ -93,7 +93,7 @@ def test_serialize_no_multiple():
         SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
-    result = field_no_multiple.serialize(test_info, client, for_query=False, with_type=False)
+    result = field_no_multiple.serialize(test_info, follow_links=False)
     expected = [
         {"@id": test_info[0].id},
         {"@id": test_info[1].id}
@@ -106,7 +106,7 @@ def test_serialize_no_multiple():
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
-    result = field_no_multiple.serialize(test_info, client, for_query=False, with_type=False)
+    result = field_no_multiple.serialize(test_info, follow_links=False)
     expected = [
         {"@id": test_info[0].id},
         {"@id": test_info[1].id}

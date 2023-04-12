@@ -166,10 +166,11 @@ def test__update():
     }
     client = None
     person = omcore.Person.from_kg_instance(example_data, client=client, scope="in progress")
+    for key in ("http://schema.org/identifier", "https://core.kg.ebrains.eu/vocab/meta/revision", "https://core.kg.ebrains.eu/vocab/meta/space"):
+        example_data.pop(key)
     assert person.remote_data == example_data
     # this follows the sequence in person.save()
-    data = person._build_data(client, all_fields=True)
-    updated_data = person._updated_data(data)
+    updated_data = person.modified_data()
     assert len(updated_data) == 0
 
 

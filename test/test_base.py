@@ -1,10 +1,9 @@
 # encoding: utf-8
 """
-Tests of fairgraph.base_v2 module.
+Tests of fairgraph.base module.
 """
 
 from datetime import date, datetime
-from uuid import UUID
 from fairgraph.base import EmbeddedMetadata, KGObject
 from fairgraph.fields import Field
 import pytest
@@ -98,8 +97,29 @@ class TestKGObject(object):
         return MockEmbeddedObject(a_number=float(n))
 
     def _construct_object_required_fields(self):
+        data = {
+            "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
+            "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
+                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "https://openminds.ebrains.eu/vocab/aNumber": -1.0
+            },
+            "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
+                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
+            },
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 100.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 200.0}],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}
+            ],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["banana", "pear"],
+            "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
+        }
         return MockKGObject(
             id=f"{ID_NAMESPACE}00000000-0000-0000-0000-000000000002",
+            data=data,
             a_required_string="apple",
             a_required_list_of_strings=["banana", "pear"],
             a_required_datetime=datetime(1789, 7, 14),
@@ -113,12 +133,50 @@ class TestKGObject(object):
             a_required_list_of_embedded_objects=[
                 self._construct_embedded_object_required_fields(42),
                 self._construct_embedded_object_required_fields(43)
-            ]
+            ],
         )
 
     def _construct_object_all_fields(self):
+        data = {
+            "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
+            "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
+                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "https://openminds.ebrains.eu/vocab/aNumber": -1.0
+            },
+            "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
+                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
+            },
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 100.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 200.0}],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}
+            ],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["banana", "pear"],
+            "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
+            "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1605-11-05T00:00:00",
+            "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": {
+                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "https://openminds.ebrains.eu/vocab/aNumber": 17.0
+            },
+            "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": {
+                "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000123"
+            },
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes": ["1899-12-31T00:00:00", "1999-12-31T00:00:00"],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 18.0},
+                {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 19.0}],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": [
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"},
+                {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
+            "https://openminds.ebrains.eu/vocab/anOptionalString": "melon"
+        }
         return MockKGObject(
             id=f"{ID_NAMESPACE}00000000-0000-0000-0000-000000000001",
+            data=data,
             a_required_string="apple",
             a_required_list_of_strings=["banana", "pear"],
             an_optional_string="melon",
@@ -178,6 +236,8 @@ class TestKGObject(object):
     def test_build_data_all_fields(self):
         obj = self._construct_object_all_fields()
         expected = {
+            "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001",
+            "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"],
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
                 "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
@@ -213,13 +273,12 @@ class TestKGObject(object):
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"}],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon"}
-        assert obj._build_data(client=None, all_fields=True) == expected
+        assert obj.to_jsonld(include_empty_fields=True) == expected
 
-    def test_updated_data(self):
+    def test_modified_data(self):
         obj = self._construct_object_all_fields()
-        obj.remote_data = obj._build_data(client=None, all_fields=True)
         expected = {}
-        assert obj._updated_data(obj.remote_data) == expected
+        assert obj.modified_data() == expected
 
         obj.a_required_string = "pomme"
         obj.an_optional_list_of_embedded_objects = [
@@ -233,8 +292,7 @@ class TestKGObject(object):
                 {"@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"], "https://openminds.ebrains.eu/vocab/aNumber": 19}
             ]
         }
-        new_data = obj._build_data(client=None, all_fields=True)
-        assert obj._updated_data(new_data) == expected
+        assert obj.modified_data() == expected
 
     def test_update(self):
         obj = self._construct_object_required_fields()
@@ -242,7 +300,7 @@ class TestKGObject(object):
         new_data = {
             "@id": obj.id,
             "@type": obj.type_,
-            "https://openminds.ebrains.eu/vocab/aRequiredListOfString": ["kumquat", "bilberry"],
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["kumquat", "bilberry"],
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00"
         }
         obj._update_empty_fields(new_data, client=None, resolved=False)
@@ -254,7 +312,7 @@ class TestKGObject(object):
         orig_object = self._construct_object_required_fields()
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, scope="in progress", resolved=False, require_full_data=True):
-                data = orig_object._build_data(client=None, all_fields=True)
+                data = orig_object.to_jsonld(include_empty_fields=True)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
@@ -264,10 +322,10 @@ class TestKGObject(object):
         new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
         MockKGObject.set_strict_mode(True)
         assert new_obj.a_required_list_of_strings == ["coconut"]
-        assert new_obj.remote_data is None
+        assert new_obj.remote_data == {}
         assert new_obj.a_required_embedded_object == None
 
-        assert new_obj.exists(MockClient()) and new_obj.space == "collab-foobar"  # has the side-effect of setting .data
+        assert new_obj.exists(MockClient()) and new_obj.space == "collab-foobar"  # has the side-effect of setting .remote_data
 
         assert new_obj.a_required_embedded_object == MockEmbeddedObject(a_number=41.0)
         expected = {
@@ -304,7 +362,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": "coconut",  # note no square brackets, single item in list. Is this desired?
             "https://openminds.ebrains.eu/vocab/anOptionalString": "lime"
         }
-        assert new_obj._updated_data(new_obj._build_data(client=None, all_fields=True)) == expected
+        assert new_obj.modified_data() == expected
 
 
 

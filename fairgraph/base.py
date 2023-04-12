@@ -108,7 +108,7 @@ class IRI(object):
     def __str__(self):
         return self.value
 
-    def to_jsonld(self, client):
+    def to_jsonld(self):
         return self.value
 
 
@@ -134,7 +134,7 @@ class EmbeddedMetadata(object, metaclass=Registry):
                 value = None
             field.check_value(value)
             setattr(self, field.name, value)
-        self.remote_data = data
+        self._raw_remote_data = data
 
     @property
     def space(self):
@@ -161,16 +161,20 @@ class EmbeddedMetadata(object, metaclass=Registry):
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
 
-    def to_jsonld(self, client=None, with_type=False):
+    def to_jsonld(self, normalized=True, follow_links=False, include_empty_fields=False):
         data = {
             "@type": self.type_
         }
         for field in self.fields:
+            assert field.intrinsic
             expanded_path = expand_uri(field.path, self.context)
             value = getattr(self, field.name)
-            if value is not None:
-                data[expanded_path] = field.serialize(value, client, with_type=with_type)
-        return normalize_data(data, self.context)
+            if include_empty_fields or field.required or value is not None:
+                data[expanded_path] = field.serialize(value, follow_links=follow_links)
+        if normalized:
+            return normalize_data(data, self.context)
+        else:
+            return data
 
     @classmethod
     def from_jsonld(cls, data, client, resolved=False):
@@ -351,17 +355,15 @@ class KGObject(object, metaclass=Registry):
 
         self.id = id
         self._space = space
-        self.remote_data = data
+
+        # we store the original remote data in `_raw_remote_data`
+        # and a normalized version in `remote_data`
+        self._raw_remote_data = data  # for debugging
+        self.remote_data = {}
+        if data:
+            self.remote_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
         self.scope = scope
         self.allow_update = True
-
-    def _get_remote_data(self):
-        return self._data
-
-    def _set_remote_data(self, value):
-        self._data = normalize_data(value, self.context)
-
-    remote_data = property(fget=_get_remote_data, fset=_set_remote_data)
 
     def __repr__(self):
         template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
@@ -371,11 +373,11 @@ class KGObject(object, metaclass=Registry):
 
     @property
     def space(self):
-        if self.remote_data:
-            if "https://schema.hbp.eu/myQuery/space" in self.remote_data:
-                self._space = self.remote_data["https://schema.hbp.eu/myQuery/space"]
-            elif "https://core.kg.ebrains.eu/vocab/meta/space" in self.remote_data:
-                self._space = self.remote_data["https://core.kg.ebrains.eu/vocab/meta/space"]
+        if self._raw_remote_data:
+            if "https://schema.hbp.eu/myQuery/space" in self._raw_remote_data:
+                self._space = self._raw_remote_data["https://schema.hbp.eu/myQuery/space"]
+            elif "https://core.kg.ebrains.eu/vocab/meta/space" in self._raw_remote_data:
+                self._space = self._raw_remote_data["https://core.kg.ebrains.eu/vocab/meta/space"]
         return self._space
 
     @classmethod
@@ -422,24 +424,24 @@ class KGObject(object, metaclass=Registry):
         deserialized_data = cls._deserialize_data(data, client, resolved=resolved)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
-    @classmethod
-    def _fix_keys(cls, data):
-        """
-        The KG Query API does not allow the same field name to be used twice in a document.
-        This is a problem when resolving linked nodes which use the same field names
-        as the 'parent'. As a workaround, we prefix the field names in the linked node
-        with the class name.
-        This method removes this prefix.
-        This feels like a kludge, and I'd be happy to find a better solution.
-        """
-        prefix = cls.__name__ + "__"
-        for key in list(data):
-            # need to use list() in previous line to avoid
-            # "dictionary keys changed during iteration" error in Python 3.8+
-            if key.startswith(prefix):
-                fixed_key = key.replace(prefix, "")
-                data[fixed_key] = data.pop(key)
-        return data
+    # @classmethod
+    # def _fix_keys(cls, data):
+    #     """
+    #     The KG Query API does not allow the same field name to be used twice in a document.
+    #     This is a problem when resolving linked nodes which use the same field names
+    #     as the 'parent'. As a workaround, we prefix the field names in the linked node
+    #     with the class name.
+    #     This method removes this prefix.
+    #     This feels like a kludge, and I'd be happy to find a better solution.
+    #     """
+    #     prefix = cls.__name__ + "__"
+    #     for key in list(data):
+    #         # need to use list() in previous line to avoid
+    #         # "dictionary keys changed during iteration" error in Python 3.8+
+    #         if key.startswith(prefix):
+    #             fixed_key = key.replace(prefix, "")
+    #             data[fixed_key] = data.pop(key)
+    #     return data
 
     @classmethod
     def from_uri(cls, uri, client, use_cache=True, scope="released", resolved=False):
@@ -596,10 +598,13 @@ class KGObject(object, metaclass=Registry):
                     break
         if len(query_fields) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
-        return {
-            field.name: field.serialize(getattr(self, field.name), None, for_query=True)
-            for field in query_fields
-        }
+        query = {}
+        for field in query_fields:
+            value = field.serialize(getattr(self, field.name), follow_links=False)
+            if isinstance(value, dict) and "@id" in value:
+                value = value["@id"]
+            query[field.name] = value
+        return query
 
     def _update_empty_fields(self, data, client, resolved=False):
         """Replace any empty fields (value None) with the supplied data"""
@@ -608,7 +613,11 @@ class KGObject(object, metaclass=Registry):
         for field in cls.fields:
             current_value = getattr(self, field.name, None)
             if current_value is None:
-                setattr(self, field.name, deserialized_data[field.name])
+                value = deserialized_data[field.name]
+                setattr(self, field.name, value)
+        for key, value in data.items():
+            expanded_path = expand_uri(key, cls.context)
+            self.remote_data[expanded_path] = data[key]
 
     def __eq__(self, other):
         return not self.__ne__(other)
@@ -649,11 +658,11 @@ class KGObject(object, metaclass=Registry):
                                                  scope=self.scope or "any",
                                                  resolved=False,
                                                  require_full_data=False)
-            if self.remote_data is None:
-                self.remote_data = data
+            if self._raw_remote_data is None:
+                self._raw_remote_data = data
             obj_exists = bool(data)
             if obj_exists:
-                self._update_empty_fields(data, client)
+                self._update_empty_fields(data, client)  # also updates `remote_data`
             return obj_exists
         else:
             query_filter = self._build_existence_query()
@@ -675,48 +684,44 @@ class KGObject(object, metaclass=Registry):
                     self.id = self.save_cache[self.__class__][query_cache_key]
                     cached_obj = self.object_cache.get(self.id)
                     if cached_obj and cached_obj.remote_data:
+                        self._raw_remote_data = cached_obj._raw_remote_data
                         self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
                 normalized_filters = normalize_filter(self.__class__, query_filter) or None
                 query = self.__class__._get_query_definition(client, normalized_filters, resolved=False)
-                instances = client.query(normalized_filters, query, size=1,
-                                         scope="any").data
+                instances = client.query(normalized_filters, query, size=1, scope="any").data
 
                 if instances:
                     self.id = instances[0]["@id"]
                     KGObject.save_cache[self.__class__][query_cache_key] = self.id
-                    if self.remote_data is None:
-                        self.remote_data = instances[0]
-                    self._update_empty_fields(instances[0], client)
+                    self._update_empty_fields(instances[0], client)  # also updates `remote_data`
                 return bool(instances)
 
-    def _updated_data(self, data):
-        updated_data = {}
-        local_data = normalize_data(data, self.context)
-        remote_data = self.remote_data  # already normalized
-        for key, value in local_data.items():
-            assert key.startswith("http")  # keys should all be expanded by this point
-            if remote_data is None or key not in remote_data:
-                if value is not None:
-                    logger.info(f"    - new field '{key}' with value {value}")  # todo: change to debug
-                    updated_data[key] = value
-            else:
-                existing = remote_data.get(key)
-                if existing != value:
-                    logger.info(f"    -  change to field '{key}' from {existing} to {value}")
-                    updated_data[key] = value
-        return updated_data
+    def modified_data(self):
+        current_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
+        modified_data = {}
+        for key, current_value in current_data.items():
+            if not key.startswith("@"):
+                assert key.startswith("http")  # keys should all be expanded by this point
+                remote_value = self.remote_data.get(key, None)
+                if current_value != remote_value:
+                    modified_data[key] = current_value
+        return modified_data
 
-    def _build_data(self, client, all_fields=False):
+    def to_jsonld(self, normalized=True, follow_links=False, include_empty_fields=False):
         if self.fields:
-            data = {}
+            data = {
+                "@type": self.type_
+            }
+            if self.id:
+                data["@id"] = self.id
             for field in self.fields:
                 if field.intrinsic:
                     expanded_path = expand_uri(field.path, self.context)
                     value = getattr(self, field.name)
-                    if all_fields or field.required or value is not None:
-                        serialized = field.serialize(value, client, with_type=False)
+                    if include_empty_fields or field.required or value is not None:
+                        serialized = field.serialize(value, follow_links=follow_links)
                         if expanded_path in data:
                             if isinstance(data[expanded_path], list):
                                 data[expanded_path].append(serialized)
@@ -724,7 +729,10 @@ class KGObject(object, metaclass=Registry):
                                 data[expanded_path] = [data[expanded_path], serialized]
                         else:
                             data[expanded_path] = serialized
-            return normalize_data(data, self.context)  # todo: normalize_data shouldn't be necessary here
+            if normalized:
+                return normalize_data(data, self.context)
+            else:
+                return data
         else:
             raise NotImplementedError("to be implemented by child classes")
 
@@ -763,13 +771,14 @@ class KGObject(object, metaclass=Registry):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                local_data = self._build_data(client, all_fields=True)
+                local_data = self.to_jsonld()
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
                         activity_log.update(item=self, delta=local_data, space=space, entry_type="replacement")
                     try:
                         client.replace_instance(self.uuid, local_data)
+                        # what does this return? Can we use it to update `remote_data`?
                     except AuthorizationError as err:
                         if ignore_auth_errors:
                             logger.error(str(err))
@@ -778,21 +787,21 @@ class KGObject(object, metaclass=Registry):
                     else:
                         self.remote_data = local_data
                 else:
-                    updated_data = self._updated_data(local_data)
-                    if updated_data:
-                        logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {updated_data.keys()}")
+                    modified_data = self.modified_data()
+                    if modified_data:
+                        logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {modified_data.keys()}")
                         skip_update = False
-                        if "vocab:storageSize" in updated_data:
+                        if "vocab:storageSize" in modified_data:
                             warn("Removing storage size from update because this field is currently locked by the KG")
-                            updated_data.pop("vocab:storageSize")
-                            skip_update = len(updated_data) == 0
+                            modified_data.pop("vocab:storageSize")
+                            skip_update = len(modified_data) == 0
 
                         if skip_update:
                             if activity_log:
                                 activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
                         else:
                             try:
-                                client.update_instance(self.uuid, updated_data)
+                                client.update_instance(self.uuid, modified_data)
                             except AuthorizationError as err:
                                 if ignore_auth_errors:
                                     logger.error(str(err))
@@ -801,16 +810,15 @@ class KGObject(object, metaclass=Registry):
                             else:
                                 self.remote_data = local_data
                             if activity_log:
-                                activity_log.update(item=self, delta=updated_data, space=space, entry_type="update")
+                                activity_log.update(item=self, delta=modified_data, space=space, entry_type="update")
                     else:
                         logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
                         if activity_log:
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            local_data = self._build_data(client)
+            local_data = self.to_jsonld()
             logger.info("  - creating instance with data {}".format(local_data))
-            local_data["@type"] = self.type_
             try:
                 instance_data = client.create_new_instance(
                     local_data,
@@ -825,12 +833,13 @@ class KGObject(object, metaclass=Registry):
                     raise
             else:
                 self.id = instance_data["@id"]
-                self.remote_data = instance_data
+                self._raw_remote_data = instance_data
+                self.remote_data = local_data
                 if activity_log:
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         if self.id:
-            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self._build_data(client)))
+            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld()))
             KGObject.object_cache[self.id] = self
         else:
             logger.warning("Object has no id - see log for the underlying error")
@@ -1133,8 +1142,6 @@ class KGProxy(object):
         """docstring"""
         if use_cache and self.id in KGObject.object_cache:
             obj = KGObject.object_cache[self.id]
-            #if obj:
-            #    logger.debug("Retrieving object {} from cache. Status: {}".format(self.id, obj._build_data(client)))
         else:
             scope = scope or self.preferred_scope
             if len(self.classes) > 1:
