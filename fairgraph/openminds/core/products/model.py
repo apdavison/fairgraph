@@ -5,7 +5,7 @@ Structured information on a computational model (concept level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -54,4 +54,4 @@ class Model(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, alias=None, abstraction_level=None, custodians=None, description=None, developers=None, digital_identifier=None, versions=None, homepage=None, how_to_cite=None, model_scope=None, study_targets=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, abstraction_level=abstraction_level, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite, model_scope=model_scope, study_targets=study_targets)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, abstraction_level=abstraction_level, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite, model_scope=model_scope, study_targets=study_targets)

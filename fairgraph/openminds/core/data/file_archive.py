@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -36,4 +36,4 @@ class FileArchive(KGObject):
     existence_query_fields = ('iri', 'format')
 
     def __init__(self, iri=None, format=None, source_datas=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, iri=iri, format=format, source_datas=source_datas)
+        return super().__init__(id=id, space=space, scope=scope, data=data, iri=iri, format=format, source_datas=source_datas)

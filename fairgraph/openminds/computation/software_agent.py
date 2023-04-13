@@ -5,7 +5,7 @@ Structured information about a piece of software or web service that can perform
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -36,4 +36,4 @@ class SoftwareAgent(KGObject):
     existence_query_fields = ('name', 'software')
 
     def __init__(self, name=None, environment=None, software=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, environment=environment, software=software)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, environment=environment, software=software)

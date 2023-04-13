@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class LivePaperResourceItem(KGObject):
     existence_query_fields = ('name', 'iri', 'is_part_of')
 
     def __init__(self, name=None, iri=None, hosted_by=None, is_part_of=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, iri=iri, hosted_by=hosted_by, is_part_of=is_part_of)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, iri=iri, hosted_by=hosted_by, is_part_of=is_part_of)

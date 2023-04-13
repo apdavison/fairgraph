@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -60,4 +60,4 @@ class TissueSampleSlicing(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, custom_property_sets=None, description=None, device=None, end_time=None, inputs=None, is_part_of=None, outputs=None, performed_by=None, preparation_design=None, protocols=None, start_time=None, study_targets=None, temperature=None, tissue_bath_solution=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, custom_property_sets=custom_property_sets, description=description, device=device, end_time=end_time, inputs=inputs, is_part_of=is_part_of, outputs=outputs, performed_by=performed_by, preparation_design=preparation_design, protocols=protocols, start_time=start_time, study_targets=study_targets, temperature=temperature, tissue_bath_solution=tissue_bath_solution)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, custom_property_sets=custom_property_sets, description=description, device=device, end_time=end_time, inputs=inputs, is_part_of=is_part_of, outputs=outputs, performed_by=performed_by, preparation_design=preparation_design, protocols=protocols, start_time=start_time, study_targets=study_targets, temperature=temperature, tissue_bath_solution=tissue_bath_solution)

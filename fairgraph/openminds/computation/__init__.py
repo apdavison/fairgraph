@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .launch_configuration import LaunchConfiguration
 from .data_copy import DataCopy

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -58,4 +58,4 @@ class StimulationActivity(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, custom_property_sets=None, description=None, end_time=None, inputs=None, is_part_of=None, outputs=None, performed_by=None, preparation_design=None, protocols=None, setup=None, start_time=None, stimulus=None, study_targets=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, custom_property_sets=custom_property_sets, description=description, end_time=end_time, inputs=inputs, is_part_of=is_part_of, outputs=outputs, performed_by=performed_by, preparation_design=preparation_design, protocols=protocols, setup=setup, start_time=start_time, stimulus=stimulus, study_targets=study_targets)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, custom_property_sets=custom_property_sets, description=description, end_time=end_time, inputs=inputs, is_part_of=is_part_of, outputs=outputs, performed_by=performed_by, preparation_design=preparation_design, protocols=protocols, setup=setup, start_time=start_time, stimulus=stimulus, study_targets=study_targets)

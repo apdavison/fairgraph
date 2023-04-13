@@ -5,7 +5,7 @@ Structured information about a short text expressing an opinion on, or giving in
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class Comment(KGObject):
     existence_query_fields = ('about', 'comment', 'commenter', 'timestamp')
 
     def __init__(self, about=None, comment=None, commenter=None, timestamp=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, about=about, comment=comment, commenter=commenter, timestamp=timestamp)
+        return super().__init__(id=id, space=space, scope=scope, data=data, about=about, comment=comment, commenter=commenter, timestamp=timestamp)

@@ -5,7 +5,7 @@ Structured information about properties of an entity that are not represented in
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -34,4 +34,4 @@ class CustomPropertySet(EmbeddedMetadata):
     ]
 
     def __init__(self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, context=context, data_location=data_location, relevant_for=relevant_for)
+        return super().__init__(data=data, context=context, data_location=data_location, relevant_for=relevant_for)

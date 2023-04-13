@@ -5,7 +5,7 @@ Structured information about a measurement performed during a scientific experim
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class Measurement(EmbeddedMetadata):
     ]
 
     def __init__(self, additional_remarks=None, measured_quantity=None, measured_with=None, timestamp=None, values=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, additional_remarks=additional_remarks, measured_quantity=measured_quantity, measured_with=measured_with, timestamp=timestamp, values=values)
+        return super().__init__(data=data, additional_remarks=additional_remarks, measured_quantity=measured_quantity, measured_with=measured_with, timestamp=timestamp, values=values)

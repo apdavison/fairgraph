@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class FilePathPattern(EmbeddedMetadata):
     ]
 
     def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, grouping_types=grouping_types, regex=regex)
+        return super().__init__(data=data, grouping_types=grouping_types, regex=regex)

@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class Dataset(KGObject):
     existence_query_fields = ('alias',)
 
     def __init__(self, name=None, alias=None, authors=None, custodians=None, description=None, digital_identifier=None, versions=None, homepage=None, how_to_cite=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, authors=authors, custodians=custodians, description=description, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, authors=authors, custodians=custodians, description=description, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite)

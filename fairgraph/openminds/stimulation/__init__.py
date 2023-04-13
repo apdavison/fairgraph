@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .stimulus.ephys_stimulus import EphysStimulus
 from .activity.stimulation_activity import StimulationActivity

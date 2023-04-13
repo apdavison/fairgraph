@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -36,4 +36,4 @@ class WebResource(KGObject):
     existence_query_fields = ('iri',)
 
     def __init__(self, iri=None, content_description=None, format=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, iri=iri, content_description=content_description, format=format)
+        return super().__init__(id=id, space=space, scope=scope, data=data, iri=iri, content_description=content_description, format=format)

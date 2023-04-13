@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -58,4 +58,4 @@ class ElectrodeArray(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, name=None, lookup_label=None, conductor_material=None, description=None, device_type=None, digital_identifier=None, electrode_identifiers=None, insulator_material=None, internal_identifier=None, intrinsic_resistance=None, manufacturers=None, number_of_electrodes=None, owners=None, serial_number=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, conductor_material=conductor_material, description=description, device_type=device_type, digital_identifier=digital_identifier, electrode_identifiers=electrode_identifiers, insulator_material=insulator_material, internal_identifier=internal_identifier, intrinsic_resistance=intrinsic_resistance, manufacturers=manufacturers, number_of_electrodes=number_of_electrodes, owners=owners, serial_number=serial_number)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, lookup_label=lookup_label, conductor_material=conductor_material, description=description, device_type=device_type, digital_identifier=digital_identifier, electrode_identifiers=electrode_identifiers, insulator_material=insulator_material, internal_identifier=internal_identifier, intrinsic_resistance=intrinsic_resistance, manufacturers=manufacturers, number_of_electrodes=number_of_electrodes, owners=owners, serial_number=serial_number)

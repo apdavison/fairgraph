@@ -5,7 +5,7 @@ An identifiable list of property-value pairs.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -34,4 +34,4 @@ class PropertyValueList(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, property_value_pairs=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, property_value_pairs=property_value_pairs)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, property_value_pairs=property_value_pairs)

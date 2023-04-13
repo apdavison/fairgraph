@@ -5,7 +5,7 @@ Structured information on a tissue sample.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -50,4 +50,4 @@ class TissueSample(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, anatomical_locations=None, biological_sex=None, internal_identifier=None, is_part_of=None, laterality=None, origin=None, species=None, studied_states=None, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, anatomical_locations=anatomical_locations, biological_sex=biological_sex, internal_identifier=internal_identifier, is_part_of=is_part_of, laterality=laterality, origin=origin, species=species, studied_states=studied_states, type=type)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, anatomical_locations=anatomical_locations, biological_sex=biological_sex, internal_identifier=internal_identifier, is_part_of=is_part_of, laterality=laterality, origin=origin, species=species, studied_states=studied_states, type=type)

@@ -5,7 +5,7 @@ Structured information on a coordinate point.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class CoordinatePoint(EmbeddedMetadata):
     ]
 
     def __init__(self, coordinate_space=None, coordinates=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, coordinate_space=coordinate_space, coordinates=coordinates)
+        return super().__init__(data=data, coordinate_space=coordinate_space, coordinates=coordinates)

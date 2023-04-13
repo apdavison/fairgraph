@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class Rectangle(EmbeddedMetadata):
     ]
 
     def __init__(self, length=None, width=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, length=length, width=width)
+        return super().__init__(data=data, length=length, width=width)

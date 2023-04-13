@@ -5,7 +5,7 @@ Structured information about an association of two or more persons or organizati
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class Consortium(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, alias=None, contact_information=None, homepage=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, contact_information=contact_information, homepage=homepage)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, contact_information=contact_information, homepage=homepage)

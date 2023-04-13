@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -40,4 +40,4 @@ class ServiceLink(KGObject):
     existence_query_fields = ('data_location', 'open_data_in', 'service')
 
     def __init__(self, data_location=None, display_label=None, open_data_in=None, preview_image=None, service=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, data_location=data_location, display_label=display_label, open_data_in=open_data_in, preview_image=preview_image, service=service)
+        return super().__init__(id=id, space=space, scope=scope, data=data, data_location=data_location, display_label=display_label, open_data_in=open_data_in, preview_image=preview_image, service=service)

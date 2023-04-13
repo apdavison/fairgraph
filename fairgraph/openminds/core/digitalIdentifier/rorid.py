@@ -5,7 +5,7 @@ A persistent identifier for a research organization, provided by the Research Or
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class RORID(KGObject):
     existence_query_fields = ('identifier',)
 
     def __init__(self, identifier=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, identifier=identifier)
+        return super().__init__(id=id, space=space, scope=scope, data=data, identifier=identifier)

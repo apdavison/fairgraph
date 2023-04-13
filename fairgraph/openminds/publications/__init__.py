@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .publication_issue import PublicationIssue
 from .book import Book

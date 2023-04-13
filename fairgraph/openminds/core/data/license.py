@@ -5,7 +5,7 @@ Structured information on a used license.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class License(KGObject):
     existence_query_fields = ('alias',)
 
     def __init__(self, name=None, alias=None, legal_code=None, webpages=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, legal_code=legal_code, webpages=webpages)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, legal_code=legal_code, webpages=webpages)

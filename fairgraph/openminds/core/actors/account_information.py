@@ -5,7 +5,7 @@ Structured information about a user account for a web service.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -34,4 +34,4 @@ class AccountInformation(KGObject):
     existence_query_fields = ('service', 'user_name')
 
     def __init__(self, service=None, user_name=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, service=service, user_name=user_name)
+        return super().__init__(id=id, space=space, scope=scope, data=data, service=service, user_name=user_name)

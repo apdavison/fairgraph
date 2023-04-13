@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 from fairgraph.base import as_list
@@ -70,7 +70,7 @@ class ScholarlyArticle(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, iri=None, abstract=None, authors=None, cited_publications=None, copyright=None, creation_date=None, custodians=None, digital_identifier=None, editors=None, funding=None, is_part_of=None, keywords=None, license=None, modification_date=None, pagination=None, publication_date=None, publisher=None, version_identifier=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, iri=iri, abstract=abstract, authors=authors, cited_publications=cited_publications, copyright=copyright, creation_date=creation_date, custodians=custodians, digital_identifier=digital_identifier, editors=editors, funding=funding, is_part_of=is_part_of, keywords=keywords, license=license, modification_date=modification_date, pagination=pagination, publication_date=publication_date, publisher=publisher, version_identifier=version_identifier)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, iri=iri, abstract=abstract, authors=authors, cited_publications=cited_publications, copyright=copyright, creation_date=creation_date, custodians=custodians, digital_identifier=digital_identifier, editors=editors, funding=funding, is_part_of=is_part_of, keywords=keywords, license=license, modification_date=modification_date, pagination=pagination, publication_date=publication_date, publisher=publisher, version_identifier=version_identifier)
     def get_journal(self, client, with_volume=False, with_issue=False):
         journal = volume = issue = None
         if self.is_part_of:

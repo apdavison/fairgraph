@@ -5,7 +5,7 @@ Structured information about a mixture of chemical substances.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -40,4 +40,4 @@ class ChemicalMixture(KGObject):
     existence_query_fields = ('has_parts', 'type')
 
     def __init__(self, name=None, additional_remarks=None, has_parts=None, product_source=None, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, additional_remarks=additional_remarks, has_parts=has_parts, product_source=product_source, type=type)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, additional_remarks=additional_remarks, has_parts=has_parts, product_source=product_source, type=type)

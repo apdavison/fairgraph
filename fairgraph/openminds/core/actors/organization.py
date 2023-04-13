@@ -5,7 +5,7 @@ Structured information on an organization.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -42,4 +42,4 @@ class Organization(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, alias=None, affiliations=None, digital_identifiers=None, has_parents=None, homepage=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, affiliations=affiliations, digital_identifiers=digital_identifiers, has_parents=has_parents, homepage=homepage)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, affiliations=affiliations, digital_identifiers=digital_identifiers, has_parents=has_parents, homepage=homepage)

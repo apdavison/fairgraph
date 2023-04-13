@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -30,4 +30,4 @@ class Circle(EmbeddedMetadata):
     ]
 
     def __init__(self, radius=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, radius=radius)
+        return super().__init__(data=data, radius=radius)

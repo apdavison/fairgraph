@@ -5,7 +5,7 @@ Structured information about a relationship between two entities, such as a pers
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -34,4 +34,4 @@ class Affiliation(EmbeddedMetadata):
     ]
 
     def __init__(self, end_date=None, member_of=None, start_date=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, end_date=end_date, member_of=member_of, start_date=start_date)
+        return super().__init__(data=data, end_date=end_date, member_of=member_of, start_date=start_date)

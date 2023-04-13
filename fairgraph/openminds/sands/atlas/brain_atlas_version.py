@@ -5,7 +5,7 @@ Structured information on a brain atlas (version level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -90,4 +90,4 @@ class BrainAtlasVersion(KGObject):
     existence_query_fields = ('alias', 'version_identifier')
 
     def __init__(self, name=None, alias=None, abbreviation=None, accessibility=None, authors=None, coordinate_space=None, copyright=None, custodians=None, description=None, digital_identifier=None, full_documentation=None, funding=None, has_terminology=None, homepage=None, how_to_cite=None, is_alternative_version_of=None, is_new_version_of=None, keywords=None, license=None, major_version_identifier=None, ontology_identifier=None, other_contributions=None, related_publications=None, release_date=None, repository=None, support_channels=None, type=None, used_specimens=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, abbreviation=abbreviation, accessibility=accessibility, authors=authors, coordinate_space=coordinate_space, copyright=copyright, custodians=custodians, description=description, digital_identifier=digital_identifier, full_documentation=full_documentation, funding=funding, has_terminology=has_terminology, homepage=homepage, how_to_cite=how_to_cite, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, license=license, major_version_identifier=major_version_identifier, ontology_identifier=ontology_identifier, other_contributions=other_contributions, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, type=type, used_specimens=used_specimens, version_identifier=version_identifier, version_innovation=version_innovation)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, abbreviation=abbreviation, accessibility=accessibility, authors=authors, coordinate_space=coordinate_space, copyright=copyright, custodians=custodians, description=description, digital_identifier=digital_identifier, full_documentation=full_documentation, funding=funding, has_terminology=has_terminology, homepage=homepage, how_to_cite=how_to_cite, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, license=license, major_version_identifier=major_version_identifier, ontology_identifier=ontology_identifier, other_contributions=other_contributions, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, type=type, used_specimens=used_specimens, version_identifier=version_identifier, version_innovation=version_innovation)

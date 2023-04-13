@@ -5,12 +5,12 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 from urllib.request import urlretrieve
 from pathlib import Path
-from fairgraph.utility import accepted_terms_of_use
+from ....utility import accepted_terms_of_use
 
 
 class DatasetVersion(KGObject):
@@ -98,7 +98,7 @@ class DatasetVersion(KGObject):
     existence_query_fields = ('alias', 'version_identifier')
 
     def __init__(self, name=None, alias=None, accessibility=None, authors=None, behavioral_protocols=None, copyright=None, custodians=None, data_types=None, description=None, digital_identifier=None, ethics_assessment=None, experimental_approaches=None, full_documentation=None, funding=None, homepage=None, how_to_cite=None, input_data=None, is_alternative_version_of=None, is_new_version_of=None, keywords=None, license=None, other_contributions=None, preparation_designs=None, protocols=None, related_publications=None, release_date=None, repository=None, studied_specimens=None, study_targets=None, support_channels=None, techniques=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, accessibility=accessibility, authors=authors, behavioral_protocols=behavioral_protocols, copyright=copyright, custodians=custodians, data_types=data_types, description=description, digital_identifier=digital_identifier, ethics_assessment=ethics_assessment, experimental_approaches=experimental_approaches, full_documentation=full_documentation, funding=funding, homepage=homepage, how_to_cite=how_to_cite, input_data=input_data, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, license=license, other_contributions=other_contributions, preparation_designs=preparation_designs, protocols=protocols, related_publications=related_publications, release_date=release_date, repository=repository, studied_specimens=studied_specimens, study_targets=study_targets, support_channels=support_channels, techniques=techniques, version_identifier=version_identifier, version_innovation=version_innovation)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, accessibility=accessibility, authors=authors, behavioral_protocols=behavioral_protocols, copyright=copyright, custodians=custodians, data_types=data_types, description=description, digital_identifier=digital_identifier, ethics_assessment=ethics_assessment, experimental_approaches=experimental_approaches, full_documentation=full_documentation, funding=funding, homepage=homepage, how_to_cite=how_to_cite, input_data=input_data, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, license=license, other_contributions=other_contributions, preparation_designs=preparation_designs, protocols=protocols, related_publications=related_publications, release_date=release_date, repository=repository, studied_specimens=studied_specimens, study_targets=study_targets, support_channels=support_channels, techniques=techniques, version_identifier=version_identifier, version_innovation=version_innovation)
 
     def download(self, local_path, client, accept_terms_of_use=False):
         if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):

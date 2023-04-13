@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -34,4 +34,4 @@ class ResearchProductGroup(KGObject):
     existence_query_fields = ('context', 'has_parts')
 
     def __init__(self, context=None, has_parts=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, context=context, has_parts=has_parts)
+        return super().__init__(id=id, space=space, scope=scope, data=data, context=context, has_parts=has_parts)

@@ -5,7 +5,7 @@ Structured information on a file instance that is accessible via a URL.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 import os
@@ -74,7 +74,7 @@ class File(KGObject):
     existence_query_fields = ('iri', 'hash')
 
     def __init__(self, name=None, iri=None, content_description=None, data_types=None, file_repository=None, format=None, hash=None, is_part_of=None, special_usage_role=None, storage_size=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, iri=iri, content_description=content_description, data_types=data_types, file_repository=file_repository, format=format, hash=hash, is_part_of=is_part_of, special_usage_role=special_usage_role, storage_size=storage_size)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, iri=iri, content_description=content_description, data_types=data_types, file_repository=file_repository, format=format, hash=hash, is_part_of=is_part_of, special_usage_role=special_usage_role, storage_size=storage_size)
 
     @classmethod
     def from_local_file(cls, relative_path):

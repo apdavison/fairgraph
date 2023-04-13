@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -46,4 +46,4 @@ class Recording(KGObject):
     existence_query_fields = ('channels', 'data_location', 'recorded_with', 'sampling_frequency')
 
     def __init__(self, name=None, additional_remarks=None, channels=None, data_location=None, internal_identifier=None, previous_recording=None, recorded_with=None, sampling_frequency=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, additional_remarks=additional_remarks, channels=channels, data_location=data_location, internal_identifier=internal_identifier, previous_recording=previous_recording, recorded_with=recorded_with, sampling_frequency=sampling_frequency)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, additional_remarks=additional_remarks, channels=channels, data_location=data_location, internal_identifier=internal_identifier, previous_recording=previous_recording, recorded_with=recorded_with, sampling_frequency=sampling_frequency)

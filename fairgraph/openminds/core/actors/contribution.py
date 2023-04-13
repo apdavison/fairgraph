@@ -5,7 +5,7 @@ Structured information on the contribution made to a research product.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class Contribution(EmbeddedMetadata):
     ]
 
     def __init__(self, contributor=None, types=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, contributor=contributor, types=types)
+        return super().__init__(data=data, contributor=contributor, types=types)

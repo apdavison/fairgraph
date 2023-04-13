@@ -5,7 +5,7 @@ Structured information on the computer system or set of systems in which a compu
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -40,4 +40,4 @@ class Environment(KGObject):
     existence_query_fields = ('name', 'hardware')
 
     def __init__(self, name=None, configuration=None, description=None, hardware=None, software=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, configuration=configuration, description=description, hardware=hardware, software=software)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, configuration=configuration, description=description, hardware=hardware, software=software)

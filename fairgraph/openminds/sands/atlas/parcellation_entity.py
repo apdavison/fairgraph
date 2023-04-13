@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class ParcellationEntity(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, lookup_label=None, abbreviation=None, alternate_names=None, definition=None, has_parents=None, versions=None, ontology_identifiers=None, related_uberon_term=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, abbreviation=abbreviation, alternate_names=alternate_names, definition=definition, has_parents=has_parents, versions=versions, ontology_identifiers=ontology_identifiers, related_uberon_term=related_uberon_term)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, lookup_label=lookup_label, abbreviation=abbreviation, alternate_names=alternate_names, definition=definition, has_parents=has_parents, versions=versions, ontology_identifiers=ontology_identifiers, related_uberon_term=related_uberon_term)

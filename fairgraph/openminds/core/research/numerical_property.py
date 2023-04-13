@@ -5,7 +5,7 @@ Structured information about a property of some entity or process whose value is
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class NumericalProperty(EmbeddedMetadata):
     ]
 
     def __init__(self, name=None, values=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, values=values)
+        return super().__init__(data=data, name=name, values=values)

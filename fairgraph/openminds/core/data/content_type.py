@@ -5,7 +5,7 @@ Structured information on the content type of a file instance, bundle or reposit
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -46,4 +46,4 @@ class ContentType(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, data_types=None, description=None, display_label=None, file_extensions=None, related_media_type=None, specification=None, synonyms=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, data_types=data_types, description=description, display_label=display_label, file_extensions=file_extensions, related_media_type=related_media_type, specification=specification, synonyms=synonyms)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, data_types=data_types, description=description, display_label=display_label, file_extensions=file_extensions, related_media_type=related_media_type, specification=specification, synonyms=synonyms)

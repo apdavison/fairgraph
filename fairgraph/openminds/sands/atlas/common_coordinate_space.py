@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -54,4 +54,4 @@ class CommonCoordinateSpace(KGObject):
     existence_query_fields = ('alias', 'version_identifier')
 
     def __init__(self, name=None, alias=None, abbreviation=None, authors=None, custodians=None, description=None, digital_identifier=None, versions=None, homepage=None, how_to_cite=None, ontology_identifiers=None, used_species=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, abbreviation=abbreviation, authors=authors, custodians=custodians, description=description, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite, ontology_identifiers=ontology_identifiers, used_species=used_species)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, abbreviation=abbreviation, authors=authors, custodians=custodians, description=description, digital_identifier=digital_identifier, versions=versions, homepage=homepage, how_to_cite=how_to_cite, ontology_identifiers=ontology_identifiers, used_species=used_species)

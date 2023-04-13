@@ -5,7 +5,7 @@ A representation of a range of quantitative values.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -36,4 +36,4 @@ class QuantitativeValueRange(EmbeddedMetadata):
     ]
 
     def __init__(self, max_value=None, max_value_unit=None, min_value=None, min_value_unit=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, max_value=max_value, max_value_unit=max_value_unit, min_value=min_value, min_value_unit=min_value_unit)
+        return super().__init__(data=data, max_value=max_value, max_value_unit=max_value_unit, min_value=min_value, min_value_unit=min_value_unit)

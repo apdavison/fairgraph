@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -44,4 +44,4 @@ class ElectrodeUsage(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, anatomical_location=None, contact_resistance=None, device=None, metadata_locations=None, spatial_location=None, used_specimen=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, anatomical_location=anatomical_location, contact_resistance=contact_resistance, device=device, metadata_locations=metadata_locations, spatial_location=spatial_location, used_specimen=used_specimen)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, anatomical_location=anatomical_location, contact_resistance=contact_resistance, device=device, metadata_locations=metadata_locations, spatial_location=spatial_location, used_specimen=used_specimen)

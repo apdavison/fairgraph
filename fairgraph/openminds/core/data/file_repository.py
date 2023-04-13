@@ -5,7 +5,7 @@ Structured information on a file repository.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class FileRepository(KGObject):
     existence_query_fields = ('iri',)
 
     def __init__(self, name=None, iri=None, content_type_patterns=None, format=None, hash=None, hosted_by=None, storage_size=None, structure_pattern=None, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, iri=iri, content_type_patterns=content_type_patterns, format=format, hash=hash, hosted_by=hosted_by, storage_size=storage_size, structure_pattern=structure_pattern, type=type)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, iri=iri, content_type_patterns=content_type_patterns, format=format, hash=hash, hosted_by=hosted_by, storage_size=storage_size, structure_pattern=structure_pattern, type=type)

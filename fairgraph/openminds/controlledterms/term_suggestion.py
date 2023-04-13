@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class TermSuggestion(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, add_existing_terminology=None, definition=None, description=None, interlex_identifier=None, knowledge_space_link=None, preferred_ontology_identifier=None, suggest_new_terminology=None, synonyms=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, add_existing_terminology=add_existing_terminology, definition=definition, description=description, interlex_identifier=interlex_identifier, knowledge_space_link=knowledge_space_link, preferred_ontology_identifier=preferred_ontology_identifier, suggest_new_terminology=suggest_new_terminology, synonyms=synonyms)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, add_existing_terminology=add_existing_terminology, definition=definition, description=description, interlex_identifier=interlex_identifier, knowledge_space_link=knowledge_space_link, preferred_ontology_identifier=preferred_ontology_identifier, suggest_new_terminology=suggest_new_terminology, synonyms=synonyms)

@@ -5,7 +5,7 @@ Structured information about a file that is not accessible via a URL.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class LocalFile(KGObject):
     existence_query_fields = ('name', 'path')
 
     def __init__(self, name=None, content_description=None, copy_of=None, data_types=None, format=None, hash=None, path=None, special_usage_role=None, storage_size=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, content_description=content_description, copy_of=copy_of, data_types=data_types, format=format, hash=hash, path=path, special_usage_role=special_usage_role, storage_size=storage_size)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, content_description=content_description, copy_of=copy_of, data_types=data_types, format=format, hash=hash, path=path, special_usage_role=special_usage_role, storage_size=storage_size)

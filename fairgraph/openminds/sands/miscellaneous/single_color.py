@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -32,4 +32,4 @@ class SingleColor(KGObject):
     existence_query_fields = ('value',)
 
     def __init__(self, value=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, value=value)
+        return super().__init__(id=id, space=space, scope=scope, data=data, value=value)

@@ -5,7 +5,7 @@ Structured information about a protocol used in an experiment studying human or 
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -42,4 +42,4 @@ class BehavioralProtocol(KGObject):
     existence_query_fields = ('name', 'description')
 
     def __init__(self, name=None, described_in=None, description=None, internal_identifier=None, stimulations=None, stimulus_types=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, described_in=described_in, description=description, internal_identifier=internal_identifier, stimulations=stimulations, stimulus_types=stimulus_types)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, described_in=described_in, description=description, internal_identifier=internal_identifier, stimulations=stimulations, stimulus_types=stimulus_types)

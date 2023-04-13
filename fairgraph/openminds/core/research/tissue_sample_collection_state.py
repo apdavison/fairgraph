@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -48,4 +48,4 @@ class TissueSampleCollectionState(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, additional_remarks=None, age=None, attributes=None, descended_from=None, internal_identifier=None, pathologies=None, relative_time_indication=None, weight=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, additional_remarks=additional_remarks, age=age, attributes=attributes, descended_from=descended_from, internal_identifier=internal_identifier, pathologies=pathologies, relative_time_indication=relative_time_indication, weight=weight)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, additional_remarks=additional_remarks, age=age, attributes=attributes, descended_from=descended_from, internal_identifier=internal_identifier, pathologies=pathologies, relative_time_indication=relative_time_indication, weight=weight)

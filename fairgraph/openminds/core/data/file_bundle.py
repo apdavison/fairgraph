@@ -5,7 +5,7 @@ Structured information on a bundle of file instances.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -46,4 +46,4 @@ class FileBundle(KGObject):
     existence_query_fields = ('name', 'is_part_of')
 
     def __init__(self, name=None, content_description=None, format=None, grouped_by=None, grouping_types=None, hash=None, is_part_of=None, storage_size=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, content_description=content_description, format=format, grouped_by=grouped_by, grouping_types=grouping_types, hash=hash, is_part_of=is_part_of, storage_size=storage_size)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, content_description=content_description, format=format, grouped_by=grouped_by, grouping_types=grouping_types, hash=hash, is_part_of=is_part_of, storage_size=storage_size)

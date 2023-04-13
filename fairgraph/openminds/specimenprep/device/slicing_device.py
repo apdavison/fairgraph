@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -46,4 +46,4 @@ class SlicingDevice(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, name=None, lookup_label=None, description=None, device_type=None, digital_identifier=None, manufacturers=None, owners=None, serial_number=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, lookup_label=lookup_label, description=description, device_type=device_type, digital_identifier=digital_identifier, manufacturers=manufacturers, owners=owners, serial_number=serial_number)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, lookup_label=lookup_label, description=description, device_type=device_type, digital_identifier=digital_identifier, manufacturers=manufacturers, owners=owners, serial_number=serial_number)

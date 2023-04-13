@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -44,4 +44,4 @@ class SubjectGroup(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, additional_remarks=None, biological_sex=None, internal_identifier=None, number_of_subjects=None, species=None, studied_states=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, additional_remarks=additional_remarks, biological_sex=biological_sex, internal_identifier=internal_identifier, number_of_subjects=number_of_subjects, species=species, studied_states=studied_states)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, additional_remarks=additional_remarks, biological_sex=biological_sex, internal_identifier=internal_identifier, number_of_subjects=number_of_subjects, species=species, studied_states=studied_states)

@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .research.subject_group import SubjectGroup
 from .research.protocol_execution import ProtocolExecution

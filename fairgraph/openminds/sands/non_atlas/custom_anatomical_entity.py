@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
@@ -38,4 +38,4 @@ class CustomAnatomicalEntity(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, has_annotations=None, related_uberon_term=None, relation_assessments=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, has_annotations=has_annotations, related_uberon_term=related_uberon_term, relation_assessments=relation_assessments)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, has_annotations=has_annotations, related_uberon_term=related_uberon_term, relation_assessments=relation_assessments)

@@ -5,7 +5,7 @@ Structured information on a computational model (version level).
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 from fairgraph.errors import ResolutionFailure
@@ -83,7 +83,7 @@ class ModelVersion(KGObject):
     existence_query_fields = ('name', 'version_identifier')
 
     def __init__(self, name=None, alias=None, accessibility=None, copyright=None, custodians=None, description=None, developers=None, digital_identifier=None, formats=None, full_documentation=None, funding=None, homepage=None, how_to_cite=None, input_data=None, is_alternative_version_of=None, is_new_version_of=None, keywords=None, licenses=None, other_contributions=None, output_data=None, related_publications=None, release_date=None, repository=None, support_channels=None, version_identifier=None, version_innovation=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, alias=alias, accessibility=accessibility, copyright=copyright, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, formats=formats, full_documentation=full_documentation, funding=funding, homepage=homepage, how_to_cite=how_to_cite, input_data=input_data, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, licenses=licenses, other_contributions=other_contributions, output_data=output_data, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, version_identifier=version_identifier, version_innovation=version_innovation)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, alias=alias, accessibility=accessibility, copyright=copyright, custodians=custodians, description=description, developers=developers, digital_identifier=digital_identifier, formats=formats, full_documentation=full_documentation, funding=funding, homepage=homepage, how_to_cite=how_to_cite, input_data=input_data, is_alternative_version_of=is_alternative_version_of, is_new_version_of=is_new_version_of, keywords=keywords, licenses=licenses, other_contributions=other_contributions, output_data=output_data, related_publications=related_publications, release_date=release_date, repository=repository, support_channels=support_channels, version_identifier=version_identifier, version_innovation=version_innovation)
 
     def is_version_of(self, client):
         parents = Model.list(client, scope=self.scope, space=self.space, versions=self)

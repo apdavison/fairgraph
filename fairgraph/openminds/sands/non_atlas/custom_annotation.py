@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
@@ -50,4 +50,4 @@ class CustomAnnotation(EmbeddedMetadata):
     ]
 
     def __init__(self, anchor_points=None, coordinate_space=None, criteria=None, criteria_quality_type=None, criteria_type=None, inspired_bys=None, internal_identifier=None, laterality=None, preferred_visualization=None, specification=None, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, anchor_points=anchor_points, coordinate_space=coordinate_space, criteria=criteria, criteria_quality_type=criteria_quality_type, criteria_type=criteria_type, inspired_bys=inspired_bys, internal_identifier=internal_identifier, laterality=laterality, preferred_visualization=preferred_visualization, specification=specification, type=type)
+        return super().__init__(data=data, anchor_points=anchor_points, coordinate_space=coordinate_space, criteria=criteria, criteria_quality_type=criteria_quality_type, criteria_type=criteria_type, inspired_bys=inspired_bys, internal_identifier=internal_identifier, laterality=laterality, preferred_visualization=preferred_visualization, specification=specification, type=type)
