@@ -16,14 +16,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import annotations
 import logging
+from typing import Optional, TYPE_CHECKING, Union
 from warnings import warn
 
-from .utility import as_list, normalize_data
-from .errors import ResolutionFailure
-from .base import Resolvable, ContainsMetadata, RepresentsSingleObject
-from .kgobject import KGObject
+from .utility import as_list, ActivityLog
+from .base import Resolvable, ContainsMetadata, JSONdict
+if TYPE_CHECKING:
+    from .client import KGClient
+
 
 logger = logging.getLogger("fairgraph")
 
@@ -32,15 +34,15 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
     """Base class for metadata structures that are embedded in Knowledge Graph objects"""
     fields = []
 
-    def __init__(self, data=None, **properties):
+    def __init__(self, data: Optional[JSONdict]=None, **properties):
         super().__init__(data=data, **properties)
 
     @property
-    def space(self):
+    def space(self) -> Union[str, None]:
         return None
 
     @property
-    def default_space(self):
+    def default_space(self) -> Union[str, None]:
         return None
 
     def __repr__(self):
@@ -53,14 +55,21 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
 
     @classmethod
-    def from_kg_instance(cls, data, client):
+    def from_kg_instance(cls, data: JSONdict, client: KGClient) -> Union[None, EmbeddedMetadata]:
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")
             return None
         deserialized_data = cls._deserialize_data(data, client)
         return cls(data=data, **deserialized_data)
 
-    def save(self, client, space=None, recursive=True, activity_log=None, replace=False):
+    def save(
+        self,
+        client: KGClient,
+        space: Optional[str]=None,
+        recursive: bool=True,
+        activity_log: Optional[ActivityLog]=None,
+        replace: bool=False
+    ):
         for field in self.fields:
             if field.intrinsic:
                 values = getattr(self, field.name)
@@ -73,6 +82,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                         elif space is None and self.space is not None:
                             target_space = self.space
                         else:
+                            assert space is not None  # for type checking
                             target_space = space
                         if target_space == "controlled":
                             if value.exists(client) and value.space == "controlled":

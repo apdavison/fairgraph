@@ -17,17 +17,20 @@ Representations of metadata fields
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import annotations
 import warnings
 import logging
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
+from typing import Any, List, Optional, Tuple, TYPE_CHECKING, Union
+if TYPE_CHECKING:
+    from .client import KGClient
 
 from dateutil import parser as date_parser
 
 from .registry import lookup, lookup_type
 from .utility import as_list
-from .base import IRI
+from .base import IRI, JSONdict
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .kgobject import KGObject
@@ -44,11 +47,15 @@ global_context = {
 }
 
 
-def is_resolved(item):
+def is_resolved(item: JSONdict) -> bool:
     return set(item.keys()) not in (set(["@id", "@type"]), set(["@id"]))
 
 
-def build_kg_object(possible_classes, data, client=None):
+def build_kg_object(
+    possible_classes: Iterable[Union[EmbeddedMetadata, KGObject]],
+    data: Optional[Union[JSONdict, List[JSONdict]]],
+    client: Optional[KGClient]=None
+) -> Union[EmbeddedMetadata, KGObject, KGProxy, None, List[Union[EmbeddedMetadata, KGObject, KGProxy]]]:
     """
     Build a KGObject, an EmbeddedMetadata, a KGProxy, or a list of such, based on the data provided.
 
@@ -68,6 +75,7 @@ def build_kg_object(possible_classes, data, client=None):
             data = data["@list"]
         else:
             data = [data]
+    assert isinstance(data, list)
 
     objects = []
     for item in data:
@@ -134,12 +142,24 @@ def build_kg_object(possible_classes, data, client=None):
 class Field(object):
     """Representation of a metadata field"""
 
-    def __init__(self, name, types, path, required=False, default=None, multiple=False,
-                 strict=False, reverse=None, doc=""):
+    def __init__(
+        self,
+        name: str,
+        types: Union[str, type, KGObject, EmbeddedMetadata, Iterable[Union[str, type, KGObject, EmbeddedMetadata]]],
+        path: str,
+        required: bool=False,
+        default: Any=None,
+        multiple: bool=False,
+        strict: bool=False,
+        reverse: Optional[str]=None,
+        doc: str=""
+    ):
         self.name = name
+        self._types: Tuple[Union[str, type, KGObject, EmbeddedMetadata], ...]
         if isinstance(types, (type, str)):
             self._types = (types,)
         else:
+            assert isinstance(types, Iterable)
             self._types = tuple(types)
         self._resolved_types = False
         # later, may need to use lookup() to turn strings into classes

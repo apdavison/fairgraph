@@ -18,6 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Optional, Dict, List, Union, Any
+from typing_extensions import TypeAlias
 from copy import copy
 import logging
 from warnings import warn
@@ -30,19 +35,33 @@ from .utility import (
     expand_uri,
     normalize_data
 )
+if TYPE_CHECKING:
+    from .client import KGClient
+    from .fields import Field
+    from .utility import ActivityLog
+
 logger = logging.getLogger("fairgraph")
+
+JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
 
 class Resolvable: # all
 
-    def resolve(self, client, scope=None, use_cache=True, follow_links=0):
+    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
         pass
 
 
 
-class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
+class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and EmbeddedMetadata
+    fields: List[Field]
+    context: Dict[str, str]
+    type_: List[str]
+    scope: Optional[str]
+    space: Union[str, None]
+    default_space: Union[str, None]
+    remote_data: Optional[JSONdict]
 
-    def __init__(self, data=None, **properties):
+    def __init__(self, data: Optional[Dict]=None, **properties):
         properties_copy = copy(properties)
         for field in self.fields:
             try:
@@ -78,9 +97,9 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
         if data:
             self.remote_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
 
-    def to_jsonld(self, normalized=True, follow_links=False, include_empty_fields=False):
+    def to_jsonld(self, normalized: bool=True, follow_links: bool=False, include_empty_fields: bool=False):
         if self.fields:
-            data = {
+            data: JSONdict = {
                 "@type": self.type_
             }
             if hasattr(self, "id") and self.id:
@@ -106,17 +125,29 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
             raise NotImplementedError("to be implemented by child classes")
 
     @classmethod
-    def from_jsonld(cls, data, client, scope=None):
+    def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str]=None):
         if scope:
             return cls.from_kg_instance(data, client, scope)
         else:
             return cls.from_kg_instance(data, client)
 
-    def save(self, client, space=None, recursive=True, activity_log=None, replace=False, ignore_auth_errors=False):
+    @classmethod
+    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str]=None) -> ContainsMetadata:
+        pass
+
+    def save(
+        self,
+        client: KGClient,
+        space: Optional[str]=None,
+        recursive: bool=True,
+        activity_log: Optional[ActivityLog]=None,
+        replace: bool=False,
+        ignore_auth_errors: bool=False
+    ):
         pass
 
     @classmethod
-    def set_strict_mode(cls, value, field_names=None):
+    def set_strict_mode(cls, value: bool, field_names: Optional[Union[str, List[str]]]=None):
         if value not in (True, False):
             raise ValueError("value should be either True or False")
         if field_names:
@@ -134,7 +165,7 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_properties(cls, filter_keys=None, follow_links=0):
+    def generate_query_properties(cls, filter_keys: Optional[List[str]]=None, follow_links: int=0):
         if filter_keys is None:
             filter_keys = []
         properties=[
@@ -151,7 +182,7 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
         return properties
 
     @classmethod
-    def _deserialize_data(cls, data, client, include_id=False):
+    def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool=False):
         # normalize data by expanding keys
         D = {
             "@type": data["@type"]
@@ -190,7 +221,7 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
             deserialized_data[field.name] = field.deserialize(data_item, client)
         return deserialized_data
 
-    def resolve(self, client, scope=None, use_cache=True, follow_links=0):
+    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
@@ -199,7 +230,7 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
             for field in self.fields:
                 if issubclass(field.types[0], ContainsMetadata):
                     values = getattr(self, field.name)
-                    resolved_values = []
+                    resolved_values: List[Any] = []
                     for value in as_list(values):
                         if isinstance(value, Resolvable):
                             if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
@@ -217,28 +248,34 @@ class ContainsMetadata(metaclass=Registry):  # KGObject and EmbeddedMetadata
                                     resolved_values.append(resolved_value)
                     if isinstance(values, RepresentsSingleObject):
                         assert len(resolved_values) == 1
-                        resolved_values = resolved_values[0]
+                        setattr(self, field.name, resolved_values[0])
                     elif values is None:
                         assert len(resolved_values) == 0
-                        resolved_values = None
-                    setattr(self, field.name, resolved_values)
+                        setattr(self, field.name, None)
+                    else:
+                        setattr(self, field.name, resolved_values)
         return self
 
 
 
-class RepresentsSingleObject:  # KGObject, KGProxy
+class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
+    id: Optional[str]
+    remote_data: Optional[JSONdict]
 
-    def is_released(self, client, with_children=False):
+    def children(self, client: KGClient, follow_links: int=0) -> List[RepresentsSingleObject]:
+        pass
+
+    def is_released(self, client: KGClient, with_children: bool=False) -> bool:
         """Release status of the node"""
         try:
             return client.is_released(self.id, with_children=with_children)
         except AuthorizationError:
             # for unprivileged users
-            if "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.remote_data:
+            if self.remote_data and "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt" in self.remote_data:
                 return True
             return False
 
-    def release(self, client, with_children=False):
+    def release(self, client: KGClient, with_children: bool=False):
         """Release this node (make it available in public search)."""
         if not self.is_released(client, with_children=with_children):
             if with_children:
@@ -247,7 +284,7 @@ class RepresentsSingleObject:  # KGObject, KGProxy
                         client.release(child.id)
             return client.release(self.id)
 
-    def unrelease(self, client, with_children=False):
+    def unrelease(self, client: KGClient, with_children: bool=False):
         """Un-release this node (remove it from public search)."""
         response = client.unrelease(self.id)
         if with_children:
@@ -262,12 +299,14 @@ class SupportsQuerying:  # KGObject, KGQuery
 
 class IRI:
 
-    def __init__(self, value):
+    def __init__(self, value: Union[str, IRI]):
         if isinstance(value, IRI):
-            value = value.value
-        if not value.startswith("http"):
+            iri = value.value
+        else:
+            iri = value
+        if not iri.startswith("http"):
             raise ValueError("Invalid IRI")
-        self.value = value
+        self.value: str = iri
 
     def __eq__(self, other):
         return self.__class__ == other.__class__ and self.value == other.value

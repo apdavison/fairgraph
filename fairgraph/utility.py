@@ -17,14 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
-from urllib.parse import urlparse
+if TYPE_CHECKING:
+    from .client import KGClient
+    from .kgobject import KGObject
 
 
+JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 
 
-def as_list(obj):
+def as_list(obj: Union[None, KGObject, dict, str, list, tuple]) -> list:
     if obj is None:
         return []
     elif isinstance(obj, (dict, str)):
@@ -36,7 +41,7 @@ def as_list(obj):
     return L
 
 
-def expand_uri(uri_list, context):
+def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Union[str, Tuple[str, ...]]:
     expanded_uris = []
     for uri in as_list(uri_list):
         if uri.startswith("http") or uri.startswith("@"):
@@ -55,7 +60,7 @@ def expand_uri(uri_list, context):
         return tuple(expanded_uris)
 
 
-def compact_uri(uri_list, context, strict=False):
+def compact_uri(uri_list: Union[str, List[str]], context: Dict[str, Any], strict: bool=False) -> Union[str, Tuple[str, ...]]:
     compacted_uris = []
     for uri in as_list(uri_list):
         if uri.startswith("http"):
@@ -80,16 +85,19 @@ def compact_uri(uri_list, context, strict=False):
         return tuple(compacted_uris)
 
 
-def normalize_data(data, context):
+def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Union[None, JSONdict]:
     """Used for comparing values in KG data"""
     if data is None:
         return data
-    normalized = {}
+    normalized: JSONdict = {}
     for key, value in data.items():
+        assert isinstance(key, str)
         if key.startswith("Q"):
             expanded_key = key
         else:
-            expanded_key = expand_uri(key, context)
+            result = expand_uri(key, context)
+            assert isinstance(result, str)  # for type checking
+            expanded_key = result
         assert expanded_key.startswith("http") or expanded_key.startswith("@") or expanded_key.startswith("Q")
         if hasattr(value, "__len__") and len(value) == 0:
             pass
@@ -112,9 +120,9 @@ def normalize_data(data, context):
     return normalized
 
 
-def in_notebook():
+def in_notebook() -> bool:
     try:
-        shell = get_ipython().__class__.__name__
+        shell = get_ipython().__class__.__name__  # type: ignore
         if shell == 'ZMQInteractiveShell':
             return True
         elif shell == 'TerminalInteractiveShell':
@@ -127,7 +135,7 @@ def in_notebook():
 
 class LogEntry:
 
-    def __init__(self, cls, id, delta, space, type_):
+    def __init__(self, cls: str, id: Optional[str], delta: Optional[JSONdict], space: Optional[str], type_: str):
         self.cls = cls
         self.id = id
         self.delta = delta
@@ -143,7 +151,7 @@ class ActivityLog:
     def __init__(self):
         self.entries = []
 
-    def update(self, item, delta, space, entry_type):
+    def update(self, item: KGObject, delta: Optional[JSONdict], space: Optional[str], entry_type: str):
         self.entries.append(
             LogEntry(item.__class__.__name__, item.uuid, delta,  space, entry_type)
         )
@@ -213,12 +221,12 @@ and open source. Make science more reproducible and more efficient.
 """
 
 
-def accepted_terms_of_use(client, accept_terms_of_use=False):
+def accepted_terms_of_use(client: KGClient, accept_terms_of_use: bool=False) -> bool:
     if accept_terms_of_use or client.accepted_terms_of_use:
         return True
     else:
         if in_notebook():
-            from IPython.display import display, Markdown
+            from IPython.display import display, Markdown  # type: ignore
             display(Markdown(TERMS_OF_USE))
         else:
             print(TERMS_OF_USE)

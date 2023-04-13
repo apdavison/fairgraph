@@ -16,14 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import annotations
 import logging
+from typing import Dict, List, Optional, Union, TYPE_CHECKING
 
 from .utility import as_list
 from .registry import lookup
 from .caching import object_cache
-from .base import Resolvable, SupportsQuerying
-
+from .base import Resolvable, SupportsQuerying, ContainsMetadata
+if TYPE_CHECKING:
+    from .client import KGClient
+    from .kgobject import KGObject
 
 logger = logging.getLogger("fairgraph")
 
@@ -31,27 +34,43 @@ logger = logging.getLogger("fairgraph")
 class KGQuery(Resolvable, SupportsQuerying):
     """docstring"""
 
-    def __init__(self, classes, filter, preferred_scope="released"):
-        self.classes = []
+    def __init__(
+        self,
+        classes: Union[str, KGObject, List[Union[str, KGObject]]],
+        filter: Dict[str, str],
+        preferred_scope: str="released"
+    ):
+        self.classes: List[KGObject] = []
         for cls in as_list(classes):
             if isinstance(cls, str):
-                self.classes.append(lookup(cls))
+                resolved_cls = lookup(cls)
+                assert isinstance(resolved_cls, KGObject)
+                self.classes.append(resolved_cls)
             else:
                 self.classes.append(cls)
         self.filter = filter
+        self.preferred_scope = preferred_scope
 
     def __repr__(self):
         return ('{self.__class__.__name__}('
                 '{self.classes!r}, {self.filter!r})'.format(self=self))
 
-    def resolve(self, client, size=10000, from_index=0, space=None,
-                scope=None, use_cache=True, follow_links=0):
+    def resolve(
+        self,
+        client: KGClient,
+        size: int=10000,
+        from_index: int=0,
+        space: Optional[str]=None,
+        scope: Optional[str]=None,
+        use_cache: bool=True,
+        follow_links: int=0
+    ):
         scope = scope or self.preferred_scope
         if follow_links > 0:
             query_type = f"resolved-{follow_links}"
         else:
             query_type = "simple"
-        objects = []
+        objects: List[KGObject] = []
         for cls in self.classes:
             normalized_filters = cls.normalize_filter(self.filter) or None
             query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
@@ -79,7 +98,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         else:
             return objects
 
-    def count(self, client, space=None, scope=None):
+    def count(self, client: KGClient, space: Optional[str]=None, scope: Optional[str]=None):
         scope = scope or self.preferred_scope
         n = 0
         for cls in self.classes:

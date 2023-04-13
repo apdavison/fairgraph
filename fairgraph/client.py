@@ -16,24 +16,26 @@ define client
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import annotations
 import os
 import logging
-from typing import Iterable
+from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
 from uuid import uuid4, UUID
 
 try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
-    from kg_core.response import ResultPage, JsonLdDocument
+    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation
     have_kg_core = True
 except ImportError:
     have_kg_core = False
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
+if TYPE_CHECKING:
+    from .kgobject import KGObject
 
 try:
-    import clb_nb_utils.oauth as clb_oauth
+    import clb_nb_utils.oauth as clb_oauth  # type: ignore
 except ImportError:
     clb_oauth = None
 
@@ -69,10 +71,10 @@ class KGClient(object):
 
     def __init__(
         self,
-        token: str = None,
+        token: Optional[str] = None,
         host: str = "core.kg-ppd.ebrains.eu",
-        client_id: str = None,
-        client_secret: str = None
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None
     ):
         if not have_kg_core:
             raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
@@ -91,8 +93,8 @@ class KGClient(object):
         self.__kg_admin_client = None
         self.host = host
         self._user_info = None
-        self.cache = {}
-        self._query_cache = {}
+        self.cache: Dict[str, JsonLdDocument] = {}
+        self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
 
     @property
@@ -102,10 +104,10 @@ class KGClient(object):
         return self.__kg_admin_client
 
     @property
-    def token(self):
+    def token(self) -> Optional[str]:
         return self._kg_client.instances._kg_config.token_handler._fetch_token()
 
-    def _check_response(self, response, ignore_not_found=False, error_context=""):
+    def _check_response(self, response: ResultPage[JsonLdDocument], ignore_not_found: bool=False, error_context: str="") -> ResultPage[JsonLdDocument]:
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
@@ -121,7 +123,18 @@ class KGClient(object):
         else:
             return response
 
-    def query(self, filter, query, space=None, instance_id=None, from_index=0, size=100, scope="released", id_key="@id", use_stored_query=False):
+    def query(
+        self,
+        filter: Dict[str, str],
+        query: Dict[str, Any],
+        space: Optional[str]=None,
+        instance_id: Optional[str]=None,
+        from_index: int=0,
+        size: int=100,
+        scope: str="released",
+        id_key: str="@id",
+        use_stored_query: bool=False
+    ) -> ResultPage[JsonLdDocument]:
 
         query_id = query.get("@id", None)
         if use_stored_query:
@@ -172,7 +185,14 @@ class KGClient(object):
         else:
             return _query(scope, from_index, size)
 
-    def list(self, target_type, space=None, from_index=0, size=100, scope="released"):
+    def list(
+        self,
+        target_type: str,
+        space: Optional[str]=None,
+        from_index: int=0,
+        size: int=100,
+        scope: str="released"
+    ) -> ResultPage[JsonLdDocument]:
         """docstring"""
 
         def _list(scope, from_index, size):
@@ -205,8 +225,15 @@ class KGClient(object):
         else:
             return _list(scope, from_index, size)
 
-    def instance_from_full_uri(self, uri, use_cache=True, scope="released", require_full_data=True):
+    def instance_from_full_uri(
+        self,
+        uri: str,
+        use_cache: bool=True,
+        scope: str="released",
+        require_full_data: bool=True
+    ) -> JsonLdDocument:
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
+        data: JsonLdDocument
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
@@ -242,7 +269,7 @@ class KGClient(object):
                 data = _get_instance(scope)
         return data
 
-    def create_new_instance(self, data, space, instance_id=None):
+    def create_new_instance(self, data: JsonLdDocument, space: str, instance_id: Optional[str]=None) -> JsonLdDocument:
         if "'@id': None" in str(data):
             raise Exception("payload contains undefined ids")
         if instance_id:
@@ -261,7 +288,7 @@ class KGClient(object):
         error_context = f"create_new_instance(data={data}, space={space}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def update_instance(self, instance_id, data):
+    def update_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
@@ -270,7 +297,7 @@ class KGClient(object):
         error_context = f"update_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def replace_instance(self, instance_id, data):
+    def replace_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
@@ -279,21 +306,21 @@ class KGClient(object):
         error_context = f"replace_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def delete_instance(self, instance_id, ignore_not_found=True):
+    def delete_instance(self, instance_id: str, ignore_not_found: bool=True):
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
         return response
 
-    def uri_from_uuid(self, uuid):
+    def uri_from_uuid(self, uuid: str) -> str:
         namespace = self._kg_client.instances._kg_config.id_namespace
         return f"{namespace}{uuid}"
 
-    def uuid_from_uri(self, uri):
+    def uuid_from_uri(self, uri: str) -> UUID:
         namespace = self._kg_client.instances._kg_config.id_namespace
         assert uri.startswith(namespace)
         return UUID(uri[len(namespace):])
 
-    def store_query(self, query_label, query_definition, space):
+    def store_query(self, query_label: str, query_definition: Dict[str, Any], space: str):
         existing_query = self.retrieve_query(query_label)
         if existing_query:
             query_id = self.uuid_from_uri(existing_query["@id"])
@@ -319,7 +346,7 @@ class KGClient(object):
 
         query_definition["@id"] = self.uri_from_uuid(query_id)
 
-    def retrieve_query(self, query_label):
+    def retrieve_query(self, query_label: str) -> Dict[str, Any]:
         if query_label not in self._query_cache:
             response = self._check_response(
                 self._kg_client.queries.list_per_root_type(
@@ -344,7 +371,7 @@ class KGClient(object):
             self._query_cache[query_label] = query_definition
         return self._query_cache[query_label]
 
-    def user_info(self):
+    def user_info(self) -> Dict[str, Any]:
         if self._user_info is None:
             try:
                 self._user_info = self._kg_client.users.my_info().data
@@ -352,7 +379,7 @@ class KGClient(object):
                 self._user_info is None
         return self._user_info
 
-    def spaces(self, permissions=None, names_only=False):
+    def spaces(self, permissions: Optional[Iterable[str]]=None, names_only: bool=False) -> Union[List[str], List[SpaceInformation]]:
         if permissions and isinstance(permissions, Iterable):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
@@ -379,11 +406,11 @@ class KGClient(object):
                 return accessible_spaces
 
     @property
-    def _private_space(self):
+    def _private_space(self) -> str:
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
 
-    def configure_space(self, space_name=None, types=None ):
+    def configure_space(self, space_name: Optional[str]=None, types: Optional[List[KGObject]]=None) -> str:
         """
         Creates and configures a Knowledge Graph (KG) space with the specified name and types.
 
@@ -420,7 +447,7 @@ class KGClient(object):
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
 
-    def move_to_space(self, uri, destination_space):
+    def move_to_space(self, uri: str, destination_space: str):
         response = self._kg_client.instances.move(
             instance_id=self.uuid_from_uri(uri),
             space=destination_space
@@ -428,7 +455,7 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
-    def is_released(self, uri, with_children=False):
+    def is_released(self, uri: str, with_children: bool=False) -> bool:
         """Release status of the node"""
         if with_children:
             release_tree_scope = ReleaseTreeScope.CHILDREN_ONLY
@@ -445,13 +472,13 @@ class KGClient(object):
         else:
             raise AuthorizationError("You are not able to access the release status")
 
-    def release(self, uri):
+    def release(self, uri: str):
         """Release the node with the given uri"""
         response = self._kg_client.instances.release(self.uuid_from_uri(uri))
         if response:
             raise Exception(f"Can't release node with id {uri}. Error message: {response}")
 
-    def unrelease(self, uri):
+    def unrelease(self, uri: str):
         """Unrelease the node with the given uri"""
         response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
         if response:

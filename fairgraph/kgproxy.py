@@ -16,45 +16,56 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import annotations
 import logging
+from typing import List, Optional, Tuple, Union, TYPE_CHECKING
 
 from .registry import lookup
 from .errors import ResolutionFailure
 from .caching import object_cache
-from .base import Resolvable, RepresentsSingleObject
+from .base import RepresentsSingleObject
+if TYPE_CHECKING:
+    from .client import KGClient
+    from .kgobject import KGObject
 
 
 logger = logging.getLogger("fairgraph")
 
 
-class KGProxy(Resolvable, RepresentsSingleObject):
+class KGProxy(RepresentsSingleObject):
     """docstring"""
 
-    def __init__(self, cls, uri, preferred_scope="released"):
+    def __init__(self, cls: Union[str, KGObject], uri: str, preferred_scope: str="released"):
+        self.cls: KGObject
         if isinstance(cls, str):
-            self.cls = lookup(cls)
+            resolved_cls = lookup(cls)
+            if TYPE_CHECKING:
+                assert isinstance(resolved_cls, KGObject)
+            self.cls = resolved_cls
         else:
             self.cls = cls
+        if TYPE_CHECKING:
+            assert isinstance(self.cls, KGObject)
         self.id = uri
         self.preferred_scope = preferred_scope
+        self.remote_data = None
 
     @property
-    def type(self):
+    def type(self) -> List[str]:
         try:
             return self.cls.type_
         except AttributeError as err:
             raise AttributeError(f"{err} self.cls={self.cls}")
 
     @property
-    def classes(self):
+    def classes(self) -> Union[Tuple[KGObject], List[KGObject]]:
         # For consistency with KGQuery interface
         if isinstance(self.cls, (list, tuple)):
             return self.cls
         else:
             return [self.cls]
 
-    def resolve(self, client, scope=None, use_cache=True, follow_links=0):
+    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
         """docstring"""
         if use_cache and self.id in object_cache:
             obj = object_cache[self.id]
@@ -95,10 +106,10 @@ class KGProxy(Resolvable, RepresentsSingleObject):
                 or self.id != other.id)
 
     @property
-    def uuid(self):
+    def uuid(self) -> str:
         return self.id.split("/")[-1]
 
-    def delete(self, client, ignore_not_found=True):
+    def delete(self, client: KGClient, ignore_not_found: bool=True):
         """Delete the instance which this proxy represents"""
         try:
             obj = self.resolve(client, scope="in progress")
@@ -109,12 +120,3 @@ class KGProxy(Resolvable, RepresentsSingleObject):
             obj.delete(client, ignore_not_found=ignore_not_found)
         elif not ignore_not_found:
             raise ResolutionFailure("Couldn't resolve object to delete")
-
-    def release(self, client, with_children=False):
-        """Release this node (make it available in public search)."""
-        if not self.is_released(client, with_children=with_children):
-            if with_children:
-                for child in self.children(client):
-                    if not child.is_released(client, with_children=False):
-                        client.release(child.id)
-            return client.release(self.id)
