@@ -26,11 +26,13 @@ try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
     from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation
+
     have_kg_core = True
 except ImportError:
     have_kg_core = False
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
+
 if TYPE_CHECKING:
     from .kgobject import KGObject
 
@@ -47,7 +49,7 @@ if have_kg_core:
     STAGE_MAP = {
         "released": Stage.RELEASED,
         "latest": Stage.IN_PROGRESS,
-        "in progress": Stage.IN_PROGRESS
+        "in progress": Stage.IN_PROGRESS,
     }
     default_response_configuration = ExtendedResponseConfiguration(return_embedded=True)
 
@@ -63,21 +65,22 @@ AVAILABLE_PERMISSIONS = [
     "UNRELEASE",
     "READ_RELEASED",
     "RELEASE_STATUS",
-    "WRITE"
+    "WRITE",
 ]
 
 
 class KGClient(object):
-
     def __init__(
         self,
         token: Optional[str] = None,
         host: str = "core.kg-ppd.ebrains.eu",
         client_id: Optional[str] = None,
-        client_secret: Optional[str] = None
+        client_secret: Optional[str] = None,
     ):
         if not have_kg_core:
-            raise ImportError("Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/")
+            raise ImportError(
+                "Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/"
+            )
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
         elif token:
@@ -107,7 +110,12 @@ class KGClient(object):
     def token(self) -> Optional[str]:
         return self._kg_client.instances._kg_config.token_handler._fetch_token()
 
-    def _check_response(self, response: ResultPage[JsonLdDocument], ignore_not_found: bool=False, error_context: str="") -> ResultPage[JsonLdDocument]:
+    def _check_response(
+        self,
+        response: ResultPage[JsonLdDocument],
+        ignore_not_found: bool = False,
+        error_context: str = "",
+    ) -> ResultPage[JsonLdDocument]:
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
@@ -127,17 +135,18 @@ class KGClient(object):
         self,
         filter: Dict[str, str],
         query: Dict[str, Any],
-        space: Optional[str]=None,
-        instance_id: Optional[str]=None,
-        from_index: int=0,
-        size: int=100,
-        scope: str="released",
-        id_key: str="@id",
-        use_stored_query: bool=False
+        space: Optional[str] = None,
+        instance_id: Optional[str] = None,
+        from_index: int = 0,
+        size: int = 100,
+        scope: str = "released",
+        id_key: str = "@id",
+        use_stored_query: bool = False,
     ) -> ResultPage[JsonLdDocument]:
 
         query_id = query.get("@id", None)
         if use_stored_query:
+
             def _query(scope, from_index, size):
                 response = self._kg_client.queries.execute_query_by_id(
                     query_id=self.uuid_from_uri(query_id),
@@ -145,11 +154,13 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    #restrict_to_spaces=[space] if space else None,
+                    # restrict_to_spaces=[space] if space else None,
                 )
                 error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)
+
         else:
+
             def _query(scope, from_index, size):
                 response = self._kg_client.queries.test_query(
                     query,
@@ -157,7 +168,7 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    #restrict_to_spaces=[space] if space else None,
+                    # restrict_to_spaces=[space] if space else None,
                 )
                 error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)
@@ -188,10 +199,10 @@ class KGClient(object):
     def list(
         self,
         target_type: str,
-        space: Optional[str]=None,
-        from_index: int=0,
-        size: int=100,
-        scope: str="released"
+        space: Optional[str] = None,
+        from_index: int = 0,
+        size: int = 100,
+        scope: str = "released",
     ) -> ResultPage[JsonLdDocument]:
         """docstring"""
 
@@ -201,9 +212,11 @@ class KGClient(object):
                 target_type=target_type,
                 space=space,
                 response_configuration=default_response_configuration,
-                pagination=Pagination(start=from_index, size=size)
+                pagination=Pagination(start=from_index, size=size),
             )
-            error_context = f"_list(scope={scope} space={space} target_type={target_type} size={size} from_index={from_index})"
+            error_context = (
+                f"_list(scope={scope} space={space} target_type={target_type} size={size} from_index={from_index})"
+            )
             return self._check_response(response, error_context=error_context)
 
         if scope == "any":
@@ -228,9 +241,9 @@ class KGClient(object):
     def instance_from_full_uri(
         self,
         uri: str,
-        use_cache: bool=True,
-        scope: str="released",
-        require_full_data: bool=True
+        use_cache: bool = True,
+        scope: str = "released",
+        require_full_data: bool = True,
     ) -> JsonLdDocument:
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
         data: JsonLdDocument
@@ -238,12 +251,13 @@ class KGClient(object):
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
         else:
+
             def _get_instance(scope):
                 try:
                     response = self._kg_client.instances.get_by_id(
                         stage=STAGE_MAP[scope],
                         instance_id=self.uuid_from_uri(uri),
-                        extended_response_configuration=default_response_configuration
+                        extended_response_configuration=default_response_configuration,
                     )
                 except Exception as err:
                     if "404" in str(err):
@@ -269,7 +283,9 @@ class KGClient(object):
                 data = _get_instance(scope)
         return data
 
-    def create_new_instance(self, data: JsonLdDocument, space: str, instance_id: Optional[str]=None) -> JsonLdDocument:
+    def create_new_instance(
+        self, data: JsonLdDocument, space: str, instance_id: Optional[str] = None
+    ) -> JsonLdDocument:
         if "'@id': None" in str(data):
             raise Exception("payload contains undefined ids")
         if instance_id:
@@ -277,13 +293,13 @@ class KGClient(object):
                 space=space,
                 payload=data,
                 instance_id=instance_id,
-                extended_response_configuration=default_response_configuration
+                extended_response_configuration=default_response_configuration,
             )
         else:
             response = self._kg_client.instances.create_new(
                 space=space,
                 payload=data,
-                extended_response_configuration=default_response_configuration
+                extended_response_configuration=default_response_configuration,
             )
         error_context = f"create_new_instance(data={data}, space={space}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
@@ -292,7 +308,7 @@ class KGClient(object):
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
-            extended_response_configuration=default_response_configuration
+            extended_response_configuration=default_response_configuration,
         )
         error_context = f"update_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
@@ -301,12 +317,12 @@ class KGClient(object):
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
-            extended_response_configuration=default_response_configuration
+            extended_response_configuration=default_response_configuration,
         )
         error_context = f"replace_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def delete_instance(self, instance_id: str, ignore_not_found: bool=True):
+    def delete_instance(self, instance_id: str, ignore_not_found: bool = True):
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
         return response
@@ -318,7 +334,7 @@ class KGClient(object):
     def uuid_from_uri(self, uri: str) -> UUID:
         namespace = self._kg_client.instances._kg_config.id_namespace
         assert uri.startswith(namespace)
-        return UUID(uri[len(namespace):])
+        return UUID(uri[len(namespace) :])
 
     def store_query(self, query_label: str, query_definition: Dict[str, Any], space: str):
         existing_query = self.retrieve_query(query_label)
@@ -330,29 +346,19 @@ class KGClient(object):
         try:
             response = self._check_response(
                 self._kg_client.queries.save_query(
-                    query_id=query_id,
-                    payload=query_definition,
-                    space=space or "myspace"
+                    query_id=query_id, payload=query_definition, space=space or "myspace"
                 )
             )
         except AuthorizationError:
             response = self._check_response(
-                self._kg_client.queries.save_query(
-                    query_id=query_id,
-                    payload=query_definition,
-                    space="myspace"
-                )
+                self._kg_client.queries.save_query(query_id=query_id, payload=query_definition, space="myspace")
             )
 
         query_definition["@id"] = self.uri_from_uuid(query_id)
 
     def retrieve_query(self, query_label: str) -> Dict[str, Any]:
         if query_label not in self._query_cache:
-            response = self._check_response(
-                self._kg_client.queries.list_per_root_type(
-                    search=query_label
-                )
-            )
+            response = self._check_response(self._kg_client.queries.list_per_root_type(search=query_label))
             if response.total == 0:
                 return None
             elif response.total > 1:
@@ -379,15 +385,14 @@ class KGClient(object):
                 self._user_info is None
         return self._user_info
 
-    def spaces(self, permissions: Optional[Iterable[str]]=None, names_only: bool=False) -> Union[List[str], List[SpaceInformation]]:
+    def spaces(
+        self, permissions: Optional[Iterable[str]] = None, names_only: bool = False
+    ) -> Union[List[str], List[SpaceInformation]]:
         if permissions and isinstance(permissions, Iterable):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        response = self._kg_client.spaces.list(
-            permissions=bool(permissions),
-            pagination=Pagination(start=0, size=100)
-        )
+        response = self._kg_client.spaces.list(permissions=bool(permissions), pagination=Pagination(start=0, size=100))
         accessible_spaces = self._check_response(response).data
         if permissions and isinstance(permissions, Iterable):
             filtered_spaces = []
@@ -410,7 +415,7 @@ class KGClient(object):
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
 
-    def configure_space(self, space_name: Optional[str]=None, types: Optional[List[KGObject]]=None) -> str:
+    def configure_space(self, space_name: Optional[str] = None, types: Optional[List[KGObject]] = None) -> str:
         """
         Creates and configures a Knowledge Graph (KG) space with the specified name and types.
 
@@ -434,36 +439,33 @@ class KGClient(object):
         if space_name is None:
             collab_id = os.environ.get("LAB_COLLAB_ID")
             if collab_id is None:
-                raise ValueError("If you are not launching this from inside an EBRAINS collab, you should provide a space name with the following format: collab-collab_id.")
+                raise ValueError(
+                    "If you are not launching this from inside an EBRAINS collab, you should provide a space name with the following format: collab-collab_id."
+                )
             else:
-                space_name=f"collab-{collab_id}"
+                space_name = f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
         if result:  # error
             raise Exception(f"Unable to configure KG space for space '{space_name}': {result}")
         for cls in types:
-            result = self._kg_admin_client.assign_type_to_space(space=space_name,
-                                                                target_type=cls.type_[0])
+            result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=cls.type_[0])
             if result:  # error
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
 
     def move_to_space(self, uri: str, destination_space: str):
-        response = self._kg_client.instances.move(
-            instance_id=self.uuid_from_uri(uri),
-            space=destination_space
-        )
+        response = self._kg_client.instances.move(instance_id=self.uuid_from_uri(uri), space=destination_space)
         if response.error:
             raise Exception(response.error)
 
-    def is_released(self, uri: str, with_children: bool=False) -> bool:
+    def is_released(self, uri: str, with_children: bool = False) -> bool:
         """Release status of the node"""
         if with_children:
             release_tree_scope = ReleaseTreeScope.CHILDREN_ONLY
         else:
             release_tree_scope = ReleaseTreeScope.TOP_INSTANCE_ONLY
         response = self._kg_client.instances.get_release_status(
-            instance_id=self.uuid_from_uri(uri),
-            release_tree_scope=release_tree_scope
+            instance_id=self.uuid_from_uri(uri), release_tree_scope=release_tree_scope
         )
         if response.data in ("RELEASED", "HAS_CHANGED"):
             return True

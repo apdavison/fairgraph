@@ -1,4 +1,3 @@
-
 import json
 from random import randint
 from uuid import UUID
@@ -26,8 +25,9 @@ def test_query_generation(mock_client):
 
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_core(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="core", size=20, from_index=randint(0, 80))
+    models = omcore.Model.list(
+        kg_client, scope="released", space="model", api="core", size=20, from_index=randint(0, 80)
+    )
     assert len(models) == 20
     for m in models:
         assert m.space == "model"
@@ -35,8 +35,9 @@ def test_retrieve_released_models_no_filter_api_core(kg_client):
 
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_query(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", size=20, from_index=randint(0, 80))
+    models = omcore.Model.list(
+        kg_client, scope="released", space="model", api="query", size=20, from_index=randint(0, 80)
+    )
     assert len(models) == 20
 
 
@@ -44,12 +45,10 @@ def test_retrieve_released_models_no_filter_api_query(kg_client):
 def test_retrieve_released_models_filter_species_by_obj(kg_client):
     rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
     assert rat.name == "Rattus norvegicus"
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", study_targets=rat)
+    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=rat)
     assert len(models) > 0
     for model in models:
-        study_targets = [st.resolve(kg_client, scope="released")
-                         for st in as_list(model.study_targets)]
+        study_targets = [st.resolve(kg_client, scope="released") for st in as_list(model.study_targets)]
         if study_targets:
             assert rat in study_targets
 
@@ -57,8 +56,7 @@ def test_retrieve_released_models_filter_species_by_obj(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_uuid(kg_client):
     human = omterms.Species.by_name("Homo sapiens", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", study_targets=UUID(human.uuid))
+    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=UUID(human.uuid))
     assert len(models) > 0
     for model in models:
         if model.study_targets:
@@ -68,8 +66,7 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", study_targets=IRI(mouse.id))
+    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=IRI(mouse.id))
     # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
     for model in models:
@@ -81,8 +78,7 @@ def test_retrieve_released_models_filter_species_by_id(kg_client):
 def test_retrieve_released_models_filter_custodian(kg_client):
     alain = omcore.Person.list(kg_client, family_name="Destexhe", given_name="Alain")[0]
     assert alain.given_name == "Alain"
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", custodians=alain)
+    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", custodians=alain)
     assert len(models) > 0
     for model in models:
         assert alain.id in [c.id for c in as_list(model.custodians)]
@@ -103,9 +99,15 @@ def test_resolve_model(kg_client):
 
 @skip_if_no_connection
 def test_retrieve_released_models_resolve_one_step(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model",
-                               api="query", size=5, from_index=randint(0, 80),
-                               follow_links=1)
+    models = omcore.Model.list(
+        kg_client,
+        scope="released",
+        space="model",
+        api="query",
+        size=5,
+        from_index=randint(0, 80),
+        follow_links=1,
+    )
     assert len(models) == 5
     for model in models:
         # check first level links have been resolved
@@ -125,8 +127,15 @@ def test_retrieve_released_models_resolve_one_step(kg_client):
 
 @skip_if_no_connection
 def test_retrieve_released_people_resolve_two_steps(kg_client):
-    people = omcore.Person.list(kg_client, scope="released", space="common",
-                                api="query", size=5, from_index=randint(0, 100), follow_links=2)
+    people = omcore.Person.list(
+        kg_client,
+        scope="released",
+        space="common",
+        api="query",
+        size=5,
+        from_index=randint(0, 100),
+        follow_links=2,
+    )
     assert len(people) == 5
 
 
@@ -168,12 +177,26 @@ def test_count_released_models(kg_client):
 
 @skip_if_no_connection
 def test_count_models_with_filters(kg_client):
-    #rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
+    # rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
     single_cell = omterms.ModelScope.by_name("single cell", kg_client)
 
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=ca1, model_scope=single_cell)
-    n_models = omcore.Model.count(kg_client, scope="released", space="model", api="query", study_targets=ca1, model_scope=single_cell)
+    models = omcore.Model.list(
+        kg_client,
+        scope="released",
+        space="model",
+        api="query",
+        study_targets=ca1,
+        model_scope=single_cell,
+    )
+    n_models = omcore.Model.count(
+        kg_client,
+        scope="released",
+        space="model",
+        api="query",
+        study_targets=ca1,
+        model_scope=single_cell,
+    )
     assert len(models) == n_models
     assert n_models > 1
 
@@ -202,31 +225,35 @@ def test_exists_method_without_id(kg_client):
 
 def test__update():
     example_data = {
-        '@id': 'https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008',
-        '@type': ['https://openminds.ebrains.eu/core/Person'],
-        'http://schema.org/identifier': [
-            'ba78ffe138e3a79a7514f26441fba6ff',
-            'https://nexus.humanbrainproject.org/v0/data/uniminds/core/person/v1.0.0/e90fc25a-fc35-4066-9ff2-ca3583a2d008',
-            'https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008'
+        "@id": "https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008",
+        "@type": ["https://openminds.ebrains.eu/core/Person"],
+        "http://schema.org/identifier": [
+            "ba78ffe138e3a79a7514f26441fba6ff",
+            "https://nexus.humanbrainproject.org/v0/data/uniminds/core/person/v1.0.0/e90fc25a-fc35-4066-9ff2-ca3583a2d008",
+            "https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008",
         ],
-        'https://core.kg.ebrains.eu/vocab/meta/revision': '_fCLxIMC---',
-        'https://core.kg.ebrains.eu/vocab/meta/space': 'common',
-        'https://openminds.ebrains.eu/vocab/affiliation': {
-            '@type': ['https://openminds.ebrains.eu/core/Affiliation'],
-            'https://openminds.ebrains.eu/vocab/memberOf': {
-                '@id': 'https://kg.ebrains.eu/api/instances/05c23d56-b27e-4cf2-8c47-ed12c1a441e7'
-            }
+        "https://core.kg.ebrains.eu/vocab/meta/revision": "_fCLxIMC---",
+        "https://core.kg.ebrains.eu/vocab/meta/space": "common",
+        "https://openminds.ebrains.eu/vocab/affiliation": {
+            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
+            "https://openminds.ebrains.eu/vocab/memberOf": {
+                "@id": "https://kg.ebrains.eu/api/instances/05c23d56-b27e-4cf2-8c47-ed12c1a441e7"
+            },
         },
-        'https://openminds.ebrains.eu/vocab/contactInformation': [
-            {'@id': 'https://kg.ebrains.eu/api/instances/4b88cd1e-e222-47e9-9b4a-32b648bddbca'},
-            {'@id': 'https://kg.ebrains.eu/api/instances/bc036c71-084b-4ffa-8430-4543095660f2'}
+        "https://openminds.ebrains.eu/vocab/contactInformation": [
+            {"@id": "https://kg.ebrains.eu/api/instances/4b88cd1e-e222-47e9-9b4a-32b648bddbca"},
+            {"@id": "https://kg.ebrains.eu/api/instances/bc036c71-084b-4ffa-8430-4543095660f2"},
         ],
-        'https://openminds.ebrains.eu/vocab/familyName': 'Bianchi',
-        'https://openminds.ebrains.eu/vocab/givenName': 'Daniela'
+        "https://openminds.ebrains.eu/vocab/familyName": "Bianchi",
+        "https://openminds.ebrains.eu/vocab/givenName": "Daniela",
     }
     client = None
     person = omcore.Person.from_kg_instance(example_data, client=client, scope="in progress")
-    for key in ("http://schema.org/identifier", "https://core.kg.ebrains.eu/vocab/meta/revision", "https://core.kg.ebrains.eu/vocab/meta/space"):
+    for key in (
+        "http://schema.org/identifier",
+        "https://core.kg.ebrains.eu/vocab/meta/revision",
+        "https://core.kg.ebrains.eu/vocab/meta/space",
+    ):
         example_data.pop(key)
     assert person.remote_data == example_data
     # this follows the sequence in person.save()
@@ -271,9 +298,11 @@ def test_save_new_mock(mock_client):
         homepage=IRI("http://example.com"),
         how_to_cite=None,
         model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
-        study_targets=[omterms.Species.by_name("Mus musculus", mock_client),
-                       omterms.CellType.by_name("astrocyte", mock_client),
-                       omterms.UBERONParcellation.by_name("amygdala", mock_client)]
+        study_targets=[
+            omterms.Species.by_name("Mus musculus", mock_client),
+            omterms.CellType.by_name("astrocyte", mock_client),
+            omterms.UBERONParcellation.by_name("amygdala", mock_client),
+        ],
     )
     log = ActivityLog()
     new_model.save(mock_client, space="myspace", recursive=False, activity_log=log)
@@ -287,9 +316,7 @@ def test_save_new_recursive_mock(mock_client):
     new_person = omcore.Person(
         given_name="Thorin",
         family_name="Oakenshield",
-        affiliations=omcore.Affiliation(
-            member_of=omcore.Organization(name="The Lonely Mountain")
-        )
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
     )
     log = ActivityLog()
     new_person.save(mock_client, space="myspace", recursive=True, activity_log=log)
@@ -304,5 +331,5 @@ def test_save_new_recursive_mock(mock_client):
     assert UUID(new_person.affiliations.member_of.uuid)
 
 
-#def test_save_existing_with_id_mock(mock_client):
+# def test_save_existing_with_id_mock(mock_client):
 #    existing_model = mock_client.instances[]

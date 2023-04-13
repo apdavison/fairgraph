@@ -43,9 +43,7 @@ def example_query_model_version():
                 ensure_order=True,
                 type_filter="https://openminds.ebrains.eu/core/Person",
                 properties=[
-                    QueryProperty(
-                        "@id", filter=Filter("EQUALS", parameter="custodian")
-                    ),
+                    QueryProperty("@id", filter=Filter("EQUALS", parameter="custodian")),
                     QueryProperty(
                         "https://openminds.ebrains.eu/vocab/affiliation",
                         name="vocab:affiliation",
@@ -123,9 +121,7 @@ def example_query_repository_with_reverse():
                 reverse=True,
                 name="files",
                 properties=[
-                    QueryProperty(
-                        "https://openminds.ebrains.eu/vocab/name", name="filename"
-                    ),
+                    QueryProperty("https://openminds.ebrains.eu/vocab/name", name="filename"),
                     QueryProperty(
                         [
                             "https://openminds.ebrains.eu/vocab/format",
@@ -152,9 +148,7 @@ def example_query_repository_with_reverse():
                         name="size",
                         expect_single=True,
                         properties=[
-                            QueryProperty(
-                                "https://openminds.ebrains.eu/vocab/value", name="value"
-                            ),
+                            QueryProperty("https://openminds.ebrains.eu/vocab/value", name="value"),
                             QueryProperty(
                                 [
                                     "https://openminds.ebrains.eu/vocab/unit",
@@ -223,9 +217,7 @@ def test_query_builder(example_query_model_version):
                 "ensureOrder": True,
                 "path": {
                     "@id": "https://openminds.ebrains.eu/vocab/custodian",
-                    "typeFilter": {
-                        "@id": "https://openminds.ebrains.eu/core/Person"
-                    }
+                    "typeFilter": {"@id": "https://openminds.ebrains.eu/core/Person"},
                 },
                 "propertyName": "vocab:custodian",
                 "structure": [
@@ -367,16 +359,12 @@ def test_execute_query(kg_client, example_query_model_version):
         assert set(custodian0.keys()) == set(["@id", "vocab:affiliation"])
         if custodian0["vocab:affiliation"]:
             affil0 = custodian0["vocab:affiliation"][0]
-            assert set(affil0.keys()) == set(
-                ["@type", "vocab:memberOf", "vocab:startDate"]
-            )
+            assert set(affil0.keys()) == set(["@type", "vocab:memberOf", "vocab:startDate"])
 
 
 @skip_if_no_connection
 def test_execute_query_with_id_filter(kg_client, example_query_model):
-    target_id = (
-        "https://kg.ebrains.eu/api/instances/3ca9ae35-c9df-451f-ac76-4925bd2c7dc6"
-    )
+    target_id = "https://kg.ebrains.eu/api/instances/3ca9ae35-c9df-451f-ac76-4925bd2c7dc6"
     response = kg_client._kg_client.queries.test_query(
         payload=example_query_model.serialize(),
         instance_id=kg_client.uuid_from_uri(target_id),
@@ -392,9 +380,7 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
 
 @skip_if_no_connection
 def test_execute_query_with_reverse_fields(kg_client, example_query_repository_with_reverse):
-    target_id = (
-        "https://kg.ebrains.eu/api/instances/2f8d64f3-d848-49bd-baa6-a2c7080c98da"
-    )
+    target_id = "https://kg.ebrains.eu/api/instances/2f8d64f3-d848-49bd-baa6-a2c7080c98da"
     response = kg_client._kg_client.queries.test_query(
         payload=example_query_repository_with_reverse.serialize(),
         instance_id=kg_client.uuid_from_uri(target_id),
@@ -403,7 +389,10 @@ def test_execute_query_with_reverse_fields(kg_client, example_query_repository_w
     )
     data = response.data
     assert len(data) == 1
-    assert data[0]["location"] == "https://object.cscs.ch/v1/AUTH_7e4157014a3d4c1f8ffe270b57008fd4/brette-etal-2007?prefix=Benchmark2"
+    assert (
+        data[0]["location"]
+        == "https://object.cscs.ch/v1/AUTH_7e4157014a3d4c1f8ffe270b57008fd4/brette-etal-2007?prefix=Benchmark2"
+    )
     assert "VAbenchmarks" in data[0]["files"][0]["filename"]
     assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
 
@@ -420,7 +409,10 @@ def test_openminds_core_queries(mock_client):
         )
         with open(path_expected) as fp:
             generated = cls.generate_query(
-                "simple", "collab-foobar", mock_client, follow_links=0,
+                "simple",
+                "collab-foobar",
+                mock_client,
+                follow_links=0,
             )
             expected = json.load(fp)
             assert generated == expected
@@ -442,6 +434,7 @@ def test_generate_query_with_follow_one_link(mock_client):
             )
             expected = json.load(fp)
             assert generated == expected
+
 
 def test_generate_query_with_follow_two_links(mock_client):
     for cls in (omcore.Person,):

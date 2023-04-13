@@ -9,12 +9,11 @@ from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
-
-
 class LaunchConfiguration(KGObject):
     """
     Structured information about the launch of a computational process.
     """
+
     default_space = "computation"
     type_ = ["https://openminds.ebrains.eu/computation/LaunchConfiguration"]
     context = {
@@ -22,22 +21,72 @@ class LaunchConfiguration(KGObject):
         "kg": "https://kg.ebrains.eu/api/instances/",
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
+        "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("name", str, "vocab:name", multiple=False, required=False,
-              doc="Word or phrase that constitutes the distinctive designation of the launch configuration."),
-        Field("arguments", str, "vocab:argument", multiple=True, required=False,
-              doc="no description available"),
-        Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the launch configuration."),
-        Field("environment_variables", "openminds.core.PropertyValueList", "vocab:environmentVariable", multiple=False, required=False,
-              doc="no description available"),
-        Field("executable", str, "vocab:executable", multiple=False, required=True,
-              doc="no description available"),
-
+        Field(
+            "name",
+            str,
+            "vocab:name",
+            multiple=False,
+            required=False,
+            doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
+        ),
+        Field(
+            "arguments",
+            str,
+            "vocab:argument",
+            multiple=True,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "description",
+            str,
+            "vocab:description",
+            multiple=False,
+            required=False,
+            doc="Longer statement or account giving the characteristics of the launch configuration.",
+        ),
+        Field(
+            "environment_variables",
+            "openminds.core.PropertyValueList",
+            "vocab:environmentVariable",
+            multiple=False,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "executable",
+            str,
+            "vocab:executable",
+            multiple=False,
+            required=True,
+            doc="no description available",
+        ),
     ]
-    existence_query_fields = ('executable', 'name')
+    existence_query_fields = ("executable", "name")
 
-    def __init__(self, name=None, arguments=None, description=None, environment_variables=None, executable=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, arguments=arguments, description=description, environment_variables=environment_variables, executable=executable)
+    def __init__(
+        self,
+        name=None,
+        arguments=None,
+        description=None,
+        environment_variables=None,
+        executable=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
+        return super().__init__(
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            name=name,
+            arguments=arguments,
+            description=description,
+            environment_variables=environment_variables,
+            executable=executable,
+        )

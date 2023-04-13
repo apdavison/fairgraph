@@ -24,6 +24,7 @@ from .registry import lookup
 from .errors import ResolutionFailure
 from .caching import object_cache
 from .base import RepresentsSingleObject
+
 if TYPE_CHECKING:
     from .client import KGClient
     from .kgobject import KGObject
@@ -35,7 +36,7 @@ logger = logging.getLogger("fairgraph")
 class KGProxy(RepresentsSingleObject):
     """docstring"""
 
-    def __init__(self, cls: Union[str, KGObject], uri: str, preferred_scope: str="released"):
+    def __init__(self, cls: Union[str, KGObject], uri: str, preferred_scope: str = "released"):
         self.cls: KGObject
         if isinstance(cls, str):
             resolved_cls = lookup(cls)
@@ -65,7 +66,13 @@ class KGProxy(RepresentsSingleObject):
         else:
             return [self.cls]
 
-    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
+    def resolve(
+        self,
+        client: KGClient,
+        scope: Optional[str] = None,
+        use_cache: bool = True,
+        follow_links: int = 0,
+    ):
         """docstring"""
         if use_cache and self.id in object_cache:
             obj = object_cache[self.id]
@@ -86,30 +93,28 @@ class KGProxy(RepresentsSingleObject):
                 raise ResolutionFailure(f"Cannot resolve proxy object of type {self.cls} with id {self.uuid}")
             object_cache[self.id] = obj
         if follow_links > 0:
-            return obj.resolve(
-                client, scope=scope, use_cache=use_cache,
-                follow_links=follow_links
-            )
+            return obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
         else:
             return obj
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.classes!r}, {self.id!r})'.format(self=self))
+        return "{self.__class__.__name__}(" "{self.classes!r}, {self.id!r})".format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and set(self.classes).intersection(other.classes) and self.id == other.id
+        return (
+            isinstance(other, self.__class__) and set(self.classes).intersection(other.classes) and self.id == other.id
+        )
 
     def __ne__(self, other):
-        return (not isinstance(other, self.__class__)
-                or set(self.classes).isdisjoint(other.classes)
-                or self.id != other.id)
+        return (
+            not isinstance(other, self.__class__) or set(self.classes).isdisjoint(other.classes) or self.id != other.id
+        )
 
     @property
     def uuid(self) -> str:
         return self.id.split("/")[-1]
 
-    def delete(self, client: KGClient, ignore_not_found: bool=True):
+    def delete(self, client: KGClient, ignore_not_found: bool = True):
         """Delete the instance which this proxy represents"""
         try:
             obj = self.resolve(client, scope="in progress")

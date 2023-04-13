@@ -23,6 +23,7 @@ from warnings import warn
 
 from .utility import as_list, ActivityLog
 from .base import Resolvable, ContainsMetadata, JSONdict
+
 if TYPE_CHECKING:
     from .client import KGClient
 
@@ -32,9 +33,10 @@ logger = logging.getLogger("fairgraph")
 
 class EmbeddedMetadata(ContainsMetadata, Resolvable):
     """Base class for metadata structures that are embedded in Knowledge Graph objects"""
+
     fields = []
 
-    def __init__(self, data: Optional[JSONdict]=None, **properties):
+    def __init__(self, data: Optional[JSONdict] = None, **properties):
         super().__init__(data=data, **properties)
 
     @property
@@ -46,8 +48,11 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return None
 
     def __repr__(self):
-        template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
-                            for field in self.fields if getattr(self, field.name) is not None)
+        template_parts = (
+            "{}={{self.{}!r}}".format(field.name, field.name)
+            for field in self.fields
+            if getattr(self, field.name) is not None
+        )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)
 
@@ -65,10 +70,10 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
     def save(
         self,
         client: KGClient,
-        space: Optional[str]=None,
-        recursive: bool=True,
-        activity_log: Optional[ActivityLog]=None,
-        replace: bool=False
+        space: Optional[str] = None,
+        recursive: bool = True,
+        activity_log: Optional[ActivityLog] = None,
+        replace: bool = False,
     ):
         for field in self.fields:
             if field.intrinsic:
@@ -77,7 +82,11 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                     if isinstance(value, ContainsMetadata):
                         if value.space:
                             target_space = value.space
-                        elif value.__class__.default_space == "controlled" and value.exists(client) and value.space == "controlled":
+                        elif (
+                            value.__class__.default_space == "controlled"
+                            and value.exists(client)
+                            and value.space == "controlled"
+                        ):
                             continue
                         elif space is None and self.space is not None:
                             target_space = self.space
@@ -89,5 +98,4 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                                 continue
                             else:
                                 raise Exception("Cannot write to controlled space")
-                        value.save(client, space=target_space, recursive=True,
-                                    activity_log=activity_log)
+                        value.save(client, space=target_space, recursive=True, activity_log=activity_log)

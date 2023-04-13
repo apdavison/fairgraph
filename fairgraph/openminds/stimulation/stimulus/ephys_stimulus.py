@@ -9,12 +9,9 @@ from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
-
-
 class EphysStimulus(KGObject):
-    """
+    """ """
 
-    """
     default_space = "in-depth"
     type_ = ["https://openminds.ebrains.eu/stimulation/EphysStimulus"]
     context = {
@@ -22,12 +19,17 @@ class EphysStimulus(KGObject):
         "kg": "https://kg.ebrains.eu/api/instances/",
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
+        "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("type", "openminds.controlledterms.ElectricalStimulusType", "vocab:type", multiple=False, required=False,
-              doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to."),
-
+        Field(
+            "type",
+            "openminds.controlledterms.ElectricalStimulusType",
+            "vocab:type",
+            multiple=False,
+            required=False,
+            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
+        ),
     ]
     existence_query_fields = ()
 

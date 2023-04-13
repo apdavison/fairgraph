@@ -24,7 +24,8 @@ from generator.commons import (
     SCHEMA_FILE_ENDING,
     ROOT_PATH,
     EXPANDED_DIR,
-    find_resource_directories)
+    find_resource_directories,
+)
 
 LIST_CLASSES_TEMPATE = '''
 
@@ -74,9 +75,7 @@ custom_multiple = {
 
 # in a small number of cases, a single item is allowed but this item itself has an
 # array-like character, e.g. PropertyValueList
-custom_singular = {
-    "environment_variable": "environment_variables"
-}
+custom_singular = {"environment_variable": "environment_variables"}
 
 
 def generate_python_name(json_name, allow_multiple=False):
@@ -95,12 +94,7 @@ def generate_python_name(json_name, allow_multiple=False):
     return python_name
 
 
-type_name_map = {
-    "string": "str",
-    "integer": "int",
-    "number": "float",
-    "array": "list"
-}
+type_name_map = {"string": "str", "integer": "int", "number": "float", "array": "list"}
 
 format_map = {
     "iri": "IRI",
@@ -108,7 +102,7 @@ format_map = {
     "date-time": "datetime",
     "time": "datetime",
     "email": "str",  # could maybe use Pydantic or something to be stricter about this
-    "ECMA262": "str"
+    "ECMA262": "str",
 }
 
 
@@ -141,11 +135,8 @@ def invert_dict(D):
 
 
 DEFAULT_SPACES = {
-    "chemicals": {
-        "default": "dataset"
-    },
-    "core":
-    invert_dict(
+    "chemicals": {"default": "dataset"},
+    "core": invert_dict(
         {
             "common": [
                 "Affiliation",
@@ -174,7 +165,7 @@ DEFAULT_SPACES = {
                 "FileBundle",
                 "FilePathPattern",
                 "FileRepositoryStructure",
-                "Hash"
+                "Hash",
             ],
             "dataset": [
                 "Contribution",
@@ -209,23 +200,19 @@ DEFAULT_SPACES = {
                 "BehavioralProtocol",
                 "Stimulation",
                 "Strain",
-                "Setup"
+                "Setup",
             ],
             "model": ["Model", "ModelVersion"],
             "software": ["SWHID", "Software", "SoftwareVersion"],
             "restricted": ["ContactInformation"],
             "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
             "controlled": ["License", "ContentType"],
-            "webservice": ["WebService", "WebServiceVersion"]
-        }),
-    "computation": {
-        "default": "computation"
-    },
-    "controlledTerms": {
-        "default": "controlled"
-    },
-    "SANDS":
-    invert_dict(
+            "webservice": ["WebService", "WebServiceVersion"],
+        }
+    ),
+    "computation": {"default": "computation"},
+    "controlledTerms": {"default": "controlled"},
+    "SANDS": invert_dict(
         {
             "spatial": [
                 "AnatomicalEntity",
@@ -236,7 +223,7 @@ DEFAULT_SPACES = {
                 "CustomCoordinateSpace",
                 "Image",
                 "QualitativeRelationAssessment",
-                "QuantitativeRelationAssessment"
+                "QuantitativeRelationAssessment",
             ],
             "atlas": [
                 "AnatomicalTargetPosition",
@@ -254,24 +241,15 @@ DEFAULT_SPACES = {
                 "ParcellationTerminologyVersion",
                 "ParcellationEntityVersion",
                 "Rectangle",
-                "SingleColor"
-            ]
-        }),
-    "publications": {
-        "default": "livepapers"
-    },
-    "ephys": {
-        "default": "in-depth"
-    },
-    "chemicals": {
-        "default": "in-depth"
-    },
-    "specimenPrep": {
-        "default": "in-depth"
-    },
-    "stimulation": {
-        "default": "in-depth"
-    }
+                "SingleColor",
+            ],
+        }
+    ),
+    "publications": {"default": "livepapers"},
+    "ephys": {"default": "in-depth"},
+    "chemicals": {"default": "in-depth"},
+    "specimenPrep": {"default": "in-depth"},
+    "stimulation": {"default": "in-depth"},
 }
 
 
@@ -304,17 +282,17 @@ custom_existence_queries = {
     "RORID": ("identifier",),
     "SWHID": ("identifier",),
     "WebResource": ("iri",),
-    "Dataset": ("alias", ),
+    "Dataset": ("alias",),
     "DatasetVersion": ("alias", "version_identifier"),
-    "MetaDataModel": ("alias", ),
+    "MetaDataModel": ("alias",),
     "MetaDataModelVersion": ("alias", "version_identifier"),
-    "Model": ("name", ),  # here we use 'name' instead of 'alias' for backwards compatibility
+    "Model": ("name",),  # here we use 'name' instead of 'alias' for backwards compatibility
     "ModelVersion": ("name", "version_identifier"),
     "Project": ("alias",),
     "Software": ("alias",),
     "SoftwareVersion": ("alias", "version_identifier"),
     "Protocol": ("name",),
-    "BrainAtlas": ("digital_identifier", ),
+    "BrainAtlas": ("digital_identifier",),
     "BrainAtlasVersion": ("alias", "version_identifier"),
     "CommonCoordinateSpace": ("alias", "version_identifier"),
     "ParcellationEntity": ("name",),
@@ -341,7 +319,7 @@ def get_existence_query(cls_name, fields):
 
     for field in fields:
         if field["name"] == "lookup_label":
-            return ("lookup_label", )
+            return ("lookup_label",)
 
     required_field_names = []
     for field in fields:
@@ -365,6 +343,7 @@ def property_name_sort_key(arg):
 def get_controlled_terms_table(type_):
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination
+
     host = "core.kg.ebrains.eu"
     limit = 20
     try:
@@ -380,7 +359,7 @@ def get_controlled_terms_table(type_):
         stage=Stage.RELEASED,
         target_type=type_,
         space="controlled",
-        pagination=Pagination(start=0, size=limit)
+        pagination=Pagination(start=0, size=limit),
     )
     if response.error:
         warnings.warn(f"Error trying to retrieve values for {type_}: {response.error}")
@@ -394,7 +373,7 @@ def get_controlled_terms_table(type_):
             "    .. list-table:: **Possible values**",
             "       :widths: 20 80",
             "       :header-rows: 0",
-            ""
+            "",
         ]
         for item in response.data:
             vocab = "https://openminds.ebrains.eu/vocab"
@@ -409,20 +388,24 @@ def get_controlled_terms_table(type_):
             lines.append(f"         - {definition}")
         if response.total > response.size:
             assert response.size == limit
-            lines.extend(["", f"Here we show the first {limit} values, an additional {response.total - limit} values are not shown."])
+            lines.extend(
+                [
+                    "",
+                    f"Here we show the first {limit} values, an additional {response.total - limit} values are not shown.",
+                ]
+            )
         lines.append("")
         return "\n".join(lines)
 
 
 class FairgraphGenerator(JinjaGenerator):
-
     def __init__(self, schema_information: List[SchemaStructure]):
         super().__init__("py", None, "fairgraph_module_template.py.txt")
-        self.env.loader=FileSystemLoader(os.path.dirname(os.path.realpath(__file__)))
+        self.env.loader = FileSystemLoader(os.path.dirname(os.path.realpath(__file__)))
         self.target_path = os.path.join("..", "fairgraph", "openminds")
         self.schema_information = schema_information
         self.schema_information_by_type = {}
-        #self.schema_collection_by_group = {}
+        # self.schema_collection_by_group = {}
         for s in self.schema_information:
             self.schema_information_by_type[s.type] = s
         self.import_data = defaultdict(dict)
@@ -437,20 +420,16 @@ class FairgraphGenerator(JinjaGenerator):
         # self.schema_collection_by_group[schema["schemaGroup"]].append(schema_information)
 
         fields = []
-        #imports = set([])
+        # imports = set([])
         for name, property in sorted(schema["properties"].items(), key=property_name_sort_key):
             allow_multiple = False
             if property.get("type") == "array":
                 allow_multiple = True
             if TEMPLATE_PROPERTY_LINKED_TYPES in property:
-                possible_types = [
-                    f'"{generate_class_name(iri)}"'
-                    for iri in property[TEMPLATE_PROPERTY_LINKED_TYPES]
-                ]
+                possible_types = [f'"{generate_class_name(iri)}"' for iri in property[TEMPLATE_PROPERTY_LINKED_TYPES]]
             elif TEMPLATE_PROPERTY_EMBEDDED_TYPES in property:
                 possible_types = [
-                    f'"{generate_class_name(iri)}"'
-                    for iri in property[TEMPLATE_PROPERTY_EMBEDDED_TYPES]
+                    f'"{generate_class_name(iri)}"' for iri in property[TEMPLATE_PROPERTY_EMBEDDED_TYPES]
                 ]  # todo: handle minItems maxItems, e.g. for axesOrigin
             elif "_formats" in property:
                 assert property["type"] == "string"
@@ -459,7 +438,7 @@ class FairgraphGenerator(JinjaGenerator):
                 possible_types = [type_name_map[property["items"]["type"]]]
             else:
                 possible_types = [type_name_map[property["type"]]]
-            #imports.update(possible_types)
+            # imports.update(possible_types)
             if len(possible_types) == 1:
                 possible_types_str = possible_types[0]
             else:
@@ -470,7 +449,7 @@ class FairgraphGenerator(JinjaGenerator):
                 "iri": f"vocab:{name}",
                 "allow_multiple": allow_multiple,
                 "required": name in schema.get("required", []),
-                "doc": generate_doc(property, schema["simpleTypeName"])
+                "doc": generate_doc(property, schema["simpleTypeName"]),
             }
             fields.append(field)
 
@@ -496,7 +475,7 @@ class FairgraphGenerator(JinjaGenerator):
             base_class = "KGObject"
             default_space = get_default_space(schema["schemaGroup"], schema["simpleTypeName"])
         context = {
-            #"imports": import_str,
+            # "imports": import_str,
             "class_name": generate_class_name(schema[TEMPLATE_PROPERTY_TYPE]).split(".")[-1],
             "default_space": default_space,
             "base_class": base_class,
@@ -505,7 +484,7 @@ class FairgraphGenerator(JinjaGenerator):
             "fields": fields,
             "existence_query_fields": get_existence_query(schema["simpleTypeName"], fields),
             "preamble": preamble.get(schema["simpleTypeName"], ""),
-            "additional_methods": additional_methods.get(schema["simpleTypeName"], "")
+            "additional_methods": additional_methods.get(schema["simpleTypeName"], ""),
         }
         if base_class == "KGObject":
             context["standard_init_fields"] = "id=id, space=space, scope=scope, "
@@ -514,9 +493,7 @@ class FairgraphGenerator(JinjaGenerator):
         if schema["schemaGroup"] == "controlledTerms":
             context["docstring"] += get_controlled_terms_table(schema["_type"])
         schema.update(context)
-        self.import_data[schema["schemaGroup"]][schema[TEMPLATE_PROPERTY_TYPE]] = {
-            "class_name": context["class_name"]
-        }
+        self.import_data[schema["schemaGroup"]][schema[TEMPLATE_PROPERTY_TYPE]] = {"class_name": context["class_name"]}
         return schema
 
     def _process_template(self, schema) -> str:
@@ -524,21 +501,21 @@ class FairgraphGenerator(JinjaGenerator):
         return strip_trailing_whitespace(result)
 
     def _generate_target_file_path(self, schema_group, schema_group_path, schema_path):
-        relative_schema_path = os.path.dirname(schema_path[len(schema_group_path) + 1:])
+        relative_schema_path = os.path.dirname(schema_path[len(schema_group_path) + 1 :])
         relative_schema_path = relative_schema_path.replace("-", "_")
         schema_file_name = os.path.basename(schema_path)
-        schema_file_name_without_extension = generate_python_name(
-            schema_file_name[:-len(SCHEMA_FILE_ENDING)])
+        schema_file_name_without_extension = generate_python_name(schema_file_name[: -len(SCHEMA_FILE_ENDING)])
         schema_group = schema_group.split("/")[0].lower()
         target_path = os.path.join(
             self.target_path,
             schema_group,
             relative_schema_path,
-            f"{schema_file_name_without_extension}.{self.format}")
+            f"{schema_file_name_without_extension}.{self.format}",
+        )
         return target_path
 
     def _generate_additional_files(self, schema_group, schema_group_path, schema_path, schema):
-        relative_schema_path = os.path.dirname(schema_path[len(schema_group_path) + 1:])
+        relative_schema_path = os.path.dirname(schema_path[len(schema_group_path) + 1 :])
         relative_schema_path = relative_schema_path.replace("-", "_")
         schema_group = schema_group.split("/")[0]
         path_parts = (self.target_path, schema_group.lower(), *relative_schema_path.split("/"))
@@ -546,8 +523,10 @@ class FairgraphGenerator(JinjaGenerator):
         os.makedirs(os.path.join(*path_parts), exist_ok=True)
         # write __init__.py files
         schema_file_name = os.path.basename(schema_path)
-        path = relative_schema_path.replace(
-            "/", ".") + f".{generate_python_name(schema_file_name[:-len(SCHEMA_FILE_ENDING)])}"
+        path = (
+            relative_schema_path.replace("/", ".")
+            + f".{generate_python_name(schema_file_name[:-len(SCHEMA_FILE_ENDING)])}"
+        )
         if path[0] != ".":
             path = "." + path
         self.import_data[schema_group][schema[TEMPLATE_PROPERTY_TYPE]]["path"] = path
@@ -564,13 +543,9 @@ class FairgraphGenerator(JinjaGenerator):
         _linked_from = defaultdict(list)
         _embedded_in = defaultdict(list)
         expanded_path = os.path.join(ROOT_PATH, EXPANDED_DIR)
-        for schema_group in find_resource_directories(expanded_path,
-                                                      file_ending=SCHEMA_FILE_ENDING,
-                                                      ignore=ignore):
+        for schema_group in find_resource_directories(expanded_path, file_ending=SCHEMA_FILE_ENDING, ignore=ignore):
             schema_group_path = os.path.join(expanded_path, schema_group)
-            for schema_path in glob.glob(os.path.join(schema_group_path,
-                                                      f'**/*{SCHEMA_FILE_ENDING}'),
-                                         recursive=True):
+            for schema_path in glob.glob(os.path.join(schema_group_path, f"**/*{SCHEMA_FILE_ENDING}"), recursive=True):
                 with open(schema_path, "r") as schema_file:
                     schema = json.load(schema_file)
                 for property in schema["properties"].values():
@@ -607,8 +582,7 @@ def strip_trailing_whitespace(s):
 
 
 preamble = {
-    "File":
-    """import os
+    "File": """import os
 import hashlib
 import mimetypes
 from pathlib import Path
@@ -633,34 +607,26 @@ def sha1sum(filename):
             h.update(data)
     return h.hexdigest()
     """,
-    "DatasetVersion":
-    """from urllib.request import urlretrieve
+    "DatasetVersion": """from urllib.request import urlretrieve
 from pathlib import Path
 from ....utility import accepted_terms_of_use""",
-    "ModelVersion":
-    """from fairgraph.errors import ResolutionFailure
+    "ModelVersion": """from fairgraph.errors import ResolutionFailure
 from .model import Model""",
-    "ValidationTestVersion":
-    """from fairgraph.errors import ResolutionFailure
+    "ValidationTestVersion": """from fairgraph.errors import ResolutionFailure
 from .validation_test import ValidationTest""",
-    "LivePaperVersion":
-    """from fairgraph.errors import ResolutionFailure
+    "LivePaperVersion": """from fairgraph.errors import ResolutionFailure
 from .live_paper import LivePaper""",
-    "ScholarlyArticle":
-    """from fairgraph.base import as_list
+    "ScholarlyArticle": """from fairgraph.base import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical""",
-    "SoftwareVersion":
-    """from fairgraph.errors import ResolutionFailure
+    "SoftwareVersion": """from fairgraph.errors import ResolutionFailure
 from .software import Software""",
-    "WebServiceVersion":
-    """from fairgraph.errors import ResolutionFailure
+    "WebServiceVersion": """from fairgraph.errors import ResolutionFailure
 from .web_service import WebService""",
 }
 
 additional_methods = {
-    "Person":
-    """
+    "Person": """
     @property
     def full_name(self):
         return f"{self.given_name} {self.family_name}"
@@ -685,8 +651,7 @@ additional_methods = {
             raise Exception("Found multiple matches")
         return person
     """,
-    "File":
-    """
+    "File": """
     @classmethod
     def from_local_file(cls, relative_path):
         cls.set_strict_mode(False)
@@ -719,8 +684,7 @@ additional_methods = {
             #       within it
             return local_filename
     """,
-    "DatasetVersion":
-    """
+    "DatasetVersion": """
     def download(self, local_path, client, accept_terms_of_use=False):
         if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
             repo = self.repository.resolve(client, scope=self.scope or None)
@@ -738,8 +702,7 @@ additional_methods = {
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
             return local_filename, repo.iri.value
     """,
-    "ModelVersion":
-    """
+    "ModelVersion": """
     def is_version_of(self, client):
         parents = Model.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
@@ -748,8 +711,7 @@ additional_methods = {
             assert len(parents) == 1
             return parents[0]
     """,
-    "ValidationTestVersion":
-    """
+    "ValidationTestVersion": """
     def is_version_of(self, client):
         parents = ValidationTest.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
@@ -758,8 +720,7 @@ additional_methods = {
             assert len(parents) == 1
             return parents[0]
     """,
-    "LivePaperVersion":
-    """    def is_version_of(self, client):
+    "LivePaperVersion": """    def is_version_of(self, client):
         parents = LivePaper.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
             raise ResolutionFailure("Unable to find parent")
@@ -767,8 +728,7 @@ additional_methods = {
             assert len(parents) == 1
             return parents[0]
     """,
-    "ScholarlyArticle":
-    """    def get_journal(self, client, with_volume=False, with_issue=False):
+    "ScholarlyArticle": """    def get_journal(self, client, with_volume=False, with_issue=False):
         journal = volume = issue = None
         if self.is_part_of:
             issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links=1)
@@ -810,8 +770,7 @@ additional_methods = {
         volume_number = volume.volume_number if volume else ""
         return f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
     """,
-    "SoftwareVersion":
-    """    def is_version_of(self, client):
+    "SoftwareVersion": """    def is_version_of(self, client):
         parents = Software.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
             raise ResolutionFailure("Unable to find parent")
@@ -819,8 +778,7 @@ additional_methods = {
             assert len(parents) == 1
             return parents[0]
     """,
-    "WebServiceVersion":
-    """    def is_version_of(self, client):
+    "WebServiceVersion": """    def is_version_of(self, client):
         parents = WebService.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
             raise ResolutionFailure("Unable to find parent")

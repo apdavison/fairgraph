@@ -9,12 +9,11 @@ from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 
-
-
 class Environment(KGObject):
     """
     Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
+
     default_space = "computation"
     type_ = ["https://openminds.ebrains.eu/computation/Environment"]
     context = {
@@ -22,22 +21,72 @@ class Environment(KGObject):
         "kg": "https://kg.ebrains.eu/api/instances/",
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
+        "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the environment."),
-        Field("configuration", "openminds.core.Configuration", "vocab:configuration", multiple=False, required=False,
-              doc="no description available"),
-        Field("description", str, "vocab:description", multiple=False, required=False,
-              doc="Longer statement or account giving the characteristics of the environment."),
-        Field("hardware", "openminds.computation.HardwareSystem", "vocab:hardware", multiple=False, required=True,
-              doc="no description available"),
-        Field("software", "openminds.core.SoftwareVersion", "vocab:software", multiple=True, required=False,
-              doc="no description available"),
-
+        Field(
+            "name",
+            str,
+            "vocab:name",
+            multiple=False,
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the environment.",
+        ),
+        Field(
+            "configuration",
+            "openminds.core.Configuration",
+            "vocab:configuration",
+            multiple=False,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "description",
+            str,
+            "vocab:description",
+            multiple=False,
+            required=False,
+            doc="Longer statement or account giving the characteristics of the environment.",
+        ),
+        Field(
+            "hardware",
+            "openminds.computation.HardwareSystem",
+            "vocab:hardware",
+            multiple=False,
+            required=True,
+            doc="no description available",
+        ),
+        Field(
+            "software",
+            "openminds.core.SoftwareVersion",
+            "vocab:software",
+            multiple=True,
+            required=False,
+            doc="no description available",
+        ),
     ]
-    existence_query_fields = ('name', 'hardware')
+    existence_query_fields = ("name", "hardware")
 
-    def __init__(self, name=None, configuration=None, description=None, hardware=None, software=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, configuration=configuration, description=description, hardware=hardware, software=software)
+    def __init__(
+        self,
+        name=None,
+        configuration=None,
+        description=None,
+        hardware=None,
+        software=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
+        return super().__init__(
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            name=name,
+            configuration=configuration,
+            description=description,
+            hardware=hardware,
+            software=software,
+        )

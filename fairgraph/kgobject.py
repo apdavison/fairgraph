@@ -24,8 +24,10 @@ from warnings import warn
 from typing import Any, Tuple, Dict, List, Optional, TYPE_CHECKING, Union
 
 from requests.exceptions import HTTPError
+
 try:
     from tabulate import tabulate
+
     have_tabulate = True
 except ImportError:
     have_tabulate = False
@@ -36,6 +38,7 @@ from .errors import AuthorizationError, ResourceExistsError
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
 from .kgproxy import KGProxy
+
 if TYPE_CHECKING:
     from .fields import Field
     from .client import KGClient
@@ -46,9 +49,10 @@ logger = logging.getLogger("fairgraph")
 
 def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[str]]:
     value = filters[field.name]
+
     def is_valid(val):
-        return (isinstance(val, (IRI, UUID, *field.types))
-                or (isinstance(val, KGProxy) and val.cls in field.types))
+        return isinstance(val, (IRI, UUID, *field.types)) or (isinstance(val, KGProxy) and val.cls in field.types)
+
     if isinstance(value, list) and len(value) > 0:
         valid_type = all(is_valid(item) for item in value)
         have_multiple = True
@@ -89,6 +93,7 @@ def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[s
 
 class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     """Base class for Knowledge Graph objects"""
+
     fields: List[Field] = []
     existence_query_fields: Tuple[str, ...] = ("name",)
     # Note that this default value of existence_query_fields should in
@@ -98,11 +103,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     def __init__(
         self,
-        id: Optional[str]=None,
-        data: Optional[JSONdict]=None,
-        space: Optional[str]=None,
-        scope: Optional[str]=None,
-        **properties
+        id: Optional[str] = None,
+        data: Optional[JSONdict] = None,
+        space: Optional[str] = None,
+        scope: Optional[str] = None,
+        **properties,
     ):
         self.id = id
         self._space = space
@@ -111,8 +116,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         super().__init__(data=data, **properties)
 
     def __repr__(self):
-        template_parts = ("{}={{self.{}!r}}".format(field.name, field.name)
-                            for field in self.fields if getattr(self, field.name) is not None)
+        template_parts = (
+            "{}={{self.{}!r}}".format(field.name, field.name)
+            for field in self.fields
+            if getattr(self, field.name) is not None
+        )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", space={self.space}, id={self.id})"
         return template.format(self=self)
 
@@ -126,7 +134,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return self._space
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str]=None):
+    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
         deserialized_data = cls._deserialize_data(data, client, include_id=True)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
@@ -150,7 +158,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     #     return data
 
     @classmethod
-    def from_uri(cls, uri: str, client: KGClient, use_cache:bool=True, scope: str="released", follow_links: int=0):
+    def from_uri(
+        cls,
+        uri: str,
+        client: KGClient,
+        use_cache: bool = True,
+        scope: str = "released",
+        follow_links: int = 0,
+    ):
         if follow_links:
             query = cls._get_query_definition(client, normalized_filters={}, space=None, follow_links=follow_links)
             results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
@@ -167,7 +182,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             return cls.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_uuid(cls, uuid: str, client: KGClient, use_cache: bool=True, scope: str="released", follow_links: int=0):
+    def from_uuid(
+        cls,
+        uuid: str,
+        client: KGClient,
+        use_cache: bool = True,
+        scope: str = "released",
+        follow_links: int = 0,
+    ):
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -179,7 +201,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
 
     @classmethod
-    def from_id(cls, id: str, client: KGClient, use_cache: bool=True, scope: str="released", follow_links: int=0):
+    def from_id(
+        cls,
+        id: str,
+        client: KGClient,
+        use_cache: bool = True,
+        scope: str = "released",
+        follow_links: int = 0,
+    ):
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
                 return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
@@ -197,12 +226,28 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             return cls_from_data.from_kg_instance(data, client, scope=scope)
 
     @classmethod
-    def from_alias(cls, alias: str, client: KGClient, space: Optional[str]=None, scope: str="released", follow_links: int=0):
+    def from_alias(
+        cls,
+        alias: str,
+        client: KGClient,
+        space: Optional[str] = None,
+        scope: str = "released",
+        follow_links: int = 0,
+    ):
         if "alias" not in cls.field_names:
             raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
         candidates = as_list(
-            cls.list(client, size=20, from_index=0, api="query",
-                     scope=scope, space=space, alias=alias, follow_links=follow_links))
+            cls.list(
+                client,
+                size=20,
+                from_index=0,
+                api="query",
+                scope=scope,
+                space=space,
+                alias=alias,
+                follow_links=follow_links,
+            )
+        )
         if len(candidates) == 0:
             return None
         elif len(candidates) == 1:
@@ -211,8 +256,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             for candidate in candidates:
                 if candidate.alias == alias:
                     return candidate
-            warn("Multiple objects found with a similar alias, but none match exactly."
-                 "Returning the first one found.")
+            warn(
+                "Multiple objects found with a similar alias, but none match exactly." "Returning the first one found."
+            )
             return candidates[0]
 
     @property
@@ -232,9 +278,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         cls,
         client: KGClient,
         normalized_filters: Union[Dict[str, Any], None],
-        space: Optional[str]=None,
-        follow_links: int=0,
-        use_stored_query: bool=False
+        space: Optional[str] = None,
+        follow_links: int = 0,
+        use_stored_query: bool = False,
     ):
         if follow_links:
             query_type = f"resolved-{follow_links}"
@@ -250,8 +296,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             query = client.retrieve_query(query_label)
         if query is None:
             query = cls.generate_query(
-                query_type, space, client=client,
-                filter_keys=filter_keys, follow_links=follow_links)
+                query_type,
+                space,
+                client=client,
+                filter_keys=filter_keys,
+                follow_links=follow_links,
+            )
             if use_stored_query:
                 client.store_query(query_label, query, space=space)
         return query
@@ -268,13 +318,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     def list(
         cls,
         client: KGClient,
-        size: int=100,
-        from_index: int=0,
-        api: str="auto",
-        scope: str="released",
-        space: Optional[str]=None,
-        follow_links: int=0,
-        **filters
+        size: int = 100,
+        from_index: int = 0,
+        api: str = "auto",
+        scope: str = "released",
+        space: Optional[str] = None,
+        follow_links: int = 0,
+        **filters,
     ) -> List[KGObject]:
         """List all objects of this type in the Knowledge Graph"""
 
@@ -288,10 +338,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             normalized_filters = cls.normalize_filter(filters) or None
             query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
             instances = client.query(
-                normalized_filters, query,
+                normalized_filters,
+                query,
                 space=space,
-                from_index=from_index, size=size,
-                scope=scope
+                from_index=from_index,
+                size=size,
+                scope=scope,
             ).data
             for instance in instances:
                 instance["@context"] = cls.context
@@ -300,20 +352,21 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 raise ValueError("Cannot use filters with api='core'")
             if follow_links:
                 raise NotImplementedError("Following links with api='core' not yet implemented")
-            instances = client.list(
-                cls.type_,
-                space=space,
-                from_index=from_index, size=size,
-                scope=scope
-            ).data
+            instances = client.list(cls.type_, space=space, from_index=from_index, size=size, scope=scope).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
 
-        return [cls.from_kg_instance(instance, client, scope=scope)
-                for instance in instances]
+        return [cls.from_kg_instance(instance, client, scope=scope) for instance in instances]
 
     @classmethod
-    def count(cls, client: KGClient, api: str="auto", scope: str="released", space: Optional[str]=None, **filters) -> int:
+    def count(
+        cls,
+        client: KGClient,
+        api: str = "auto",
+        scope: str = "released",
+        space: Optional[str] = None,
+        **filters,
+    ) -> int:
         if api == "auto":
             if filters:
                 api = "query"
@@ -322,8 +375,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if api == "query":
             normalized_filters = cls.normalize_filter(filters) or None
             query = cls._get_query_definition(client, normalized_filters, space)
-            response = client.query(normalized_filters, query, space=space,
-                                    from_index=0, size=1, scope=scope)
+            response = client.query(normalized_filters, query, space=space, from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -400,9 +452,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if self.id:
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
-            data = client.instance_from_full_uri(self.id, use_cache=True,
-                                                 scope=self.scope or "any",
-                                                 require_full_data=False)
+            data = client.instance_from_full_uri(
+                self.id, use_cache=True, scope=self.scope or "any", require_full_data=False
+            )
             if self._raw_remote_data is None:
                 self._raw_remote_data = data
             obj_exists = bool(data)
@@ -459,11 +511,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     def save(
         self,
         client: KGClient,
-        space: Optional[str]=None,
-        recursive: bool=True,
-        activity_log: Optional[ActivityLog]=None,
-        replace: bool=False,
-        ignore_auth_errors: bool=False
+        space: Optional[str] = None,
+        recursive: bool = True,
+        activity_log: Optional[ActivityLog] = None,
+        replace: bool = False,
+        ignore_auth_errors: bool = False,
     ):
         if recursive:
             for field in self.fields:
@@ -491,8 +543,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                                     continue
                                 else:
                                     raise Exception("Cannot write to controlled space")
-                            value.save(client, space=target_space, recursive=True,
-                                       activity_log=activity_log)
+                            value.save(
+                                client,
+                                space=target_space,
+                                recursive=True,
+                                activity_log=activity_log,
+                            )
         if space is None:
             if self.space is None:
                 space = self.__class__.default_space
@@ -524,7 +580,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 else:
                     modified_data = self.modified_data()
                     if modified_data:
-                        logger.info(f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {modified_data.keys()}")
+                        logger.info(
+                            f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {modified_data.keys()}"
+                        )
                         skip_update = False
                         if "vocab:storageSize" in modified_data:
                             warn("Removing storage size from update because this field is currently locked by the KG")
@@ -545,7 +603,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             else:
                                 self.remote_data = local_data
                             if activity_log:
-                                activity_log.update(item=self, delta=modified_data, space=space, entry_type="update")
+                                activity_log.update(
+                                    item=self,
+                                    delta=modified_data,
+                                    space=space,
+                                    entry_type="update",
+                                )
                     else:
                         logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), unchanged")
                         if activity_log:
@@ -556,14 +619,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             logger.info("  - creating instance with data {}".format(local_data))
             try:
                 instance_data = client.create_new_instance(
-                    local_data,
-                    space or self.__class__.default_space,
-                    instance_id=self.uuid)
+                    local_data, space or self.__class__.default_space, instance_id=self.uuid
+                )
             except (AuthorizationError, ResourceExistsError) as err:
                 if ignore_auth_errors:
                     logger.error(str(err))
                     if activity_log:
-                        activity_log.update(item=self, delta=local_data, space=self.space, entry_type="create-error")
+                        activity_log.update(
+                            item=self,
+                            delta=local_data,
+                            space=self.space,
+                            entry_type="create-error",
+                        )
                 else:
                     raise
             else:
@@ -579,7 +646,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         else:
             logger.warning("Object has no id - see log for the underlying error")
 
-    def delete(self, client: KGClient, ignore_not_found: bool=True):
+    def delete(self, client: KGClient, ignore_not_found: bool = True):
         """Deprecate"""
         client.delete_instance(self.uuid, ignore_not_found=ignore_not_found)
         if self.id in object_cache:
@@ -590,14 +657,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         cls,
         name: str,
         client: KGClient,
-        match: str="equals",
-        all: bool=False,
-        space: Optional[str]=None,
-        scope: str="released",
-        follow_links: int=0
+        match: str = "equals",
+        all: bool = False,
+        space: Optional[str] = None,
+        scope: str = "released",
+        follow_links: int = 0,
     ) -> Union[KGObject, List[KGObject], None]:
-        objects = cls.list(client, space=space, scope=scope, api="query", name=name,
-                           follow_links=follow_links)
+        objects = cls.list(client, space=space, scope=scope, api="query", name=name, follow_links=follow_links)
         if match == "equals":
             objects = [obj for obj in objects if hasattr(obj, "name") and obj.name == name]
         if len(objects) == 0:
@@ -607,26 +673,27 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         elif all:
             return objects
         else:
-            warn("Multiple objects with the same name, returning the first. "
-                "Use 'all=True' to retrieve them all")
+            warn("Multiple objects with the same name, returning the first. " "Use 'all=True' to retrieve them all")
             return objects[0]
 
-    def show(self, max_width: Optional[int]=None):
+    def show(self, max_width: Optional[int] = None):
         if not have_tabulate:
             raise Exception("You need to install the tabulate module to use the `show()` method")
         data = [("id", self.id), ("space", self.space)] + [
-                (field.name, str(getattr(self, field.name, None))) for field in self.fields]
+            (field.name, str(getattr(self, field.name, None))) for field in self.fields
+        ]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
             def fit_column(value):
                 strv = value
                 if len(strv) > value_column_width:
-                    strv = strv[:value_column_width - 4] + " ..."
+                    strv = strv[: value_column_width - 4] + " ..."
                 return strv
+
             data = [(k, fit_column(v)) for k, v in data]
         print(tabulate(data, tablefmt="plain"))
-        #return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
+        # return tabulate(data, tablefmt='html') - also see  https://bitbucket.org/astanin/python-tabulate/issues/57/html-class-options-for-tables
 
     @classmethod
     def generate_query(
@@ -634,8 +701,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         query_type: str,
         space: Union[str, None],
         client: KGClient,
-        filter_keys: Optional[List[str]]=None,
-        follow_links: int=0
+        filter_keys: Optional[List[str]] = None,
+        follow_links: int = 0,
     ) -> Union[Dict[str, Any], None]:
         """
 
@@ -651,12 +718,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             node_type=cls.type_[0],
             label=query_label,
             space=real_space,
-            properties=cls.generate_query_properties(filter_keys, follow_links=follow_links)
+            properties=cls.generate_query_properties(filter_keys, follow_links=follow_links),
         )
         return query.serialize()
 
     @classmethod
-    def get_query_label(cls, query_type: str, space: Union[str, None], filter_keys: Optional[List[str]]=None) -> str:
+    def get_query_label(cls, query_type: str, space: Union[str, None], filter_keys: Optional[List[str]] = None) -> str:
         if space and "private" in space:  # temporary work-around
             label = f"fg-{cls.__name__}-{query_type}-myspace"
         else:
@@ -674,17 +741,22 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 client.store_query(query_label, query_definition, space=space or cls.default_space)
             except HTTPError as err:
                 if err.response.status_code == 401:
-                    warn("Unable to store query with id '{}': {}".format(
-                        query_label, err.response.text))
+                    warn("Unable to store query with id '{}': {}".format(query_label, err.response.text))
                 else:
                     raise
 
     @classmethod
-    def retrieve_query(cls, query_type: str, space: Union[str, None], client: KGClient, filter_keys: Optional[List[str]]=None) -> Dict[str, Any]:
+    def retrieve_query(
+        cls,
+        query_type: str,
+        space: Union[str, None],
+        client: KGClient,
+        filter_keys: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         query_label = cls.get_query_label(query_type, space, filter_keys)
         return client.retrieve_query(query_label)
 
-    def children(self, client: KGClient, follow_links: int=0) -> List[RepresentsSingleObject]:
+    def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
         if follow_links:
             self.resolve(client, follow_links=follow_links)
         all_children = []
@@ -697,7 +769,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         all_children.extend(child.children(client))
         return all_children
 
-    def export(self, path: str, single_file: bool=False):
+    def export(self, path: str, single_file: bool = False):
         """
         Export metadata as files in JSON-LD format.
 

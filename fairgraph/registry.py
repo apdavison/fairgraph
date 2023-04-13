@@ -10,10 +10,7 @@ from typing import TYPE_CHECKING, Union, List, Optional
 if TYPE_CHECKING:
     from .base import ContainsMetadata
 
-registry: dict = {
-    'names': {},
-    'types': {}
-}
+registry: dict = {"names": {}, "types": {}}
 
 
 def register_class(target_class: ContainsMetadata):
@@ -23,33 +20,33 @@ def register_class(target_class: ContainsMetadata):
     else:
         name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
 
-    registry['names'][name] = target_class
-    if hasattr(target_class, 'type_'):
+    registry["names"][name] = target_class
+    if hasattr(target_class, "type_"):
         if isinstance(target_class.type_, str):
             type_ = target_class.type_
         else:
             type_ = tuple(sorted(target_class.type_))
-        if type_ in registry['types']:
-            if isinstance(registry['types'][type_], list):
-                registry['types'][type_].append(target_class)
+        if type_ in registry["types"]:
+            if isinstance(registry["types"][type_], list):
+                registry["types"][type_].append(target_class)
             else:
-                registry['types'][type_] = [registry['types'][type_], target_class]
+                registry["types"][type_] = [registry["types"][type_], target_class]
         else:
-            registry['types'][type_] = target_class
+            registry["types"][type_] = target_class
 
 
 def lookup(class_name: str) -> ContainsMetadata:
-    return registry['names'][class_name]
+    return registry["names"][class_name]
 
 
 def lookup_type(class_type: Union[str, List[str]]) -> ContainsMetadata:
     if isinstance(class_type, str):
-        if class_type in registry['types']:
-            return registry['types'][class_type]
+        if class_type in registry["types"]:
+            return registry["types"][class_type]
         else:
-            return registry['types'][(class_type,)]
+            return registry["types"][(class_type,)]
     else:
-        return registry['types'][tuple(sorted(class_type))]
+        return registry["types"][tuple(sorted(class_type))]
 
 
 docstring_template = """
@@ -64,6 +61,7 @@ Args
 
 class Registry(type):
     """Metaclass for registering Knowledge Graph classes"""
+
     fields = []
 
     def __new__(meta, name, bases, class_dict):
@@ -76,17 +74,18 @@ class Registry(type):
         """Dynamically generate docstrings"""
         field_docs = []
         if hasattr(self, "fields"):
+
             def gen_path(type_):
                 if type_.__module__ == "builtins":
                     return type_.__name__
                 else:
                     return "~{}.{}".format(type_.__module__, type_.__name__)
+
             for field in self.fields:
-                doc = "{} : {}\n    {}".format(field.name,
-                                               ", ".join(gen_path(t) for t in field.types),
-                                               field.doc)
+                doc = "{} : {}\n    {}".format(field.name, ", ".join(gen_path(t) for t in field.types), field.doc)
                 field_docs.append(doc)
         return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
+
     __doc__ = property(_get_doc)
 
     @property

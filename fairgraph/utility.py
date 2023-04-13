@@ -20,6 +20,7 @@
 from __future__ import annotations
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
+
 if TYPE_CHECKING:
     from .client import KGClient
     from .kgobject import KGObject
@@ -60,7 +61,9 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
         return tuple(expanded_uris)
 
 
-def compact_uri(uri_list: Union[str, List[str]], context: Dict[str, Any], strict: bool=False) -> Union[str, Tuple[str, ...]]:
+def compact_uri(
+    uri_list: Union[str, List[str]], context: Dict[str, Any], strict: bool = False
+) -> Union[str, Tuple[str, ...]]:
     compacted_uris = []
     for uri in as_list(uri_list):
         if uri.startswith("http"):
@@ -123,9 +126,9 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
 def in_notebook() -> bool:
     try:
         shell = get_ipython().__class__.__name__  # type: ignore
-        if shell == 'ZMQInteractiveShell':
+        if shell == "ZMQInteractiveShell":
             return True
-        elif shell == 'TerminalInteractiveShell':
+        elif shell == "TerminalInteractiveShell":
             return False
         else:
             return False
@@ -134,8 +137,14 @@ def in_notebook() -> bool:
 
 
 class LogEntry:
-
-    def __init__(self, cls: str, id: Optional[str], delta: Optional[JSONdict], space: Optional[str], type_: str):
+    def __init__(
+        self,
+        cls: str,
+        id: Optional[str],
+        delta: Optional[JSONdict],
+        space: Optional[str],
+        type_: str,
+    ):
         self.cls = cls
         self.id = id
         self.delta = delta
@@ -147,14 +156,11 @@ class LogEntry:
 
 
 class ActivityLog:
-
     def __init__(self):
         self.entries = []
 
     def update(self, item: KGObject, delta: Optional[JSONdict], space: Optional[str], entry_type: str):
-        self.entries.append(
-            LogEntry(item.__class__.__name__, item.uuid, delta,  space, entry_type)
-        )
+        self.entries.append(LogEntry(item.__class__.__name__, item.uuid, delta, space, entry_type))
 
     def __repr__(self):
         return "\n".join((str(entry) for entry in self.entries))
@@ -221,17 +227,18 @@ and open source. Make science more reproducible and more efficient.
 """
 
 
-def accepted_terms_of_use(client: KGClient, accept_terms_of_use: bool=False) -> bool:
+def accepted_terms_of_use(client: KGClient, accept_terms_of_use: bool = False) -> bool:
     if accept_terms_of_use or client.accepted_terms_of_use:
         return True
     else:
         if in_notebook():
             from IPython.display import display, Markdown  # type: ignore
+
             display(Markdown(TERMS_OF_USE))
         else:
             print(TERMS_OF_USE)
         user_response = input("Do you accept the EBRAINS KG Terms of Service? ")
-        if user_response in ('y', 'Y', 'yes', 'YES'):
+        if user_response in ("y", "Y", "yes", "YES"):
             client.accepted_terms_of_use = True
             return True
         else:

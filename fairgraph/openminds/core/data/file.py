@@ -22,10 +22,11 @@ from fairgraph.utility import accepted_terms_of_use
 
 mimetypes.init()
 
+
 def sha1sum(filename):
-    BUFFER_SIZE = 128*1024
+    BUFFER_SIZE = 128 * 1024
     h = hashlib.sha1()
-    with open(filename, 'rb') as fp:
+    with open(filename, "rb") as fp:
         while True:
             data = fp.read(BUFFER_SIZE)
             if not data:
@@ -34,11 +35,11 @@ def sha1sum(filename):
     return h.hexdigest()
 
 
-
 class File(KGObject):
     """
     Structured information on a file instance that is accessible via a URL.
     """
+
     default_space = "files"
     type_ = ["https://openminds.ebrains.eu/core/File"]
     context = {
@@ -46,43 +47,134 @@ class File(KGObject):
         "kg": "https://kg.ebrains.eu/api/instances/",
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
+        "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("name", str, "vocab:name", multiple=False, required=True,
-              doc="Word or phrase that constitutes the distinctive designation of the file."),
-        Field("iri", IRI, "vocab:IRI", multiple=False, required=True,
-              doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646."),
-        Field("content_description", str, "vocab:contentDescription", multiple=False, required=False,
-              doc="no description available"),
-        Field("data_types", "openminds.controlledterms.DataType", "vocab:dataType", multiple=True, required=False,
-              doc="no description available"),
-        Field("file_repository", "openminds.core.FileRepository", "vocab:fileRepository", multiple=False, required=False,
-              doc="no description available"),
-        Field("format", "openminds.core.ContentType", "vocab:format", multiple=False, required=False,
-              doc="Method of digitally organizing and structuring data or information."),
-        Field("hash", "openminds.core.Hash", "vocab:hash", multiple=True, required=False,
-              doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value."),
-        Field("is_part_of", "openminds.core.FileBundle", "vocab:isPartOf", multiple=True, required=False,
-              doc="Reference to the ensemble of multiple things or beings."),
-        Field("special_usage_role", "openminds.controlledterms.FileUsageRole", "vocab:specialUsageRole", multiple=False, required=False,
-              doc="Particular function of something when it is used."),
-        Field("storage_size", "openminds.core.QuantitativeValue", "vocab:storageSize", multiple=False, required=False,
-              doc="Quantitative value defining how much disk space is used by an object on a computer system."),
-
+        Field(
+            "name",
+            str,
+            "vocab:name",
+            multiple=False,
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the file.",
+        ),
+        Field(
+            "iri",
+            IRI,
+            "vocab:IRI",
+            multiple=False,
+            required=True,
+            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
+        ),
+        Field(
+            "content_description",
+            str,
+            "vocab:contentDescription",
+            multiple=False,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "data_types",
+            "openminds.controlledterms.DataType",
+            "vocab:dataType",
+            multiple=True,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "file_repository",
+            "openminds.core.FileRepository",
+            "vocab:fileRepository",
+            multiple=False,
+            required=False,
+            doc="no description available",
+        ),
+        Field(
+            "format",
+            "openminds.core.ContentType",
+            "vocab:format",
+            multiple=False,
+            required=False,
+            doc="Method of digitally organizing and structuring data or information.",
+        ),
+        Field(
+            "hash",
+            "openminds.core.Hash",
+            "vocab:hash",
+            multiple=True,
+            required=False,
+            doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
+        ),
+        Field(
+            "is_part_of",
+            "openminds.core.FileBundle",
+            "vocab:isPartOf",
+            multiple=True,
+            required=False,
+            doc="Reference to the ensemble of multiple things or beings.",
+        ),
+        Field(
+            "special_usage_role",
+            "openminds.controlledterms.FileUsageRole",
+            "vocab:specialUsageRole",
+            multiple=False,
+            required=False,
+            doc="Particular function of something when it is used.",
+        ),
+        Field(
+            "storage_size",
+            "openminds.core.QuantitativeValue",
+            "vocab:storageSize",
+            multiple=False,
+            required=False,
+            doc="Quantitative value defining how much disk space is used by an object on a computer system.",
+        ),
     ]
-    existence_query_fields = ('iri', 'hash')
+    existence_query_fields = ("iri", "hash")
 
-    def __init__(self, name=None, iri=None, content_description=None, data_types=None, file_repository=None, format=None, hash=None, is_part_of=None, special_usage_role=None, storage_size=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, iri=iri, content_description=content_description, data_types=data_types, file_repository=file_repository, format=format, hash=hash, is_part_of=is_part_of, special_usage_role=special_usage_role, storage_size=storage_size)
+    def __init__(
+        self,
+        name=None,
+        iri=None,
+        content_description=None,
+        data_types=None,
+        file_repository=None,
+        format=None,
+        hash=None,
+        is_part_of=None,
+        special_usage_role=None,
+        storage_size=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
+        return super().__init__(
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            name=name,
+            iri=iri,
+            content_description=content_description,
+            data_types=data_types,
+            file_repository=file_repository,
+            format=format,
+            hash=hash,
+            is_part_of=is_part_of,
+            special_usage_role=special_usage_role,
+            storage_size=storage_size,
+        )
 
     @classmethod
     def from_local_file(cls, relative_path):
         cls.set_strict_mode(False)
         obj = cls(
             name=relative_path,
-            storage_size=QuantitativeValue(value=float(
-                os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")),
+            storage_size=QuantitativeValue(
+                value=float(os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")
+            ),
             hash=Hash(algorithm="SHA1", digest=sha1sum(relative_path)),
             format=ContentType(name=mimetypes.guess_type(relative_path)[0])
             # todo: query ContentTypes since that contains additional, EBRAINS-specific content types

@@ -23,6 +23,7 @@ import logging
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
 from typing import Any, List, Optional, Tuple, TYPE_CHECKING, Union
+
 if TYPE_CHECKING:
     from .client import KGClient
 
@@ -54,7 +55,7 @@ def is_resolved(item: JSONdict) -> bool:
 def build_kg_object(
     possible_classes: Iterable[Union[EmbeddedMetadata, KGObject]],
     data: Optional[Union[JSONdict, List[JSONdict]]],
-    client: Optional[KGClient]=None
+    client: Optional[KGClient] = None,
 ) -> Union[EmbeddedMetadata, KGObject, KGProxy, None, List[Union[EmbeddedMetadata, KGObject, KGProxy]]]:
     """
     Build a KGObject, an EmbeddedMetadata, a KGProxy, or a list of such, based on the data provided.
@@ -87,10 +88,8 @@ def build_kg_object(
             raise NotImplementedError
 
         assert isinstance(possible_classes, (list, tuple))
-        assert (
-            all(issubclass(item, KGObject) for item in possible_classes)
-            or
-            all(issubclass(item, EmbeddedMetadata) for item in possible_classes)
+        assert all(issubclass(item, KGObject) for item in possible_classes) or all(
+            issubclass(item, EmbeddedMetadata) for item in possible_classes
         )
         if len(possible_classes) > 1:
             if "@type" in item:
@@ -117,8 +116,7 @@ def build_kg_object(
                     obj = KGProxy(kg_cls, item["@id"]).resolve(client)
                     # todo: provide space and scope
             else:
-                if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
-                        lookup_type(item["@type"])):
+                if "@type" in item and item["@type"] is not None and kg_cls not in as_list(lookup_type(item["@type"])):
                     logger.warning(f"Mismatched types: {kg_cls} <> {item['@type']}")
                     raise Exception("mismatched types")
                     obj = None
@@ -145,14 +143,20 @@ class Field(object):
     def __init__(
         self,
         name: str,
-        types: Union[str, type, KGObject, EmbeddedMetadata, Iterable[Union[str, type, KGObject, EmbeddedMetadata]]],
+        types: Union[
+            str,
+            type,
+            KGObject,
+            EmbeddedMetadata,
+            Iterable[Union[str, type, KGObject, EmbeddedMetadata]],
+        ],
         path: str,
-        required: bool=False,
-        default: Any=None,
-        multiple: bool=False,
-        strict: bool=False,
-        reverse: Optional[str]=None,
-        doc: str=""
+        required: bool = False,
+        default: Any = None,
+        multiple: bool = False,
+        strict: bool = False,
+        reverse: Optional[str] = None,
+        doc: str = "",
     ):
         self.name = name
         self._types: Tuple[Union[str, type, KGObject, EmbeddedMetadata], ...]
@@ -173,33 +177,32 @@ class Field(object):
 
     def __repr__(self):
         return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
-            self.name, self._types, self.path, self.required, self.multiple)
+            self.name, self._types, self.path, self.required, self.multiple
+        )
 
     @property
     def types(self):
         if not self._resolved_types:
-            self._types = tuple(
-                [lookup(obj) if isinstance(obj, str) else obj
-                 for obj in self._types]
-            )
+            self._types = tuple([lookup(obj) if isinstance(obj, str) else obj for obj in self._types])
             self._resolved_types = True
         return self._types
 
     def check_value(self, value):
         def check_single(item):
             if not isinstance(item, self.types):
-                if not (isinstance(item, (KGProxy, KGQuery, EmbeddedMetadata))
-                        and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)):
+                if not (
+                    isinstance(item, (KGProxy, KGQuery, EmbeddedMetadata))
+                    and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)
+                ):
                     if item is None and self.required:
-                        errmsg = "Field '{}' is required but was not provided.".format(
-                                    self.name)
+                        errmsg = "Field '{}' is required but was not provided.".format(self.name)
                     else:
-                        errmsg = "Field '{}' should be of type {}, not {}".format(
-                                    self.name, self.types, type(item))
+                        errmsg = "Field '{}' should be of type {}, not {}".format(self.name, self.types, type(item))
                     if self.strict_mode:
                         raise ValueError(errmsg)
                     else:
                         warnings.warn(errmsg)
+
         if self.required or value is not None:
             if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
                 for item in value:
@@ -244,6 +247,7 @@ class Field(object):
                 return None
             else:
                 raise ValueError("don't know how to serialize this value")
+
         if isinstance(value, (list, tuple)):
             if self.multiple or not self.strict_mode:
                 value = [serialize_single(item) for item in value]
@@ -323,7 +327,7 @@ class Field(object):
                         required=bool(filter),
                         type_filter=type_filter,
                         ensure_order=self.multiple,
-                        properties=cls.generate_query_properties(filter_keys=None, follow_links=follow_links)
+                        properties=cls.generate_query_properties(filter_keys=None, follow_links=follow_links),
                     )
                 )
         elif any(issubclass(_type, KGObject) for _type in self.types):
@@ -356,8 +360,8 @@ class Field(object):
                                 ensure_order=self.multiple,
                                 properties=[
                                     QueryProperty("@id", filter=filter),
-                                    QueryProperty("@type")
-                                ]
+                                    QueryProperty("@type"),
+                                ],
                             )
                         )
                     properties.append(
@@ -369,8 +373,8 @@ class Field(object):
                             ensure_order=self.multiple,
                             properties=[
                                 QueryProperty("@id", filter=None if have_Q else filter),
-                                *cls.generate_query_properties(filter_keys=None, follow_links=follow_links - 1)
-                            ]
+                                *cls.generate_query_properties(filter_keys=None, follow_links=follow_links - 1),
+                            ],
                         )
                     )
             else:
@@ -390,8 +394,8 @@ class Field(object):
                             ensure_order=self.multiple,
                             properties=[
                                 QueryProperty("@id", filter=filter),
-                                QueryProperty("@type")
-                            ]
+                                QueryProperty("@type"),
+                            ],
                         )
                     )
                 properties.append(
@@ -403,8 +407,8 @@ class Field(object):
                         ensure_order=self.multiple,
                         properties=[
                             QueryProperty("@id", filter=None if have_Q else filter),
-                            QueryProperty("@type")
-                        ]
+                            QueryProperty("@type"),
+                        ],
                     )
                 )
         else:
@@ -415,7 +419,7 @@ class Field(object):
                     filter=filter,
                     required=bool(filter),
                     sorted=bool(self.name == "name"),
-                    ensure_order=self.multiple
+                    ensure_order=self.multiple,
                 )
             )
         return properties

@@ -24,6 +24,7 @@ from .utility import as_list
 from .registry import lookup
 from .caching import object_cache
 from .base import Resolvable, SupportsQuerying, ContainsMetadata
+
 if TYPE_CHECKING:
     from .client import KGClient
     from .kgobject import KGObject
@@ -38,7 +39,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         self,
         classes: Union[str, KGObject, List[Union[str, KGObject]]],
         filter: Dict[str, str],
-        preferred_scope: str="released"
+        preferred_scope: str = "released",
     ):
         self.classes: List[KGObject] = []
         for cls in as_list(classes):
@@ -52,18 +53,17 @@ class KGQuery(Resolvable, SupportsQuerying):
         self.preferred_scope = preferred_scope
 
     def __repr__(self):
-        return ('{self.__class__.__name__}('
-                '{self.classes!r}, {self.filter!r})'.format(self=self))
+        return "{self.__class__.__name__}(" "{self.classes!r}, {self.filter!r})".format(self=self)
 
     def resolve(
         self,
         client: KGClient,
-        size: int=10000,
-        from_index: int=0,
-        space: Optional[str]=None,
-        scope: Optional[str]=None,
-        use_cache: bool=True,
-        follow_links: int=0
+        size: int = 10000,
+        from_index: int = 0,
+        space: Optional[str] = None,
+        scope: Optional[str] = None,
+        use_cache: bool = True,
+        follow_links: int = 0,
     ):
         scope = scope or self.preferred_scope
         if follow_links > 0:
@@ -80,28 +80,24 @@ class KGQuery(Resolvable, SupportsQuerying):
                 space=space,
                 size=size,
                 from_index=from_index,
-                scope=scope).data
-            objects.extend(cls.from_kg_instance(instance_data, client)
-                           for instance_data in instances)
+                scope=scope,
+            ).data
+            objects.extend(cls.from_kg_instance(instance_data, client) for instance_data in instances)
         for obj in objects:
             object_cache[obj.id] = obj
 
         if follow_links > 0:
             for obj in objects:
-                obj.resolve(
-                    client, scope=scope, use_cache=use_cache,
-                    follow_links=follow_links
-                )
+                obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
 
         if len(objects) == 1:
             return objects[0]
         else:
             return objects
 
-    def count(self, client: KGClient, space: Optional[str]=None, scope: Optional[str]=None):
+    def count(self, client: KGClient, space: Optional[str] = None, scope: Optional[str] = None):
         scope = scope or self.preferred_scope
         n = 0
         for cls in self.classes:
-            n += cls.count(client, api="query", scope=scope,
-                           space=space, **self.filter)
+            n += cls.count(client, api="query", scope=scope, space=space, **self.filter)
         return n

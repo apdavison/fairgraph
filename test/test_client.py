@@ -1,5 +1,3 @@
-
-
 from .utils import kg_client, skip_if_no_connection
 
 
@@ -14,7 +12,7 @@ def test_spaces(kg_client):
 
 @skip_if_no_connection
 def test_spaces_with_permissions(kg_client):
-    result = kg_client.spaces(permissions=['RELEASE'])
+    result = kg_client.spaces(permissions=["RELEASE"])
     assert isinstance(result, list)
     for space in result:
         assert "RELEASE" in space.permissions
@@ -67,7 +65,7 @@ def test_list_scopes(kg_client):
             space="model",
             from_index=0,
             size=10000,
-            scope=scope
+            scope=scope,
         )
 
     released_models = _get_models("released")

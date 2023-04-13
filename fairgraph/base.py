@@ -31,10 +31,11 @@ from .registry import Registry
 from .queries import QueryProperty
 from .errors import ResolutionFailure, AuthorizationError
 from .utility import (
-    as_list,   # temporary for backwards compatibility (a lot of code imports it from here)
+    as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
-    normalize_data
+    normalize_data,
 )
+
 if TYPE_CHECKING:
     from .client import KGClient
     from .fields import Field
@@ -45,11 +46,15 @@ logger = logging.getLogger("fairgraph")
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
 
-class Resolvable: # all
-
-    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
+class Resolvable:  # all
+    def resolve(
+        self,
+        client: KGClient,
+        scope: Optional[str] = None,
+        use_cache: bool = True,
+        follow_links: int = 0,
+    ):
         pass
-
 
 
 class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and EmbeddedMetadata
@@ -61,7 +66,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
     default_space: Union[str, None]
     remote_data: Optional[JSONdict]
 
-    def __init__(self, data: Optional[Dict]=None, **properties):
+    def __init__(self, data: Optional[Dict] = None, **properties):
         properties_copy = copy(properties)
         for field in self.fields:
             try:
@@ -88,7 +93,9 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             if len(properties_copy) == 1:
                 raise NameError(f'{self.__class__.__name__} does not have a field named "{list(properties_copy)[0]}".')
             else:
-                raise NameError(f"""{self.__class__.__name__} does not have fields named "{'", "'.join(properties_copy)}".""")
+                raise NameError(
+                    f"""{self.__class__.__name__} does not have fields named "{'", "'.join(properties_copy)}"."""
+                )
 
         # we store the original remote data in `_raw_remote_data`
         # and a normalized version in `remote_data`
@@ -97,11 +104,14 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         if data:
             self.remote_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
 
-    def to_jsonld(self, normalized: bool=True, follow_links: bool=False, include_empty_fields: bool=False):
+    def to_jsonld(
+        self,
+        normalized: bool = True,
+        follow_links: bool = False,
+        include_empty_fields: bool = False,
+    ):
         if self.fields:
-            data: JSONdict = {
-                "@type": self.type_
-            }
+            data: JSONdict = {"@type": self.type_}
             if hasattr(self, "id") and self.id:
                 data["@id"] = self.id
             for field in self.fields:
@@ -125,29 +135,29 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             raise NotImplementedError("to be implemented by child classes")
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str]=None):
+    def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
         if scope:
             return cls.from_kg_instance(data, client, scope)
         else:
             return cls.from_kg_instance(data, client)
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str]=None) -> ContainsMetadata:
+    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None) -> ContainsMetadata:
         pass
 
     def save(
         self,
         client: KGClient,
-        space: Optional[str]=None,
-        recursive: bool=True,
-        activity_log: Optional[ActivityLog]=None,
-        replace: bool=False,
-        ignore_auth_errors: bool=False
+        space: Optional[str] = None,
+        recursive: bool = True,
+        activity_log: Optional[ActivityLog] = None,
+        replace: bool = False,
+        ignore_auth_errors: bool = False,
     ):
         pass
 
     @classmethod
-    def set_strict_mode(cls, value: bool, field_names: Optional[Union[str, List[str]]]=None):
+    def set_strict_mode(cls, value: bool, field_names: Optional[Union[str, List[str]]] = None):
         if value not in (True, False):
             raise ValueError("value should be either True or False")
         if field_names:
@@ -165,36 +175,28 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_properties(cls, filter_keys: Optional[List[str]]=None, follow_links: int=0):
+    def generate_query_properties(cls, filter_keys: Optional[List[str]] = None, follow_links: int = 0):
         if filter_keys is None:
             filter_keys = []
-        properties=[
-            QueryProperty("@type")
-        ]
+        properties = [QueryProperty("@type")]
         for field in cls.fields:
             if field.intrinsic:
                 properties.extend(
-                    field.get_query_properties(
-                        use_filter=field.name in filter_keys,
-                        follow_links=follow_links
-                    )
+                    field.get_query_properties(use_filter=field.name in filter_keys, follow_links=follow_links)
                 )
         return properties
 
     @classmethod
-    def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool=False):
+    def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool = False):
         # normalize data by expanding keys
-        D = {
-            "@type": data["@type"]
-        }
+        D = {"@type": data["@type"]}
         if include_id:
             D["@id"] = data["@id"]
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
                 normalised_key = expand_uri(key, cls.context)
-                value = [item for item in as_list(value)
-                         if item["@type"][0].endswith(type_filter)]
+                value = [item for item in as_list(value) if item["@type"][0].endswith(type_filter)]
                 if normalised_key in D:
                     D[normalised_key].extend(value)
                 else:
@@ -221,7 +223,13 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             deserialized_data[field.name] = field.deserialize(data_item, client)
         return deserialized_data
 
-    def resolve(self, client: KGClient, scope: Optional[str]=None, use_cache: bool=True, follow_links: int=0):
+    def resolve(
+        self,
+        client: KGClient,
+        scope: Optional[str] = None,
+        use_cache: bool = True,
+        follow_links: int = 0,
+    ):
         """To avoid having to check if a child attribute is a proxy or a real object,
         a real object resolves to itself.
         """
@@ -239,8 +247,11 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                             else:
                                 try:
                                     resolved_value = value.resolve(
-                                        client, scope=use_scope, use_cache=use_cache,
-                                        follow_links=follow_links - 1)
+                                        client,
+                                        scope=use_scope,
+                                        use_cache=use_cache,
+                                        follow_links=follow_links - 1,
+                                    )
                                 except ResolutionFailure as err:
                                     warn(str(err))
                                     resolved_values.append(value)
@@ -257,15 +268,14 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         return self
 
 
-
 class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
     id: Optional[str]
     remote_data: Optional[JSONdict]
 
-    def children(self, client: KGClient, follow_links: int=0) -> List[RepresentsSingleObject]:
+    def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
         pass
 
-    def is_released(self, client: KGClient, with_children: bool=False) -> bool:
+    def is_released(self, client: KGClient, with_children: bool = False) -> bool:
         """Release status of the node"""
         try:
             return client.is_released(self.id, with_children=with_children)
@@ -275,7 +285,7 @@ class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
                 return True
             return False
 
-    def release(self, client: KGClient, with_children: bool=False):
+    def release(self, client: KGClient, with_children: bool = False):
         """Release this node (make it available in public search)."""
         if not self.is_released(client, with_children=with_children):
             if with_children:
@@ -284,7 +294,7 @@ class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
                         client.release(child.id)
             return client.release(self.id)
 
-    def unrelease(self, client: KGClient, with_children: bool=False):
+    def unrelease(self, client: KGClient, with_children: bool = False):
         """Un-release this node (remove it from public search)."""
         response = client.unrelease(self.id)
         if with_children:
@@ -298,7 +308,6 @@ class SupportsQuerying:  # KGObject, KGQuery
 
 
 class IRI:
-
     def __init__(self, value: Union[str, IRI]):
         if isinstance(value, IRI):
             iri = value.value
