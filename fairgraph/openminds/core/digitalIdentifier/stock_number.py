@@ -32,4 +32,4 @@ class StockNumber(EmbeddedMetadata):
     ]
 
     def __init__(self, identifier=None, vendor=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, identifier=identifier, vendor=vendor)
+        return super().__init__(data=data, identifier=identifier, vendor=vendor)

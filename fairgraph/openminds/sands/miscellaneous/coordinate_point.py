@@ -32,4 +32,4 @@ class CoordinatePoint(EmbeddedMetadata):
     ]
 
     def __init__(self, coordinate_space=None, coordinates=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, coordinate_space=coordinate_space, coordinates=coordinates)
+        return super().__init__(data=data, coordinate_space=coordinate_space, coordinates=coordinates)

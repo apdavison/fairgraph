@@ -507,6 +507,10 @@ class FairgraphGenerator(JinjaGenerator):
             "preamble": preamble.get(schema["simpleTypeName"], ""),
             "additional_methods": additional_methods.get(schema["simpleTypeName"], "")
         }
+        if base_class == "KGObject":
+            context["standard_init_fields"] = "id=id, space=space, scope=scope, "
+        else:
+            context["standard_init_fields"] = ""
         if schema["schemaGroup"] == "controlledTerms":
             context["docstring"] += get_controlled_terms_table(schema["_type"])
         schema.update(context)

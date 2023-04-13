@@ -110,10 +110,6 @@ class KGProxy(Resolvable, RepresentsSingleObject):
         elif not ignore_not_found:
             raise ResolutionFailure("Couldn't resolve object to delete")
 
-    def is_released(self, client, with_children=False):
-        """Release status of the node"""
-        return client.is_released(self.id, with_children=with_children)
-
     def release(self, client, with_children=False):
         """Release this node (make it available in public search)."""
         if not self.is_released(client, with_children=with_children):

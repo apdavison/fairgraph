@@ -32,4 +32,4 @@ class RRID(KGObject):
     existence_query_fields = ('identifier',)
 
     def __init__(self, identifier=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, identifier=identifier)
+        return super().__init__(id=id, space=space, scope=scope, data=data, identifier=identifier)

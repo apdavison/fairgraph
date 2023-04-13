@@ -32,4 +32,4 @@ class ContactInformation(KGObject):
     existence_query_fields = ('email',)
 
     def __init__(self, email=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, email=email)
+        return super().__init__(id=id, space=space, scope=scope, data=data, email=email)

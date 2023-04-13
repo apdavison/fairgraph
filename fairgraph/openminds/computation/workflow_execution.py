@@ -38,4 +38,4 @@ class WorkflowExecution(KGObject):
     existence_query_fields = ('stages',)
 
     def __init__(self, configuration=None, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, configuration=configuration, recipe=recipe, stages=stages, started_by=started_by)
+        return super().__init__(id=id, space=space, scope=scope, data=data, configuration=configuration, recipe=recipe, stages=stages, started_by=started_by)

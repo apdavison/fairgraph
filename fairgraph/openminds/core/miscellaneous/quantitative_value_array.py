@@ -40,4 +40,4 @@ class QuantitativeValueArray(KGObject):
     existence_query_fields = ('values',)
 
     def __init__(self, negative_uncertainties=None, positive_uncertainties=None, type_of_uncertainty=None, unit=None, values=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, negative_uncertainties=negative_uncertainties, positive_uncertainties=positive_uncertainties, type_of_uncertainty=type_of_uncertainty, unit=unit, values=values)
+        return super().__init__(id=id, space=space, scope=scope, data=data, negative_uncertainties=negative_uncertainties, positive_uncertainties=positive_uncertainties, type_of_uncertainty=type_of_uncertainty, unit=unit, values=values)

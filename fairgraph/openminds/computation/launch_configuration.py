@@ -40,4 +40,4 @@ class LaunchConfiguration(KGObject):
     existence_query_fields = ('executable', 'name')
 
     def __init__(self, name=None, arguments=None, description=None, environment_variables=None, executable=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, arguments=arguments, description=description, environment_variables=environment_variables, executable=executable)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, arguments=arguments, description=description, environment_variables=environment_variables, executable=executable)

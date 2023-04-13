@@ -36,4 +36,4 @@ class ContentTypePattern(KGObject):
     existence_query_fields = ('lookup_label',)
 
     def __init__(self, lookup_label=None, content_type=None, regex=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, lookup_label=lookup_label, content_type=content_type, regex=regex)
+        return super().__init__(id=id, space=space, scope=scope, data=data, lookup_label=lookup_label, content_type=content_type, regex=regex)

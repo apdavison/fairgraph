@@ -38,4 +38,4 @@ class Funding(KGObject):
     existence_query_fields = ('funder',)
 
     def __init__(self, acknowledgement=None, award_number=None, award_title=None, funder=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, acknowledgement=acknowledgement, award_number=award_number, award_title=award_title, funder=funder)
+        return super().__init__(id=id, space=space, scope=scope, data=data, acknowledgement=acknowledgement, award_number=award_number, award_title=award_title, funder=funder)

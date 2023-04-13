@@ -40,4 +40,4 @@ class LivePaperSection(KGObject):
     existence_query_fields = ('name', 'is_part_of', 'order', 'type')
 
     def __init__(self, name=None, description=None, is_part_of=None, order=None, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, description=description, is_part_of=is_part_of, order=order, type=type)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, description=description, is_part_of=is_part_of, order=order, type=type)

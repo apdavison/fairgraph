@@ -40,4 +40,4 @@ class CustomCoordinateSpace(KGObject):
     existence_query_fields = ('name',)
 
     def __init__(self, name=None, anatomical_axes_orientation=None, axes_origins=None, default_images=None, native_unit=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, anatomical_axes_orientation=anatomical_axes_orientation, axes_origins=axes_origins, default_images=default_images, native_unit=native_unit)
+        return super().__init__(id=id, space=space, scope=scope, data=data, name=name, anatomical_axes_orientation=anatomical_axes_orientation, axes_origins=axes_origins, default_images=default_images, native_unit=native_unit)

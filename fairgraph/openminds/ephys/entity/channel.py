@@ -32,4 +32,4 @@ class Channel(EmbeddedMetadata):
     ]
 
     def __init__(self, internal_identifier=None, unit=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, internal_identifier=internal_identifier, unit=unit)
+        return super().__init__(data=data, internal_identifier=internal_identifier, unit=unit)

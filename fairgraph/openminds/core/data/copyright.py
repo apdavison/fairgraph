@@ -32,4 +32,4 @@ class Copyright(EmbeddedMetadata):
     ]
 
     def __init__(self, holders=None, years=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, holders=holders, years=years)
+        return super().__init__(data=data, holders=holders, years=years)

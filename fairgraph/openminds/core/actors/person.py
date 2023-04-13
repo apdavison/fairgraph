@@ -44,7 +44,7 @@ class Person(KGObject):
     existence_query_fields = ('given_name', 'family_name')
 
     def __init__(self, affiliations=None, alternate_names=None, associated_accounts=None, contact_information=None, digital_identifiers=None, family_name=None, given_name=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, affiliations=affiliations, alternate_names=alternate_names, associated_accounts=associated_accounts, contact_information=contact_information, digital_identifiers=digital_identifiers, family_name=family_name, given_name=given_name)
+        return super().__init__(id=id, space=space, scope=scope, data=data, affiliations=affiliations, alternate_names=alternate_names, associated_accounts=associated_accounts, contact_information=contact_information, digital_identifiers=digital_identifiers, family_name=family_name, given_name=given_name)
 
     @property
     def full_name(self):

@@ -32,4 +32,4 @@ class StringProperty(EmbeddedMetadata):
     ]
 
     def __init__(self, name=None, value=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, data=data, space=space, scope=scope, name=name, value=value)
+        return super().__init__(data=data, name=name, value=value)
