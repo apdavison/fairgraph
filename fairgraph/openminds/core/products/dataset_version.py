@@ -5,12 +5,12 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 from urllib.request import urlretrieve
 from pathlib import Path
-from fairgraph.utility import accepted_terms_of_use
+from ....utility import accepted_terms_of_use
 
 
 class DatasetVersion(KGObject):

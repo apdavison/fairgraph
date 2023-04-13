@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .mathematicalShapes.ellipse import Ellipse
 from .mathematicalShapes.rectangle import Rectangle

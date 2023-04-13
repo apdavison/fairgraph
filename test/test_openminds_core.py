@@ -4,7 +4,10 @@ from random import randint
 from uuid import UUID
 from copy import deepcopy
 from datetime import datetime
-from fairgraph.base import as_list, IRI, KGProxy, KGQuery
+from fairgraph.utility import as_list
+from fairgraph.base import IRI
+from fairgraph.kgproxy import KGProxy
+from fairgraph.kgquery import KGQuery
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlledterms as omterms
 from fairgraph.utility import ActivityLog

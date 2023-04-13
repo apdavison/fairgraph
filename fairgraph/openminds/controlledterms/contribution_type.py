@@ -27,7 +27,7 @@ Structured information on the type of contribution a person or organization perf
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 

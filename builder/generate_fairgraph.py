@@ -588,7 +588,7 @@ class FairgraphGenerator(JinjaGenerator):
         for schema_group, group_contents in self.import_data.items():
             path = os.path.join(self.target_path, schema_group, "__init__.py")
             with open(path, "w") as fp:
-                fp.write("import sys\nimport inspect\nfrom ...base import KGObject\n\n")
+                fp.write("import sys\nimport inspect\nfrom fairgraph.kgobject import KGObject\n\n")
                 for module in group_contents.values():
                     fp.write(f"from {module['path']} import {module['class_name']}\n")
                 fp.write(LIST_CLASSES_TEMPATE)
@@ -632,7 +632,7 @@ def sha1sum(filename):
     "DatasetVersion":
     """from urllib.request import urlretrieve
 from pathlib import Path
-from fairgraph.utility import accepted_terms_of_use""",
+from ....utility import accepted_terms_of_use""",
     "ModelVersion":
     """from fairgraph.errors import ResolutionFailure
 from .model import Model""",

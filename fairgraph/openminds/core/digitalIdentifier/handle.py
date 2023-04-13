@@ -5,7 +5,7 @@ A persistent identifier for an information resource provided by the Handle Syste
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 

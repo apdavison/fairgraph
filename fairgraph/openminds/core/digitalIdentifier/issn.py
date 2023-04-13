@@ -5,7 +5,7 @@ An International Standard Serial Number of the ISSN International Centre.
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 

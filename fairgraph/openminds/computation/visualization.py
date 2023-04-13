@@ -5,7 +5,7 @@ Structured information about a process of visualizing a computational model, a c
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph.base import KGObject, IRI
+from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 

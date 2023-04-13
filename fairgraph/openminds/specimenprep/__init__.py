@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .activity.cranial_window_preparation import CranialWindowPreparation
 from .activity.tissue_culture_preparation import TissueCulturePreparation

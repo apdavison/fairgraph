@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .activity.recording_activity import RecordingActivity
 from .activity.electrode_placement import ElectrodePlacement

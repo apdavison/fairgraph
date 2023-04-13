@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .chemical_mixture import ChemicalMixture
 from .product_source import ProductSource

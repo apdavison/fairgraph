@@ -4,7 +4,8 @@ Tests of fairgraph.base module.
 """
 
 from datetime import date, datetime
-from fairgraph.base import EmbeddedMetadata, KGObject
+from fairgraph.embedded import EmbeddedMetadata
+from fairgraph.kgobject import KGObject
 from fairgraph.fields import Field
 import pytest
 

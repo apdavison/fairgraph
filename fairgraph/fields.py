@@ -19,27 +19,116 @@ Representations of metadata fields
 
 
 import warnings
+import logging
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
 
 from dateutil import parser as date_parser
 
-from .registry import lookup
-from .base import (
-    KGObject,
-    KGProxy,
-    KGQuery,
-    EmbeddedMetadata,
-    build_kg_object,
-    IRI,
-    as_list)
+from .registry import lookup, lookup_type
+from .utility import as_list
+from .base import IRI
+from .kgproxy import KGProxy
+from .kgquery import KGQuery
+from .kgobject import KGObject
+from .embedded import EmbeddedMetadata
 from .utility import expand_uri
 from .queries import Filter, QueryProperty
+
+
+logger = logging.getLogger("fairgraph")
 
 
 global_context = {
     "vocab": "https://openminds.ebrains.eu/vocab/",
 }
+
+
+def is_resolved(item):
+    return set(item.keys()) not in (set(["@id", "@type"]), set(["@id"]))
+
+
+def build_kg_object(possible_classes, data, client=None):
+    """
+    Build a KGObject, an EmbeddedMetadata, a KGProxy, or a list of such, based on the data provided.
+
+    This takes care of the JSON-LD quirk that you get a list if there are multiple
+    objects, but you get the object directly if there is only one.
+
+    Returns `None` if data is None.
+    """
+    if data is None:
+        return None
+
+    if not isinstance(data, list):
+        if not isinstance(data, dict):
+            raise ValueError("data must be a list or dict")
+        if "@list" in data:
+            assert len(data) == 1
+            data = data["@list"]
+        else:
+            data = [data]
+
+    objects = []
+    for item in data:
+        if item is None:
+            logger.error(f"Unexpected null. possible_classes={possible_classes} data={data}")
+            continue
+        logger.debug(f"Building {possible_classes} from {item.get('@id', 'not a node')}")
+        if possible_classes is None:
+            raise NotImplementedError
+
+        assert isinstance(possible_classes, (list, tuple))
+        assert (
+            all(issubclass(item, KGObject) for item in possible_classes)
+            or
+            all(issubclass(item, EmbeddedMetadata) for item in possible_classes)
+        )
+        if len(possible_classes) > 1:
+            if "@type" in item:
+                for cls in possible_classes:
+                    if item["@type"] == cls.type_:
+                        kg_cls = cls
+                        break
+            else:
+                kg_cls = possible_classes
+
+        else:
+            kg_cls = possible_classes[0]
+
+        if "@id" in item:
+            # the following line is only relevant to test data,
+            # for real data it is always an expanded uri
+            item["@id"] = expand_uri(item["@id"], {"kg": "https://kg.ebrains.eu/api/instances/"})
+            if is_resolved(item):
+                try:
+                    obj = kg_cls.from_kg_instance(item, client)
+                except (ValueError, KeyError) as err:
+                    # to add: emit a warning
+                    logger.warning("Error in building {}: {}".format(kg_cls.__name__, err))
+                    obj = KGProxy(kg_cls, item["@id"]).resolve(client)
+                    # todo: provide space and scope
+            else:
+                if "@type" in item and item["@type"] is not None and kg_cls not in as_list(
+                        lookup_type(item["@type"])):
+                    logger.warning(f"Mismatched types: {kg_cls} <> {item['@type']}")
+                    raise Exception("mismatched types")
+                    obj = None
+                else:
+                    obj = KGProxy(kg_cls, item["@id"])
+        elif "@type" in item:  # Embedded metadata
+            obj = kg_cls.from_kg_instance(item, client)
+        else:
+            # todo: add a logger.warning that we have dud data
+            obj = None
+
+        if obj is not None:
+            objects.append(obj)
+
+    if len(objects) == 1:
+        return objects[0]
+    else:
+        return objects
 
 
 class Field(object):

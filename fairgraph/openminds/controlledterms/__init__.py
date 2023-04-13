@@ -1,6 +1,6 @@
 import sys
 import inspect
-from ...base import KGObject
+from fairgraph.kgobject import KGObject
 
 from .difference_measure import DifferenceMeasure
 from .programming_language import ProgrammingLanguage
