@@ -729,7 +729,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                                 if value.exists(client) and value.space == "controlled":
                                     continue
                                 else:
-                                    raise Exception("Cannot write to controlled space")
+                                    raise AuthorizationError("Cannot write to controlled space")
                             value.save(
                                 client,
                                 space=target_space,

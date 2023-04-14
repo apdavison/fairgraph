@@ -112,4 +112,4 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                                 continue
                             else:
                                 raise Exception("Cannot write to controlled space")
-                        value.save(client, space=target_space, recursive=True, activity_log=activity_log)
+                        value.save(client, space=target_space, recursive=recursive, activity_log=activity_log)
