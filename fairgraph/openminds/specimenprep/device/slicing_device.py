@@ -31,12 +31,7 @@ class SlicingDevice(KGObject):
             doc="Word or phrase that constitutes the distinctive designation of the slicing device.",
         ),
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "description",
@@ -79,12 +74,7 @@ class SlicingDevice(KGObject):
             doc="no description available",
         ),
         Field(
-            "serial_number",
-            str,
-            "vocab:serialNumber",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "serial_number", str, "vocab:serialNumber", multiple=False, required=False, doc="no description available"
         ),
     ]
     existence_query_fields = ("lookup_label",)

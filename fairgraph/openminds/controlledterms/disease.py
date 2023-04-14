@@ -1,6 +1,5 @@
 """
 Structured information on a disease.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -54,7 +53,6 @@ from fairgraph.fields import Field
 class Disease(KGObject):
     """
     Structured information on a disease.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

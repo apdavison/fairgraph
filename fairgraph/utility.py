@@ -31,6 +31,24 @@ ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
 
 
 def as_list(obj: Union[None, KGObject, dict, str, list, tuple]) -> list:
+    """
+    Converts the input obj into a list.
+
+    Args:
+        obj: The input object to be converted to a list.
+
+    Returns:
+        list: A list - see Notes below.
+
+    Raises:
+        TypeError: If the input obj cannot be converted to a list.
+
+    Notes:
+        - If obj is None, it returns an empty list.
+        - If obj is a dict or a str, it returns a list containing obj.
+        - If obj is a list or a tuple, it returns a list with the same elements as obj.
+        - If obj is not any of the above, it tries to convert obj into a list. If it fails due to a TypeError, it raises a TypeError with an appropriate error message.
+    """
     if obj is None:
         return []
     elif isinstance(obj, (dict, str)):
@@ -43,6 +61,26 @@ def as_list(obj: Union[None, KGObject, dict, str, list, tuple]) -> list:
 
 
 def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Union[str, Tuple[str, ...]]:
+    """
+    Expands a URI or a list of URIs using a given context.
+
+    Args:
+        uri_list (Union[str, List[str]]): A URI or a list of URIs to be expanded.
+        context (Dict[str, Any]): A dictionary containing a mapping of prefixes to base URLs.
+
+    Returns:
+        Union[str, Tuple[str, ...]]: An expanded URI or a tuple of expanded URIs.
+
+    Raises:
+        ValueError: If a prefix in the URI is not found in the context.
+
+    Examples:
+        >>> context = {'foaf': 'http://xmlns.com/foaf/0.1/'}
+        >>> uri_list = 'foaf:Person'
+        >>> expand_uri(uri_list, context)
+        'http://xmlns.com/foaf/0.1/Person'
+
+    """
     expanded_uris = []
     for uri in as_list(uri_list):
         if uri.startswith("http") or uri.startswith("@"):
@@ -64,6 +102,26 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
 def compact_uri(
     uri_list: Union[str, List[str]], context: Dict[str, Any], strict: bool = False
 ) -> Union[str, Tuple[str, ...]]:
+    """
+    Compacts a URI or a list of URIs using a given context.
+
+    Args:
+        uri_list (Union[str, List[str]]): A URI or a list of URIs to be compacted.
+        context (Dict[str, Any]): A dictionary containing a mapping of prefixes to base URLs.
+        strict (bool, optional): Whether to raise an error if a URI cannot be compacted. Defaults to False.
+
+    Returns:
+        Union[str, Tuple[str, ...]]: A compacted URI or a tuple of compacted URIs.
+
+    Raises:
+        ValueError: If strict is True and a URI cannot be compacted.
+
+    Examples:
+        >>> context = {'foaf': 'http://xmlns.com/foaf/0.1/'}
+        >>> uri_list = 'http://xmlns.com/foaf/0.1/Person'
+        >>> compact_uri(uri_list, context)
+        'foaf:Person'
+    """
     compacted_uris = []
     for uri in as_list(uri_list):
         if uri.startswith("http"):
@@ -89,7 +147,37 @@ def compact_uri(
 
 
 def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Union[None, JSONdict]:
-    """Used for comparing values in KG data"""
+    """
+    Normalizes JSON-LD data using a given context.
+
+    Args:
+        data (Union[None, JSONdict]): A JSON-LD data dict to be normalized.
+        context (Dict[str, Any]): A dictionary containing a mapping of prefixes to base URLs.
+
+    Returns:
+        Union[None, JSONdict]: A normalized JSON-LD data dict.
+
+    Examples:
+        >>> context = {'foaf': 'http://xmlns.com/foaf/0.1/'}
+        >>> data = {
+        ...     "foaf:name": "John Smith",
+        ...     "foaf:age": 35,
+        ...     "foaf:knows": {
+        ...         "foaf:name": "Jane Doe",
+        ...         "foaf:age": 25
+        ...     }
+        ... }
+        >>> normalize_data(data, context)
+        {
+            "http://xmlns.com/foaf/0.1/name": "John Smith",
+            "http://xmlns.com/foaf/0.1/age": 35,
+            "http://xmlns.com/foaf/0.1/knows": {
+                "http://xmlns.com/foaf/0.1/name": "Jane Doe",
+                "http://xmlns.com/foaf/0.1/age": 25
+            }
+        }
+
+    """
     if data is None:
         return data
     normalized: JSONdict = {}
@@ -137,6 +225,17 @@ def in_notebook() -> bool:
 
 
 class LogEntry:
+    """
+    Represents an entry in an activity log.
+
+    Attributes:
+        cls (str): The name of the class of the Knowledge Grapg object.
+        id (Optional[str]): The identifer of the object being logged.
+        delta (Optional[JSONdict]): A dictionary containing the changes made to the object.
+        space (Optional[str]): The Knowledge Graph space containing the object.
+        type_ (str): The type of the log entry.
+    """
+
     def __init__(
         self,
         cls: str,
@@ -156,10 +255,26 @@ class LogEntry:
 
 
 class ActivityLog:
+    """
+    Represents a log of activities performed on Knowledge Graph objects.
+
+    Attributes:
+        entries (List[LogEntry]): A list of LogEntry objects representing the activities performed.
+    """
+
     def __init__(self):
         self.entries = []
 
     def update(self, item: KGObject, delta: Optional[JSONdict], space: Optional[str], entry_type: str):
+        """
+        Adds a new log entry to the activity log.
+
+        Args:
+            item (KGObject): The object being logged.
+            delta (Optional[JSONdict]): A dictionary containing the changes made to the object.
+            space (Optional[str]): The Knowledge Graph space containing the object.
+            entry_type (str): The type of the log entry.
+        """
         self.entries.append(LogEntry(item.__class__.__name__, item.uuid, delta, space, entry_type))
 
     def __repr__(self):

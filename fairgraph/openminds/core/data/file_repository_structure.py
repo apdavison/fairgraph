@@ -23,12 +23,7 @@ class FileRepositoryStructure(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "file_path_patterns",
@@ -41,15 +36,7 @@ class FileRepositoryStructure(KGObject):
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(
-        self,
-        lookup_label=None,
-        file_path_patterns=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, lookup_label=None, file_path_patterns=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
             id=id,
             space=space,

@@ -23,12 +23,7 @@ class ElectrodeArrayUsage(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "anatomical_location_of_arrays",

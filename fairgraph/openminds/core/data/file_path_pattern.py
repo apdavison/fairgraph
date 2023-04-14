@@ -29,14 +29,7 @@ class FilePathPattern(EmbeddedMetadata):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "regex",
-            str,
-            "vocab:regex",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("regex", str, "vocab:regex", multiple=False, required=True, doc="no description available"),
     ]
 
     def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, scope=None):

@@ -80,14 +80,7 @@ class Software(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the software.",
-        ),
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the software."),
         Field(
             "how_to_cite",
             str,

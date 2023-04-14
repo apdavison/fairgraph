@@ -1,6 +1,5 @@
 """
 Structured information on the usage role of a file instance or bundle.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -26,7 +25,6 @@ from fairgraph.fields import Field
 class FileUsageRole(KGObject):
     """
     Structured information on the usage role of a file instance or bundle.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

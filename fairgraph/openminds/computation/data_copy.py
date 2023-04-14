@@ -23,12 +23,7 @@ class DataCopy(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custom_property_sets",
@@ -46,14 +41,7 @@ class DataCopy(KGObject):
             required=False,
             doc="Longer statement or account giving the characteristics of the data copy.",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "environment",
             ["openminds.computation.Environment", "openminds.core.WebServiceVersion"],
@@ -88,11 +76,7 @@ class DataCopy(KGObject):
         ),
         Field(
             "outputs",
-            [
-                "openminds.computation.LocalFile",
-                "openminds.core.File",
-                "openminds.core.FileBundle",
-            ],
+            ["openminds.computation.LocalFile", "openminds.core.File", "openminds.core.FileBundle"],
             "vocab:output",
             multiple=True,
             required=True,
@@ -123,12 +107,7 @@ class DataCopy(KGObject):
             doc="no description available",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=True, doc="no description available"
         ),
         Field(
             "started_by",

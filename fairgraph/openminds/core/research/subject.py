@@ -25,12 +25,7 @@ class Subject(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "biological_sex",

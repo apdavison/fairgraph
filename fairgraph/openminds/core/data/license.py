@@ -60,15 +60,7 @@ class License(KGObject):
     existence_query_fields = ("alias",)
 
     def __init__(
-        self,
-        name=None,
-        alias=None,
-        legal_code=None,
-        webpages=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, name=None, alias=None, legal_code=None, webpages=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(
             id=id,

@@ -7,7 +7,7 @@
 fairgraph: a Python API for the EBRAINS Knowledge Graph
 =======================================================
 
-**fairgraph** is an experimental Python library for working with metadata
+**fairgraph** is a Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
 The API is not stable, and is subject to change.
@@ -23,6 +23,7 @@ The API is not stable, and is subject to change.
    creatingupdating
    modules
    permissions
+   api_reference
    contributing
    gettinghelp
    authors

@@ -1,6 +1,6 @@
 """
 Classes and functions for looking up schema classes
-based on names, types, IRIs
+based on names and type identifiers.
 
 """
 
@@ -14,6 +14,7 @@ registry: dict = {"names": {}, "types": {}}
 
 
 def register_class(target_class: ContainsMetadata):
+    """Add a class to the registry"""
     if "openminds" in target_class.__module__:
         parts = target_class.__module__.split(".")
         name = ".".join(parts[1:3] + [target_class.__name__])  # e.g. openminds.core.Dataset
@@ -36,10 +37,12 @@ def register_class(target_class: ContainsMetadata):
 
 
 def lookup(class_name: str) -> ContainsMetadata:
+    """Return the class whose name is given."""
     return registry["names"][class_name]
 
 
 def lookup_type(class_type: Union[str, List[str]]) -> ContainsMetadata:
+    """Return the class whose global type identifier (a URI) is given."""
     if isinstance(class_type, str):
         if class_type in registry["types"]:
             return registry["types"][class_type]
@@ -60,7 +63,7 @@ Args
 
 
 class Registry(type):
-    """Metaclass for registering Knowledge Graph classes"""
+    """Metaclass for registering Knowledge Graph classes."""
 
     fields = []
 

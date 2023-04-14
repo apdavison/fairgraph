@@ -65,12 +65,7 @@ class Organization(KGObject):
             doc="Reference to a parent object or legal person.",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the organization.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the organization."
         ),
     ]
     existence_query_fields = ("name",)

@@ -41,12 +41,7 @@ class BrainAtlasVersion(KGObject):
             doc="Shortened or fully abbreviated name of the brain atlas version.",
         ),
         Field(
-            "abbreviation",
-            str,
-            "vocab:abbreviation",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "accessibility",

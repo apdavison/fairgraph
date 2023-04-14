@@ -31,20 +31,10 @@ class ParcellationEntityVersion(KGObject):
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version.",
         ),
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
-            "abbreviation",
-            str,
-            "vocab:abbreviation",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "additional_remarks",
@@ -96,10 +86,7 @@ class ParcellationEntityVersion(KGObject):
         ),
         Field(
             "relation_assessments",
-            [
-                "openminds.sands.QualitativeRelationAssessment",
-                "openminds.sands.QuantitativeRelationAssessment",
-            ],
+            ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
             required=False,

@@ -23,12 +23,7 @@ class TissueSampleSlicing(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custom_property_sets",
@@ -54,14 +49,7 @@ class TissueSampleSlicing(KGObject):
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "inputs",
             [
@@ -115,12 +103,7 @@ class TissueSampleSlicing(KGObject):
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "study_targets",

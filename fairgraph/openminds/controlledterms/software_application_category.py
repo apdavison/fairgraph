@@ -1,6 +1,5 @@
 """
 Structured information on the category of the software application.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -30,7 +29,6 @@ from fairgraph.fields import Field
 class SoftwareApplicationCategory(KGObject):
     """
     Structured information on the category of the software application.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

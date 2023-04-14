@@ -48,18 +48,8 @@ class ParcellationTerminologyVersion(EmbeddedMetadata):
     ]
 
     def __init__(
-        self,
-        data_locations=None,
-        entities=None,
-        ontology_identifiers=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, data_locations=None, entities=None, ontology_identifiers=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(
-            data=data,
-            data_locations=data_locations,
-            entities=entities,
-            ontology_identifiers=ontology_identifiers,
+            data=data, data_locations=data_locations, entities=entities, ontology_identifiers=ontology_identifiers
         )

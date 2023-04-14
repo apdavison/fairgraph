@@ -23,12 +23,7 @@ class ContentTypePattern(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "content_type",
@@ -38,27 +33,11 @@ class ContentTypePattern(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "regex",
-            str,
-            "vocab:regex",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("regex", str, "vocab:regex", multiple=False, required=True, doc="no description available"),
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(
-        self,
-        lookup_label=None,
-        content_type=None,
-        regex=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, lookup_label=None, content_type=None, regex=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
             id=id,
             space=space,

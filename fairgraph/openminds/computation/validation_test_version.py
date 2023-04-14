@@ -104,14 +104,7 @@ class ValidationTestVersion(KGObject):
             required=False,
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
-            "entry_point",
-            str,
-            "vocab:entryPoint",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("entry_point", str, "vocab:entryPoint", multiple=False, required=False, doc="no description available"),
         Field(
             "format",
             "openminds.core.ContentType",
@@ -271,12 +264,7 @@ class ValidationTestVersion(KGObject):
         ),
         Field(
             "reference_data",
-            [
-                "openminds.core.DOI",
-                "openminds.core.File",
-                "openminds.core.FileBundle",
-                "openminds.core.WebResource",
-            ],
+            ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.WebResource"],
             "vocab:referenceData",
             multiple=True,
             required=False,

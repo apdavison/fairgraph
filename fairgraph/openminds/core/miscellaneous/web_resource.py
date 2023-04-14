@@ -49,22 +49,7 @@ class WebResource(KGObject):
     ]
     existence_query_fields = ("iri",)
 
-    def __init__(
-        self,
-        iri=None,
-        content_description=None,
-        format=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, iri=None, content_description=None, format=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
-            id=id,
-            space=space,
-            scope=scope,
-            data=data,
-            iri=iri,
-            content_description=content_description,
-            format=format,
+            id=id, space=space, scope=scope, data=data, iri=iri, content_description=content_description, format=format
         )

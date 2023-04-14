@@ -23,12 +23,7 @@ class CranialWindowPreparation(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "construction_type",
@@ -62,14 +57,7 @@ class CranialWindowPreparation(KGObject):
             required=False,
             doc="no description available",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "inputs",
             "openminds.core.SubjectState",
@@ -127,12 +115,7 @@ class CranialWindowPreparation(KGObject):
             doc="no description available",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "study_targets",

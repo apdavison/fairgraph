@@ -25,20 +25,10 @@ class Configuration(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
-            "configuration",
-            str,
-            "vocab:configuration",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "configuration", str, "vocab:configuration", multiple=False, required=True, doc="no description available"
         ),
         Field(
             "format",
@@ -51,16 +41,7 @@ class Configuration(KGObject):
     ]
     existence_query_fields = ("configuration",)
 
-    def __init__(
-        self,
-        lookup_label=None,
-        configuration=None,
-        format=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, lookup_label=None, configuration=None, format=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
             id=id,
             space=space,

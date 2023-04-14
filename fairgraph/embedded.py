@@ -1,8 +1,10 @@
 """
-
+This module provides the EmbeddedMetadata class, which is the base class
+for representations of structured metadata that do not have their own identifier,
+but are rather embedded within another metadata instance.
 """
 
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +34,13 @@ logger = logging.getLogger("fairgraph")
 
 
 class EmbeddedMetadata(ContainsMetadata, Resolvable):
-    """Base class for metadata structures that are embedded in Knowledge Graph objects"""
+    """
+    Base class for metadata structures that are embedded in Knowledge Graph objects.
+
+    Args:
+        data (dict, optional): a JSON-LD document containing the KG representation of the metadata.
+        properties: the metadata properties (field names and values)
+    """
 
     fields = []
 
@@ -41,10 +49,12 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
 
     @property
     def space(self) -> Union[str, None]:
+        """The KG space the metadata is stored in."""
         return None
 
     @property
     def default_space(self) -> Union[str, None]:
+        """The KG space new metadata will be stored in if no space is specified."""
         return None
 
     def __repr__(self):
@@ -61,6 +71,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
 
     @classmethod
     def from_kg_instance(cls, data: JSONdict, client: KGClient) -> Union[None, EmbeddedMetadata]:
+        """Create an instance of the class from a JSON-LD document."""
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")
             return None
@@ -75,6 +86,9 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
     ):
+        """
+        Save to the KG any sub-components of the metadata object that are KGObjects.
+        """
         for field in self.fields:
             if field.intrinsic:
                 values = getattr(self, field.name)

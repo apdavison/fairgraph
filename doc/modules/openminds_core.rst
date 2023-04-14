@@ -211,6 +211,11 @@ Products
    :members:
    :show-inheritance:
 
+.. autoclass:: fairgraph.openminds.core.ResearchProductGroup
+   :members:
+   :show-inheritance:
+
+
 Research
 --------
 
@@ -223,10 +228,6 @@ Research
    :show-inheritance:
 
 .. autoclass:: fairgraph.openminds.core.ProtocolExecution
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.ExperimentalActivity
    :members:
    :show-inheritance:
 
@@ -281,7 +282,6 @@ Research
 .. autoclass:: fairgraph.openminds.core.PropertyValueList
    :members:
    :show-inheritance:
-
 
 .. autoclass:: fairgraph.openminds.core.StringProperty
    :members:

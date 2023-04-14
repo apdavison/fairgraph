@@ -38,14 +38,7 @@ class Chapter(KGObject):
             required=False,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
-            "abstract",
-            str,
-            "vocab:abstract",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("abstract", str, "vocab:abstract", multiple=False, required=False, doc="no description available"),
         Field(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -71,12 +64,7 @@ class Chapter(KGObject):
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
         Field(
-            "creation_date",
-            date,
-            "vocab:creationDate",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "creation_date", date, "vocab:creationDate", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custodians",
@@ -219,14 +207,7 @@ class Chapter(KGObject):
             required=False,
             doc="no description available",
         ),
-        Field(
-            "pagination",
-            str,
-            "vocab:pagination",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("pagination", str, "vocab:pagination", multiple=False, required=False, doc="no description available"),
         Field(
             "publication_date",
             date,

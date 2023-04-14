@@ -25,12 +25,7 @@ class PropertyValueList(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "property_value_pairs",
@@ -43,15 +38,7 @@ class PropertyValueList(KGObject):
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(
-        self,
-        lookup_label=None,
-        property_value_pairs=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, lookup_label=None, property_value_pairs=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
             id=id,
             space=space,

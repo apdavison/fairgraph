@@ -41,12 +41,7 @@ class BrainAtlas(KGObject):
             doc="Shortened or fully abbreviated name of the brain atlas.",
         ),
         Field(
-            "abbreviation",
-            str,
-            "vocab:abbreviation",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "authors",
@@ -97,12 +92,7 @@ class BrainAtlas(KGObject):
             doc="Reference to variants of an original.",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the brain atlas.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the brain atlas."
         ),
         Field(
             "how_to_cite",

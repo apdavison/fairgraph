@@ -23,12 +23,7 @@ class TissueCulturePreparation(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "culture_medium",
@@ -62,14 +57,7 @@ class TissueCulturePreparation(KGObject):
             required=False,
             doc="Longer statement or account giving the characteristics of the tissue culture preparation.",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "inputs",
             [
@@ -124,12 +112,7 @@ class TissueCulturePreparation(KGObject):
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "study_targets",

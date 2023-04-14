@@ -1,6 +1,5 @@
 """
 Structured information on abstraction level of the computational model.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -48,7 +47,6 @@ from fairgraph.fields import Field
 class ModelAbstractionLevel(KGObject):
     """
     Structured information on abstraction level of the computational model.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

@@ -1,6 +1,5 @@
 """
 Structured information on the life cycle (semantic term) of a specific age group.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -38,7 +37,6 @@ from fairgraph.fields import Field
 class AgeCategory(KGObject):
     """
     Structured information on the life cycle (semantic term) of a specific age group.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

@@ -31,20 +31,10 @@ class ParcellationEntity(KGObject):
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
         ),
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
-            "abbreviation",
-            str,
-            "vocab:abbreviation",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "alternate_names",

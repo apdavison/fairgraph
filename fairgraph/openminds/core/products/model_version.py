@@ -116,12 +116,7 @@ class ModelVersion(KGObject):
             doc="Money provided by a legal person for a particular purpose.",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the model version.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the model version."
         ),
         Field(
             "how_to_cite",
@@ -133,12 +128,7 @@ class ModelVersion(KGObject):
         ),
         Field(
             "input_data",
-            [
-                "openminds.core.DOI",
-                "openminds.core.File",
-                "openminds.core.FileBundle",
-                "openminds.core.WebResource",
-            ],
+            ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.WebResource"],
             "vocab:inputData",
             multiple=True,
             required=False,
@@ -263,12 +253,7 @@ class ModelVersion(KGObject):
         ),
         Field(
             "output_data",
-            [
-                "openminds.core.DOI",
-                "openminds.core.File",
-                "openminds.core.FileBundle",
-                "openminds.core.WebResource",
-            ],
+            ["openminds.core.DOI", "openminds.core.File", "openminds.core.FileBundle", "openminds.core.WebResource"],
             "vocab:outputData",
             multiple=True,
             required=False,

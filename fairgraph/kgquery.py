@@ -1,8 +1,10 @@
 """
-
+This module provides the KGQuery class, which represents one or more
+KGObjects identified by a range of possible types and by some of their
+metadata, but whose specific identifier(s) is/are not known.
 """
 
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +35,28 @@ logger = logging.getLogger("fairgraph")
 
 
 class KGQuery(Resolvable, SupportsQuerying):
-    """docstring"""
+    """
+    Representation of one or more KGObjects identified by a range of possible types
+    and by some of their metadata, but whose specific identifier(s) is/are not known.
+
+    It is possible that no KGObjects match the types/metadata.
+
+    Args:
+        classes (list of KGObject subclasses): a list of types to query.
+        filter (dict): key:value pairs that should be matched. All pairs must match.
+        preferred_scope (str): The preferred scope used to resolve the query.
+            Valid values are "released", "in progress", or "any".
+
+    Example:
+        >>> import fairgraph.openminds.core as omcore
+        >>> from fairgraph.utility import as_list
+        >>> query = KGQuery([omcore.Person], {"family_name": "Amunts"})
+        >>> people = as_list(query.resolve(kg_client))
+        >>> len(people)
+        1
+        >>> people[0].family_name
+        Amunts
+    """
 
     def __init__(
         self,
@@ -65,6 +88,22 @@ class KGQuery(Resolvable, SupportsQuerying):
         use_cache: bool = True,
         follow_links: int = 0,
     ):
+        """
+        Retrieve the full metadata for the KGObject(s) represented by this query object.
+
+        Args:
+            client: a KGClient
+            from_index: The index of the first result to include in the response.
+            size: The maximum number of results to include in the response.
+            space: If specified, queries only in the given space.
+            scope (str, optional): The scope of the query. Valid values are "released", "in progress", or "any".
+                If not provided, the "preferred_scope" provided when creating the proxy object will be used.
+            use_cache (bool): Whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        Returns:
+            a KGObject instance, of the appropriate subclass.
+        """
         scope = scope or self.preferred_scope
         if follow_links > 0:
             query_type = f"resolved-{follow_links}"
@@ -96,6 +135,9 @@ class KGQuery(Resolvable, SupportsQuerying):
             return objects
 
     def count(self, client: KGClient, space: Optional[str] = None, scope: Optional[str] = None):
+        """
+        Return the number of objects that would be returned by resolving this query.
+        """
         scope = scope or self.preferred_scope
         n = 0
         for cls in self.classes:

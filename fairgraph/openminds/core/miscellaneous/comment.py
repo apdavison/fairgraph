@@ -53,14 +53,7 @@ class Comment(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "comment",
-            str,
-            "vocab:comment",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("comment", str, "vocab:comment", multiple=False, required=True, doc="no description available"),
         Field(
             "commenter",
             "openminds.core.Person",
@@ -69,27 +62,12 @@ class Comment(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "timestamp",
-            datetime,
-            "vocab:timestamp",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("timestamp", datetime, "vocab:timestamp", multiple=False, required=True, doc="no description available"),
     ]
     existence_query_fields = ("about", "comment", "commenter", "timestamp")
 
     def __init__(
-        self,
-        about=None,
-        comment=None,
-        commenter=None,
-        timestamp=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, about=None, comment=None, commenter=None, timestamp=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(
             id=id,

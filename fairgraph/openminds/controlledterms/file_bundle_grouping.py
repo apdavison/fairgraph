@@ -1,6 +1,5 @@
 """
 Structured information on the grouping mechanism of a file bundle.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -38,7 +37,6 @@ from fairgraph.fields import Field
 class FileBundleGrouping(KGObject):
     """
     Structured information on the grouping mechanism of a file bundle.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

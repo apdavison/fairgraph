@@ -43,11 +43,7 @@ class LivePaperVersion(KGObject):
         ),
         Field(
             "about",
-            [
-                "openminds.core.DatasetVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-            ],
+            ["openminds.core.DatasetVersion", "openminds.core.ModelVersion", "openminds.core.SoftwareVersion"],
             "vocab:about",
             multiple=True,
             required=False,

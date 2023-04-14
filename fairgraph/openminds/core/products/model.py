@@ -88,14 +88,7 @@ class Model(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the model.",
-        ),
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the model."),
         Field(
             "how_to_cite",
             str,

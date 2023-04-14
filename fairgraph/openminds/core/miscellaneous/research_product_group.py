@@ -22,14 +22,7 @@ class ResearchProductGroup(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "context",
-            str,
-            "vocab:context",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("context", str, "vocab:context", multiple=False, required=True, doc="no description available"),
         Field(
             "has_parts",
             [

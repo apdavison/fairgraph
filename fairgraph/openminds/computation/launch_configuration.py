@@ -32,14 +32,7 @@ class LaunchConfiguration(KGObject):
             required=False,
             doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
         ),
-        Field(
-            "arguments",
-            str,
-            "vocab:argument",
-            multiple=True,
-            required=False,
-            doc="no description available",
-        ),
+        Field("arguments", str, "vocab:argument", multiple=True, required=False, doc="no description available"),
         Field(
             "description",
             str,
@@ -56,14 +49,7 @@ class LaunchConfiguration(KGObject):
             required=False,
             doc="no description available",
         ),
-        Field(
-            "executable",
-            str,
-            "vocab:executable",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("executable", str, "vocab:executable", multiple=False, required=True, doc="no description available"),
     ]
     existence_query_fields = ("executable", "name")
 

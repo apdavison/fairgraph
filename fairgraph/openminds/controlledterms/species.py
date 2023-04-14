@@ -1,6 +1,5 @@
 """
 Structured information on the species.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -52,7 +51,6 @@ from fairgraph.fields import Field
 class Species(KGObject):
     """
     Structured information on the species.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

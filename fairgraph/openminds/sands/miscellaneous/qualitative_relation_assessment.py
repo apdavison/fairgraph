@@ -52,18 +52,8 @@ class QualitativeRelationAssessment(EmbeddedMetadata):
     ]
 
     def __init__(
-        self,
-        criteria=None,
-        in_relation_to=None,
-        qualitative_overlap=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, criteria=None, in_relation_to=None, qualitative_overlap=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(
-            data=data,
-            criteria=criteria,
-            in_relation_to=in_relation_to,
-            qualitative_overlap=qualitative_overlap,
+            data=data, criteria=criteria, in_relation_to=in_relation_to, qualitative_overlap=qualitative_overlap
         )

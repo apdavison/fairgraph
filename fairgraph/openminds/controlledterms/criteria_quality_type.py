@@ -1,6 +1,5 @@
 """
 Structured information on the quality type of the defined criteria for a measurement.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -22,7 +21,6 @@ from fairgraph.fields import Field
 class CriteriaQualityType(KGObject):
     """
     Structured information on the quality type of the defined criteria for a measurement.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

@@ -23,12 +23,7 @@ class StimulationActivity(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custom_property_sets",
@@ -46,14 +41,7 @@ class StimulationActivity(KGObject):
             required=False,
             doc="Longer statement or account giving the characteristics of the stimulation activity.",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "inputs",
             [
@@ -121,21 +109,9 @@ class StimulationActivity(KGObject):
             doc="no description available",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
         ),
-        Field(
-            "stimulus",
-            [],
-            "vocab:stimulus",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
+        Field("stimulus", [], "vocab:stimulus", multiple=True, required=True, doc="no description available"),
         Field(
             "study_targets",
             [

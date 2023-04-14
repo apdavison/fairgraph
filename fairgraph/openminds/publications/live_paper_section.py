@@ -46,14 +46,7 @@ class LivePaperSection(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
-            "order",
-            int,
-            "vocab:order",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("order", int, "vocab:order", multiple=False, required=True, doc="no description available"),
         Field(
             "type",
             str,

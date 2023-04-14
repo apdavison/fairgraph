@@ -49,12 +49,7 @@ class Consortium(KGObject):
             doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the consortium.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the consortium."
         ),
     ]
     existence_query_fields = ("name",)

@@ -67,14 +67,7 @@ class LearningResource(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "abstract",
-            str,
-            "vocab:abstract",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("abstract", str, "vocab:abstract", multiple=False, required=False, doc="no description available"),
         Field(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -100,12 +93,7 @@ class LearningResource(KGObject):
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
         Field(
-            "creation_date",
-            date,
-            "vocab:creationDate",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "creation_date", date, "vocab:creationDate", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custodians",
@@ -256,21 +244,9 @@ class LearningResource(KGObject):
             required=False,
             doc="no description available",
         ),
+        Field("order", int, "vocab:order", multiple=False, required=False, doc="no description available"),
         Field(
-            "order",
-            int,
-            "vocab:order",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
-        Field(
-            "prerequisite",
-            str,
-            "vocab:prerequisite",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "prerequisite", str, "vocab:prerequisite", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "publication_date",
@@ -296,14 +272,7 @@ class LearningResource(KGObject):
             required=False,
             doc="no description available",
         ),
-        Field(
-            "topic",
-            str,
-            "vocab:topic",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("topic", str, "vocab:topic", multiple=False, required=False, doc="no description available"),
         Field(
             "type",
             "openminds.controlledterms.LearningResourceType",

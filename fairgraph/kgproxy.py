@@ -1,8 +1,10 @@
 """
-
+This module provides the KGProxy class, which represents a
+KGObject whose type and identifier are known but whose other metadata
+have not been retrieved from the KG.
 """
 
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +36,28 @@ logger = logging.getLogger("fairgraph")
 
 
 class KGProxy(RepresentsSingleObject):
-    """docstring"""
+    """
+    Representation of an KGObject whose type and identifier are known but whose
+    other metadata have not been retrieved from the KG.
+
+    Args:
+        cls (str, KGObject): the type of the associated KG object, defined by a KGObject subclass
+            or by the name of the subclass.
+        uri (URI): The global identifier of the KG object.
+        preferred_scope (str, optional): The preferred scope used to resolve the proxy.
+            Valid values are "released", "in progress", or "any".
+
+    Example:
+        >>> import fairgraph.openminds
+        >>> proxy = KGProxy("openminds.core.Person", "https://kg.ebrains.eu/api/instances/bd554312-9829-4148-8803-cb873d0b32f9")
+        >>> person = proxy.resolve(kg_client)
+        >>> type(person)
+        <class 'fairgraph.openminds.core.actors.person.Person'>
+        >>> person.given_name
+        Andrew P.
+    """
+
+    # todo: rename uri to id, for consistency?
 
     def __init__(self, cls: Union[str, KGObject], uri: str, preferred_scope: str = "released"):
         self.cls: KGObject
@@ -53,6 +76,9 @@ class KGProxy(RepresentsSingleObject):
 
     @property
     def type(self) -> List[str]:
+        """
+        Provide the global identifiers of the object type (as a list of URIs).
+        """
         try:
             return self.cls.type_
         except AttributeError as err:
@@ -60,7 +86,11 @@ class KGProxy(RepresentsSingleObject):
 
     @property
     def classes(self) -> Union[Tuple[KGObject], List[KGObject]]:
-        # For consistency with KGQuery interface
+        """
+        Provide the metadata class associated with this object in a list.
+
+        This is provided for consistency with the KGQuery interface.
+        """
         if isinstance(self.cls, (list, tuple)):
             return self.cls
         else:
@@ -73,7 +103,19 @@ class KGProxy(RepresentsSingleObject):
         use_cache: bool = True,
         follow_links: int = 0,
     ):
-        """docstring"""
+        """
+        Retrieve the full metadata for the KGObject represented by this proxy.
+
+        Args:
+            client: a KGClient
+            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                If not provided, the "preferred_scope" provided when creating the proxy object will be used.
+            use_cache (bool): Whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        Returns:
+            a KGObject instance, of the appropriate subclass.
+        """
         if use_cache and self.id in object_cache:
             obj = object_cache[self.id]
         else:

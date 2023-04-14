@@ -85,14 +85,7 @@ class Project(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the project.",
-        ),
+        Field("homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the project."),
     ]
     existence_query_fields = ("alias",)
 

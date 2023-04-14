@@ -40,14 +40,7 @@ class ProductSource(KGObject):
             required=False,
             doc="Term or code used to identify the product source.",
         ),
-        Field(
-            "product_name",
-            str,
-            "vocab:productName",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("product_name", str, "vocab:productName", multiple=False, required=True, doc="no description available"),
         Field(
             "provider",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],

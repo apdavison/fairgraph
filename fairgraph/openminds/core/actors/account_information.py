@@ -32,14 +32,7 @@ class AccountInformation(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "user_name",
-            str,
-            "vocab:userName",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("user_name", str, "vocab:userName", multiple=False, required=True, doc="no description available"),
     ]
     existence_query_fields = ("service", "user_name")
 

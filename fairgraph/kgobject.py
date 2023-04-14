@@ -1,8 +1,10 @@
 """
-
+This module provides the KGObject class, which is the base class
+for representations of structured metadata that have a globally
+unique identifier (a URI).
 """
 
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,6 +50,18 @@ logger = logging.getLogger("fairgraph")
 
 
 def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[str]]:
+    """
+    Retrieve and normalize a value from a dict containing filter key:value pairs.
+
+    Example:
+        >>> import fairgraph.openminds.core as omcore
+        >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
+        >>> filters = {"custodians": person, "name": "Virtual"}
+        >>> field = Field(name='custodians', types=(omcore.Organization, omcore.Person),
+        ...               path="vocab:custodian", multiple=True)
+        >>> get_filter_value(filters, field)
+        https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2
+    """
     value = filters[field.name]
 
     def is_valid(val):
@@ -66,6 +80,7 @@ def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[s
             filter_value = value
         else:
             raise TypeError("{} must be of type {}, not {}".format(field.name, field.types, type(value)))
+
     filter_items = []
     for item in as_list(value):
         if isinstance(item, IRI):
@@ -85,6 +100,7 @@ def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[s
         else:
             filter_item = item
         filter_items.append(filter_item)
+
     if have_multiple:
         return filter_items
     else:
@@ -92,7 +108,11 @@ def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[s
 
 
 class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
-    """Base class for Knowledge Graph objects"""
+    """
+    Base class for Knowledge Graph objects.
+
+    Should not be instantiated directly, intended to be subclassed.
+    """
 
     fields: List[Field] = []
     existence_query_fields: Tuple[str, ...] = ("name",)
@@ -135,6 +155,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     @classmethod
     def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
+        """Create an instance of the class from a JSON-LD document."""
         deserialized_data = cls._deserialize_data(data, client, include_id=True)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
@@ -166,6 +187,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         follow_links: int = 0,
     ):
+        """
+        Retrieve an instance from the Knowledge Graph based on its URI.
+
+        Args:
+            uri (str): long-form identifier for the KG instance (a full URI)
+            client: a KGClient
+            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                Defaults to "released".
+            use_cache (bool): Whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        """
         if follow_links:
             query = cls._get_query_definition(client, normalized_filters={}, space=None, follow_links=follow_links)
             results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
@@ -190,6 +223,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         follow_links: int = 0,
     ):
+        """
+        Retrieve an instance from the Knowledge Graph based on its UUID.
+
+        Args:
+            uuid (str): short-form identifier for the KG instance (a UUID).
+            client: a KGClient
+            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                Defaults to "released".
+            use_cache (bool): Whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        """
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -209,6 +254,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         follow_links: int = 0,
     ):
+        """
+        Retrieve an instance from the Knowledge Graph based on either its URI or UUID.
+
+        Args:
+            id (str): short-form (UUID) or long-form (URI) identifier for the KG instance.
+            client: a KGClient
+            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                Defaults to "released".
+            use_cache (bool): Whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        """
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
                 return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
@@ -234,6 +291,23 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         follow_links: int = 0,
     ):
+        """
+        Retrieve an instance from the Knowledge Graph based on its alias/short name.
+
+        Note that not all metadata classes have an alias.
+
+        Args:
+            alias (str): a short name used to identify a KG instance.
+            client: a KGClient
+            space (str, optional): the KG space to look in. Default is to look in all available spaces.
+            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                Defaults to "released".
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        """
+        # todo: move this to openminds generation, and include only in those subclasses
+        # that have an alias
+        # todo: also count 'lookup_name' as an alias
         if "alias" not in cls.field_names:
             raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
         candidates = as_list(
@@ -271,6 +345,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     @classmethod
     def uri_from_uuid(cls, uuid: str, client: KGClient) -> str:
+        """Convert an instances short-form identifier (a UUID) into the long-form (a URI)"""
         return client.uri_from_uuid(uuid)
 
     @classmethod
@@ -282,6 +357,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         follow_links: int = 0,
         use_stored_query: bool = False,
     ):
+        """
+        Generate or retrieve a Knowledge Graph (KG) query definition as a JSON-LD document.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            normalized_filters (dict, optional): A dictionary whose keys will be used as search parameters for the query.
+            space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            use_stored_query (bool, optional) Whether to retrieve a stored query from the KG instead of generating a new one. Defaults to False.
+
+        Returns:
+            A JSON-LD document containing the KG query definition.
+        """
         if follow_links:
             query_type = f"resolved-{follow_links}"
         else:
@@ -308,6 +396,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Normalize a dict containing filter key:value pairs so that it can be used
+        in a call to the KG query API.
+
+        Example:
+            >>> import fairgraph.openminds.core as omcore
+            >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
+            >>> filter_dict = {"custodians": person, "name": "Virtual"}
+            >>> omcore.Dataset.normalize_filter(filter_dict)
+            {'name': 'Virtual',
+             'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
+        """
         filter_queries = {}
         for field in cls.fields:
             if field.name in filter_dict:
@@ -326,7 +426,39 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         follow_links: int = 0,
         **filters,
     ) -> List[KGObject]:
-        """List all objects of this type in the Knowledge Graph"""
+        """
+        List all objects of this type in the Knowledge Graph
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            size (int, optional): The maximum number of instances to return. Default is 100.
+            from_index (int, optional): The index of the first instance to return. Default is 0.
+            api (str): The KG API to use for the query. Can be 'query', 'core', or 'auto'. Default is 'auto'.
+            scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
+            space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            filters: Optional keyword arguments representing filters to apply to the query.
+
+        Returns:
+            A list of instances of this class representing the objects returned by the KG query.
+
+        Raises:
+            ValueError: If invalid arguments are passed to the method.
+            NotImplementedError: If 'follow_links' is used with api='core'.
+
+        Example:
+
+            >>> from fairgraph import KGClient
+            >>> import fairgraph.openminds.controlledterms as terms
+            >>> interneuron_types = terms.CellType.list(client, name="interneuron")
+            >>> for ct in interneuron_types[:4]:
+            ...     print(f"{ct.name:<30} {ct.definition}")
+            cerebellar interneuron         None
+            cholinergic interneuron        An inhibitory interneuron which mainly uses the neurotrasmitter acetylcholine (ACh).
+            cortical interneuron           None
+            fast spiking interneuron       A parvalbumin positive GABAergic interneuron with a high-frequency firing pattern.
+
+        """
 
         if api == "auto":
             if filters:
@@ -367,6 +499,32 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         space: Optional[str] = None,
         **filters,
     ) -> int:
+        """
+        Count the number of objects of a given type and (optionally) matching a given set of filters.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            api (str): The KG API to use for the query. Can be 'query', 'core', or 'auto'. Default is 'auto'.
+            scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
+            space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be counted.
+            filters: Optional keyword arguments representing filters to apply to the query.
+
+        Returns:
+            The number of instances of this class in the given space that would match the given filters,
+            or the total number of instances if no filters are provided.
+
+        Raises:
+            ValueError: If invalid arguments are passed to the method.
+            NotImplementedError: If 'follow_links' is used with api='core'.
+
+        Example:
+
+            >>> from fairgraph import KGClient
+            >>> import fairgraph.openminds.controlledterms as terms
+            >>> terms.CellType.count(client, name="interneuron")
+            8
+
+        """
         if api == "auto":
             if filters:
                 api = "query"
@@ -383,6 +541,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return response.total
 
     def _build_existence_query(self) -> Union[None, Dict[str, Any]]:
+        """
+        Generate a KG query definition (as a JSON-LD document) that can be used to
+        check whether a locally-defined object (with no ID) already exists in the KG.
+        """
         if self.existence_query_fields is None:
             return None
 
@@ -433,6 +595,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return False
 
     def diff(self, other):
+        """
+        Return a dictionary containing the differences between two metadata objects.
+        """
         differences = defaultdict(dict)
         if not isinstance(other, self.__class__):
             differences["type"] = (self.__class__, other.__class__)
@@ -497,6 +662,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
+        """
+        Return a dict containing the fields that have been modified locally
+        from the values originally obtained from the Knowledge Graph.
+        """
         current_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
         modified_data = {}
         for key, current_value in current_data.items():
@@ -517,6 +686,24 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         replace: bool = False,
         ignore_auth_errors: bool = False,
     ):
+        """
+        Store the current object in the Knowledge Graph, either updating an existing instance
+        or creating a new one as appropriate.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            space (str, optional): The KG space to save the object in. If not provided, a default space is used depending on the object type.
+            recursive (bool, optional): Whether to recursively save any children of this object. Defaults to True.
+            activity_log (ActivityLog, optional): An `ActivityLog` instance to log the operations performed during the save operation.
+                This is particularly helpful with `recursive=True`.
+            replace (bool, optional): Whether to completely replace an existing KG instance with this one, or just update the existing object
+                with any modified fields. Defaults to False.
+            ignore_auth_errors (bool, optional): Whether to continue silently when encountering authentication errors. Defaults to False.
+
+        Raises:
+            - An `AuthorizationError` if the current user is not authorized to perform the requested operation.
+
+        """
         if recursive:
             for field in self.fields:
                 if field.intrinsic:
@@ -647,7 +834,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             logger.warning("Object has no id - see log for the underlying error")
 
     def delete(self, client: KGClient, ignore_not_found: bool = True):
-        """Deprecate"""
+        """Delete the current metadata object from the KG.
+
+        If `ignore_not_found` is False, an exception will be raised if the object does
+        not exist. Otherwise, the method will finish silently.
+        """
         client.delete_instance(self.uuid, ignore_not_found=ignore_not_found)
         if self.id in object_cache:
             object_cache.pop(self.id)
@@ -663,6 +854,25 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         follow_links: int = 0,
     ) -> Union[KGObject, List[KGObject], None]:
+        """
+        Retrieve an instance from the Knowledge Graph based on its name.
+
+        Note that not all metadata classes have a name field.
+
+        Args:
+            name (str): a string to search for in the name field.
+            client: a KGClient
+            match (str, optional): either "equals" (exact match - default) or "contains".
+            all (bool, optional): Whether to return all objects that match the name, or only the first. Defaults to False.
+            space (str, optional): the KG space to search in. Default is to search in all available spaces.
+            scope (str, optional): The scope of the search. Valid values are "released", "in progress", or "any".
+                Defaults to "released".
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        """
+        # todo: move this to openminds generation, and include only in those subclasses
+        # that have a name
+        # todo: also count 'lookup_name', "family_name", "given_name" as a name
         objects = cls.list(client, space=space, scope=scope, api="query", name=name, follow_links=follow_links)
         if match == "equals":
             objects = [obj for obj in objects if hasattr(obj, "name") and obj.name == name]
@@ -677,6 +887,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             return objects[0]
 
     def show(self, max_width: Optional[int] = None):
+        """
+        Print a table showing the metadata contained in this object.
+        """
         if not have_tabulate:
             raise Exception("You need to install the tabulate module to use the `show()` method")
         data = [("id", self.id), ("space", self.space)] + [
@@ -705,10 +918,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         follow_links: int = 0,
     ) -> Union[Dict[str, Any], None]:
         """
+        Generate a KG query definition as a JSON-LD document.
 
-        query_type: "simple" or "resolved-n"
+        Args:
+            query_type: "simple" or "resolved-n" - used to generate a standard label for the query.
+            space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
+            client: KGClient object that handles the communication with the KG.
+            filter_keys (list of strings, optional): A list of field names that will be used as search parameters for the query.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        Returns:
+            A JSON-LD document containing the KG query definition.
+
         """
-
         query_label = cls.get_query_label(query_type, space, filter_keys)
         if space == "myspace":
             real_space = client._private_space
@@ -724,6 +946,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     @classmethod
     def get_query_label(cls, query_type: str, space: Union[str, None], filter_keys: Optional[List[str]] = None) -> str:
+        """Generate a standard label for a query"""
         if space and "private" in space:  # temporary work-around
             label = f"fg-{cls.__name__}-{query_type}-myspace"
         else:
@@ -734,6 +957,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     @classmethod
     def store_queries(cls, space: str, client: KGClient):
+        """
+        Store a standard set of queries in the KG.
+        """
         for query_type, follow_links in (("simple", 0), ("resolved-1", 1)):
             query_label = cls.get_query_label(query_type, space)
             query_definition = cls.generate_query(query_type, space, client, follow_links=follow_links)
@@ -753,10 +979,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         filter_keys: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
+        """Retrieve a stored query from the KG"""
         query_label = cls.get_query_label(query_type, space, filter_keys)
         return client.retrieve_query(query_label)
 
     def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
+        """Return a list of child objects."""
         if follow_links:
             self.resolve(client, follow_links=follow_links)
         all_children = []

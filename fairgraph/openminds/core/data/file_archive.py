@@ -51,11 +51,5 @@ class FileArchive(KGObject):
 
     def __init__(self, iri=None, format=None, source_datas=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
-            id=id,
-            space=space,
-            scope=scope,
-            data=data,
-            iri=iri,
-            format=format,
-            source_datas=source_datas,
+            id=id, space=space, scope=scope, data=data, iri=iri, format=format, source_datas=source_datas
         )

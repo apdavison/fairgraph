@@ -49,12 +49,7 @@ class ContentType(KGObject):
             doc="Longer statement or account giving the characteristics of the content type.",
         ),
         Field(
-            "display_label",
-            str,
-            "vocab:displayLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "display_label", str, "vocab:displayLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "file_extensions",

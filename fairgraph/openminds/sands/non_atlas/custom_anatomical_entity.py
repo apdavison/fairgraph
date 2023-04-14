@@ -48,10 +48,7 @@ class CustomAnatomicalEntity(KGObject):
         ),
         Field(
             "relation_assessments",
-            [
-                "openminds.sands.QualitativeRelationAssessment",
-                "openminds.sands.QuantitativeRelationAssessment",
-            ],
+            ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
             required=False,

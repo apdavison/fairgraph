@@ -1,5 +1,7 @@
 """
-define client
+This module defines the KGClient class, which provides a thin interface
+on top of the kg-core-python package, for communicating with the
+EBRAINS KG core API.
 """
 
 # Copyright 2018-2023 CNRS
@@ -70,6 +72,27 @@ AVAILABLE_PERMISSIONS = [
 
 
 class KGClient(object):
+    """
+    A client for accessing the EBRAINS Knowledge Graph (KG) API.
+
+    It can be used to retrieve, add, update, and delete KG nodes.
+
+    Attributes:
+        cache (dict): A dictionary used for caching JSON-LD documents.
+        accepted_terms_of_use (bool): A boolean indicating whether the user has accepted the terms of use.
+
+    Args:
+        token (str, optional): An EBRAINS authentication token for accessing the KG API.
+        host (str, optional): The hostname of the KG API. Use "core.kg-ppd.ebrains.eu" for testing
+                              and "core.kg.ebrains.eu" to work with the production KG.
+        client_id (str, optional): For use together with client_secret in place of the token if you have a service account.
+        client_secret (str, optional): The client secret to use for authentication. Required if client_id is provided.
+
+    Raises:
+        ImportError: If the kg_core package is not installed.
+        AuthenticationError: If neither a token nor client ID/secret are provided.
+    """
+
     def __init__(
         self,
         token: Optional[str] = None,
@@ -143,7 +166,25 @@ class KGClient(object):
         id_key: str = "@id",
         use_stored_query: bool = False,
     ) -> ResultPage[JsonLdDocument]:
+        """
+        Execute a Knowledge Graph (KG) query with the given filters and query definition.
 
+        Args:
+            filter (Dict[str, str]): A dictionary of filters to apply to the query. Each key represents the property name to filter on,
+                and the value represents the value(s) to filter on.
+            query (Dict[str, Any]): A dictionary containing the query definition in JSON-LD.
+            space (Optional[str]): The space for which to execute the query. If not specified, the query is executed over all accessible spaces.
+            instance_id (Optional[URI]): The URI of a specific KG instance to retrieve.
+            from_index (int): The index of the first result to return (0-based).
+            size (int): The maximum number of results to return.
+            scope (str): The scope of the query. Valid values are "released", "in progress", or "any". Default is "released".
+            id_key (str): The key that identifies the ID of a JSON-LD document. Default is "@id".
+            use_stored_query (bool): Whether to use a stored query with the given query_id instead of a dynamic query. Default is False.
+
+        Returns:
+            A ResultPage object containing a list of JSON-LD instances that satisfy the query,
+            along with metadata about the query results such as total number of instances, and pagination information.
+        """
         query_id = query.get("@id", None)
         if use_stored_query:
 
@@ -204,7 +245,22 @@ class KGClient(object):
         size: int = 100,
         scope: str = "released",
     ) -> ResultPage[JsonLdDocument]:
-        """docstring"""
+        """
+        List KG instances of a given type.
+
+        Args:
+            target_type: The URI if the instance type to list.
+            space: If specified, restricts the search to the given space.
+            from_index: The index of the first result to include in the response.
+            size: The maximum number of results to include in the response.
+            scope: The scope of instances to include in the response. Valid values are
+                   'released', 'in progress', 'any'. If 'any' is specified, all accessible instances
+                   are included in the response, but this may be slow where there are large numbers of instances.
+
+        Returns:
+            A ResultPage object containing the list of JSON-LD instances,
+            along with metadata about the query results such as total number of instances, and pagination information.
+        """
 
         def _list(scope, from_index, size):
             response = self._kg_client.instances.list(
@@ -245,6 +301,16 @@ class KGClient(object):
         scope: str = "released",
         require_full_data: bool = True,
     ) -> JsonLdDocument:
+        """
+        Return a specific KG instance identified by its URI.
+
+        Args:
+            uri: The global identifier of the instance
+            use_cache: whether to use cached data if they exist. Defaults to True.
+            scope: The scope of instances to include in the response.
+                   Valid values are 'released', 'in progress', 'any'.
+            require_full_data: Whether to only return instances for which the user has full read access.
+        """
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
         data: JsonLdDocument
         if use_cache and uri in self.cache:
@@ -286,6 +352,15 @@ class KGClient(object):
     def create_new_instance(
         self, data: JsonLdDocument, space: str, instance_id: Optional[str] = None
     ) -> JsonLdDocument:
+        """
+        Create a new KG instance using the data provided.
+
+        Args:
+            data (dict): a JSON-LD document that should be added to the KG as a new instance.
+            space (str): the space in which the instance should be stored.
+            instance_id (UUID, optional): a UUID that should be used as the basis for the
+                instance's persistent identifier. If not specified, the KG will generate an ID.
+        """
         if "'@id': None" in str(data):
             raise Exception("payload contains undefined ids")
         if instance_id:
@@ -305,6 +380,13 @@ class KGClient(object):
         return self._check_response(response, error_context=error_context).data
 
     def update_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
+        """
+        Update an existing KG instance using the data provided.
+
+        Args:
+            instance_id (UUID): the instance's persistent identifier.
+            data (dict): a JSON-LD document that modifies some or all of the data of the existing instance.
+        """
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
@@ -314,6 +396,13 @@ class KGClient(object):
         return self._check_response(response, error_context=error_context).data
 
     def replace_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
+        """
+        Replace an existing KG instance using the data provided.
+
+        Args:
+            instance_id (UUID): the instance's persistent identifier.
+            data (dict): a JSON-LD document that will replace the existing instance.
+        """
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
@@ -323,20 +412,33 @@ class KGClient(object):
         return self._check_response(response, error_context=error_context).data
 
     def delete_instance(self, instance_id: str, ignore_not_found: bool = True):
+        """
+        Delete a KG instance.
+        """
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
         return response
 
     def uri_from_uuid(self, uuid: str) -> str:
+        """Return an instance's URI given its UUID."""
         namespace = self._kg_client.instances._kg_config.id_namespace
         return f"{namespace}{uuid}"
 
     def uuid_from_uri(self, uri: str) -> UUID:
+        """Return an instance's UUID given its URI."""
         namespace = self._kg_client.instances._kg_config.id_namespace
         assert uri.startswith(namespace)
         return UUID(uri[len(namespace) :])
 
     def store_query(self, query_label: str, query_definition: Dict[str, Any], space: str):
+        """
+        Store a query definition in the KG.
+
+        Args:
+            query_label (str): a label that can be used to identify and retrieve the query definition.
+            query_definition (dict): a JSON-LD document defining a KG query.
+            space (str): the space in which the query definition should be stored.
+        """
         existing_query = self.retrieve_query(query_label)
         if existing_query:
             query_id = self.uuid_from_uri(existing_query["@id"])
@@ -357,6 +459,12 @@ class KGClient(object):
         query_definition["@id"] = self.uri_from_uuid(query_id)
 
     def retrieve_query(self, query_label: str) -> Dict[str, Any]:
+        """
+        Retrieve a stored query definition from the KG.
+
+        Args:
+            query_label (str): the label of the query definition to be retrieved.
+        """
         if query_label not in self._query_cache:
             response = self._check_response(self._kg_client.queries.list_per_root_type(search=query_label))
             if response.total == 0:
@@ -378,6 +486,11 @@ class KGClient(object):
         return self._query_cache[query_label]
 
     def user_info(self) -> Dict[str, Any]:
+        """
+        Returns information about the current user.
+
+        This information is that associated with the authorization token used.
+        """
         if self._user_info is None:
             try:
                 self._user_info = self._kg_client.users.my_info().data
@@ -388,6 +501,21 @@ class KGClient(object):
     def spaces(
         self, permissions: Optional[Iterable[str]] = None, names_only: bool = False
     ) -> Union[List[str], List[SpaceInformation]]:
+        f"""
+        Return a list of the Knowledge Graph spaces the user can access.
+
+        Args:
+            permissions (Optional[Iterable[str]]): Return only spaces for which the user has specific permissions.
+                The available permissions are as follows: {AVAILABLE_PERMISSIONS}
+            names_only (bool): Whether to return detailed information about each space (default) or only the space names.
+
+        Returns:
+            Union[List[str], List[SpaceInformation]]: either a list of SpaceInformation objects (default) or a list of names.
+
+        Raises:
+            ValueError: If an invalid permission string is included in permissions.
+
+        """
         if permissions and isinstance(permissions, Iterable):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
@@ -454,12 +582,29 @@ class KGClient(object):
         return space_name
 
     def move_to_space(self, uri: str, destination_space: str):
+        """
+        Move a KG instance from one space to another.
+
+        This is not recursive, i.e. child instances much be moved individually.
+        """
+        # todo: add recursion
         response = self._kg_client.instances.move(instance_id=self.uuid_from_uri(uri), space=destination_space)
         if response.error:
             raise Exception(response.error)
 
     def is_released(self, uri: str, with_children: bool = False) -> bool:
-        """Release status of the node"""
+        """
+        Release status of a KG instance identified by its URI.
+
+        Args:
+            uri (URI): persistent identifier of the instance.
+            with_children (bool): whether to check if all the children of the instance
+                                  have also been released.
+
+        Returns:
+            True if the instance and (optionally) all its children have been released.
+            Otherwise False.
+        """
         if with_children:
             release_tree_scope = ReleaseTreeScope.CHILDREN_ONLY
         else:
@@ -475,13 +620,13 @@ class KGClient(object):
             raise AuthorizationError("You are not able to access the release status")
 
     def release(self, uri: str):
-        """Release the node with the given uri"""
+        """Release the instance with the given uri"""
         response = self._kg_client.instances.release(self.uuid_from_uri(uri))
         if response:
-            raise Exception(f"Can't release node with id {uri}. Error message: {response}")
+            raise Exception(f"Can't release instance with id {uri}. Error message: {response}")
 
     def unrelease(self, uri: str):
-        """Unrelease the node with the given uri"""
+        """Unrelease the instance with the given uri"""
         response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
         if response:
-            raise Exception(f"Can't unrelease node with id {uri}. Error message: {response}")
+            raise Exception(f"Can't unrelease instance with id {uri}. Error message: {response}")

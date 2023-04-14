@@ -31,12 +31,7 @@ class Electrode(KGObject):
             doc="Word or phrase that constitutes the distinctive designation of the electrode.",
         ),
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "conductor_material",
@@ -119,12 +114,7 @@ class Electrode(KGObject):
             doc="no description available",
         ),
         Field(
-            "serial_number",
-            str,
-            "vocab:serialNumber",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "serial_number", str, "vocab:serialNumber", multiple=False, required=False, doc="no description available"
         ),
     ]
     existence_query_fields = ("lookup_label",)

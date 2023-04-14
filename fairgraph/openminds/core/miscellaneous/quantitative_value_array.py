@@ -56,14 +56,7 @@ class QuantitativeValueArray(KGObject):
             required=False,
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Field(
-            "values",
-            float,
-            "vocab:values",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
+        Field("values", float, "vocab:values", multiple=True, required=True, doc="no description available"),
     ]
     existence_query_fields = ("values",)
 

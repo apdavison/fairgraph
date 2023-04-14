@@ -25,12 +25,7 @@ class DataAnalysis(KGObject):
     }
     fields = [
         Field(
-            "lookup_label",
-            str,
-            "vocab:lookupLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "custom_property_sets",
@@ -48,14 +43,7 @@ class DataAnalysis(KGObject):
             required=False,
             doc="Longer statement or account giving the characteristics of the data analysis.",
         ),
-        Field(
-            "end_time",
-            datetime,
-            "vocab:endTime",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
         Field(
             "environment",
             ["openminds.computation.Environment", "openminds.core.WebServiceVersion"],
@@ -125,12 +113,7 @@ class DataAnalysis(KGObject):
             doc="no description available",
         ),
         Field(
-            "start_time",
-            datetime,
-            "vocab:startTime",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "start_time", datetime, "vocab:startTime", multiple=False, required=True, doc="no description available"
         ),
         Field(
             "started_by",

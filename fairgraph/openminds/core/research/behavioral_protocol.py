@@ -58,10 +58,7 @@ class BehavioralProtocol(KGObject):
         ),
         Field(
             "stimulations",
-            [
-                "openminds.controlledterms.StimulationApproach",
-                "openminds.controlledterms.StimulationTechnique",
-            ],
+            ["openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique"],
             "vocab:stimulation",
             multiple=True,
             required=False,

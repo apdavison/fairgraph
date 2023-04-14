@@ -72,14 +72,7 @@ class LocalFile(KGObject):
             required=False,
             doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
         ),
-        Field(
-            "path",
-            str,
-            "vocab:path",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("path", str, "vocab:path", multiple=False, required=True, doc="no description available"),
         Field(
             "special_usage_role",
             "openminds.controlledterms.FileUsageRole",

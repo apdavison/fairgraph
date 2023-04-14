@@ -6,8 +6,11 @@ Consistent definition of neuroscience terms.
 
 * :class:`~fairgraph.openminds.controlledterms.ActionStatusType`
 * :class:`~fairgraph.openminds.controlledterms.AgeCategory`
+* :class:`~fairgraph.openminds.controlledterms.AnalysisTechnique`
 * :class:`~fairgraph.openminds.controlledterms.AnatomicalAxesOrientation`
+* :class:`~fairgraph.openminds.controlledterms.AnatomicalIdentificationType`
 * :class:`~fairgraph.openminds.controlledterms.AnatomicalPlane`
+* :class:`~fairgraph.openminds.controlledterms.AnnotationCriteriaType`
 * :class:`~fairgraph.openminds.controlledterms.AnnotationType`
 * :class:`~fairgraph.openminds.controlledterms.AtlasType`
 * :class:`~fairgraph.openminds.controlledterms.AuditoryStimulusType`
@@ -17,6 +20,7 @@ Consistent definition of neuroscience terms.
 * :class:`~fairgraph.openminds.controlledterms.CellCultureType`
 * :class:`~fairgraph.openminds.controlledterms.CellType`
 * :class:`~fairgraph.openminds.controlledterms.ChemicalMixtureType`
+* :class:`~fairgraph.openminds.controlledterms.Colormap`
 * :class:`~fairgraph.openminds.controlledterms.ContributionType`
 * :class:`~fairgraph.openminds.controlledterms.CranialWindowConstructionType`
 * :class:`~fairgraph.openminds.controlledterms.CranialWindowReinforcementType`
@@ -49,6 +53,8 @@ Consistent definition of neuroscience terms.
 * :class:`~fairgraph.openminds.controlledterms.OperatingSystem`
 * :class:`~fairgraph.openminds.controlledterms.OpticalStimulusType`
 * :class:`~fairgraph.openminds.controlledterms.Organ`
+* :class:`~fairgraph.openminds.controlledterms.OrganismSubstance`
+* :class:`~fairgraph.openminds.controlledterms.OrganismSystem`
 * :class:`~fairgraph.openminds.controlledterms.PatchClampVariation`
 * :class:`~fairgraph.openminds.controlledterms.PreparationType`
 * :class:`~fairgraph.openminds.controlledterms.ProductAccessibility`
@@ -89,13 +95,31 @@ Consistent definition of neuroscience terms.
 
 ----
 
+.. autoclass:: fairgraph.openminds.controlledterms.AnalysisTechnique
+   :members:
+   :show-inheritance:
+
+----
+
 .. autoclass:: fairgraph.openminds.controlledterms.AnatomicalAxesOrientation
    :members:
    :show-inheritance:
 
 ----
 
+.. autoclass:: fairgraph.openminds.controlledterms.AnatomicalIdentificationType
+   :members:
+   :show-inheritance:
+
+----
+
 .. autoclass:: fairgraph.openminds.controlledterms.AnatomicalPlane
+   :members:
+   :show-inheritance:
+
+----
+
+.. autoclass:: fairgraph.openminds.controlledterms.AnnotationCriteriaType
    :members:
    :show-inheritance:
 
@@ -150,6 +174,12 @@ Consistent definition of neuroscience terms.
 ----
 
 .. autoclass:: fairgraph.openminds.controlledterms.ChemicalMixtureType
+   :members:
+   :show-inheritance:
+
+----
+
+.. autoclass:: fairgraph.openminds.controlledterms.Colormap
    :members:
    :show-inheritance:
 
@@ -342,6 +372,18 @@ Consistent definition of neuroscience terms.
 ----
 
 .. autoclass:: fairgraph.openminds.controlledterms.Organ
+   :members:
+   :show-inheritance:
+
+----
+
+.. autoclass:: fairgraph.openminds.controlledterms.OrganismSubstance
+   :members:
+   :show-inheritance:
+
+----
+
+.. autoclass:: fairgraph.openminds.controlledterms.OrganismSystem
    :members:
    :show-inheritance:
 

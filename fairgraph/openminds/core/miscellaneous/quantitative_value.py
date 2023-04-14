@@ -47,14 +47,7 @@ class QuantitativeValue(EmbeddedMetadata):
             required=False,
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Field(
-            "value",
-            float,
-            "vocab:value",
-            multiple=False,
-            required=True,
-            doc="Entry for a property.",
-        ),
+        Field("value", float, "vocab:value", multiple=False, required=True, doc="Entry for a property."),
     ]
 
     def __init__(
@@ -69,9 +62,5 @@ class QuantitativeValue(EmbeddedMetadata):
         scope=None,
     ):
         return super().__init__(
-            data=data,
-            type_of_uncertainty=type_of_uncertainty,
-            uncertainties=uncertainties,
-            unit=unit,
-            value=value,
+            data=data, type_of_uncertainty=type_of_uncertainty, uncertainties=uncertainties, unit=unit, value=value
         )

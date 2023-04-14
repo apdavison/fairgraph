@@ -39,13 +39,5 @@ class Ellipse(EmbeddedMetadata):
         ),
     ]
 
-    def __init__(
-        self,
-        semi_major_axis=None,
-        semi_minor_axis=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
-    ):
+    def __init__(self, semi_major_axis=None, semi_minor_axis=None, id=None, data=None, space=None, scope=None):
         return super().__init__(data=data, semi_major_axis=semi_major_axis, semi_minor_axis=semi_minor_axis)

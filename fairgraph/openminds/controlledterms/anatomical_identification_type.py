@@ -1,6 +1,5 @@
 """
 
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -21,7 +20,6 @@ from fairgraph.fields import Field
 
 class AnatomicalIdentificationType(KGObject):
     """
-
 
     .. list-table:: **Possible values**
        :widths: 20 80

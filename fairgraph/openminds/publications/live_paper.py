@@ -79,12 +79,7 @@ class LivePaper(KGObject):
             doc="Reference to variants of an original.",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the live paper.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the live paper."
         ),
         Field(
             "how_to_cite",

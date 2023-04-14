@@ -116,6 +116,8 @@ def generate_class_name(iri):
 def generate_doc(property, obj_title):
     if obj_title.upper() == obj_title:  # for acronyms, e.g. DOI
         obj_title_readable = obj_title
+    elif "UBERON" in obj_title:
+        obj_title_readable = obj_title
     else:
         obj_title_readable = re.sub("([A-Z])", " \g<0>", obj_title).strip().lower()
     doc = property.get("description", "no description available")
@@ -367,14 +369,24 @@ def get_controlled_terms_table(type_):
     else:
         if response.total == 0:
             return ""
-        lines = [
-            "",
-            "",
-            "    .. list-table:: **Possible values**",
-            "       :widths: 20 80",
-            "       :header-rows: 0",
-            "",
-        ]
+        lines = []
+        if response.total > response.size:
+            assert response.size == limit
+            lines.extend(
+                [
+                    "",
+                    f"    Here we show the first {limit} possible values, an additional {response.total - limit} values are not shown.",
+                ]
+            )
+        lines.extend(
+            [
+                "",
+                "    .. list-table:: **Possible values**",
+                "       :widths: 20 80",
+                "       :header-rows: 0",
+                "",
+            ]
+        )
         for item in response.data:
             vocab = "https://openminds.ebrains.eu/vocab"
             name = item[f"{vocab}/name"]
@@ -386,14 +398,6 @@ def get_controlled_terms_table(type_):
                 name = f"`{name} <{link}>`_"
             lines.append(f"       * - {name}")
             lines.append(f"         - {definition}")
-        if response.total > response.size:
-            assert response.size == limit
-            lines.extend(
-                [
-                    "",
-                    f"Here we show the first {limit} values, an additional {response.total - limit} values are not shown.",
-                ]
-            )
         lines.append("")
         return "\n".join(lines)
 

@@ -1,6 +1,5 @@
 """
 Structured information on the scope of the computational model.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -38,7 +37,6 @@ from fairgraph.fields import Field
 class ModelScope(KGObject):
     """
     Structured information on the scope of the computational model.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0

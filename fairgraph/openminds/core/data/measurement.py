@@ -53,12 +53,7 @@ class Measurement(EmbeddedMetadata):
             doc="no description available",
         ),
         Field(
-            "timestamp",
-            datetime,
-            "vocab:timestamp",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "timestamp", datetime, "vocab:timestamp", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "values",

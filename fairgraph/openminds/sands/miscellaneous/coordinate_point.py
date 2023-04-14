@@ -25,10 +25,7 @@ class CoordinatePoint(EmbeddedMetadata):
     fields = [
         Field(
             "coordinate_space",
-            [
-                "openminds.sands.CommonCoordinateSpaceVersion",
-                "openminds.sands.CustomCoordinateSpace",
-            ],
+            ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"],
             "vocab:coordinateSpace",
             multiple=False,
             required=True,

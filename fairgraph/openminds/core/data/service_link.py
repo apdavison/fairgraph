@@ -38,21 +38,9 @@ class ServiceLink(KGObject):
             doc="no description available",
         ),
         Field(
-            "display_label",
-            str,
-            "vocab:displayLabel",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "display_label", str, "vocab:displayLabel", multiple=False, required=False, doc="no description available"
         ),
-        Field(
-            "open_data_in",
-            IRI,
-            "vocab:openDataIn",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("open_data_in", IRI, "vocab:openDataIn", multiple=False, required=True, doc="no description available"),
         Field(
             "preview_image",
             "openminds.core.File",

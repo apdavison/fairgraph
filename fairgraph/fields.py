@@ -1,9 +1,8 @@
 """
-Representations of metadata fields
-
+Representations of metadata fields.
 """
 
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -138,7 +137,23 @@ def build_kg_object(
 
 
 class Field(object):
-    """Representation of a metadata field"""
+    """
+    Representation of a metadata field.
+
+    Args:
+        name (str): The name of the field.
+        types (str, date, datetime, int, KGObject, EmbeddedMetadata): The types of values that the field can take.
+        path (URI): The globally unique identifier of this field.
+        required (bool, optional): Whether the field is required or not. Defaults to False.
+        default (Any, optional): The default value of the field if it is not provided.
+        multiple (bool, optional): Whether the field can have multiple values or not. Defaults to False.
+        strict (bool, optional): Whether strict mode is enabled or not. Defaults to False.
+        reverse (str, optional): The name of the reverse field, if any.
+        doc (str, optional): The documentation of the field.
+
+    The class also contains machinery for serialization into JSON-LD of values stored in fields in
+    KGObjects and EmbeddedMetadata instances, and for de-serialization from JSON-LD into Python objects.
+    """
 
     def __init__(
         self,
@@ -219,14 +234,24 @@ class Field(object):
         return not self.path.startswith("^")
 
     @property
-    def is_link(self):
+    def is_link(self) -> bool:
         return issubclass(self.types[0], (KGObject, EmbeddedMetadata))
 
     @property
-    def expanded_path(self):
+    def expanded_path(self) -> str:
         return expand_uri(self.path, global_context)
 
-    def serialize(self, value, follow_links=False):
+    def serialize(self, value: Any, follow_links: bool = False):
+        """
+        Serialize a value to JSON-LD.
+
+        Args:
+            value (any): The value to be serialized.
+            follow_links (bool): If the value contains graph links, these links
+                will be represented using "@id" (follow_links=False) or fully
+                serialized recursively (follow_links=True).
+        """
+
         def serialize_single(value):
             if isinstance(value, (str, int, float, dict)):
                 return value
@@ -264,7 +289,14 @@ class Field(object):
         else:
             return serialize_single(value)
 
-    def deserialize(self, data, client):
+    def deserialize(self, data: Union[JSONdict, List[JSONdict]], client: KGClient):
+        """
+        Deserialize a JSON-LD data structure into Python objects.
+
+        Args:
+            data: the JSON-LD data
+            client: a KG client
+        """
         assert self.intrinsic
         if data is None or data == []:
             return None
@@ -299,7 +331,10 @@ class Field(object):
                 return None
 
     def get_query_properties(self, use_filter=False, follow_links=0):
-
+        """
+        Generate one or more QueryProperty instances for this field,
+        for use in constructing a KG query definition.
+        """
         if use_filter:
             if self.types[0] in (int, float, bool, datetime, date):
                 op = "EQUALS"

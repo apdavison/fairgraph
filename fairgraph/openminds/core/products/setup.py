@@ -53,14 +53,7 @@ class Setup(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
-            "location",
-            str,
-            "vocab:location",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("location", str, "vocab:location", multiple=False, required=False, doc="no description available"),
         Field(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],

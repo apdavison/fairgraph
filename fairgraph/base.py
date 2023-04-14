@@ -1,10 +1,9 @@
 """
-
-
+This module contains base classes that define interfaces
+and contain code common to sub-classes, to avoid code duplication.
 """
 
-
-# Copyright 2018-2020 CNRS
+# Copyright 2018-2023 CNRS
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -110,6 +109,17 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         follow_links: bool = False,
         include_empty_fields: bool = False,
     ):
+        """
+        Return a JSON-LD representation of this metadata object
+
+        Args:
+            normalized (bool): Whether to expand all URIs. Defaults to True.
+            follow_links (bool, optional): Whether to represent linked objects just by their "@id"
+                or to include their full metadata. Defaults to False.
+            include_empty_fields (bool, optional): Whether to include empty fields (with value "null").
+                Defaults to False.
+
+        """
         if self.fields:
             data: JSONdict = {"@type": self.type_}
             if hasattr(self, "id") and self.id:
@@ -136,6 +146,9 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     @classmethod
     def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
+        """
+        Create an instance of the class from a JSON-LD document.
+        """
         if scope:
             return cls.from_kg_instance(data, client, scope)
         else:
@@ -158,6 +171,16 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     @classmethod
     def set_strict_mode(cls, value: bool, field_names: Optional[Union[str, List[str]]] = None):
+        """
+        Control validation for this class.
+
+        Args:
+            value (bool): If True, raise an Exception when there is a validation failure
+                (e.g. if a required field is not provided). If False, emit a warning then continue.
+            field_names (str or list of str, optional): If not provided, the strict mode will
+                be applied to all fields. If a field name or list of names is given, the mode
+                will be applied only to those fields.
+        """
         if value not in (True, False):
             raise ValueError("value should be either True or False")
         if field_names:
@@ -176,6 +199,14 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     @classmethod
     def generate_query_properties(cls, filter_keys: Optional[List[str]] = None, follow_links: int = 0):
+        """
+        Generate a list of QueryProperty instances for this class
+        for use in constructing a KG query definition.
+
+        Args:
+            filter_keys (list of strings, optional): A list of field names that should be used as search parameters for the query.
+            follow_links (int): The number of levels of links that should be followed when constructing the query. Defaults to zero.
+        """
         if filter_keys is None:
             filter_keys = []
         properties = [QueryProperty("@type")]
@@ -230,8 +261,17 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         use_cache: bool = True,
         follow_links: int = 0,
     ):
-        """To avoid having to check if a child attribute is a proxy or a real object,
-        a real object resolves to itself.
+        """
+        Resolve fields that are represented by KGProxy objects.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            scope (str): The scope of instances to include in the response.
+                   Valid values are 'released', 'in progress', 'any'.
+            use_cache (bool): whether to use cached data if they exist. Defaults to True.
+            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+
+        Note: a real (non-proxy) object resolves to itself.
         """
         use_scope = scope or self.scope or "released"
         if follow_links > 0:

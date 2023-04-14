@@ -31,12 +31,7 @@ class Periodical(KGObject):
             doc="Word or phrase that constitutes the distinctive designation of the periodical.",
         ),
         Field(
-            "abbreviation",
-            str,
-            "vocab:abbreviation",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
         ),
         Field(
             "digital_identifier",
@@ -50,14 +45,7 @@ class Periodical(KGObject):
     existence_query_fields = ("abbreviation",)
 
     def __init__(
-        self,
-        name=None,
-        abbreviation=None,
-        digital_identifier=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, name=None, abbreviation=None, digital_identifier=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(
             id=id,

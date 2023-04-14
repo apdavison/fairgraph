@@ -71,12 +71,7 @@ class WebService(KGObject):
             doc="Reference to variants of an original.",
         ),
         Field(
-            "homepage",
-            IRI,
-            "vocab:homepage",
-            multiple=False,
-            required=False,
-            doc="Main website of the web service.",
+            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the web service."
         ),
         Field(
             "how_to_cite",

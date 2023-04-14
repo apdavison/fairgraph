@@ -23,21 +23,10 @@ class CustomPropertySet(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "context",
-            str,
-            "vocab:context",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("context", str, "vocab:context", multiple=False, required=True, doc="no description available"),
         Field(
             "data_location",
-            [
-                "openminds.core.Configuration",
-                "openminds.core.File",
-                "openminds.core.PropertyValueList",
-            ],
+            ["openminds.core.Configuration", "openminds.core.File", "openminds.core.PropertyValueList"],
             "vocab:dataLocation",
             multiple=False,
             required=True,
@@ -59,13 +48,6 @@ class CustomPropertySet(EmbeddedMetadata):
     ]
 
     def __init__(
-        self,
-        context=None,
-        data_location=None,
-        relevant_for=None,
-        id=None,
-        data=None,
-        space=None,
-        scope=None,
+        self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, scope=None
     ):
         return super().__init__(data=data, context=context, data_location=data_location, relevant_for=relevant_for)

@@ -1,6 +1,5 @@
 """
 Structured information on the type of contribution a person or organization performed.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
@@ -34,7 +33,6 @@ from fairgraph.fields import Field
 class ContributionType(KGObject):
     """
     Structured information on the type of contribution a person or organization performed.
-
     .. list-table:: **Possible values**
        :widths: 20 80
        :header-rows: 0
