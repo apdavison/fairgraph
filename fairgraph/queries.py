@@ -25,7 +25,8 @@ class Filter:
     A filter for querying Knowledge Graph nodes.
 
     Args:
-        operation (str): The operation for the filter.
+        operation (str): The operation for the filter. Options are:
+            ("CONTAINS", "EQUALS", "IS_EMPTY", "STARTS_WITH", "ENDS_WITH", "REGEX")
         parameter (str, optional): A parameter name for the filter.
         value (str, optional): The value to filter on.
 

@@ -161,6 +161,20 @@ def example_query_repository_with_reverse():
                     ),
                 ],
             ),
+            QueryProperty(
+                "https://openminds.ebrains.eu/vocab/repository",
+                reverse=True,
+                required=True,
+                name="contains_dataset_version",
+                properties=[
+                    QueryProperty("@id"),
+                    QueryProperty(
+                        "https://openminds.ebrains.eu/vocab/shortName",
+                        name="alias",
+                        filter=Filter("EQUALS", parameter="dataset_alias"),
+                    ),
+                ],
+            ),
         ],
     )
 
@@ -326,6 +340,19 @@ def test_query_with_reverse_fields(example_query_repository_with_reverse):
                     },
                 ],
             },
+            {
+                "path": {"@id": "https://openminds.ebrains.eu/vocab/repository", "reverse": True},
+                "propertyName": "contains_dataset_version",
+                'required': True,
+                "structure": [
+                    {"path": "@id"},
+                    {
+                        "filter": {"op": "EQUALS", "parameter": "dataset_alias"},
+                        "path": "https://openminds.ebrains.eu/vocab/shortName",
+                        "propertyName": "alias",
+                    },
+                ],
+            },
         ],
     }
     assert generated == expected
@@ -379,7 +406,7 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
 
 
 @skip_if_no_connection
-def test_execute_query_with_reverse_fields(kg_client, example_query_repository_with_reverse):
+def test_execute_query_with_reverse_fields_and_instance_id(kg_client, example_query_repository_with_reverse):
     target_id = "https://kg.ebrains.eu/api/instances/2f8d64f3-d848-49bd-baa6-a2c7080c98da"
     response = kg_client._kg_client.queries.test_query(
         payload=example_query_repository_with_reverse.serialize(),
@@ -395,6 +422,25 @@ def test_execute_query_with_reverse_fields(kg_client, example_query_repository_w
     )
     assert "VAbenchmarks" in data[0]["files"][0]["filename"]
     assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
+
+
+@skip_if_no_connection
+def test_execute_query_with_reverse_fields_and_filter(kg_client, example_query_repository_with_reverse):
+    response = kg_client._kg_client.queries.test_query(
+        payload=example_query_repository_with_reverse.serialize(),
+        additional_request_params={"dataset_alias": "data-brette-etal-2007-benchmark2-v1"},
+        stage=Stage.IN_PROGRESS,
+        pagination=Pagination(start=0, size=10),
+    )
+    data = response.data
+    assert len(data) == 1
+    assert (
+        data[0]["location"]
+        == "https://object.cscs.ch/v1/AUTH_7e4157014a3d4c1f8ffe270b57008fd4/brette-etal-2007?prefix=Benchmark2"
+    )
+    assert "VAbenchmarks" in data[0]["files"][0]["filename"]
+    assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
+    assert data[0]["contains_dataset_version"][0]["alias"] == "data-brette-etal-2007-benchmark2-v1"
 
 
 def test_openminds_core_queries(mock_client):
