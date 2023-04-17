@@ -26,11 +26,10 @@ class PublicationIssue(KGObject):
             "is_part_of",
             "openminds.publications.PublicationVolume",
             "vocab:isPartOf",
-            multiple=False,
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field("issue_number", str, "vocab:issueNumber", multiple=False, required=True, doc="no description available"),
+        Field("issue_number", str, "vocab:issueNumber", required=True, doc="no description available"),
     ]
     existence_query_fields = ("is_part_of", "issue_number")
 

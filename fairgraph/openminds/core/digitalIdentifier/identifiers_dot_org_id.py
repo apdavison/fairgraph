@@ -26,7 +26,6 @@ class IdentifiersDotOrgID(KGObject):
             "identifier",
             str,
             "vocab:identifier",
-            multiple=False,
             required=True,
             doc="Term or code used to identify the identifiers dot org i d.",
         ),

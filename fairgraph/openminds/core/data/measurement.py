@@ -27,15 +27,12 @@ class Measurement(EmbeddedMetadata):
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
             "measured_quantity",
             "openminds.controlledterms.MeasuredQuantity",
             "vocab:measuredQuantity",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
@@ -48,13 +45,9 @@ class Measurement(EmbeddedMetadata):
                 "openminds.specimenprep.SlicingDeviceUsage",
             ],
             "vocab:measuredWith",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
-        Field(
-            "timestamp", datetime, "vocab:timestamp", multiple=False, required=False, doc="no description available"
-        ),
+        Field("timestamp", datetime, "vocab:timestamp", doc="no description available"),
         Field(
             "values",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],

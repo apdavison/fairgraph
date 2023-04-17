@@ -27,7 +27,6 @@ class Contribution(EmbeddedMetadata):
             "contributor",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:contributor",
-            multiple=False,
             required=True,
             doc="Legal person that gave or supplied something as a part or share.",
         ),

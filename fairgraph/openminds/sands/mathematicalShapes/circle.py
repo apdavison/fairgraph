@@ -22,12 +22,7 @@ class Circle(EmbeddedMetadata):
     }
     fields = [
         Field(
-            "radius",
-            "openminds.core.QuantitativeValue",
-            "vocab:radius",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "radius", "openminds.core.QuantitativeValue", "vocab:radius", required=True, doc="no description available"
         ),
     ]
 

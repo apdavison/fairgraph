@@ -343,7 +343,7 @@ def test_query_with_reverse_fields(example_query_repository_with_reverse):
             {
                 "path": {"@id": "https://openminds.ebrains.eu/vocab/repository", "reverse": True},
                 "propertyName": "contains_dataset_version",
-                'required': True,
+                "required": True,
                 "structure": [
                     {"path": "@id"},
                     {

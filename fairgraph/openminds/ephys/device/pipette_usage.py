@@ -22,9 +22,7 @@ class PipetteUsage(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "anatomical_location",
             [
@@ -38,8 +36,6 @@ class PipetteUsage(KGObject):
                 "openminds.sands.ParcellationEntityVersion",
             ],
             "vocab:anatomicalLocation",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -47,22 +43,18 @@ class PipetteUsage(KGObject):
             "openminds.core.Measurement",
             "vocab:chlorideReversalPotential",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "compensation_current",
             "openminds.core.Measurement",
             "vocab:compensationCurrent",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "device",
             "openminds.ephys.Pipette",
             "vocab:device",
-            multiple=False,
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
@@ -70,25 +62,13 @@ class PipetteUsage(KGObject):
             "end_membrane_potential",
             "openminds.core.Measurement",
             "vocab:endMembranePotential",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
-            "holding_potential",
-            "openminds.core.Measurement",
-            "vocab:holdingPotential",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "holding_potential", "openminds.core.Measurement", "vocab:holdingPotential", doc="no description available"
         ),
         Field(
-            "input_resistance",
-            "openminds.core.Measurement",
-            "vocab:inputResistance",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "input_resistance", "openminds.core.Measurement", "vocab:inputResistance", doc="no description available"
         ),
         Field(
             "labeling_compound",
@@ -98,16 +78,12 @@ class PipetteUsage(KGObject):
                 "openminds.controlledterms.MolecularEntity",
             ],
             "vocab:labelingCompound",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "liquid_junction_potential",
             "openminds.core.Measurement",
             "vocab:liquidJunctionPotential",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -115,63 +91,41 @@ class PipetteUsage(KGObject):
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:metadataLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "pipette_resistance",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:pipetteResistance",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "pipette_solution",
             "openminds.chemicals.ChemicalMixture",
             "vocab:pipetteSolution",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
+        Field("seal_resistance", "openminds.core.Measurement", "vocab:sealResistance", doc="no description available"),
         Field(
-            "seal_resistance",
-            "openminds.core.Measurement",
-            "vocab:sealResistance",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
-        Field(
-            "series_resistance",
-            "openminds.core.Measurement",
-            "vocab:seriesResistance",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "series_resistance", "openminds.core.Measurement", "vocab:seriesResistance", doc="no description available"
         ),
         Field(
             "spatial_location",
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "start_membrane_potential",
             "openminds.core.Measurement",
             "vocab:startMembranePotential",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "used_specimen",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
             "vocab:usedSpecimen",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

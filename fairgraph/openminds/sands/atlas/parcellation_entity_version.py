@@ -26,46 +26,24 @@ class ParcellationEntityVersion(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version.",
         ),
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
-        Field(
-            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Field(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
-            "alternate_names",
-            str,
-            "vocab:alternateName",
-            multiple=True,
-            required=False,
-            doc="no description available",
-        ),
-        Field(
-            "corrected_name",
-            str,
-            "vocab:correctedName",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
+        Field("corrected_name", str, "vocab:correctedName", doc="no description available"),
         Field(
             "has_annotations",
             "openminds.sands.AtlasAnnotation",
             "vocab:hasAnnotation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -73,7 +51,6 @@ class ParcellationEntityVersion(KGObject):
             ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"],
             "vocab:hasParent",
             multiple=True,
-            required=False,
             doc="Reference to a parent object or legal person.",
         ),
         Field(
@@ -81,7 +58,6 @@ class ParcellationEntityVersion(KGObject):
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
-            required=False,
             doc="Term or code used to identify the parcellation entity version registered within a particular ontology.",
         ),
         Field(
@@ -89,14 +65,12 @@ class ParcellationEntityVersion(KGObject):
             ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
-            multiple=False,
             required=True,
             doc="Term or code used to identify the version of something.",
         ),
@@ -104,8 +78,6 @@ class ParcellationEntityVersion(KGObject):
             "version_innovation",
             str,
             "vocab:versionInnovation",
-            multiple=False,
-            required=False,
             doc="Documentation on what changed in comparison to a previously published form of something.",
         ),
     ]

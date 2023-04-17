@@ -24,15 +24,12 @@ class ProtocolExecution(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "behavioral_protocols",
             "openminds.core.BehavioralProtocol",
             "vocab:behavioralProtocol",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -40,18 +37,15 @@ class ProtocolExecution(KGObject):
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
-            required=False,
             doc="Longer statement or account giving the characteristics of the protocol execution.",
         ),
-        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
+        Field("end_time", datetime, "vocab:endTime", doc="no description available"),
         Field(
             "inputs",
             [
@@ -73,7 +67,6 @@ class ProtocolExecution(KGObject):
             "is_part_of",
             "openminds.core.DatasetVersion",
             "vocab:isPartOf",
-            multiple=False,
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
@@ -97,15 +90,12 @@ class ProtocolExecution(KGObject):
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "preparation_design",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -116,9 +106,7 @@ class ProtocolExecution(KGObject):
             required=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field(
-            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
-        ),
+        Field("start_time", datetime, "vocab:startTime", doc="no description available"),
         Field(
             "study_targets",
             [
@@ -152,7 +140,6 @@ class ProtocolExecution(KGObject):
             ],
             "vocab:studyTarget",
             multiple=True,
-            required=False,
             doc="Structure or function that was targeted within a study.",
         ),
     ]

@@ -24,9 +24,7 @@ class PropertyValueList(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "property_value_pairs",
             ["openminds.core.NumericalProperty", "openminds.core.StringProperty"],

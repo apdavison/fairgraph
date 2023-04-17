@@ -22,34 +22,28 @@ class TissueSampleSlicing(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
-            required=False,
             doc="Longer statement or account giving the characteristics of the tissue sample slicing.",
         ),
         Field(
             "device",
             "openminds.specimenprep.SlicingDeviceUsage",
             "vocab:device",
-            multiple=False,
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
+        Field("end_time", datetime, "vocab:endTime", doc="no description available"),
         Field(
             "inputs",
             [
@@ -66,7 +60,6 @@ class TissueSampleSlicing(KGObject):
             "is_part_of",
             "openminds.core.DatasetVersion",
             "vocab:isPartOf",
-            multiple=False,
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
@@ -83,15 +76,12 @@ class TissueSampleSlicing(KGObject):
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "preparation_design",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -102,9 +92,7 @@ class TissueSampleSlicing(KGObject):
             required=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field(
-            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
-        ),
+        Field("start_time", datetime, "vocab:startTime", doc="no description available"),
         Field(
             "study_targets",
             [
@@ -138,23 +126,18 @@ class TissueSampleSlicing(KGObject):
             ],
             "vocab:studyTarget",
             multiple=True,
-            required=False,
             doc="Structure or function that was targeted within a study.",
         ),
         Field(
             "temperature",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:temperature",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "tissue_bath_solution",
             "openminds.chemicals.ChemicalMixture",
             "vocab:tissueBathSolution",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

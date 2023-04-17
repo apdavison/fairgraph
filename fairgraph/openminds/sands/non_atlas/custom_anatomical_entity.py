@@ -26,7 +26,6 @@ class CustomAnatomicalEntity(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity.",
         ),
@@ -35,15 +34,12 @@ class CustomAnatomicalEntity(KGObject):
             "openminds.sands.CustomAnnotation",
             "vocab:hasAnnotation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "related_uberon_term",
             ["openminds.controlledterms.Organ", "openminds.controlledterms.UBERONParcellation"],
             "vocab:relatedUBERONTerm",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -51,7 +47,6 @@ class CustomAnatomicalEntity(KGObject):
             ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
     ]

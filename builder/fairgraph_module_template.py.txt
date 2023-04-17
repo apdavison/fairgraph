@@ -28,7 +28,7 @@ class {{ class_name }}({{ base_class }}):
     }
     fields = [
         {% for field in fields -%}
-        Field("{{field.name}}", {{field.type}}, "{{field.iri}}", multiple={{field.allow_multiple}}, required={{field.required}},
+        Field("{{field.name}}", {{field.type}}, "{{field.iri}}"{% if field.allow_multiple %}, multiple={{field.allow_multiple}}{% endif %}{% if field.required %}, required={{field.required}}{% endif %},
               doc="{{field.doc}}"),
         {% endfor %}
     ]

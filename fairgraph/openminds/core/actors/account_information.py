@@ -24,15 +24,8 @@ class AccountInformation(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "service",
-            "openminds.core.WebService",
-            "vocab:service",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
-        Field("user_name", str, "vocab:userName", multiple=False, required=True, doc="no description available"),
+        Field("service", "openminds.core.WebService", "vocab:service", required=True, doc="no description available"),
+        Field("user_name", str, "vocab:userName", required=True, doc="no description available"),
     ]
     existence_query_fields = ("service", "user_name")
 

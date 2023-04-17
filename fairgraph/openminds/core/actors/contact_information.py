@@ -28,7 +28,6 @@ class ContactInformation(KGObject):
             "email",
             str,
             "vocab:email",
-            multiple=False,
             required=True,
             doc="Address to which or from which an electronic mail can be sent.",
         ),

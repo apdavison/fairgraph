@@ -24,28 +24,13 @@ class Organization(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "name",
-            str,
-            "vocab:fullName",
-            multiple=False,
-            required=True,
-            doc="Whole, non-abbreviated name of the organization.",
-        ),
-        Field(
-            "alias",
-            str,
-            "vocab:shortName",
-            multiple=False,
-            required=False,
-            doc="Shortened or fully abbreviated name of the organization.",
-        ),
+        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the organization."),
+        Field("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the organization."),
         Field(
             "affiliations",
             "openminds.core.Affiliation",
             "vocab:affiliation",
             multiple=True,
-            required=False,
             doc="Declaration of a person being closely associated to an organization.",
         ),
         Field(
@@ -53,7 +38,6 @@ class Organization(KGObject):
             ["openminds.core.GRIDID", "openminds.core.RORID", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             multiple=True,
-            required=False,
             doc="Digital handle to identify objects or legal persons.",
         ),
         Field(
@@ -61,12 +45,9 @@ class Organization(KGObject):
             "openminds.core.Organization",
             "vocab:hasParent",
             multiple=True,
-            required=False,
             doc="Reference to a parent object or legal person.",
         ),
-        Field(
-            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the organization."
-        ),
+        Field("homepage", IRI, "vocab:homepage", doc="Main website of the organization."),
     ]
     existence_query_fields = ("name",)
 

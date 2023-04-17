@@ -22,9 +22,7 @@ class ElectrodeUsage(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "anatomical_location",
             [
@@ -38,23 +36,18 @@ class ElectrodeUsage(KGObject):
                 "openminds.sands.ParcellationEntityVersion",
             ],
             "vocab:anatomicalLocation",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "contact_resistance",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:contactResistance",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "device",
             "openminds.ephys.Electrode",
             "vocab:device",
-            multiple=False,
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
@@ -63,23 +56,18 @@ class ElectrodeUsage(KGObject):
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:metadataLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "spatial_location",
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "used_specimen",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
             "vocab:usedSpecimen",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

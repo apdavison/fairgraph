@@ -22,7 +22,7 @@ class SingleColor(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("value", str, "vocab:value", multiple=False, required=True, doc="Entry for a property."),
+        Field("value", str, "vocab:value", required=True, doc="Entry for a property."),
     ]
     existence_query_fields = ("value",)
 

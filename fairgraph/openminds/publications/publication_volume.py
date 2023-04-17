@@ -26,13 +26,10 @@ class PublicationVolume(KGObject):
             "is_part_of",
             "openminds.publications.Periodical",
             "vocab:isPartOf",
-            multiple=False,
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
-            "volume_number", str, "vocab:volumeNumber", multiple=False, required=True, doc="no description available"
-        ),
+        Field("volume_number", str, "vocab:volumeNumber", required=True, doc="no description available"),
     ]
     existence_query_fields = ("is_part_of", "volume_number")
 

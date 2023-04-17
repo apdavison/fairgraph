@@ -49,20 +49,12 @@ class Comment(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "vocab:about",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
-        Field("comment", str, "vocab:comment", multiple=False, required=True, doc="no description available"),
-        Field(
-            "commenter",
-            "openminds.core.Person",
-            "vocab:commenter",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
-        Field("timestamp", datetime, "vocab:timestamp", multiple=False, required=True, doc="no description available"),
+        Field("comment", str, "vocab:comment", required=True, doc="no description available"),
+        Field("commenter", "openminds.core.Person", "vocab:commenter", required=True, doc="no description available"),
+        Field("timestamp", datetime, "vocab:timestamp", required=True, doc="no description available"),
     ]
     existence_query_fields = ("about", "comment", "commenter", "timestamp")
 

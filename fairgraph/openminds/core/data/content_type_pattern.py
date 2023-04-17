@@ -22,18 +22,15 @@ class ContentTypePattern(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "content_type",
             "openminds.core.ContentType",
             "vocab:contentType",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
-        Field("regex", str, "vocab:regex", multiple=False, required=True, doc="no description available"),
+        Field("regex", str, "vocab:regex", required=True, doc="no description available"),
     ]
     existence_query_fields = ("lookup_label",)
 

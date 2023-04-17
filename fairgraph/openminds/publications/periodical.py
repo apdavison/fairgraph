@@ -26,19 +26,13 @@ class Periodical(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
-            required=False,
             doc="Word or phrase that constitutes the distinctive designation of the periodical.",
         ),
-        Field(
-            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
-        ),
+        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Field(
             "digital_identifier",
             "openminds.core.ISSN",
             "vocab:digitalIdentifier",
-            multiple=False,
-            required=False,
             doc="Digital handle to identify objects or legal persons.",
         ),
     ]

@@ -22,15 +22,11 @@ class SubjectGroup(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
@@ -38,25 +34,15 @@ class SubjectGroup(KGObject):
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
             multiple=True,
-            required=False,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
         Field(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
-            multiple=False,
-            required=False,
             doc="Term or code that identifies the subject group within a particular product.",
         ),
-        Field(
-            "number_of_subjects",
-            int,
-            "vocab:numberOfSubjects",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
         Field(
             "species",
             ["openminds.controlledterms.Species", "openminds.core.Strain"],

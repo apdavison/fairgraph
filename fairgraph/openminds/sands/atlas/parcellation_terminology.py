@@ -26,7 +26,6 @@ class ParcellationTerminology(EmbeddedMetadata):
             "openminds.core.File",
             "vocab:dataLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -42,7 +41,6 @@ class ParcellationTerminology(EmbeddedMetadata):
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
-            required=False,
             doc="Term or code used to identify the parcellation terminology registered within a particular ontology.",
         ),
     ]

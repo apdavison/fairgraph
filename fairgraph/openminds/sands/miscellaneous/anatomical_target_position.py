@@ -25,8 +25,6 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
@@ -51,14 +49,12 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "target_identification_type",
             "openminds.controlledterms.AnatomicalIdentificationType",
             "vocab:targetIdentificationType",
-            multiple=False,
             required=True,
             doc="no description available",
         ),

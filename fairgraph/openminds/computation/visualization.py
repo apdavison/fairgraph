@@ -24,31 +24,25 @@ class Visualization(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
-            required=False,
             doc="Longer statement or account giving the characteristics of the visualization.",
         ),
-        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
+        Field("end_time", datetime, "vocab:endTime", doc="no description available"),
         Field(
             "environment",
             ["openminds.computation.Environment", "openminds.core.WebServiceVersion"],
             "vocab:environment",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
@@ -69,8 +63,6 @@ class Visualization(KGObject):
             "launch_configuration",
             "openminds.computation.LaunchConfiguration",
             "vocab:launchConfiguration",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -91,44 +83,24 @@ class Visualization(KGObject):
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
-        Field(
-            "recipe",
-            "openminds.computation.WorkflowRecipeVersion",
-            "vocab:recipe",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"),
         Field(
             "resource_usages",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:resourceUsage",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
-        Field(
-            "start_time", datetime, "vocab:startTime", multiple=False, required=True, doc="no description available"
-        ),
+        Field("start_time", datetime, "vocab:startTime", required=True, doc="no description available"),
         Field(
             "started_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:startedBy",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
-        Field(
-            "status",
-            "openminds.controlledterms.ActionStatusType",
-            "vocab:status",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("status", "openminds.controlledterms.ActionStatusType", "vocab:status", doc="no description available"),
         Field(
             "study_targets",
             [
@@ -162,16 +134,14 @@ class Visualization(KGObject):
             ],
             "vocab:studyTarget",
             multiple=True,
-            required=False,
             doc="Structure or function that was targeted within a study.",
         ),
-        Field("tags", str, "vocab:tag", multiple=True, required=False, doc="no description available"),
+        Field("tags", str, "vocab:tag", multiple=True, doc="no description available"),
         Field(
             "techniques",
             "openminds.controlledterms.AnalysisTechnique",
             "vocab:technique",
             multiple=True,
-            required=False,
             doc="Method of accomplishing a desired aim.",
         ),
         Field(
@@ -186,8 +156,6 @@ class Visualization(KGObject):
                 "openminds.computation.Visualization",
             ],
             "vocab:wasInformedBy",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

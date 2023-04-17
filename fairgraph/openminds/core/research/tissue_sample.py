@@ -24,9 +24,7 @@ class TissueSample(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "anatomical_locations",
             [
@@ -41,23 +39,18 @@ class TissueSample(KGObject):
             ],
             "vocab:anatomicalLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "biological_sex",
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
-            multiple=False,
-            required=False,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
         Field(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
-            multiple=False,
-            required=False,
             doc="Term or code that identifies the tissue sample within a particular product.",
         ),
         Field(
@@ -65,7 +58,6 @@ class TissueSample(KGObject):
             "openminds.core.TissueSampleCollection",
             "vocab:isPartOf",
             multiple=True,
-            required=False,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
         Field(
@@ -73,7 +65,6 @@ class TissueSample(KGObject):
             "openminds.controlledterms.Laterality",
             "vocab:laterality",
             multiple=True,
-            required=False,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
         ),
         Field(
@@ -84,7 +75,6 @@ class TissueSample(KGObject):
                 "openminds.controlledterms.OrganismSubstance",
             ],
             "vocab:origin",
-            multiple=False,
             required=True,
             doc="Source at which something begins or rises, or from which something derives.",
         ),
@@ -92,7 +82,6 @@ class TissueSample(KGObject):
             "species",
             ["openminds.controlledterms.Species", "openminds.core.Strain"],
             "vocab:species",
-            multiple=False,
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
         ),
@@ -108,7 +97,6 @@ class TissueSample(KGObject):
             "type",
             "openminds.controlledterms.TissueSampleType",
             "vocab:type",
-            multiple=False,
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),

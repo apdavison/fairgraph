@@ -22,23 +22,18 @@ class ElectrodePlacement(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
-            required=False,
             doc="Longer statement or account giving the characteristics of the electrode placement.",
         ),
         Field(
@@ -54,7 +49,7 @@ class ElectrodePlacement(KGObject):
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field("end_time", datetime, "vocab:endTime", multiple=False, required=False, doc="no description available"),
+        Field("end_time", datetime, "vocab:endTime", doc="no description available"),
         Field(
             "inputs",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
@@ -67,7 +62,6 @@ class ElectrodePlacement(KGObject):
             "is_part_of",
             "openminds.core.DatasetVersion",
             "vocab:isPartOf",
-            multiple=False,
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
@@ -84,15 +78,12 @@ class ElectrodePlacement(KGObject):
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
             "preparation_design",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -103,9 +94,7 @@ class ElectrodePlacement(KGObject):
             required=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field(
-            "start_time", datetime, "vocab:startTime", multiple=False, required=False, doc="no description available"
-        ),
+        Field("start_time", datetime, "vocab:startTime", doc="no description available"),
         Field(
             "study_targets",
             [
@@ -139,15 +128,12 @@ class ElectrodePlacement(KGObject):
             ],
             "vocab:studyTarget",
             multiple=True,
-            required=False,
             doc="Structure or function that was targeted within a study.",
         ),
         Field(
             "target_position",
             "openminds.sands.AnatomicalTargetPosition",
             "vocab:targetPosition",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

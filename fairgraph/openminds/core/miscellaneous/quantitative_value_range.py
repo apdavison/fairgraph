@@ -23,36 +23,18 @@ class QuantitativeValueRange(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "max_value",
-            float,
-            "vocab:maxValue",
-            multiple=False,
-            required=True,
-            doc="Greatest quantity attained or allowed.",
-        ),
+        Field("max_value", float, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
         Field(
             "max_value_unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:maxValueUnit",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
-        Field(
-            "min_value",
-            float,
-            "vocab:minValue",
-            multiple=False,
-            required=True,
-            doc="Smallest quantity attained or allowed.",
-        ),
+        Field("min_value", float, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
         Field(
             "min_value_unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:minValueUnit",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

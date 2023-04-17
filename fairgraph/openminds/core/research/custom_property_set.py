@@ -23,12 +23,11 @@ class CustomPropertySet(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field("context", str, "vocab:context", multiple=False, required=True, doc="no description available"),
+        Field("context", str, "vocab:context", required=True, doc="no description available"),
         Field(
             "data_location",
             ["openminds.core.Configuration", "openminds.core.File", "openminds.core.PropertyValueList"],
             "vocab:dataLocation",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
@@ -41,7 +40,6 @@ class CustomPropertySet(EmbeddedMetadata):
                 "openminds.controlledterms.Technique",
             ],
             "vocab:relevantFor",
-            multiple=False,
             required=True,
             doc="Reference to what or whom the custom property set bears siginificance.",
         ),

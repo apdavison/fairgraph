@@ -24,25 +24,15 @@ class BrainAtlas(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "name",
-            str,
-            "vocab:fullName",
-            multiple=False,
-            required=True,
-            doc="Whole, non-abbreviated name of the brain atlas.",
-        ),
+        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the brain atlas."),
         Field(
             "alias",
             str,
             "vocab:shortName",
-            multiple=False,
             required=True,
             doc="Shortened or fully abbreviated name of the brain atlas.",
         ),
-        Field(
-            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
-        ),
+        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Field(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -56,14 +46,12 @@ class BrainAtlas(KGObject):
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
-            required=False,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
             required=True,
             doc="Longer statement or account giving the characteristics of the brain atlas.",
         ),
@@ -71,15 +59,12 @@ class BrainAtlas(KGObject):
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.ISBN", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
-            multiple=False,
-            required=False,
             doc="Digital handle to identify objects or legal persons.",
         ),
         Field(
             "has_terminology",
             "openminds.sands.ParcellationTerminology",
             "vocab:hasTerminology",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
@@ -91,32 +76,21 @@ class BrainAtlas(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
-            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the brain atlas."
-        ),
+        Field("homepage", IRI, "vocab:homepage", doc="Main website of the brain atlas."),
         Field(
             "how_to_cite",
             str,
             "vocab:howToCite",
-            multiple=False,
-            required=False,
             doc="Preferred format for citing a particular object or legal person.",
         ),
         Field(
             "ontology_identifier",
             IRI,
             "vocab:ontologyIdentifier",
-            multiple=False,
-            required=False,
             doc="Term or code used to identify the brain atlas registered within a particular ontology.",
         ),
         Field(
-            "used_species",
-            "openminds.controlledterms.Species",
-            "vocab:usedSpecies",
-            multiple=False,
-            required=False,
-            doc="no description available",
+            "used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", doc="no description available"
         ),
     ]
     existence_query_fields = ("digital_identifier",)

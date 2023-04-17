@@ -26,30 +26,16 @@ class ParcellationEntity(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
         ),
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
-        Field(
-            "abbreviation", str, "vocab:abbreviation", multiple=False, required=False, doc="no description available"
-        ),
-        Field(
-            "alternate_names",
-            str,
-            "vocab:alternateName",
-            multiple=True,
-            required=False,
-            doc="no description available",
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
+        Field("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
         Field(
             "definition",
             str,
             "vocab:definition",
-            multiple=False,
-            required=False,
             doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
         ),
         Field(
@@ -57,7 +43,6 @@ class ParcellationEntity(KGObject):
             "openminds.sands.ParcellationEntity",
             "vocab:hasParent",
             multiple=True,
-            required=False,
             doc="Reference to a parent object or legal person.",
         ),
         Field(
@@ -65,7 +50,6 @@ class ParcellationEntity(KGObject):
             "openminds.sands.ParcellationEntityVersion",
             "vocab:hasVersion",
             multiple=True,
-            required=False,
             doc="Reference to variants of an original.",
         ),
         Field(
@@ -73,15 +57,12 @@ class ParcellationEntity(KGObject):
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
-            required=False,
             doc="Term or code used to identify the parcellation entity registered within a particular ontology.",
         ),
         Field(
             "related_uberon_term",
             ["openminds.controlledterms.Organ", "openminds.controlledterms.UBERONParcellation"],
             "vocab:relatedUBERONTerm",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

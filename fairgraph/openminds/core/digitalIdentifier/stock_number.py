@@ -22,21 +22,9 @@ class StockNumber(EmbeddedMetadata):
     }
     fields = [
         Field(
-            "identifier",
-            str,
-            "vocab:identifier",
-            multiple=False,
-            required=True,
-            doc="Term or code used to identify the stock number.",
+            "identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the stock number."
         ),
-        Field(
-            "vendor",
-            "openminds.core.Organization",
-            "vocab:vendor",
-            multiple=False,
-            required=True,
-            doc="no description available",
-        ),
+        Field("vendor", "openminds.core.Organization", "vocab:vendor", required=True, doc="no description available"),
     ]
 
     def __init__(self, identifier=None, vendor=None, id=None, data=None, space=None, scope=None):

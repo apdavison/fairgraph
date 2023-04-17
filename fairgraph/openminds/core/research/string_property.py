@@ -25,11 +25,10 @@ class StringProperty(EmbeddedMetadata):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the string property.",
         ),
-        Field("value", str, "vocab:value", multiple=False, required=True, doc="Entry for a property."),
+        Field("value", str, "vocab:value", required=True, doc="Entry for a property."),
     ]
 
     def __init__(self, name=None, value=None, id=None, data=None, space=None, scope=None):

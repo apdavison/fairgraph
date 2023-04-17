@@ -25,8 +25,6 @@ class ViewerSpecification(EmbeddedMetadata):
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
@@ -41,16 +39,12 @@ class ViewerSpecification(EmbeddedMetadata):
             "camera_position",
             "openminds.sands.CoordinatePoint",
             "vocab:cameraPosition",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "preferred_display_color",
             ["openminds.controlledterms.Colormap", "openminds.sands.SingleColor"],
             "vocab:preferredDisplayColor",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

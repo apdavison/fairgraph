@@ -24,27 +24,14 @@ class License(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
+        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
         Field(
-            "name",
-            str,
-            "vocab:fullName",
-            multiple=False,
-            required=True,
-            doc="Whole, non-abbreviated name of the license.",
-        ),
-        Field(
-            "alias",
-            str,
-            "vocab:shortName",
-            multiple=False,
-            required=True,
-            doc="Shortened or fully abbreviated name of the license.",
+            "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the license."
         ),
         Field(
             "legal_code",
             IRI,
             "vocab:legalCode",
-            multiple=False,
             required=True,
             doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted.",
         ),
@@ -53,7 +40,6 @@ class License(KGObject):
             str,
             "vocab:webpage",
             multiple=True,
-            required=False,
             doc="Hypertext document (block of information) found on the World Wide Web.",
         ),
     ]

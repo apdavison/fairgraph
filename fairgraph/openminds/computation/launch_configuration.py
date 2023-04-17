@@ -28,28 +28,22 @@ class LaunchConfiguration(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
-            required=False,
             doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
         ),
-        Field("arguments", str, "vocab:argument", multiple=True, required=False, doc="no description available"),
+        Field("arguments", str, "vocab:argument", multiple=True, doc="no description available"),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
-            required=False,
             doc="Longer statement or account giving the characteristics of the launch configuration.",
         ),
         Field(
             "environment_variables",
             "openminds.core.PropertyValueList",
             "vocab:environmentVariable",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
-        Field("executable", str, "vocab:executable", multiple=False, required=True, doc="no description available"),
+        Field("executable", str, "vocab:executable", required=True, doc="no description available"),
     ]
     existence_query_fields = ("executable", "name")
 

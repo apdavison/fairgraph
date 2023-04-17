@@ -26,7 +26,6 @@ class Setup(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the setup.",
         ),
@@ -34,7 +33,6 @@ class Setup(KGObject):
             "description",
             str,
             "vocab:description",
-            multiple=False,
             required=True,
             doc="Longer statement or account giving the characteristics of the setup.",
         ),
@@ -53,13 +51,12 @@ class Setup(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("location", str, "vocab:location", multiple=False, required=False, doc="no description available"),
+        Field("location", str, "vocab:location", doc="no description available"),
         Field(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -67,7 +64,6 @@ class Setup(KGObject):
             "openminds.controlledterms.SetupType",
             "vocab:type",
             multiple=True,
-            required=False,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
     ]

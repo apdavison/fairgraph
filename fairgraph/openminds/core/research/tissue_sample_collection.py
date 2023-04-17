@@ -22,15 +22,11 @@ class TissueSampleCollection(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
@@ -47,7 +43,6 @@ class TissueSampleCollection(KGObject):
             ],
             "vocab:anatomicalLocation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -55,15 +50,12 @@ class TissueSampleCollection(KGObject):
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
             multiple=True,
-            required=False,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
         Field(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
-            multiple=False,
-            required=False,
             doc="Term or code that identifies the tissue sample collection within a particular product.",
         ),
         Field(
@@ -71,17 +63,9 @@ class TissueSampleCollection(KGObject):
             "openminds.controlledterms.Laterality",
             "vocab:laterality",
             multiple=True,
-            required=False,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
         ),
-        Field(
-            "number_of_tissue_samples",
-            int,
-            "vocab:numberOfTissueSamples",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("number_of_tissue_samples", int, "vocab:numberOfTissueSamples", doc="no description available"),
         Field(
             "origins",
             [

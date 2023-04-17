@@ -27,7 +27,6 @@ class CoordinatePoint(EmbeddedMetadata):
             "coordinate_space",
             ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"],
             "vocab:coordinateSpace",
-            multiple=False,
             required=True,
             doc="Two or three dimensional geometric setting.",
         ),

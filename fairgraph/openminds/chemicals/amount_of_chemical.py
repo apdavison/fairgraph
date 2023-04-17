@@ -23,14 +23,7 @@ class AmountOfChemical(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "amount",
-            "openminds.core.QuantitativeValue",
-            "vocab:amount",
-            multiple=False,
-            required=False,
-            doc="no description available",
-        ),
+        Field("amount", "openminds.core.QuantitativeValue", "vocab:amount", doc="no description available"),
         Field(
             "chemical_product",
             [
@@ -39,7 +32,6 @@ class AmountOfChemical(EmbeddedMetadata):
                 "openminds.controlledterms.MolecularEntity",
             ],
             "vocab:chemicalProduct",
-            multiple=False,
             required=True,
             doc="no description available",
         ),

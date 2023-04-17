@@ -26,7 +26,6 @@ class FileArchive(KGObject):
             "iri",
             IRI,
             "vocab:IRI",
-            multiple=False,
             required=True,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
@@ -34,17 +33,11 @@ class FileArchive(KGObject):
             "format",
             "openminds.core.ContentType",
             "vocab:format",
-            multiple=False,
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
         Field(
-            "source_datas",
-            "openminds.core.File",
-            "vocab:sourceData",
-            multiple=True,
-            required=False,
-            doc="no description available",
+            "source_datas", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"
         ),
     ]
     existence_query_fields = ("iri", "format")

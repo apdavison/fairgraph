@@ -22,20 +22,10 @@ class Rectangle(EmbeddedMetadata):
     }
     fields = [
         Field(
-            "length",
-            "openminds.core.QuantitativeValue",
-            "vocab:length",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "length", "openminds.core.QuantitativeValue", "vocab:length", required=True, doc="no description available"
         ),
         Field(
-            "width",
-            "openminds.core.QuantitativeValue",
-            "vocab:width",
-            multiple=False,
-            required=True,
-            doc="no description available",
+            "width", "openminds.core.QuantitativeValue", "vocab:width", required=True, doc="no description available"
         ),
     ]
 

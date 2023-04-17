@@ -24,33 +24,15 @@ class Consortium(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "name",
-            str,
-            "vocab:fullName",
-            multiple=False,
-            required=True,
-            doc="Whole, non-abbreviated name of the consortium.",
-        ),
-        Field(
-            "alias",
-            str,
-            "vocab:shortName",
-            multiple=False,
-            required=False,
-            doc="Shortened or fully abbreviated name of the consortium.",
-        ),
+        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."),
+        Field("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
         Field(
             "contact_information",
             "openminds.core.ContactInformation",
             "vocab:contactInformation",
-            multiple=False,
-            required=False,
             doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
         ),
-        Field(
-            "homepage", IRI, "vocab:homepage", multiple=False, required=False, doc="Main website of the consortium."
-        ),
+        Field("homepage", IRI, "vocab:homepage", doc="Main website of the consortium."),
     ]
     existence_query_fields = ("name",)
 

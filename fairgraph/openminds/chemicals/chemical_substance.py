@@ -24,22 +24,17 @@ class ChemicalSubstance(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
-            multiple=False,
-            required=False,
             doc="Mention of what deserves additional attention or notice.",
         ),
         Field(
             "molecular_entity",
             "openminds.controlledterms.MolecularEntity",
             "vocab:molecularEntity",
-            multiple=False,
             required=True,
             doc="no description available",
         ),
@@ -47,16 +42,12 @@ class ChemicalSubstance(KGObject):
             "product_source",
             "openminds.chemicals.ProductSource",
             "vocab:productSource",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "purity",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:purity",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
     ]

@@ -28,7 +28,6 @@ class BehavioralProtocol(KGObject):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol.",
         ),
@@ -36,15 +35,12 @@ class BehavioralProtocol(KGObject):
             "described_in",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:describedIn",
-            multiple=False,
-            required=False,
             doc="no description available",
         ),
         Field(
             "description",
             str,
             "vocab:description",
-            multiple=False,
             required=True,
             doc="Longer statement or account giving the characteristics of the behavioral protocol.",
         ),
@@ -52,8 +48,6 @@ class BehavioralProtocol(KGObject):
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
-            multiple=False,
-            required=False,
             doc="Term or code that identifies the behavioral protocol within a particular product.",
         ),
         Field(
@@ -61,7 +55,6 @@ class BehavioralProtocol(KGObject):
             ["openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique"],
             "vocab:stimulation",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
         Field(
@@ -77,7 +70,6 @@ class BehavioralProtocol(KGObject):
             ],
             "vocab:stimulusType",
             multiple=True,
-            required=False,
             doc="no description available",
         ),
     ]

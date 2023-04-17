@@ -24,17 +24,12 @@ class Configuration(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "lookup_label", str, "vocab:lookupLabel", multiple=False, required=False, doc="no description available"
-        ),
-        Field(
-            "configuration", str, "vocab:configuration", multiple=False, required=True, doc="no description available"
-        ),
+        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Field("configuration", str, "vocab:configuration", required=True, doc="no description available"),
         Field(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
-            multiple=False,
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),

@@ -27,8 +27,6 @@ class QuantitativeValue(EmbeddedMetadata):
             "type_of_uncertainty",
             "openminds.controlledterms.TypeOfUncertainty",
             "vocab:typeOfUncertainty",
-            multiple=False,
-            required=False,
             doc="Distinct technique used to quantify the uncertainty of a measurement.",
         ),
         Field(
@@ -36,18 +34,15 @@ class QuantitativeValue(EmbeddedMetadata):
             float,
             "vocab:uncertainty",
             multiple=True,
-            required=False,
             doc="Quantitative value range defining the uncertainty of a measurement.",
         ),
         Field(
             "unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:unit",
-            multiple=False,
-            required=False,
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Field("value", float, "vocab:value", multiple=False, required=True, doc="Entry for a property."),
+        Field("value", float, "vocab:value", required=True, doc="Entry for a property."),
     ]
 
     def __init__(

@@ -24,14 +24,7 @@ class GRIDID(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     fields = [
-        Field(
-            "identifier",
-            str,
-            "vocab:identifier",
-            multiple=False,
-            required=True,
-            doc="Term or code used to identify the GRIDID.",
-        ),
+        Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the GRIDID."),
     ]
     existence_query_fields = ("identifier",)
 

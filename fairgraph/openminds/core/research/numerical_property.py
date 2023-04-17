@@ -27,7 +27,6 @@ class NumericalProperty(EmbeddedMetadata):
             "name",
             str,
             "vocab:name",
-            multiple=False,
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the numerical property.",
         ),
