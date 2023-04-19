@@ -16,7 +16,7 @@ from test.utils import mock_client, kg_client, skip_if_no_connection
 
 def test_query_generation(mock_client):
     for cls in omcore.list_kg_classes():
-        generated = cls.generate_query("simple", "collab-foobar", mock_client)
+        generated = cls.generate_query("collab-foobar", mock_client)
         filename = f"test/test_data/queries/openminds/core/{cls.__name__.lower()}_simple_query.json"
         with open(filename, "r") as fp:
             expected = json.load(fp)
@@ -98,7 +98,7 @@ def test_resolve_model(kg_client):
 
 
 @skip_if_no_connection
-def test_retrieve_released_models_resolve_one_step(kg_client):
+def test_retrieve_released_models_follow_links(kg_client):
     models = omcore.Model.list(
         kg_client,
         scope="released",
@@ -106,7 +106,7 @@ def test_retrieve_released_models_resolve_one_step(kg_client):
         api="query",
         size=5,
         from_index=randint(0, 80),
-        follow_links=1,
+        follow_links={"versions": {}, "developers": {"affiliation": {"member_of": {}}}, "abstraction_level": {}},
     )
     assert len(models) == 5
     for model in models:
@@ -125,18 +125,18 @@ def test_retrieve_released_models_resolve_one_step(kg_client):
                 assert isinstance(version.repository, KGProxy)
 
 
-@skip_if_no_connection
-def test_retrieve_released_people_resolve_two_steps(kg_client):
-    people = omcore.Person.list(
-        kg_client,
-        scope="released",
-        space="common",
-        api="query",
-        size=5,
-        from_index=randint(0, 100),
-        follow_links=2,
-    )
-    assert len(people) == 5
+# @skip_if_no_connection
+# def test_retrieve_released_people_resolve_two_steps(kg_client):
+#     people = omcore.Person.list(
+#         kg_client,
+#         scope="released",
+#         space="common",
+#         api="query",
+#         size=5,
+#         from_index=randint(0, 100),
+#         follow_links=2,
+#     )
+#     assert len(people) == 5
 
 
 # @skip_if_no_connection

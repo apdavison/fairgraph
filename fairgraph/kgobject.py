@@ -185,7 +185,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         scope: str = "released",
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its URI.
@@ -196,7 +196,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
         if follow_links:
@@ -221,7 +221,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         scope: str = "released",
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its UUID.
@@ -232,7 +232,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
@@ -252,7 +252,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         scope: str = "released",
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on either its URI or UUID.
@@ -263,7 +263,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
         if hasattr(cls, "type_") and cls.type_:
@@ -272,11 +272,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
         else:
+            # if we don't know the type
             if id.startswith("http"):
                 uri = id
             else:
                 uri = client.uri_from_uuid(id)
-            if follow_links > 0:
+            if follow_links is not None:
                 raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
             cls_from_data = lookup_type(data["@type"])
@@ -289,7 +290,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         space: Optional[str] = None,
         scope: str = "released",
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its alias/short name.
@@ -302,7 +303,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             space (str, optional): the KG space to look in. Default is to look in all available spaces.
             scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
         # todo: move this to openminds generation, and include only in those subclasses
@@ -354,8 +355,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         normalized_filters: Union[Dict[str, Any], None],
         space: Optional[str] = None,
-        follow_links: int = 0,
-        use_stored_query: bool = False,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Generate or retrieve a Knowledge Graph (KG) query definition as a JSON-LD document.
@@ -364,34 +364,23 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             client: KGClient object that handles the communication with the KG.
             normalized_filters (dict, optional): A dictionary whose keys will be used as search parameters for the query.
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
-            use_stored_query (bool, optional) Whether to retrieve a stored query from the KG instead of generating a new one. Defaults to False.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Returns:
             A JSON-LD document containing the KG query definition.
         """
-        if follow_links:
-            query_type = f"resolved-{follow_links}"
-        else:
-            query_type = "simple"
         if normalized_filters is None:
             filter_keys = None
         else:
             filter_keys = list(normalized_filters.keys())
         query = None
-        if use_stored_query:
-            query_label = cls.get_query_label(query_type, space, filter_keys)
-            query = client.retrieve_query(query_label)
         if query is None:
             query = cls.generate_query(
-                query_type,
                 space,
                 client=client,
                 filter_keys=filter_keys,
                 follow_links=follow_links,
             )
-            if use_stored_query:
-                client.store_query(query_label, query, space=space)
         return query
 
     @classmethod
@@ -423,7 +412,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         api: str = "auto",
         scope: str = "released",
         space: Optional[str] = None,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
         **filters,
     ) -> List[KGObject]:
         """
@@ -436,7 +425,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             api (str): The KG API to use for the query. Can be 'query', 'core', or 'auto'. Default is 'auto'.
             scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
             filters: Optional keyword arguments representing filters to apply to the query.
 
         Returns:
@@ -911,27 +900,25 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     @classmethod
     def generate_query(
         cls,
-        query_type: str,
         space: Union[str, None],
         client: KGClient,
         filter_keys: Optional[List[str]] = None,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[Dict[str, Any], None]:
         """
         Generate a KG query definition as a JSON-LD document.
 
         Args:
-            query_type: "simple" or "resolved-n" - used to generate a standard label for the query.
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             client: KGClient object that handles the communication with the KG.
             filter_keys (list of strings, optional): A list of field names that will be used as search parameters for the query.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Returns:
             A JSON-LD document containing the KG query definition.
 
         """
-        query_label = cls.get_query_label(query_type, space, filter_keys)
+        query_label = cls.get_query_label(follow_links, space, filter_keys)
         if space == "myspace":
             real_space = client._private_space
         else:
@@ -945,43 +932,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return query.serialize()
 
     @classmethod
-    def get_query_label(cls, query_type: str, space: Union[str, None], filter_keys: Optional[List[str]] = None) -> str:
+    def get_query_label(
+        cls, follow_links: Optional[List[str]], space: Union[str, None], filter_keys: Optional[List[str]] = None
+    ) -> str:
         """Generate a standard label for a query"""
         if space and "private" in space:  # temporary work-around
-            label = f"fg-{cls.__name__}-{query_type}-myspace"
+            label = f"fg-{cls.__name__}-myspace"
         else:
-            label = f"fg-{cls.__name__}-{query_type}-{space}"
+            label = f"fg-{cls.__name__}-{space}"
         if filter_keys:
             label += f"-filters-{'-'.join(sorted(filter_keys))}"
+        if follow_links:
+            label += f"-links-{'-'.join(sorted(follow_links))}"
         return label
-
-    @classmethod
-    def store_queries(cls, space: str, client: KGClient):
-        """
-        Store a standard set of queries in the KG.
-        """
-        for query_type, follow_links in (("simple", 0), ("resolved-1", 1)):
-            query_label = cls.get_query_label(query_type, space)
-            query_definition = cls.generate_query(query_type, space, client, follow_links=follow_links)
-            try:
-                client.store_query(query_label, query_definition, space=space or cls.default_space)
-            except HTTPError as err:
-                if err.response.status_code == 401:
-                    warn("Unable to store query with id '{}': {}".format(query_label, err.response.text))
-                else:
-                    raise
-
-    @classmethod
-    def retrieve_query(
-        cls,
-        query_type: str,
-        space: Union[str, None],
-        client: KGClient,
-        filter_keys: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
-        """Retrieve a stored query from the KG"""
-        query_label = cls.get_query_label(query_type, space, filter_keys)
-        return client.retrieve_query(query_label)
 
     def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
         """Return a list of child objects."""

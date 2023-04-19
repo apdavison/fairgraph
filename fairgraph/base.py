@@ -198,23 +198,29 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_properties(cls, filter_keys: Optional[List[str]] = None, follow_links: int = 0):
+    def generate_query_properties(
+        cls, filter_keys: Optional[List[str]] = None, follow_links: Optional[Dict[str, Any]] = None
+    ):
         """
         Generate a list of QueryProperty instances for this class
         for use in constructing a KG query definition.
 
         Args:
-            filter_keys (list of strings, optional): A list of field names that should be used as search parameters for the query.
+            filter_keys (dict, optional): A list of field names that should be used as search parameters for the query.
             follow_links (int): The number of levels of links that should be followed when constructing the query. Defaults to zero.
         """
         if filter_keys is None:
             filter_keys = []
         properties = [QueryProperty("@type")]
         for field in cls.fields:
-            if field.intrinsic:
+            if field.is_link and follow_links and field.name in follow_links:
                 properties.extend(
-                    field.get_query_properties(use_filter=field.name in filter_keys, follow_links=follow_links)
+                    field.get_query_properties(
+                        use_filter=field.name in filter_keys, follow_links=follow_links[field.name]
+                    )
                 )
+            else:
+                properties.extend(field.get_query_properties(use_filter=field.name in filter_keys))
         return properties
 
     @classmethod

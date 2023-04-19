@@ -21,7 +21,7 @@ import warnings
 import logging
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
-from typing import Any, List, Optional, Tuple, TYPE_CHECKING, Union
+from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -330,7 +330,7 @@ class Field(object):
                 warnings.warn(str(err))
                 return None
 
-    def get_query_properties(self, use_filter=False, follow_links=0):
+    def get_query_properties(self, use_filter: bool = False, follow_links: Optional[Dict[str, Any]] = None):
         """
         Generate one or more QueryProperty instances for this field,
         for use in constructing a KG query definition.
@@ -367,7 +367,7 @@ class Field(object):
                 )
         elif any(issubclass(_type, KGObject) for _type in self.types):
             assert all(issubclass(_type, KGObject) for _type in self.types)
-            if follow_links > 0:
+            if follow_links is not None:
                 for cls in self.types:
                     property_name = self.path
                     if len(self.types) > 1:
@@ -408,7 +408,7 @@ class Field(object):
                             ensure_order=self.multiple,
                             properties=[
                                 QueryProperty("@id", filter=None if have_Q else filter),
-                                *cls.generate_query_properties(filter_keys=None, follow_links=follow_links - 1),
+                                *cls.generate_query_properties(filter_keys=None, follow_links=follow_links),
                             ],
                         )
                     )
