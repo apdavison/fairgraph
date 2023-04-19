@@ -156,8 +156,8 @@ class KGClient(object):
 
     def query(
         self,
-        filter: Dict[str, str],
         query: Dict[str, Any],
+        filter: Optional[Dict[str, str]] = None,
         space: Optional[str] = None,
         instance_id: Optional[str] = None,
         from_index: int = 0,
@@ -170,9 +170,9 @@ class KGClient(object):
         Execute a Knowledge Graph (KG) query with the given filters and query definition.
 
         Args:
+            query (Dict[str, Any]): A dictionary containing the query definition in JSON-LD.
             filter (Dict[str, str]): A dictionary of filters to apply to the query. Each key represents the property name to filter on,
                 and the value represents the value(s) to filter on.
-            query (Dict[str, Any]): A dictionary containing the query definition in JSON-LD.
             space (Optional[str]): The space for which to execute the query. If not specified, the query is executed over all accessible spaces.
             instance_id (Optional[URI]): The URI of a specific KG instance to retrieve.
             from_index (int): The index of the first result to return (0-based).

@@ -33,7 +33,7 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
-from .utility import expand_uri, as_list, ActivityLog
+from .utility import expand_uri, as_list, expand_filter, ActivityLog
 from .registry import lookup_type
 from .queries import Query
 from .errors import AuthorizationError, ResourceExistsError
@@ -47,64 +47,6 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger("fairgraph")
-
-
-def get_filter_value(filters: Dict[str, Any], field: Field) -> Union[str, List[str]]:
-    """
-    Retrieve and normalize a value from a dict containing filter key:value pairs.
-
-    Example:
-        >>> import fairgraph.openminds.core as omcore
-        >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
-        >>> filters = {"custodians": person, "name": "Virtual"}
-        >>> field = Field(name='custodians', types=(omcore.Organization, omcore.Person),
-        ...               path="vocab:custodian", multiple=True)
-        >>> get_filter_value(filters, field)
-        https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2
-    """
-    value = filters[field.name]
-
-    def is_valid(val):
-        return isinstance(val, (IRI, UUID, *field.types)) or (isinstance(val, KGProxy) and val.cls in field.types)
-
-    if isinstance(value, list) and len(value) > 0:
-        valid_type = all(is_valid(item) for item in value)
-        have_multiple = True
-    else:
-        valid_type = is_valid(value)
-        have_multiple = False
-    if not valid_type:
-        if field.name == "hash":  # bit of a hack
-            filter_value = value
-        elif isinstance(value, str) and value.startswith("http"):  # for @id
-            filter_value = value
-        else:
-            raise TypeError("{} must be of type {}, not {}".format(field.name, field.types, type(value)))
-
-    filter_items = []
-    for item in as_list(value):
-        if isinstance(item, IRI):
-            filter_item = item.value
-        elif hasattr(item, "id"):
-            filter_item = item.id
-        elif isinstance(item, UUID):
-            # todo: consider using client.uri_from_uuid()
-            # would require passing client as arg
-            filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
-        elif isinstance(item, str) and "+" in item:  # workaround for KG bug
-            invalid_char_index = item.index("+")
-            if invalid_char_index < 3:
-                raise ValueError(f"Cannot use {item} as filter, contains invalid characters")
-            filter_item = item[:invalid_char_index]
-            warn(f"Truncating filter value {item} --> {filter_item}")
-        else:
-            filter_item = item
-        filter_items.append(filter_item)
-
-    if have_multiple:
-        return filter_items
-    else:
-        return filter_items[0]
 
 
 class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
@@ -200,8 +142,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         """
         if follow_links:
-            query = cls.generate_query(space=None, client=client, filter_keys=None, follow_links=follow_links)
-            results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
+            query = cls.generate_query(space=None, client=client, filters=None, follow_links=follow_links)
+            results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
             if results:
                 data = results[0]
                 data["@context"] = cls.context
@@ -350,26 +292,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return client.uri_from_uuid(uuid)
 
     @classmethod
-    def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Normalize a dict containing filter key:value pairs so that it can be used
-        in a call to the KG query API.
-
-        Example:
-            >>> import fairgraph.openminds.core as omcore
-            >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
-            >>> filter_dict = {"custodians": person, "name": "Virtual"}
-            >>> omcore.Dataset.normalize_filter(filter_dict)
-            {'name': 'Virtual',
-             'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
-        """
-        filter_queries = {}
-        for field in cls.fields:
-            if field.name in filter_dict:
-                filter_queries[field.name] = get_filter_value(filter_dict, field)
-        return filter_queries
-
-    @classmethod
     def list(
         cls,
         client: KGClient,
@@ -422,13 +344,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
 
         if api == "query":
-            normalized_filters = cls.normalize_filter(filters)
-            query = cls.generate_query(
-                space=space, client=client, filter_keys=list(normalized_filters.keys()), follow_links=follow_links
-            )
+            query = cls.generate_query(space=space, client=client, filters=filters, follow_links=follow_links)
             instances = client.query(
-                normalized_filters,
-                query,
+                query=query,
                 space=space,
                 from_index=from_index,
                 size=size,
@@ -488,9 +406,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 api = "core"
         if api == "query":
-            normalized_filters = cls.normalize_filter(filters)
-            query = cls.generate_query(space=space, client=client, filter_keys=list(normalized_filters.keys()))
-            response = client.query(normalized_filters, query, space=space, from_index=0, size=1, scope=scope)
+            query = cls.generate_query(space=space, client=client, filters=filters)
+            response = client.query(query=query, space=space, from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -532,9 +449,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 setattr(self, field.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
-            expanded_path = expand_uri(key, cls.context)
-            assert isinstance(expanded_path, str)
-            self.remote_data[expanded_path] = data[key]
+            if not key.startswith("Q"):
+                expanded_path = expand_uri(key, cls.context)
+                assert isinstance(expanded_path, str)
+                self.remote_data[expanded_path] = data[key]
 
     def __eq__(self, other):
         return not self.__ne__(other)
@@ -607,13 +525,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
-                normalized_filters = self.__class__.normalize_filter(query_filter)
                 query = self.__class__.generate_query(
                     space=None,
                     client=client,
-                    filter_keys=list(normalized_filters.keys()),
+                    filters=query_filter,
                 )
-                instances = client.query(normalized_filters, query, size=1, scope="any").data
+                instances = client.query(query=query, size=1, scope="any").data
 
                 if instances:
                     self.id = instances[0]["@id"]
@@ -874,7 +791,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         cls,
         client: KGClient,
         space: Union[str, None],
-        filter_keys: Optional[List[str]] = None,
+        filters: Optional[Dict[str, Any]] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         label: Optional[str] = None,
     ) -> Union[Dict[str, Any], None]:
@@ -884,7 +801,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Args:
             client: KGClient object that handles the communication with the KG.
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
-            filter_keys (list of strings, optional): A list of field names that will be used as search parameters for the query.
+            filters (dict): A dictonary defining search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
             label (str, optional): a label for the query
 
@@ -896,12 +813,22 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             real_space = client._private_space
         else:
             real_space = space
+
+        if filters:
+            normalized_filters = cls.normalize_filter(expand_filter(filters))
+        else:
+            normalized_filters = None
+        # first pass, we build the basic structure
         query = Query(
             node_type=cls.type_[0],
             label=label,
             space=real_space,
-            properties=cls.generate_query_properties(filter_keys, follow_links=follow_links),
+            properties=cls.generate_query_properties(follow_links),
         )
+        # second pass, we add filters
+        query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
+        # implementation note: the two-pass approach generates queries that are sometimes more verbose
+        #                      than necessary, but it makes the logic easier to understand.
         return query.serialize()
 
     def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:

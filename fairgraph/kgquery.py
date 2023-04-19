@@ -22,7 +22,7 @@ from __future__ import annotations
 import logging
 from typing import Dict, List, Optional, Union, TYPE_CHECKING
 
-from .utility import as_list
+from .utility import as_list, expand_filter
 from .registry import lookup
 from .caching import object_cache
 from .base import Resolvable, SupportsQuerying, ContainsMetadata
@@ -111,13 +111,9 @@ class KGQuery(Resolvable, SupportsQuerying):
             query_type = "simple"
         objects: List[KGObject] = []
         for cls in self.classes:
-            normalized_filters = cls.normalize_filter(self.filter) or None
-            query = cls.generate_query(
-                client=client, filter_keys=list(normalized_filters.keys()), space=space, follow_links=follow_links
-            )
+            query = cls.generate_query(client=client, filters=self.filter, space=space, follow_links=follow_links)
             instances = client.query(
-                normalized_filters,
-                query,
+                query=query,
                 space=space,
                 size=size,
                 from_index=from_index,

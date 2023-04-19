@@ -455,7 +455,7 @@ def test_openminds_core_queries(mock_client):
             generated = cls.generate_query(
                 space="collab-foobar",
                 client=mock_client,
-                follow_links=0,
+                follow_links=None,
             )
             expected = json.load(fp)
             assert generated == expected
@@ -475,7 +475,7 @@ def test_generate_query_with_follow_one_link(mock_client):
             generated = cls.generate_query(
                 space=None,
                 client=mock_client,
-                filter_keys=None,
+                filters=None,
                 follow_links={
                     "affiliations": {"member_of": {}},
                     "associated_accounts": {},
@@ -499,7 +499,7 @@ def test_generate_query_with_follow_one_link(mock_client):
 #         )
 #         with open(path_expected) as fp:
 #             generated = cls.generate_query(
-#                 space=None, client=mock_client, filter_keys=None, follow_links=2
+#                 space=None, client=mock_client, filters=None, follow_links=2
 #             )
 #             expected = json.load(fp)
 #             assert generated == expected
@@ -519,7 +519,7 @@ def test_generate_query_with_follow_named_links(mock_client):
         generated = cls.generate_query(
             space=None,
             client=mock_client,
-            filter_keys=None,
+            filters={"affiliations__member_of__has_parents__alias": "FZJ"},
             follow_links={"affiliations": {"member_of": {"has_parents": {}}}, "contact_information": {}},
         )
         expected = json.load(fp)

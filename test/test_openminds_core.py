@@ -168,6 +168,27 @@ def test_retrieve_released_models_follow_links(kg_client):
 
 
 @skip_if_no_connection
+def test_query_across_links(kg_client):
+    models = omcore.Model.list(
+        kg_client,
+        scope="in progress",
+        space="model",
+        api="query",
+        follow_links={"developers": {"affiliations": {"member_of": {}}}},
+        developers__affiliations__member_of="7bdf4340-c718-45ea-9912-41079799dfd3",
+    )
+    assert len(models) > 0
+    assert len(models) < 100
+    orgs = []
+    for model in models:
+        for dev in as_list(model.developers):
+            for affil in as_list(dev.affiliations):
+                if affil.member_of:
+                    orgs.append(affil.member_of.uuid)
+    assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
+
+
+@skip_if_no_connection
 def test_count_released_models(kg_client):
     models = omcore.Model.list(kg_client, scope="released", space="model", api="core", size=1000)
     n_models = omcore.Model.count(kg_client, scope="released", space="model", api="core")
@@ -333,3 +354,17 @@ def test_save_new_recursive_mock(mock_client):
 
 # def test_save_existing_with_id_mock(mock_client):
 #    existing_model = mock_client.instances[]
+
+
+def test_normalize_filter():
+    result = omcore.Model.normalize_filter(
+        {
+            "developers": {"affiliations": {"member_of": omcore.Organization(id="some_id")}},
+            "digital_identifier": {"identifier": "https://doi.org/some-doi"},
+        }
+    )
+    expected = {
+        "developers": {"affiliations": {"member_of": "some_id"}},
+        "digital_identifier": {"identifier": "https://doi.org/some-doi"},
+    }
+    assert result == expected

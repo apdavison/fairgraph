@@ -303,6 +303,36 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/givenName",
       "propertyName": "vocab:givenName"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/affiliation",
+      "propertyName": "Qaffiliations",
+      "required": true,
+      "structure": [
+        {
+          "path": "https://openminds.ebrains.eu/vocab/memberOf",
+          "propertyName": "Qmember_of",
+          "required": true,
+          "structure": [
+            {
+              "path": "https://openminds.ebrains.eu/vocab/hasParent",
+              "propertyName": "Qhas_parents",
+              "required": true,
+              "structure": [
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/shortName",
+                  "propertyName": "Qalias",
+                  "filter": {
+                    "op": "CONTAINS",
+                    "value": "FZJ"
+                  },
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
