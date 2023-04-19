@@ -876,6 +876,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         space: Union[str, None],
         filter_keys: Optional[List[str]] = None,
         follow_links: Optional[Dict[str, Any]] = None,
+        label: Optional[str] = None,
     ) -> Union[Dict[str, Any], None]:
         """
         Generate a KG query definition as a JSON-LD document.
@@ -885,38 +886,23 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             filter_keys (list of strings, optional): A list of field names that will be used as search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            label (str, optional): a label for the query
 
         Returns:
             A JSON-LD document containing the KG query definition.
 
         """
-        query_label = cls.get_query_label(follow_links, space, filter_keys)
         if space == "myspace":
             real_space = client._private_space
         else:
             real_space = space
         query = Query(
             node_type=cls.type_[0],
-            label=query_label,
+            label=label,
             space=real_space,
             properties=cls.generate_query_properties(filter_keys, follow_links=follow_links),
         )
         return query.serialize()
-
-    @classmethod
-    def get_query_label(
-        cls, follow_links: Optional[List[str]], space: Union[str, None], filter_keys: Optional[List[str]] = None
-    ) -> str:
-        """Generate a standard label for a query"""
-        if space and "private" in space:  # temporary work-around
-            label = f"fg-{cls.__name__}-myspace"
-        else:
-            label = f"fg-{cls.__name__}-{space}"
-        if filter_keys:
-            label += f"-filters-{'-'.join(sorted(filter_keys))}"
-        if follow_links:
-            label += f"-links-{'-'.join(sorted(follow_links))}"
-        return label
 
     def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
         """Return a list of child objects."""
