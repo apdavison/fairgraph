@@ -200,7 +200,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         """
         if follow_links:
-            query = cls._get_query_definition(client, normalized_filters={}, space=None, follow_links=follow_links)
+            query = cls.generate_query(space=None, client=client, filter_keys=None, follow_links=follow_links)
             results = client.query({}, query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
             if results:
                 data = results[0]
@@ -350,40 +350,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return client.uri_from_uuid(uuid)
 
     @classmethod
-    def _get_query_definition(
-        cls,
-        client: KGClient,
-        normalized_filters: Union[Dict[str, Any], None],
-        space: Optional[str] = None,
-        follow_links: Optional[Dict[str, Any]] = None,
-    ):
-        """
-        Generate or retrieve a Knowledge Graph (KG) query definition as a JSON-LD document.
-
-        Args:
-            client: KGClient object that handles the communication with the KG.
-            normalized_filters (dict, optional): A dictionary whose keys will be used as search parameters for the query.
-            space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
-            follow_links (dict): The links in the graph to follow. Defaults to None.
-
-        Returns:
-            A JSON-LD document containing the KG query definition.
-        """
-        if normalized_filters is None:
-            filter_keys = None
-        else:
-            filter_keys = list(normalized_filters.keys())
-        query = None
-        if query is None:
-            query = cls.generate_query(
-                space,
-                client=client,
-                filter_keys=filter_keys,
-                follow_links=follow_links,
-            )
-        return query
-
-    @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
         """
         Normalize a dict containing filter key:value pairs so that it can be used
@@ -456,8 +422,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
 
         if api == "query":
-            normalized_filters = cls.normalize_filter(filters) or None
-            query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
+            normalized_filters = cls.normalize_filter(filters)
+            query = cls.generate_query(
+                space=space, client=client, filter_keys=list(normalized_filters.keys()), follow_links=follow_links
+            )
             instances = client.query(
                 normalized_filters,
                 query,
@@ -520,8 +488,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 api = "core"
         if api == "query":
-            normalized_filters = cls.normalize_filter(filters) or None
-            query = cls._get_query_definition(client, normalized_filters, space)
+            normalized_filters = cls.normalize_filter(filters)
+            query = cls.generate_query(space=space, client=client, filter_keys=list(normalized_filters.keys()))
             response = client.query(normalized_filters, query, space=space, from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
@@ -639,8 +607,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
-                normalized_filters = self.__class__.normalize_filter(query_filter) or None
-                query = self.__class__._get_query_definition(client, normalized_filters)
+                normalized_filters = self.__class__.normalize_filter(query_filter)
+                query = self.__class__.generate_query(
+                    space=None,
+                    client=client,
+                    filter_keys=list(normalized_filters.keys()),
+                )
                 instances = client.query(normalized_filters, query, size=1, scope="any").data
 
                 if instances:
@@ -900,8 +872,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     @classmethod
     def generate_query(
         cls,
-        space: Union[str, None],
         client: KGClient,
+        space: Union[str, None],
         filter_keys: Optional[List[str]] = None,
         follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[Dict[str, Any], None]:
@@ -909,8 +881,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Generate a KG query definition as a JSON-LD document.
 
         Args:
-            space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             client: KGClient object that handles the communication with the KG.
+            space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             filter_keys (list of strings, optional): A list of field names that will be used as search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
 

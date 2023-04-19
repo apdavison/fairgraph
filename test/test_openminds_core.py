@@ -16,7 +16,7 @@ from test.utils import mock_client, kg_client, skip_if_no_connection
 
 def test_query_generation(mock_client):
     for cls in omcore.list_kg_classes():
-        generated = cls.generate_query("collab-foobar", mock_client)
+        generated = cls.generate_query(space="collab-foobar", client=mock_client)
         filename = f"test/test_data/queries/openminds/core/{cls.__name__.lower()}_simple_query.json"
         with open(filename, "r") as fp:
             expected = json.load(fp)

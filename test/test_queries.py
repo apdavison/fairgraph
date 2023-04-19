@@ -455,8 +455,8 @@ def test_openminds_core_queries(mock_client):
         )
         with open(path_expected) as fp:
             generated = cls.generate_query(
-                "collab-foobar",
-                mock_client,
+                space="collab-foobar",
+                client=mock_client,
                 follow_links=0,
             )
             expected = json.load(fp)

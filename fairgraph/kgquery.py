@@ -112,7 +112,9 @@ class KGQuery(Resolvable, SupportsQuerying):
         objects: List[KGObject] = []
         for cls in self.classes:
             normalized_filters = cls.normalize_filter(self.filter) or None
-            query = cls._get_query_definition(client, normalized_filters, space, follow_links=follow_links)
+            query = cls.generate_query(
+                client=client, filter_keys=list(normalized_filters.keys()), space=space, follow_links=follow_links
+            )
             instances = client.query(
                 normalized_filters,
                 query,

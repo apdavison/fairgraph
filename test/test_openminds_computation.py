@@ -6,8 +6,8 @@ from test.utils import mock_client
 class TestEnvironment:
     def test_generate_query(self, mock_client):
         generated = Environment.generate_query(
-            "myspace",
-            mock_client,
+            space="myspace",
+            client=mock_client,
             filter_keys=["name", "hardware", "configuration", "software", "description"],
         )
         expected = {
