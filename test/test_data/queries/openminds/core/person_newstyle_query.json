@@ -165,6 +165,75 @@
                 },
                 {
                   "path": "@type"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/fullName",
+                  "propertyName": "vocab:fullName",
+                  "sort": true
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/shortName",
+                  "propertyName": "vocab:shortName"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/affiliation",
+                  "propertyName": "vocab:affiliation",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@type"
+                    },
+                    {
+                      "path": "https://openminds.ebrains.eu/vocab/endDate",
+                      "propertyName": "vocab:endDate"
+                    },
+                    {
+                      "path": "https://openminds.ebrains.eu/vocab/memberOf",
+                      "propertyName": "vocab:memberOf",
+                      "structure": [
+                        {
+                          "path": "@id"
+                        },
+                        {
+                          "path": "@type"
+                        }
+                      ]
+                    },
+                    {
+                      "path": "https://openminds.ebrains.eu/vocab/startDate",
+                      "propertyName": "vocab:startDate"
+                    }
+                  ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+                  "propertyName": "vocab:digitalIdentifier",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/hasParent",
+                  "propertyName": "vocab:hasParent",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/homepage",
+                  "propertyName": "vocab:homepage"
                 }
               ]
             },
@@ -195,22 +264,6 @@
         },
         {
           "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/service",
-          "propertyName": "vocab:service",
-          "structure": [
-            {
-              "path": "@id"
-            },
-            {
-              "path": "@type"
-            }
-          ]
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/userName",
-          "propertyName": "vocab:userName"
         }
       ]
     },
@@ -240,10 +293,6 @@
         },
         {
           "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/identifier",
-          "propertyName": "vocab:identifier"
         }
       ]
     },
@@ -254,6 +303,36 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/givenName",
       "propertyName": "vocab:givenName"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/affiliation",
+      "propertyName": "Qaffiliations",
+      "required": true,
+      "structure": [
+        {
+          "path": "https://openminds.ebrains.eu/vocab/memberOf",
+          "propertyName": "Qmember_of",
+          "required": true,
+          "structure": [
+            {
+              "path": "https://openminds.ebrains.eu/vocab/hasParent",
+              "propertyName": "Qhas_parents",
+              "required": true,
+              "structure": [
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/shortName",
+                  "propertyName": "Qalias",
+                  "filter": {
+                    "op": "CONTAINS",
+                    "value": "FZJ"
+                  },
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

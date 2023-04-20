@@ -41,70 +41,73 @@ class MockKGClient:
     def retrieve_query(self, query_label):
         return {"@id": f"mock-query-{query_label}"}
 
-    def query(self, filters, query_id, space=None, size=100, from_index=0, scope="released"):
-        if "name" in filters:
-            if "Dummy new model" in filters["name"]:
-                return MockKGResponse(None)
-            elif "protein structure" in filters["name"]:
-                return MockKGResponse(
-                    [
-                        {
-                            "vocab:name": filters["name"],
-                            "@id": "fake_uuid",
-                            "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                            "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"],
-                        }
-                    ]
-                )
-            elif "subcellular" in filters["name"]:
-                return MockKGResponse(
-                    [
-                        {
-                            "vocab:name": filters["name"],
-                            "@id": "fake_uuid",
-                            "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                            "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelScope"],
-                        }
-                    ]
-                )
-            elif "Mus musculus" in filters["name"]:
-                return MockKGResponse(
-                    [
-                        {
-                            "vocab:name": filters["name"],
-                            "@id": "fake_uuid",
-                            "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                            "@type": ["https://openminds.ebrains.eu/controlledTerms/Species"],
-                        }
-                    ]
-                )
-            elif "astrocyte" in filters["name"]:
-                return MockKGResponse(
-                    [
-                        {
-                            "vocab:name": filters["name"],
-                            "@id": "fake_uuid",
-                            "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                            "@type": ["https://openminds.ebrains.eu/controlledTerms/CellType"],
-                        }
-                    ]
-                )
-            elif "amygdala" in filters["name"]:
-                return MockKGResponse(
-                    [
-                        {
-                            "vocab:name": filters["name"],
-                            "@id": "fake_uuid",
-                            "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                            "@type": ["https://openminds.ebrains.eu/controlledTerms/UBERONParcellation"],
-                        }
-                    ]
-                )
-            elif "The Lonely Mountain" in filters["name"]:
-                return MockKGResponse([])
-        elif "given_name" in filters:
-            if filters["given_name"] == "Thorin":
-                return MockKGResponse([])
+    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
+        for property in query["structure"]:
+            if property.get("propertyName", "") == "Qname":
+                filter_value = property["filter"]["value"]
+                if "Dummy new model" in filter_value:
+                    return MockKGResponse(None)
+                elif "protein structure" in filter_value:
+                    return MockKGResponse(
+                        [
+                            {
+                                "vocab:name": filter_value,
+                                "@id": "fake_uuid",
+                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                                "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"],
+                            }
+                        ]
+                    )
+                elif "subcellular" in filter_value:
+                    return MockKGResponse(
+                        [
+                            {
+                                "vocab:name": filter_value,
+                                "@id": "fake_uuid",
+                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                                "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelScope"],
+                            }
+                        ]
+                    )
+                elif "Mus musculus" in filter_value:
+                    return MockKGResponse(
+                        [
+                            {
+                                "vocab:name": filter_value,
+                                "@id": "fake_uuid",
+                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                                "@type": ["https://openminds.ebrains.eu/controlledTerms/Species"],
+                            }
+                        ]
+                    )
+                elif "astrocyte" in filter_value:
+                    return MockKGResponse(
+                        [
+                            {
+                                "vocab:name": filter_value,
+                                "@id": "fake_uuid",
+                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                                "@type": ["https://openminds.ebrains.eu/controlledTerms/CellType"],
+                            }
+                        ]
+                    )
+                elif "amygdala" in filter_value:
+                    return MockKGResponse(
+                        [
+                            {
+                                "vocab:name": filter_value,
+                                "@id": "fake_uuid",
+                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                                "@type": ["https://openminds.ebrains.eu/controlledTerms/UBERONParcellation"],
+                            }
+                        ]
+                    )
+                elif "The Lonely Mountain" in filter_value:
+                    return MockKGResponse([])
+            elif property.get("propertyName", "") == "Qgiven_name":
+                filter_value = property["filter"]["value"]
+                if filter_value == "Thorin":
+                    return MockKGResponse([])
         raise NotImplementedError("case not yet handled by mock client")
 
     def create_new_instance(self, data, space, instance_id=None):

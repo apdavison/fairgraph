@@ -16,7 +16,7 @@ from test.utils import mock_client, kg_client, skip_if_no_connection
 
 def test_query_generation(mock_client):
     for cls in omcore.list_kg_classes():
-        generated = cls.generate_query("simple", "collab-foobar", mock_client)
+        generated = cls.generate_query(space="collab-foobar", client=mock_client)
         filename = f"test/test_data/queries/openminds/core/{cls.__name__.lower()}_simple_query.json"
         with open(filename, "r") as fp:
             expected = json.load(fp)
@@ -98,7 +98,7 @@ def test_resolve_model(kg_client):
 
 
 @skip_if_no_connection
-def test_retrieve_released_models_resolve_one_step(kg_client):
+def test_retrieve_released_models_follow_links(kg_client):
     models = omcore.Model.list(
         kg_client,
         scope="released",
@@ -106,7 +106,7 @@ def test_retrieve_released_models_resolve_one_step(kg_client):
         api="query",
         size=5,
         from_index=randint(0, 80),
-        follow_links=1,
+        follow_links={"versions": {}, "developers": {"affiliation": {"member_of": {}}}, "abstraction_level": {}},
     )
     assert len(models) == 5
     for model in models:
@@ -125,18 +125,18 @@ def test_retrieve_released_models_resolve_one_step(kg_client):
                 assert isinstance(version.repository, KGProxy)
 
 
-@skip_if_no_connection
-def test_retrieve_released_people_resolve_two_steps(kg_client):
-    people = omcore.Person.list(
-        kg_client,
-        scope="released",
-        space="common",
-        api="query",
-        size=5,
-        from_index=randint(0, 100),
-        follow_links=2,
-    )
-    assert len(people) == 5
+# @skip_if_no_connection
+# def test_retrieve_released_people_resolve_two_steps(kg_client):
+#     people = omcore.Person.list(
+#         kg_client,
+#         scope="released",
+#         space="common",
+#         api="query",
+#         size=5,
+#         from_index=randint(0, 100),
+#         follow_links=2,
+#     )
+#     assert len(people) == 5
 
 
 # @skip_if_no_connection
@@ -165,6 +165,40 @@ def test_retrieve_released_people_resolve_two_steps(kg_client):
 #                 assert isinstance(version.repository.type, KGProxy)
 #             if version.hosted_by:
 #                 assert isinstance(version.repository.hosted_by, KGProxy)
+
+
+@skip_if_no_connection
+def test_query_across_links(kg_client):
+    models = omcore.Model.list(
+        kg_client,
+        scope="in progress",
+        space="model",
+        api="query",
+        follow_links={"developers": {"affiliations": {"member_of": {}}}},
+        developers__affiliations__member_of="7bdf4340-c718-45ea-9912-41079799dfd3",
+    )
+    assert len(models) > 0
+    assert len(models) < 100
+    orgs = []
+    for model in models:
+        for dev in as_list(model.developers):
+            for affil in as_list(dev.affiliations):
+                if affil.member_of:
+                    orgs.append(affil.member_of.uuid)
+    assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
+
+    # check that "follow_links" is not needed for the cross-link filter to work
+    models2 = omcore.Model.list(
+        kg_client,
+        scope="in progress",
+        space="model",
+        api="query",
+        follow_links=None,
+        developers__affiliations__member_of="7bdf4340-c718-45ea-9912-41079799dfd3",
+    )
+    assert set(model.id for model in models) == set(model.id for model in models2)
+    assert isinstance(models[0].developers[0], omcore.Person)
+    assert isinstance(models2[0].developers[0], KGProxy)
 
 
 @skip_if_no_connection
@@ -333,3 +367,17 @@ def test_save_new_recursive_mock(mock_client):
 
 # def test_save_existing_with_id_mock(mock_client):
 #    existing_model = mock_client.instances[]
+
+
+def test_normalize_filter():
+    result = omcore.Model.normalize_filter(
+        {
+            "developers": {"affiliations": {"member_of": omcore.Organization(id="some_id")}},
+            "digital_identifier": {"identifier": "https://doi.org/some-doi"},
+        }
+    )
+    expected = {
+        "developers": {"affiliations": {"member_of": "some_id"}},
+        "digital_identifier": {"identifier": "https://doi.org/some-doi"},
+    }
+    assert result == expected

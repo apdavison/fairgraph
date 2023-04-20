@@ -198,23 +198,64 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                 field.strict_mode = value
 
     @classmethod
-    def generate_query_properties(cls, filter_keys: Optional[List[str]] = None, follow_links: int = 0):
+    def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Normalize a dict containing filter key:value pairs so that it can be used
+        in a call to the KG query API.
+
+        Example:
+            >>> import fairgraph.openminds.core as omcore
+            >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
+            >>> filter_dict = {"custodians": person, "name": "Virtual"}
+            >>> omcore.Dataset.normalize_filter(filter_dict)
+            {'name': 'Virtual',
+             'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
+        """
+        normalized = {}
+        for field in cls.fields:
+            if field.name in filter_dict:
+                value = filter_dict[field.name]
+                if isinstance(value, dict):
+                    normalized[field.name] = {}
+                    for child_cls in field.types:
+                        normalized[field.name].update(child_cls.normalize_filter(value))
+                else:
+                    normalized[field.name] = field.get_filter_value(value)
+        return normalized
+
+    @classmethod
+    def generate_query_properties(cls, follow_links: Optional[Dict[str, Any]] = None):
         """
         Generate a list of QueryProperty instances for this class
         for use in constructing a KG query definition.
 
         Args:
-            filter_keys (list of strings, optional): A list of field names that should be used as search parameters for the query.
             follow_links (int): The number of levels of links that should be followed when constructing the query. Defaults to zero.
         """
-        if filter_keys is None:
-            filter_keys = []
         properties = [QueryProperty("@type")]
         for field in cls.fields:
-            if field.intrinsic:
-                properties.extend(
-                    field.get_query_properties(use_filter=field.name in filter_keys, follow_links=follow_links)
-                )
+            if field.is_link and follow_links and field.name in follow_links:
+                properties.extend(field.get_query_properties(follow_links[field.name]))
+            else:
+                properties.extend(field.get_query_properties())
+        return properties
+
+    @classmethod
+    def generate_query_filter_properties(
+        cls,
+        filters: Optional[Dict[str, Any]] = None,
+    ):
+        """
+
+        Args:
+            filters (dict, optional): A dict containing search parameters for the query.
+        """
+        if filters is None:
+            filters = {}
+        properties = []
+        for field in cls.fields:
+            if field.name in filters:
+                properties.append(field.get_query_filter_property(filters[field.name]))
         return properties
 
     @classmethod

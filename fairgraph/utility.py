@@ -224,6 +224,41 @@ def in_notebook() -> bool:
         return False
 
 
+def expand_filter(filter_dict: Dict[str, Any]):
+    """
+    Expand single-level filter specification (provided by user) into
+    a multi-level dict as required by the query-generation machinery.
+
+    Example:
+    >>> filter = {
+    ...    "developers__affiliations__member_of__alias": "CNRS",
+    ...    "digital_identifier__identifier": "https://doi.org/some-doi"
+    ... }
+    >>> expand_filter(filter)
+    {
+        "developers": {
+            "affiliations": {
+                "member_of": {
+                    "alias": "CNRS
+                }
+            }
+        },
+        "digital_identifier": {
+            "identifier": "https://doi.org/some-doi"
+        }
+    }
+    """
+    expanded = {}
+    for key, value in filter_dict.items():
+        local_path = expanded
+        parts = key.split("__")
+        for part in parts[:-1]:
+            local_path[part] = {}
+            local_path = local_path[part]
+        local_path[parts[-1]] = value
+    return expanded
+
+
 class LogEntry:
     """
     Represents an entry in an activity log.
