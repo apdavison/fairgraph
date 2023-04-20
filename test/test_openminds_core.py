@@ -187,6 +187,19 @@ def test_query_across_links(kg_client):
                     orgs.append(affil.member_of.uuid)
     assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
 
+    # check that "follow_links" is not needed for the cross-link filter to work
+    models2 = omcore.Model.list(
+        kg_client,
+        scope="in progress",
+        space="model",
+        api="query",
+        follow_links=None,
+        developers__affiliations__member_of="7bdf4340-c718-45ea-9912-41079799dfd3",
+    )
+    assert set(model.id for model in models) == set(model.id for model in models2)
+    assert isinstance(models[0].developers[0], omcore.Person)
+    assert isinstance(models2[0].developers[0], KGProxy)
+
 
 @skip_if_no_connection
 def test_count_released_models(kg_client):
