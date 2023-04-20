@@ -171,8 +171,8 @@ connected to many other nodes in the graph.
 Note that links are only followed in the "downstream" direction.
 
 
-Strict mode
-===========
+Error handling
+==============
 
 If you don't provide all of the metadata attributes and data types expected,
 fairgraph will warn you.
@@ -180,6 +180,6 @@ fairgraph will warn you.
 If you wish to be certain that all required attributes have been provided,
 you can turn on strict checking for a given node type as follows::
 
-    >>> DatasetVersion.set_strict_mode("error")
+    >>> DatasetVersion.set_error_handling("error")
 
 This will then raise an Exception if an attribute is missing or of the wrong data type.

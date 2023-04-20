@@ -46,7 +46,7 @@ logger = logging.getLogger("fairgraph")
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
 
-class StrictMode(str, Enum):
+class ErrorHandling(str, Enum):
     error = "error"
     warning = "warning"
     log = "log"
@@ -90,7 +90,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             except KeyError:
                 if field.required:
                     msg = "Field '{}' is required.".format(field.name)
-                    StrictMode.handle_violation(field.strict_mode, msg)
+                    ErrorHandling.handle_violation(field.error_handling, msg)
                 value = None
             else:
                 properties_copy.pop(field.name)
@@ -184,7 +184,9 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         pass
 
     @classmethod
-    def set_strict_mode(cls, value: Union[StrictMode, None], field_names: Optional[Union[str, List[str]]] = None):
+    def set_error_handling(
+        cls, value: Union[ErrorHandling, None], field_names: Optional[Union[str, List[str]]] = None
+    ):
         """
         Control validation for this class.
 
@@ -192,27 +194,27 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             value (str): action to follow when there is a validation failure.
                 (e.g. if a required field is not provided).
                 Possible values: "error", "warning", "log", None
-            field_names (str or list of str, optional): If not provided, the strict mode will
-                be applied to all fields. If a field name or list of names is given, the mode
-                will be applied only to those fields.
+            field_names (str or list of str, optional): If not provided, the error handling
+                mode will be applied to all fields. If a field name or list of names is given,
+                the mode will be applied only to those fields.
         """
         if value is None:
-            value = StrictMode.none
+            value = ErrorHandling.none
         else:
-            value = StrictMode(value)
+            value = ErrorHandling(value)
         if field_names:
             for field_name in as_list(field_names):
                 found = False
                 for field in cls.fields:
                     if field.name == field_name:
-                        field.strict_mode = value
+                        field.error_handling = value
                         found = True
                         break
                 if not found:
                     raise ValueError("No such field: {}".format(field_name))
         else:
             for field in cls.fields:
-                field.strict_mode = value
+                field.error_handling = value
 
     @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
