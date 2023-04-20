@@ -32,7 +32,7 @@ from dateutil import parser as date_parser
 
 from .registry import lookup, lookup_type
 from .utility import as_list
-from .base import IRI, JSONdict, ContainsMetadata
+from .base import IRI, JSONdict, ContainsMetadata, ErrorHandling
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .kgobject import KGObject
@@ -149,7 +149,8 @@ class Field(object):
         required (bool, optional): Whether the field is required or not. Defaults to False.
         default (Any, optional): The default value of the field if it is not provided.
         multiple (bool, optional): Whether the field can have multiple values or not. Defaults to False.
-        strict (bool, optional): Whether strict mode is enabled or not. Defaults to False.
+        error_handling (str, optional): How to handle errors, such as the wrong type of value being provided.
+            One of "error", "warning", "log", "none". Defaults to "warning".
         reverse (str, optional): The name of the reverse field, if any.
         doc (str, optional): The documentation of the field.
 
@@ -171,7 +172,7 @@ class Field(object):
         required: bool = False,
         default: Any = None,
         multiple: bool = False,
-        strict: bool = False,
+        error_handling: ErrorHandling = ErrorHandling.log,
         reverse: Optional[str] = None,
         doc: str = "",
     ):
@@ -188,7 +189,7 @@ class Field(object):
         self.required = required
         self.default = default
         self.multiple = multiple
-        self.strict_mode = strict
+        self.error_handling = error_handling
         self.reverse = reverse
         self.doc = doc
 
@@ -215,10 +216,7 @@ class Field(object):
                         errmsg = "Field '{}' is required but was not provided.".format(self.name)
                     else:
                         errmsg = "Field '{}' should be of type {}, not {}".format(self.name, self.types, type(item))
-                    if self.strict_mode:
-                        raise ValueError(errmsg)
-                    else:
-                        warnings.warn(errmsg)
+                    ErrorHandling.handle_violation(self.error_handling, errmsg)
 
         if self.required or value is not None:
             if self.multiple and isinstance(value, Iterable) and not isinstance(value, Mapping):
@@ -276,7 +274,7 @@ class Field(object):
                 raise ValueError("don't know how to serialize this value")
 
         if isinstance(value, (list, tuple)):
-            if self.multiple or not self.strict_mode:
+            if self.multiple or self.error_handling != ErrorHandling.error:
                 value = [serialize_single(item) for item in value]
                 if len(value) == 1:
                     return value[0]
@@ -284,8 +282,9 @@ class Field(object):
                     return value
             elif len(value) == 1:
                 return serialize_single(value[0])
-            elif self.strict_mode:
-                raise AttributeError(f"Single item expected for field {self.name} but received multiple")
+            elif self.error_handling != ErrorHandling.none:
+                errmsg = f"Single item expected for field {self.name} but received multiple"
+                ErrorHandling.handle_violation(self.error_handling, errmsg)
             else:
                 return value
         else:
@@ -326,11 +325,8 @@ class Field(object):
             else:
                 return data
         except Exception as err:
-            if self.strict_mode:
-                raise
-            else:
-                warnings.warn(str(err))
-                return None
+            ErrorHandling.handle_violation(self.error_handling, str(err))
+            return None
 
     def get_query_properties(self, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
         """

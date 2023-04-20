@@ -483,7 +483,6 @@ class TestKGObject(object):
         ]  # unchanged because already set
         assert obj.an_optional_datetime == datetime(1789, 7, 14)
 
-    @pytest.mark.filterwarnings("ignore:Field")  # ignore expected warning from strict_mode False
     def test_exists__it_does_exist(self):
         orig_object = self._construct_object_required_fields()
 
@@ -496,9 +495,9 @@ class TestKGObject(object):
                 data["@type"] = orig_object.type_
                 return data
 
-        MockKGObject.set_strict_mode(False)  # stop the constructor from complaining
+        MockKGObject.set_error_handling("none")  # stop the constructor from complaining
         new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
-        MockKGObject.set_strict_mode(True)
+        MockKGObject.set_error_handling("error")
         assert new_obj.a_required_list_of_strings == ["coconut"]
         assert new_obj.remote_data == {}
         assert new_obj.a_required_embedded_object == None
