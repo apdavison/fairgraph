@@ -172,7 +172,7 @@ class Field(object):
         required: bool = False,
         default: Any = None,
         multiple: bool = False,
-        error_handling: ErrorHandling = ErrorHandling.warning,
+        error_handling: ErrorHandling = ErrorHandling.log,
         reverse: Optional[str] = None,
         doc: str = "",
     ):

@@ -59,7 +59,7 @@ class ErrorHandling(str, Enum):
         elif value == cls.warning:
             warn(errmsg)
         elif value == cls.log:
-            logger.warn(errmsg)
+            logger.warning(errmsg)
 
 
 class Resolvable:  # all
