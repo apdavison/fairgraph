@@ -23,6 +23,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, Dict, List, Union, Any
 from typing_extensions import TypeAlias
 from copy import copy
+from enum import Enum
 import logging
 from warnings import warn
 
@@ -43,6 +44,22 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
+
+
+class StrictMode(str, Enum):
+    error = "error"
+    warning = "warning"
+    log = "log"
+    none = "none"
+
+    @classmethod
+    def handle_violation(cls, value, errmsg=""):
+        if value == cls.error:
+            raise ValueError(errmsg)
+        elif value == cls.warning:
+            warn(errmsg)
+        elif value == cls.log:
+            logger.warn(errmsg)
 
 
 class Resolvable:  # all
@@ -73,10 +90,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             except KeyError:
                 if field.required:
                     msg = "Field '{}' is required.".format(field.name)
-                    if field.strict_mode:
-                        raise ValueError(msg)
-                    else:
-                        warn(msg)
+                    StrictMode.handle_violation(field.strict_mode, msg)
                 value = None
             else:
                 properties_copy.pop(field.name)
@@ -170,19 +184,22 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         pass
 
     @classmethod
-    def set_strict_mode(cls, value: bool, field_names: Optional[Union[str, List[str]]] = None):
+    def set_strict_mode(cls, value: Union[StrictMode, None], field_names: Optional[Union[str, List[str]]] = None):
         """
         Control validation for this class.
 
         Args:
-            value (bool): If True, raise an Exception when there is a validation failure
-                (e.g. if a required field is not provided). If False, emit a warning then continue.
+            value (str): action to follow when there is a validation failure.
+                (e.g. if a required field is not provided).
+                Possible values: "error", "warning", "log", None
             field_names (str or list of str, optional): If not provided, the strict mode will
                 be applied to all fields. If a field name or list of names is given, the mode
                 will be applied only to those fields.
         """
-        if value not in (True, False):
-            raise ValueError("value should be either True or False")
+        if value is None:
+            value = StrictMode.none
+        else:
+            value = StrictMode(value)
         if field_names:
             for field_name in as_list(field_names):
                 found = False

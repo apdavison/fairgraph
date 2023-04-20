@@ -496,9 +496,9 @@ class TestKGObject(object):
                 data["@type"] = orig_object.type_
                 return data
 
-        MockKGObject.set_strict_mode(False)  # stop the constructor from complaining
+        MockKGObject.set_strict_mode("none")  # stop the constructor from complaining
         new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
-        MockKGObject.set_strict_mode(True)
+        MockKGObject.set_strict_mode("error")
         assert new_obj.a_required_list_of_strings == ["coconut"]
         assert new_obj.remote_data == {}
         assert new_obj.a_required_embedded_object == None

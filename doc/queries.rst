@@ -180,6 +180,6 @@ fairgraph will warn you.
 If you wish to be certain that all required attributes have been provided,
 you can turn on strict checking for a given node type as follows::
 
-    DatasetVersion.set_strict_mode(True)
+    >>> DatasetVersion.set_strict_mode("error")
 
 This will then raise an Exception if an attribute is missing or of the wrong data type.

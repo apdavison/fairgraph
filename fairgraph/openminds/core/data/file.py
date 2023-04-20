@@ -146,7 +146,6 @@ class File(KGObject):
 
     @classmethod
     def from_local_file(cls, relative_path):
-        cls.set_strict_mode(False)
         obj = cls(
             name=relative_path,
             storage_size=QuantitativeValue(
@@ -156,7 +155,6 @@ class File(KGObject):
             format=ContentType(name=mimetypes.guess_type(relative_path)[0])
             # todo: query ContentTypes since that contains additional, EBRAINS-specific content types
         )
-        cls.set_strict_mode(True)
         return obj
 
     def download(self, local_path, client, accept_terms_of_use=False):

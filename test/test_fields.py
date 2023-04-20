@@ -1,5 +1,6 @@
 from datetime import date
 from uuid import uuid4
+from fairgraph.base import StrictMode
 from fairgraph.fields import Field
 from fairgraph.kgobject import KGObject
 from fairgraph.embedded import EmbeddedMetadata
@@ -72,7 +73,7 @@ def test_serialize_no_multiple():
         "vocab:contactInformation",
         multiple=False,
         required=False,
-        strict=True,
+        strict=StrictMode.error,
     )
     client = None
 
@@ -95,11 +96,11 @@ def test_serialize_no_multiple():
         SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
-    with pytest.raises(AttributeError):
+    with pytest.raises(ValueError):
         result = field_no_multiple.serialize(test_info, follow_links=False)
 
     # two objects, not strict
-    field_no_multiple.strict_mode = False
+    field_no_multiple.strict_mode = StrictMode.none
     test_info = [
         SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
@@ -109,7 +110,7 @@ def test_serialize_no_multiple():
     assert result == expected
 
     # two proxies, not strict
-    field_no_multiple.strict_mode = False
+    field_no_multiple.strict_mode = StrictMode.none
     test_info = [
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
