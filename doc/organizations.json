@@ -1,0 +1,26 @@
+[
+    {
+        "@type": "Organization",
+        "@id": "https://ror.org/02feahw73",
+        "alternateName": "CNRS",
+        "name": "Institut des Neurosciences Paris-Saclay",
+        "parentOrganization": [
+            {
+                "@type": "Organization",
+                "@id": "https://ror.org/002v40q27",
+                "alternateName": "CNRS",
+                "name": "Centre National de la Recherche Scientifique"
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://ror.org/03xjwb503",
+                "name": "Université Paris-Saclay"
+            }
+        ]
+    },
+    {
+        "@type": "Organization",
+        "@id": "https://ror.org/02778hg05",
+        "name": "Universität Trier"
+    }
+  ]

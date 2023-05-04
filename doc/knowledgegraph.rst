@@ -15,7 +15,7 @@ There are many ways to access the contents of the Knowledge Graph: through a
 `graphical search interface`_, with an anatomical search through the EBRAINS brain atlases_,
 through web services, and through Python clients.
 
-**fairgraph** is an experimental, high-level Python client for the Knowledge Graph, which aims to
+**fairgraph** is a high-level Python client for the Knowledge Graph, which aims to
 be convenient, powerful and easy-to-use.
 Alternative ways to access the Knowledge Graph programmatically are summarized in the section
 "Alternatives" below.

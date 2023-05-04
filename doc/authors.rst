@@ -9,6 +9,7 @@ The following people have contributed to fairgraph. Their affiliations at the ti
 - Yann Zerlaut [1]
 - Nico Feld [2]
 - Glynis Mattheisen[1]
+- Peyman Najafi [1]
 
 1. Department of Integrative and Computational Neuroscience, Paris-Saclay Institute of Neuroscience, CNRS/Université Paris Saclay
 2. Human-Computer Interaction, Department IV, Computer Science, Universität Trier
@@ -17,7 +18,7 @@ The following people have contributed to fairgraph. Their affiliations at the ti
 Acknowledgements
 ================
 
-.. image:: https://www.braincouncil.eu/wp-content/uploads/2018/11/wsi-imageoptim-EU-Logo.jpg
+.. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/320px-Flag_of_Europe.svg.png
    :alt: EU Logo
    :height: 100px
    :width: 150px

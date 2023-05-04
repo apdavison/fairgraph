@@ -18,12 +18,23 @@ classifiers = [
 keywords = ["ebrains", "hbp", "metadata", "electrophysiology", "knowledge-graph"]
 dependencies=[
     "ebrains-kg-core",
-    "pathlib2",
     "python-dateutil",
-    "six",
     "tabulate",
-    "requests",
-    "tqdm"
+    "requests"
+]
+
+[project.optional-dependencies]
+
+dev = [
+    "pytest",
+    "pytest-cov",
+    "coverage",
+    "build",
+    "setuptools",
+    "wheel",
+    "sphinx",
+    "black",
+    "twine"
 ]
 
 [project.urls]

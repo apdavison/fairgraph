@@ -2,9 +2,9 @@
 
 Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen
 
-Copyright CNRS 2019-2022
+Copyright CNRS 2019-2023
 
-**fairgraph** is an experimental Python library for working with metadata
+**fairgraph** is a Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
 The API is not stable, and is subject to change.
@@ -21,16 +21,12 @@ To get the development version:
 
 ```
 git clone https://github.com/HumanBrainProject/fairgraph.git
-pip install -r ./fairgraph/requirements.txt
 pip install -U ./fairgraph
 ```
 
 ## Knowledge Graph versions
 
-This version of fairgraph supports both version 2 and version 3 of the EBRAINS Knowledge Graph (KG).
-Once all metadata and applications have been migrated to version 3, the version 2 features
-will be removed. Unless otherwise specified, all documentation refers to accessing KG version 3.
-
+This version of fairgraph supports version 3 of the EBRAINS Knowledge Graph (KG).
 
 ## Basic setup
 
@@ -52,7 +48,7 @@ You can then create the client object:
 ```
 >>> from fairgraph import KGClient
 
->>> client = KGClient()
+>>> client = KGClient(host="core.kg.ebrains.eu")
 ```
 
 You can also pass the token explicitly to the client:

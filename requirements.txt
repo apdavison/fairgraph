@@ -1,7 +1,4 @@
 ebrains-kg-core
-pathlib2
 python-dateutil
-six
 tabulate
 requests
-tqdm

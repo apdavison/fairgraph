@@ -19,11 +19,11 @@ is available to you, and save it as an environment variable so the client can fi
 You can then create the client object::
 
    >>> from fairgraph import KGClient
-   >>> client = KGClient()
+   >>> client = KGClient(host="core.kg.ebrains.eu")
 
 You can also pass the token explicitly to the client::
 
-   >>> client = KGClient(token)
+   >>> client = KGClient(token=token, host="core.kg.ebrains.eu")
 
 
 Listing the available metadata types
