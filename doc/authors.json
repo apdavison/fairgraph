@@ -1,0 +1,33 @@
+[
+    {
+      "@type": "Person",
+      "@id": "http://orcid.org/0000-0002-4793-7541",
+      "givenName": "Andrew P.",
+      "familyName": "Davison",
+      "affiliation": [{"@id": "https://ror.org/02feahw73"}]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Onur",
+      "familyName": "Ates",
+      "affiliation": [{"@id": "https://ror.org/02feahw73"}]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Yann",
+      "familyName": "Zerlaut",
+      "affiliation": [{"@id": "https://ror.org/02feahw73"}]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Nico",
+      "familyName": "Feld",
+      "affiliation": [{"@id": "https://ror.org/02778hg05"}]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Glynis",
+      "familyName": "Mattheisen",
+      "affiliation": [{"@id": "https://ror.org/02feahw73"}]
+    }
+  ]

@@ -1,0 +1,103 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "license": "https://spdx.org/licenses/Apache-2.0.html",
+  "codeRepository": "https://github.com/HumanBrainProject/fairgraph",
+  "contIntegration": "https://github.com/HumanBrainProject/fairgraph/actions",
+  "dateModified": "2023-02-28",
+  "downloadUrl": "https://files.pythonhosted.org/packages/60/b6/0b4a7688ae57ca54967d77f25266c423fafbbb8c06c5b31b42c141c71c37/fairgraph-0.9.0.tar.gz",
+  "issueTracker": "https://github.com/HumanBrainProject/fairgraph/issues",
+  "name": "fairgraph",
+  "version": "0.9.0",
+  "identifier": "https://pypi.org/project/fairgraph/0.9.0/",
+  "description": "Python API for the Human Brain Project Knowledge Graph",
+  "applicationCategory": "neuroscience",
+  "releaseNotes": "https://fairgraph.readthedocs.io/en/latest/releases/0.9.0.html",
+  "funding": "https://cordis.europa.eu/project/id/945539",
+  "developmentStatus": "active",
+  "referencePublication": null,
+  "funder": {
+    "@type": "Organization",
+    "name": "European Commission"
+  },
+  "programmingLanguage": [
+    "Python"
+  ],
+  "operatingSystem": [
+    "Linux",
+    "Windows",
+    "macOS"
+  ],
+  "softwareRequirements": [
+    "Python >=3.7",
+    "ebrains-kg-core",
+    "pathlib2",
+    "python-dateutil",
+    "six",
+    "tabulate",
+    "requests",
+    "tqdm",
+    "pyld (==0.8.2)"
+  ],
+  "relatedLink": [
+    "https://fairgraph.readthedocs.io"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "@id": "http://orcid.org/0000-0002-4793-7541",
+      "givenName": "Andrew P.",
+      "familyName": "Davison",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "@id": "https://ror.org/02feahw73"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Onur",
+      "familyName": "Ates",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "@id": "https://ror.org/02feahw73"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Yann",
+      "familyName": "Zerlaut",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "@id": "https://ror.org/02feahw73"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Nico",
+      "familyName": "Feld",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "@id": "https://ror.org/02778hg05"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "givenName": "Glynis",
+      "familyName": "Mattheisen",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "@id": "https://ror.org/02feahw73"
+        }
+      ]
+    }
+  ]
+}
