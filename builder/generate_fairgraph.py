@@ -620,7 +620,7 @@ from .model import Model""",
 from .validation_test import ValidationTest""",
     "LivePaperVersion": """from fairgraph.errors import ResolutionFailure
 from .live_paper import LivePaper""",
-    "ScholarlyArticle": """from fairgraph.base import as_list
+    "ScholarlyArticle": """from fairgraph.utility import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical""",
     "SoftwareVersion": """from fairgraph.errors import ResolutionFailure

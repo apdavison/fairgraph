@@ -730,7 +730,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         all: bool = False,
         space: Optional[str] = None,
         scope: str = "released",
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[KGObject, List[KGObject], None]:
         """
         Retrieve an instance from the Knowledge Graph based on its name.
@@ -745,7 +745,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             space (str, optional): the KG space to search in. Default is to search in all available spaces.
             scope (str, optional): The scope of the search. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
         # todo: move this to openminds generation, and include only in those subclasses

@@ -8,7 +8,7 @@ from datetime import date, datetime
 from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
-from fairgraph.base import as_list
+from fairgraph.utility import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical
 
