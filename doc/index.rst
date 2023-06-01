@@ -27,6 +27,7 @@ The API is not stable, and is subject to change.
    contributing
    gettinghelp
    authors
+   release_notes
 
 Quickstart
 ==========
