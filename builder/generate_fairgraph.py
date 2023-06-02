@@ -587,7 +587,6 @@ def strip_trailing_whitespace(s):
 
 preamble = {
     "File": """import os
-import hashlib
 import mimetypes
 from pathlib import Path
 from urllib.request import urlretrieve

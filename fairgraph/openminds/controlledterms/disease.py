@@ -16,6 +16,8 @@ Structured information on a disease.
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
        * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
          - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
+       * - `malignant neoplasm <http://purl.obolibrary.org/obo/NCIT_C9305>`_
+         - A 'malignant neoplasm' is composed of atypical, often pleomorphic cells that uncontrollably grow and multiply, spreading into surrounding tissue and even invading distant anatomic sites (metastasis). Many malignant neoplasm form solid tumors, but cancers of the blood generally do not. [(adapted from [NCI](https://www.cancer.gov/about-cancer/understanding/what-is-cancer)].
        * - `acquired blindness <http://id.nlm.nih.gov/mesh/2018/M0336554>`_
          - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
        * - unresponsive wakefulness syndrome
@@ -69,6 +71,8 @@ class Disease(KGObject):
          - Cerebral atrophy describes the pathological process of wasting or decrease in size of the cells or tissue of the cerebrum.
        * - `epilepsy <http://purl.obolibrary.org/obo/DOID_1826>`_
          - Epilepsy describes a group of central nervous system disorders characterized by recurrent unprovoked seizures.
+       * - `malignant neoplasm <http://purl.obolibrary.org/obo/NCIT_C9305>`_
+         - A 'malignant neoplasm' is composed of atypical, often pleomorphic cells that uncontrollably grow and multiply, spreading into surrounding tissue and even invading distant anatomic sites (metastasis). Many malignant neoplasm form solid tumors, but cancers of the blood generally do not. [(adapted from [NCI](https://www.cancer.gov/about-cancer/understanding/what-is-cancer)].
        * - `acquired blindness <http://id.nlm.nih.gov/mesh/2018/M0336554>`_
          - Acquired blindness is caused by a group of diseases, disorders or injuries that led to permanent severely impaired vision or irreversible lack of vision during adulthood.
        * - unresponsive wakefulness syndrome

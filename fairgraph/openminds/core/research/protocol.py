@@ -62,6 +62,7 @@ class Protocol(KGObject):
         Field(
             "techniques",
             [
+                "openminds.controlledterms.AnalysisTechnique",
                 "openminds.controlledterms.StimulationApproach",
                 "openminds.controlledterms.StimulationTechnique",
                 "openminds.controlledterms.Technique",
