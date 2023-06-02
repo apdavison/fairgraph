@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = "fairgraph"
-copyright = "2018-2023, Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen"
-author = "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen"
+copyright = "2018-2023, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi"
+author = "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen, Peyman Najafi"
 
 # The short X.Y version
 version = "0.10"
 # The full version, including alpha/beta/rc tags
-release = "0.10.0"
+release = "0.10.1.dev"
 
 
 # -- General configuration ---------------------------------------------------
@@ -133,7 +133,7 @@ latex_documents = [
         master_doc,
         "fairgraph.tex",
         "fairgraph Documentation",
-        "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen",
+        "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen, Peyman Najafi",
         "manual",
     ),
 ]

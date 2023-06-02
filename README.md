@@ -1,6 +1,6 @@
 # fairgraph: a Python API for the EBRAINS Knowledge Graph.
 
-Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen
+Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi
 
 Copyright CNRS 2019-2023
 

@@ -1,6 +1,6 @@
 [project]
 name = "fairgraph"
-version = "0.10.0"
+version = "0.10.1.dev"
 description = "Python API for the Human Brain Project Knowledge Graph"
 readme = "README.md"
 authors = [
