@@ -347,6 +347,8 @@ class KGClient(object):
                     data.update(data_ip)
             else:
                 data = _get_instance(scope)
+
+            self.cache[uri] = data
         return data
 
     def create_new_instance(
