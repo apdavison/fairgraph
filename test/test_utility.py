@@ -2,7 +2,7 @@ import os
 import tempfile
 import pytest
 from fairgraph.utility import expand_filter, compact_uri, in_notebook, accepted_terms_of_use, sha1sum
-from .utils import kg_client
+from .utils import kg_client, skip_if_no_connection
 
 
 def test_expand_filter():
@@ -39,6 +39,7 @@ def test_in_notebook():
     assert not in_notebook()
 
 
+@skip_if_no_connection
 def test_accepted_terms_of_use(kg_client, mocker):
     result = accepted_terms_of_use(kg_client, accept_terms_of_use=True)
     assert result is True

@@ -660,6 +660,7 @@ def test_file_from_local_file():
     assert file_obj.hash.digest == sha1sum("test/utils.py")
 
 
+@skip_if_no_connection
 def test_dataset_version_download(mocker):
     mock_urlretrieve = mocker.patch(
         "fairgraph.openminds.core.products.dataset_version.urlretrieve",

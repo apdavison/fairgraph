@@ -80,6 +80,7 @@ def test_list_scopes(kg_client):
     assert released_models.total + in_progress_models.total >= all_models.total
 
 
+@skip_if_no_connection
 def test_get_token(kg_client):
     assert kg_client.token == os.environ["KG_AUTH_TOKEN"]
 
@@ -133,12 +134,14 @@ def test_retrieve_query(kg_client):
     queries = kg_client.retrieve_query("dataset")
 
 
+@skip_if_no_connection
 def test_store_and_retrieve_query(kg_client, mocker):
     mocker.patch.object(kg_client._kg_client.queries, "list_per_root_type", lambda search: MockKGResponse({}))
     mocker.patch.object(kg_client._kg_client.queries, "save_query", lambda **kw: MockKGResponse({}))
     kg_client.store_query("not-a-real-query", {"a": 1}, "not-a-real-space")
 
 
+@skip_if_no_connection
 def test_configure_space(kg_client, mocker):
     class MockType:
         type_ = ["hello"]
@@ -157,6 +160,7 @@ def test_is_released(kg_client):
     kg_client.is_released(instance_id, with_children=False)
 
 
+@skip_if_no_connection
 def test_create_new_instance(kg_client, mocker):
     with pytest.raises(ValueError) as err:
         kg_client.create_new_instance({"@id": None}, space="not-a-real-space")
@@ -175,6 +179,7 @@ def test_create_new_instance(kg_client, mocker):
     assert response == {"@id": "some-id", "a": 1, "b": 2}
 
 
+@skip_if_no_connection
 def test_replace_instance(kg_client, mocker):
     mocker.patch.object(
         kg_client._kg_client.instances,
@@ -185,6 +190,7 @@ def test_replace_instance(kg_client, mocker):
     assert response == {"@id": "some-id", "a": 1, "b": 2}
 
 
+@skip_if_no_connection
 def test_delete_instance(kg_client, mocker):
     mocker.patch.object(kg_client._kg_client.instances, "delete")
     response = kg_client.delete_instance("some-id")
