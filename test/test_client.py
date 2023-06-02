@@ -1,4 +1,9 @@
-from .utils import kg_client, skip_if_no_connection
+import os
+import pytest
+
+from kg_core.response import Error as KGError
+from fairgraph.errors import AuthenticationError, AuthorizationError, ResourceExistsError
+from .utils import kg_client, skip_if_no_connection, MockKGResponse
 
 
 @skip_if_no_connection
@@ -73,3 +78,109 @@ def test_list_scopes(kg_client):
     all_models = _get_models("any")
     # following assertion is because some models will appear in both released and in progress
     assert released_models.total + in_progress_models.total >= all_models.total
+
+
+def test_get_token(kg_client):
+    assert kg_client.token == os.environ["KG_AUTH_TOKEN"]
+
+
+@skip_if_no_connection
+def test__check_response_with_error(kg_client):
+    with pytest.raises(Exception) as err:
+        kg_client.update_instance(instance_id="https://kg.ebrains.eu/api/instances/charliechaplin", data={})
+        assert "404" in str(err)
+    with pytest.raises(AuthorizationError):
+        kg_client._check_response(MockKGResponse({}, error=KGError(code=403)))
+    with pytest.raises(AuthenticationError):
+        kg_client._check_response(MockKGResponse({}, error=KGError(code=401)))
+    with pytest.raises(ResourceExistsError):
+        kg_client._check_response(MockKGResponse({}, error=KGError(code=409)))
+    with pytest.raises(Exception):
+        kg_client._check_response(MockKGResponse({}, error=KGError(code=404)), ignore_not_found=False)
+
+    response = MockKGResponse({}, error=KGError(code=404))
+    assert kg_client._check_response(response, ignore_not_found=True) is response
+
+
+@skip_if_no_connection
+def test_get_instance_from_cache(kg_client):
+    instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
+    kg_client.cache.pop(instance_id, None)
+    instance1 = kg_client.instance_from_full_uri(instance_id)
+    assert instance_id in kg_client.cache
+    assert kg_client.cache[instance_id] == instance1
+    instance2 = kg_client.instance_from_full_uri(instance_id, use_cache=True)
+    assert instance2 is instance1
+
+
+@skip_if_no_connection
+def test_get_instance_no_cache(kg_client):
+    instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
+    instance1 = kg_client.instance_from_full_uri(instance_id, use_cache=False, scope="any")
+    instance2 = kg_client.instance_from_full_uri(instance_id, use_cache=False)
+    assert instance2 is not instance1
+
+
+@skip_if_no_connection
+def test_get_non_existent_instance(kg_client):
+    instance_id = "https://kg.ebrains.eu/api/instances/99999999-9999-9999-9999-999999999999"
+    instance1 = kg_client.instance_from_full_uri(instance_id, use_cache=False)
+    assert instance1 is None
+
+
+@skip_if_no_connection
+def test_retrieve_query(kg_client):
+    queries = kg_client.retrieve_query("dataset")
+
+
+def test_store_and_retrieve_query(kg_client, mocker):
+    mocker.patch.object(kg_client._kg_client.queries, "list_per_root_type", lambda search: MockKGResponse({}))
+    mocker.patch.object(kg_client._kg_client.queries, "save_query", lambda **kw: MockKGResponse({}))
+    kg_client.store_query("not-a-real-query", {"a": 1}, "not-a-real-space")
+
+
+def test_configure_space(kg_client, mocker):
+    class MockType:
+        type_ = ["hello"]
+
+    mocker.patch.object(kg_client._kg_admin_client, "create_space_definition", lambda space: None)
+    mocker.patch.object(kg_client._kg_admin_client, "assign_type_to_space", lambda space, target_type: None)
+    kg_client.configure_space("not-a-real-space-name", [MockType()])
+    with pytest.raises(ValueError):
+        kg_client.configure_space()
+
+
+@skip_if_no_connection
+def test_is_released(kg_client):
+    instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
+    kg_client.is_released(instance_id, with_children=True)
+    kg_client.is_released(instance_id, with_children=False)
+
+
+def test_create_new_instance(kg_client, mocker):
+    with pytest.raises(ValueError) as err:
+        kg_client.create_new_instance({"@id": None}, space="not-a-real-space")
+        assert "undefined ids" in str(err)
+
+    mocker.patch.object(kg_client._kg_client.instances, "create_new", lambda **kw: MockKGResponse(kw["payload"]))
+    response = kg_client.create_new_instance({"a": 1, "b": 2}, space="not-a-real-space")
+    assert response == {"a": 1, "b": 2}
+
+    mocker.patch.object(
+        kg_client._kg_client.instances,
+        "create_new_with_id",
+        lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}),
+    )
+    response = kg_client.create_new_instance({"a": 1, "b": 2}, instance_id="some-id", space="not-a-real-space")
+    assert response == {"@id": "some-id", "a": 1, "b": 2}
+
+def test_replace_instance(kg_client, mocker):
+    mocker.patch.object(kg_client._kg_client.instances, "contribute_to_full_replacement",
+                        lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}))
+    response = kg_client.replace_instance("some-id", {"a": 1, "b": 2})
+    assert response == {"@id": "some-id", "a": 1, "b": 2}
+
+def test_delete_instance(kg_client, mocker):
+    mocker.patch.object(kg_client._kg_client.instances, "delete")
+    response = kg_client.delete_instance("some-id")
+    kg_client._kg_client.instances.delete.assert_called_once_with("some-id")

@@ -1,15 +1,23 @@
+import os
 import json
 from random import randint
 from uuid import UUID
 from copy import deepcopy
 from datetime import datetime
+import shutil
+import tempfile
+import urllib.request
+
+import pytest
+
 from fairgraph.utility import as_list
 from fairgraph.base import IRI
 from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
+from fairgraph.kgobject import KGObject
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlledterms as omterms
-from fairgraph.utility import ActivityLog
+from fairgraph.utility import ActivityLog, sha1sum
 
 from test.utils import mock_client, kg_client, skip_if_no_connection
 
@@ -39,6 +47,12 @@ def test_retrieve_released_models_no_filter_api_query(kg_client):
         kg_client, scope="released", space="model", api="query", size=20, from_index=randint(0, 80)
     )
     assert len(models) == 20
+
+
+@skip_if_no_connection
+def test_retrieve_released_models_with_filter_api_core(kg_client):
+    with pytest.raises(ValueError):
+        models = omcore.Model.list(kg_client, scope="released", api="core", name="foo")
 
 
 @skip_if_no_connection
@@ -82,6 +96,35 @@ def test_retrieve_released_models_filter_custodian(kg_client):
     assert len(models) > 0
     for model in models:
         assert alain.id in [c.id for c in as_list(model.custodians)]
+
+
+@skip_if_no_connection
+def test_retrieve_single_model_with_followed_links(kg_client):
+    model = omcore.Model.from_uri(
+        "https://kg.ebrains.eu/api/instances/708024f7-9dd7-4c92-ae95-936db23c6d99",
+        kg_client,
+        follow_links={"abstraction_level": {}},
+    )
+    assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)  # followed
+    assert isinstance(model.model_scope, KGProxy)  # not followed
+
+
+@skip_if_no_connection
+def test_retrieve_single_model_from_alias(kg_client):
+    model = omcore.Model.from_alias("AdEx Models", kg_client)
+    assert model.uuid == "3ca9ae35-c9df-451f-ac76-4925bd2c7dc6"
+
+
+@skip_if_no_connection
+def test_retrieve_single_model_from_ambiguous_alias(kg_client):
+    model = omcore.Model.from_alias("hippo", kg_client)
+    # check that warning is emitted
+
+
+@skip_if_no_connection
+def test_retrieve_unknown_type(kg_client):
+    obj = KGObject.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
+    assert isinstance(obj, omcore.Model)
 
 
 @skip_if_no_connection
@@ -219,7 +262,7 @@ def test_count_models_with_filters(kg_client):
         kg_client,
         scope="released",
         space="model",
-        api="query",
+        api="auto",
         study_targets=ca1,
         model_scope=single_cell,
     )
@@ -227,7 +270,7 @@ def test_count_models_with_filters(kg_client):
         kg_client,
         scope="released",
         space="model",
-        api="query",
+        api="auto",
         study_targets=ca1,
         model_scope=single_cell,
     )
@@ -318,6 +361,63 @@ def test_KGQuery_count(kg_client):
     assert n_models_q > 1
 
 
+def test_to_jsonld():
+    person1 = omcore.Person(
+        id="0000",
+        given_name="Thorin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
+    )
+    expected1 = {
+        "@id": "0000",
+        "@type": ["https://openminds.ebrains.eu/core/Person"],
+        "https://openminds.ebrains.eu/vocab/affiliation": {
+            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
+            "https://openminds.ebrains.eu/vocab/memberOf": {
+                "@type": ["https://openminds.ebrains.eu/core/Organization"],
+                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
+            },
+        },
+        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
+        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+    }
+    assert person1.to_jsonld(follow_links=True) == expected1
+    assert person1.to_jsonld(follow_links=False) == expected1
+
+    person2 = omcore.Person(
+        id="0000",
+        given_name="Thorin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(id="1111", name="The Lonely Mountain")),
+    )
+    expected2a = {
+        "@id": "0000",
+        "@type": ["https://openminds.ebrains.eu/core/Person"],
+        "https://openminds.ebrains.eu/vocab/affiliation": {
+            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
+            "https://openminds.ebrains.eu/vocab/memberOf": {
+                "@id": "1111",
+                "@type": ["https://openminds.ebrains.eu/core/Organization"],
+                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
+            },
+        },
+        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
+        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+    }
+    expected2b = {
+        "@id": "0000",
+        "@type": ["https://openminds.ebrains.eu/core/Person"],
+        "https://openminds.ebrains.eu/vocab/affiliation": {
+            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
+            "https://openminds.ebrains.eu/vocab/memberOf": {"@id": "1111"},
+        },
+        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
+        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+    }
+    assert person2.to_jsonld(follow_links=True) == expected2a
+    assert person2.to_jsonld(follow_links=False) == expected2b
+
+
 def test_save_new_mock(mock_client):
     timestamp = datetime.now()
     new_model = omcore.Model(
@@ -344,6 +444,97 @@ def test_save_new_mock(mock_client):
     assert log.entries[0].cls == "Model"
     assert log.entries[0].space == "myspace"
     assert log.entries[0].type == "create"
+
+
+def test_save_existing_mock(mock_client):
+    timestamp = datetime.now()
+    new_model = omcore.Model(
+        id="0000",
+        name=f"Dummy new model created for testing at {timestamp}",
+        alias=f"DummyModel-{timestamp.isoformat()}",
+        abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
+        custodians=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        description="This model should never actually appear in the KG. If it does, please remove it.",
+        developers=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        digital_identifier=None,
+        versions=None,
+        homepage=IRI("http://example.com"),
+        how_to_cite=None,
+        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        study_targets=[
+            omterms.Species.by_name("Mus musculus", mock_client),
+            omterms.CellType.by_name("astrocyte", mock_client),
+            omterms.UBERONParcellation.by_name("amygdala", mock_client),
+        ],
+    )
+    new_model._space = "model"
+    log = ActivityLog()
+    new_model.save(mock_client, recursive=False, activity_log=log)
+    assert len(log.entries) == 1
+    assert log.entries[0].cls == "Model"
+    assert log.entries[0].space == "model"
+    assert log.entries[0].type == "update"
+
+
+def test_save_existing_mock_no_updates_allowed(mock_client):
+    timestamp = datetime.now()
+    new_model = omcore.Model(
+        id="0000",
+        name=f"Dummy new model created for testing at {timestamp}",
+        alias=f"DummyModel-{timestamp.isoformat()}",
+        abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
+        custodians=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        description="This model should never actually appear in the KG. If it does, please remove it.",
+        developers=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        digital_identifier=None,
+        versions=None,
+        homepage=IRI("http://example.com"),
+        how_to_cite=None,
+        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        study_targets=[
+            omterms.Species.by_name("Mus musculus", mock_client),
+            omterms.CellType.by_name("astrocyte", mock_client),
+            omterms.UBERONParcellation.by_name("amygdala", mock_client),
+        ],
+    )
+    new_model._space = "model"
+
+    new_model.allow_update = False
+
+    log = ActivityLog()
+    new_model.save(mock_client, recursive=False, activity_log=log)
+    assert len(log.entries) == 1
+    assert log.entries[0].type == "no-op"
+
+
+def test_save_replace_existing_mock(mock_client):
+    timestamp = datetime.now()
+    new_model = omcore.Model(
+        id="0000",
+        name=f"Dummy new model created for testing at {timestamp}",
+        alias=f"DummyModel-{timestamp.isoformat()}",
+        abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
+        custodians=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        description="This model should never actually appear in the KG. If it does, please remove it.",
+        developers=omcore.Person(given_name="Bilbo", family_name="Baggins", id="fake_uuid", space="common"),
+        digital_identifier=None,
+        versions=None,
+        homepage=IRI("http://example.com"),
+        how_to_cite=None,
+        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        study_targets=[
+            omterms.Species.by_name("Mus musculus", mock_client),
+            omterms.CellType.by_name("astrocyte", mock_client),
+            omterms.UBERONParcellation.by_name("amygdala", mock_client),
+        ],
+    )
+    new_model._space = "model"
+    log = ActivityLog()
+    new_model.save(mock_client, recursive=False, replace=True, activity_log=log)
+    assert len(log.entries) == 1
+    assert log.entries[0].cls == "Model"
+    assert log.entries[0].space == "model"
+    assert log.entries[0].type == "replacement"
 
 
 def test_save_new_recursive_mock(mock_client):
@@ -381,3 +572,114 @@ def test_normalize_filter():
         "digital_identifier": {"identifier": "https://doi.org/some-doi"},
     }
     assert result == expected
+
+
+def test_class_docstring():
+    assert "email address" in omcore.Person.__doc__
+
+
+def test_field_names():
+    assert omcore.Person.field_names == [
+        "affiliations",
+        "alternate_names",
+        "associated_accounts",
+        "contact_information",
+        "digital_identifiers",
+        "family_name",
+        "given_name",
+    ]
+    assert omcore.Person.required_field_names == ["given_name"]
+
+
+def test_diff():
+    person1 = omcore.Person(
+        id="0000",
+        given_name="Thorin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
+    )
+    person2 = omcore.Person(
+        given_name="Thorin son of Thráin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="Erebor")),
+    )
+    expected = {
+        "id": ("0000", None),
+        "fields": {
+            "given_name": ("Thorin", "Thorin son of Thráin"),
+            "affiliations": (
+                omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
+                omcore.Affiliation(member_of=omcore.Organization(name="Erebor")),
+            ),
+        },
+    }
+    assert person1.diff(person2) == expected
+
+    assert person1.affiliations.member_of.diff(person2) == {"type": (omcore.Organization, omcore.Person)}
+
+
+def test_show():
+    # todo: capture stdout
+    person1 = omcore.Person(
+        id="0000",
+        given_name="Thorin",
+        family_name="Oakenshield",
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
+    )
+    person1.show()
+    person1.show(max_width=120)
+
+
+def test_file_download():
+    file_obj = omcore.File(
+        name="installation.rst",
+        iri=IRI("https://raw.githubusercontent.com/HumanBrainProject/fairgraph/master/doc/installation.rst"),
+        hash=omcore.Hash(algorithm="SHA1", digest="7c97abf3c007bfa58d58e09c0e497ceffd93bd11"),
+    )
+    local_dir = tempfile.mkdtemp()
+
+    # test download to a directory
+    local_filename = file_obj.download(local_dir, client=None, accept_terms_of_use=True)
+    assert str(local_filename) == os.path.join(local_dir, file_obj.name)
+    assert sha1sum(local_filename) == file_obj.hash.digest
+
+    # test download to a specific filename
+    local_filename_expected = os.path.join(local_dir, "installation1.rst")
+    local_filename = file_obj.download(local_filename_expected, client=None, accept_terms_of_use=True)
+    assert str(local_filename) == local_filename_expected
+    assert sha1sum(local_filename) == file_obj.hash.digest
+
+    shutil.rmtree(local_dir)
+
+
+def test_file_from_local_file():
+    file_obj = omcore.File.from_local_file("test/utils.py")
+    assert file_obj.name == "test/utils.py"
+    assert file_obj.storage_size.value == float(os.stat("test/utils.py").st_size)
+    assert file_obj.format.name == "text/x-python"
+    assert file_obj.hash.digest == sha1sum("test/utils.py")
+
+
+def test_dataset_version_download(mocker):
+    mock_urlretrieve = mocker.patch(
+        "fairgraph.openminds.core.products.dataset_version.urlretrieve",
+        lambda url, local_filename: (local_filename, None),
+    )
+    fake_dsv = omcore.DatasetVersion(
+        repository=omcore.FileRepository(iri=IRI("https://data-proxy.ebrains.eu/api/v1/public/foo/bar"))
+    )
+    local_dir = tempfile.mkdtemp()
+    local_filename, repository_url = fake_dsv.download(local_dir, client=None, accept_terms_of_use=True)
+    os.rmdir(local_dir)
+    assert repository_url == "https://data-proxy.ebrains.eu/api/v1/public/foo/bar"
+    assert str(local_filename) == os.path.join(local_dir, "bar.zip")
+
+
+@skip_if_no_connection
+def test_person_me(kg_client):
+    person = omcore.Person.me(kg_client, allow_multiple=False)
+    # the following assumes that anyone running these tests is represented in the KG
+    assert isinstance(person, omcore.Person)
+
+
+# def test_children():

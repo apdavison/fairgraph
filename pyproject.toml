@@ -28,6 +28,7 @@ dependencies=[
 dev = [
     "pytest",
     "pytest-cov",
+    "pytest-mock",
     "coverage",
     "build",
     "setuptools",

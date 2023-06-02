@@ -6,7 +6,9 @@ Tests of fairgraph.base module.
 from datetime import date, datetime
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgobject import KGObject
+from fairgraph.kgproxy import KGProxy
 from fairgraph.fields import Field
+from fairgraph.caching import generate_cache_key
 import pytest
 
 
@@ -557,3 +559,54 @@ class TestKGObject(object):
 
     def test_exists__it_does_not_exist(self):
         pass
+
+    def test_repr(self):
+        orig_object = self._construct_object_required_fields()
+        assert repr(orig_object) == (
+            "MockKGObject(a_required_string='apple', a_required_list_of_strings=['banana', 'pear'], "
+            "a_required_datetime=datetime.datetime(1789, 7, 14, 0, 0), "
+            "a_required_list_of_datetimes=[datetime.datetime(1900, 1, 1, 0, 0), "
+            "datetime.datetime(2000, 1, 1, 0, 0)], a_required_linked_object=MockKGObject2(a=1234, "
+            "space=None, id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234), "
+            "a_required_list_of_linked_objects=[MockKGObject2(a=2345, space=None, "
+            "id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002345), "
+            "MockKGObject2(a=3456, space=None, id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456)], "
+            "a_required_embedded_object=MockEmbeddedObject(a_number=41.0), "
+            "a_required_list_of_embedded_objects=[MockEmbeddedObject(a_number=42.0), "
+            "MockEmbeddedObject(a_number=43.0)], space=None, "
+            "id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002)"
+        )
+
+
+def test_generate_cache_key():
+    with pytest.raises(TypeError):
+        generate_cache_key(None)
+
+
+class TestKGProxy:
+    def test_initialization_with_class(self):
+        uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
+        proxy = KGProxy(MockKGObject, uri)
+        assert proxy.cls is MockKGObject
+        assert proxy.id == uri
+
+    def test_initialization_with_string(self):
+        uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
+        proxy = KGProxy("test_base.MockKGObject", uri)
+        assert proxy.cls is MockKGObject
+        assert proxy.id == uri
+
+    def test_properties(self):
+        uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
+        proxy = KGProxy(MockKGObject, uri)
+        assert proxy.type == ["https://openminds.ebrains.eu/mock/MockKGObject"]
+        assert proxy.classes == [MockKGObject]
+        assert proxy.uuid == "00000000-0000-0000-0000-000000001234"
+
+    def test_repr(self):
+        uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
+        proxy = KGProxy(MockKGObject, uri)
+        assert repr(proxy) == (
+            "KGProxy([<class 'test.test_base.MockKGObject'>], "
+            "'https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234')"
+        )

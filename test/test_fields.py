@@ -119,3 +119,47 @@ def test_serialize_no_multiple():
     result = field_no_multiple.serialize(test_info, follow_links=False)
     expected = [{"@id": test_info[0].id}, {"@id": test_info[1].id}]
     assert result == expected
+
+
+def test_deserialize():
+    date_field = Field("the_date", date, "TheDate", error_handling=ErrorHandling.error)
+    with pytest.raises(ValueError):
+        date_field.deserialize(42, client=None)
+
+    integer_field = Field("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
+    assert integer_field.deserialize(42, client=None) == 42
+    assert integer_field.deserialize(42.0, client=None) == 42
+    assert integer_field.deserialize("42", client=None) == 42
+    assert integer_field.deserialize([42, 42, 42], client=None) == [42, 42, 42]
+    assert integer_field.deserialize(["42", 42, "42"], client=None) == [42, 42, 42]
+
+    object_field = Field("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
+    obj_data = {
+        "@id": "https://kg.ebrains.eu/api/instances/the_id",
+        "@type": SomeOrganization.type_,
+        "https://openminds.ebrains.eu/vocab/fullName": "The University",
+        "https://openminds.ebrains.eu/vocab/shortName": "TU",
+    }
+    expected_obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
+    assert object_field.deserialize(obj_data, client=None) == expected_obj
+
+    assert object_field.deserialize(None, client=None) is None
+
+    assert object_field.deserialize([None, obj_data, None, obj_data], client=None) == [expected_obj, expected_obj]
+
+    assert object_field.deserialize({"@list": [None, obj_data, None, obj_data]}, client=None) == [
+        expected_obj,
+        expected_obj,
+    ]
+
+
+def test_get_filter_value():
+    date_field = Field("the_date", date, "TheDate", error_handling=ErrorHandling.error)
+    assert date_field.get_filter_value(date(2023, 6, 2)) == "2023-06-02"
+
+    integer_field = Field("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
+    assert integer_field.get_filter_value(42) == 42
+
+    object_field = Field("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
+    obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
+    assert object_field.get_filter_value(obj) == "https://kg.ebrains.eu/api/instances/the_id"

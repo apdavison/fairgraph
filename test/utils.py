@@ -28,8 +28,10 @@ def kg_client():
 
 
 class MockKGResponse:
-    def __init__(self, data):
+    def __init__(self, data, error=None):
         self.data = data
+        self.error = error
+        self.total = len(data) if data else 0
 
 
 class MockKGClient:
@@ -40,6 +42,18 @@ class MockKGClient:
 
     def retrieve_query(self, query_label):
         return {"@id": f"mock-query-{query_label}"}
+
+    def instance_from_full_uri(
+        self,
+        uri: str,
+        use_cache: bool = True,
+        scope: str = "released",
+        require_full_data: bool = True,
+    ):
+        if uri == "0000":
+            return {"@id": "0000", "@type": ["https://openminds.ebrains.eu/core/Model"]}
+        else:
+            raise NotImplementedError
 
     def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
         for property in query["structure"]:
@@ -118,6 +132,14 @@ class MockKGClient:
         instance["https://core.kg.ebrains.eu/vocab/meta/space"] = space
         self.instances[instance["@id"]] = instance
         return instance
+
+    def update_instance(self, instance_id, data):
+        assert instance_id is not None
+        assert data is not None
+
+    def replace_instance(self, instance_id, data):
+        assert instance_id is not None
+        assert data is not None
 
 
 @pytest.fixture
