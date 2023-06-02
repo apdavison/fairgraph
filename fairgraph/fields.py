@@ -68,7 +68,6 @@ def build_kg_object(
     """
     if data is None:
         return None
-
     if not isinstance(data, list):
         if not isinstance(data, dict):
             raise ValueError("data must be a list or dict")
@@ -131,7 +130,6 @@ def build_kg_object(
 
         if obj is not None:
             objects.append(obj)
-
     if len(objects) == 1:
         return objects[0]
     else:
@@ -470,6 +468,8 @@ class Field(object):
         for item in as_list(value):
             if isinstance(item, IRI):
                 filter_item = item.value
+            elif isinstance(item, (date, datetime)):
+                filter_item = item.isoformat()
             elif hasattr(item, "id"):
                 filter_item = item.id
             elif isinstance(item, UUID):

@@ -364,7 +364,7 @@ class KGClient(object):
                 instance's persistent identifier. If not specified, the KG will generate an ID.
         """
         if "'@id': None" in str(data):
-            raise Exception("payload contains undefined ids")
+            raise ValueError("payload contains undefined ids")
         if instance_id:
             response = self._kg_client.instances.create_new_with_id(
                 space=space,

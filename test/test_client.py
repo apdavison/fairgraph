@@ -174,11 +174,16 @@ def test_create_new_instance(kg_client, mocker):
     response = kg_client.create_new_instance({"a": 1, "b": 2}, instance_id="some-id", space="not-a-real-space")
     assert response == {"@id": "some-id", "a": 1, "b": 2}
 
+
 def test_replace_instance(kg_client, mocker):
-    mocker.patch.object(kg_client._kg_client.instances, "contribute_to_full_replacement",
-                        lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}))
+    mocker.patch.object(
+        kg_client._kg_client.instances,
+        "contribute_to_full_replacement",
+        lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}),
+    )
     response = kg_client.replace_instance("some-id", {"a": 1, "b": 2})
     assert response == {"@id": "some-id", "a": 1, "b": 2}
+
 
 def test_delete_instance(kg_client, mocker):
     mocker.patch.object(kg_client._kg_client.instances, "delete")

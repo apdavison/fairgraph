@@ -73,10 +73,10 @@ class Registry(type):
         register_class(cls)
         return cls
 
-    def _get_doc(self) -> str:
+    def _get_doc(cls) -> str:
         """Dynamically generate docstrings"""
         field_docs = []
-        if hasattr(self, "fields"):
+        if hasattr(cls, "fields"):
 
             def gen_path(type_):
                 if type_.__module__ == "builtins":
@@ -84,10 +84,10 @@ class Registry(type):
                 else:
                     return "~{}.{}".format(type_.__module__, type_.__name__)
 
-            for field in self.fields:
+            for field in cls.fields:
                 doc = "{} : {}\n    {}".format(field.name, ", ".join(gen_path(t) for t in field.types), field.doc)
                 field_docs.append(doc)
-        return docstring_template.format(base=self._base_docstring, args="\n".join(field_docs))
+        return docstring_template.format(base=cls._base_docstring, args="\n".join(field_docs))
 
     __doc__ = property(_get_doc)
 
