@@ -260,7 +260,7 @@ class Field(object):
             elif isinstance(value, IRI):
                 return value.to_jsonld()
             elif isinstance(value, KGObject):
-                if follow_links:
+                if follow_links or value.id is None:
                     return value.to_jsonld(follow_links=follow_links)
                 else:
                     return {"@id": value.id}
