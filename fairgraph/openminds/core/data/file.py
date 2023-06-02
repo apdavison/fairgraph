@@ -9,7 +9,6 @@ from fairgraph import KGObject, IRI
 from fairgraph.fields import Field
 
 import os
-import hashlib
 import mimetypes
 from pathlib import Path
 from urllib.request import urlretrieve
@@ -18,21 +17,9 @@ from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
 from ...controlledterms.unit_of_measurement import UnitOfMeasurement
-from fairgraph.utility import accepted_terms_of_use
+from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()
-
-
-def sha1sum(filename):
-    BUFFER_SIZE = 128 * 1024
-    h = hashlib.sha1()
-    with open(filename, "rb") as fp:
-        while True:
-            data = fp.read(BUFFER_SIZE)
-            if not data:
-                break
-            h.update(data)
-    return h.hexdigest()
 
 
 class File(KGObject):

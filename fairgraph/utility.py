@@ -18,6 +18,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import hashlib
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
 
@@ -257,6 +258,18 @@ def expand_filter(filter_dict: Dict[str, Any]):
             local_path = local_path[part]
         local_path[parts[-1]] = value
     return expanded
+
+
+def sha1sum(filename):
+    BUFFER_SIZE = 128 * 1024
+    h = hashlib.sha1()
+    with open(filename, "rb") as fp:
+        while True:
+            data = fp.read(BUFFER_SIZE)
+            if not data:
+                break
+            h.update(data)
+    return h.hexdigest()
 
 
 class LogEntry:
