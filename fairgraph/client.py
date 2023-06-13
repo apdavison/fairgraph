@@ -348,7 +348,8 @@ class KGClient(object):
             else:
                 data = _get_instance(scope)
 
-            self.cache[uri] = data
+            if data:
+                self.cache[uri] = data
         return data
 
     def create_new_instance(
