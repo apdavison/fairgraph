@@ -158,7 +158,6 @@ class KGClient(object):
         self,
         query: Dict[str, Any],
         filter: Optional[Dict[str, str]] = None,
-        space: Optional[str] = None,
         instance_id: Optional[str] = None,
         from_index: int = 0,
         size: int = 100,
@@ -173,7 +172,6 @@ class KGClient(object):
             query (Dict[str, Any]): A dictionary containing the query definition in JSON-LD.
             filter (Dict[str, str]): A dictionary of filters to apply to the query. Each key represents the property name to filter on,
                 and the value represents the value(s) to filter on.
-            space (Optional[str]): The space for which to execute the query. If not specified, the query is executed over all accessible spaces.
             instance_id (Optional[URI]): The URI of a specific KG instance to retrieve.
             from_index (int): The index of the first result to return (0-based).
             size (int): The maximum number of results to return.
@@ -186,6 +184,7 @@ class KGClient(object):
             along with metadata about the query results such as total number of instances, and pagination information.
         """
         query_id = query.get("@id", None)
+
         if use_stored_query:
 
             def _query(scope, from_index, size):
@@ -195,9 +194,8 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    # restrict_to_spaces=[space] if space else None,
                 )
-                error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)
 
         else:
@@ -209,9 +207,8 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    # restrict_to_spaces=[space] if space else None,
                 )
-                error_context = f"_query(scope={scope} space={space} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)
 
         if scope == "any":

@@ -99,6 +99,16 @@ def test_retrieve_released_models_filter_custodian(kg_client):
 
 
 @skip_if_no_connection
+def test_retrieve_models_filter_by_space(kg_client):
+    all_models = omcore.Model.list(kg_client, scope="in progress", space=None, size=10000)
+    n_models_in_model_space_core = omcore.Model.count(kg_client, scope="in progress", space="model", api="core")
+    n_models_in_model_space_query = omcore.Model.count(kg_client, scope="in progress", space="model", api="query")
+    assert n_models_in_model_space_core == n_models_in_model_space_query
+    assert len(all_models) > n_models_in_model_space_core
+    assert len([m for m in all_models if m.space == "model"]) == n_models_in_model_space_query
+
+
+@skip_if_no_connection
 def test_retrieve_single_model_with_followed_links(kg_client):
     model = omcore.Model.from_uri(
         "https://kg.ebrains.eu/api/instances/708024f7-9dd7-4c92-ae95-936db23c6d99",

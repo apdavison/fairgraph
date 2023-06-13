@@ -347,7 +347,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             query = cls.generate_query(space=space, client=client, filters=filters, follow_links=follow_links)
             instances = client.query(
                 query=query,
-                space=space,
                 from_index=from_index,
                 size=size,
                 scope=scope,
@@ -407,7 +406,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
         if api == "query":
             query = cls.generate_query(space=space, client=client, filters=filters)
-            response = client.query(query=query, space=space, from_index=0, size=1, scope=scope)
+            response = client.query(query=query, from_index=0, size=1, scope=scope)
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")

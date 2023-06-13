@@ -114,7 +114,6 @@ class KGQuery(Resolvable, SupportsQuerying):
             query = cls.generate_query(client=client, filters=self.filter, space=space, follow_links=follow_links)
             instances = client.query(
                 query=query,
-                space=space,
                 size=size,
                 from_index=from_index,
                 scope=scope,

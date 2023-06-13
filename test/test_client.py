@@ -1,7 +1,9 @@
 import os
+import json
 import pytest
 
 from kg_core.response import Error as KGError
+from fairgraph.queries import Query, QueryProperty, Filter
 from fairgraph.errors import AuthenticationError, AuthorizationError, ResourceExistsError
 from .utils import kg_client, skip_if_no_connection, MockKGResponse
 
@@ -38,23 +40,51 @@ def test_spaces_names_only(kg_client):
     assert all(isinstance(space, str) for space in result)
 
 
-# TODO: update to use query, not query_id
-# @skip_if_no_connection
-# def test_query_filter_by_space(kg_client):
-#     results = kg_client.query(
-#         filter=None,
-#         query_id="https://kg.ebrains.eu/api/instances/16b28f98-a8e0-488a-a130-59d53f7c9d00",
-#         instance_id=None,
-#         from_index=0,
-#         size=1000,
-#         scope="in progress",
-#         id_key="uri",
-#         space="model"
-#     )
-#     spaces = set(result["project_id"] for result in results.data)
-#     if len(spaces) > 0:  # not a great test, needs to be improved
-#         assert len(spaces) == 1
-#         assert "model" == list(spaces)[0]
+@skip_if_no_connection
+def test_query_filter_by_space(kg_client):
+    query = Query(
+        node_type="https://openminds.ebrains.eu/core/Model",
+        label="fg-testing-model",
+        properties=[
+            QueryProperty("@type"),
+            QueryProperty(
+                "https://core.kg.ebrains.eu/vocab/meta/space",
+                name="project_id",
+                filter=Filter("EQUALS", value="model"),
+            ),
+            QueryProperty(
+                "https://openminds.ebrains.eu/vocab/fullName",
+                name="vocab:fullName",
+                filter=Filter("CONTAINS", parameter="name"),
+                sorted=True,
+                required=True,
+            ),
+            QueryProperty(
+                "https://openminds.ebrains.eu/vocab/custodian",
+                name="vocab:custodian",
+                type_filter="https://openminds.ebrains.eu/core/Person",
+                properties=[
+                    QueryProperty(
+                        "https://openminds.ebrains.eu/vocab/familyName",
+                        name="vocab:familyName",
+                    ),
+                ],
+            )
+        ],
+    )
+    results = kg_client.query(
+        filter=None,
+        query=query.serialize(),
+        instance_id=None,
+        from_index=0,
+        size=1000,
+        scope="in progress",
+        id_key="uri"
+    )
+    spaces = set(result["project_id"] for result in results.data)
+    if len(spaces) > 0:
+        assert len(spaces) == 1
+        assert "model" == list(spaces)[0]
 
 
 @skip_if_no_connection
