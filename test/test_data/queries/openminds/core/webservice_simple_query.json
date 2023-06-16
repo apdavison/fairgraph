@@ -97,6 +97,70 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
       "propertyName": "vocab:howToCite"
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "reverse": true
+      },
+      "propertyName": "vocab:about",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "reverse": true
+      },
+      "propertyName": "vocab:about",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/hasPart",
+        "reverse": true
+      },
+      "propertyName": "vocab:hasPart",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/service",
+        "reverse": true
+      },
+      "propertyName": "vocab:service",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

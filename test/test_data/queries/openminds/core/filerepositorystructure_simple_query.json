@@ -68,6 +68,22 @@
           "propertyName": "vocab:regex"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/structurePattern",
+        "reverse": true
+      },
+      "propertyName": "vocab:structurePattern",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

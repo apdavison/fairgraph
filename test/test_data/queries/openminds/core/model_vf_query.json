@@ -1,0 +1,488 @@
+{
+  "http://schema.org/identifier": [
+    "https://kg.ebrains.eu/api/instances/16b28f98-a8e0-488a-a130-59d53f7c9d00"
+  ],
+  "https://core.kg.ebrains.eu/vocab/query/meta": {
+    "https://core.kg.ebrains.eu/vocab/query/name": "VF_ScientificModel",
+    "https://core.kg.ebrains.eu/vocab/query/responseVocab": "https://schema.hbp.eu/myQuery/",
+    "https://core.kg.ebrains.eu/vocab/query/type": "https://openminds.ebrains.eu/core/Model"
+  },
+  "@type": ["https://core.kg.ebrains.eu/vocab/meta/type/Query"],
+  "https://core.kg.ebrains.eu/vocab/query/structure": [
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/uri"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "@id"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "id"
+      }
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/name"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/fullName"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "name"
+      }
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/alias"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/shortName"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "EQUALS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "alias"
+      }
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/author"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/developer",
+        "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/Person"
+        }
+      },
+      "https://core.kg.ebrains.eu/vocab/query/required": true,
+      "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+      "https://core.kg.ebrains.eu/vocab/query/structure": [
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/given_name"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/givenName"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/family_name"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/familyName"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/filter": {
+            "https://core.kg.ebrains.eu/vocab/query/op": "EQUALS",
+            "https://core.kg.ebrains.eu/vocab/query/parameter": "author"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/orcid"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/identifier"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/owner"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/custodian",
+        "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+          "@id": "https://openminds.ebrains.eu/core/Person"
+        }
+      },
+      "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+      "https://core.kg.ebrains.eu/vocab/query/structure": [
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/given_name"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/givenName"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/family_name"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/familyName"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/filter": {
+            "https://core.kg.ebrains.eu/vocab/query/op": "EQUALS",
+            "https://core.kg.ebrains.eu/vocab/query/parameter": "owner"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/orcid"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/identifier"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/project_id"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://core.kg.ebrains.eu/vocab/meta/space"
+      }
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/organization"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "EQUALS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "organization"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/custodian",
+          "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+            "@id": "https://openminds.ebrains.eu/core/Organization"
+          }
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/fullName"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/cell_type"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "cell_type"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/studyTarget",
+          "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+            "@id": "https://openminds.ebrains.eu/controlledTerms/CellType"
+          }
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/model_scope"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "model_scope"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/scope"
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/abstraction_level"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "abstraction_level"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/abstractionLevel"
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/brain_region"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "brain_region"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/studyTarget",
+          "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+            "@id": "https://openminds.ebrains.eu/controlledTerms/UBERONParcellation"
+          }
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/species"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+      "https://core.kg.ebrains.eu/vocab/query/filter": {
+        "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "species"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/studyTarget",
+          "https://core.kg.ebrains.eu/vocab/query/typeFilter": {
+            "@id": "https://openminds.ebrains.eu/controlledTerms/Species"
+          }
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/description"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/description"
+      }
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/instances"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": {
+        "@id": "https://openminds.ebrains.eu/vocab/hasVersion"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/required": true,
+      "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+      "https://core.kg.ebrains.eu/vocab/query/structure": [
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/uri"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "@id"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/version"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/versionIdentifier"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/code_format"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/filter": {
+            "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
+            "https://core.kg.ebrains.eu/vocab/query/parameter": "format"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/format"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/name"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/source"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/repository"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/IRI"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/license"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/license"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/fullName"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/repository"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/repository"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/hash"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/digest"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/timestamp"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/releaseDate"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/model_id"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/hasVersion",
+              "https://core.kg.ebrains.eu/vocab/query/reverse": true
+            },
+            {
+              "@id": "@id"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/alternatives"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/ensureOrder": true,
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/isAlternativeVersionOf"
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/homepage"
+            }
+          ],
+          "https://core.kg.ebrains.eu/vocab/query/structure": {
+            "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+              "@id": "https://schema.hbp.eu/myQuery/IRI"
+            },
+            "https://core.kg.ebrains.eu/vocab/query/path": {
+              "@id": "https://openminds.ebrains.eu/vocab/IRI"
+            }
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/description"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": {
+            "@id": "https://openminds.ebrains.eu/vocab/versionInnovation"
+          }
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/inputData"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/inputData",
+              "https://core.kg.ebrains.eu/vocab/query/typeFilter": [
+                {
+                  "@id": "https://openminds.ebrains.eu/core/File"
+                },
+                {
+                  "@id": "https://openminds.ebrains.eu/core/WebResource"
+                }
+              ]
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/IRI"
+            }
+          ]
+        },
+        {
+          "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+            "@id": "https://schema.hbp.eu/myQuery/inputData"
+          },
+          "https://core.kg.ebrains.eu/vocab/query/path": [
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/inputData",
+              "https://core.kg.ebrains.eu/vocab/query/typeFilter": [
+                {
+                  "@id": "https://openminds.ebrains.eu/core/WebResource"
+                },
+                {
+                  "@id": "https://openminds.ebrains.eu/core/File"
+                }
+              ]
+            },
+            {
+              "@id": "https://openminds.ebrains.eu/vocab/IRI"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "https://core.kg.ebrains.eu/vocab/query/propertyName": {
+        "@id": "https://schema.hbp.eu/myQuery/format"
+      },
+      "https://core.kg.ebrains.eu/vocab/query/path": [
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/hasVersion"
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/format"
+        },
+        {
+          "@id": "https://openminds.ebrains.eu/vocab/name"
+        }
+      ]
+    }
+  ],
+  "https://core.kg.ebrains.eu/vocab/meta/space": "model",
+  "@id": "https://kg.ebrains.eu/api/instances/16b28f98-a8e0-488a-a130-59d53f7c9d00"
+}

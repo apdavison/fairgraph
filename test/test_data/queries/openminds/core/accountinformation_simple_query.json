@@ -53,6 +53,22 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/userName",
       "propertyName": "vocab:userName"
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/associatedAccount",
+        "reverse": true
+      },
+      "propertyName": "vocab:associatedAccount",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

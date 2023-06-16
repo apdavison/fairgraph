@@ -41,6 +41,22 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/email",
       "propertyName": "vocab:email"
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/contactInformation",
+        "reverse": true
+      },
+      "propertyName": "vocab:contactInformation",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }
