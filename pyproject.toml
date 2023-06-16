@@ -1,7 +1,7 @@
 [project]
 name = "fairgraph"
 version = "0.10.1.dev"
-description = "Python API for the Human Brain Project Knowledge Graph"
+description = "Python API for the EBRAINS Knowledge Graph"
 readme = "README.md"
 authors = [
     { name="Andrew P. Davison", email="andrew.davison@cnrs.fr" }
