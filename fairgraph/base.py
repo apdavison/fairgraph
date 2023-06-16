@@ -122,6 +122,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         normalized: bool = True,
         follow_links: bool = False,
         include_empty_fields: bool = False,
+        include_reverse_fields: bool = False
     ):
         """
         Return a JSON-LD representation of this metadata object
@@ -139,7 +140,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             if hasattr(self, "id") and self.id:
                 data["@id"] = self.id
             for field in self.fields:
-                if field.intrinsic:
+                if field.intrinsic or include_reverse_fields:
                     expanded_path = field.expanded_path
                     value = getattr(self, field.name)
                     if include_empty_fields or field.required or value is not None:
