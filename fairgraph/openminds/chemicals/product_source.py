@@ -45,6 +45,14 @@ class ProductSource(KGObject):
             "vocab:purity",
             doc="no description available",
         ),
+        Field(
+            "is_source_of",
+            ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance"],
+            "^vocab:productSource",
+            reverse="product_sources",
+            multiple=True,
+            doc="reverse of 'productSource'",
+        ),
     ]
     existence_query_fields = ("product_name", "provider")
 
@@ -55,6 +63,7 @@ class ProductSource(KGObject):
         product_name=None,
         provider=None,
         purity=None,
+        is_source_of=None,
         id=None,
         data=None,
         space=None,
@@ -70,4 +79,5 @@ class ProductSource(KGObject):
             product_name=product_name,
             provider=provider,
             purity=purity,
+            is_source_of=is_source_of,
         )

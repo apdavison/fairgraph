@@ -1,14 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - landmark based
-         - 'Landmark based' identification makes use of distinct anatomical structures as a point of orientation in locating other structures in the body.
-       * - stereotactic
-         - 'Stereotactic' identification makes use of three-dimensional coordinate system to loacte specific targets inside the body. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Stereotactic_surgery)]
-
 """
 
 # this file was auto-generated
@@ -19,18 +10,7 @@ from fairgraph.fields import Field
 
 
 class AnatomicalIdentificationType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - landmark based
-         - 'Landmark based' identification makes use of distinct anatomical structures as a point of orientation in locating other structures in the body.
-       * - stereotactic
-         - 'Stereotactic' identification makes use of three-dimensional coordinate system to loacte specific targets inside the body. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Stereotactic_surgery)]
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AnatomicalIdentificationType"]
@@ -86,6 +66,37 @@ class AnatomicalIdentificationType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_type_of",
+            "openminds.sands.AnatomicalTargetPosition",
+            "^vocab:targetIdentificationType",
+            reverse="target_identification_types",
+            multiple=True,
+            doc="reverse of 'targetIdentificationType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -98,6 +109,8 @@ class AnatomicalIdentificationType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -115,4 +128,6 @@ class AnatomicalIdentificationType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_type_of=is_type_of,
         )

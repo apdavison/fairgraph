@@ -72,6 +72,24 @@ class Protocol(KGObject):
             required=True,
             doc="Method of accomplishing a desired aim.",
         ),
+        Field(
+            "used_in",
+            [
+                "openminds.core.DatasetVersion",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:protocol",
+            reverse="protocols",
+            multiple=True,
+            doc="reverse of 'protocol'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -82,6 +100,7 @@ class Protocol(KGObject):
         description=None,
         stimulus_types=None,
         techniques=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -97,4 +116,5 @@ class Protocol(KGObject):
             description=description,
             stimulus_types=stimulus_types,
             techniques=techniques,
+            used_in=used_in,
         )

@@ -31,10 +31,28 @@ class ContentTypePattern(KGObject):
             doc="no description available",
         ),
         Field("regex", str, "vocab:regex", required=True, doc="no description available"),
+        Field(
+            "identifies_content_of",
+            "openminds.core.FileRepository",
+            "^vocab:contentTypePattern",
+            reverse="content_type_patterns",
+            multiple=True,
+            doc="reverse of 'contentTypePattern'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(self, lookup_label=None, content_type=None, regex=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        lookup_label=None,
+        content_type=None,
+        regex=None,
+        identifies_content_of=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
             id=id,
             space=space,
@@ -43,4 +61,5 @@ class ContentTypePattern(KGObject):
             lookup_label=lookup_label,
             content_type=content_type,
             regex=regex,
+            identifies_content_of=identifies_content_of,
         )

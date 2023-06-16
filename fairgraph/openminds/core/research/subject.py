@@ -59,6 +59,30 @@ class Subject(KGObject):
             required=True,
             doc="Reference to a point in time at which the subject was studied in a particular mode or condition.",
         ),
+        Field(
+            "used_in",
+            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
+            "^vocab:usedSpecimen",
+            reverse="used_specimens",
+            multiple=True,
+            doc="reverse of 'usedSpecimen'",
+        ),
+        Field(
+            "has_study_results_in",
+            "openminds.core.DatasetVersion",
+            "^vocab:studiedSpecimen",
+            reverse="studied_specimens",
+            multiple=True,
+            doc="reverse of 'studiedSpecimen'",
+        ),
+        Field(
+            "is_used_to_group",
+            "openminds.core.FileBundle",
+            "^vocab:groupedBy",
+            reverse="grouped_by",
+            multiple=True,
+            doc="reverse of 'groupedBy'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -70,6 +94,9 @@ class Subject(KGObject):
         is_part_of=None,
         species=None,
         studied_states=None,
+        used_in=None,
+        has_study_results_in=None,
+        is_used_to_group=None,
         id=None,
         data=None,
         space=None,
@@ -86,4 +113,7 @@ class Subject(KGObject):
             is_part_of=is_part_of,
             species=species,
             studied_states=studied_states,
+            used_in=used_in,
+            has_study_results_in=has_study_results_in,
+            is_used_to_group=is_used_to_group,
         )

@@ -33,10 +33,41 @@ class Configuration(KGObject):
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
+        Field(
+            "is_configuration_of",
+            [
+                "openminds.computation.Environment",
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowExecution",
+            ],
+            "^vocab:configuration",
+            reverse="configuration",
+            multiple=True,
+            doc="reverse of 'configuration'",
+        ),
+        Field(
+            "is_location_of",
+            "openminds.core.CustomPropertySet",
+            "^vocab:dataLocation",
+            reverse="data_locations",
+            multiple=True,
+            doc="reverse of 'dataLocation'",
+        ),
     ]
     existence_query_fields = ("configuration",)
 
-    def __init__(self, lookup_label=None, configuration=None, format=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        lookup_label=None,
+        configuration=None,
+        format=None,
+        is_configuration_of=None,
+        is_location_of=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
             id=id,
             space=space,
@@ -45,4 +76,6 @@ class Configuration(KGObject):
             lookup_label=lookup_label,
             configuration=configuration,
             format=format,
+            is_configuration_of=is_configuration_of,
+            is_location_of=is_location_of,
         )

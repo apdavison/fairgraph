@@ -57,6 +57,35 @@ class ChemicalMixture(KGObject):
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
+        Field(
+            "composes",
+            ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
+            ["^vocab:insulatorMaterial", "^vocab:material"],
+            reverse=["insulator_materials", "materials"],
+            multiple=True,
+            doc="reverse of insulatorMaterial, material",
+        ),
+        Field(
+            "used_in",
+            [
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.PipetteUsage",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+            ],
+            ["^vocab:tissueBathSolution", "^vocab:pipetteSolution", "^vocab:cultureMedium"],
+            reverse=["tissue_bath_solutions", "pipette_solutions", "culture_mediums"],
+            multiple=True,
+            doc="reverse of tissueBathSolution, pipetteSolution, cultureMedium",
+        ),
+        Field(
+            "used_in_amounts",
+            "openminds.chemicals.AmountOfChemical",
+            "^vocab:chemicalProduct",
+            reverse="chemical_products",
+            multiple=True,
+            doc="reverse of 'chemicalProduct'",
+        ),
     ]
     existence_query_fields = ("has_parts", "type")
 
@@ -67,6 +96,9 @@ class ChemicalMixture(KGObject):
         has_parts=None,
         product_source=None,
         type=None,
+        composes=None,
+        used_in=None,
+        used_in_amounts=None,
         id=None,
         data=None,
         space=None,
@@ -82,4 +114,7 @@ class ChemicalMixture(KGObject):
             has_parts=has_parts,
             product_source=product_source,
             type=type,
+            composes=composes,
+            used_in=used_in,
+            used_in_amounts=used_in_amounts,
         )

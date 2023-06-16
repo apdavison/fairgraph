@@ -1,22 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - longitudinal plane
-         - The 'longitudinal plane' is always perpendicular to the axial and frontal plane of an organism, extremity or organ, running parallel to the 'median plane' and dividing it into a left and right part.
-       * - axial plane
-         - An anatomical plane which divides the body into cranial and caudal (head and tail) parts.
-       * - frontal plane
-         - The 'frontal plane' is always perpendicular to the axial and longitudinal plane of an organism, extremity or organ, dividing it into an anterior, rostral or front part, and a posterior, caudal or back part.
-       * - sagittal plane
-         - An anatomical plane which divides the body into right and left parts.
-       * - coronal plane
-         - An anatomical plane which divides the body into divides the body into dorsal and ventral (back and front, or posterior and anterior) parts.
-       * - axial plane
-         - The 'axial plane' is always perpendicular to the longitudinal and the frontal plane of an organism, extremity or organ, dividing it into a dorsal, superior, above or top part, and a ventral, inferior, below or bottom part.
-
 """
 
 # this file was auto-generated
@@ -27,26 +10,7 @@ from fairgraph.fields import Field
 
 
 class AnatomicalPlane(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - longitudinal plane
-         - The 'longitudinal plane' is always perpendicular to the axial and frontal plane of an organism, extremity or organ, running parallel to the 'median plane' and dividing it into a left and right part.
-       * - axial plane
-         - An anatomical plane which divides the body into cranial and caudal (head and tail) parts.
-       * - frontal plane
-         - The 'frontal plane' is always perpendicular to the axial and longitudinal plane of an organism, extremity or organ, dividing it into an anterior, rostral or front part, and a posterior, caudal or back part.
-       * - sagittal plane
-         - An anatomical plane which divides the body into right and left parts.
-       * - coronal plane
-         - An anatomical plane which divides the body into divides the body into dorsal and ventral (back and front, or posterior and anterior) parts.
-       * - axial plane
-         - The 'axial plane' is always perpendicular to the longitudinal and the frontal plane of an organism, extremity or organ, dividing it into a dorsal, superior, above or top part, and a ventral, inferior, below or bottom part.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AnatomicalPlane"]
@@ -102,6 +66,37 @@ class AnatomicalPlane(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "used_in",
+            "openminds.specimenprep.SlicingDeviceUsage",
+            "^vocab:slicingPlane",
+            reverse="slicing_planes",
+            multiple=True,
+            doc="reverse of 'slicingPlane'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -114,6 +109,8 @@ class AnatomicalPlane(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -131,4 +128,6 @@ class AnatomicalPlane(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            used_in=used_in,
         )

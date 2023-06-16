@@ -1,24 +1,5 @@
 """
 Structured information on the operating device.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `high-performance computer <https://www.wikidata.org/wiki/Q121117>`_
-         - https://www.wikidata.org/wiki/Q121117
-       * - `neuromorphic computer <https://www.wikidata.org/wiki/Q56270917>`_
-         - Very-large-scale integration (VLSI) systems containing electronic circuits used to mimic neuro-biological architectures present in the nervous system.
-       * - `mobile <https://www.wikidata.org/wiki/Q5082128>`_
-         - https://www.wikidata.org/wiki/Q5082128
-       * - `server <https://www.wikidata.org/wiki/Q64729893>`_
-         - https://www.wikidata.org/wiki/Q64729893
-       * - `embedded system <https://www.wikidata.org/wiki/Q193040>`_
-         - https://www.wikidata.org/wiki/Q193040
-       * - `web <https://www.wikidata.org/wiki/Q6368>`_
-         - https://www.wikidata.org/wiki/Q6368
-       * - `desktop <https://www.wikidata.org/wiki/Q56155>`_
-         - https://www.wikidata.org/wiki/Q56155
-
 """
 
 # this file was auto-generated
@@ -31,25 +12,6 @@ from fairgraph.fields import Field
 class OperatingDevice(KGObject):
     """
     Structured information on the operating device.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `high-performance computer <https://www.wikidata.org/wiki/Q121117>`_
-         - https://www.wikidata.org/wiki/Q121117
-       * - `neuromorphic computer <https://www.wikidata.org/wiki/Q56270917>`_
-         - Very-large-scale integration (VLSI) systems containing electronic circuits used to mimic neuro-biological architectures present in the nervous system.
-       * - `mobile <https://www.wikidata.org/wiki/Q5082128>`_
-         - https://www.wikidata.org/wiki/Q5082128
-       * - `server <https://www.wikidata.org/wiki/Q64729893>`_
-         - https://www.wikidata.org/wiki/Q64729893
-       * - `embedded system <https://www.wikidata.org/wiki/Q193040>`_
-         - https://www.wikidata.org/wiki/Q193040
-       * - `web <https://www.wikidata.org/wiki/Q6368>`_
-         - https://www.wikidata.org/wiki/Q6368
-       * - `desktop <https://www.wikidata.org/wiki/Q56155>`_
-         - https://www.wikidata.org/wiki/Q56155
-
     """
 
     default_space = "controlled"
@@ -106,6 +68,29 @@ class OperatingDevice(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -118,6 +103,7 @@ class OperatingDevice(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -135,4 +121,5 @@ class OperatingDevice(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

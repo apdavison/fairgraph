@@ -52,6 +52,23 @@ class Environment(KGObject):
             multiple=True,
             doc="no description available",
         ),
+        Field(
+            "used_for",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.SoftwareAgent",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:environment",
+            reverse="environments",
+            multiple=True,
+            doc="reverse of 'environment'",
+        ),
     ]
     existence_query_fields = ("name", "hardware")
 
@@ -62,6 +79,7 @@ class Environment(KGObject):
         description=None,
         hardware=None,
         software=None,
+        used_for=None,
         id=None,
         data=None,
         space=None,
@@ -77,4 +95,5 @@ class Environment(KGObject):
             description=description,
             hardware=hardware,
             software=software,
+            used_for=used_for,
         )

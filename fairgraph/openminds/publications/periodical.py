@@ -35,11 +35,27 @@ class Periodical(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Field(
+            "has_parts",
+            "openminds.publications.PublicationVolume",
+            "^vocab:isPartOf",
+            reverse="is_part_of",
+            multiple=True,
+            doc="reverse of 'isPartOf'",
+        ),
     ]
     existence_query_fields = ("abbreviation",)
 
     def __init__(
-        self, name=None, abbreviation=None, digital_identifier=None, id=None, data=None, space=None, scope=None
+        self,
+        name=None,
+        abbreviation=None,
+        digital_identifier=None,
+        has_parts=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
     ):
         return super().__init__(
             id=id,
@@ -49,4 +65,5 @@ class Periodical(KGObject):
             name=name,
             abbreviation=abbreviation,
             digital_identifier=digital_identifier,
+            has_parts=has_parts,
         )

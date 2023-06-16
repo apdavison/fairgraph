@@ -1,18 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - restricted access
-         - With 'restricted access' selected, metadata are released, but data remain on an access restricted server.
-       * - under embargo
-         - With 'under embargo' selected, metadata are released, but data remain unavailable for the public until the embargo is lifted.
-       * - free access
-         - With 'free access' selected, data and metadata are both released and become immediately available without any access restrictions.
-       * - controlled access
-         - With 'controlled access' selected, data and metadata are both released, but data are only available for users after they loged in and authenticated themselves.
-
 """
 
 # this file was auto-generated
@@ -23,22 +10,7 @@ from fairgraph.fields import Field
 
 
 class ProductAccessibility(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - restricted access
-         - With 'restricted access' selected, metadata are released, but data remain on an access restricted server.
-       * - under embargo
-         - With 'under embargo' selected, metadata are released, but data remain unavailable for the public until the embargo is lifted.
-       * - free access
-         - With 'free access' selected, data and metadata are both released and become immediately available without any access restrictions.
-       * - controlled access
-         - With 'controlled access' selected, data and metadata are both released, but data are only available for users after they loged in and authenticated themselves.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/ProductAccessibility"]
@@ -94,6 +66,29 @@ class ProductAccessibility(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -106,6 +101,7 @@ class ProductAccessibility(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -123,4 +119,5 @@ class ProductAccessibility(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

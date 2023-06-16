@@ -1,14 +1,5 @@
 """
 Structured information on the lateral direction.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - left
-         -
-       * - right
-         -
-
 """
 
 # this file was auto-generated
@@ -21,15 +12,6 @@ from fairgraph.fields import Field
 class Laterality(KGObject):
     """
     Structured information on the lateral direction.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - left
-         -
-       * - right
-         -
-
     """
 
     default_space = "controlled"
@@ -86,6 +68,42 @@ class Laterality(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_laterality_of",
+            [
+                "openminds.core.TissueSample",
+                "openminds.core.TissueSampleCollection",
+                "openminds.sands.AtlasAnnotation",
+                "openminds.sands.CustomAnnotation",
+            ],
+            "^vocab:laterality",
+            reverse="lateralities",
+            multiple=True,
+            doc="reverse of 'laterality'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -98,6 +116,8 @@ class Laterality(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_laterality_of=None,
         id=None,
         data=None,
         space=None,
@@ -115,4 +135,6 @@ class Laterality(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_laterality_of=is_laterality_of,
         )

@@ -105,6 +105,22 @@ class ElectrodeArray(KGObject):
             doc="no description available",
         ),
         Field("serial_number", str, "vocab:serialNumber", doc="no description available"),
+        Field(
+            "usages",
+            "openminds.ephys.ElectrodeArrayUsage",
+            "^vocab:device",
+            reverse="devices",
+            multiple=True,
+            doc="reverse of 'device'",
+        ),
+        Field(
+            "is_part_of",
+            "openminds.core.Setup",
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -124,6 +140,8 @@ class ElectrodeArray(KGObject):
         number_of_electrodes=None,
         owners=None,
         serial_number=None,
+        usages=None,
+        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -148,4 +166,6 @@ class ElectrodeArray(KGObject):
             number_of_electrodes=number_of_electrodes,
             owners=owners,
             serial_number=serial_number,
+            usages=usages,
+            is_part_of=is_part_of,
         )

@@ -50,6 +50,14 @@ class LivePaperSection(KGObject):
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
+        Field(
+            "has_parts",
+            "openminds.publications.LivePaperResourceItem",
+            "^vocab:isPartOf",
+            reverse="is_part_of",
+            multiple=True,
+            doc="reverse of 'isPartOf'",
+        ),
     ]
     existence_query_fields = ("name", "is_part_of", "order", "type")
 
@@ -60,6 +68,7 @@ class LivePaperSection(KGObject):
         is_part_of=None,
         order=None,
         type=None,
+        has_parts=None,
         id=None,
         data=None,
         space=None,
@@ -75,4 +84,5 @@ class LivePaperSection(KGObject):
             is_part_of=is_part_of,
             order=order,
             type=type,
+            has_parts=has_parts,
         )

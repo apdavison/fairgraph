@@ -36,10 +36,56 @@ class WebResource(KGObject):
             "vocab:format",
             doc="Method of digitally organizing and structuring data or information.",
         ),
+        Field(
+            "fully_documents",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.LivePaperVersion",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:fullDocumentation",
+            reverse="full_documentations",
+            multiple=True,
+            doc="reverse of 'fullDocumentation'",
+        ),
+        Field(
+            "describes",
+            ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
+            "^vocab:describedIn",
+            reverse="described_in",
+            multiple=True,
+            doc="reverse of 'describedIn'",
+        ),
     ]
     existence_query_fields = ("iri",)
 
-    def __init__(self, iri=None, content_description=None, format=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        iri=None,
+        content_description=None,
+        format=None,
+        fully_documents=None,
+        describes=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, iri=iri, content_description=content_description, format=format
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            iri=iri,
+            content_description=content_description,
+            format=format,
+            fully_documents=fully_documents,
+            describes=describes,
         )

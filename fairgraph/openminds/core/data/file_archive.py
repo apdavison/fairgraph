@@ -36,13 +36,51 @@ class FileArchive(KGObject):
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
+        Field("source_data", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"),
         Field(
-            "source_datas", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"
+            "is_output_of",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:output",
+            reverse="outputs",
+            multiple=True,
+            doc="reverse of 'output'",
+        ),
+        Field(
+            "is_location_of",
+            "openminds.core.ServiceLink",
+            "^vocab:dataLocation",
+            reverse="data_locations",
+            multiple=True,
+            doc="reverse of 'dataLocation'",
         ),
     ]
     existence_query_fields = ("iri", "format")
 
-    def __init__(self, iri=None, format=None, source_datas=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        iri=None,
+        format=None,
+        source_data=None,
+        is_output_of=None,
+        is_location_of=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, iri=iri, format=format, source_datas=source_datas
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            iri=iri,
+            format=format,
+            source_data=source_data,
+            is_output_of=is_output_of,
+            is_location_of=is_location_of,
         )

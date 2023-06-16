@@ -66,6 +66,22 @@ class Setup(KGObject):
             multiple=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
+        Field(
+            "is_part_of",
+            "openminds.core.Setup",
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
+        Field(
+            "used_in",
+            "openminds.stimulation.StimulationActivity",
+            "^vocab:setup",
+            reverse="setups",
+            multiple=True,
+            doc="reverse of 'setup'",
+        ),
     ]
     existence_query_fields = ("name", "description", "has_parts")
 
@@ -77,6 +93,8 @@ class Setup(KGObject):
         location=None,
         manufacturers=None,
         types=None,
+        is_part_of=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -93,4 +111,6 @@ class Setup(KGObject):
             location=location,
             manufacturers=manufacturers,
             types=types,
+            is_part_of=is_part_of,
+            used_in=used_in,
         )

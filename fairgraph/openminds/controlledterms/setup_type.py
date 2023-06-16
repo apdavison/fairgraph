@@ -1,16 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - acquisition system
-         - An 'acquisition system' is a setup type with the purpose of collecting data.
-       * - computing system
-         - A 'computing system' is a setup type with the purpose of performing computations.
-       * - stimulation system
-         - A 'stimulation system' is a setup type with the purpose of stimulating a specimen.
-
 """
 
 # this file was auto-generated
@@ -21,20 +10,7 @@ from fairgraph.fields import Field
 
 
 class SetupType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - acquisition system
-         - An 'acquisition system' is a setup type with the purpose of collecting data.
-       * - computing system
-         - A 'computing system' is a setup type with the purpose of performing computations.
-       * - stimulation system
-         - A 'stimulation system' is a setup type with the purpose of stimulating a specimen.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/SetupType"]
@@ -90,6 +66,37 @@ class SetupType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_type_of",
+            "openminds.core.Setup",
+            "^vocab:type",
+            reverse="types",
+            multiple=True,
+            doc="reverse of 'type'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -102,6 +109,8 @@ class SetupType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -119,4 +128,6 @@ class SetupType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_type_of=is_type_of,
         )

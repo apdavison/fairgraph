@@ -1,26 +1,5 @@
 """
 Structured information on the type of contribution a person or organization performed.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - marketing
-         -
-       * - information technology support
-         -
-       * - metadata managment
-         -
-       * - coordination
-         -
-       * - data processing
-         -
-       * - data collection
-         -
-       * - laboratory assistance
-         -
-       * - data management
-         -
-
 """
 
 # this file was auto-generated
@@ -33,27 +12,6 @@ from fairgraph.fields import Field
 class ContributionType(KGObject):
     """
     Structured information on the type of contribution a person or organization performed.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - marketing
-         -
-       * - information technology support
-         -
-       * - metadata managment
-         -
-       * - coordination
-         -
-       * - data processing
-         -
-       * - data collection
-         -
-       * - laboratory assistance
-         -
-       * - data management
-         -
-
     """
 
     default_space = "controlled"
@@ -110,6 +68,37 @@ class ContributionType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_type_of",
+            "openminds.core.Contribution",
+            "^vocab:type",
+            reverse="types",
+            multiple=True,
+            doc="reverse of 'type'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -122,6 +111,8 @@ class ContributionType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -139,4 +130,6 @@ class ContributionType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_type_of=is_type_of,
         )

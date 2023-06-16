@@ -1,22 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - Kolmogorov-Smirnov statistic
-         - Quantification of a distance between the empirical distribution function of the sample and the cumulative distribution function of the reference distribution, or between the empirical distribution functions of two samples.
-       * - mean squared error
-         - The mean squared difference between two series of values.
-       * - z-score
-         - The number of standard deviations by which an observed value is above or below the mean value.
-       * - Kullback-Leibler divergence
-         - A measure of how one probability distribution is different from a second, reference probability distribution.
-       * - chi-squared statistic
-         - Test statistic resulting from a chi-squared test.
-       * - t-statistic
-         - The ratio of the departure of the estimated value of a parameter from its hypothesized value to its standard error.
-
 """
 
 # this file was auto-generated
@@ -27,26 +10,7 @@ from fairgraph.fields import Field
 
 
 class DifferenceMeasure(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - Kolmogorov-Smirnov statistic
-         - Quantification of a distance between the empirical distribution function of the sample and the cumulative distribution function of the reference distribution, or between the empirical distribution functions of two samples.
-       * - mean squared error
-         - The mean squared difference between two series of values.
-       * - z-score
-         - The number of standard deviations by which an observed value is above or below the mean value.
-       * - Kullback-Leibler divergence
-         - A measure of how one probability distribution is different from a second, reference probability distribution.
-       * - chi-squared statistic
-         - Test statistic resulting from a chi-squared test.
-       * - t-statistic
-         - The ratio of the departure of the estimated value of a parameter from its hypothesized value to its standard error.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/DifferenceMeasure"]
@@ -102,6 +66,37 @@ class DifferenceMeasure(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_score_type_of",
+            "openminds.computation.ValidationTest",
+            "^vocab:scoreType",
+            reverse="score_types",
+            multiple=True,
+            doc="reverse of 'scoreType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -114,6 +109,8 @@ class DifferenceMeasure(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_score_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -131,4 +128,6 @@ class DifferenceMeasure(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_score_type_of=is_score_type_of,
         )

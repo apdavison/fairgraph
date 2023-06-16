@@ -1,18 +1,5 @@
 """
 Structured information on the usage role of a file instance or bundle.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - logo
-         - A logo is a graphic used to aid and promote public identification and recognition.used to aid and promote public identification and recognition.
-       * - data descriptor
-         - A 'data descriptor' describes the provenance, the structure, the applied quality assessment, and possible (re)usage of the data. It should not present hypotheses tests, new interpretations, new methods or in-depth analyses.
-       * - screenshot
-         - A screenshot is an image of the content displayed on the screen of a computer or mobile device.
-       * - preview
-         - A preview is a representative image or short movie used to peak interest for a product.
-
 """
 
 # this file was auto-generated
@@ -25,19 +12,6 @@ from fairgraph.fields import Field
 class FileUsageRole(KGObject):
     """
     Structured information on the usage role of a file instance or bundle.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - logo
-         - A logo is a graphic used to aid and promote public identification and recognition.used to aid and promote public identification and recognition.
-       * - data descriptor
-         - A 'data descriptor' describes the provenance, the structure, the applied quality assessment, and possible (re)usage of the data. It should not present hypotheses tests, new interpretations, new methods or in-depth analyses.
-       * - screenshot
-         - A screenshot is an image of the content displayed on the screen of a computer or mobile device.
-       * - preview
-         - A preview is a representative image or short movie used to peak interest for a product.
-
     """
 
     default_space = "controlled"
@@ -94,6 +68,37 @@ class FileUsageRole(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "files",
+            ["openminds.computation.LocalFile", "openminds.core.File"],
+            "^vocab:specialUsageRole",
+            reverse="special_usage_roles",
+            multiple=True,
+            doc="reverse of 'specialUsageRole'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -106,6 +111,8 @@ class FileUsageRole(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        files=None,
         id=None,
         data=None,
         space=None,
@@ -123,4 +130,6 @@ class FileUsageRole(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            files=files,
         )

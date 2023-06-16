@@ -195,6 +195,25 @@ class ScholarlyArticle(KGObject):
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
+        Field(
+            "related_to",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.LivePaperVersion",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:relatedPublication",
+            reverse="related_publications",
+            multiple=True,
+            doc="reverse of 'relatedPublication'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -219,6 +238,7 @@ class ScholarlyArticle(KGObject):
         publication_date=None,
         publisher=None,
         version_identifier=None,
+        related_to=None,
         id=None,
         data=None,
         space=None,
@@ -248,6 +268,7 @@ class ScholarlyArticle(KGObject):
             publication_date=publication_date,
             publisher=publisher,
             version_identifier=version_identifier,
+            related_to=related_to,
         )
 
     def get_journal(self, client, with_volume=False, with_issue=False):

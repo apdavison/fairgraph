@@ -1,22 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - interactive tutorial
-         - A tutorial presented in an interactive format, for example a Jupyter notebook.
-       * - slide deck
-         - A set of slides for a visual presentation.
-       * - developer documentation
-         - Documentation for the developers of a resource.
-       * - video presentation
-         - A video recorded presentation.
-       * - video tutorial
-         - A tutorial presented as a video.
-       * - user documentation
-         - Documentation for the users of a resource.
-
 """
 
 # this file was auto-generated
@@ -27,26 +10,7 @@ from fairgraph.fields import Field
 
 
 class LearningResourceType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - interactive tutorial
-         - A tutorial presented in an interactive format, for example a Jupyter notebook.
-       * - slide deck
-         - A set of slides for a visual presentation.
-       * - developer documentation
-         - Documentation for the developers of a resource.
-       * - video presentation
-         - A video recorded presentation.
-       * - video tutorial
-         - A tutorial presented as a video.
-       * - user documentation
-         - Documentation for the users of a resource.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/LearningResourceType"]
@@ -102,6 +66,29 @@ class LearningResourceType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -114,6 +101,7 @@ class LearningResourceType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -131,4 +119,5 @@ class LearningResourceType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

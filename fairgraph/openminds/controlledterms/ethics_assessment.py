@@ -1,20 +1,5 @@
 """
 Structured information on the ethics assessment of a dataset.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - not required
-         - An ethics assessment is 'not required' when no ethics approval was needed to conduct the study.
-       * - EU compliant
-         - Data are ethically approved in compliance with EU law. No additional ethics assessment was made by the data sharing initiative.
-       * - EU compliant, non sensitive
-         - 'EU compliant, non sensitive' data should be able to provide an ethics approval as part of the metadata. An EBRAINS ethics compliance check is not required.
-       * - EU compliant +
-         - Data are ethically approved in compliance with EU law and an additional assessment was made by the data sharing initiative.
-       * - EU compliant, sensitive
-         - 'EU compliant, sensitive' data should be able to provide an ethics approval as part of the metadata and conduct an EBRAINS ethics compliance check.
-
 """
 
 # this file was auto-generated
@@ -27,21 +12,6 @@ from fairgraph.fields import Field
 class EthicsAssessment(KGObject):
     """
     Structured information on the ethics assessment of a dataset.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - not required
-         - An ethics assessment is 'not required' when no ethics approval was needed to conduct the study.
-       * - EU compliant
-         - Data are ethically approved in compliance with EU law. No additional ethics assessment was made by the data sharing initiative.
-       * - EU compliant, non sensitive
-         - 'EU compliant, non sensitive' data should be able to provide an ethics approval as part of the metadata. An EBRAINS ethics compliance check is not required.
-       * - EU compliant +
-         - Data are ethically approved in compliance with EU law and an additional assessment was made by the data sharing initiative.
-       * - EU compliant, sensitive
-         - 'EU compliant, sensitive' data should be able to provide an ethics approval as part of the metadata and conduct an EBRAINS ethics compliance check.
-
     """
 
     default_space = "controlled"
@@ -98,6 +68,29 @@ class EthicsAssessment(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -110,6 +103,7 @@ class EthicsAssessment(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -127,4 +121,5 @@ class EthicsAssessment(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

@@ -1,24 +1,5 @@
 """
 Structured information about the status of an action.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `active <https://schema.org/ActiveActionStatus>`_
-         - An in-progress action.
-       * - `completed <https://schema.org/CompletedActionStatus>`_
-         - An action that has already taken place with a successful outcome.
-       * - inactive
-         - A pending or suspended action.
-       * - `failed <https://schema.org/FailedActionStatus>`_
-         - An action that failed to complete or completed but produced an error.
-       * - paused
-         - A temporarily stopped action that can be resumed at a later point in time.
-       * - `potential <https://schema.org/PotentialActionStatus>`_
-         - A description of an action that is supported.
-       * - pending
-         - An action which is awaiting execution.
-
 """
 
 # this file was auto-generated
@@ -31,25 +12,6 @@ from fairgraph.fields import Field
 class ActionStatusType(KGObject):
     """
     Structured information about the status of an action.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `active <https://schema.org/ActiveActionStatus>`_
-         - An in-progress action.
-       * - `completed <https://schema.org/CompletedActionStatus>`_
-         - An action that has already taken place with a successful outcome.
-       * - inactive
-         - A pending or suspended action.
-       * - `failed <https://schema.org/FailedActionStatus>`_
-         - An action that failed to complete or completed but produced an error.
-       * - paused
-         - A temporarily stopped action that can be resumed at a later point in time.
-       * - `potential <https://schema.org/PotentialActionStatus>`_
-         - A description of an action that is supported.
-       * - pending
-         - An action which is awaiting execution.
-
     """
 
     default_space = "controlled"
@@ -106,6 +68,45 @@ class ActionStatusType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "is_status_of",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:status",
+            reverse="status",
+            multiple=True,
+            doc="reverse of 'status'",
+        ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -118,6 +119,8 @@ class ActionStatusType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        is_status_of=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -135,4 +138,6 @@ class ActionStatusType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            is_status_of=is_status_of,
+            describes=describes,
         )

@@ -30,10 +30,26 @@ class PublicationVolume(KGObject):
             doc="Reference to the ensemble of multiple things or beings.",
         ),
         Field("volume_number", str, "vocab:volumeNumber", required=True, doc="no description available"),
+        Field(
+            "has_parts",
+            ["openminds.publications.PublicationIssue", "openminds.publications.ScholarlyArticle"],
+            "^vocab:isPartOf",
+            reverse="is_part_of",
+            multiple=True,
+            doc="reverse of 'isPartOf'",
+        ),
     ]
     existence_query_fields = ("is_part_of", "volume_number")
 
-    def __init__(self, is_part_of=None, volume_number=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self, is_part_of=None, volume_number=None, has_parts=None, id=None, data=None, space=None, scope=None
+    ):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, is_part_of=is_part_of, volume_number=volume_number
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            is_part_of=is_part_of,
+            volume_number=volume_number,
+            has_parts=has_parts,
         )

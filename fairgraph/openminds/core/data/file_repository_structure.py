@@ -31,10 +31,20 @@ class FileRepositoryStructure(KGObject):
             required=True,
             doc="no description available",
         ),
+        Field(
+            "structures",
+            "openminds.core.FileRepository",
+            "^vocab:structurePattern",
+            reverse="structure_patterns",
+            multiple=True,
+            doc="reverse of 'structurePattern'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(self, lookup_label=None, file_path_patterns=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self, lookup_label=None, file_path_patterns=None, structures=None, id=None, data=None, space=None, scope=None
+    ):
         return super().__init__(
             id=id,
             space=space,
@@ -42,4 +52,5 @@ class FileRepositoryStructure(KGObject):
             data=data,
             lookup_label=lookup_label,
             file_path_patterns=file_path_patterns,
+            structures=structures,
         )

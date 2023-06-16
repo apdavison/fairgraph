@@ -1,16 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - cleared skull cranial window
-         - A cranial window that is constructed by clearing a small region of the skull.
-       * - transcranial window
-         - A cranial window that is constructed by removal of a small region of the skull.
-       * - thinned skull cranial window
-         - A cranial window that is constructed by thinning a small region of the skull.
-
 """
 
 # this file was auto-generated
@@ -21,20 +10,7 @@ from fairgraph.fields import Field
 
 
 class CranialWindowConstructionType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - cleared skull cranial window
-         - A cranial window that is constructed by clearing a small region of the skull.
-       * - transcranial window
-         - A cranial window that is constructed by removal of a small region of the skull.
-       * - thinned skull cranial window
-         - A cranial window that is constructed by thinning a small region of the skull.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CranialWindowConstructionType"]
@@ -90,6 +66,37 @@ class CranialWindowConstructionType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "used_for",
+            "openminds.specimenprep.CranialWindowPreparation",
+            "^vocab:constructionType",
+            reverse="construction_types",
+            multiple=True,
+            doc="reverse of 'constructionType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -102,6 +109,8 @@ class CranialWindowConstructionType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        used_for=None,
         id=None,
         data=None,
         space=None,
@@ -119,4 +128,6 @@ class CranialWindowConstructionType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            used_for=used_for,
         )
