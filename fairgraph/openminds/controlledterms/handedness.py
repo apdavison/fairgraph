@@ -1,20 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - ambilevous handedness
-         - Handedness where the organism exhibits equally poor dexterity in the use of right or left hand or foot in the performance of tasks that require one (dominant) hand or foot.
-       * - ambidextrous handedness
-         - Handedness where the organism exhibits no overall dominance in the use of right or left hand or foot in the performance of tasks that require one (dominant) hand or foot.
-       * - left handedness
-         - Handedness where the organism preferentially uses the left hand or foot for tasks requiring the use of a single hand or foot.
-       * - right handedness
-         - Handedness where the organism preferentially uses the right hand or foot for tasks requiring the use of a single hand or foot.
-       * - mixed handedness
-         - Handedness where the organism exhibits dominance in the use of right or left hand or foot differently in the performance of different tasks that require one (dominant) hand or foot.
-
 """
 
 # this file was auto-generated
@@ -25,24 +10,7 @@ from fairgraph.fields import Field
 
 
 class Handedness(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - ambilevous handedness
-         - Handedness where the organism exhibits equally poor dexterity in the use of right or left hand or foot in the performance of tasks that require one (dominant) hand or foot.
-       * - ambidextrous handedness
-         - Handedness where the organism exhibits no overall dominance in the use of right or left hand or foot in the performance of tasks that require one (dominant) hand or foot.
-       * - left handedness
-         - Handedness where the organism preferentially uses the left hand or foot for tasks requiring the use of a single hand or foot.
-       * - right handedness
-         - Handedness where the organism preferentially uses the right hand or foot for tasks requiring the use of a single hand or foot.
-       * - mixed handedness
-         - Handedness where the organism exhibits dominance in the use of right or left hand or foot differently in the performance of different tasks that require one (dominant) hand or foot.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/Handedness"]
@@ -98,6 +66,71 @@ class Handedness(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "studied_in",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.ValidationTest",
+                "openminds.computation.Visualization",
+                "openminds.core.Model",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:studyTarget",
+            reverse="study_targets",
+            multiple=True,
+            doc="reverse of 'studyTarget'",
+        ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "subject_states",
+            ["openminds.core.SubjectGroupState", "openminds.core.SubjectState"],
+            "^vocab:handedness",
+            reverse="handedness",
+            multiple=True,
+            doc="reverse of 'handedness'",
+        ),
+        Field(
+            "is_used_to_group",
+            "openminds.core.FileBundle",
+            "^vocab:groupedBy",
+            reverse="grouped_by",
+            multiple=True,
+            doc="reverse of 'groupedBy'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -110,6 +143,10 @@ class Handedness(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        studied_in=None,
+        describes=None,
+        subject_states=None,
+        is_used_to_group=None,
         id=None,
         data=None,
         space=None,
@@ -127,4 +164,8 @@ class Handedness(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            studied_in=studied_in,
+            describes=describes,
+            subject_states=subject_states,
+            is_used_to_group=is_used_to_group,
         )

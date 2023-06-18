@@ -144,6 +144,70 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
+        "reverse": true
+      },
+      "propertyName": "vocab:usedSpecimen",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/isPartOf",
+        "reverse": true
+      },
+      "propertyName": "vocab:isPartOf",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
+        "reverse": true
+      },
+      "propertyName": "vocab:studiedSpecimen",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
+        "reverse": true
+      },
+      "propertyName": "vocab:groupedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

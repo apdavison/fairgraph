@@ -92,6 +92,38 @@ class BrainAtlas(KGObject):
         Field(
             "used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", doc="no description available"
         ),
+        Field(
+            "learning_resources",
+            "openminds.publications.LearningResource",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "comments",
+            "openminds.core.Comment",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "is_part_of",
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
+        Field(
+            "is_input_to",
+            "openminds.core.DatasetVersion",
+            "^vocab:inputData",
+            reverse="input_data",
+            multiple=True,
+            doc="reverse of 'inputData'",
+        ),
     ]
     existence_query_fields = ("digital_identifier",)
 
@@ -110,6 +142,10 @@ class BrainAtlas(KGObject):
         how_to_cite=None,
         ontology_identifier=None,
         used_species=None,
+        learning_resources=None,
+        comments=None,
+        is_part_of=None,
+        is_input_to=None,
         id=None,
         data=None,
         space=None,
@@ -133,4 +169,8 @@ class BrainAtlas(KGObject):
             how_to_cite=how_to_cite,
             ontology_identifier=ontology_identifier,
             used_species=used_species,
+            learning_resources=learning_resources,
+            comments=comments,
+            is_part_of=is_part_of,
+            is_input_to=is_input_to,
         )

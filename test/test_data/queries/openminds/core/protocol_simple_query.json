@@ -84,6 +84,22 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/protocol",
+        "reverse": true
+      },
+      "propertyName": "vocab:protocol",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

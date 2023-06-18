@@ -90,26 +90,26 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         Save to the KG any sub-components of the metadata object that are KGObjects.
         """
         for field in self.fields:
-            if field.intrinsic:
-                values = getattr(self, field.name)
-                for value in as_list(values):
-                    if isinstance(value, ContainsMetadata):
-                        if value.space:
-                            target_space = value.space
-                        elif (
-                            value.__class__.default_space == "controlled"
-                            and value.exists(client)
-                            and value.space == "controlled"
-                        ):
+            assert field.intrinsic  # embedded metadata should not contain any reverse fields
+            values = getattr(self, field.name)
+            for value in as_list(values):
+                if isinstance(value, ContainsMetadata):
+                    if value.space:
+                        target_space = value.space
+                    elif (
+                        value.__class__.default_space == "controlled"
+                        and value.exists(client)
+                        and value.space == "controlled"
+                    ):
+                        continue
+                    elif space is None and self.space is not None:
+                        target_space = self.space
+                    else:
+                        assert space is not None  # for type checking
+                        target_space = space
+                    if target_space == "controlled":
+                        if value.exists(client) and value.space == "controlled":
                             continue
-                        elif space is None and self.space is not None:
-                            target_space = self.space
                         else:
-                            assert space is not None  # for type checking
-                            target_space = space
-                        if target_space == "controlled":
-                            if value.exists(client) and value.space == "controlled":
-                                continue
-                            else:
-                                raise Exception("Cannot write to controlled space")
-                        value.save(client, space=target_space, recursive=recursive, activity_log=activity_log)
+                            raise Exception("Cannot write to controlled space")
+                    value.save(client, space=target_space, recursive=recursive, activity_log=activity_log)

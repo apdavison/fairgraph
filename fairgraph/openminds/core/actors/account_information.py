@@ -26,8 +26,18 @@ class AccountInformation(KGObject):
     fields = [
         Field("service", "openminds.core.WebService", "vocab:service", required=True, doc="no description available"),
         Field("user_name", str, "vocab:userName", required=True, doc="no description available"),
+        Field(
+            "belongs_to",
+            "openminds.core.Person",
+            "^vocab:associatedAccount",
+            reverse="associated_accounts",
+            multiple=True,
+            doc="reverse of 'associatedAccount'",
+        ),
     ]
     existence_query_fields = ("service", "user_name")
 
-    def __init__(self, service=None, user_name=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, service=service, user_name=user_name)
+    def __init__(self, service=None, user_name=None, belongs_to=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(
+            id=id, space=space, scope=scope, data=data, service=service, user_name=user_name, belongs_to=belongs_to
+        )

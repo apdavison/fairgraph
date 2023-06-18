@@ -24,7 +24,7 @@ class ElectrodeArrayUsage(KGObject):
     fields = [
         Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Field(
-            "anatomical_location_of_arrays",
+            "anatomical_location_of_arraies",
             [
                 "openminds.controlledterms.CellType",
                 "openminds.controlledterms.Organ",
@@ -90,13 +90,45 @@ class ElectrodeArrayUsage(KGObject):
             "vocab:usedSpecimen",
             doc="no description available",
         ),
+        Field(
+            "used_in",
+            ["openminds.ephys.CellPatching", "openminds.ephys.RecordingActivity"],
+            "^vocab:device",
+            reverse="devices",
+            multiple=True,
+            doc="reverse of 'device'",
+        ),
+        Field(
+            "placed_by",
+            "openminds.ephys.ElectrodePlacement",
+            "^vocab:device",
+            reverse="devices",
+            multiple=True,
+            doc="reverse of 'device'",
+        ),
+        Field(
+            "used_to_record",
+            "openminds.ephys.Recording",
+            "^vocab:recordedWith",
+            reverse="recorded_withs",
+            multiple=True,
+            doc="reverse of 'recordedWith'",
+        ),
+        Field(
+            "used_to_measure",
+            "openminds.core.Measurement",
+            "^vocab:measuredWith",
+            reverse="measured_withs",
+            multiple=True,
+            doc="reverse of 'measuredWith'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
     def __init__(
         self,
         lookup_label=None,
-        anatomical_location_of_arrays=None,
+        anatomical_location_of_arraies=None,
         anatomical_location_of_electrodes=None,
         contact_resistances=None,
         device=None,
@@ -104,6 +136,10 @@ class ElectrodeArrayUsage(KGObject):
         spatial_location_of_electrodes=None,
         used_electrodes=None,
         used_specimen=None,
+        used_in=None,
+        placed_by=None,
+        used_to_record=None,
+        used_to_measure=None,
         id=None,
         data=None,
         space=None,
@@ -115,7 +151,7 @@ class ElectrodeArrayUsage(KGObject):
             scope=scope,
             data=data,
             lookup_label=lookup_label,
-            anatomical_location_of_arrays=anatomical_location_of_arrays,
+            anatomical_location_of_arraies=anatomical_location_of_arraies,
             anatomical_location_of_electrodes=anatomical_location_of_electrodes,
             contact_resistances=contact_resistances,
             device=device,
@@ -123,4 +159,8 @@ class ElectrodeArrayUsage(KGObject):
             spatial_location_of_electrodes=spatial_location_of_electrodes,
             used_electrodes=used_electrodes,
             used_specimen=used_specimen,
+            used_in=used_in,
+            placed_by=placed_by,
+            used_to_record=used_to_record,
+            used_to_measure=used_to_measure,
         )

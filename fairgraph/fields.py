@@ -17,7 +17,6 @@ Representations of metadata fields.
 # limitations under the License.
 
 from __future__ import annotations
-import warnings
 import logging
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
@@ -229,7 +228,7 @@ class Field(object):
         Return True If the field contains data that is directly stored in the instance,
         False if the field contains data that is obtained through a query
         """
-        return not self.path.startswith("^")
+        return not self.reverse
 
     @property
     def is_link(self) -> bool:
@@ -296,7 +295,6 @@ class Field(object):
             data: the JSON-LD data
             client: a KG client
         """
-        assert self.intrinsic
         if data is None or data == []:
             return None
         try:
@@ -326,6 +324,30 @@ class Field(object):
             ErrorHandling.handle_violation(self.error_handling, str(err))
             return None
 
+    def _get_query_property_name(self, possible_classes):
+        if isinstance(self.path, str):
+            property_name = self.path
+        else:
+            assert isinstance(self.path, list)
+            found_match = False
+            for cls in possible_classes:
+                for path in self.path:
+                    assert path.startswith("^")
+                    for field in cls.fields:
+                        if path[1:] == field.path:
+                            property_name = path
+                            found_match = True
+                            break
+                    if found_match:
+                        break
+                if found_match:
+                    break
+            assert found_match
+        if property_name.startswith("^"):
+            assert self.reverse
+            property_name = property_name[1:]
+        return property_name
+
     def get_query_properties(self, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
         """
         Generate one or more QueryProperty instances for this field,
@@ -334,7 +356,9 @@ class Field(object):
 
         properties = []
         if any(issubclass(_type, EmbeddedMetadata) for _type in self.types):
-            assert all(issubclass(_type, EmbeddedMetadata) for _type in self.types)
+            if not all(issubclass(_type, EmbeddedMetadata) for _type in self.types):
+                warn(f"Mixed types in {self}")
+                return properties
             for cls in self.types:
                 if len(self.types) > 1:
                     property_name = f"{self.path}__{cls.__name__}"
@@ -342,10 +366,15 @@ class Field(object):
                 else:
                     property_name = self.path
                     type_filter = None
+                if property_name.startswith("^"):
+                    # used to mark reverse fields. Maybe not necessary?
+                    assert self.reverse
+                    property_name = property_name[1:]
                 properties.append(
                     QueryProperty(
                         self.expanded_path,
                         name=property_name,
+                        reverse=self.reverse,
                         type_filter=type_filter,
                         ensure_order=self.multiple,
                         properties=cls.generate_query_properties(follow_links),
@@ -355,9 +384,9 @@ class Field(object):
             assert all(issubclass(_type, KGObject) for _type in self.types)
             if follow_links is not None:
                 for cls in self.types:
-                    property_name = self.path
+                    property_name = self._get_query_property_name(possible_classes=[cls])
                     if len(self.types) > 1:
-                        property_name = f"{self.path}__{cls.__name__}"
+                        property_name = f"{property_name}__{cls.__name__}"
                         type_filter = cls.type_[0]
                     else:
                         type_filter = None
@@ -365,29 +394,41 @@ class Field(object):
                         QueryProperty(
                             self.expanded_path,
                             name=property_name,
+                            reverse=self.reverse,
                             type_filter=type_filter,
                             ensure_order=self.multiple,
                             properties=[QueryProperty("@id"), *cls.generate_query_properties(follow_links)],
                         )
                     )
             else:
-                properties.append(
-                    QueryProperty(
-                        self.expanded_path,
-                        name=self.path,
-                        type_filter=None,
-                        ensure_order=self.multiple,
-                        properties=[
-                            QueryProperty("@id"),
-                            QueryProperty("@type"),
-                        ],
+                if isinstance(self.path, str):
+                    property_name = self.path
+                    if property_name.startswith("^"):
+                        assert self.reverse
+                        property_name = property_name[1:]
+                    properties.append(
+                        QueryProperty(
+                            self.expanded_path,
+                            name=property_name,
+                            reverse=self.reverse,
+                            type_filter=None,
+                            ensure_order=self.multiple,
+                            properties=[
+                                QueryProperty("@id"),
+                                QueryProperty("@type"),
+                            ],
+                        )
                     )
-                )
+                else:
+                    assert isinstance(self.path, list)
+                    warn(f"Cannot yet handle case where self.path is a list: {self}")
         else:
+            assert not self.reverse
             properties.append(
                 QueryProperty(
                     self.expanded_path,
                     name=self.path,
+                    reverse=self.reverse,
                     sorted=bool(self.name == "name"),
                     ensure_order=self.multiple,
                 )
@@ -413,7 +454,7 @@ class Field(object):
 
         if any(issubclass(_type, ContainsMetadata) for _type in self.types):
             assert all(issubclass(_type, ContainsMetadata) for _type in self.types)
-            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True)
+            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True, reverse=self.reverse)
             if filter_obj:
                 property.properties.append(QueryProperty("@id", filter=filter_obj))
             else:

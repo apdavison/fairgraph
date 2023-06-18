@@ -1,28 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - Amazon S3 repository
-         - An S3 repository uses the cloud storage of the Amazon S3 service.
-       * - Seafile repository
-         - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
-       * - GPFS repository
-         - GPFS, short for General Parallel File System is a high-performance clustered file system developed by IBM
-       * - GitHub repository
-         - A GitHub repository offers version control and source code management functionalities of Git, plus some GitHub features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
-       * - GitLab repository
-         - A GitLab repository offers version control and source code management functionalities of Git, plus some GitLab features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
-       * - Swift repository
-         - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
-       * - FTP repository
-         - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
-       * - Git repository
-         - A Git repository offers version control and source code management functionalities.
-       * - git-annex repository
-         - git-annex allows managing large files with git, without storing the file contents in git.
-
 """
 
 # this file was auto-generated
@@ -33,32 +10,7 @@ from fairgraph.fields import Field
 
 
 class FileRepositoryType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - Amazon S3 repository
-         - An S3 repository uses the cloud storage of the Amazon S3 service.
-       * - Seafile repository
-         - Seafile is an open source file sync&share solution designed for high reliability, performance and productivity.
-       * - GPFS repository
-         - GPFS, short for General Parallel File System is a high-performance clustered file system developed by IBM
-       * - GitHub repository
-         - A GitHub repository offers version control and source code management functionalities of Git, plus some GitHub features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
-       * - GitLab repository
-         - A GitLab repository offers version control and source code management functionalities of Git, plus some GitLab features (e.g., access control, bug tracking, feature requests, task management, continous integration, and wikis).
-       * - Swift repository
-         - A Swift repository uses the long-term cloud storage of the OpenStack Object Store project which is particularly designed for retrieving and updating large amounts of static data without the need of a central point of control.
-       * - FTP repository
-         - A 'FTP repository' is located on a server that uses the file transfer protocol (FTP), a standard internet communication protocol which allows the transfer of files between clients and a server.
-       * - Git repository
-         - A Git repository offers version control and source code management functionalities.
-       * - git-annex repository
-         - git-annex allows managing large files with git, without storing the file contents in git.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/FileRepositoryType"]
@@ -114,6 +66,37 @@ class FileRepositoryType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_type_of",
+            "openminds.core.FileRepository",
+            "^vocab:type",
+            reverse="types",
+            multiple=True,
+            doc="reverse of 'type'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -126,6 +109,8 @@ class FileRepositoryType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -143,4 +128,6 @@ class FileRepositoryType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_type_of=is_type_of,
         )

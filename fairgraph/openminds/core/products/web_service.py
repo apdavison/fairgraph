@@ -67,6 +67,38 @@ class WebService(KGObject):
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
+        Field(
+            "learning_resources",
+            "openminds.publications.LearningResource",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "comments",
+            "openminds.core.Comment",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "is_part_of",
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
+        Field(
+            "has_accounts",
+            "openminds.core.AccountInformation",
+            "^vocab:service",
+            reverse="services",
+            multiple=True,
+            doc="reverse of 'service'",
+        ),
     ]
     existence_query_fields = ("name", "alias", "description", "developers", "versions")
 
@@ -80,6 +112,10 @@ class WebService(KGObject):
         versions=None,
         homepage=None,
         how_to_cite=None,
+        learning_resources=None,
+        comments=None,
+        is_part_of=None,
+        has_accounts=None,
         id=None,
         data=None,
         space=None,
@@ -98,4 +134,8 @@ class WebService(KGObject):
             versions=versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
+            learning_resources=learning_resources,
+            comments=comments,
+            is_part_of=is_part_of,
+            has_accounts=has_accounts,
         )

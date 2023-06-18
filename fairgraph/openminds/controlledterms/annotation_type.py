@@ -1,22 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - annotation mask
-         - An 'annotation mask' is a filled object masking an area or volume of interest.
-       * - annotation point
-         - 'Annotation point(s)' are individual point(s) that are annotated with the same label.
-       * - annotation contour line
-         - An 'annotation contour line' is a two-dimensional boundary of an area of interest.
-       * - deterministic annotation
-         - A 'deterministic annotation' provides an exact assignment of an entity or a list of entities to a defined annotation. The assingment itself can be based on a deterministic or maximum probability assumption.
-       * - probabalistic annotation
-         - A 'probabalistic annotation' provides the probability or probabilites to which an entity or a list of entities belong(s) to a defined annotation.
-       * - annotation surface
-         - An 'annotation surface' is a three-dimensional boundary of a volume of interest.
-
 """
 
 # this file was auto-generated
@@ -27,26 +10,7 @@ from fairgraph.fields import Field
 
 
 class AnnotationType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - annotation mask
-         - An 'annotation mask' is a filled object masking an area or volume of interest.
-       * - annotation point
-         - 'Annotation point(s)' are individual point(s) that are annotated with the same label.
-       * - annotation contour line
-         - An 'annotation contour line' is a two-dimensional boundary of an area of interest.
-       * - deterministic annotation
-         - A 'deterministic annotation' provides an exact assignment of an entity or a list of entities to a defined annotation. The assingment itself can be based on a deterministic or maximum probability assumption.
-       * - probabalistic annotation
-         - A 'probabalistic annotation' provides the probability or probabilites to which an entity or a list of entities belong(s) to a defined annotation.
-       * - annotation surface
-         - An 'annotation surface' is a three-dimensional boundary of a volume of interest.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AnnotationType"]
@@ -102,6 +66,37 @@ class AnnotationType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_type_of",
+            ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
+            "^vocab:type",
+            reverse="types",
+            multiple=True,
+            doc="reverse of 'type'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -114,6 +109,8 @@ class AnnotationType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -131,4 +128,6 @@ class AnnotationType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_type_of=is_type_of,
         )

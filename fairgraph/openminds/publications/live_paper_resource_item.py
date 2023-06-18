@@ -50,12 +50,37 @@ class LivePaperResourceItem(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Field(
+            "is_location_of",
+            "openminds.core.ServiceLink",
+            "^vocab:dataLocation",
+            reverse="data_locations",
+            multiple=True,
+            doc="reverse of 'dataLocation'",
+        ),
     ]
     existence_query_fields = ("name", "iri", "is_part_of")
 
     def __init__(
-        self, name=None, iri=None, hosted_by=None, is_part_of=None, id=None, data=None, space=None, scope=None
+        self,
+        name=None,
+        iri=None,
+        hosted_by=None,
+        is_part_of=None,
+        is_location_of=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
     ):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, name=name, iri=iri, hosted_by=hosted_by, is_part_of=is_part_of
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            name=name,
+            iri=iri,
+            hosted_by=hosted_by,
+            is_part_of=is_part_of,
+            is_location_of=is_location_of,
         )

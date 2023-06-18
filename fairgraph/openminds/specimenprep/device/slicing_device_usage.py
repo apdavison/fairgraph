@@ -79,6 +79,38 @@ class SlicingDeviceUsage(KGObject):
             "vocab:vibrationFrequency",
             doc="no description available",
         ),
+        Field(
+            "placed_by",
+            "openminds.ephys.ElectrodePlacement",
+            "^vocab:device",
+            reverse="devices",
+            multiple=True,
+            doc="reverse of 'device'",
+        ),
+        Field(
+            "used_in",
+            "openminds.ephys.CellPatching",
+            "^vocab:device",
+            reverse="devices",
+            multiple=True,
+            doc="reverse of 'device'",
+        ),
+        Field(
+            "used_to_record",
+            "openminds.ephys.Recording",
+            "^vocab:recordedWith",
+            reverse="recorded_withs",
+            multiple=True,
+            doc="reverse of 'recordedWith'",
+        ),
+        Field(
+            "used_to_measure",
+            "openminds.core.Measurement",
+            "^vocab:measuredWith",
+            reverse="measured_withs",
+            multiple=True,
+            doc="reverse of 'measuredWith'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -94,6 +126,10 @@ class SlicingDeviceUsage(KGObject):
         slicing_speed=None,
         used_specimen=None,
         vibration_frequency=None,
+        placed_by=None,
+        used_in=None,
+        used_to_record=None,
+        used_to_measure=None,
         id=None,
         data=None,
         space=None,
@@ -114,4 +150,8 @@ class SlicingDeviceUsage(KGObject):
             slicing_speed=slicing_speed,
             used_specimen=used_specimen,
             vibration_frequency=vibration_frequency,
+            placed_by=placed_by,
+            used_in=used_in,
+            used_to_record=used_to_record,
+            used_to_measure=used_to_measure,
         )

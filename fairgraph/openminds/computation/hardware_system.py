@@ -43,11 +43,27 @@ class HardwareSystem(KGObject):
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
+        Field(
+            "used_by",
+            "openminds.computation.Environment",
+            "^vocab:hardware",
+            reverse="hardwares",
+            multiple=True,
+            doc="reverse of 'hardware'",
+        ),
     ]
     existence_query_fields = ("name",)
 
     def __init__(
-        self, name=None, description=None, version_identifier=None, id=None, data=None, space=None, scope=None
+        self,
+        name=None,
+        description=None,
+        version_identifier=None,
+        used_by=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
     ):
         return super().__init__(
             id=id,
@@ -57,4 +73,5 @@ class HardwareSystem(KGObject):
             name=name,
             description=description,
             version_identifier=version_identifier,
+            used_by=used_by,
         )

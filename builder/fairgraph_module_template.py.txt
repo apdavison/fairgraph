@@ -28,14 +28,33 @@ class {{ class_name }}({{ base_class }}):
     }
     fields = [
         {% for field in fields -%}
-        Field("{{field.name}}", {{field.type}}, "{{field.iri}}"{% if field.allow_multiple %}, multiple={{field.allow_multiple}}{% endif %}{% if field.required %}, required={{field.required}}{% endif %},
-              doc="{{field.doc}}"),
+        Field("{{field.name}}", {{field.type_str}}, "{{field.iri}}",
+            {%- if field.allow_multiple %}multiple={{field.allow_multiple}},{% endif -%}
+            {%- if field.required %}required={{field.required}},{% endif -%}
+            doc="{{field.doc}}"),
+        {% endfor %}
+        {% for field in reverse_fields -%}
+        Field(
+            "{{field.name}}", {{field.type_str}},
+            {%- if field.iri is iterable and (field.iri is not string and field.iri is not mapping) %}
+                ["{{field.iri|join('", "')}}"],
+            {% else %}
+                "{{field.iri}}",
+            {% endif -%}
+            {%- if field._forward_name_python is iterable and (field._forward_name_python is not string and field._forward_name_python is not mapping) %}
+            reverse=["{{field._forward_name_python|join('", "')}}"],
+            {% else %}
+            reverse="{{field._forward_name_python}}",
+            {% endif -%}
+            {%- if field.allow_multiple %}multiple={{field.allow_multiple}},{% endif -%}
+            {%- if field.required %}, required={{field.required}},{% endif -%}
+            doc="{{field.doc}}"),
         {% endfor %}
     ]
     {%- if default_space %}
     existence_query_fields = {{ existence_query_fields }}
     {%- endif %}
 
-    def __init__(self {%- for field in fields -%}, {{field.name}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
-        return super().__init__({{ standard_init_fields }}data=data {%- for field in fields -%}, {{field.name}}={{field.name}} {%- endfor -%})
+    def __init__(self {%- for field in fields -%}, {{field.name}}=None{%- endfor -%}{%- for field in reverse_fields -%}, {{field.name}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
+        return super().__init__({{ standard_init_fields }}data=data {%- for field in fields -%}, {{field.name}}={{field.name}} {%- endfor -%}{%- for field in reverse_fields -%}, {{field.name}}={{field.name}} {%- endfor -%})
 {{ additional_methods }}

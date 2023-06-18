@@ -42,11 +42,42 @@ class License(KGObject):
             multiple=True,
             doc="Hypertext document (block of information) found on the World Wide Web.",
         ),
+        Field(
+            "is_applied_to",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:license",
+            reverse="licenses",
+            multiple=True,
+            doc="reverse of 'license'",
+        ),
     ]
     existence_query_fields = ("alias",)
 
     def __init__(
-        self, name=None, alias=None, legal_code=None, webpages=None, id=None, data=None, space=None, scope=None
+        self,
+        name=None,
+        alias=None,
+        legal_code=None,
+        webpages=None,
+        is_applied_to=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
     ):
         return super().__init__(
             id=id,
@@ -57,4 +88,5 @@ class License(KGObject):
             alias=alias,
             legal_code=legal_code,
             webpages=webpages,
+            is_applied_to=is_applied_to,
         )

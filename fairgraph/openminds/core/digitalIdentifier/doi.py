@@ -25,8 +25,100 @@ class DOI(KGObject):
     }
     fields = [
         Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the DOI."),
+        Field(
+            "related_to",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:relatedPublication",
+            reverse="related_publications",
+            multiple=True,
+            doc="reverse of 'relatedPublication'",
+        ),
+        Field(
+            "identifies",
+            [
+                "openminds.computation.ValidationTest",
+                "openminds.computation.WorkflowRecipe",
+                "openminds.core.Dataset",
+                "openminds.core.MetaDataModel",
+                "openminds.core.Model",
+                "openminds.core.Software",
+                "openminds.ephys.Electrode",
+                "openminds.ephys.ElectrodeArray",
+                "openminds.ephys.Pipette",
+                "openminds.publications.LivePaper",
+                "openminds.sands.BrainAtlas",
+                "openminds.sands.CommonCoordinateSpace",
+                "openminds.specimenprep.SlicingDevice",
+            ],
+            "^vocab:digitalIdentifier",
+            reverse="digital_identifiers",
+            multiple=True,
+            doc="reverse of 'digitalIdentifier'",
+        ),
+        Field(
+            "cited_in",
+            [
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.ScholarlyArticle",
+            ],
+            "^vocab:citedPublication",
+            reverse="cited_publications",
+            multiple=True,
+            doc="reverse of 'citedPublication'",
+        ),
+        Field(
+            "fully_documents",
+            "openminds.publications.LivePaperVersion",
+            "^vocab:fullDocumentation",
+            reverse="full_documentations",
+            multiple=True,
+            doc="reverse of 'fullDocumentation'",
+        ),
+        Field(
+            "describes",
+            ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
+            "^vocab:describedIn",
+            reverse="described_in",
+            multiple=True,
+            doc="reverse of 'describedIn'",
+        ),
     ]
     existence_query_fields = ("identifier",)
 
-    def __init__(self, identifier=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, identifier=identifier)
+    def __init__(
+        self,
+        identifier=None,
+        related_to=None,
+        identifies=None,
+        cited_in=None,
+        fully_documents=None,
+        describes=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
+        return super().__init__(
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            identifier=identifier,
+            related_to=related_to,
+            identifies=identifies,
+            cited_in=cited_in,
+            fully_documents=fully_documents,
+            describes=describes,
+        )

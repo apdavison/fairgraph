@@ -71,6 +71,30 @@ class Software(KGObject):
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
+        Field(
+            "learning_resources",
+            "openminds.publications.LearningResource",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "comments",
+            "openminds.core.Comment",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
+        ),
+        Field(
+            "is_part_of",
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
     ]
     existence_query_fields = ("alias",)
 
@@ -85,6 +109,9 @@ class Software(KGObject):
         versions=None,
         homepage=None,
         how_to_cite=None,
+        learning_resources=None,
+        comments=None,
+        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -104,4 +131,7 @@ class Software(KGObject):
             versions=versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
+            learning_resources=learning_resources,
+            comments=comments,
+            is_part_of=is_part_of,
         )

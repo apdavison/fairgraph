@@ -88,6 +88,38 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
+        "reverse": true
+      },
+      "propertyName": "vocab:behavioralProtocol",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
+        "reverse": true
+      },
+      "propertyName": "vocab:groupedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

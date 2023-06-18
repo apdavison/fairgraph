@@ -1,28 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - holding potential
-         - Measured membrane potential during a voltage-clamp protocol.
-       * - compensation current
-         - Current injected into a cell to maintain the membrane potential at a target value.
-       * - input resistance
-         - Total resistance observed by the amplifier during an electrophysiological recording.
-       * - series resistance
-         - Resistance of the electrode during an electrophysiological recording.
-       * - liquid junction potential
-         - A potential difference that develops when two solutions of electrolytes of different concentrations are in contact with each other.
-       * - measured holding potential
-         - Measured membrane potetial during a voltage-clamp protocol.
-       * - seal resistance
-         - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
-       * - `membrane potential <http://uri.interlex.org/base/ilx_0106774>`_
-         - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
-       * - chloride reversal potential
-         - The reversal potential for chloride ions.
-
 """
 
 # this file was auto-generated
@@ -33,32 +10,7 @@ from fairgraph.fields import Field
 
 
 class MeasuredQuantity(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - holding potential
-         - Measured membrane potential during a voltage-clamp protocol.
-       * - compensation current
-         - Current injected into a cell to maintain the membrane potential at a target value.
-       * - input resistance
-         - Total resistance observed by the amplifier during an electrophysiological recording.
-       * - series resistance
-         - Resistance of the electrode during an electrophysiological recording.
-       * - liquid junction potential
-         - A potential difference that develops when two solutions of electrolytes of different concentrations are in contact with each other.
-       * - measured holding potential
-         - Measured membrane potetial during a voltage-clamp protocol.
-       * - seal resistance
-         - Resistance of the seal between the pipette tip and cell membrane in patch-clamp recording.
-       * - `membrane potential <http://uri.interlex.org/base/ilx_0106774>`_
-         - A quality inhering in a cell's plasma membrane by virtue of the electric potential difference across it.
-       * - chloride reversal potential
-         - The reversal potential for chloride ions.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/MeasuredQuantity"]
@@ -114,6 +66,37 @@ class MeasuredQuantity(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "measurements",
+            "openminds.core.Measurement",
+            "^vocab:measuredQuantity",
+            reverse="measured_quantities",
+            multiple=True,
+            doc="reverse of 'measuredQuantity'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -126,6 +109,8 @@ class MeasuredQuantity(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        measurements=None,
         id=None,
         data=None,
         space=None,
@@ -143,4 +128,6 @@ class MeasuredQuantity(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            measurements=measurements,
         )

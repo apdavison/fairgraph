@@ -1,14 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - standard deviation
-         -
-       * - standard error
-         -
-
 """
 
 # this file was auto-generated
@@ -19,18 +10,7 @@ from fairgraph.fields import Field
 
 
 class TypeOfUncertainty(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - standard deviation
-         -
-       * - standard error
-         -
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/TypeOfUncertainty"]
@@ -86,6 +66,37 @@ class TypeOfUncertainty(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "values",
+            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueArray"],
+            "^vocab:typeOfUncertainty",
+            reverse="type_of_uncertainties",
+            multiple=True,
+            doc="reverse of 'typeOfUncertainty'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -98,6 +109,8 @@ class TypeOfUncertainty(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        values=None,
         id=None,
         data=None,
         space=None,
@@ -115,4 +128,6 @@ class TypeOfUncertainty(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            values=values,
         )

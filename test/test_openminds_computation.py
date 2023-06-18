@@ -55,6 +55,15 @@ class TestEnvironment:
                     "structure": [{"path": "@id"}, {"path": "@type"}],
                 },
                 {
+                    "path": {
+                        "@id": "https://openminds.ebrains.eu/vocab/environment",
+                        "reverse": True
+                    },
+                    "propertyName": "vocab:environment",
+                    "ensureOrder": True,
+                    "structure": [{"path": "@id"}, {"path": "@type"}],
+                },
+                {
                     "path": "https://openminds.ebrains.eu/vocab/name",
                     "propertyName": "Qname",
                     "filter": {"op": "CONTAINS", "value": "foo"},

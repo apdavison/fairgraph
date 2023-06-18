@@ -1,20 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - GRIN lens-based cranial window
-         - A cranial window reinforced by an implanted GRIN lens.
-       * - crystalline-based cranial window
-         - A cranial window reinforced by an implantation of a crystalline material.
-       * - prism-based cranial window
-         - A cranial window reinforced by an implanted prism.
-       * - glass coverslip cranial window
-         - A cranial window reinforced by an implantation of a glass coverslip.
-       * - polymer-based cranial window
-         - A cranial window reinforced by an implantation of a polymer material.
-
 """
 
 # this file was auto-generated
@@ -25,24 +10,7 @@ from fairgraph.fields import Field
 
 
 class CranialWindowReinforcementType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - GRIN lens-based cranial window
-         - A cranial window reinforced by an implanted GRIN lens.
-       * - crystalline-based cranial window
-         - A cranial window reinforced by an implantation of a crystalline material.
-       * - prism-based cranial window
-         - A cranial window reinforced by an implanted prism.
-       * - glass coverslip cranial window
-         - A cranial window reinforced by an implantation of a glass coverslip.
-       * - polymer-based cranial window
-         - A cranial window reinforced by an implantation of a polymer material.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CranialWindowReinforcementType"]
@@ -98,6 +66,37 @@ class CranialWindowReinforcementType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "used_for",
+            "openminds.specimenprep.CranialWindowPreparation",
+            "^vocab:reinforcementType",
+            reverse="reinforcement_types",
+            multiple=True,
+            doc="reverse of 'reinforcementType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -110,6 +109,8 @@ class CranialWindowReinforcementType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        used_for=None,
         id=None,
         data=None,
         space=None,
@@ -127,4 +128,6 @@ class CranialWindowReinforcementType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            used_for=used_for,
         )

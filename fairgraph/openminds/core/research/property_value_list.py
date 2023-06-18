@@ -33,10 +33,54 @@ class PropertyValueList(KGObject):
             required=True,
             doc="no description available",
         ),
+        Field(
+            "defines_environment_of",
+            "openminds.computation.LaunchConfiguration",
+            "^vocab:environmentVariable",
+            reverse="environment_variables",
+            multiple=True,
+            doc="reverse of 'environmentVariable'",
+        ),
+        Field(
+            "is_configuration_of",
+            "openminds.computation.ValidationTestVersion",
+            "^vocab:configuration",
+            reverse="configuration",
+            multiple=True,
+            doc="reverse of 'configuration'",
+        ),
+        Field(
+            "specifies",
+            "openminds.sands.CustomAnnotation",
+            "^vocab:specification",
+            reverse="specifications",
+            multiple=True,
+            doc="reverse of 'specification'",
+        ),
+        Field(
+            "is_location_of",
+            "openminds.core.CustomPropertySet",
+            "^vocab:dataLocation",
+            reverse="data_locations",
+            multiple=True,
+            doc="reverse of 'dataLocation'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
-    def __init__(self, lookup_label=None, property_value_pairs=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        lookup_label=None,
+        property_value_pairs=None,
+        defines_environment_of=None,
+        is_configuration_of=None,
+        specifies=None,
+        is_location_of=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
             id=id,
             space=space,
@@ -44,4 +88,8 @@ class PropertyValueList(KGObject):
             data=data,
             lookup_label=lookup_label,
             property_value_pairs=property_value_pairs,
+            defines_environment_of=defines_environment_of,
+            is_configuration_of=is_configuration_of,
+            specifies=specifies,
+            is_location_of=is_location_of,
         )

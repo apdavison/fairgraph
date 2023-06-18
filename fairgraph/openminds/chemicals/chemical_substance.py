@@ -50,6 +50,30 @@ class ChemicalSubstance(KGObject):
             "vocab:purity",
             doc="no description available",
         ),
+        Field(
+            "composes",
+            ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
+            ["^vocab:insulatorMaterial", "^vocab:material"],
+            reverse=["insulator_materials", "materials"],
+            multiple=True,
+            doc="reverse of insulatorMaterial, material",
+        ),
+        Field(
+            "labels",
+            "openminds.ephys.PipetteUsage",
+            "^vocab:labelingCompound",
+            reverse="labeling_compounds",
+            multiple=True,
+            doc="reverse of 'labelingCompound'",
+        ),
+        Field(
+            "used_in_amounts",
+            "openminds.chemicals.AmountOfChemical",
+            "^vocab:chemicalProduct",
+            reverse="chemical_products",
+            multiple=True,
+            doc="reverse of 'chemicalProduct'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -60,6 +84,9 @@ class ChemicalSubstance(KGObject):
         molecular_entity=None,
         product_source=None,
         purity=None,
+        composes=None,
+        labels=None,
+        used_in_amounts=None,
         id=None,
         data=None,
         space=None,
@@ -75,4 +102,7 @@ class ChemicalSubstance(KGObject):
             molecular_entity=molecular_entity,
             product_source=product_source,
             purity=purity,
+            composes=composes,
+            labels=labels,
+            used_in_amounts=used_in_amounts,
         )

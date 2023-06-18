@@ -1,50 +1,5 @@
 """
 Structured information on the programming language.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `JavaScript <https://www.wikidata.org/wiki/Q2005>`_
-         - https://www.wikidata.org/wiki/Q2005
-       * - `C# <https://www.wikidata.org/wiki/Q2370>`_
-         - https://www.wikidata.org/wiki/Q2370
-       * - `C++ <https://www.wikidata.org/wiki/Q2407>`_
-         - https://www.wikidata.org/wiki/Q2407
-       * - `Scala <https://www.wikidata.org/wiki/Q460584>`_
-         - https://www.wikidata.org/wiki/Q460584
-       * - `GLSL <https://www.wikidata.org/wiki/Q779819>`_
-         - https://www.wikidata.org/wiki/Q779819
-       * - `Python <https://www.wikidata.org/wiki/Q28865>`_
-         - https://www.wikidata.org/wiki/Q28865
-       * - `Pascal <https://www.wikidata.org/wiki/Q81571>`_
-         - https://www.wikidata.org/wiki/Q81571
-       * - `TypeScript <https://www.wikidata.org/wiki/Q978185>`_
-         - https://www.wikidata.org/wiki/Q978185
-       * - `Ruby <https://www.wikidata.org/wiki/Q161053>`_
-         - https://www.wikidata.org/wiki/Q161053
-       * - `HTML <https://www.wikidata.org/wiki/Q8811>`_
-         - https://www.wikidata.org/wiki/Q8811
-       * - `R <https://www.wikidata.org/wiki/Q206904>`_
-         - https://www.wikidata.org/wiki/Q206904
-       * - `Fortran <https://www.wikidata.org/wiki/Q83303>`_
-         - https://www.wikidata.org/wiki/Q83303
-       * - `Shell <https://www.wikidata.org/wiki/Q14663>`_
-         - https://www.wikidata.org/wiki/Q14663
-       * - `C <https://www.wikidata.org/wiki/Q15777>`_
-         - https://www.wikidata.org/wiki/Q15777
-       * - AMPL
-         -
-       * - `PHP <https://www.wikidata.org/wiki/Q59>`_
-         - https://www.wikidata.org/wiki/Q59
-       * - `T-SQL <https://www.wikidata.org/wiki/Q1411245>`_
-         - https://www.wikidata.org/wiki/Q1411245
-       * - `Bash <https://www.wikidata.org/wiki/Q189248>`_
-         - https://www.wikidata.org/wiki/Q189248
-       * - `MATLAB <https://www.wikidata.org/wiki/Q37805571>`_
-         - https://www.wikidata.org/wiki/Q37805571
-       * - `Java <https://www.wikidata.org/wiki/Q251>`_
-         - https://www.wikidata.org/wiki/Q251
-
 """
 
 # this file was auto-generated
@@ -57,51 +12,6 @@ from fairgraph.fields import Field
 class ProgrammingLanguage(KGObject):
     """
     Structured information on the programming language.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - `JavaScript <https://www.wikidata.org/wiki/Q2005>`_
-         - https://www.wikidata.org/wiki/Q2005
-       * - `C# <https://www.wikidata.org/wiki/Q2370>`_
-         - https://www.wikidata.org/wiki/Q2370
-       * - `C++ <https://www.wikidata.org/wiki/Q2407>`_
-         - https://www.wikidata.org/wiki/Q2407
-       * - `Scala <https://www.wikidata.org/wiki/Q460584>`_
-         - https://www.wikidata.org/wiki/Q460584
-       * - `GLSL <https://www.wikidata.org/wiki/Q779819>`_
-         - https://www.wikidata.org/wiki/Q779819
-       * - `Python <https://www.wikidata.org/wiki/Q28865>`_
-         - https://www.wikidata.org/wiki/Q28865
-       * - `Pascal <https://www.wikidata.org/wiki/Q81571>`_
-         - https://www.wikidata.org/wiki/Q81571
-       * - `TypeScript <https://www.wikidata.org/wiki/Q978185>`_
-         - https://www.wikidata.org/wiki/Q978185
-       * - `Ruby <https://www.wikidata.org/wiki/Q161053>`_
-         - https://www.wikidata.org/wiki/Q161053
-       * - `HTML <https://www.wikidata.org/wiki/Q8811>`_
-         - https://www.wikidata.org/wiki/Q8811
-       * - `R <https://www.wikidata.org/wiki/Q206904>`_
-         - https://www.wikidata.org/wiki/Q206904
-       * - `Fortran <https://www.wikidata.org/wiki/Q83303>`_
-         - https://www.wikidata.org/wiki/Q83303
-       * - `Shell <https://www.wikidata.org/wiki/Q14663>`_
-         - https://www.wikidata.org/wiki/Q14663
-       * - `C <https://www.wikidata.org/wiki/Q15777>`_
-         - https://www.wikidata.org/wiki/Q15777
-       * - AMPL
-         -
-       * - `PHP <https://www.wikidata.org/wiki/Q59>`_
-         - https://www.wikidata.org/wiki/Q59
-       * - `T-SQL <https://www.wikidata.org/wiki/Q1411245>`_
-         - https://www.wikidata.org/wiki/Q1411245
-       * - `Bash <https://www.wikidata.org/wiki/Q189248>`_
-         - https://www.wikidata.org/wiki/Q189248
-       * - `MATLAB <https://www.wikidata.org/wiki/Q37805571>`_
-         - https://www.wikidata.org/wiki/Q37805571
-       * - `Java <https://www.wikidata.org/wiki/Q251>`_
-         - https://www.wikidata.org/wiki/Q251
-
     """
 
     default_space = "controlled"
@@ -158,6 +68,29 @@ class ProgrammingLanguage(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -170,6 +103,7 @@ class ProgrammingLanguage(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -187,4 +121,5 @@ class ProgrammingLanguage(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

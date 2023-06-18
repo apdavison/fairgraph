@@ -65,6 +65,30 @@ class LocalFile(KGObject):
             "vocab:storageSize",
             doc="Quantitative value defining how much disk space is used by an object on a computer system.",
         ),
+        Field(
+            "is_output_of",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:output",
+            reverse="outputs",
+            multiple=True,
+            doc="reverse of 'output'",
+        ),
+        Field(
+            "is_used_to_group",
+            "openminds.core.FileBundle",
+            "^vocab:groupedBy",
+            reverse="grouped_by",
+            multiple=True,
+            doc="reverse of 'groupedBy'",
+        ),
     ]
     existence_query_fields = ("name", "path")
 
@@ -79,6 +103,8 @@ class LocalFile(KGObject):
         path=None,
         special_usage_role=None,
         storage_size=None,
+        is_output_of=None,
+        is_used_to_group=None,
         id=None,
         data=None,
         space=None,
@@ -98,4 +124,6 @@ class LocalFile(KGObject):
             path=path,
             special_usage_role=special_usage_role,
             storage_size=storage_size,
+            is_output_of=is_output_of,
+            is_used_to_group=is_used_to_group,
         )

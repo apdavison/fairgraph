@@ -1,30 +1,5 @@
 """
 Structured information on the grouping mechanism of a file bundle.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - technique
-         -
-       * - subject group
-         -
-       * - tissue sample
-         -
-       * - behavioral task
-         -
-       * - coordinate space
-         -
-       * - protocol
-         -
-       * - behavioral protocol
-         -
-       * - study target
-         -
-       * - subject
-         -
-       * - tissue sample collection
-         -
-
 """
 
 # this file was auto-generated
@@ -37,31 +12,6 @@ from fairgraph.fields import Field
 class FileBundleGrouping(KGObject):
     """
     Structured information on the grouping mechanism of a file bundle.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - technique
-         -
-       * - subject group
-         -
-       * - tissue sample
-         -
-       * - behavioral task
-         -
-       * - coordinate space
-         -
-       * - protocol
-         -
-       * - behavioral protocol
-         -
-       * - study target
-         -
-       * - subject
-         -
-       * - tissue sample collection
-         -
-
     """
 
     default_space = "controlled"
@@ -118,6 +68,45 @@ class FileBundleGrouping(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_used_to_group",
+            "openminds.core.FileBundle",
+            "^vocab:groupingType",
+            reverse="grouping_types",
+            multiple=True,
+            doc="reverse of 'groupingType'",
+        ),
+        Field(
+            "is_defined_by",
+            "openminds.core.FilePathPattern",
+            "^vocab:groupingType",
+            reverse="grouping_types",
+            multiple=True,
+            doc="reverse of 'groupingType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -130,6 +119,9 @@ class FileBundleGrouping(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_used_to_group=None,
+        is_defined_by=None,
         id=None,
         data=None,
         space=None,
@@ -147,4 +139,7 @@ class FileBundleGrouping(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_used_to_group=is_used_to_group,
+            is_defined_by=is_defined_by,
         )

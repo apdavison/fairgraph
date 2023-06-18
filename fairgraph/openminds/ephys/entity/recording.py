@@ -80,6 +80,14 @@ class Recording(KGObject):
             required=True,
             doc="no description available",
         ),
+        Field(
+            "next_recordings",
+            "openminds.ephys.Recording",
+            "^vocab:previousRecording",
+            reverse="previous_recordings",
+            multiple=True,
+            doc="reverse of 'previousRecording'",
+        ),
     ]
     existence_query_fields = ("channels", "data_location", "recorded_with", "sampling_frequency")
 
@@ -93,6 +101,7 @@ class Recording(KGObject):
         previous_recording=None,
         recorded_with=None,
         sampling_frequency=None,
+        next_recordings=None,
         id=None,
         data=None,
         space=None,
@@ -111,4 +120,5 @@ class Recording(KGObject):
             previous_recording=previous_recording,
             recorded_with=recorded_with,
             sampling_frequency=sampling_frequency,
+            next_recordings=next_recordings,
         )

@@ -61,6 +61,22 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/funding",
+        "reverse": true
+      },
+      "propertyName": "vocab:funding",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

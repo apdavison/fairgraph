@@ -40,6 +40,7 @@ from .errors import AuthorizationError, ResourceExistsError
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
 from .kgproxy import KGProxy
+from .kgquery import KGQuery
 
 if TYPE_CHECKING:
     from .fields import Field
@@ -76,6 +77,15 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         self.scope = scope
         self.allow_update = True
         super().__init__(data=data, **properties)
+        for field in self.fields:
+            if field.reverse and not hasattr(self, field.name):
+                query = KGQuery(
+                    field.types,
+                    {field.reverse: self.id},
+                    callback=lambda value: setattr(self, field.name, value)
+                )
+                setattr(self, field.name, query)
+
 
     def __repr__(self):
         template_parts = (
@@ -462,10 +472,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if self.id and other.id and self.id != other.id:
             return True
         for field in self.fields:
-            val_self = getattr(self, field.name)
-            val_other = getattr(other, field.name)
-            if val_self != val_other:
-                return True
+            if field.intrinsic:
+                val_self = getattr(self, field.name)
+                val_other = getattr(other, field.name)
+                if val_self != val_other:
+                    return True
         return False
 
     def diff(self, other):
@@ -479,10 +490,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if self.id != other.id:
                 differences["id"] = (self.id, other.id)
             for field in self.fields:
-                val_self = getattr(self, field.name)
-                val_other = getattr(other, field.name)
-                if val_self != val_other:
-                    differences["fields"][field.name] = (val_self, val_other)
+                if field.intrinsic:
+                    val_self = getattr(self, field.name)
+                    val_other = getattr(other, field.name)
+                    if val_self != val_other:
+                        differences["fields"][field.name] = (val_self, val_other)
         return differences
 
     def exists(self, client: KGClient) -> bool:
@@ -584,6 +596,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if recursive:
             for field in self.fields:
                 if field.intrinsic:
+                    # we do not save reverse fields, those objects must be saved separately
+                    # this could be revisited, but we'll have to be careful about loops
+                    # if saving recursively
                     values = getattr(self, field.name)
                     for value in as_list(values):
                         if isinstance(value, ContainsMetadata):
@@ -836,7 +851,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             self.resolve(client, follow_links=follow_links)
         all_children = []
         for field in self.fields:
-            if field.is_link:
+            if field.intrinsic and field.is_link:
                 children = as_list(getattr(self, field.name))
                 all_children.extend(children)
                 if follow_links:

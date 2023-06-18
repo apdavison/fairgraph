@@ -159,6 +159,30 @@ class Optimization(KGObject):
             "vocab:wasInformedBy",
             doc="no description available",
         ),
+        Field(
+            "informed",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:wasInformedBy",
+            reverse="was_informed_by",
+            multiple=True,
+            doc="reverse of 'wasInformedBy'",
+        ),
+        Field(
+            "is_part_of",
+            "openminds.computation.WorkflowExecution",
+            "^vocab:stage",
+            reverse="stages",
+            multiple=True,
+            doc="reverse of 'stage'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -182,6 +206,8 @@ class Optimization(KGObject):
         tags=None,
         techniques=None,
         was_informed_by=None,
+        informed=None,
+        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -210,4 +236,6 @@ class Optimization(KGObject):
             tags=tags,
             techniques=techniques,
             was_informed_by=was_informed_by,
+            informed=informed,
+            is_part_of=is_part_of,
         )

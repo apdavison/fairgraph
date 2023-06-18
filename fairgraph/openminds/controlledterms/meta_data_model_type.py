@@ -1,18 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - common data elements
-         - Common Data Elements (CDEs) define standardized key terms or concepts for diseases in form of a data dictionary that can be used in both relational and graph metadata models.
-       * - data repository model
-         - A data repository model defines the file and folder naming and structure as well as partially the file content (metadata definitions) and preferred format.
-       * - relational metadata model
-         - A relational metadata model defines a set of tabular metadata schemas (including their relations) as architectural base of a relational database for describing the products represented in that database.
-       * - graph metadata model
-         - A graph metadata model defines a set of modular metadata schemas (including their relations) as architectural base of a graph database for describing the products represented in that database.
-
 """
 
 # this file was auto-generated
@@ -23,22 +10,7 @@ from fairgraph.fields import Field
 
 
 class MetaDataModelType(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - common data elements
-         - Common Data Elements (CDEs) define standardized key terms or concepts for diseases in form of a data dictionary that can be used in both relational and graph metadata models.
-       * - data repository model
-         - A data repository model defines the file and folder naming and structure as well as partially the file content (metadata definitions) and preferred format.
-       * - relational metadata model
-         - A relational metadata model defines a set of tabular metadata schemas (including their relations) as architectural base of a relational database for describing the products represented in that database.
-       * - graph metadata model
-         - A graph metadata model defines a set of modular metadata schemas (including their relations) as architectural base of a graph database for describing the products represented in that database.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/MetaDataModelType"]
@@ -94,6 +66,29 @@ class MetaDataModelType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -106,6 +101,7 @@ class MetaDataModelType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -123,4 +119,5 @@ class MetaDataModelType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
         )

@@ -88,6 +88,8 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
             expanded_uris.append(uri)
         else:
             prefix, identifier = uri.split(":")
+            if prefix.startswith("^"):  # used to indicate a reverse connection
+                prefix = prefix[1:]
             if prefix not in context:
                 raise ValueError("prefix {prefix} not found in context")
             base_url = context[prefix]

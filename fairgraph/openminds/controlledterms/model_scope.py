@@ -1,30 +1,5 @@
 """
 Structured information on the scope of the computational model.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - single cell
-         - A model of a single cell
-       * - subcellular: signalling
-         - A model of sub-cellular signalling pathways
-       * - network: brain region
-         - A model of one or more brain regions
-       * - network: microcircuit
-         - A model of a neuronal microcircuit
-       * - subcellular: spine
-         - A model of a dendritic spine, or of a dendritic region containing several spines
-       * - network: whole brain
-         - A model of an entire brain
-       * - subcellular: ion channel
-         - A model of an ion channel
-       * - subcellular
-         - A model of an entity or process contained within a cell
-       * - subcellular: molecular
-         - A model of the structure or behaviour of molecules
-       * - network
-         - A model of a neuronal network
-
 """
 
 # this file was auto-generated
@@ -37,31 +12,6 @@ from fairgraph.fields import Field
 class ModelScope(KGObject):
     """
     Structured information on the scope of the computational model.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - single cell
-         - A model of a single cell
-       * - subcellular: signalling
-         - A model of sub-cellular signalling pathways
-       * - network: brain region
-         - A model of one or more brain regions
-       * - network: microcircuit
-         - A model of a neuronal microcircuit
-       * - subcellular: spine
-         - A model of a dendritic spine, or of a dendritic region containing several spines
-       * - network: whole brain
-         - A model of an entire brain
-       * - subcellular: ion channel
-         - A model of an ion channel
-       * - subcellular
-         - A model of an entity or process contained within a cell
-       * - subcellular: molecular
-         - A model of the structure or behaviour of molecules
-       * - network
-         - A model of a neuronal network
-
     """
 
     default_space = "controlled"
@@ -118,6 +68,37 @@ class ModelScope(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_scope_of",
+            ["openminds.computation.ValidationTest", "openminds.core.Model"],
+            "^vocab:scope",
+            reverse="model_scope",
+            multiple=True,
+            doc="reverse of 'scope'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -130,6 +111,8 @@ class ModelScope(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        is_scope_of=None,
         id=None,
         data=None,
         space=None,
@@ -147,4 +130,6 @@ class ModelScope(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            is_scope_of=is_scope_of,
         )

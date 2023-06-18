@@ -12,6 +12,7 @@ import re
 from typing import List
 from collections import defaultdict
 import warnings
+import subprocess
 from jinja2 import FileSystemLoader
 
 
@@ -49,28 +50,31 @@ name_map = {
 # the following dict contains exceptions to the simple rule we use for making names plural
 # (i.e. add 's' unless the word already ends in 's')
 custom_multiple = {
-    "data": "data",
-    "input_data": "input_data",
-    "output_data": "output_data",
-    "reference_data": "reference_data",
     "funding": "funding",
+    "funded": "funded",
     "biological_sex": "biological_sex",
-    "age_category": "age_categories",
     "descended_from": "descended_from",
-    "laterality": "laterality",
     "software": "software",
     "configuration": "configuration",
-    "is_part_of": "is_part_of",
     "semantically_anchored_to": "semantically_anchored_to",
-    "is_alternative_version_of": "is_alternative_version_of",
     "experimental_approach": "experimental_approaches",
-    "pathology": "pathologies",
-    "uncertainty": "uncertainties",
-    "application_category": "application_categories",
     "about": "about",
-    "performed_by": "performed_by",
-    "grouped_by": "grouped_by",
     "hash": "hash",
+    "published": "published",
+    "manufactured": "manufactured",
+    "started": "started",
+    "informed": "informed",
+    "defined": "defined",
+    "inspired": "inspired",
+    "used_for": "used_for",
+    "is_used_to_group": "is_used_to_group",
+    "used_to_record": "used_to_record",
+    "used_to_measure": "used_to_measure",
+    "is_output_from": "is_output_from",
+    "linked_from": "linked_from",
+    "is_reference_for": "is_reference_for",
+    "is_default_image_for": "is_default_image_for",
+    "has_child": "has_children",
 }
 
 # in a small number of cases, a single item is allowed but this item itself has an
@@ -84,9 +88,16 @@ def generate_python_name(json_name, allow_multiple=False):
     else:
         python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name)
         python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
-        if allow_multiple and python_name[-1] != "s":
+        if (
+            allow_multiple
+            and python_name[-1] != "s"
+            and python_name[-3:] not in ("_of", "_by", "_in", "_to")
+            and not python_name.endswith("data")
+        ):
             if python_name in custom_multiple:
                 python_name = custom_multiple[python_name]
+            elif python_name.endswith("y"):
+                python_name = python_name[:-1] + "ies"
             else:
                 python_name += "s"
         elif python_name in custom_singular:
@@ -106,7 +117,179 @@ format_map = {
 }
 
 
+reverse_name_map = {
+    "RRID": "identifies",
+    "about": {
+        "https://openminds.ebrains.eu/publications/LearningResource": "learningResource",
+        "https://openminds.ebrains.eu/core/Comment": "comment",
+    },
+    "abstractionLevel": "isAbstractionLevelOf",
+    "addExistingTerminology": "suggestedIn",
+    "ageCategory": "isAgeCategoryOf",
+    "anatomicalAxesOrientation": "isOrientationOf",
+    "anatomicalLocation": "isLocationOf",
+    "anatomicalLocationOfElectrodes": "isLocationOf",
+    "anatomicalTarget": "isTargetOf",
+    "associatedAccount": "belongsTo",
+    "attribute": "isAttributeOf",
+    "backgroundStrain": "isBackgroundStrainOf",
+    "behavioralProtocol": "usedIn",
+    "biologicalSex": "isBiologicalSexOf",
+    "breedingType": "isBreedingTypeOf",
+    "chemicalProduct": "usedInAmount",
+    "citedPublication": "citedIn",
+    "commenter": "comment",
+    "components": "isComponentOf",  # or "is_part_of" (TODO "components" redundant with "hasComponent"?)
+    "configuration": "isConfigurationOf",
+    "constructionType": "usedFor",
+    "contactInformation": "isContactInformationOf",
+    "contentType": "isDefinedBy",
+    "contentTypePattern": "identifiesContentOf",
+    "contributor": "contribution",
+    "coordinateSpace": "isCoordinateSpaceOf",
+    "coordinator": "coordinatedProject",
+    "copyOf": "hasCopy",
+    "criteria": "basedOnProtocolExecution",
+    "criteriaQualityType": "usedByAnnotation",  # or "isCriteriaQualityTypeOf"
+    "criteriaType": "usedByAnnotation",
+    "cultureMedium": "usedIn",
+    "custodian": "isCustodianOf",
+    "dataLocation": "isLocationOf",
+    "dataType": "isDataTypeOf",
+    "defaultImage": "isDefaultImageFor",
+    "definedIn": "defines",  # or "containsDefinitionOf",
+    "descendedFrom": "hasChild",  # equivalent to "hasParent" ?
+    "describedIn": "describes",
+    "device": {
+        "https://openminds.ebrains.eu/ephys/ElectrodeArrayUsage": "usage",
+        "https://openminds.ebrains.eu/ephys/RecordingActivity": "usedIn",
+        "https://openminds.ebrains.eu/ephys/ElectrodePlacement": "placedBy",
+        "https://openminds.ebrains.eu/ephys/CellPatching": "usedIn",
+        "https://openminds.ebrains.eu/ephys/Recording": "usedFor",
+        "https://openminds.ebrains.eu/core/Measurement": "usedFor",
+    },
+    "deviceType": "isTypeOf",  # TODO: replace with "type"?
+    "digitalIdentifier": "identifies",
+    "diseaseModel": "isModeledBy",
+    "environment": "usedFor",  # or "isEnvironmentOf"
+    "environmentVariable": "definesEnvironmentOf",
+    "fileRepository": "files",
+    "format": "isFormatOf",
+    "fullDocumentation": "fullyDocuments",
+    "funder": "funded",
+    "funding": "funded",
+    "geneticStrainType": "isGeneticStrainTypeOf",  # or "strain"
+    "groupedBy": "isUsedToGroup",
+    "groupingType": {
+        "https://openminds.ebrains.eu/core/FileBundle": "isUsedToGroup",
+        "https://openminds.ebrains.eu/core/FilePathPattern": "isDefinedBy",
+    },
+    "handedness": "subjectStates",  # or "isHandednessOf"
+    "hardware": "usedBy",  # or "isPartOfEnvironment"
+    "hasComponent": "isPartOf",
+    "hasEntity": "isPartOf",
+    "hasParent": "hasChild",  # equivalent to "descendedFrom"
+    "hasPart": "isPartOf",
+    "hasVersion": "isVersionOf",
+    "holder": "holdsCopyright",  # or "intellectualProperty",
+    "hostedBy": "hosts",
+    "inRelationTo": "assessment",  # equivalent to "about" ?
+    "input": "isInputTo",
+    "inputData": "isInputTo",  # could use just "input" ?
+    "inspiredBy": "inspired",
+    "insulatorMaterial": "composes",
+    "isNewVersionOf": "isOldVersionOf",
+    "isPartOf": "hasPart",  # hasComponent ?
+    "keyword": "describes",
+    "labelingCompound": "labels",
+    "laterality": "isLateralityOf",
+    "launchConfiguration": "isLaunchConfigurationOf",
+    "license": "isAppliedTo",  # or "governsSharingOf"
+    "manufacturer": "manufactured",  # or "product"
+    "material": "composes",
+    "measuredQuantity": "measurement",
+    "measuredWith": "usedToMeasure",
+    "memberOf": "hasMember",
+    "metadataLocation": "describes",
+    "minValueUnit": "range",
+    "molecularEntity": "composes",
+    "nativeUnit": "usedBy",
+    "origin": "sample",
+    "output": "isOutputOf",  # or "generatedBy"
+    "outputData": "isOutputOf",  # replace with "output"?
+    "outputFormat": "isOutputFormatOf",
+    "owner": "isOwnerOf",  # or "devices"
+    "pathology": "specimenState",
+    "performedBy": "activity",
+    "pipetteSolution": "usedIn",
+    "preferredDisplayColor": "preferredBy",
+    "preparationDesign": "usedFor",
+    "previewImage": "isPreviewOf",
+    "previousRecording": "nextRecording",
+    "productSource": "isSourceOf",
+    "programmingLanguage": "usedIn",
+    "protocol": "usedIn",
+    "provider": "isProviderOf",  # or "provided",
+    "publisher": "published",
+    "qualitativeOverlap": "assessment",
+    "recipe": "defined",  # or "defines"
+    "recordedWith": "usedToRecord",
+    "referenceData": "isReferenceFor",
+    "referenceDataAcquisition": "isReferenceFor",
+    "reinforcementType": "usedFor",
+    "relatedPublication": "relatedTo",
+    "relatedUBERONTerm": "defines",
+    "relevantFor": "hasProperties",
+    "repository": "containsContentOf",
+    "scope": "isScopeOf",
+    "scoreType": "isScoreTypeOf",
+    "service": {
+        "https://openminds.ebrains.eu/core/ServiceLink": "linkedFrom",
+        "https://openminds.ebrains.eu/core/AccountInformation": "hasAccount",
+    },
+    "setup": "usedIn",
+    "slicingDevice": "usedIn",  # TODO: slicingDevice --> device?
+    "slicingPlane": "usedIn",
+    "software": "usedIn",
+    "sourceData": "isSourceDataOf",
+    "specialUsageRole": "file",
+    "species": "isSpeciesOf",
+    "specification": "specifies",
+    "specificationFormat": "isSpecificationFormatOf",
+    "stage": "isPartOf",
+    "startedBy": "started",
+    "status": "isStatusOf",
+    "stimulation": "usedIn",
+    "stimulusType": "usedIn",
+    "structurePattern": "structures",
+    "studiedSpecimen": "hasStudyResultsIn",  # "isPartOfStudy"
+    "studiedState": "isStateOf",
+    "studyTarget": "studiedIn",
+    "targetIdentificationType": "isTypeOf",
+    "technique": "usedIn",
+    "tissueBathSolution": "usedIn",
+    "type": "isTypeOf",
+    "typeOfUncertainty": "value",
+    "unit": {
+        "https://openminds.ebrains.eu/ephys/Channel": "usedIn",
+        "https://openminds.ebrains.eu/core/QuantitativeValue": "value",
+        "https://openminds.ebrains.eu/core/QuantitativeValueArray": "value",
+    },
+    "usedSpecies": "commonCoordinateSpace",
+    "usedSpecimen": "usedIn",
+    "variation": "usedIn",
+    "vendor": "stocks",
+    "wasInformedBy": "informed",
+}
+
+
+conflict_resolution = {
+    "is_part_of": "is_also_part_of",
+}
+
+
 def generate_class_name(iri):
+    assert isinstance(iri, str)
     parts = iri.split("/")[-2:]
     for i in range(len(parts) - 1):
         parts[i] = parts[i].lower()
@@ -402,6 +585,29 @@ def get_controlled_terms_table(type_):
         return "\n".join(lines)
 
 
+def merge_fields_with_duplicate_names(original_fields):
+    merged_fields = defaultdict(list)
+    for field in original_fields:
+        merged_fields[field["name"]].append(field)
+    for name, fields in merged_fields.items():
+        if len(fields) > 1:
+            merged_types = sum((field["_type"] for field in fields), [])
+            merged_fields[name] = {
+                "name": name,
+                "_type": merged_types,
+                "_forward_name": [field["_forward_name"] for field in fields],
+                "_forward_name_python": [field["_forward_name_python"] for field in fields],
+                "iri": [f"^vocab:{field['_forward_name']}" for field in fields],
+                "allow_multiple": True,
+                "required": False,
+                "doc": "reverse of " + ", ".join(f["_forward_name"] for f in fields),
+            }
+            merged_fields[name]["type_str"] = "[{}]".format(", ".join(sorted(merged_types)))
+        else:
+            merged_fields[name] = fields[0]
+    return sorted(merged_fields.values(), key=lambda f: f["name"])
+
+
 class FairgraphGenerator(JinjaGenerator):
     def __init__(self, schema_information: List[SchemaStructure]):
         super().__init__("py", None, "fairgraph_module_template.py.txt")
@@ -449,13 +655,67 @@ class FairgraphGenerator(JinjaGenerator):
                 possible_types_str = "[{}]".format(", ".join(sorted(possible_types)))
             field = {
                 "name": generate_python_name(name, allow_multiple),
-                "type": possible_types_str,
+                "type_str": possible_types_str,
                 "iri": f"vocab:{name}",
                 "allow_multiple": allow_multiple,
                 "required": name in schema.get("required", []),
                 "doc": generate_doc(property, schema["simpleTypeName"]),
             }
             fields.append(field)
+
+        forward_field_names = set(field["name"] for field in fields)
+
+        reverse_fields = []
+        linked_from = defaultdict(list)
+        for _type, forward_name in self._linked_from[schema["_type"]].items():
+            linked_from[forward_name].append(_type)
+
+        for forward_name, linked_types in linked_from.items():
+            reverse_name = reverse_name_map[forward_name]
+            if isinstance(reverse_name, dict):
+                reverse_names = defaultdict(list)
+                for _type, name in reverse_name.items():
+                    if _type in linked_types:
+                        reverse_names[name].append(_type)
+                filtered_linked_types = reverse_names.values()
+                reverse_names = reverse_names.keys()
+                # breakpoint()
+            else:
+                assert isinstance(reverse_name, str)
+                filtered_linked_types = [linked_types]
+                reverse_names = [reverse_name]
+
+            allow_multiple = True  # there may be a few 1:1 relationships,
+            # todo: figure out how to identify these
+            for reverse_name, _types in zip(reverse_names, filtered_linked_types):
+                _classes = [f'"{generate_class_name(iri)}"' for iri in _types]
+                if len(_classes) == 1:
+                    types_str = _classes[0]
+                else:
+                    types_str = "[{}]".format(", ".join(sorted(_classes)))
+                field = {
+                    "name": generate_python_name(reverse_name, allow_multiple),
+                    "_type": _classes,
+                    "type_str": types_str,
+                    "_forward_name": forward_name,
+                    "_forward_name_python": generate_python_name(forward_name, allow_multiple),
+                    "iri": f"^vocab:{forward_name}",
+                    "allow_multiple": allow_multiple,
+                    "required": False,
+                    "doc": f"reverse of '{forward_name}'",
+                }
+                # check for conflict between forward and reverse names
+                if field["name"] in forward_field_names:
+                    if field["name"] in conflict_resolution:
+                        field["name"] = conflict_resolution[field["name"]]
+                    else:
+                        raise Exception("The following name appears as both a forward and reverse name "
+                                        f"for {schema[TEMPLATE_PROPERTY_TYPE]}: {field['name']}")
+                reverse_fields.append(field)
+
+        reverse_field_names = set(field["name"] for field in reverse_fields)
+        if len(reverse_field_names) < len(reverse_fields):
+            reverse_fields = merge_fields_with_duplicate_names(reverse_fields)
 
         # for builtin_type in ("str", "int", "float"):
         #     try:
@@ -486,6 +746,7 @@ class FairgraphGenerator(JinjaGenerator):
             "openminds_type": schema[TEMPLATE_PROPERTY_TYPE],
             "docstring": schema.get("description", ""),
             "fields": fields,
+            "reverse_fields": reverse_fields,
             "existence_query_fields": get_existence_query(schema["simpleTypeName"], fields),
             "preamble": preamble.get(schema["simpleTypeName"], ""),
             "additional_methods": additional_methods.get(schema["simpleTypeName"], ""),
@@ -544,7 +805,7 @@ class FairgraphGenerator(JinjaGenerator):
     def _pre_generate(self, ignore=None):
         self._linked_types = set()
         self._embedded_types = set()
-        _linked_from = defaultdict(list)
+        self._linked_from = defaultdict(dict)
         _embedded_in = defaultdict(list)
         expanded_path = os.path.join(ROOT_PATH, EXPANDED_DIR)
         for schema_group in find_resource_directories(expanded_path, file_ending=SCHEMA_FILE_ENDING, ignore=ignore):
@@ -560,11 +821,13 @@ class FairgraphGenerator(JinjaGenerator):
                     elif TEMPLATE_PROPERTY_LINKED_TYPES in property:
                         self._linked_types.update(property[TEMPLATE_PROPERTY_LINKED_TYPES])
                         for item in property[TEMPLATE_PROPERTY_LINKED_TYPES]:
-                            _linked_from[item].append(schema["_type"])
+                            self._linked_from[item][schema["_type"]] = property["title"]
         conflicts = self._linked_types.intersection(self._embedded_types)
         if len(conflicts) > 0:
             for type_ in conflicts:
-                warnings.warn(f"{type_} is linked from {_linked_from[type_]} and embedded in {_embedded_in[type_]}")
+                warnings.warn(
+                    f"{type_} is linked from {self._linked_from[type_]} and embedded in {_embedded_in[type_]}"
+                )
 
     def generate(self, ignore=None):
         super().generate(ignore=ignore)
@@ -579,6 +842,8 @@ class FairgraphGenerator(JinjaGenerator):
         with open(path, "w") as fp:
             module_names = sorted(key.lower() for key in self.import_data)
             fp.write("from . import {}\n".format(", ".join(module_names)))
+        # Format with Black
+        subprocess.call([sys.executable, "-m", "black", self.target_path])
 
 
 def strip_trailing_whitespace(s):

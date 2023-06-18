@@ -39,10 +39,61 @@ class SoftwareAgent(KGObject):
             required=True,
             doc="no description available",
         ),
+        Field(
+            "activities",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:performedBy",
+            reverse="performed_by",
+            multiple=True,
+            doc="reverse of 'performedBy'",
+        ),
+        Field(
+            "started",
+            "openminds.computation.WorkflowExecution",
+            "^vocab:startedBy",
+            reverse="started_by",
+            multiple=True,
+            doc="reverse of 'startedBy'",
+        ),
     ]
     existence_query_fields = ("name", "software")
 
-    def __init__(self, name=None, environment=None, software=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self,
+        name=None,
+        environment=None,
+        software=None,
+        activities=None,
+        started=None,
+        id=None,
+        data=None,
+        space=None,
+        scope=None,
+    ):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, name=name, environment=environment, software=software
+            id=id,
+            space=space,
+            scope=scope,
+            data=data,
+            name=name,
+            environment=environment,
+            software=software,
+            activities=activities,
+            started=started,
         )

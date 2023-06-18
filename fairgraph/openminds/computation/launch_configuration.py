@@ -44,6 +44,22 @@ class LaunchConfiguration(KGObject):
             doc="no description available",
         ),
         Field("executable", str, "vocab:executable", required=True, doc="no description available"),
+        Field(
+            "is_launch_configuration_of",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+            ],
+            "^vocab:launchConfiguration",
+            reverse="launch_configurations",
+            multiple=True,
+            doc="reverse of 'launchConfiguration'",
+        ),
     ]
     existence_query_fields = ("executable", "name")
 
@@ -54,6 +70,7 @@ class LaunchConfiguration(KGObject):
         description=None,
         environment_variables=None,
         executable=None,
+        is_launch_configuration_of=None,
         id=None,
         data=None,
         space=None,
@@ -69,4 +86,5 @@ class LaunchConfiguration(KGObject):
             description=description,
             environment_variables=environment_variables,
             executable=executable,
+            is_launch_configuration_of=is_launch_configuration_of,
         )

@@ -49,6 +49,29 @@ class Funding(KGObject):
             required=True,
             doc="Legal person that provides money for a particular purpose.",
         ),
+        Field(
+            "funded",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:funding",
+            reverse="funding",
+            multiple=True,
+            doc="reverse of 'funding'",
+        ),
     ]
     existence_query_fields = ("funder",)
 
@@ -58,6 +81,7 @@ class Funding(KGObject):
         award_number=None,
         award_title=None,
         funder=None,
+        funded=None,
         id=None,
         data=None,
         space=None,
@@ -72,4 +96,5 @@ class Funding(KGObject):
             award_number=award_number,
             award_title=award_title,
             funder=funder,
+            funded=funded,
         )

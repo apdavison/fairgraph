@@ -64,6 +64,14 @@ class SlicingDevice(KGObject):
             doc="no description available",
         ),
         Field("serial_number", str, "vocab:serialNumber", doc="no description available"),
+        Field(
+            "is_part_of",
+            "openminds.core.Setup",
+            "^vocab:hasPart",
+            reverse="has_parts",
+            multiple=True,
+            doc="reverse of 'hasPart'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -77,6 +85,7 @@ class SlicingDevice(KGObject):
         manufacturers=None,
         owners=None,
         serial_number=None,
+        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -95,4 +104,5 @@ class SlicingDevice(KGObject):
             manufacturers=manufacturers,
             owners=owners,
             serial_number=serial_number,
+            is_part_of=is_part_of,
         )

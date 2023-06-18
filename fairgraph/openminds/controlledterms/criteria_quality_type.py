@@ -1,14 +1,5 @@
 """
 Structured information on the quality type of the defined criteria for a measurement.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - processive
-         - If a criteria is 'processive' it is based on a repeatable and often automated process.
-       * - asserted
-         - If a criteria is 'asserted' it is based on an opinion or claim, usually made by an expert.
-
 """
 
 # this file was auto-generated
@@ -21,15 +12,6 @@ from fairgraph.fields import Field
 class CriteriaQualityType(KGObject):
     """
     Structured information on the quality type of the defined criteria for a measurement.
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - processive
-         - If a criteria is 'processive' it is based on a repeatable and often automated process.
-       * - asserted
-         - If a criteria is 'asserted' it is based on an opinion or claim, usually made by an expert.
-
     """
 
     default_space = "controlled"
@@ -86,6 +68,37 @@ class CriteriaQualityType(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "used_by_annotations",
+            ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
+            "^vocab:criteriaQualityType",
+            reverse="criteria_quality_types",
+            multiple=True,
+            doc="reverse of 'criteriaQualityType'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -98,6 +111,8 @@ class CriteriaQualityType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        used_by_annotations=None,
         id=None,
         data=None,
         space=None,
@@ -115,4 +130,6 @@ class CriteriaQualityType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            used_by_annotations=used_by_annotations,
         )

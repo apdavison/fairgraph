@@ -66,6 +66,38 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/output",
+        "reverse": true
+      },
+      "propertyName": "vocab:output",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/dataLocation",
+        "reverse": true
+      },
+      "propertyName": "vocab:dataLocation",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }

@@ -1,22 +1,5 @@
 """
 
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - cell-attached patch
-         - A variation of the patch-clamp technique in which the cell membrane remains intact.
-       * - perforated patch
-         - A variation of the patch-clamp technique in which the cell membrane is perforated.
-       * - loose patch
-         - A variation of the patch-clamp technique involving a seal with low electrical resistance.
-       * - inside-out patch
-         - A variation of the patch-clamp technique in which a patch of membrane is excised and the cytosolic surface exposed.
-       * - outside-out patch
-         - A variation of the patch-clamp technique in which a patch of membrane is excised and the external surface exposed.
-       * - whole-cell patch
-         - A variation of the patch-clamp technique in which the patch is ruptured, giving access to the intracellular space.
-
 """
 
 # this file was auto-generated
@@ -27,26 +10,7 @@ from fairgraph.fields import Field
 
 
 class PatchClampVariation(KGObject):
-    """
-
-    .. list-table:: **Possible values**
-       :widths: 20 80
-       :header-rows: 0
-
-       * - cell-attached patch
-         - A variation of the patch-clamp technique in which the cell membrane remains intact.
-       * - perforated patch
-         - A variation of the patch-clamp technique in which the cell membrane is perforated.
-       * - loose patch
-         - A variation of the patch-clamp technique involving a seal with low electrical resistance.
-       * - inside-out patch
-         - A variation of the patch-clamp technique in which a patch of membrane is excised and the cytosolic surface exposed.
-       * - outside-out patch
-         - A variation of the patch-clamp technique in which a patch of membrane is excised and the external surface exposed.
-       * - whole-cell patch
-         - A variation of the patch-clamp technique in which the patch is ruptured, giving access to the intracellular space.
-
-    """
+    """ """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/PatchClampVariation"]
@@ -102,6 +66,37 @@ class PatchClampVariation(KGObject):
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
+        Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "used_in",
+            "openminds.ephys.CellPatching",
+            "^vocab:variation",
+            reverse="variations",
+            multiple=True,
+            doc="reverse of 'variation'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -114,6 +109,8 @@ class PatchClampVariation(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
+        describes=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -131,4 +128,6 @@ class PatchClampVariation(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
+            describes=describes,
+            used_in=used_in,
         )

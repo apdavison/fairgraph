@@ -57,6 +57,22 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/regex",
       "propertyName": "vocab:regex"
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/contentTypePattern",
+        "reverse": true
+      },
+      "propertyName": "vocab:contentTypePattern",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
     }
   ]
 }
