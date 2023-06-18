@@ -55,10 +55,7 @@ class TestEnvironment:
                     "structure": [{"path": "@id"}, {"path": "@type"}],
                 },
                 {
-                    "path": {
-                        "@id": "https://openminds.ebrains.eu/vocab/environment",
-                        "reverse": True
-                    },
+                    "path": {"@id": "https://openminds.ebrains.eu/vocab/environment", "reverse": True},
                     "propertyName": "vocab:environment",
                     "ensureOrder": True,
                     "structure": [{"path": "@id"}, {"path": "@type"}],

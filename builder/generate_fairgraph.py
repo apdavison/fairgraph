@@ -709,8 +709,10 @@ class FairgraphGenerator(JinjaGenerator):
                     if field["name"] in conflict_resolution:
                         field["name"] = conflict_resolution[field["name"]]
                     else:
-                        raise Exception("The following name appears as both a forward and reverse name "
-                                        f"for {schema[TEMPLATE_PROPERTY_TYPE]}: {field['name']}")
+                        raise Exception(
+                            "The following name appears as both a forward and reverse name "
+                            f"for {schema[TEMPLATE_PROPERTY_TYPE]}: {field['name']}"
+                        )
                 reverse_fields.append(field)
 
         reverse_field_names = set(field["name"] for field in reverse_fields)

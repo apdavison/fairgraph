@@ -40,7 +40,8 @@ def generate_for_version(version):  # e.g. version="0.9.0"
         "funder": {"@type": "Organization", "name": "European Commission"},
         "programmingLanguage": ["Python"],
         "operatingSystem": ["Linux", "Windows", "macOS"],
-        "softwareRequirements": [f"Python {pypi_metadata['info']['requires_python']}"] + pypi_metadata['info']["requires_dist"],
+        "softwareRequirements": [f"Python {pypi_metadata['info']['requires_python']}"]
+        + pypi_metadata["info"]["requires_dist"],
         "relatedLink": ["https://fairgraph.readthedocs.io"],
         "author": authors,
     }

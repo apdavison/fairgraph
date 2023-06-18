@@ -80,12 +80,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         for field in self.fields:
             if field.reverse and not hasattr(self, field.name):
                 query = KGQuery(
-                    field.types,
-                    {field.reverse: self.id},
-                    callback=lambda value: setattr(self, field.name, value)
+                    field.types, {field.reverse: self.id}, callback=lambda value: setattr(self, field.name, value)
                 )
                 setattr(self, field.name, query)
-
 
     def __repr__(self):
         template_parts = (

@@ -69,7 +69,7 @@ def test_query_filter_by_space(kg_client):
                         name="vocab:familyName",
                     ),
                 ],
-            )
+            ),
         ],
     )
     results = kg_client.query(
@@ -79,7 +79,7 @@ def test_query_filter_by_space(kg_client):
         from_index=0,
         size=1000,
         scope="in progress",
-        id_key="uri"
+        id_key="uri",
     )
     spaces = set(result["project_id"] for result in results.data)
     if len(spaces) > 0:
