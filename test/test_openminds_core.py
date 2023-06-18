@@ -178,6 +178,45 @@ def test_retrieve_released_models_follow_links(kg_client):
                 assert isinstance(version.repository, KGProxy)
 
 
+@skip_if_no_connection
+def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
+    versions = omcore.ModelVersion.list(
+        kg_client,
+        scope="released",
+        space="model",
+        api="query",
+        size=5,
+        from_index=randint(0, 80),
+        follow_links={
+            "accessibility": {},
+            "formats": {},
+            "is_version_of": {
+                "abstraction_level": {},
+                "versions": {},
+                "developers": {"affiliation": {"member_of": {}}},
+            },
+        },
+    )
+    for ver in versions:
+        # check first level forward links have been resolved
+        if ver.accessibility:
+            assert isinstance(ver.accessibility, omterms.ProductAccessibility)
+        if ver.formats:
+            for fmt in as_list(ver.formats):
+                assert isinstance(fmt, omcore.ContentType)
+        # check first level reverse links have been resolved
+        model = ver.is_version_of
+        assert isinstance(model, omcore.Model)
+        # check forward links from first level reverse links
+        assert ver.id in [ver2.id for ver2 in as_list(model.versions)]
+        if model.abstraction_level:
+            assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)
+        if model.model_scope:
+            assert isinstance(model.model_scope, KGProxy)
+        for developer in as_list(model.developers):
+            assert isinstance(developer, (omcore.Person, omcore.Organization, omcore.Consortium))
+
+
 # @skip_if_no_connection
 # def test_retrieve_released_people_resolve_two_steps(kg_client):
 #     people = omcore.Person.list(
@@ -232,13 +271,13 @@ def test_query_across_links(kg_client):
     )
     assert len(models) > 0
     assert len(models) < 100
-    orgs = []
     for model in models:
+        orgs = []
         for dev in as_list(model.developers):
             for affil in as_list(dev.affiliations):
                 if affil.member_of:
                     orgs.append(affil.member_of.uuid)
-    assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
+        assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
 
     # check that "follow_links" is not needed for the cross-link filter to work
     models2 = omcore.Model.list(
@@ -252,6 +291,28 @@ def test_query_across_links(kg_client):
     assert set(model.id for model in models) == set(model.id for model in models2)
     assert isinstance(models[0].developers[0], omcore.Person)
     assert isinstance(models2[0].developers[0], KGProxy)
+
+
+@skip_if_no_connection
+def test_query_across_reverse_links(kg_client):
+    versions = omcore.ModelVersion.list(
+        kg_client,
+        scope="in progress",
+        space="model",
+        api="query",
+        follow_links={"is_version_of": {"developers": {"affiliations": {"member_of": {}}}}},
+        is_version_of__developers__affiliations__member_of="7bdf4340-c718-45ea-9912-41079799dfd3",
+    )
+    assert len(versions) > 0
+    assert len(versions) < 100
+    for version in versions:
+        orgs = []
+        model = version.is_version_of
+        for dev in as_list(model.developers):
+            for affil in as_list(dev.affiliations):
+                if affil.member_of:
+                    orgs.append(affil.member_of.uuid)
+        assert "7bdf4340-c718-45ea-9912-41079799dfd3" in orgs
 
 
 @skip_if_no_connection

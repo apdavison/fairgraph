@@ -454,7 +454,7 @@ class Field(object):
 
         if any(issubclass(_type, ContainsMetadata) for _type in self.types):
             assert all(issubclass(_type, ContainsMetadata) for _type in self.types)
-            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True)
+            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True, reverse=self.reverse)
             if filter_obj:
                 property.properties.append(QueryProperty("@id", filter=filter_obj))
             else:

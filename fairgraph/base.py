@@ -122,7 +122,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         normalized: bool = True,
         follow_links: bool = False,
         include_empty_fields: bool = False,
-        include_reverse_fields: bool = False
+        include_reverse_fields: bool = False,
     ):
         """
         Return a JSON-LD representation of this metadata object
@@ -298,17 +298,13 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             elif key[0] != "@":
                 normalised_key = expand_uri(key, cls.context)
                 D[normalised_key] = value
-
         for otype in expand_uri(as_list(cls.type_), cls.context):
             if otype not in D["@type"]:
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         deserialized_data = {}
         for field in cls.fields:
             expanded_path = expand_uri(field.path, cls.context)
-            if field.intrinsic:
-                data_item = D.get(expanded_path)
-            else:
-                data_item = D["@id"]
+            data_item = D.get(expanded_path)
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
