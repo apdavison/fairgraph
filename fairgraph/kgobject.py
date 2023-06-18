@@ -784,9 +784,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if not have_tabulate:
             raise Exception("You need to install the tabulate module to use the `show()` method")
-        data = [("id", str(self.id)), ("space", str(self.space))] + [
-            (field.name, str(getattr(self, field.name, None))) for field in self.fields
-        ]
+        data = [
+            ("id", str(self.id)),
+            ("space", str(self.space)),
+            ("type", self.type_[0]),
+        ] + [(field.name, str(getattr(self, field.name, None))) for field in self.fields]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
