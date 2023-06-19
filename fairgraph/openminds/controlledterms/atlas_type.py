@@ -1,5 +1,16 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - deterministic atlas
+         - A 'deterministic atlas' is an anatomical or anatomopathological atlases based on a definite composite of a single specimen.
+       * - `parcellation scheme <http://uri.neuinfo.org/nif/nifstd/nlx_144019>`_
+         - A 'parcellation scheme' is a set of parcels occupying a part or all of an anatomical entity that has been delineated or annotated using a common approach or set of criteria.
+       * - probabilistic atlas
+         - A 'probabilistic atlas' is an anatomical or anatomopathological atlases based on statistically-weighted composites of many specimens.
+
 """
 
 # this file was auto-generated
@@ -10,7 +21,20 @@ from fairgraph.fields import Field
 
 
 class AtlasType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - deterministic atlas
+         - A 'deterministic atlas' is an anatomical or anatomopathological atlases based on a definite composite of a single specimen.
+       * - `parcellation scheme <http://uri.neuinfo.org/nif/nifstd/nlx_144019>`_
+         - A 'parcellation scheme' is a set of parcels occupying a part or all of an anatomical entity that has been delineated or annotated using a common approach or set of criteria.
+       * - probabilistic atlas
+         - A 'probabilistic atlas' is an anatomical or anatomopathological atlases based on statistically-weighted composites of many specimens.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AtlasType"]

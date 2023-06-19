@@ -395,10 +395,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/input",
+        "@id": "https://openminds.ebrains.eu/vocab/descendedFrom",
         "reverse": true
       },
-      "propertyName": "vocab:input",
+      "propertyName": "vocab:descendedFrom",
       "ensureOrder": true,
       "structure": [
         {
@@ -411,10 +411,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/studiedState",
+        "@id": "https://openminds.ebrains.eu/vocab/input",
         "reverse": true
       },
-      "propertyName": "vocab:studiedState",
+      "propertyName": "vocab:input",
       "ensureOrder": true,
       "structure": [
         {
@@ -443,10 +443,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/descendedFrom",
+        "@id": "https://openminds.ebrains.eu/vocab/studiedState",
         "reverse": true
       },
-      "propertyName": "vocab:descendedFrom",
+      "propertyName": "vocab:studiedState",
       "ensureOrder": true,
       "structure": [
         {

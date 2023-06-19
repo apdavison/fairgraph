@@ -413,74 +413,26 @@
     },
     {
       "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "reverse": true
+      },
+      "propertyName": "vocab:about",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/input",
         "reverse": true
       },
       "propertyName": "vocab:input",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/hasPart",
-        "reverse": true
-      },
-      "propertyName": "vocab:hasPart",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/software",
-        "reverse": true
-      },
-      "propertyName": "vocab:software",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/about",
-        "reverse": true
-      },
-      "propertyName": "vocab:about",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/about",
-        "reverse": true
-      },
-      "propertyName": "vocab:about",
       "ensureOrder": true,
       "structure": [
         {
@@ -509,10 +461,58 @@
     },
     {
       "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/hasPart",
+        "reverse": true
+      },
+      "propertyName": "vocab:hasPart",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/hasVersion",
         "reverse": true
       },
       "propertyName": "vocab:hasVersion",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "reverse": true
+      },
+      "propertyName": "vocab:about",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/software",
+        "reverse": true
+      },
+      "propertyName": "vocab:software",
       "ensureOrder": true,
       "structure": [
         {

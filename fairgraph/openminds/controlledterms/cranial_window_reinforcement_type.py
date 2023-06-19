@@ -1,5 +1,20 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - GRIN lens-based cranial window
+         - A cranial window reinforced by an implanted GRIN lens.
+       * - crystalline-based cranial window
+         - A cranial window reinforced by an implantation of a crystalline material.
+       * - prism-based cranial window
+         - A cranial window reinforced by an implanted prism.
+       * - glass coverslip cranial window
+         - A cranial window reinforced by an implantation of a glass coverslip.
+       * - polymer-based cranial window
+         - A cranial window reinforced by an implantation of a polymer material.
+
 """
 
 # this file was auto-generated
@@ -10,7 +25,24 @@ from fairgraph.fields import Field
 
 
 class CranialWindowReinforcementType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - GRIN lens-based cranial window
+         - A cranial window reinforced by an implanted GRIN lens.
+       * - crystalline-based cranial window
+         - A cranial window reinforced by an implantation of a crystalline material.
+       * - prism-based cranial window
+         - A cranial window reinforced by an implanted prism.
+       * - glass coverslip cranial window
+         - A cranial window reinforced by an implantation of a glass coverslip.
+       * - polymer-based cranial window
+         - A cranial window reinforced by an implantation of a polymer material.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CranialWindowReinforcementType"]

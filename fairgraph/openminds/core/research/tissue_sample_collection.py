@@ -103,14 +103,6 @@ class TissueSampleCollection(KGObject):
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
         Field(
-            "used_in",
-            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
-            "^vocab:usedSpecimen",
-            reverse="used_specimens",
-            multiple=True,
-            doc="reverse of 'usedSpecimen'",
-        ),
-        Field(
             "has_parts",
             "openminds.core.TissueSample",
             "^vocab:isPartOf",
@@ -134,6 +126,14 @@ class TissueSampleCollection(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "used_in",
+            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
+            "^vocab:usedSpecimen",
+            reverse="used_specimens",
+            multiple=True,
+            doc="reverse of 'usedSpecimen'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -150,10 +150,10 @@ class TissueSampleCollection(KGObject):
         species=None,
         studied_states=None,
         types=None,
-        used_in=None,
         has_parts=None,
         has_study_results_in=None,
         is_used_to_group=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -175,8 +175,8 @@ class TissueSampleCollection(KGObject):
             species=species,
             studied_states=studied_states,
             types=types,
-            used_in=used_in,
             has_parts=has_parts,
             has_study_results_in=has_study_results_in,
             is_used_to_group=is_used_to_group,
+            used_in=used_in,
         )

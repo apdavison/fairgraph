@@ -102,6 +102,8 @@ def generate_python_name(json_name, allow_multiple=False):
                 python_name += "s"
         elif python_name in custom_singular:
             python_name = custom_singular[python_name]
+    if isinstance(python_name, list):
+        sort(python_name)
     return python_name
 
 
@@ -260,6 +262,7 @@ reverse_name_map = {
     "startedBy": "started",
     "status": "isStatusOf",
     "stimulation": "usedIn",
+    "stimulus": "isStimulusFor",
     "stimulusType": "usedIn",
     "structurePattern": "structures",
     "studiedSpecimen": "hasStudyResultsIn",  # "isPartOfStudy"
@@ -748,7 +751,7 @@ class FairgraphGenerator(JinjaGenerator):
             "openminds_type": schema[TEMPLATE_PROPERTY_TYPE],
             "docstring": schema.get("description", ""),
             "fields": fields,
-            "reverse_fields": reverse_fields,
+            "reverse_fields": sorted(reverse_fields, key=lambda f: f["name"]),
             "existence_query_fields": get_existence_query(schema["simpleTypeName"], fields),
             "preamble": preamble.get(schema["simpleTypeName"], ""),
             "additional_methods": additional_methods.get(schema["simpleTypeName"], ""),

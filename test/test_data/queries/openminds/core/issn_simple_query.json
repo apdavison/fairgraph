@@ -44,10 +44,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/relatedPublication",
+        "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
         "reverse": true
       },
-      "propertyName": "vocab:relatedPublication",
+      "propertyName": "vocab:digitalIdentifier",
       "ensureOrder": true,
       "structure": [
         {
@@ -60,10 +60,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
+        "@id": "https://openminds.ebrains.eu/vocab/relatedPublication",
         "reverse": true
       },
-      "propertyName": "vocab:digitalIdentifier",
+      "propertyName": "vocab:relatedPublication",
       "ensureOrder": true,
       "structure": [
         {

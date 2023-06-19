@@ -69,10 +69,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/output",
+        "@id": "https://openminds.ebrains.eu/vocab/dataLocation",
         "reverse": true
       },
-      "propertyName": "vocab:output",
+      "propertyName": "vocab:dataLocation",
       "ensureOrder": true,
       "structure": [
         {
@@ -85,10 +85,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/dataLocation",
+        "@id": "https://openminds.ebrains.eu/vocab/output",
         "reverse": true
       },
-      "propertyName": "vocab:dataLocation",
+      "propertyName": "vocab:output",
       "ensureOrder": true,
       "structure": [
         {

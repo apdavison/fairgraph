@@ -1,5 +1,16 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `arterial blood <http://purl.obolibrary.org/obo/UBERON_0013755>`_
+         - 'Arterial blood' is the oxygenated portion of blood which occupies the pulmonary vein, the left chambers of the heart, and the arteries of the circulatory system.
+       * - `venous blood <http://purl.obolibrary.org/obo/UBERON_0013756>`_
+         - 'Venous blood' is deoxygenated blood which travels from the peripheral vessels, through the venous system into the right atrium of the heart.
+       * - `blood <http://purl.obolibrary.org/obo/UBERON_0000178>`_
+         - ''Blood' is a body fluid in the circulatory system of vertebrates that transports substances to and from cells (e.g. nutrients, oxygen or metabolic waste products). [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Blood)]
+
 """
 
 # this file was auto-generated
@@ -10,7 +21,20 @@ from fairgraph.fields import Field
 
 
 class OrganismSubstance(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `arterial blood <http://purl.obolibrary.org/obo/UBERON_0013755>`_
+         - 'Arterial blood' is the oxygenated portion of blood which occupies the pulmonary vein, the left chambers of the heart, and the arteries of the circulatory system.
+       * - `venous blood <http://purl.obolibrary.org/obo/UBERON_0013756>`_
+         - 'Venous blood' is deoxygenated blood which travels from the peripheral vessels, through the venous system into the right atrium of the heart.
+       * - `blood <http://purl.obolibrary.org/obo/UBERON_0000178>`_
+         - ''Blood' is a body fluid in the circulatory system of vertebrates that transports substances to and from cells (e.g. nutrients, oxygen or metabolic waste products). [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Blood)]
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/OrganismSubstance"]

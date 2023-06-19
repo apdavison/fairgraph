@@ -1,5 +1,16 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - beginner
+         - The learner has no or minimal knowledge or experience of the given topic.
+       * - advanced
+         - The learner has extensive knowledge of the given topic.
+       * - intermediate
+         - The learner has knowledge of the given topic, but is not an expert.
+
 """
 
 # this file was auto-generated
@@ -10,7 +21,20 @@ from fairgraph.fields import Field
 
 
 class EducationalLevel(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - beginner
+         - The learner has no or minimal knowledge or experience of the given topic.
+       * - advanced
+         - The learner has extensive knowledge of the given topic.
+       * - intermediate
+         - The learner has knowledge of the given topic, but is not an expert.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/EducationalLevel"]

@@ -1,5 +1,26 @@
 """
 Structured information on the type of contribution a person or organization performed.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - marketing
+         -
+       * - information technology support
+         -
+       * - metadata managment
+         -
+       * - coordination
+         -
+       * - data processing
+         -
+       * - data collection
+         -
+       * - laboratory assistance
+         -
+       * - data management
+         -
+
 """
 
 # this file was auto-generated
@@ -12,6 +33,27 @@ from fairgraph.fields import Field
 class ContributionType(KGObject):
     """
     Structured information on the type of contribution a person or organization performed.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - marketing
+         -
+       * - information technology support
+         -
+       * - metadata managment
+         -
+       * - coordination
+         -
+       * - data processing
+         -
+       * - data collection
+         -
+       * - laboratory assistance
+         -
+       * - data management
+         -
+
     """
 
     default_space = "controlled"

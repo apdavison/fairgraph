@@ -88,118 +88,6 @@
             },
             {
               "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/custodian",
-                "reverse": true
-              },
-              "propertyName": "vocab:custodian",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/owner",
-                "reverse": true
-              },
-              "propertyName": "vocab:owner",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/publisher",
-                "reverse": true
-              },
-              "propertyName": "vocab:publisher",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/provider",
-                "reverse": true
-              },
-              "propertyName": "vocab:provider",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/coordinator",
-                "reverse": true
-              },
-              "propertyName": "vocab:coordinator",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
-                "reverse": true
-              },
-              "propertyName": "vocab:manufacturer",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/funder",
-                "reverse": true
-              },
-              "propertyName": "vocab:funder",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
                 "@id": "https://openminds.ebrains.eu/vocab/contributor",
                 "reverse": true
               },
@@ -233,6 +121,38 @@
                       "path": "@type"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/coordinator",
+                "reverse": true
+              },
+              "propertyName": "vocab:coordinator",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/funder",
+                "reverse": true
+              },
+              "propertyName": "vocab:funder",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
                 }
               ]
             },
@@ -297,6 +217,86 @@
                   "path": "https://openminds.ebrains.eu/vocab/year",
                   "propertyName": "vocab:year",
                   "ensureOrder": true
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/custodian",
+                "reverse": true
+              },
+              "propertyName": "vocab:custodian",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/owner",
+                "reverse": true
+              },
+              "propertyName": "vocab:owner",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/provider",
+                "reverse": true
+              },
+              "propertyName": "vocab:provider",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
+                "reverse": true
+              },
+              "propertyName": "vocab:manufacturer",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/publisher",
+                "reverse": true
+              },
+              "propertyName": "vocab:publisher",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
                 }
               ]
             }
@@ -451,163 +451,6 @@
                 },
                 {
                   "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/custodian",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:custodian",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/owner",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:owner",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/publisher",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:publisher",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/hostedBy",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:hostedBy",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/provider",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:provider",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/coordinator",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:coordinator",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:manufacturer",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/vendor",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:vendor",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@type"
-                    },
-                    {
-                      "path": "https://openminds.ebrains.eu/vocab/identifier",
-                      "propertyName": "vocab:identifier"
-                    },
-                    {
-                      "path": "https://openminds.ebrains.eu/vocab/vendor",
-                      "propertyName": "vocab:vendor",
-                      "structure": [
-                        {
-                          "path": "@id"
-                        },
-                        {
-                          "path": "@type"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "path": {
-                    "@id": "https://openminds.ebrains.eu/vocab/funder",
-                    "reverse": true
-                  },
-                  "propertyName": "vocab:funder",
-                  "ensureOrder": true,
-                  "structure": [
-                    {
-                      "path": "@id"
-                    },
-                    {
-                      "path": "@type"
-                    }
-                  ]
-                },
-                {
-                  "path": {
                     "@id": "https://openminds.ebrains.eu/vocab/contributor",
                     "reverse": true
                   },
@@ -641,6 +484,38 @@
                           "path": "@type"
                         }
                       ]
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/coordinator",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:coordinator",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/funder",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:funder",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
                     }
                   ]
                 },
@@ -723,143 +598,14 @@
                       "ensureOrder": true
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "path": "https://openminds.ebrains.eu/vocab/homepage",
-              "propertyName": "vocab:homepage"
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/custodian",
-                "reverse": true
-              },
-              "propertyName": "vocab:custodian",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
                 },
                 {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/owner",
-                "reverse": true
-              },
-              "propertyName": "vocab:owner",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/publisher",
-                "reverse": true
-              },
-              "propertyName": "vocab:publisher",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/hostedBy",
-                "reverse": true
-              },
-              "propertyName": "vocab:hostedBy",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/provider",
-                "reverse": true
-              },
-              "propertyName": "vocab:provider",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/coordinator",
-                "reverse": true
-              },
-              "propertyName": "vocab:coordinator",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
-                "reverse": true
-              },
-              "propertyName": "vocab:manufacturer",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
-            },
-            {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/vendor",
-                "reverse": true
-              },
-              "propertyName": "vocab:vendor",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@type"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/identifier",
-                  "propertyName": "vocab:identifier"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/vendor",
-                  "propertyName": "vocab:vendor",
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/hostedBy",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:hostedBy",
+                  "ensureOrder": true,
                   "structure": [
                     {
                       "path": "@id"
@@ -868,24 +614,121 @@
                       "path": "@type"
                     }
                   ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/custodian",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:custodian",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/owner",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:owner",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/provider",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:provider",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:manufacturer",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/publisher",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:publisher",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
+                },
+                {
+                  "path": {
+                    "@id": "https://openminds.ebrains.eu/vocab/vendor",
+                    "reverse": true
+                  },
+                  "propertyName": "vocab:vendor",
+                  "ensureOrder": true,
+                  "structure": [
+                    {
+                      "path": "@type"
+                    },
+                    {
+                      "path": "https://openminds.ebrains.eu/vocab/identifier",
+                      "propertyName": "vocab:identifier"
+                    },
+                    {
+                      "path": "https://openminds.ebrains.eu/vocab/vendor",
+                      "propertyName": "vocab:vendor",
+                      "structure": [
+                        {
+                          "path": "@id"
+                        },
+                        {
+                          "path": "@type"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
             {
-              "path": {
-                "@id": "https://openminds.ebrains.eu/vocab/funder",
-                "reverse": true
-              },
-              "propertyName": "vocab:funder",
-              "ensureOrder": true,
-              "structure": [
-                {
-                  "path": "@id"
-                },
-                {
-                  "path": "@type"
-                }
-              ]
+              "path": "https://openminds.ebrains.eu/vocab/homepage",
+              "propertyName": "vocab:homepage"
             },
             {
               "path": {
@@ -922,6 +765,38 @@
                       "path": "@type"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/coordinator",
+                "reverse": true
+              },
+              "propertyName": "vocab:coordinator",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/funder",
+                "reverse": true
+              },
+              "propertyName": "vocab:funder",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
                 }
               ]
             },
@@ -1002,6 +877,131 @@
                   "path": "https://openminds.ebrains.eu/vocab/year",
                   "propertyName": "vocab:year",
                   "ensureOrder": true
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/hostedBy",
+                "reverse": true
+              },
+              "propertyName": "vocab:hostedBy",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/custodian",
+                "reverse": true
+              },
+              "propertyName": "vocab:custodian",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/owner",
+                "reverse": true
+              },
+              "propertyName": "vocab:owner",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/provider",
+                "reverse": true
+              },
+              "propertyName": "vocab:provider",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
+                "reverse": true
+              },
+              "propertyName": "vocab:manufacturer",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/publisher",
+                "reverse": true
+              },
+              "propertyName": "vocab:publisher",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@id"
+                },
+                {
+                  "path": "@type"
+                }
+              ]
+            },
+            {
+              "path": {
+                "@id": "https://openminds.ebrains.eu/vocab/vendor",
+                "reverse": true
+              },
+              "propertyName": "vocab:vendor",
+              "ensureOrder": true,
+              "structure": [
+                {
+                  "path": "@type"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/identifier",
+                  "propertyName": "vocab:identifier"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/vendor",
+                  "propertyName": "vocab:vendor",
+                  "structure": [
+                    {
+                      "path": "@id"
+                    },
+                    {
+                      "path": "@type"
+                    }
+                  ]
                 }
               ]
             }
@@ -1102,134 +1102,6 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/custodian",
-        "reverse": true
-      },
-      "propertyName": "vocab:custodian",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/startedBy",
-        "reverse": true
-      },
-      "propertyName": "vocab:startedBy",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/owner",
-        "reverse": true
-      },
-      "propertyName": "vocab:owner",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/publisher",
-        "reverse": true
-      },
-      "propertyName": "vocab:publisher",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/provider",
-        "reverse": true
-      },
-      "propertyName": "vocab:provider",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/coordinator",
-        "reverse": true
-      },
-      "propertyName": "vocab:coordinator",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
-        "reverse": true
-      },
-      "propertyName": "vocab:manufacturer",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/funder",
-        "reverse": true
-      },
-      "propertyName": "vocab:funder",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/commenter",
         "reverse": true
       },
@@ -1284,6 +1156,38 @@
     },
     {
       "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/coordinator",
+        "reverse": true
+      },
+      "propertyName": "vocab:coordinator",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/funder",
+        "reverse": true
+      },
+      "propertyName": "vocab:funder",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/holder",
         "reverse": true
       },
@@ -1310,6 +1214,102 @@
           "path": "https://openminds.ebrains.eu/vocab/year",
           "propertyName": "vocab:year",
           "ensureOrder": true
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/custodian",
+        "reverse": true
+      },
+      "propertyName": "vocab:custodian",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/owner",
+        "reverse": true
+      },
+      "propertyName": "vocab:owner",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/provider",
+        "reverse": true
+      },
+      "propertyName": "vocab:provider",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
+        "reverse": true
+      },
+      "propertyName": "vocab:manufacturer",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/publisher",
+        "reverse": true
+      },
+      "propertyName": "vocab:publisher",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/startedBy",
+        "reverse": true
+      },
+      "propertyName": "vocab:startedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
         }
       ]
     },

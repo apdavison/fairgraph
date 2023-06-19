@@ -344,10 +344,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "@id": "https://openminds.ebrains.eu/vocab/isNewVersionOf",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "vocab:isNewVersionOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -376,10 +376,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/isNewVersionOf",
+        "@id": "https://openminds.ebrains.eu/vocab/hasVersion",
         "reverse": true
       },
-      "propertyName": "vocab:isNewVersionOf",
+      "propertyName": "vocab:hasVersion",
       "ensureOrder": true,
       "structure": [
         {
@@ -392,10 +392,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/hasVersion",
+        "@id": "https://openminds.ebrains.eu/vocab/about",
         "reverse": true
       },
-      "propertyName": "vocab:hasVersion",
+      "propertyName": "vocab:about",
       "ensureOrder": true,
       "structure": [
         {

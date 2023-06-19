@@ -1,5 +1,24 @@
 """
 Structured information on the operating device.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `high-performance computer <https://www.wikidata.org/wiki/Q121117>`_
+         - https://www.wikidata.org/wiki/Q121117
+       * - `neuromorphic computer <https://www.wikidata.org/wiki/Q56270917>`_
+         - Very-large-scale integration (VLSI) systems containing electronic circuits used to mimic neuro-biological architectures present in the nervous system.
+       * - `mobile <https://www.wikidata.org/wiki/Q5082128>`_
+         - https://www.wikidata.org/wiki/Q5082128
+       * - `server <https://www.wikidata.org/wiki/Q64729893>`_
+         - https://www.wikidata.org/wiki/Q64729893
+       * - `embedded system <https://www.wikidata.org/wiki/Q193040>`_
+         - https://www.wikidata.org/wiki/Q193040
+       * - `web <https://www.wikidata.org/wiki/Q6368>`_
+         - https://www.wikidata.org/wiki/Q6368
+       * - `desktop <https://www.wikidata.org/wiki/Q56155>`_
+         - https://www.wikidata.org/wiki/Q56155
+
 """
 
 # this file was auto-generated
@@ -12,6 +31,25 @@ from fairgraph.fields import Field
 class OperatingDevice(KGObject):
     """
     Structured information on the operating device.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `high-performance computer <https://www.wikidata.org/wiki/Q121117>`_
+         - https://www.wikidata.org/wiki/Q121117
+       * - `neuromorphic computer <https://www.wikidata.org/wiki/Q56270917>`_
+         - Very-large-scale integration (VLSI) systems containing electronic circuits used to mimic neuro-biological architectures present in the nervous system.
+       * - `mobile <https://www.wikidata.org/wiki/Q5082128>`_
+         - https://www.wikidata.org/wiki/Q5082128
+       * - `server <https://www.wikidata.org/wiki/Q64729893>`_
+         - https://www.wikidata.org/wiki/Q64729893
+       * - `embedded system <https://www.wikidata.org/wiki/Q193040>`_
+         - https://www.wikidata.org/wiki/Q193040
+       * - `web <https://www.wikidata.org/wiki/Q6368>`_
+         - https://www.wikidata.org/wiki/Q6368
+       * - `desktop <https://www.wikidata.org/wiki/Q56155>`_
+         - https://www.wikidata.org/wiki/Q56155
+
     """
 
     default_space = "controlled"

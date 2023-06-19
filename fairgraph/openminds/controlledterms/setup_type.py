@@ -1,5 +1,16 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - acquisition system
+         - An 'acquisition system' is a setup type with the purpose of collecting data.
+       * - computing system
+         - A 'computing system' is a setup type with the purpose of performing computations.
+       * - stimulation system
+         - A 'stimulation system' is a setup type with the purpose of stimulating a specimen.
+
 """
 
 # this file was auto-generated
@@ -10,7 +21,20 @@ from fairgraph.fields import Field
 
 
 class SetupType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - acquisition system
+         - An 'acquisition system' is a setup type with the purpose of collecting data.
+       * - computing system
+         - A 'computing system' is a setup type with the purpose of performing computations.
+       * - stimulation system
+         - A 'stimulation system' is a setup type with the purpose of stimulating a specimen.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/SetupType"]

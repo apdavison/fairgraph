@@ -1,5 +1,36 @@
 """
 Structured information on the general type of the tissue sample.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - homogeneous cell population
+         - A sample of multiple cells/a population of cells that are of the same cell type.
+       * - nerve
+         - A nerve sample (i.e. a whole nerve or a part of a nerve) from a living or deceased multicellular organism body.
+       * - hemisphere
+         - One of the symmetric halves excised from a bilateral organ tissue sample (e.g., a brain) from a living or deceased multicellular organism body.
+       * - single cell
+         - A single cell sample from a living or deceased multicellular organism body.
+       * - `biopsy sample <http://purl.obolibrary.org/obo/OBI_0002650>`_
+         - Typically very small sample of tissue that was excised from a living or deceased multicellular organism body.
+       * - brain hemisphere
+         -
+       * - tissue slice
+         - A thin and often flat sample of tissue that was excised from a larger tissue sample (e.g., a tissue block or a whole organ) from a living or deceased multicellular organism body.
+       * - fluid specimen
+         - A fluid sample either taken directly from a living or deceased multicellular organism body (i.e. body fluids) or produced in a laboratory.
+       * - `cell culture <http://purl.obolibrary.org/obo/BTO_0000214>`_
+         - Cells taken from a living organism and grown under controlled conditions (in culture).
+       * - tissue block
+         - A cube-like sample of tissue that was excised from a larger tissue sample (e.g., a whole organ) from a living or deceased multicellular organism body.
+       * - whole brain
+         -
+       * - heterogeneous cell population
+         - A sample of multiple cells/a population of cells that are of two or more different cell types.
+       * - whole organ
+         - A whole organ sample from a living or deceased multicellular organism body.
+
 """
 
 # this file was auto-generated
@@ -12,6 +43,37 @@ from fairgraph.fields import Field
 class TissueSampleType(KGObject):
     """
     Structured information on the general type of the tissue sample.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - homogeneous cell population
+         - A sample of multiple cells/a population of cells that are of the same cell type.
+       * - nerve
+         - A nerve sample (i.e. a whole nerve or a part of a nerve) from a living or deceased multicellular organism body.
+       * - hemisphere
+         - One of the symmetric halves excised from a bilateral organ tissue sample (e.g., a brain) from a living or deceased multicellular organism body.
+       * - single cell
+         - A single cell sample from a living or deceased multicellular organism body.
+       * - `biopsy sample <http://purl.obolibrary.org/obo/OBI_0002650>`_
+         - Typically very small sample of tissue that was excised from a living or deceased multicellular organism body.
+       * - brain hemisphere
+         -
+       * - tissue slice
+         - A thin and often flat sample of tissue that was excised from a larger tissue sample (e.g., a tissue block or a whole organ) from a living or deceased multicellular organism body.
+       * - fluid specimen
+         - A fluid sample either taken directly from a living or deceased multicellular organism body (i.e. body fluids) or produced in a laboratory.
+       * - `cell culture <http://purl.obolibrary.org/obo/BTO_0000214>`_
+         - Cells taken from a living organism and grown under controlled conditions (in culture).
+       * - tissue block
+         - A cube-like sample of tissue that was excised from a larger tissue sample (e.g., a whole organ) from a living or deceased multicellular organism body.
+       * - whole brain
+         -
+       * - heterogeneous cell population
+         - A sample of multiple cells/a population of cells that are of two or more different cell types.
+       * - whole organ
+         - A whole organ sample from a living or deceased multicellular organism body.
+
     """
 
     default_space = "controlled"

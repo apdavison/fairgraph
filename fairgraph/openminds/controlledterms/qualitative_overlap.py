@@ -1,5 +1,20 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - is homologous to
+         - A set/object (A) has the same relative position, function, or structure as a set/object (B).
+       * - is identical to
+         - A set/object (A) is identical to another set/object (B) if they look exactly the same.
+       * - is subset of
+         - A set/object (A) is a subset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (A) are also elements/incidents of (B).
+       * - partially overlaps with
+         - Two sets/objects (A and B) partially overlap when some elements/incidents are part of both original objects (A and B).
+       * - is superset of
+         - A set/object (A) is a superset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (B) are also elements/incidents of (A).
+
 """
 
 # this file was auto-generated
@@ -10,7 +25,24 @@ from fairgraph.fields import Field
 
 
 class QualitativeOverlap(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - is homologous to
+         - A set/object (A) has the same relative position, function, or structure as a set/object (B).
+       * - is identical to
+         - A set/object (A) is identical to another set/object (B) if they look exactly the same.
+       * - is subset of
+         - A set/object (A) is a subset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (A) are also elements/incidents of (B).
+       * - partially overlaps with
+         - Two sets/objects (A and B) partially overlap when some elements/incidents are part of both original objects (A and B).
+       * - is superset of
+         - A set/object (A) is a superset of another set/object (B) if (A) and (B) are not equal, but all elements/incidents of (B) are also elements/incidents of (A).
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/QualitativeOverlap"]
@@ -67,6 +99,14 @@ class QualitativeOverlap(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
+            "assessments",
+            "openminds.sands.QualitativeRelationAssessment",
+            "^vocab:qualitativeOverlap",
+            reverse="qualitative_overlaps",
+            multiple=True,
+            doc="reverse of 'qualitativeOverlap'",
+        ),
+        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -89,14 +129,6 @@ class QualitativeOverlap(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "assessments",
-            "openminds.sands.QualitativeRelationAssessment",
-            "^vocab:qualitativeOverlap",
-            reverse="qualitative_overlaps",
-            multiple=True,
-            doc="reverse of 'qualitativeOverlap'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -109,8 +141,8 @@ class QualitativeOverlap(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
         assessments=None,
+        describes=None,
         id=None,
         data=None,
         space=None,
@@ -128,6 +160,6 @@ class QualitativeOverlap(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
             assessments=assessments,
+            describes=describes,
         )

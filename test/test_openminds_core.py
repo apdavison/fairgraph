@@ -659,17 +659,17 @@ def test_field_names():
         "family_name",
         "given_name",
         "activities",
-        "is_custodian_of",
-        "started",
-        "is_owner_of",
-        "published",
-        "is_provider_of",
-        "coordinated_projects",
-        "manufactured",
-        "funded",
         "comments",
         "contributions",
+        "coordinated_projects",
+        "funded",
         "holds_copyrights",
+        "is_custodian_of",
+        "is_owner_of",
+        "is_provider_of",
+        "manufactured",
+        "published",
+        "started"
     ]
     assert omcore.Person.required_field_names == ["given_name"]
 

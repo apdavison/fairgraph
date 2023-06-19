@@ -26,6 +26,27 @@ class ISBN(KGObject):
     fields = [
         Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISBN."),
         Field(
+            "cited_in",
+            [
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.ScholarlyArticle",
+            ],
+            "^vocab:citedPublication",
+            reverse="cited_publications",
+            multiple=True,
+            doc="reverse of 'citedPublication'",
+        ),
+        Field(
+            "identifies",
+            ["openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
+            "^vocab:digitalIdentifier",
+            reverse="digital_identifiers",
+            multiple=True,
+            doc="reverse of 'digitalIdentifier'",
+        ),
+        Field(
             "related_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -44,36 +65,15 @@ class ISBN(KGObject):
             multiple=True,
             doc="reverse of 'relatedPublication'",
         ),
-        Field(
-            "identifies",
-            ["openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
-            "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
-            multiple=True,
-            doc="reverse of 'digitalIdentifier'",
-        ),
-        Field(
-            "cited_in",
-            [
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.ScholarlyArticle",
-            ],
-            "^vocab:citedPublication",
-            reverse="cited_publications",
-            multiple=True,
-            doc="reverse of 'citedPublication'",
-        ),
     ]
     existence_query_fields = ("identifier",)
 
     def __init__(
         self,
         identifier=None,
-        related_to=None,
-        identifies=None,
         cited_in=None,
+        identifies=None,
+        related_to=None,
         id=None,
         data=None,
         space=None,
@@ -85,7 +85,7 @@ class ISBN(KGObject):
             scope=scope,
             data=data,
             identifier=identifier,
-            related_to=related_to,
-            identifies=identifies,
             cited_in=cited_in,
+            identifies=identifies,
+            related_to=related_to,
         )

@@ -91,10 +91,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
+        "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:behavioralProtocol",
+      "propertyName": "vocab:groupedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -107,10 +107,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
+        "@id": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "vocab:behavioralProtocol",
       "ensureOrder": true,
       "structure": [
         {

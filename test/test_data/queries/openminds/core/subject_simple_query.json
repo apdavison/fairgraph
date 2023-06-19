@@ -98,22 +98,6 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
-        "reverse": true
-      },
-      "propertyName": "vocab:usedSpecimen",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
         "reverse": true
       },
@@ -134,6 +118,22 @@
         "reverse": true
       },
       "propertyName": "vocab:groupedBy",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
+        "reverse": true
+      },
+      "propertyName": "vocab:usedSpecimen",
       "ensureOrder": true,
       "structure": [
         {

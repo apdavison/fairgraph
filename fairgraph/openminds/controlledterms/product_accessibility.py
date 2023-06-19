@@ -1,5 +1,18 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - restricted access
+         - With 'restricted access' selected, metadata are released, but data remain on an access restricted server.
+       * - under embargo
+         - With 'under embargo' selected, metadata are released, but data remain unavailable for the public until the embargo is lifted.
+       * - free access
+         - With 'free access' selected, data and metadata are both released and become immediately available without any access restrictions.
+       * - controlled access
+         - With 'controlled access' selected, data and metadata are both released, but data are only available for users after they loged in and authenticated themselves.
+
 """
 
 # this file was auto-generated
@@ -10,7 +23,22 @@ from fairgraph.fields import Field
 
 
 class ProductAccessibility(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - restricted access
+         - With 'restricted access' selected, metadata are released, but data remain on an access restricted server.
+       * - under embargo
+         - With 'under embargo' selected, metadata are released, but data remain unavailable for the public until the embargo is lifted.
+       * - free access
+         - With 'free access' selected, data and metadata are both released and become immediately available without any access restrictions.
+       * - controlled access
+         - With 'controlled access' selected, data and metadata are both released, but data are only available for users after they loged in and authenticated themselves.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/ProductAccessibility"]

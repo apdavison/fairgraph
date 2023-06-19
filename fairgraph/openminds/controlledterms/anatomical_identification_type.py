@@ -1,5 +1,14 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - landmark based
+         - 'Landmark based' identification makes use of distinct anatomical structures as a point of orientation in locating other structures in the body.
+       * - stereotactic
+         - 'Stereotactic' identification makes use of three-dimensional coordinate system to loacte specific targets inside the body. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Stereotactic_surgery)]
+
 """
 
 # this file was auto-generated
@@ -10,7 +19,18 @@ from fairgraph.fields import Field
 
 
 class AnatomicalIdentificationType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - landmark based
+         - 'Landmark based' identification makes use of distinct anatomical structures as a point of orientation in locating other structures in the body.
+       * - stereotactic
+         - 'Stereotactic' identification makes use of three-dimensional coordinate system to loacte specific targets inside the body. [adapted from [wikipedia](https://en.wikipedia.org/wiki/Stereotactic_surgery)]
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AnatomicalIdentificationType"]

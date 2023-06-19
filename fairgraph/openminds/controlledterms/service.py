@@ -1,5 +1,34 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - EBRAINS Model Catalog
+         - The EBRAINS Model Catalog contains information about models developed and/or used within the EBRAINS research infrastructure.
+       * - EBRAINS Collaboratory Wiki
+         - The Collaboratory Wiki is the main interface to access all other Collaboratory service provided by the EBRAINS research infrastructure.
+       * - Neuroglancer
+         - 'Neuroglancer' is a WebGL-based viewer for volumetric data.
+       * - Zenodo
+         - Zenodo is a general-purpose open repository developed under the European OpenAIRE program and operated by CERN.
+       * - Multi-Image-OSd
+         - Web application for viewing of series of high-resolution 2D images.
+       * - siibra-explorer
+         - 'siibra-explorer' is an interactive viewer for multilevel brain atlases
+       * - Allen Institute Cell Types Data Portal
+         - Web application for visualizing and browsing the Allen Cell Types Database.
+       * - LocaliZoom
+         - Web application for viewing of series of high-resolution 2D images that have been anchored to reference atlases.
+       * - NeuroMorpho.Org
+         - A web-based inventory dedicated to densely archive and organize all publicly shared digital reconstructions of neuronal morphology.
+       * - ModelDB
+         - ModelDB is a curated database of published models in the broad domain of computational neuroscience.
+       * - EBRAINS Knowledge Graph Search UI
+         - The EBRAINS Knowledge Graph Search User Interface is a web application for searching the EBRAINS Knowledge Graph.
+       * - EBRAINS Collaboratory Lab
+         - The Collaboratory Lab is a web-based JupyterLab service provided by the EBRAINS research infrastructure.
+
 """
 
 # this file was auto-generated
@@ -10,7 +39,38 @@ from fairgraph.fields import Field
 
 
 class Service(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - EBRAINS Model Catalog
+         - The EBRAINS Model Catalog contains information about models developed and/or used within the EBRAINS research infrastructure.
+       * - EBRAINS Collaboratory Wiki
+         - The Collaboratory Wiki is the main interface to access all other Collaboratory service provided by the EBRAINS research infrastructure.
+       * - Neuroglancer
+         - 'Neuroglancer' is a WebGL-based viewer for volumetric data.
+       * - Zenodo
+         - Zenodo is a general-purpose open repository developed under the European OpenAIRE program and operated by CERN.
+       * - Multi-Image-OSd
+         - Web application for viewing of series of high-resolution 2D images.
+       * - siibra-explorer
+         - 'siibra-explorer' is an interactive viewer for multilevel brain atlases
+       * - Allen Institute Cell Types Data Portal
+         - Web application for visualizing and browsing the Allen Cell Types Database.
+       * - LocaliZoom
+         - Web application for viewing of series of high-resolution 2D images that have been anchored to reference atlases.
+       * - NeuroMorpho.Org
+         - A web-based inventory dedicated to densely archive and organize all publicly shared digital reconstructions of neuronal morphology.
+       * - ModelDB
+         - ModelDB is a curated database of published models in the broad domain of computational neuroscience.
+       * - EBRAINS Knowledge Graph Search UI
+         - The EBRAINS Knowledge Graph Search User Interface is a web application for searching the EBRAINS Knowledge Graph.
+       * - EBRAINS Collaboratory Lab
+         - The Collaboratory Lab is a web-based JupyterLab service provided by the EBRAINS research infrastructure.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/Service"]

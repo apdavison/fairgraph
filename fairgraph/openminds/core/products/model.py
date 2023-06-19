@@ -120,14 +120,6 @@ class Model(KGObject):
             doc="Structure or function that was targeted within a study.",
         ),
         Field(
-            "learning_resources",
-            "openminds.publications.LearningResource",
-            "^vocab:about",
-            reverse="about",
-            multiple=True,
-            doc="reverse of 'about'",
-        ),
-        Field(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -142,6 +134,14 @@ class Model(KGObject):
             reverse="has_parts",
             multiple=True,
             doc="reverse of 'hasPart'",
+        ),
+        Field(
+            "learning_resources",
+            "openminds.publications.LearningResource",
+            "^vocab:about",
+            reverse="about",
+            multiple=True,
+            doc="reverse of 'about'",
         ),
     ]
     existence_query_fields = ("name",)
@@ -160,9 +160,9 @@ class Model(KGObject):
         how_to_cite=None,
         model_scope=None,
         study_targets=None,
-        learning_resources=None,
         comments=None,
         is_part_of=None,
+        learning_resources=None,
         id=None,
         data=None,
         space=None,
@@ -185,7 +185,7 @@ class Model(KGObject):
             how_to_cite=how_to_cite,
             model_scope=model_scope,
             study_targets=study_targets,
-            learning_resources=learning_resources,
             comments=comments,
             is_part_of=is_part_of,
+            learning_resources=learning_resources,
         )

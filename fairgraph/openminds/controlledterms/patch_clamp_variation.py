@@ -1,5 +1,22 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - cell-attached patch
+         - A variation of the patch-clamp technique in which the cell membrane remains intact.
+       * - perforated patch
+         - A variation of the patch-clamp technique in which the cell membrane is perforated.
+       * - loose patch
+         - A variation of the patch-clamp technique involving a seal with low electrical resistance.
+       * - inside-out patch
+         - A variation of the patch-clamp technique in which a patch of membrane is excised and the cytosolic surface exposed.
+       * - outside-out patch
+         - A variation of the patch-clamp technique in which a patch of membrane is excised and the external surface exposed.
+       * - whole-cell patch
+         - A variation of the patch-clamp technique in which the patch is ruptured, giving access to the intracellular space.
+
 """
 
 # this file was auto-generated
@@ -10,7 +27,26 @@ from fairgraph.fields import Field
 
 
 class PatchClampVariation(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - cell-attached patch
+         - A variation of the patch-clamp technique in which the cell membrane remains intact.
+       * - perforated patch
+         - A variation of the patch-clamp technique in which the cell membrane is perforated.
+       * - loose patch
+         - A variation of the patch-clamp technique involving a seal with low electrical resistance.
+       * - inside-out patch
+         - A variation of the patch-clamp technique in which a patch of membrane is excised and the cytosolic surface exposed.
+       * - outside-out patch
+         - A variation of the patch-clamp technique in which a patch of membrane is excised and the external surface exposed.
+       * - whole-cell patch
+         - A variation of the patch-clamp technique in which the patch is ruptured, giving access to the intracellular space.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/PatchClampVariation"]

@@ -73,20 +73,20 @@ class BehavioralProtocol(KGObject):
             doc="no description available",
         ),
         Field(
-            "used_in",
-            ["openminds.core.DatasetVersion", "openminds.core.ProtocolExecution"],
-            "^vocab:behavioralProtocol",
-            reverse="behavioral_protocols",
-            multiple=True,
-            doc="reverse of 'behavioralProtocol'",
-        ),
-        Field(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
             doc="reverse of 'groupedBy'",
+        ),
+        Field(
+            "used_in",
+            ["openminds.core.DatasetVersion", "openminds.core.ProtocolExecution"],
+            "^vocab:behavioralProtocol",
+            reverse="behavioral_protocols",
+            multiple=True,
+            doc="reverse of 'behavioralProtocol'",
         ),
     ]
     existence_query_fields = ("name", "description")
@@ -99,8 +99,8 @@ class BehavioralProtocol(KGObject):
         internal_identifier=None,
         stimulations=None,
         stimulus_types=None,
-        used_in=None,
         is_used_to_group=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -117,6 +117,6 @@ class BehavioralProtocol(KGObject):
             internal_identifier=internal_identifier,
             stimulations=stimulations,
             stimulus_types=stimulus_types,
-            used_in=used_in,
             is_used_to_group=is_used_to_group,
+            used_in=used_in,
         )

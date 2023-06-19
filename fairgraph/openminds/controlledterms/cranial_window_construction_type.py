@@ -1,5 +1,16 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - cleared skull cranial window
+         - A cranial window that is constructed by clearing a small region of the skull.
+       * - transcranial window
+         - A cranial window that is constructed by removal of a small region of the skull.
+       * - thinned skull cranial window
+         - A cranial window that is constructed by thinning a small region of the skull.
+
 """
 
 # this file was auto-generated
@@ -10,7 +21,20 @@ from fairgraph.fields import Field
 
 
 class CranialWindowConstructionType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - cleared skull cranial window
+         - A cranial window that is constructed by clearing a small region of the skull.
+       * - transcranial window
+         - A cranial window that is constructed by removal of a small region of the skull.
+       * - thinned skull cranial window
+         - A cranial window that is constructed by thinning a small region of the skull.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CranialWindowConstructionType"]

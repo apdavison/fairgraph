@@ -183,6 +183,14 @@ class Book(KGObject):
             doc="Term or code used to identify the version of something.",
         ),
         Field(
+            "has_parts",
+            "openminds.publications.Chapter",
+            "^vocab:isPartOf",
+            reverse="is_part_of",
+            multiple=True,
+            doc="reverse of 'isPartOf'",
+        ),
+        Field(
             "related_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -200,14 +208,6 @@ class Book(KGObject):
             reverse="related_publications",
             multiple=True,
             doc="reverse of 'relatedPublication'",
-        ),
-        Field(
-            "has_parts",
-            "openminds.publications.Chapter",
-            "^vocab:isPartOf",
-            reverse="is_part_of",
-            multiple=True,
-            doc="reverse of 'isPartOf'",
         ),
     ]
     existence_query_fields = ("name", "publication_date")
@@ -231,8 +231,8 @@ class Book(KGObject):
         publication_date=None,
         publisher=None,
         version_identifier=None,
-        related_to=None,
         has_parts=None,
+        related_to=None,
         id=None,
         data=None,
         space=None,
@@ -260,6 +260,6 @@ class Book(KGObject):
             publication_date=publication_date,
             publisher=publisher,
             version_identifier=version_identifier,
-            related_to=related_to,
             has_parts=has_parts,
+            related_to=related_to,
         )

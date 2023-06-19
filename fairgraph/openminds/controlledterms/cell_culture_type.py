@@ -1,5 +1,14 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `primary cell culture <http://id.nlm.nih.gov/mesh/2018/M0452904>`_
+         - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
+       * - `secondary cell culture <http://purl.obolibrary.org/obo/OBI_0001905>`_
+         - A cultured cell population that is derived through one or more passages in culture.
+
 """
 
 # this file was auto-generated
@@ -10,7 +19,18 @@ from fairgraph.fields import Field
 
 
 class CellCultureType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `primary cell culture <http://id.nlm.nih.gov/mesh/2018/M0452904>`_
+         - A cell culture comprised of primary cultured cells and the media in which they are being actively propaged or quiescently stored.
+       * - `secondary cell culture <http://purl.obolibrary.org/obo/OBI_0001905>`_
+         - A cultured cell population that is derived through one or more passages in culture.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CellCultureType"]
@@ -67,32 +87,6 @@ class CellCultureType(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
-            "studied_in",
-            [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimenprep.CranialWindowPreparation",
-                "openminds.specimenprep.TissueCulturePreparation",
-                "openminds.specimenprep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
-            ],
-            "^vocab:studyTarget",
-            reverse="study_targets",
-            multiple=True,
-            doc="reverse of 'studyTarget'",
-        ),
-        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -123,6 +117,32 @@ class CellCultureType(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "studied_in",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.ValidationTest",
+                "openminds.computation.Visualization",
+                "openminds.core.Model",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:studyTarget",
+            reverse="study_targets",
+            multiple=True,
+            doc="reverse of 'studyTarget'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -135,9 +155,9 @@ class CellCultureType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        studied_in=None,
         describes=None,
         is_used_to_group=None,
+        studied_in=None,
         id=None,
         data=None,
         space=None,
@@ -155,7 +175,7 @@ class CellCultureType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            studied_in=studied_in,
             describes=describes,
             is_used_to_group=is_used_to_group,
+            studied_in=studied_in,
         )

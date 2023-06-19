@@ -1,5 +1,30 @@
 """
 Structured information on the scope of the computational model.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - single cell
+         - A model of a single cell
+       * - subcellular: signalling
+         - A model of sub-cellular signalling pathways
+       * - network: brain region
+         - A model of one or more brain regions
+       * - network: microcircuit
+         - A model of a neuronal microcircuit
+       * - subcellular: spine
+         - A model of a dendritic spine, or of a dendritic region containing several spines
+       * - network: whole brain
+         - A model of an entire brain
+       * - subcellular: ion channel
+         - A model of an ion channel
+       * - subcellular
+         - A model of an entity or process contained within a cell
+       * - subcellular: molecular
+         - A model of the structure or behaviour of molecules
+       * - network
+         - A model of a neuronal network
+
 """
 
 # this file was auto-generated
@@ -12,6 +37,31 @@ from fairgraph.fields import Field
 class ModelScope(KGObject):
     """
     Structured information on the scope of the computational model.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - single cell
+         - A model of a single cell
+       * - subcellular: signalling
+         - A model of sub-cellular signalling pathways
+       * - network: brain region
+         - A model of one or more brain regions
+       * - network: microcircuit
+         - A model of a neuronal microcircuit
+       * - subcellular: spine
+         - A model of a dendritic spine, or of a dendritic region containing several spines
+       * - network: whole brain
+         - A model of an entire brain
+       * - subcellular: ion channel
+         - A model of an ion channel
+       * - subcellular
+         - A model of an entity or process contained within a cell
+       * - subcellular: molecular
+         - A model of the structure or behaviour of molecules
+       * - network
+         - A model of a neuronal network
+
     """
 
     default_space = "controlled"

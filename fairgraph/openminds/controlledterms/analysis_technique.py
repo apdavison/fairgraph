@@ -67,23 +67,6 @@ class AnalysisTechnique(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
-            "used_in",
-            [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
-                "openminds.core.Protocol",
-            ],
-            "^vocab:technique",
-            reverse="techniques",
-            multiple=True,
-            doc="reverse of 'technique'",
-        ),
-        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -122,6 +105,23 @@ class AnalysisTechnique(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "used_in",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.Visualization",
+                "openminds.core.Protocol",
+            ],
+            "^vocab:technique",
+            reverse="techniques",
+            multiple=True,
+            doc="reverse of 'technique'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -134,10 +134,10 @@ class AnalysisTechnique(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        used_in=None,
         describes=None,
         has_properties=None,
         is_used_to_group=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -155,8 +155,8 @@ class AnalysisTechnique(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            used_in=used_in,
             describes=describes,
             has_properties=has_properties,
             is_used_to_group=is_used_to_group,
+            used_in=used_in,
         )

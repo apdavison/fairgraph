@@ -60,14 +60,6 @@ class SubjectGroup(KGObject):
             doc="Reference to a point in time at which the subject group was studied in a particular mode or condition.",
         ),
         Field(
-            "used_in",
-            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
-            "^vocab:usedSpecimen",
-            reverse="used_specimens",
-            multiple=True,
-            doc="reverse of 'usedSpecimen'",
-        ),
-        Field(
             "has_parts",
             "openminds.core.Subject",
             "^vocab:isPartOf",
@@ -91,6 +83,14 @@ class SubjectGroup(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "used_in",
+            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
+            "^vocab:usedSpecimen",
+            reverse="used_specimens",
+            multiple=True,
+            doc="reverse of 'usedSpecimen'",
+        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -103,10 +103,10 @@ class SubjectGroup(KGObject):
         number_of_subjects=None,
         species=None,
         studied_states=None,
-        used_in=None,
         has_parts=None,
         has_study_results_in=None,
         is_used_to_group=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -124,8 +124,8 @@ class SubjectGroup(KGObject):
             number_of_subjects=number_of_subjects,
             species=species,
             studied_states=studied_states,
-            used_in=used_in,
             has_parts=has_parts,
             has_study_results_in=has_study_results_in,
             is_used_to_group=is_used_to_group,
+            used_in=used_in,
         )

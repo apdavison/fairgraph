@@ -1,5 +1,18 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - common data elements
+         - Common Data Elements (CDEs) define standardized key terms or concepts for diseases in form of a data dictionary that can be used in both relational and graph metadata models.
+       * - data repository model
+         - A data repository model defines the file and folder naming and structure as well as partially the file content (metadata definitions) and preferred format.
+       * - relational metadata model
+         - A relational metadata model defines a set of tabular metadata schemas (including their relations) as architectural base of a relational database for describing the products represented in that database.
+       * - graph metadata model
+         - A graph metadata model defines a set of modular metadata schemas (including their relations) as architectural base of a graph database for describing the products represented in that database.
+
 """
 
 # this file was auto-generated
@@ -10,7 +23,22 @@ from fairgraph.fields import Field
 
 
 class MetaDataModelType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - common data elements
+         - Common Data Elements (CDEs) define standardized key terms or concepts for diseases in form of a data dictionary that can be used in both relational and graph metadata models.
+       * - data repository model
+         - A data repository model defines the file and folder naming and structure as well as partially the file content (metadata definitions) and preferred format.
+       * - relational metadata model
+         - A relational metadata model defines a set of tabular metadata schemas (including their relations) as architectural base of a relational database for describing the products represented in that database.
+       * - graph metadata model
+         - A graph metadata model defines a set of modular metadata schemas (including their relations) as architectural base of a graph database for describing the products represented in that database.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/MetaDataModelType"]

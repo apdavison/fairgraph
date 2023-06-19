@@ -93,7 +93,14 @@ class StimulationActivity(KGObject):
         ),
         Field("setup", "openminds.core.Setup", "vocab:setup", doc="no description available"),
         Field("start_time", datetime, "vocab:startTime", doc="no description available"),
-        Field("stimulus", [], "vocab:stimulus", multiple=True, required=True, doc="no description available"),
+        Field(
+            "stimulus",
+            "openminds.stimulation.EphysStimulus",
+            "vocab:stimulus",
+            multiple=True,
+            required=True,
+            doc="no description available",
+        ),
         Field(
             "study_targets",
             [

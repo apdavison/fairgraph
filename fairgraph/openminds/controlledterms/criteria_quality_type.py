@@ -1,5 +1,14 @@
 """
 Structured information on the quality type of the defined criteria for a measurement.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - processive
+         - If a criteria is 'processive' it is based on a repeatable and often automated process.
+       * - asserted
+         - If a criteria is 'asserted' it is based on an opinion or claim, usually made by an expert.
+
 """
 
 # this file was auto-generated
@@ -12,6 +21,15 @@ from fairgraph.fields import Field
 class CriteriaQualityType(KGObject):
     """
     Structured information on the quality type of the defined criteria for a measurement.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - processive
+         - If a criteria is 'processive' it is based on a repeatable and often automated process.
+       * - asserted
+         - If a criteria is 'asserted' it is based on an opinion or claim, usually made by an expert.
+
     """
 
     default_space = "controlled"

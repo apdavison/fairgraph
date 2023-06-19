@@ -1,5 +1,12 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - real spoken word
+         - A speech sound or series of speech sounds that symbolizes and communicates a meaning (usually) without being divisible into smaller units capable of independent use. [adapted from [Merriam-Webster](https://www.merriam-webster.com/dictionary/word)]
+
 """
 
 # this file was auto-generated
@@ -10,7 +17,16 @@ from fairgraph.fields import Field
 
 
 class AuditoryStimulusType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - real spoken word
+         - A speech sound or series of speech sounds that symbolizes and communicates a meaning (usually) without being divisible into smaller units capable of independent use. [adapted from [Merriam-Webster](https://www.merriam-webster.com/dictionary/word)]
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/AuditoryStimulusType"]
@@ -67,6 +83,37 @@ class AuditoryStimulusType(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
+            "describes",
+            [
+                "openminds.computation.ValidationTestVersion",
+                "openminds.computation.WorkflowRecipeVersion",
+                "openminds.core.DatasetVersion",
+                "openminds.core.MetaDataModelVersion",
+                "openminds.core.ModelVersion",
+                "openminds.core.SoftwareVersion",
+                "openminds.core.WebServiceVersion",
+                "openminds.publications.Book",
+                "openminds.publications.Chapter",
+                "openminds.publications.LearningResource",
+                "openminds.publications.LivePaperVersion",
+                "openminds.publications.ScholarlyArticle",
+                "openminds.sands.BrainAtlasVersion",
+                "openminds.sands.CommonCoordinateSpaceVersion",
+            ],
+            "^vocab:keyword",
+            reverse="keywords",
+            multiple=True,
+            doc="reverse of 'keyword'",
+        ),
+        Field(
+            "is_used_to_group",
+            "openminds.core.FileBundle",
+            "^vocab:groupedBy",
+            reverse="grouped_by",
+            multiple=True,
+            doc="reverse of 'groupedBy'",
+        ),
+        Field(
             "studied_in",
             [
                 "openminds.computation.DataAnalysis",
@@ -93,43 +140,12 @@ class AuditoryStimulusType(KGObject):
             doc="reverse of 'studyTarget'",
         ),
         Field(
-            "describes",
-            [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
-            ],
-            "^vocab:keyword",
-            reverse="keywords",
-            multiple=True,
-            doc="reverse of 'keyword'",
-        ),
-        Field(
             "used_in",
             ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
             "^vocab:stimulusType",
             reverse="stimulus_types",
             multiple=True,
             doc="reverse of 'stimulusType'",
-        ),
-        Field(
-            "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
-            reverse="grouped_by",
-            multiple=True,
-            doc="reverse of 'groupedBy'",
         ),
     ]
     existence_query_fields = ("name",)
@@ -143,10 +159,10 @@ class AuditoryStimulusType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        studied_in=None,
         describes=None,
-        used_in=None,
         is_used_to_group=None,
+        studied_in=None,
+        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -164,8 +180,8 @@ class AuditoryStimulusType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            studied_in=studied_in,
             describes=describes,
-            used_in=used_in,
             is_used_to_group=is_used_to_group,
+            studied_in=studied_in,
+            used_in=used_in,
         )

@@ -84,6 +84,22 @@
     },
     {
       "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/contentType",
+        "reverse": true
+      },
+      "propertyName": "vocab:contentType",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/format",
         "reverse": true
       },
@@ -120,22 +136,6 @@
         "reverse": true
       },
       "propertyName": "vocab:specificationFormat",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/contentType",
-        "reverse": true
-      },
-      "propertyName": "vocab:contentType",
       "ensureOrder": true,
       "structure": [
         {

@@ -116,10 +116,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/about",
+        "@id": "https://openminds.ebrains.eu/vocab/service",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "vocab:service",
       "ensureOrder": true,
       "structure": [
         {
@@ -148,10 +148,10 @@
     },
     {
       "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/service",
+        "@id": "https://openminds.ebrains.eu/vocab/about",
         "reverse": true
       },
-      "propertyName": "vocab:service",
+      "propertyName": "vocab:about",
       "ensureOrder": true,
       "structure": [
         {

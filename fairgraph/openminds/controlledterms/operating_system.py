@@ -1,5 +1,28 @@
 """
 Structured information on the operating system.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `platform independent <https://www.wikidata.org/wiki/Q174666>`_
+         - https://www.wikidata.org/wiki/Q174666
+       * - `Android <https://www.wikidata.org/wiki/Q94>`_
+         - https://www.wikidata.org/wiki/Q94
+       * - `Windows Phone <https://www.wikidata.org/wiki/Q4885200>`_
+         - https://www.wikidata.org/wiki/Q4885200
+       * - `Unix <https://www.wikidata.org/wiki/Q11368>`_
+         - https://www.wikidata.org/wiki/Q11368
+       * - `iOS <https://www.wikidata.org/wiki/Q48493>`_
+         - https://www.wikidata.org/wiki/Q48493
+       * - `Linux <https://www.wikidata.org/wiki/Q388>`_
+         - https://www.wikidata.org/wiki/Q388
+       * - `Solaris <https://www.wikidata.org/wiki/Q14646>`_
+         - https://www.wikidata.org/wiki/Q14646
+       * - `Windows <https://www.wikidata.org/wiki/Q1406>`_
+         - https://www.wikidata.org/wiki/Q1406
+       * - `MacOS <https://www.wikidata.org/wiki/Q43627>`_
+         - https://www.wikidata.org/wiki/Q43627
+
 """
 
 # this file was auto-generated
@@ -12,6 +35,29 @@ from fairgraph.fields import Field
 class OperatingSystem(KGObject):
     """
     Structured information on the operating system.
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `platform independent <https://www.wikidata.org/wiki/Q174666>`_
+         - https://www.wikidata.org/wiki/Q174666
+       * - `Android <https://www.wikidata.org/wiki/Q94>`_
+         - https://www.wikidata.org/wiki/Q94
+       * - `Windows Phone <https://www.wikidata.org/wiki/Q4885200>`_
+         - https://www.wikidata.org/wiki/Q4885200
+       * - `Unix <https://www.wikidata.org/wiki/Q11368>`_
+         - https://www.wikidata.org/wiki/Q11368
+       * - `iOS <https://www.wikidata.org/wiki/Q48493>`_
+         - https://www.wikidata.org/wiki/Q48493
+       * - `Linux <https://www.wikidata.org/wiki/Q388>`_
+         - https://www.wikidata.org/wiki/Q388
+       * - `Solaris <https://www.wikidata.org/wiki/Q14646>`_
+         - https://www.wikidata.org/wiki/Q14646
+       * - `Windows <https://www.wikidata.org/wiki/Q1406>`_
+         - https://www.wikidata.org/wiki/Q1406
+       * - `MacOS <https://www.wikidata.org/wiki/Q43627>`_
+         - https://www.wikidata.org/wiki/Q43627
+
     """
 
     default_space = "controlled"

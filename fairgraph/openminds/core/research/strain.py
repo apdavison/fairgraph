@@ -96,6 +96,14 @@ class Strain(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
+            "is_background_strain_of",
+            "openminds.core.Strain",
+            "^vocab:backgroundStrain",
+            reverse="background_strains",
+            multiple=True,
+            doc="reverse of 'backgroundStrain'",
+        ),
+        Field(
             "is_species_of",
             [
                 "openminds.core.Subject",
@@ -107,14 +115,6 @@ class Strain(KGObject):
             reverse="species",
             multiple=True,
             doc="reverse of 'species'",
-        ),
-        Field(
-            "is_background_strain_of",
-            "openminds.core.Strain",
-            "^vocab:backgroundStrain",
-            reverse="background_strains",
-            multiple=True,
-            doc="reverse of 'backgroundStrain'",
         ),
     ]
     existence_query_fields = ("name", "genetic_strain_type", "species")
@@ -135,8 +135,8 @@ class Strain(KGObject):
         species=None,
         stock_number=None,
         synonyms=None,
-        is_species_of=None,
         is_background_strain_of=None,
+        is_species_of=None,
         id=None,
         data=None,
         space=None,
@@ -161,6 +161,6 @@ class Strain(KGObject):
             species=species,
             stock_number=stock_number,
             synonyms=synonyms,
-            is_species_of=is_species_of,
             is_background_strain_of=is_background_strain_of,
+            is_species_of=is_species_of,
         )

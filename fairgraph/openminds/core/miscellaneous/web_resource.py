@@ -37,6 +37,14 @@ class WebResource(KGObject):
             doc="Method of digitally organizing and structuring data or information.",
         ),
         Field(
+            "describes",
+            ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
+            "^vocab:describedIn",
+            reverse="described_in",
+            multiple=True,
+            doc="reverse of 'describedIn'",
+        ),
+        Field(
             "fully_documents",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -55,14 +63,6 @@ class WebResource(KGObject):
             multiple=True,
             doc="reverse of 'fullDocumentation'",
         ),
-        Field(
-            "describes",
-            ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
-            "^vocab:describedIn",
-            reverse="described_in",
-            multiple=True,
-            doc="reverse of 'describedIn'",
-        ),
     ]
     existence_query_fields = ("iri",)
 
@@ -71,8 +71,8 @@ class WebResource(KGObject):
         iri=None,
         content_description=None,
         format=None,
-        fully_documents=None,
         describes=None,
+        fully_documents=None,
         id=None,
         data=None,
         space=None,
@@ -86,6 +86,6 @@ class WebResource(KGObject):
             iri=iri,
             content_description=content_description,
             format=format,
-            fully_documents=fully_documents,
             describes=describes,
+            fully_documents=fully_documents,
         )

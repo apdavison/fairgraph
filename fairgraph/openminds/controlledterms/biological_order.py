@@ -1,5 +1,22 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Didelphimorphia
+         - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
+       * - `Rodentia <http://purl.obolibrary.org/obo/NCBITaxon_9989>`_
+         - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
+       * - `Nudibranchia <http://purl.obolibrary.org/obo/NCBITaxon_70849>`_
+         - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
+       * - `Carnivora <http://purl.obolibrary.org/obo/NCBITaxon_33554>`_
+         - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
+       * - `Primates <http://id.nlm.nih.gov/mesh/2018/M0017579>`_
+         - The biological order *Primates* belongs to the class *Mammalia* (mammals).
+       * - `Cypriniformes <http://id.nlm.nih.gov/mesh/2018/M0005508>`_
+         - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
+
 """
 
 # this file was auto-generated
@@ -10,7 +27,26 @@ from fairgraph.fields import Field
 
 
 class BiologicalOrder(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - Didelphimorphia
+         - The biological order *Didelphimorphia* (opossums) belongs to the class *Mammalia* (mammals).
+       * - `Rodentia <http://purl.obolibrary.org/obo/NCBITaxon_9989>`_
+         - The biological order *Rodentia* (rodents) belongs to the class *Mammalia* (mammals).
+       * - `Nudibranchia <http://purl.obolibrary.org/obo/NCBITaxon_70849>`_
+         - The biological order *Nudibranchia* (nudibranchs) belongs to the class *Gastropoda* (gastropods).
+       * - `Carnivora <http://purl.obolibrary.org/obo/NCBITaxon_33554>`_
+         - The biological order *Carnivora* (carnivore) belongs to the class *Mammalia* (mammals).
+       * - `Primates <http://id.nlm.nih.gov/mesh/2018/M0017579>`_
+         - The biological order *Primates* belongs to the class *Mammalia* (mammals).
+       * - `Cypriniformes <http://id.nlm.nih.gov/mesh/2018/M0005508>`_
+         - The biological order *Cypriniformes* belongs to the class *Actinopterygii* (ray-finned fishes).
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/BiologicalOrder"]
@@ -67,32 +103,6 @@ class BiologicalOrder(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
-            "studied_in",
-            [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimenprep.CranialWindowPreparation",
-                "openminds.specimenprep.TissueCulturePreparation",
-                "openminds.specimenprep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
-            ],
-            "^vocab:studyTarget",
-            reverse="study_targets",
-            multiple=True,
-            doc="reverse of 'studyTarget'",
-        ),
-        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -123,6 +133,32 @@ class BiologicalOrder(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "studied_in",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.ValidationTest",
+                "openminds.computation.Visualization",
+                "openminds.core.Model",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:studyTarget",
+            reverse="study_targets",
+            multiple=True,
+            doc="reverse of 'studyTarget'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -135,9 +171,9 @@ class BiologicalOrder(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        studied_in=None,
         describes=None,
         is_used_to_group=None,
+        studied_in=None,
         id=None,
         data=None,
         space=None,
@@ -155,7 +191,7 @@ class BiologicalOrder(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            studied_in=studied_in,
             describes=describes,
             is_used_to_group=is_used_to_group,
+            studied_in=studied_in,
         )

@@ -28,8 +28,18 @@ class EphysStimulus(KGObject):
             "vocab:type",
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
+        Field(
+            "is_stimulus_fors",
+            "openminds.stimulation.StimulationActivity",
+            "^vocab:stimulus",
+            reverse="stimulus",
+            multiple=True,
+            doc="reverse of 'stimulus'",
+        ),
     ]
     existence_query_fields = ()
 
-    def __init__(self, type=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, type=type)
+    def __init__(self, type=None, is_stimulus_fors=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(
+            id=id, space=space, scope=scope, data=data, type=type, is_stimulus_fors=is_stimulus_fors
+        )

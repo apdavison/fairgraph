@@ -1,5 +1,22 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - outbred
+         - 'Outbred' breeding (or outbreeding) is the production of offspring from mating organisms that belong to two different background breeds.
+       * - coisogenic
+         - 'Coisogenic' breeding  is a type of inbreeding where the offspring differs at only a single locus through a mutation occurring in the original inbred strain.
+       * - selective inbred
+         - 'Selective inbred' breeding (or selective inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed) and have been selected based on a particular phenotype.
+       * - congenic
+         - 'Congenic' breeding is the production of offspring from repeated backcrossing into an inbred (background) strain, with selection for a particular marker, ideally a single gene from another strain.
+       * - hybrid
+         - A 'hybrid' is an organism that resulted from special outbreeding of two species (normally within the same genus).
+       * - inbred
+         - 'Inbred' breeding (or inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed).
+
 """
 
 # this file was auto-generated
@@ -10,7 +27,26 @@ from fairgraph.fields import Field
 
 
 class BreedingType(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - outbred
+         - 'Outbred' breeding (or outbreeding) is the production of offspring from mating organisms that belong to two different background breeds.
+       * - coisogenic
+         - 'Coisogenic' breeding  is a type of inbreeding where the offspring differs at only a single locus through a mutation occurring in the original inbred strain.
+       * - selective inbred
+         - 'Selective inbred' breeding (or selective inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed) and have been selected based on a particular phenotype.
+       * - congenic
+         - 'Congenic' breeding is the production of offspring from repeated backcrossing into an inbred (background) strain, with selection for a particular marker, ideally a single gene from another strain.
+       * - hybrid
+         - A 'hybrid' is an organism that resulted from special outbreeding of two species (normally within the same genus).
+       * - inbred
+         - 'Inbred' breeding (or inbreeding) is the production of offspring from mating organisms that are genetically closely related (same background breed).
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/BreedingType"]
@@ -67,32 +103,6 @@ class BreedingType(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
-            "studied_in",
-            [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimenprep.CranialWindowPreparation",
-                "openminds.specimenprep.TissueCulturePreparation",
-                "openminds.specimenprep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
-            ],
-            "^vocab:studyTarget",
-            reverse="study_targets",
-            multiple=True,
-            doc="reverse of 'studyTarget'",
-        ),
-        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -131,6 +141,32 @@ class BreedingType(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
+        Field(
+            "studied_in",
+            [
+                "openminds.computation.DataAnalysis",
+                "openminds.computation.DataCopy",
+                "openminds.computation.GenericComputation",
+                "openminds.computation.ModelValidation",
+                "openminds.computation.Optimization",
+                "openminds.computation.Simulation",
+                "openminds.computation.ValidationTest",
+                "openminds.computation.Visualization",
+                "openminds.core.Model",
+                "openminds.core.ProtocolExecution",
+                "openminds.ephys.CellPatching",
+                "openminds.ephys.ElectrodePlacement",
+                "openminds.ephys.RecordingActivity",
+                "openminds.specimenprep.CranialWindowPreparation",
+                "openminds.specimenprep.TissueCulturePreparation",
+                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.stimulation.StimulationActivity",
+            ],
+            "^vocab:studyTarget",
+            reverse="study_targets",
+            multiple=True,
+            doc="reverse of 'studyTarget'",
+        ),
     ]
     existence_query_fields = ("name",)
 
@@ -143,10 +179,10 @@ class BreedingType(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        studied_in=None,
         describes=None,
         is_breeding_type_of=None,
         is_used_to_group=None,
+        studied_in=None,
         id=None,
         data=None,
         space=None,
@@ -164,8 +200,8 @@ class BreedingType(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            studied_in=studied_in,
             describes=describes,
             is_breeding_type_of=is_breeding_type_of,
             is_used_to_group=is_used_to_group,
+            studied_in=studied_in,
         )

@@ -1,5 +1,22 @@
 """
 
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `visual stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00132>`_
+         - A stimulation of the visual (sight) system.
+       * - `olfactory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00130>`_
+         - A stimulation of the olfactory (smelling) system.
+       * - `tactile stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00131>`_
+         - A stimulation of the tactile (touch) system.
+       * - `gustatory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00123>`_
+         - A stimulation of the gustatory (taste and flavor perception) system.
+       * - `interoceptive stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00128>`_
+         - A stimulation that arises from inside an organism.
+       * - `auditory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00125>`_
+         - A stimulation of the auditory (hearing) system.
+
 """
 
 # this file was auto-generated
@@ -10,7 +27,26 @@ from fairgraph.fields import Field
 
 
 class StimulationApproach(KGObject):
-    """ """
+    """
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `visual stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00132>`_
+         - A stimulation of the visual (sight) system.
+       * - `olfactory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00130>`_
+         - A stimulation of the olfactory (smelling) system.
+       * - `tactile stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00131>`_
+         - A stimulation of the tactile (touch) system.
+       * - `gustatory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00123>`_
+         - A stimulation of the gustatory (taste and flavor perception) system.
+       * - `interoceptive stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00128>`_
+         - A stimulation that arises from inside an organism.
+       * - `auditory stimulation <http://www.cogpo.org/ontologies/CogPOver1.owl#COGPO_00125>`_
+         - A stimulation of the auditory (hearing) system.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/StimulationApproach"]

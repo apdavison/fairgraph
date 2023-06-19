@@ -72,6 +72,14 @@ class ContentType(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
+            "is_defined_by",
+            "openminds.core.ContentTypePattern",
+            "^vocab:contentType",
+            reverse="content_types",
+            multiple=True,
+            doc="reverse of 'contentType'",
+        ),
+        Field(
             "is_format_of",
             [
                 "openminds.computation.LocalFile",
@@ -106,14 +114,6 @@ class ContentType(KGObject):
             multiple=True,
             doc="reverse of 'specificationFormat'",
         ),
-        Field(
-            "is_defined_by",
-            "openminds.core.ContentTypePattern",
-            "^vocab:contentType",
-            reverse="content_types",
-            multiple=True,
-            doc="reverse of 'contentType'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -127,10 +127,10 @@ class ContentType(KGObject):
         related_media_type=None,
         specification=None,
         synonyms=None,
+        is_defined_by=None,
         is_format_of=None,
         is_output_format_of=None,
         is_specification_format_of=None,
-        is_defined_by=None,
         id=None,
         data=None,
         space=None,
@@ -149,8 +149,8 @@ class ContentType(KGObject):
             related_media_type=related_media_type,
             specification=specification,
             synonyms=synonyms,
+            is_defined_by=is_defined_by,
             is_format_of=is_format_of,
             is_output_format_of=is_output_format_of,
             is_specification_format_of=is_specification_format_of,
-            is_defined_by=is_defined_by,
         )

@@ -1,5 +1,52 @@
 """
 
+    Here we show the first 20 possible values, an additional 35 values are not shown.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `neostriatum cholinergic interneuron <http://uri.neuinfo.org/nif/nifstd/sao1866881837>`_
+         - An inhibitory interneuron in the caudate nucleus and putamen which mainly uses the neurotrasmitter acetylcholine (ACh).
+       * - microglial cell
+         - 'Microglial cells' are small, migratory, phagocytic, interstitial glial cells in the central nervous system.
+       * - granule neuron
+         - The term 'granule neuron' refers to a set of neuron types typically found in granular layers across brain regions whose only common feature is that they all have very small cell bodies [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Granule_cell)].
+       * - granule cell
+         -
+       * - neocortex layer 5 tufted pyramidal neuron
+         - An excitatory neuron type with a pyramidal-shaped cell body found in layer 5 of the neocortex and projects to subcortical areas.
+       * - cholecystokinin expressing neuron
+         - Any neuron that expresses cholecystokinin.
+       * - macroglial cell
+         - 'Macroglial cells' are large glial cells in the central nervous system.
+       * - `striatum medium spiny neuron <http://uri.interlex.org/npo/uris/neurons/35>`_
+         - A special type of GABAergic neuron with large dendritic trees that is located in the striatum.
+       * - `cerebellum stellate neuron <http://uri.neuinfo.org/nif/nifstd/nifext_130>`_
+         - Any cerebellar neuron that has a star-like shape formed by dendritic processes radiating from the cell body.
+       * - pyramidal cell
+         -
+       * - `cerebellum basket cell <http://uri.neuinfo.org/nif/nifstd/sao666951243>`_
+         - An inhibitory GABAergic interneurons of the cerebellum, enmeshing the cell body of another neuron with its terminal axon ramifications.
+       * - `cholinergic neuron <http://uri.neuinfo.org/nif/nifstd/nlx_148005>`_
+         - Any neuron that releases some acetylcholine as a neurotransmitter
+       * - `hippocampus CA1 pyramidal neuron <http://uri.neuinfo.org/nif/nifstd/sao830368389>`_
+         - An excitatory neuron type with a pyramidal-shaped cell body that is located in the cornu ammonis 1 (CA1) of the hippocampus.
+       * - interneuron
+         - An 'interneuron' is neuron that cannot be classified as sensory receptor or motor neuron.
+       * - motor neuron
+         -
+       * - inhibitory neuron
+         - An 'inhibitory neuron' releases neurotransmitters (e.g. GABA) that have a hyperpolarizing effect on the post-synaptic neuron, making it difficult to generate an action potential.
+       * - choline acetyltransferase expressing neuron
+         - Any neuron that expresses choline acetyltransferase.
+       * - glial cell
+         - A 'glial cell' is a non-neuronal cell of the nervous system. Glial cells provide physical support, respond to injury, regulate the ionic and chemical composition of the extracellular milieu, guide neuronal migration during development, and exchange metabolites with neurons.
+       * - `cerebellum granule cell <http://uri.neuinfo.org/nif/nifstd/nifext_128>`_
+         - 'Cerebellum granule cells' form the thick granular layer of the cerebellar cortex and typically have small cell bodies but varying functions.
+       * - nitric oxide synthase expressing neuron
+         - Any neuron that expresses nitric oxide synthase.
+
 """
 
 # this file was auto-generated
@@ -10,7 +57,56 @@ from fairgraph.fields import Field
 
 
 class CellType(KGObject):
-    """ """
+    """
+
+    Here we show the first 20 possible values, an additional 35 values are not shown.
+
+    .. list-table:: **Possible values**
+       :widths: 20 80
+       :header-rows: 0
+
+       * - `neostriatum cholinergic interneuron <http://uri.neuinfo.org/nif/nifstd/sao1866881837>`_
+         - An inhibitory interneuron in the caudate nucleus and putamen which mainly uses the neurotrasmitter acetylcholine (ACh).
+       * - microglial cell
+         - 'Microglial cells' are small, migratory, phagocytic, interstitial glial cells in the central nervous system.
+       * - granule neuron
+         - The term 'granule neuron' refers to a set of neuron types typically found in granular layers across brain regions whose only common feature is that they all have very small cell bodies [[adapted from Wikipedia](https://en.wikipedia.org/wiki/Granule_cell)].
+       * - granule cell
+         -
+       * - neocortex layer 5 tufted pyramidal neuron
+         - An excitatory neuron type with a pyramidal-shaped cell body found in layer 5 of the neocortex and projects to subcortical areas.
+       * - cholecystokinin expressing neuron
+         - Any neuron that expresses cholecystokinin.
+       * - macroglial cell
+         - 'Macroglial cells' are large glial cells in the central nervous system.
+       * - `striatum medium spiny neuron <http://uri.interlex.org/npo/uris/neurons/35>`_
+         - A special type of GABAergic neuron with large dendritic trees that is located in the striatum.
+       * - `cerebellum stellate neuron <http://uri.neuinfo.org/nif/nifstd/nifext_130>`_
+         - Any cerebellar neuron that has a star-like shape formed by dendritic processes radiating from the cell body.
+       * - pyramidal cell
+         -
+       * - `cerebellum basket cell <http://uri.neuinfo.org/nif/nifstd/sao666951243>`_
+         - An inhibitory GABAergic interneurons of the cerebellum, enmeshing the cell body of another neuron with its terminal axon ramifications.
+       * - `cholinergic neuron <http://uri.neuinfo.org/nif/nifstd/nlx_148005>`_
+         - Any neuron that releases some acetylcholine as a neurotransmitter
+       * - `hippocampus CA1 pyramidal neuron <http://uri.neuinfo.org/nif/nifstd/sao830368389>`_
+         - An excitatory neuron type with a pyramidal-shaped cell body that is located in the cornu ammonis 1 (CA1) of the hippocampus.
+       * - interneuron
+         - An 'interneuron' is neuron that cannot be classified as sensory receptor or motor neuron.
+       * - motor neuron
+         -
+       * - inhibitory neuron
+         - An 'inhibitory neuron' releases neurotransmitters (e.g. GABA) that have a hyperpolarizing effect on the post-synaptic neuron, making it difficult to generate an action potential.
+       * - choline acetyltransferase expressing neuron
+         - Any neuron that expresses choline acetyltransferase.
+       * - glial cell
+         - A 'glial cell' is a non-neuronal cell of the nervous system. Glial cells provide physical support, respond to injury, regulate the ionic and chemical composition of the extracellular milieu, guide neuronal migration during development, and exchange metabolites with neurons.
+       * - `cerebellum granule cell <http://uri.neuinfo.org/nif/nifstd/nifext_128>`_
+         - 'Cerebellum granule cells' form the thick granular layer of the cerebellar cortex and typically have small cell bodies but varying functions.
+       * - nitric oxide synthase expressing neuron
+         - Any neuron that expresses nitric oxide synthase.
+
+    """
 
     default_space = "controlled"
     type_ = ["https://openminds.ebrains.eu/controlledTerms/CellType"]

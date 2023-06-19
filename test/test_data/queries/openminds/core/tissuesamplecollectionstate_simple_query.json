@@ -370,6 +370,22 @@
     },
     {
       "path": {
+        "@id": "https://openminds.ebrains.eu/vocab/descendedFrom",
+        "reverse": true
+      },
+      "propertyName": "vocab:descendedFrom",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
+      "path": {
         "@id": "https://openminds.ebrains.eu/vocab/input",
         "reverse": true
       },
@@ -406,22 +422,6 @@
         "reverse": true
       },
       "propertyName": "vocab:studiedState",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/descendedFrom",
-        "reverse": true
-      },
-      "propertyName": "vocab:descendedFrom",
       "ensureOrder": true,
       "structure": [
         {

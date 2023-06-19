@@ -38,6 +38,14 @@ class FileArchive(KGObject):
         ),
         Field("source_data", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"),
         Field(
+            "is_location_of",
+            "openminds.core.ServiceLink",
+            "^vocab:dataLocation",
+            reverse="data_locations",
+            multiple=True,
+            doc="reverse of 'dataLocation'",
+        ),
+        Field(
             "is_output_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -50,14 +58,6 @@ class FileArchive(KGObject):
             multiple=True,
             doc="reverse of 'output'",
         ),
-        Field(
-            "is_location_of",
-            "openminds.core.ServiceLink",
-            "^vocab:dataLocation",
-            reverse="data_locations",
-            multiple=True,
-            doc="reverse of 'dataLocation'",
-        ),
     ]
     existence_query_fields = ("iri", "format")
 
@@ -66,8 +66,8 @@ class FileArchive(KGObject):
         iri=None,
         format=None,
         source_data=None,
-        is_output_of=None,
         is_location_of=None,
+        is_output_of=None,
         id=None,
         data=None,
         space=None,
@@ -81,6 +81,6 @@ class FileArchive(KGObject):
             iri=iri,
             format=format,
             source_data=source_data,
-            is_output_of=is_output_of,
             is_location_of=is_location_of,
+            is_output_of=is_output_of,
         )
