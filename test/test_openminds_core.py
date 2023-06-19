@@ -142,11 +142,15 @@ def test_resolve_model(kg_client):
     model = omcore.Model.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
     assert model.name == "Scaffold Model of Cerebellum microcircuit version 2.0"
     assert isinstance(model.versions, KGProxy)
-    resolved_model2 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=2)
+    resolved_model2 = deepcopy(model).resolve(
+        kg_client, scope="in progress", follow_links={"versions": {}, "custodians": {"affiliations": {}}}
+    )
     assert isinstance(resolved_model2.versions, omcore.ModelVersion)
     assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
 
-    resolved_model4 = deepcopy(model).resolve(kg_client, scope="in progress", follow_links=3)
+    resolved_model4 = deepcopy(model).resolve(
+        kg_client, scope="in progress", follow_links={"custodians": {"affiliations": {"member_of": {}}}}
+    )
     assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
 
 
@@ -176,6 +180,29 @@ def test_retrieve_released_models_follow_links(kg_client):
                 assert isinstance(version.accessibility, KGProxy)
             if version.repository:
                 assert isinstance(version.repository, KGProxy)
+
+
+@skip_if_no_connection
+def test_retrieve_released_model_versions_no_follow(kg_client):
+    for api in ("query", "core"):
+        versions = omcore.ModelVersion.list(
+            kg_client,
+            scope="released",
+            space="model",
+            api=api,
+            size=5,
+            from_index=randint(0, 80),
+        )
+        for ver in versions:
+            if ver.formats:
+                for ct_proxy in as_list(ver.formats):
+                    assert isinstance(ct_proxy, KGProxy)
+                    assert ct_proxy.classes == [omcore.ContentType]
+            if api == "query":
+                assert isinstance(ver.is_version_of, KGProxy)
+            else:
+                assert isinstance(ver.is_version_of, KGQuery)
+            assert ver.is_version_of.classes == [omcore.Model]
 
 
 @skip_if_no_connection

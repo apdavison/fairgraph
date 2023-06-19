@@ -844,7 +844,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         #                      than necessary, but it makes the logic easier to understand.
         return query.serialize()
 
-    def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
+    def children(
+        self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
+    ) -> List[RepresentsSingleObject]:
         """Return a list of child objects."""
         if follow_links:
             self.resolve(client, follow_links=follow_links)

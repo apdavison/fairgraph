@@ -20,7 +20,7 @@ metadata, but whose specific identifier(s) is/are not known.
 
 from __future__ import annotations
 import logging
-from typing import Dict, List, Optional, Union, TYPE_CHECKING
+from typing import Dict, List, Optional, Union, Any, TYPE_CHECKING
 
 from .utility import as_list, expand_filter
 from .registry import lookup
@@ -86,7 +86,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         space: Optional[str] = None,
         scope: Optional[str] = None,
         use_cache: bool = True,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve the full metadata for the KGObject(s) represented by this query object.
@@ -99,16 +99,12 @@ class KGQuery(Resolvable, SupportsQuerying):
             scope (str, optional): The scope of the query. Valid values are "released", "in progress", or "any".
                 If not provided, the "preferred_scope" provided when creating the proxy object will be used.
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Returns:
             a KGObject instance, of the appropriate subclass.
         """
         scope = scope or self.preferred_scope
-        if follow_links > 0:
-            query_type = f"resolved-{follow_links}"
-        else:
-            query_type = "simple"
         objects: List[KGObject] = []
         for cls in self.classes:
             query = cls.generate_query(client=client, filters=self.filter, space=space, follow_links=follow_links)
@@ -122,7 +118,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         for obj in objects:
             object_cache[obj.id] = obj
 
-        if follow_links > 0:
+        if follow_links:
             for obj in objects:
                 obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
 

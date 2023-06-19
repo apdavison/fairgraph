@@ -287,16 +287,27 @@ class Field(object):
         else:
             return serialize_single(value)
 
-    def deserialize(self, data: Union[JSONdict, List[JSONdict]], client: KGClient):
+    def deserialize(self, data: Union[JSONdict, List[JSONdict]], client: KGClient, belongs_to: Optional[str] = None):
         """
         Deserialize a JSON-LD data structure into Python objects.
 
         Args:
             data: the JSON-LD data
             client: a KG client
+            belongs_to: the ID of the object this field belongs to
         """
-        if data is None or data == []:
+        if data == []:
             return None
+        elif data is None:
+            if self.reverse:
+                if isinstance(self.reverse, list):
+                    # todo: handle all possible reverses
+                    #       for now, we just take the first
+                    return KGQuery(self.types, {self.reverse[0]: belongs_to})
+                else:
+                    return KGQuery(self.types, {self.reverse: belongs_to})
+            else:
+                return None
         try:
             if issubclass(self.types[0], (KGObject, EmbeddedMetadata)):
                 return build_kg_object(self.types, data, client=client)

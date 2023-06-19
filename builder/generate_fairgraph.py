@@ -103,7 +103,7 @@ def generate_python_name(json_name, allow_multiple=False):
         elif python_name in custom_singular:
             python_name = custom_singular[python_name]
     if isinstance(python_name, list):
-        sort(python_name)
+        python_name.sort()
     return python_name
 
 
@@ -895,7 +895,7 @@ additional_methods = {
         return f"{self.given_name} {self.family_name}"
 
     @classmethod
-    def me(cls, client, allow_multiple=False, follow_links=0):
+    def me(cls, client, allow_multiple=False, follow_links=None):
         user_info = client.user_info()
         possible_matches = cls.list(
             client, scope="in progress", space="common",
@@ -992,7 +992,7 @@ additional_methods = {
     "ScholarlyArticle": """    def get_journal(self, client, with_volume=False, with_issue=False):
         journal = volume = issue = None
         if self.is_part_of:
-            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links=1)
+            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links={"is_part_of": {}})
             if isinstance(issue_or_volume, PublicationIssue):
                 volume = issue_or_volume.is_part_of
                 issue = issue_or_volume
@@ -1016,7 +1016,7 @@ additional_methods = {
         #     -              'J. C., Benavides-Piccione, R., ... & Segev, I. (2016). Unique '
         #     -              'membrane properties and enhanced signal processing in human '
         #     -              'neocortical neurons. Elife, 5, e16553.
-        self.resolve(client, follow_links=1)
+        self.resolve(client, follow_links={"is_part_of": {}, "authors": {}})
         authors = as_list(self.authors)
         if len(authors) == 1:
             author_str = authors[0].full_name

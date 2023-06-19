@@ -20,7 +20,7 @@ have not been retrieved from the KG.
 
 from __future__ import annotations
 import logging
-from typing import List, Optional, Tuple, Union, TYPE_CHECKING
+from typing import List, Optional, Tuple, Union, Dict, Any, TYPE_CHECKING
 
 from .registry import lookup
 from .errors import ResolutionFailure
@@ -101,7 +101,7 @@ class KGProxy(RepresentsSingleObject):
         client: KGClient,
         scope: Optional[str] = None,
         use_cache: bool = True,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Retrieve the full metadata for the KGObject represented by this proxy.
@@ -111,7 +111,7 @@ class KGProxy(RepresentsSingleObject):
             scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 If not provided, the "preferred_scope" provided when creating the proxy object will be used.
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Returns:
             a KGObject instance, of the appropriate subclass.
@@ -134,7 +134,7 @@ class KGProxy(RepresentsSingleObject):
             if obj is None:
                 raise ResolutionFailure(f"Cannot resolve proxy object of type {self.cls} with id {self.uuid}")
             object_cache[self.id] = obj
-        if follow_links > 0:
+        if follow_links:
             return obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
         else:
             return obj

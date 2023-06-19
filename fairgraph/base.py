@@ -68,7 +68,7 @@ class Resolvable:  # all
         client: KGClient,
         scope: Optional[str] = None,
         use_cache: bool = True,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         pass
 
@@ -250,7 +250,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         for use in constructing a KG query definition.
 
         Args:
-            follow_links (int): The number of levels of links that should be followed when constructing the query. Defaults to zero.
+            follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
         """
         properties = [QueryProperty("@type")]
         for field in cls.fields:
@@ -308,7 +308,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
-            deserialized_data[field.name] = field.deserialize(data_item, client)
+            deserialized_data[field.name] = field.deserialize(data_item, client, belongs_to=data.get("@id", None))
         return deserialized_data
 
     def resolve(
@@ -316,7 +316,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         client: KGClient,
         scope: Optional[str] = None,
         use_cache: bool = True,
-        follow_links: int = 0,
+        follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
         Resolve fields that are represented by KGProxy objects.
@@ -326,42 +326,43 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             scope (str): The scope of instances to include in the response.
                    Valid values are 'released', 'in progress', 'any'.
             use_cache (bool): whether to use cached data if they exist. Defaults to True.
-            follow_links (int): The number of levels of links in the graph to follow. Defaults to zero.
+            follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Note: a real (non-proxy) object resolves to itself.
         """
         use_scope = scope or self.scope or "released"
-        if follow_links > 0:
+        if follow_links:
             for field in self.fields:
-                if issubclass(field.types[0], ContainsMetadata):
-                    values = getattr(self, field.name)
-                    resolved_values: List[Any] = []
-                    for value in as_list(values):
-                        if isinstance(value, Resolvable):
-                            if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
-                                # i.e. isinstance(value, KGObject) - already resolved
-                                resolved_values.append(value)
-                            else:
-                                try:
-                                    resolved_value = value.resolve(
-                                        client,
-                                        scope=use_scope,
-                                        use_cache=use_cache,
-                                        follow_links=follow_links - 1,
-                                    )
-                                except ResolutionFailure as err:
-                                    warn(str(err))
+                if field.is_link and field.name in follow_links:
+                    if issubclass(field.types[0], ContainsMetadata):
+                        values = getattr(self, field.name)
+                        resolved_values: List[Any] = []
+                        for value in as_list(values):
+                            if isinstance(value, Resolvable):
+                                if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
+                                    # i.e. isinstance(value, KGObject) - already resolved
                                     resolved_values.append(value)
                                 else:
-                                    resolved_values.append(resolved_value)
-                    if isinstance(values, RepresentsSingleObject):
-                        assert len(resolved_values) == 1
-                        setattr(self, field.name, resolved_values[0])
-                    elif values is None:
-                        assert len(resolved_values) == 0
-                        setattr(self, field.name, None)
-                    else:
-                        setattr(self, field.name, resolved_values)
+                                    try:
+                                        resolved_value = value.resolve(
+                                            client,
+                                            scope=use_scope,
+                                            use_cache=use_cache,
+                                            follow_links=follow_links[field.name],
+                                        )
+                                    except ResolutionFailure as err:
+                                        warn(str(err))
+                                        resolved_values.append(value)
+                                    else:
+                                        resolved_values.append(resolved_value)
+                        if isinstance(values, RepresentsSingleObject):
+                            assert len(resolved_values) == 1
+                            setattr(self, field.name, resolved_values[0])
+                        elif values is None:
+                            assert len(resolved_values) == 0
+                            setattr(self, field.name, None)
+                        else:
+                            setattr(self, field.name, resolved_values)
         return self
 
 
@@ -369,7 +370,9 @@ class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
     id: Optional[str]
     remote_data: Optional[JSONdict]
 
-    def children(self, client: KGClient, follow_links: int = 0) -> List[RepresentsSingleObject]:
+    def children(
+        self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
+    ) -> List[RepresentsSingleObject]:
         pass
 
     def is_released(self, client: KGClient, with_children: bool = False) -> bool:

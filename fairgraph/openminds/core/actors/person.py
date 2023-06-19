@@ -243,7 +243,7 @@ class Person(KGObject):
         return f"{self.given_name} {self.family_name}"
 
     @classmethod
-    def me(cls, client, allow_multiple=False, follow_links=0):
+    def me(cls, client, allow_multiple=False, follow_links=None):
         user_info = client.user_info()
         possible_matches = cls.list(
             client,

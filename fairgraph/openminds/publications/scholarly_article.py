@@ -274,7 +274,7 @@ class ScholarlyArticle(KGObject):
     def get_journal(self, client, with_volume=False, with_issue=False):
         journal = volume = issue = None
         if self.is_part_of:
-            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links=1)
+            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links={"is_part_of": {}})
             if isinstance(issue_or_volume, PublicationIssue):
                 volume = issue_or_volume.is_part_of
                 issue = issue_or_volume
@@ -298,7 +298,7 @@ class ScholarlyArticle(KGObject):
         #     -              'J. C., Benavides-Piccione, R., ... & Segev, I. (2016). Unique '
         #     -              'membrane properties and enhanced signal processing in human '
         #     -              'neocortical neurons. Elife, 5, e16553.
-        self.resolve(client, follow_links=1)
+        self.resolve(client, follow_links={"is_part_of": {}, "authors": {}})
         authors = as_list(self.authors)
         if len(authors) == 1:
             author_str = authors[0].full_name

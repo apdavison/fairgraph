@@ -2,6 +2,83 @@
 Release notes
 =============
 
+Version 0.11.0
+==============
+
+"Reverse" fields
+----------------
+
+fairgraph now includes "reverse" fields,
+i.e. fields that connect to objects that aren't defined directly in the schema for a given type A,
+but are defined in other types, B, C that link to objects of type A.
+To take an example, :class:`Model` has a field :attr:`versions`,
+which links to objects of type :class:`ModelVersion`.
+Now we've added to :class:`ModelVersion` a "reverse" field :attr:`is_version_of`,
+which links back to the :class:`Model`.
+
+These reverse links can be resolved, and can be used for queries.
+For example, if you are starting from a :class:`ModelVersion`,
+and wish to find it's associated :class:`Model`, previously you had to perform a query:
+
+    .. code-block:: python
+
+        >>> models = omcore.Model.list(client, versions=model_version)
+        >>> model = models[0]
+
+Now, you can just resolve the reverse field:
+
+    .. code-block:: python
+
+        >>> model = model_version.is_version_of.resolve(client)
+
+The original method also still works, and could be more efficient,
+depending on how many objects of each type there are.
+If performance is an issue, it is best to profile both approaches.
+
+Perhaps more usefully, you can now ask fairgraph to resolve the :class:`Model` at the moment
+of obtaining the :class:`ModelVersion`, e.g.
+
+    .. code-block:: python
+
+        >>> model_version = omcore.ModelVersion.from_id(
+        ...     "5c52380c-7bd9-4fe6-8d72-ff340250b238",
+        ...     client,
+        ...     follow_links={"is_version_of": {}}
+        ... )
+        >>> type(model_version.is_version_of)
+        <class 'fairgraph.openminds.core.products.model.Model'>
+        >>> model_version.is_version_of.uuid
+        'be001074-7eab-4c7e-9bde-9e5987b085d2'
+
+and you can also make queries across these reverse links, e.g.
+
+    .. code-block:: python
+
+        >>> model_versions = omcore.ModelVersion.list(
+        ...     client,
+        ...     is_version_of="be001074-7eab-4c7e-9bde-9e5987b085d2"  # id of a Model
+        ... )
+        >>> model_versions[0].uuid
+        '5c52380c-7bd9-4fe6-8d72-ff340250b238'
+
+
+.. note:: reverse links that pass via :class:`EmbeddedMetadata` instances are not yet supported.
+          For example: :class:`SoftwareVersion` has a field :attr:`copyright`, which contains
+          embedded metadata of type :class:`Copyright` (which does not have its own ID).
+          :class:`Copyright` has a field :attr:`holders` which links to :class:`Person`, among others.
+          At present, it is not possible to access the :class:`SoftwareVersion` from a :class:`Person`
+          by way of a reverse field, since the link is not direct. (You can still make a forward query, though).
+          Such indirect reverse fields will be implemented in a future version of fairgraph.
+
+
+Other changes
+-------------
+
+- made the `follow_links` argument to `resolve()` behave the same way as for `list()`, `from_id()`, etc.,
+  i.e. it expects a structure of nested dicts to specify explicitly which links to follow,
+  rather than an integer meaning "follow all links for this number of levels".
+
+
 Version 0.10.0
 ==============
 
@@ -15,8 +92,8 @@ New/modified functionality
 - remove "resolved" keyword argument and replace with "follow_links"
 - improve "queries" module to expose more of the available features of the API
 - allow `KGObject.from_id()` to work with cls=KGObject, i.e. when we have an @id but don't know its type
-- add an __init__() method with explicit field names to all KGObject sub-classes, to catch incorrect keyword arguments
-- rename "type" class attribute to "type_" to avoid clashing with "type" as an openMINDS property name
+- add an `__init__()` method with explicit field names to all KGObject sub-classes, to catch incorrect keyword arguments
+- rename "type" class attribute to "type\_" to avoid clashing with "type" as an openMINDS property name
 - regenerate fairgraph.openminds based on latest openMINDS v3-dev
 - remove mention of "v3" from module and variable names
 - remove code relating to KG v2
