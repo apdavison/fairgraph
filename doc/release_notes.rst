@@ -77,6 +77,7 @@ Other changes
 - made the `follow_links` argument to `resolve()` behave the same way as for `list()`, `from_id()`, etc.,
   i.e. it expects a structure of nested dicts to specify explicitly which links to follow,
   rather than an integer meaning "follow all links for this number of levels".
+- added :func:`set_error_handling()` as a module-level function, so you can control the behaviour of all classes in a module (e.g. `fairgraph.openminds.core`) in a single line.
 
 
 Version 0.10.0
