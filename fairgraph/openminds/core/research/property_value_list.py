@@ -49,22 +49,6 @@ class PropertyValueList(KGObject):
             multiple=True,
             doc="reverse of 'configuration'",
         ),
-        Field(
-            "is_location_of",
-            "openminds.core.CustomPropertySet",
-            "^vocab:dataLocation",
-            reverse="data_locations",
-            multiple=True,
-            doc="reverse of 'dataLocation'",
-        ),
-        Field(
-            "specifies",
-            "openminds.sands.CustomAnnotation",
-            "^vocab:specification",
-            reverse="specifications",
-            multiple=True,
-            doc="reverse of 'specification'",
-        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -74,8 +58,6 @@ class PropertyValueList(KGObject):
         property_value_pairs=None,
         defines_environment_of=None,
         is_configuration_of=None,
-        is_location_of=None,
-        specifies=None,
         id=None,
         data=None,
         space=None,
@@ -90,6 +72,4 @@ class PropertyValueList(KGObject):
             property_value_pairs=property_value_pairs,
             defines_environment_of=defines_environment_of,
             is_configuration_of=is_configuration_of,
-            is_location_of=is_location_of,
-            specifies=specifies,
         )

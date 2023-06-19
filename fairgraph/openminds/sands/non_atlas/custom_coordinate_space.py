@@ -59,14 +59,6 @@ class CustomCoordinateSpace(KGObject):
             doc="Determinate quantity used in the original measurement.",
         ),
         Field(
-            "is_coordinate_space_of",
-            ["openminds.sands.CoordinatePoint", "openminds.sands.CustomAnnotation"],
-            "^vocab:coordinateSpace",
-            reverse="coordinate_spaces",
-            multiple=True,
-            doc="reverse of 'coordinateSpace'",
-        ),
-        Field(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -84,7 +76,6 @@ class CustomCoordinateSpace(KGObject):
         axes_origins=None,
         default_images=None,
         native_unit=None,
-        is_coordinate_space_of=None,
         is_used_to_group=None,
         id=None,
         data=None,
@@ -101,6 +92,5 @@ class CustomCoordinateSpace(KGObject):
             axes_origins=axes_origins,
             default_images=default_images,
             native_unit=native_unit,
-            is_coordinate_space_of=is_coordinate_space_of,
             is_used_to_group=is_used_to_group,
         )

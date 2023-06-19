@@ -73,18 +73,10 @@ class ChemicalMixture(KGObject):
                 "openminds.specimenprep.TissueCulturePreparation",
                 "openminds.specimenprep.TissueSampleSlicing",
             ],
-            ["^vocab:tissueBathSolution", "^vocab:pipetteSolution", "^vocab:cultureMedium"],
-            reverse=["tissue_bath_solutions", "pipette_solutions", "culture_mediums"],
+            ["^vocab:cultureMedium", "^vocab:tissueBathSolution", "^vocab:pipetteSolution"],
+            reverse=["culture_mediums", "tissue_bath_solutions", "pipette_solutions"],
             multiple=True,
-            doc="reverse of tissueBathSolution, pipetteSolution, cultureMedium",
-        ),
-        Field(
-            "used_in_amounts",
-            "openminds.chemicals.AmountOfChemical",
-            "^vocab:chemicalProduct",
-            reverse="chemical_products",
-            multiple=True,
-            doc="reverse of 'chemicalProduct'",
+            doc="reverse of cultureMedium, tissueBathSolution, pipetteSolution",
         ),
     ]
     existence_query_fields = ("has_parts", "type")
@@ -98,7 +90,6 @@ class ChemicalMixture(KGObject):
         type=None,
         composes=None,
         used_in=None,
-        used_in_amounts=None,
         id=None,
         data=None,
         space=None,
@@ -116,5 +107,4 @@ class ChemicalMixture(KGObject):
             type=type,
             composes=composes,
             used_in=used_in,
-            used_in_amounts=used_in_amounts,
         )

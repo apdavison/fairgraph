@@ -109,14 +109,6 @@ class CriteriaQualityType(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "used_by_annotations",
-            ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
-            "^vocab:criteriaQualityType",
-            reverse="criteria_quality_types",
-            multiple=True,
-            doc="reverse of 'criteriaQualityType'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -130,7 +122,6 @@ class CriteriaQualityType(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        used_by_annotations=None,
         id=None,
         data=None,
         space=None,
@@ -149,5 +140,4 @@ class CriteriaQualityType(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            used_by_annotations=used_by_annotations,
         )

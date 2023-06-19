@@ -310,11 +310,7 @@ class CommonCoordinateSpaceVersion(KGObject):
         ),
         Field(
             "is_coordinate_space_of",
-            [
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CoordinatePoint",
-                "openminds.sands.CustomAnnotation",
-            ],
+            "openminds.sands.BrainAtlasVersion",
             "^vocab:coordinateSpace",
             reverse="coordinate_spaces",
             multiple=True,

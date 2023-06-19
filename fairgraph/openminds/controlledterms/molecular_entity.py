@@ -240,14 +240,6 @@ class MolecularEntity(KGObject):
             multiple=True,
             doc="reverse of 'studyTarget'",
         ),
-        Field(
-            "used_in_amounts",
-            "openminds.chemicals.AmountOfChemical",
-            "^vocab:chemicalProduct",
-            reverse="chemical_products",
-            multiple=True,
-            doc="reverse of 'chemicalProduct'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -265,7 +257,6 @@ class MolecularEntity(KGObject):
         is_used_to_group=None,
         labels=None,
         studied_in=None,
-        used_in_amounts=None,
         id=None,
         data=None,
         space=None,
@@ -288,5 +279,4 @@ class MolecularEntity(KGObject):
             is_used_to_group=is_used_to_group,
             labels=labels,
             studied_in=studied_in,
-            used_in_amounts=used_in_amounts,
         )

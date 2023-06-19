@@ -208,14 +208,6 @@ class UBERONParcellation(KGObject):
             doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
         ),
         Field(
-            "is_target_of",
-            "openminds.sands.AnatomicalTargetPosition",
-            "^vocab:anatomicalTarget",
-            reverse="anatomical_targets",
-            multiple=True,
-            doc="reverse of 'anatomicalTarget'",
-        ),
-        Field(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -264,7 +256,6 @@ class UBERONParcellation(KGObject):
         defines=None,
         describes=None,
         is_location_of=None,
-        is_target_of=None,
         is_used_to_group=None,
         studied_in=None,
         id=None,
@@ -287,7 +278,6 @@ class UBERONParcellation(KGObject):
             defines=defines,
             describes=describes,
             is_location_of=is_location_of,
-            is_target_of=is_target_of,
             is_used_to_group=is_used_to_group,
             studied_in=studied_in,
         )

@@ -142,14 +142,6 @@ class FileBundleGrouping(KGObject):
             doc="reverse of 'keyword'",
         ),
         Field(
-            "is_defined_by",
-            "openminds.core.FilePathPattern",
-            "^vocab:groupingType",
-            reverse="grouping_types",
-            multiple=True,
-            doc="reverse of 'groupingType'",
-        ),
-        Field(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupingType",
@@ -170,7 +162,6 @@ class FileBundleGrouping(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        is_defined_by=None,
         is_used_to_group=None,
         id=None,
         data=None,
@@ -190,6 +181,5 @@ class FileBundleGrouping(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            is_defined_by=is_defined_by,
             is_used_to_group=is_used_to_group,
         )

@@ -671,7 +671,10 @@ class FairgraphGenerator(JinjaGenerator):
         reverse_fields = []
         linked_from = defaultdict(list)
         for _type, forward_name in self._linked_from[schema["_type"]].items():
-            linked_from[forward_name].append(_type)
+            if _type in self._embedded_types:
+                pass  # todo: reverse fields that pass via an EmbeddedMetadata class
+            else:
+                linked_from[forward_name].append(_type)
 
         for forward_name, linked_types in linked_from.items():
             reverse_name = reverse_name_map[forward_name]
@@ -682,7 +685,6 @@ class FairgraphGenerator(JinjaGenerator):
                         reverse_names[name].append(_type)
                 filtered_linked_types = reverse_names.values()
                 reverse_names = reverse_names.keys()
-                # breakpoint()
             else:
                 assert isinstance(reverse_name, str)
                 filtered_linked_types = [linked_types]

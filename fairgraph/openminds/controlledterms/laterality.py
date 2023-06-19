@@ -111,12 +111,7 @@ class Laterality(KGObject):
         ),
         Field(
             "is_laterality_of",
-            [
-                "openminds.core.TissueSample",
-                "openminds.core.TissueSampleCollection",
-                "openminds.sands.AtlasAnnotation",
-                "openminds.sands.CustomAnnotation",
-            ],
+            ["openminds.core.TissueSample", "openminds.core.TissueSampleCollection"],
             "^vocab:laterality",
             reverse="lateralities",
             multiple=True,

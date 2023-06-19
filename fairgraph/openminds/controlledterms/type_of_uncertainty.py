@@ -111,7 +111,7 @@ class TypeOfUncertainty(KGObject):
         ),
         Field(
             "values",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueArray"],
+            "openminds.core.QuantitativeValueArray",
             "^vocab:typeOfUncertainty",
             reverse="type_of_uncertainties",
             multiple=True,

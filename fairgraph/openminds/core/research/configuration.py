@@ -45,14 +45,6 @@ class Configuration(KGObject):
             multiple=True,
             doc="reverse of 'configuration'",
         ),
-        Field(
-            "is_location_of",
-            "openminds.core.CustomPropertySet",
-            "^vocab:dataLocation",
-            reverse="data_locations",
-            multiple=True,
-            doc="reverse of 'dataLocation'",
-        ),
     ]
     existence_query_fields = ("configuration",)
 
@@ -62,7 +54,6 @@ class Configuration(KGObject):
         configuration=None,
         format=None,
         is_configuration_of=None,
-        is_location_of=None,
         id=None,
         data=None,
         space=None,
@@ -77,5 +68,4 @@ class Configuration(KGObject):
             configuration=configuration,
             format=format,
             is_configuration_of=is_configuration_of,
-            is_location_of=is_location_of,
         )

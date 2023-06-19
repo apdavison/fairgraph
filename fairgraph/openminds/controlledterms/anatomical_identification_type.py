@@ -109,14 +109,6 @@ class AnatomicalIdentificationType(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "is_type_of",
-            "openminds.sands.AnatomicalTargetPosition",
-            "^vocab:targetIdentificationType",
-            reverse="target_identification_types",
-            multiple=True,
-            doc="reverse of 'targetIdentificationType'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -130,7 +122,6 @@ class AnatomicalIdentificationType(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -149,5 +140,4 @@ class AnatomicalIdentificationType(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            is_type_of=is_type_of,
         )

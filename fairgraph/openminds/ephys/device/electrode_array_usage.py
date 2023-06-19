@@ -107,14 +107,6 @@ class ElectrodeArrayUsage(KGObject):
             doc="reverse of 'device'",
         ),
         Field(
-            "used_to_measure",
-            "openminds.core.Measurement",
-            "^vocab:measuredWith",
-            reverse="measured_withs",
-            multiple=True,
-            doc="reverse of 'measuredWith'",
-        ),
-        Field(
             "used_to_record",
             "openminds.ephys.Recording",
             "^vocab:recordedWith",
@@ -138,7 +130,6 @@ class ElectrodeArrayUsage(KGObject):
         used_specimen=None,
         placed_by=None,
         used_in=None,
-        used_to_measure=None,
         used_to_record=None,
         id=None,
         data=None,
@@ -161,6 +152,5 @@ class ElectrodeArrayUsage(KGObject):
             used_specimen=used_specimen,
             placed_by=placed_by,
             used_in=used_in,
-            used_to_measure=used_to_measure,
             used_to_record=used_to_record,
         )

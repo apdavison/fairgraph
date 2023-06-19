@@ -23,16 +23,8 @@ class SingleColor(KGObject):
     }
     fields = [
         Field("value", str, "vocab:value", required=True, doc="Entry for a property."),
-        Field(
-            "preferred_by",
-            "openminds.sands.ViewerSpecification",
-            "^vocab:preferredDisplayColor",
-            reverse="preferred_display_colors",
-            multiple=True,
-            doc="reverse of 'preferredDisplayColor'",
-        ),
     ]
     existence_query_fields = ("value",)
 
-    def __init__(self, value=None, preferred_by=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, value=value, preferred_by=preferred_by)
+    def __init__(self, value=None, id=None, data=None, space=None, scope=None):
+        return super().__init__(id=id, space=space, scope=scope, data=data, value=value)

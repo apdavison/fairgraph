@@ -73,47 +73,6 @@
           "path": "@type"
         }
       ]
-    },
-    {
-      "path": {
-        "@id": "https://openminds.ebrains.eu/vocab/dataLocation",
-        "reverse": true
-      },
-      "propertyName": "vocab:dataLocation",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@type"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/context",
-          "propertyName": "vocab:context"
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/dataLocation",
-          "propertyName": "vocab:dataLocation",
-          "structure": [
-            {
-              "path": "@id"
-            },
-            {
-              "path": "@type"
-            }
-          ]
-        },
-        {
-          "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-          "propertyName": "vocab:relevantFor",
-          "structure": [
-            {
-              "path": "@id"
-            },
-            {
-              "path": "@type"
-            }
-          ]
-        }
-      ]
     }
   ]
 }

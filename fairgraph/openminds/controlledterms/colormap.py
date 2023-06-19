@@ -185,14 +185,6 @@ class Colormap(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "preferred_by",
-            "openminds.sands.ViewerSpecification",
-            "^vocab:preferredDisplayColor",
-            reverse="preferred_display_colors",
-            multiple=True,
-            doc="reverse of 'preferredDisplayColor'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -206,7 +198,6 @@ class Colormap(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        preferred_by=None,
         id=None,
         data=None,
         space=None,
@@ -225,5 +216,4 @@ class Colormap(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            preferred_by=preferred_by,
         )

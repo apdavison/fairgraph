@@ -137,14 +137,6 @@ class MeasuredQuantity(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "measurements",
-            "openminds.core.Measurement",
-            "^vocab:measuredQuantity",
-            reverse="measured_quantities",
-            multiple=True,
-            doc="reverse of 'measuredQuantity'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -158,7 +150,6 @@ class MeasuredQuantity(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        measurements=None,
         id=None,
         data=None,
         space=None,
@@ -177,5 +168,4 @@ class MeasuredQuantity(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            measurements=measurements,
         )

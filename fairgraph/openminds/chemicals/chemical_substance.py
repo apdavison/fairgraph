@@ -66,14 +66,6 @@ class ChemicalSubstance(KGObject):
             multiple=True,
             doc="reverse of 'labelingCompound'",
         ),
-        Field(
-            "used_in_amounts",
-            "openminds.chemicals.AmountOfChemical",
-            "^vocab:chemicalProduct",
-            reverse="chemical_products",
-            multiple=True,
-            doc="reverse of 'chemicalProduct'",
-        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -86,7 +78,6 @@ class ChemicalSubstance(KGObject):
         purity=None,
         composes=None,
         labels=None,
-        used_in_amounts=None,
         id=None,
         data=None,
         space=None,
@@ -104,5 +95,4 @@ class ChemicalSubstance(KGObject):
             purity=purity,
             composes=composes,
             labels=labels,
-            used_in_amounts=used_in_amounts,
         )

@@ -142,19 +142,6 @@ class ProtocolExecution(KGObject):
             multiple=True,
             doc="Structure or function that was targeted within a study.",
         ),
-        Field(
-            "based_on_protocol_executions",
-            [
-                "openminds.sands.AtlasAnnotation",
-                "openminds.sands.CustomAnnotation",
-                "openminds.sands.QualitativeRelationAssessment",
-                "openminds.sands.QuantitativeRelationAssessment",
-            ],
-            "^vocab:criteria",
-            reverse="criterias",
-            multiple=True,
-            doc="reverse of 'criteria'",
-        ),
     ]
     existence_query_fields = ("lookup_label",)
 
@@ -173,7 +160,6 @@ class ProtocolExecution(KGObject):
         protocols=None,
         start_time=None,
         study_targets=None,
-        based_on_protocol_executions=None,
         id=None,
         data=None,
         space=None,
@@ -197,5 +183,4 @@ class ProtocolExecution(KGObject):
             protocols=protocols,
             start_time=start_time,
             study_targets=study_targets,
-            based_on_protocol_executions=based_on_protocol_executions,
         )

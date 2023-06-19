@@ -99,14 +99,6 @@ class QualitativeOverlap(KGObject):
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
         Field(
-            "assessments",
-            "openminds.sands.QualitativeRelationAssessment",
-            "^vocab:qualitativeOverlap",
-            reverse="qualitative_overlaps",
-            multiple=True,
-            doc="reverse of 'qualitativeOverlap'",
-        ),
-        Field(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -141,7 +133,6 @@ class QualitativeOverlap(KGObject):
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        assessments=None,
         describes=None,
         id=None,
         data=None,
@@ -160,6 +151,5 @@ class QualitativeOverlap(KGObject):
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            assessments=assessments,
             describes=describes,
         )

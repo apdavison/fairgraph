@@ -125,14 +125,6 @@ class AnnotationType(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
-            "is_type_of",
-            ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
-            "^vocab:type",
-            reverse="types",
-            multiple=True,
-            doc="reverse of 'type'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -146,7 +138,6 @@ class AnnotationType(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        is_type_of=None,
         id=None,
         data=None,
         space=None,
@@ -165,5 +156,4 @@ class AnnotationType(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            is_type_of=is_type_of,
         )

@@ -90,14 +90,6 @@ class AnalysisTechnique(KGObject):
             doc="reverse of 'keyword'",
         ),
         Field(
-            "has_properties",
-            "openminds.core.CustomPropertySet",
-            "^vocab:relevantFor",
-            reverse="relevant_fors",
-            multiple=True,
-            doc="reverse of 'relevantFor'",
-        ),
-        Field(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -135,7 +127,6 @@ class AnalysisTechnique(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        has_properties=None,
         is_used_to_group=None,
         used_in=None,
         id=None,
@@ -156,7 +147,6 @@ class AnalysisTechnique(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            has_properties=has_properties,
             is_used_to_group=is_used_to_group,
             used_in=used_in,
         )
