@@ -33,7 +33,7 @@ def generate_for_version(version):  # e.g. version="0.9.0"
         "identifier": f"https://pypi.org/project/fairgraph/{version}/",
         "description": pypi_metadata["info"]["summary"],  # or use "description"?
         "applicationCategory": "neuroscience",
-        "releaseNotes": f"https://fairgraph.readthedocs.io/en/latest/releases/{version}.html",
+        "releaseNotes": f"https://fairgraph.readthedocs.io/en/latest/release_notes.html#version-{version.replace('.', '-')}",
         "funding": "https://cordis.europa.eu/project/id/945539",
         "developmentStatus": "active",
         "referencePublication": None,

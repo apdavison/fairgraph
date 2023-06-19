@@ -26,7 +26,7 @@ from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .base import IRI
 
-__version__ = "0.11.0"
+__version__ = "0.11.1.dev"
 
 # from . import (
 #    base, client, errors, utility, openminds)
