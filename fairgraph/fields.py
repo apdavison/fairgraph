@@ -432,7 +432,7 @@ class Field(object):
                     )
                 else:
                     assert isinstance(self.path, list)
-                    warn(f"Cannot yet handle case where self.path is a list: {self}")
+                    logger.warning(f"Cannot yet handle case where self.path is a list: {self}")
         else:
             assert not self.reverse
             properties.append(

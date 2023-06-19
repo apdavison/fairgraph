@@ -28,12 +28,31 @@ from generator.commons import (
     find_resource_directories,
 )
 
-LIST_CLASSES_TEMPATE = '''
+MODULE_LEVEL_FUNCTIONS = '''
 
 def list_kg_classes():
     """List all KG classes defined in this module"""
     return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
            if inspect.isclass(obj) and issubclass(obj, KGObject) and obj.__module__.startswith(__name__)]
+
+
+def list_embedded_metadata_classes():
+    """List all embedded metadata classes defined in this module"""
+    return [obj for name, obj in inspect.getmembers(sys.modules[__name__])
+           if inspect.isclass(obj) and issubclass(obj, EmbeddedMetadata) and obj.__module__.startswith(__name__)]
+
+
+def set_error_handling(value):
+    """
+    Control validation for all classes in this module.
+
+    Args:
+        value (str): action to follow when there is a validation failure.
+            (e.g. if a required field is not provided).
+            Possible values: "error", "warning", "log", None
+    """
+    for cls in list_kg_classes() + list_embedded_metadata_classes():
+        cls.set_error_handling(value)
 '''
 
 # for backwards compatibility or to increase clarity we remap certain
@@ -841,10 +860,16 @@ class FairgraphGenerator(JinjaGenerator):
         for schema_group, group_contents in self.import_data.items():
             path = os.path.join(self.target_path, schema_group, "__init__.py")
             with open(path, "w") as fp:
-                fp.write("import sys\nimport inspect\nfrom fairgraph.kgobject import KGObject\n\n")
+                fp.write(
+                    "import sys\n"
+                    "import inspect\n"
+                    "from fairgraph.kgobject import KGObject\n"
+                    "from fairgraph.embedded import EmbeddedMetadata\n"
+                    "\n"
+                )
                 for module in group_contents.values():
                     fp.write(f"from {module['path']} import {module['class_name']}\n")
-                fp.write(LIST_CLASSES_TEMPATE)
+                fp.write(MODULE_LEVEL_FUNCTIONS)
         path = os.path.join(self.target_path, "__init__.py")
         with open(path, "w") as fp:
             module_names = sorted(key.lower() for key in self.import_data)
