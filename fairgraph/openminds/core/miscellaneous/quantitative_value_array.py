@@ -5,11 +5,11 @@ A representation of an array of quantitative values, optionally with uncertainti
 # this file was auto-generated
 
 from datetime import date, datetime
-from fairgraph import KGObject, IRI
+from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.fields import Field
 
 
-class QuantitativeValueArray(KGObject):
+class QuantitativeValueArray(EmbeddedMetadata):
     """
     A representation of an array of quantitative values, optionally with uncertainties.
     """

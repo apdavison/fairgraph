@@ -193,14 +193,6 @@ class UnitOfMeasurement(KGObject):
             multiple=True,
             doc="reverse of 'nativeUnit'",
         ),
-        Field(
-            "values",
-            "openminds.core.QuantitativeValueArray",
-            "^vocab:unit",
-            reverse="units",
-            multiple=True,
-            doc="reverse of 'unit'",
-        ),
     ]
     existence_query_fields = ("name",)
 
@@ -215,7 +207,6 @@ class UnitOfMeasurement(KGObject):
         synonyms=None,
         describes=None,
         used_by=None,
-        values=None,
         id=None,
         data=None,
         space=None,
@@ -235,5 +226,4 @@ class UnitOfMeasurement(KGObject):
             synonyms=synonyms,
             describes=describes,
             used_by=used_by,
-            values=values,
         )

@@ -108,15 +108,7 @@ class TypeOfUncertainty(KGObject):
             reverse="keywords",
             multiple=True,
             doc="reverse of 'keyword'",
-        ),
-        Field(
-            "values",
-            "openminds.core.QuantitativeValueArray",
-            "^vocab:typeOfUncertainty",
-            reverse="type_of_uncertainties",
-            multiple=True,
-            doc="reverse of 'typeOfUncertainty'",
-        ),
+        )
     ]
     existence_query_fields = ("name",)
 
@@ -130,7 +122,6 @@ class TypeOfUncertainty(KGObject):
         preferred_ontology_identifier=None,
         synonyms=None,
         describes=None,
-        values=None,
         id=None,
         data=None,
         space=None,
@@ -149,5 +140,4 @@ class TypeOfUncertainty(KGObject):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
             describes=describes,
-            values=values,
         )
