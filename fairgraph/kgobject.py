@@ -842,7 +842,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         # third pass, we add sorting, which can only happen at the top level
         for property in query.properties:
-            if property.name == "name":
+            if property.name in ("vocab:name", "vocab:fullName", "vocab:lookupLabel"):
                 property.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.

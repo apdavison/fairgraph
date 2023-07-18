@@ -40,7 +40,8 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
+      "propertyName": "vocab:lookupLabel",
+      "sort": true
     },
     {
       "path": {
@@ -57,8 +58,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/name",
-          "propertyName": "vocab:name",
-          "sort": true
+          "propertyName": "vocab:name"
         },
         {
           "path": {
@@ -172,8 +172,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/name",
-          "propertyName": "vocab:name",
-          "sort": true
+          "propertyName": "vocab:name"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
