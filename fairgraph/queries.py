@@ -103,11 +103,17 @@ class QueryProperty:
         self.reverse = reverse
         self.expect_single = expect_single
 
+        for property in self.properties:
+            if property.sorted:
+                raise ValueError("Sorting is only allowed on the root level of a query.")
+
     def __repr__(self):
         return f"QueryProperty({self.path}, name={self.name})"
 
     def add_property(self, property: QueryProperty):
         assert isinstance(property, QueryProperty)
+        if property.sorted:
+            raise ValueError("Sorting is only allowed on the root level of a query.")
         self.properties.append(property)
 
     def serialize(self) -> Dict[str, Any]:

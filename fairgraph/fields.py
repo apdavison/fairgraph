@@ -440,7 +440,6 @@ class Field(object):
                     self.expanded_path,
                     name=self.path,
                     reverse=self.reverse,
-                    sorted=bool(self.name == "name"),
                     ensure_order=self.multiple,
                 )
             )
