@@ -2,6 +2,12 @@
 Release notes
 =============
 
+Version 0.11.1
+==============
+
+- a small number of bug fixes
+
+
 Version 0.11.0
 ==============
 
