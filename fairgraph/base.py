@@ -305,6 +305,13 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         for field in cls.fields:
             expanded_path = expand_uri(field.path, cls.context)
             data_item = D.get(expanded_path)
+            if data_item is not None and field.reverse:
+                # for reverse fields, more than one field can have the same path
+                # so we extract only those sub-items whose types match
+                data_item = [
+                    part for part in as_list(data_item)
+                    if part.get("@type", None) in [t.type_ for t in field.types]
+                ]
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]

@@ -116,8 +116,7 @@ def build_kg_object(
                     # todo: provide space and scope
             else:
                 if "@type" in item and item["@type"] is not None and kg_cls not in as_list(lookup_type(item["@type"])):
-                    logger.warning(f"Mismatched types: {kg_cls} <> {item['@type']}")
-                    raise Exception("mismatched types")
+                    raise Exception(f"mismatched types: {kg_cls} <> {item['@type']} (id: {item['@id']})")
                     obj = None
                 else:
                     obj = KGProxy(kg_cls, item["@id"])
