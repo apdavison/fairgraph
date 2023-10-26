@@ -102,7 +102,7 @@ class KGClient(object):
     ):
         if not have_kg_core:
             raise ImportError(
-                "Please install the kg_core package from https://github.com/HumanBrainProject/kg-core-python/"
+                "Please install the ebrains-kg-core package"
             )
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
