@@ -1053,8 +1053,10 @@ additional_methods = {
         if title and title[-1] != ".":
             title += "."
         journal_name = journal.name if journal else ""
-        volume_number = volume.volume_number if volume else ""
-        return f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
+        volume_number = f"{volume.volume_number}: " if (volume and volume.volume_number != "placeholder") else ""
+        return (
+            f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}{self.pagination or ''}."
+        )
     """,
     "SoftwareVersion": """    def is_version_of(self, client):
         parents = Software.list(client, scope=self.scope, space=self.space, versions=self)

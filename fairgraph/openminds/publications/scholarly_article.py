@@ -310,7 +310,8 @@ class ScholarlyArticle(KGObject):
         if title and title[-1] != ".":
             title += "."
         journal_name = journal.name if journal else ""
-        volume_number = volume.volume_number if volume else ""
+        # the "placeholder" is to accomodate preprint servers as "journal", which don't really have volumes
+        volume_number = f"{volume.volume_number}: " if (volume and volume.volume_number != "placeholder") else ""
         return (
-            f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}: {self.pagination}."
+            f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}{self.pagination or ''}."
         )
