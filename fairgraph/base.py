@@ -308,10 +308,15 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             if data_item is not None and field.reverse:
                 # for reverse fields, more than one field can have the same path
                 # so we extract only those sub-items whose types match
-                data_item = [
-                    part for part in as_list(data_item)
-                    if part.get("@type", None) in [t.type_ for t in field.types]
-                ]
+                try:
+                    data_item = [
+                        part for part in as_list(data_item)
+                        if part.get("@type", None) in [t.type_ for t in field.types]
+                    ]
+                except AttributeError:
+                    # problem when a forward and reverse path both given the same expanded path
+                    # e.g. for Configuration
+                    data_item = None
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
