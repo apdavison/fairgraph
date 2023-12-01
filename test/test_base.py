@@ -43,6 +43,7 @@ class MockEmbeddedObject(EmbeddedMetadata):
             required=True,
         ),
     ]
+    existence_query_properties = ("a_number",)
 
 
 class MockKGObject2(KGObject):
@@ -371,10 +372,7 @@ class TestKGObject(object):
         obj = self._construct_object_all_properties()
         expected = {
             "a_required_datetime": "1789-07-14T00:00:00",
-            "a_required_embedded_object": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "https://openminds.ebrains.eu/vocab/aNumber": -1.0,
-            },
+            "a_required_embedded_object__a_number": -1.0,
             "a_required_linked_object": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
             "a_required_string": "apple",
         }

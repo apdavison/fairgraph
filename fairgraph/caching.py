@@ -31,7 +31,10 @@ def generate_cache_key(qd: Dict[str, str]) -> Tuple:
         if isinstance(value, (list, tuple)):
             sub_key = []
             for sub_value in value:
-                sub_key.append(generate_cache_key(sub_value))
+                if isinstance(sub_value, dict):
+                    sub_key.append(generate_cache_key(sub_value))
+                else:
+                    sub_key.append(str(value))
             cache_key.append(tuple(sub_key))
         elif isinstance(value, dict):
             cache_key.append((key, str(value)))

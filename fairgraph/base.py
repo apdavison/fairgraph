@@ -29,7 +29,7 @@ from warnings import warn
 
 from .registry import Registry
 from .queries import QueryProperty
-from .errors import ResolutionFailure, AuthorizationError
+from .errors import ResolutionFailure, AuthorizationError, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
@@ -426,6 +426,40 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                                 setattr(self, prop.name, resolved_values)
         return self
 
+    def _build_existence_query(self) -> Union[None, Dict[str, Any]]:
+        """
+        Generate a KG query definition (as a JSON-LD document) that can be used to
+        check whether a locally-defined object (with no ID) already exists in the KG.
+        """
+        if self.existence_query_properties is None:
+            return None
+
+        query_properties = []
+        for property_name in self.existence_query_properties:
+            for property in self.properties:
+                if property.name == property_name:
+                    query_properties.append(property)
+                    break
+        if len(query_properties) < 1:
+            raise CannotBuildExistenceQuery("Empty existence query for class {}".format(self.__class__.__name__))
+        query = {}
+        for property in query_properties:
+            query_property_name = property.name
+            value = getattr(self, property.name)
+            if isinstance(value, ContainsMetadata):
+                if hasattr(value, "id") and value.id:
+                    query[query_property_name] = value.id
+                else:
+                    sub_query = value._build_existence_query()
+                    query.update({f"{query_property_name}__{key}": val for key, val in sub_query.items()})
+            elif isinstance(value, (list, tuple)):
+                raise CannotBuildExistenceQuery("not implemented yet")
+            else:
+                query_val = property.serialize(getattr(self, property.name), follow_links=False)
+                if query_val is None:
+                    raise CannotBuildExistenceQuery("Required value is missing")
+                query[query_property_name] = query_val
+        return query
 
 class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
     id: Optional[str]

@@ -39,3 +39,9 @@ class ResolutionFailure(Exception):
     """Raised when unable to resolve a link in the Knowledge Graph"""
 
     pass
+
+
+class CannotBuildExistenceQuery(Exception):
+    """Raised when it is not possible to build an existence query"""
+
+    pass

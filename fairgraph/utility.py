@@ -260,6 +260,8 @@ def expand_filter(filter_dict: Dict[str, Any]):
     """
     expanded = {}
     for key, value in filter_dict.items():
+        if hasattr(value, "items"):
+            raise TypeError("Filter specifications should be a single-level dict, without nesting")
         local_path = expanded
         parts = key.split("__")
         for part in parts[:-1]:

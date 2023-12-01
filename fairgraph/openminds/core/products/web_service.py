@@ -115,7 +115,7 @@ class WebService(KGObject):
         ),
     ]
     aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
-    existence_query_properties = ("description", "developers", "full_name", "has_versions", "short_name")
+    existence_query_properties = ("short_name",)
 
     def __init__(
         self,

@@ -36,7 +36,7 @@ except ImportError:
 from .utility import expand_uri, as_list, expand_filter, ActivityLog
 from .registry import lookup_type
 from .queries import Query
-from .errors import AuthorizationError, ResourceExistsError
+from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
 from .kgproxy import KGProxy
@@ -420,28 +420,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             response = client.list(cls.type_, space=space, scope=scope, from_index=0, size=1)
         return response.total
 
-    def _build_existence_query(self) -> Union[None, Dict[str, Any]]:
-        """
-        Generate a KG query definition (as a JSON-LD document) that can be used to
-        check whether a locally-defined object (with no ID) already exists in the KG.
-        """
-        if self.existence_query_properties is None:
-            return None
-
-        query_properties = []
-        for property_name in self.existence_query_properties:
-            prop = self._property_lookup[property_name]
-            query_properties.append(prop)
-        if len(query_properties) < 1:
-            raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
-        query = {}
-        for prop in query_properties:
-            value = prop.serialize(getattr(self, prop.name), follow_links=False)
-            if isinstance(value, dict) and "@id" in value:
-                value = value["@id"]
-            query[prop.name] = value
-        return query
-
     def _update_empty_properties(self, data: JSONdict, client: KGClient):
         """Replace any empty properties (value None) with the supplied data"""
         cls = self.__class__
@@ -508,17 +486,17 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 self._update_empty_properties(data, client)  # also updates `remote_data`
             return obj_exists
         else:
-            query_filter = self._build_existence_query()
+            try:
+                query_filter = self._build_existence_query()
+            except CannotBuildExistenceQuery:
+                return False
 
             if query_filter is None:
                 # if there's no existence query and no ID, we allow
                 # duplicate entries
                 return False
             else:
-                try:
-                    query_cache_key = generate_cache_key(query_filter)
-                except TypeError as err:
-                    raise TypeError(f"Error in generating cache key for {self.__class__.__name__} object: {err}")
+                query_cache_key = generate_cache_key(query_filter)
                 if query_cache_key in save_cache[self.__class__]:
                     # Because the KnowledgeGraph is only eventually consistent, an instance
                     # that has just been written to the KG may not appear in the query.

@@ -431,6 +431,8 @@ custom_existence_queries = {
     "Project": ("short_name",),
     "Software": ("short_name",),
     "SoftwareVersion": ("short_name", "version_identifier"),
+    "WebService": ("short_name",),
+    "WebServiceVersion": ("short_name", "version_identifier"),
     "Protocol": ("name",),
     "BrainAtlas": ("digital_identifier",),
     "BrainAtlasVersion": ("short_name", "version_identifier"),
@@ -450,6 +452,8 @@ custom_existence_queries = {
     "WorkflowExecution": ("stages",),
     "Configuration": ("configuration",),
     "Periodical": ("abbreviation",),
+    "AmountOfChemical": ("chemical_product", "amount"),
+    "QuantitativeValue": ("value", "unit", "uncertainties"),
 }
 
 
