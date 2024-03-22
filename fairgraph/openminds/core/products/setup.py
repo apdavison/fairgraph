@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Setup(KGObject):
@@ -22,22 +22,22 @@ class Setup(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the setup.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the setup.",
         ),
-        Field(
+        Property(
             "has_parts",
             [
                 "openminds.core.Setup",
@@ -52,22 +52,22 @@ class Setup(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("location", str, "vocab:location", doc="no description available"),
-        Field(
+        Property("location", str, "vocab:location", doc="no description available"),
+        Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "types",
             "openminds.controlledterms.SetupType",
             "vocab:type",
             multiple=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.Setup",
             "^vocab:hasPart",
@@ -75,7 +75,7 @@ class Setup(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "used_in",
             "openminds.stimulation.StimulationActivity",
             "^vocab:setup",
@@ -84,7 +84,7 @@ class Setup(KGObject):
             doc="reverse of 'setup'",
         ),
     ]
-    existence_query_fields = ("description", "has_parts", "name")
+    existence_query_properties = ("description", "has_parts", "name")
 
     def __init__(
         self,

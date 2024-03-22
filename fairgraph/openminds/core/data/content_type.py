@@ -5,7 +5,7 @@ Structured information on the content type of a file instance, bundle or reposit
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,55 +25,55 @@ class ContentType(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the content type.",
         ),
-        Field(
+        Property(
             "data_types",
             "openminds.controlledterms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the content type.",
         ),
-        Field("display_label", str, "vocab:displayLabel", doc="no description available"),
-        Field(
+        Property("display_label", str, "vocab:displayLabel", doc="no description available"),
+        Property(
             "file_extensions",
             str,
             "vocab:fileExtension",
             multiple=True,
             doc="String of characters attached as suffix to the names of files of a particular format.",
         ),
-        Field(
+        Property(
             "related_media_type",
             IRI,
             "vocab:relatedMediaType",
             doc="Reference to an official two-part identifier for file formats and format contents.",
         ),
-        Field(
+        Property(
             "specification",
             IRI,
             "vocab:specification",
             doc="Detailed and precise presentation of, or proposal for something.",
         ),
-        Field(
+        Property(
             "synonyms",
             str,
             "vocab:synonym",
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
-        Field(
+        Property(
             "is_defined_by",
             "openminds.core.ContentTypePattern",
             "^vocab:contentType",
@@ -81,7 +81,7 @@ class ContentType(KGObject):
             multiple=True,
             doc="reverse of 'contentType'",
         ),
-        Field(
+        Property(
             "is_format_of",
             [
                 "openminds.computation.LocalFile",
@@ -100,7 +100,7 @@ class ContentType(KGObject):
             multiple=True,
             doc="reverse of 'format'",
         ),
-        Field(
+        Property(
             "is_output_format_of",
             ["openminds.core.SoftwareVersion", "openminds.core.WebServiceVersion"],
             "^vocab:outputFormat",
@@ -108,7 +108,7 @@ class ContentType(KGObject):
             multiple=True,
             doc="reverse of 'outputFormat'",
         ),
-        Field(
+        Property(
             "is_specification_format_of",
             "openminds.core.MetaDataModelVersion",
             "^vocab:specificationFormat",
@@ -117,7 +117,7 @@ class ContentType(KGObject):
             doc="reverse of 'specificationFormat'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

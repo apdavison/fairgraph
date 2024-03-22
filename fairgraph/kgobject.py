@@ -43,7 +43,7 @@ from .kgproxy import KGProxy
 from .kgquery import KGQuery
 
 if TYPE_CHECKING:
-    from .fields import Field
+    from .properties import Property
     from .client import KGClient
 
 
@@ -57,9 +57,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     Should not be instantiated directly, intended to be subclassed.
     """
 
-    fields: List[Field] = []
-    existence_query_fields: Tuple[str, ...] = ("name",)
-    # Note that this default value of existence_query_fields should in
+    properties: List[Property] = []
+    existence_query_properties: Tuple[str, ...] = ("name",)
+    # Note that this default value of existence_query_properties should in
     # many cases be over-ridden.
     # It assumes that "name" is unique within instances of a given type,
     # which may often not be the case.
@@ -77,18 +77,18 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         self.scope = scope
         self.allow_update = True
         super().__init__(data=data, **properties)
-        for field in self.fields:
-            if field.reverse and not hasattr(self, field.name):
+        for prop in self.properties:
+            if prop.reverse and not hasattr(self, prop.name):
                 query = KGQuery(
-                    field.types, {field.reverse: self.id}, callback=lambda value: setattr(self, field.name, value)
+                    prop.types, {prop.reverse: self.id}, callback=lambda value: setattr(self, prop.name, value)
                 )
-                setattr(self, field.name, query)
+                setattr(self, prop.name, query)
 
     def __repr__(self):
         template_parts = (
-            "{}={{self.{}!r}}".format(field.name, field.name)
-            for field in self.fields
-            if getattr(self, field.name) is not None
+            "{}={{self.{}!r}}".format(prop.name, prop.name)
+            for prop in self.properties
+            if getattr(self, prop.name) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", space={self.space}, id={self.id})"
         return template.format(self=self)
@@ -111,9 +111,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     # @classmethod
     # def _fix_keys(cls, data):
     #     """
-    #     The KG Query API does not allow the same field name to be used twice in a document.
-    #     This is a problem when resolving linked nodes which use the same field names
-    #     as the 'parent'. As a workaround, we prefix the field names in the linked node
+    #     The KG Query API does not allow the same property name to be used twice in a document.
+    #     This is a problem when resolving linked nodes which use the same property names
+    #     as the 'parent'. As a workaround, we prefix the property names in the linked node
     #     with the class name.
     #     This method removes this prefix.
     #     This feels like a kludge, and I'd be happy to find a better solution.
@@ -258,8 +258,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # todo: move this to openminds generation, and include only in those subclasses
         # that have an alias
         # todo: also count 'lookup_name' as an alias
-        if "alias" not in cls.field_names:
-            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' field")
+        if "alias" not in cls.property_names:
+            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' property")
         candidates = as_list(
             cls.list(
                 client,
@@ -425,34 +425,34 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Generate a KG query definition (as a JSON-LD document) that can be used to
         check whether a locally-defined object (with no ID) already exists in the KG.
         """
-        if self.existence_query_fields is None:
+        if self.existence_query_properties is None:
             return None
 
-        query_fields = []
-        for field_name in self.existence_query_fields:
-            for field in self.fields:
-                if field.name == field_name:
-                    query_fields.append(field)
+        query_properties = []
+        for property_name in self.existence_query_properties:
+            for prop in self.properties:
+                if prop.name == property_name:
+                    query_properties.append(prop)
                     break
-        if len(query_fields) < 1:
+        if len(query_properties) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         query = {}
-        for field in query_fields:
-            value = field.serialize(getattr(self, field.name), follow_links=False)
+        for prop in query_properties:
+            value = prop.serialize(getattr(self, prop.name), follow_links=False)
             if isinstance(value, dict) and "@id" in value:
                 value = value["@id"]
-            query[field.name] = value
+            query[prop.name] = value
         return query
 
-    def _update_empty_fields(self, data: JSONdict, client: KGClient):
-        """Replace any empty fields (value None) with the supplied data"""
+    def _update_empty_properties(self, data: JSONdict, client: KGClient):
+        """Replace any empty properties (value None) with the supplied data"""
         cls = self.__class__
         deserialized_data = cls._deserialize_data(data, client, include_id=True)
-        for field in cls.fields:
-            current_value = getattr(self, field.name, None)
+        for prop in cls.properties:
+            current_value = getattr(self, prop.name, None)
             if current_value is None:
-                value = deserialized_data[field.name]
-                setattr(self, field.name, value)
+                value = deserialized_data[prop.name]
+                setattr(self, prop.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
             if not key.startswith("Q"):
@@ -468,10 +468,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             return True
         if self.id and other.id and self.id != other.id:
             return True
-        for field in self.fields:
-            if field.intrinsic:
-                val_self = getattr(self, field.name)
-                val_other = getattr(other, field.name)
+        for prop in self.properties:
+            if prop.intrinsic:
+                val_self = getattr(self, prop.name)
+                val_other = getattr(other, prop.name)
                 if val_self != val_other:
                     return True
         return False
@@ -486,12 +486,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         else:
             if self.id != other.id:
                 differences["id"] = (self.id, other.id)
-            for field in self.fields:
-                if field.intrinsic:
-                    val_self = getattr(self, field.name)
-                    val_other = getattr(other, field.name)
+            for prop in self.properties:
+                if prop.intrinsic:
+                    val_self = getattr(self, prop.name)
+                    val_other = getattr(other, prop.name)
                     if val_self != val_other:
-                        differences["fields"][field.name] = (val_self, val_other)
+                        differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
     def exists(self, client: KGClient) -> bool:
@@ -507,7 +507,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 self._raw_remote_data = data
             obj_exists = bool(data)
             if obj_exists:
-                self._update_empty_fields(data, client)  # also updates `remote_data`
+                self._update_empty_properties(data, client)  # also updates `remote_data`
             return obj_exists
         else:
             query_filter = self._build_existence_query()
@@ -544,15 +544,15 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     self.id = instances[0]["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_fields(instances[0], client)  # also updates `remote_data`
+                    self._update_empty_properties(instances[0], client)  # also updates `remote_data`
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
         """
-        Return a dict containing the fields that have been modified locally
+        Return a dict containing the properties that have been modified locally
         from the values originally obtained from the Knowledge Graph.
         """
-        current_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
+        current_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
         modified_data = {}
         for key, current_value in current_data.items():
             if not key.startswith("@"):
@@ -583,7 +583,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             activity_log (ActivityLog, optional): An `ActivityLog` instance to log the operations performed during the save operation.
                 This is particularly helpful with `recursive=True`.
             replace (bool, optional): Whether to completely replace an existing KG instance with this one, or just update the existing object
-                with any modified fields. Defaults to False.
+                with any modified properties. Defaults to False.
             ignore_auth_errors (bool, optional): Whether to continue silently when encountering authentication errors. Defaults to False.
 
         Raises:
@@ -591,12 +591,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         """
         if recursive:
-            for field in self.fields:
-                if field.intrinsic:
-                    # we do not save reverse fields, those objects must be saved separately
+            for prop in self.properties:
+                if prop.intrinsic:
+                    # we do not save reverse properties, those objects must be saved separately
                     # this could be revisited, but we'll have to be careful about loops
                     # if saving recursively
-                    values = getattr(self, field.name)
+                    values = getattr(self, prop.name)
                     for value in as_list(values):
                         if isinstance(value, ContainsMetadata):
                             target_space: Optional[str]
@@ -657,11 +657,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     modified_data = self.modified_data()
                     if modified_data:
                         logger.info(
-                            f"  - updating - {self.__class__.__name__}(id={self.id}) - fields changed: {modified_data.keys()}"
+                            f"  - updating - {self.__class__.__name__}(id={self.id}) - properties changed: {modified_data.keys()}"
                         )
                         skip_update = False
                         if "vocab:storageSize" in modified_data:
-                            warn("Removing storage size from update because this field is currently locked by the KG")
+                            warn("Removing storage size from update because this prop is currently locked by the KG")
                             modified_data.pop("vocab:storageSize")
                             skip_update = len(modified_data) == 0
 
@@ -746,10 +746,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         Retrieve an instance from the Knowledge Graph based on its name.
 
-        Note that not all metadata classes have a name field.
+        Note that not all metadata classes have a name property.
 
         Args:
-            name (str): a string to search for in the name field.
+            name (str): a string to search for in the name property.
             client: a KGClient
             match (str, optional): either "equals" (exact match - default) or "contains".
             all (bool, optional): Whether to return all objects that match the name, or only the first. Defaults to False.
@@ -785,7 +785,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             ("id", str(self.id)),
             ("space", str(self.space)),
             ("type", self.type_[0]),
-        ] + [(field.name, str(getattr(self, field.name, None))) for field in self.fields]
+        ] + [(prop.name, str(getattr(self, prop.name, None))) for prop in self.properties]
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
@@ -841,9 +841,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # second pass, we add filters
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         # third pass, we add sorting, which can only happen at the top level
-        for property in query.properties:
-            if property.name in ("vocab:name", "vocab:fullName", "vocab:lookupLabel"):
-                property.sorted = True
+        for prop in query.properties:
+            if prop.name in ("vocab:name", "vocab:fullName", "vocab:lookupLabel"):
+                prop.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.
         return query.serialize()
@@ -855,9 +855,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if follow_links:
             self.resolve(client, follow_links=follow_links)
         all_children = []
-        for field in self.fields:
-            if field.intrinsic and field.is_link:
-                children = as_list(getattr(self, field.name))
+        for prop in self.properties:
+            if prop.intrinsic and prop.is_link:
+                children = as_list(getattr(self, prop.name))
                 all_children.extend(children)
                 if follow_links:
                     for child in children:

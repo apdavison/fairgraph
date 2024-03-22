@@ -5,7 +5,7 @@ Structured information on a hash.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Hash(EmbeddedMetadata):
@@ -21,15 +21,17 @@ class Hash(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "algorithm",
             str,
             "vocab:algorithm",
             required=True,
             doc="Procedure for solving a mathematical problem in a finite number of steps. Can involve repetition of an operation.",
         ),
-        Field("digest", str, "vocab:digest", required=True, doc="Summation or condensation of a body of information."),
+        Property(
+            "digest", str, "vocab:digest", required=True, doc="Summation or condensation of a body of information."
+        ),
     ]
 
     def __init__(self, algorithm=None, digest=None, id=None, data=None, space=None, scope=None):

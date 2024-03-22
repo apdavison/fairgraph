@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import datetime, time
@@ -25,37 +25,37 @@ class TissueCulturePreparation(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "culture_medium",
             "openminds.chemicals.ChemicalMixture",
             "vocab:cultureMedium",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "culture_type",
             "openminds.controlledterms.CellCultureType",
             "vocab:cultureType",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the tissue culture preparation.",
         ),
-        Field("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
-        Field(
+        Property("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
+        Property(
             "inputs",
             [
                 "openminds.core.TissueSampleState",
@@ -68,14 +68,14 @@ class TissueCulturePreparation(KGObject):
             required=True,
             doc="Something or someone that is put into or participates in a process or machine.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.DatasetVersion",
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "outputs",
             "openminds.core.TissueSampleState",
             "vocab:output",
@@ -83,20 +83,20 @@ class TissueCulturePreparation(KGObject):
             required=True,
             doc="Something or someone that comes out of, is delivered or produced by a process or machine.",
         ),
-        Field(
+        Property(
             "performed_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "preparation_design",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
             doc="no description available",
         ),
-        Field(
+        Property(
             "protocols",
             "openminds.core.Protocol",
             "vocab:protocol",
@@ -104,8 +104,8 @@ class TissueCulturePreparation(KGObject):
             required=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field("start_time", [datetime, time], "vocab:startTime", doc="no description available"),
-        Field(
+        Property("start_time", [datetime, time], "vocab:startTime", doc="no description available"),
+        Property(
             "study_targets",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -142,7 +142,7 @@ class TissueCulturePreparation(KGObject):
             doc="Structure or function that was targeted within a study.",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

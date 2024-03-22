@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SlicingDeviceUsage(KGObject):
@@ -22,65 +22,65 @@ class SlicingDeviceUsage(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "device",
             "openminds.specimenprep.SlicingDevice",
             "vocab:device",
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field(
+        Property(
             "metadata_locations",
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:metadataLocation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "oscillation_amplitude",
             "openminds.core.QuantitativeValue",
             "vocab:oscillationAmplitude",
             doc="no description available",
         ),
-        Field(
+        Property(
             "slice_thickness",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:sliceThickness",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "slicing_angles",
             ["openminds.core.QuantitativeValue", "openminds.core.NumericalProperty"],
             "vocab:slicingAngle",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "slicing_plane",
             "openminds.controlledterms.AnatomicalPlane",
             "vocab:slicingPlane",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "slicing_speed", "openminds.core.QuantitativeValue", "vocab:slicingSpeed", doc="no description available"
         ),
-        Field(
+        Property(
             "used_specimen",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
             "vocab:usedSpecimen",
             doc="no description available",
         ),
-        Field(
+        Property(
             "vibration_frequency",
             "openminds.core.QuantitativeValue",
             "vocab:vibrationFrequency",
             doc="no description available",
         ),
-        Field(
+        Property(
             "generation_device",
             "openminds.stimulation.EphysStimulus",
             "^vocab:generatedBy",
@@ -88,7 +88,7 @@ class SlicingDeviceUsage(KGObject):
             multiple=True,
             doc="reverse of 'generatedBy'",
         ),
-        Field(
+        Property(
             "placed_by",
             "openminds.ephys.ElectrodePlacement",
             "^vocab:device",
@@ -96,7 +96,7 @@ class SlicingDeviceUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_for",
             "openminds.specimenprep.TissueSampleSlicing",
             "^vocab:device",
@@ -104,7 +104,7 @@ class SlicingDeviceUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_in",
             "openminds.ephys.CellPatching",
             "^vocab:device",
@@ -112,7 +112,7 @@ class SlicingDeviceUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_to_measure",
             "openminds.core.Measurement",
             "^vocab:measuredWith",
@@ -120,7 +120,7 @@ class SlicingDeviceUsage(KGObject):
             multiple=True,
             doc="reverse of 'measuredWith'",
         ),
-        Field(
+        Property(
             "used_to_record",
             "openminds.ephys.Recording",
             "^vocab:recordedWith",
@@ -129,7 +129,7 @@ class SlicingDeviceUsage(KGObject):
             doc="reverse of 'recordedWith'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

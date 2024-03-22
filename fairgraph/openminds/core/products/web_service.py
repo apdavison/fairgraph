@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,30 +25,30 @@ class WebService(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the web service."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the web service."),
+        Property(
             "alias",
             str,
             "vocab:shortName",
             required=True,
             doc="Shortened or fully abbreviated name of the web service.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the web service.",
         ),
-        Field(
+        Property(
             "developers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:developer",
@@ -56,14 +56,14 @@ class WebService(KGObject):
             required=True,
             doc="Legal person that creates or improves products or services (e.g., software, applications, etc.).",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the web service."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the web service."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "versions",
             "openminds.core.WebServiceVersion",
             "vocab:hasVersion",
@@ -71,7 +71,7 @@ class WebService(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -79,7 +79,7 @@ class WebService(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "has_accounts",
             "openminds.core.AccountInformation",
             "^vocab:service",
@@ -87,7 +87,7 @@ class WebService(KGObject):
             multiple=True,
             doc="reverse of 'service'",
         ),
-        Field(
+        Property(
             "hosts",
             "openminds.publications.LivePaperResourceItem",
             "^vocab:hostedBy",
@@ -95,7 +95,7 @@ class WebService(KGObject):
             multiple=True,
             doc="reverse of 'hostedBy'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -103,7 +103,7 @@ class WebService(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -112,7 +112,7 @@ class WebService(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("description", "developers", "name", "versions", "alias")
+    existence_query_properties = ("description", "developers", "name", "versions", "alias")
 
     def __init__(
         self,

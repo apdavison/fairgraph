@@ -5,7 +5,7 @@ Structured information about a process of visualizing a computational model, a c
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import datetime, time
@@ -25,30 +25,30 @@ class Visualization(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the visualization.",
         ),
-        Field("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
-        Field(
+        Property("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
+        Property(
             "environment",
             ["openminds.computation.Environment", "openminds.core.WebServiceVersion"],
             "vocab:environment",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "inputs",
             [
                 "openminds.computation.LocalFile",
@@ -61,13 +61,13 @@ class Visualization(KGObject):
             required=True,
             doc="Something or someone that is put into or participates in a process or machine.",
         ),
-        Field(
+        Property(
             "launch_configuration",
             "openminds.computation.LaunchConfiguration",
             "vocab:launchConfiguration",
             doc="no description available",
         ),
-        Field(
+        Property(
             "outputs",
             [
                 "openminds.computation.LocalFile",
@@ -80,30 +80,34 @@ class Visualization(KGObject):
             required=True,
             doc="Something or someone that comes out of, is delivered or produced by a process or machine.",
         ),
-        Field(
+        Property(
             "performed_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
             doc="no description available",
         ),
-        Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"),
-        Field(
+        Property(
+            "recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"
+        ),
+        Property(
             "resource_usages",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:resourceUsage",
             multiple=True,
             doc="no description available",
         ),
-        Field("start_time", [datetime, time], "vocab:startTime", required=True, doc="no description available"),
-        Field(
+        Property("start_time", [datetime, time], "vocab:startTime", required=True, doc="no description available"),
+        Property(
             "started_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:startedBy",
             doc="no description available",
         ),
-        Field("status", "openminds.controlledterms.ActionStatusType", "vocab:status", doc="no description available"),
-        Field(
+        Property(
+            "status", "openminds.controlledterms.ActionStatusType", "vocab:status", doc="no description available"
+        ),
+        Property(
             "study_targets",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -139,15 +143,15 @@ class Visualization(KGObject):
             multiple=True,
             doc="Structure or function that was targeted within a study.",
         ),
-        Field("tags", str, "vocab:tag", multiple=True, doc="no description available"),
-        Field(
+        Property("tags", str, "vocab:tag", multiple=True, doc="no description available"),
+        Property(
             "techniques",
             "openminds.controlledterms.AnalysisTechnique",
             "vocab:technique",
             multiple=True,
             doc="Method of accomplishing a desired aim.",
         ),
-        Field(
+        Property(
             "was_informed_by",
             [
                 "openminds.computation.DataAnalysis",
@@ -161,7 +165,7 @@ class Visualization(KGObject):
             "vocab:wasInformedBy",
             doc="no description available",
         ),
-        Field(
+        Property(
             "informed",
             [
                 "openminds.computation.DataAnalysis",
@@ -177,7 +181,7 @@ class Visualization(KGObject):
             multiple=True,
             doc="reverse of 'wasInformedBy'",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.computation.WorkflowExecution",
             "^vocab:stage",
@@ -186,7 +190,7 @@ class Visualization(KGObject):
             doc="reverse of 'stage'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

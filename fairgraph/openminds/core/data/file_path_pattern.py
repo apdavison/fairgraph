@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class FilePathPattern(EmbeddedMetadata):
@@ -21,8 +21,8 @@ class FilePathPattern(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "grouping_types",
             "openminds.controlledterms.FileBundleGrouping",
             "vocab:groupingType",
@@ -30,7 +30,7 @@ class FilePathPattern(EmbeddedMetadata):
             required=True,
             doc="no description available",
         ),
-        Field("regex", str, "vocab:regex", required=True, doc="no description available"),
+        Property("regex", str, "vocab:regex", required=True, doc="no description available"),
     ]
 
     def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, scope=None):

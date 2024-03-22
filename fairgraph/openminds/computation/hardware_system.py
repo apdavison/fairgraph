@@ -5,7 +5,7 @@ Structured information about computing hardware.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class HardwareSystem(KGObject):
@@ -22,27 +22,27 @@ class HardwareSystem(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the hardware system.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the hardware system.",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
-        Field(
+        Property(
             "used_by",
             "openminds.computation.Environment",
             "^vocab:hardware",
@@ -51,7 +51,7 @@ class HardwareSystem(KGObject):
             doc="reverse of 'hardware'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

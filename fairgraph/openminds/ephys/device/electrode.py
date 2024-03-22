@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Electrode(KGObject):
@@ -22,16 +22,16 @@ class Electrode(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the electrode.",
         ),
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "conductor_material",
             [
                 "openminds.chemicals.ChemicalMixture",
@@ -41,26 +41,26 @@ class Electrode(KGObject):
             "vocab:conductorMaterial",
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the electrode.",
         ),
-        Field(
+        Property(
             "device_type",
             "openminds.controlledterms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "insulator_material",
             [
                 "openminds.chemicals.ChemicalMixture",
@@ -70,34 +70,34 @@ class Electrode(KGObject):
             "vocab:insulatorMaterial",
             doc="no description available",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the electrode within a particular product.",
         ),
-        Field(
+        Property(
             "intrinsic_resistance",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:intrinsicResistance",
             doc="no description available",
         ),
-        Field(
+        Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "owners",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:owner",
             multiple=True,
             doc="no description available",
         ),
-        Field("serial_number", str, "vocab:serialNumber", doc="no description available"),
-        Field(
+        Property("serial_number", str, "vocab:serialNumber", doc="no description available"),
+        Property(
             "is_part_of",
             "openminds.core.Setup",
             "^vocab:hasPart",
@@ -105,7 +105,7 @@ class Electrode(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "usage",
             "openminds.ephys.ElectrodeUsage",
             "^vocab:device",
@@ -114,7 +114,7 @@ class Electrode(KGObject):
             doc="reverse of 'device'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

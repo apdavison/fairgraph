@@ -38,7 +38,7 @@ from .utility import (
 
 if TYPE_CHECKING:
     from .client import KGClient
-    from .fields import Field
+    from .properties import Property
     from .utility import ActivityLog
 
 logger = logging.getLogger("fairgraph")
@@ -74,7 +74,7 @@ class Resolvable:  # all
 
 
 class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and EmbeddedMetadata
-    fields: List[Field]
+    properties: List[Property]
     context: Dict[str, str]
     type_: List[str]
     scope: Optional[str]
@@ -84,30 +84,30 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     def __init__(self, data: Optional[Dict] = None, **properties):
         properties_copy = copy(properties)
-        for field in self.fields:
+        for prop in self.properties:
             try:
-                value = properties[field.name]
+                value = properties[prop.name]
             except KeyError:
-                if field.required:
-                    msg = "Field '{}' is required.".format(field.name)
-                    ErrorHandling.handle_violation(field.error_handling, msg)
+                if prop.required:
+                    msg = "Property '{}' is required.".format(prop.name)
+                    ErrorHandling.handle_violation(prop.error_handling, msg)
                 value = None
             else:
-                properties_copy.pop(field.name)
+                properties_copy.pop(prop.name)
             if value is None:
-                value = field.default
+                value = prop.default
                 if callable(value):
                     value = value()
             elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
                 value = None
-            field.check_value(value)
-            setattr(self, field.name, value)
+            prop.check_value(value)
+            setattr(self, prop.name, value)
         if len(properties_copy) > 0:
             if len(properties_copy) == 1:
-                raise NameError(f'{self.__class__.__name__} does not have a field named "{list(properties_copy)[0]}".')
+                raise NameError(f'{self.__class__.__name__} does not have a property named "{list(properties_copy)[0]}".')
             else:
                 raise NameError(
-                    f"""{self.__class__.__name__} does not have fields named "{'", "'.join(properties_copy)}"."""
+                    f"""{self.__class__.__name__} does not have properties named "{'", "'.join(properties_copy)}"."""
                 )
 
         # we store the original remote data in `_raw_remote_data`
@@ -115,14 +115,14 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         self._raw_remote_data = data  # for debugging
         self.remote_data = {}
         if data:
-            self.remote_data = self.to_jsonld(include_empty_fields=True, follow_links=False)
+            self.remote_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
 
     def to_jsonld(
         self,
         normalized: bool = True,
         follow_links: bool = False,
-        include_empty_fields: bool = False,
-        include_reverse_fields: bool = False,
+        include_empty_properties: bool = False,
+        include_reverse_properties: bool = False,
     ):
         """
         Return a JSON-LD representation of this metadata object
@@ -131,20 +131,20 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             normalized (bool): Whether to expand all URIs. Defaults to True.
             follow_links (bool, optional): Whether to represent linked objects just by their "@id"
                 or to include their full metadata. Defaults to False.
-            include_empty_fields (bool, optional): Whether to include empty fields (with value "null").
+            include_empty_properties (bool, optional): Whether to include empty properties (with value "null").
                 Defaults to False.
 
         """
-        if self.fields:
+        if self.properties:
             data: JSONdict = {"@type": self.type_}
             if hasattr(self, "id") and self.id:
                 data["@id"] = self.id
-            for field in self.fields:
-                if field.intrinsic or include_reverse_fields:
-                    expanded_path = field.expanded_path
-                    value = getattr(self, field.name)
-                    if include_empty_fields or field.required or value is not None:
-                        serialized = field.serialize(value, follow_links=follow_links)
+            for prop in self.properties:
+                if prop.intrinsic or include_reverse_properties:
+                    expanded_path = prop.expanded_path
+                    value = getattr(self, prop.name)
+                    if include_empty_properties or prop.required or value is not None:
+                        serialized = prop.serialize(value, follow_links=follow_links)
                         if expanded_path in data:
                             if isinstance(data[expanded_path], list):
                                 data[expanded_path].append(serialized)
@@ -186,36 +186,36 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     @classmethod
     def set_error_handling(
-        cls, value: Union[ErrorHandling, None], field_names: Optional[Union[str, List[str]]] = None
+        cls, value: Union[ErrorHandling, None], property_names: Optional[Union[str, List[str]]] = None
     ):
         """
         Control validation for this class.
 
         Args:
             value (str): action to follow when there is a validation failure.
-                (e.g. if a required field is not provided).
+                (e.g. if a required property is not provided).
                 Possible values: "error", "warning", "log", None
-            field_names (str or list of str, optional): If not provided, the error handling
-                mode will be applied to all fields. If a field name or list of names is given,
-                the mode will be applied only to those fields.
+            property_names (str or list of str, optional): If not provided, the error handling
+                mode will be applied to all properties. If a property name or list of names is given,
+                the mode will be applied only to those properties.
         """
         if value is None:
             value = ErrorHandling.none
         else:
             value = ErrorHandling(value)
-        if field_names:
-            for field_name in as_list(field_names):
+        if property_names:
+            for property_name in as_list(property_names):
                 found = False
-                for field in cls.fields:
-                    if field.name == field_name:
-                        field.error_handling = value
+                for prop in cls.properties:
+                    if prop.name == property_name:
+                        prop.error_handling = value
                         found = True
                         break
                 if not found:
-                    raise ValueError("No such field: {}".format(field_name))
+                    raise ValueError("No such property: {}".format(property_name))
         else:
-            for field in cls.fields:
-                field.error_handling = value
+            for prop in cls.properties:
+                prop.error_handling = value
 
     @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
@@ -232,15 +232,15 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
              'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
         """
         normalized = {}
-        for field in cls.fields:
-            if field.name in filter_dict:
-                value = filter_dict[field.name]
+        for prop in cls.properties:
+            if prop.name in filter_dict:
+                value = filter_dict[prop.name]
                 if isinstance(value, dict):
-                    normalized[field.name] = {}
-                    for child_cls in field.types:
-                        normalized[field.name].update(child_cls.normalize_filter(value))
+                    normalized[prop.name] = {}
+                    for child_cls in prop.types:
+                        normalized[prop.name].update(child_cls.normalize_filter(value))
                 else:
-                    normalized[field.name] = field.get_filter_value(value)
+                    normalized[prop.name] = prop.get_filter_value(value)
         return normalized
 
     @classmethod
@@ -253,11 +253,11 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
         """
         properties = [QueryProperty("@type")]
-        for field in cls.fields:
-            if field.is_link and follow_links and field.name in follow_links:
-                properties.extend(field.get_query_properties(follow_links[field.name]))
+        for prop in cls.properties:
+            if prop.is_link and follow_links and prop.name in follow_links:
+                properties.extend(prop.get_query_properties(follow_links[prop.name]))
             else:
-                properties.extend(field.get_query_properties())
+                properties.extend(prop.get_query_properties())
         return properties
 
     @classmethod
@@ -273,9 +273,9 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         if filters is None:
             filters = {}
         properties = []
-        for field in cls.fields:
-            if field.name in filters:
-                properties.append(field.get_query_filter_property(filters[field.name]))
+        for prop in cls.properties:
+            if prop.name in filters:
+                properties.append(prop.get_query_filter_property(filters[prop.name]))
         return properties
 
     @classmethod
@@ -293,7 +293,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                     D[normalised_key].extend(value)
                 else:
                     D[normalised_key] = value
-            elif key.startswith("Q"):  # for 'Q' fields in data from queries
+            elif key.startswith("Q"):  # for 'Q' properties in data from queries
                 D[key] = value
             elif key[0] != "@":
                 normalised_key = expand_uri(key, cls.context)
@@ -302,25 +302,25 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             if otype not in D["@type"]:
                 raise TypeError("type mismatch {} - {}".format(otype, D["@type"]))
         deserialized_data = {}
-        for field in cls.fields:
-            expanded_path = expand_uri(field.path, cls.context)
+        for prop in cls.properties:
+            expanded_path = expand_uri(prop.path, cls.context)
             data_item = D.get(expanded_path)
-            if data_item is not None and field.reverse:
-                # for reverse fields, more than one field can have the same path
+            if data_item is not None and prop.reverse:
+                # for reverse properties, more than one property can have the same path
                 # so we extract only those sub-items whose types match
                 try:
                     data_item = [
                         part for part in as_list(data_item)
-                        if part.get("@type", None) in [t.type_ for t in field.types]
+                        if part.get("@type", None) in [t.type_ for t in prop.types]
                     ]
                 except AttributeError:
                     # problem when a forward and reverse path both given the same expanded path
                     # e.g. for Configuration
                     data_item = None
             # sometimes queries put single items in a list, this removes the enclosing list
-            if (not field.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
+            if (not prop.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
-            deserialized_data[field.name] = field.deserialize(data_item, client, belongs_to=data.get("@id", None))
+            deserialized_data[prop.name] = prop.deserialize(data_item, client, belongs_to=data.get("@id", None))
         return deserialized_data
 
     def resolve(
@@ -331,7 +331,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
-        Resolve fields that are represented by KGProxy objects.
+        Resolve properties that are represented by KGProxy objects.
 
         Args:
             client: KGClient object that handles the communication with the KG.
@@ -344,10 +344,10 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         """
         use_scope = scope or self.scope or "released"
         if follow_links:
-            for field in self.fields:
-                if field.is_link and field.name in follow_links:
-                    if issubclass(field.types[0], ContainsMetadata):
-                        values = getattr(self, field.name)
+            for prop in self.properties:
+                if prop.is_link and prop.name in follow_links:
+                    if issubclass(prop.types[0], ContainsMetadata):
+                        values = getattr(self, prop.name)
                         resolved_values: List[Any] = []
                         for value in as_list(values):
                             if isinstance(value, Resolvable):
@@ -360,7 +360,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                                             client,
                                             scope=use_scope,
                                             use_cache=use_cache,
-                                            follow_links=follow_links[field.name],
+                                            follow_links=follow_links[prop.name],
                                         )
                                     except ResolutionFailure as err:
                                         warn(str(err))
@@ -369,12 +369,12 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                                         resolved_values.append(resolved_value)
                         if isinstance(values, RepresentsSingleObject):
                             assert len(resolved_values) == 1
-                            setattr(self, field.name, resolved_values[0])
+                            setattr(self, prop.name, resolved_values[0])
                         elif values is None:
                             assert len(resolved_values) == 0
-                            setattr(self, field.name, None)
+                            setattr(self, prop.name, None)
                         else:
-                            setattr(self, field.name, resolved_values)
+                            setattr(self, prop.name, resolved_values)
         return self
 
 

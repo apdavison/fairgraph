@@ -5,7 +5,7 @@ An identifiable list of property-value pairs.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class PropertyValueList(KGObject):
@@ -22,9 +22,9 @@ class PropertyValueList(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "property_value_pairs",
             ["openminds.core.NumericalProperty", "openminds.core.StringProperty"],
             "vocab:propertyValuePair",
@@ -32,7 +32,7 @@ class PropertyValueList(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "defines_environment_of",
             "openminds.computation.LaunchConfiguration",
             "^vocab:environmentVariable",
@@ -40,7 +40,7 @@ class PropertyValueList(KGObject):
             multiple=True,
             doc="reverse of 'environmentVariable'",
         ),
-        Field(
+        Property(
             "is_configuration_of",
             "openminds.computation.ValidationTestVersion",
             "^vocab:configuration",
@@ -48,7 +48,7 @@ class PropertyValueList(KGObject):
             multiple=True,
             doc="reverse of 'configuration'",
         ),
-        Field(
+        Property(
             "specifies",
             ["openminds.sands.CustomAnnotation", "openminds.stimulation.EphysStimulus"],
             "^vocab:specification",
@@ -57,7 +57,7 @@ class PropertyValueList(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

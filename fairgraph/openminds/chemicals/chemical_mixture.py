@@ -5,7 +5,7 @@ Structured information about a mixture of chemical substances.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ChemicalMixture(KGObject):
@@ -22,20 +22,20 @@ class ChemicalMixture(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             doc="Word or phrase that constitutes the distinctive designation of the chemical mixture.",
         ),
-        Field(
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.chemicals.AmountOfChemical",
             "vocab:hasPart",
@@ -43,20 +43,20 @@ class ChemicalMixture(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "product_source",
             "openminds.chemicals.ProductSource",
             "vocab:productSource",
             doc="no description available",
         ),
-        Field(
+        Property(
             "type",
             "openminds.controlledterms.ChemicalMixtureType",
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "composes",
             ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
             ["^vocab:insulatorMaterial", "^vocab:material"],
@@ -64,7 +64,7 @@ class ChemicalMixture(KGObject):
             multiple=True,
             doc="reverse of insulatorMaterial, material",
         ),
-        Field(
+        Property(
             "used_in",
             [
                 "openminds.ephys.CellPatching",
@@ -78,7 +78,7 @@ class ChemicalMixture(KGObject):
             doc="reverse of cultureMedium, pipetteSolution, tissueBathSolution",
         ),
     ]
-    existence_query_fields = ("has_parts", "type")
+    existence_query_properties = ("has_parts", "type")
 
     def __init__(
         self,

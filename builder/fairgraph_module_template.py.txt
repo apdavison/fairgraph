@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import {{ base_class }}, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 {{preamble}}
 
@@ -25,35 +25,35 @@ class {{ class_name }}({{ base_class }}):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/"
     }
-    fields = [
-        {% for field in fields -%}
-        Field("{{field.name}}", {{field.type_str}}, "{{field.iri}}",
-            {%- if field.allow_multiple %}multiple={{field.allow_multiple}},{% endif -%}
-            {%- if field.required %}required={{field.required}},{% endif -%}
-            doc="{{field.doc}}"),
+    properties = [
+        {% for prop in properties -%}
+        Property("{{prop.name}}", {{prop.type_str}}, "{{prop.iri}}",
+            {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
+            {%- if prop.required %}required={{prop.required}},{% endif -%}
+            doc="{{prop.doc}}"),
         {% endfor %}
-        {% for field in reverse_fields -%}
-        Field(
-            "{{field.name}}", {{field.type_str}},
-            {%- if field.iri is iterable and (field.iri is not string and field.iri is not mapping) %}
-                ["{{field.iri|join('", "')}}"],
+        {% for prop in reverse_properties -%}
+        Property(
+            "{{prop.name}}", {{prop.type_str}},
+            {%- if prop.iri is iterable and (prop.iri is not string and prop.iri is not mapping) %}
+                ["{{prop.iri|join('", "')}}"],
             {% else %}
-                "{{field.iri}}",
+                "{{prop.iri}}",
             {% endif -%}
-            {%- if field._forward_name_python is iterable and (field._forward_name_python is not string and field._forward_name_python is not mapping) %}
-            reverse=["{{field._forward_name_python|join('", "')}}"],
+            {%- if prop._forward_name_python is iterable and (prop._forward_name_python is not string and prop._forward_name_python is not mapping) %}
+            reverse=["{{prop._forward_name_python|join('", "')}}"],
             {% else %}
-            reverse="{{field._forward_name_python}}",
+            reverse="{{prop._forward_name_python}}",
             {% endif -%}
-            {%- if field.allow_multiple %}multiple={{field.allow_multiple}},{% endif -%}
-            {%- if field.required %}, required={{field.required}},{% endif -%}
-            doc="{{field.doc}}"),
+            {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
+            {%- if prop.required %}, required={{prop.required}},{% endif -%}
+            doc="{{prop.doc}}"),
         {% endfor %}
     ]
     {%- if default_space %}
-    existence_query_fields = {{ existence_query_fields }}
+    existence_query_properties = {{ existence_query_properties }}
     {%- endif %}
 
-    def __init__(self {%- for field in fields -%}, {{field.name}}=None{%- endfor -%}{%- for field in reverse_fields -%}, {{field.name}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
-        return super().__init__({{ standard_init_fields }}data=data {%- for field in fields -%}, {{field.name}}={{field.name}} {%- endfor -%}{%- for field in reverse_fields -%}, {{field.name}}={{field.name}} {%- endfor -%})
+    def __init__(self {%- for prop in properties -%}, {{prop.name}}=None{%- endfor -%}{%- for prop in reverse_properties -%}, {{prop.name}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
+        return super().__init__({{ standard_init_properties }}data=data {%- for prop in properties -%}, {{prop.name}}={{prop.name}} {%- endfor -%}{%- for prop in reverse_properties -%}, {{prop.name}}={{prop.name}} {%- endfor -%})
 {{ additional_methods }}

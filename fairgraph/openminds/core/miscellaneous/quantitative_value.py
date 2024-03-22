@@ -5,7 +5,7 @@ Structured information on a quantitative value.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class QuantitativeValue(EmbeddedMetadata):
@@ -21,27 +21,27 @@ class QuantitativeValue(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "type_of_uncertainty",
             "openminds.controlledterms.TypeOfUncertainty",
             "vocab:typeOfUncertainty",
             doc="Distinct technique used to quantify the uncertainty of a measurement.",
         ),
-        Field(
+        Property(
             "uncertainties",
             float,
             "vocab:uncertainty",
             multiple=True,
             doc="Quantitative value range defining the uncertainty of a measurement.",
         ),
-        Field(
+        Property(
             "unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:unit",
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Field("value", float, "vocab:value", required=True, doc="Entry for a property."),
+        Property("value", float, "vocab:value", required=True, doc="Entry for a property."),
     ]
 
     def __init__(

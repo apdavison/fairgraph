@@ -5,7 +5,7 @@ Structured information about an association of two or more persons or organizati
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,17 +25,17 @@ class Consortium(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."),
-        Field("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."),
+        Property("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
+        Property(
             "contact_information",
             "openminds.core.ContactInformation",
             "vocab:contactInformation",
             doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the consortium."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the consortium."),
+        Property(
             "coordinated_projects",
             "openminds.core.Project",
             "^vocab:coordinator",
@@ -43,7 +43,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'coordinator'",
         ),
-        Field(
+        Property(
             "developed",
             [
                 "openminds.computation.ValidationTest",
@@ -64,7 +64,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'developer'",
         ),
-        Field(
+        Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
@@ -72,7 +72,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'funder'",
         ),
-        Field(
+        Property(
             "has_members",
             "openminds.core.Affiliation",
             "^vocab:memberOf",
@@ -80,7 +80,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'memberOf'",
         ),
-        Field(
+        Property(
             "is_custodian_of",
             [
                 "openminds.core.Dataset",
@@ -97,7 +97,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'custodian'",
         ),
-        Field(
+        Property(
             "is_owner_of",
             [
                 "openminds.ephys.Electrode",
@@ -110,7 +110,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'owner'",
         ),
-        Field(
+        Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
@@ -118,7 +118,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'provider'",
         ),
-        Field(
+        Property(
             "manufactured",
             "openminds.core.Setup",
             "^vocab:manufacturer",
@@ -126,7 +126,7 @@ class Consortium(KGObject):
             multiple=True,
             doc="reverse of 'manufacturer'",
         ),
-        Field(
+        Property(
             "published",
             [
                 "openminds.publications.Book",
@@ -140,7 +140,7 @@ class Consortium(KGObject):
             doc="reverse of 'publisher'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

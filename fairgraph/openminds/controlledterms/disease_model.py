@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,52 +25,52 @@ class DiseaseModel(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the disease model.",
         ),
-        Field(
+        Property(
             "definition",
             str,
             "vocab:definition",
             doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the disease model.",
         ),
-        Field(
+        Property(
             "interlex_identifier",
             IRI,
             "vocab:interlexIdentifier",
             doc="Persistent identifier for a term registered in the InterLex project.",
         ),
-        Field(
+        Property(
             "knowledge_space_link",
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
         ),
-        Field(
+        Property(
             "preferred_ontology_identifier",
             IRI,
             "vocab:preferredOntologyIdentifier",
             doc="Persistent identifier of a preferred ontological term.",
         ),
-        Field(
+        Property(
             "synonyms",
             str,
             "vocab:synonym",
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
-        Field(
+        Property(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -92,7 +92,7 @@ class DiseaseModel(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
+        Property(
             "is_modeled_by",
             "openminds.core.Strain",
             "^vocab:diseaseModel",
@@ -100,7 +100,7 @@ class DiseaseModel(KGObject):
             multiple=True,
             doc="reverse of 'diseaseModel'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -108,7 +108,7 @@ class DiseaseModel(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "specimen_state",
             [
                 "openminds.core.SubjectGroupState",
@@ -121,7 +121,7 @@ class DiseaseModel(KGObject):
             multiple=True,
             doc="reverse of 'pathology'",
         ),
-        Field(
+        Property(
             "studied_in",
             [
                 "openminds.computation.DataAnalysis",
@@ -149,7 +149,7 @@ class DiseaseModel(KGObject):
             doc="reverse of 'studyTarget'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,12 +25,12 @@ class Dataset(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the dataset."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the dataset."),
+        Property(
             "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the dataset."
         ),
-        Field(
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
@@ -38,34 +38,34 @@ class Dataset(KGObject):
             required=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the dataset.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.IdentifiersDotOrgID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the dataset."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the dataset."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "versions",
             "openminds.core.DatasetVersion",
             "vocab:hasVersion",
@@ -73,7 +73,7 @@ class Dataset(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -81,7 +81,7 @@ class Dataset(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -89,7 +89,7 @@ class Dataset(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -98,7 +98,7 @@ class Dataset(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("alias",)
+    existence_query_properties = ("alias",)
 
     def __init__(
         self,

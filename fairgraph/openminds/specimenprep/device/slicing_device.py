@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SlicingDevice(KGObject):
@@ -22,50 +22,50 @@ class SlicingDevice(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the slicing device.",
         ),
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the slicing device.",
         ),
-        Field(
+        Property(
             "device_type",
             "openminds.controlledterms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "owners",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:owner",
             multiple=True,
             doc="no description available",
         ),
-        Field("serial_number", str, "vocab:serialNumber", doc="no description available"),
-        Field(
+        Property("serial_number", str, "vocab:serialNumber", doc="no description available"),
+        Property(
             "is_part_of",
             "openminds.core.Setup",
             "^vocab:hasPart",
@@ -73,7 +73,7 @@ class SlicingDevice(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "usage",
             "openminds.specimenprep.SlicingDeviceUsage",
             "^vocab:device",
@@ -82,7 +82,7 @@ class SlicingDevice(KGObject):
             doc="reverse of 'device'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

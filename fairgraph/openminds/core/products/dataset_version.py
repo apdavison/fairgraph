@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 from urllib.request import urlretrieve
 from pathlib import Path
@@ -28,50 +28,50 @@ class DatasetVersion(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", doc="Whole, non-abbreviated name of the dataset version."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", doc="Whole, non-abbreviated name of the dataset version."),
+        Property(
             "alias",
             str,
             "vocab:shortName",
             required=True,
             doc="Shortened or fully abbreviated name of the dataset version.",
         ),
-        Field(
+        Property(
             "accessibility",
             "openminds.controlledterms.ProductAccessibility",
             "vocab:accessibility",
             required=True,
             doc="Level to which something is accessible to the dataset version.",
         ),
-        Field(
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
             multiple=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "behavioral_protocols",
             "openminds.core.BehavioralProtocol",
             "vocab:behavioralProtocol",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "copyright",
             "openminds.core.Copyright",
             "vocab:copyright",
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "data_types",
             "openminds.controlledterms.SemanticDataType",
             "vocab:dataType",
@@ -79,27 +79,27 @@ class DatasetVersion(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the dataset version.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.IdentifiersDotOrgID"],
             "vocab:digitalIdentifier",
             required=True,
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "ethics_assessment",
             "openminds.controlledterms.EthicsAssessment",
             "vocab:ethicsAssessment",
             required=True,
             doc="Judgment about the applied principles of conduct governing an individual or a group.",
         ),
-        Field(
+        Property(
             "experimental_approaches",
             "openminds.controlledterms.ExperimentalApproach",
             "vocab:experimentalApproach",
@@ -107,28 +107,28 @@ class DatasetVersion(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "full_documentation",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:fullDocumentation",
             required=True,
             doc="Non-abridged instructions, comments, and information for using a particular product.",
         ),
-        Field(
+        Property(
             "funding",
             "openminds.core.Funding",
             "vocab:funding",
             multiple=True,
             doc="Money provided by a legal person for a particular purpose.",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the dataset version."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the dataset version."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "input_data",
             [
                 "openminds.core.DOI",
@@ -144,20 +144,20 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="Data that is put into a process or machine.",
         ),
-        Field(
+        Property(
             "is_alternative_version_of",
             "openminds.core.DatasetVersion",
             "vocab:isAlternativeVersionOf",
             multiple=True,
             doc="Reference to an original form where the essence was preserved, but presented in an alternative form.",
         ),
-        Field(
+        Property(
             "is_new_version_of",
             "openminds.core.DatasetVersion",
             "vocab:isNewVersionOf",
             doc="Reference to a previous (potentially outdated) particular form of something.",
         ),
-        Field(
+        Property(
             "keywords",
             [
                 "openminds.controlledterms.ActionStatusType",
@@ -243,35 +243,35 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="Significant word or concept that are representative of the dataset version.",
         ),
-        Field(
+        Property(
             "license",
             ["openminds.core.License", "openminds.core.WebResource"],
             "vocab:license",
             required=True,
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
-        Field(
+        Property(
             "other_contributions",
             "openminds.core.Contribution",
             "vocab:otherContribution",
             multiple=True,
             doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere.",
         ),
-        Field(
+        Property(
             "preparation_designs",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "protocols",
             "openminds.core.Protocol",
             "vocab:protocol",
             multiple=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field(
+        Property(
             "related_publications",
             [
                 "openminds.core.DOI",
@@ -286,20 +286,20 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="Reference to something that was made available for the general public to see or buy.",
         ),
-        Field(
+        Property(
             "release_date",
             date,
             "vocab:releaseDate",
             required=True,
             doc="Fixed date on which a product is due to become or was made available for the general public to see or buy",
         ),
-        Field(
+        Property(
             "repository",
             "openminds.core.FileRepository",
             "vocab:repository",
             doc="Place, room, or container where something is deposited or stored.",
         ),
-        Field(
+        Property(
             "studied_specimens",
             [
                 "openminds.core.Subject",
@@ -311,7 +311,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "study_targets",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -347,14 +347,14 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="Structure or function that was targeted within a study.",
         ),
-        Field(
+        Property(
             "support_channels",
             str,
             "vocab:supportChannel",
             multiple=True,
             doc="Way of communication used to interact with users or customers.",
         ),
-        Field(
+        Property(
             "techniques",
             [
                 "openminds.controlledterms.AnalysisTechnique",
@@ -367,21 +367,21 @@ class DatasetVersion(KGObject):
             required=True,
             doc="Method of accomplishing a desired aim.",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             required=True,
             doc="Term or code used to identify the version of something.",
         ),
-        Field(
+        Property(
             "version_innovation",
             str,
             "vocab:versionInnovation",
             required=True,
             doc="Documentation on what changed in comparison to a previously published form of something.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -389,7 +389,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "has_parts",
             [
                 "openminds.core.ProtocolExecution",
@@ -406,7 +406,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'isPartOf'",
         ),
-        Field(
+        Property(
             "is_input_to",
             "openminds.computation.DataCopy",
             "^vocab:input",
@@ -414,7 +414,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'input'",
         ),
-        Field(
+        Property(
             "is_old_version_of",
             "openminds.core.DatasetVersion",
             "^vocab:isNewVersionOf",
@@ -422,7 +422,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'isNewVersionOf'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -430,7 +430,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "is_version_of",
             "openminds.core.Dataset",
             "^vocab:hasVersion",
@@ -438,7 +438,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasVersion'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -446,7 +446,7 @@ class DatasetVersion(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "publication",
             "openminds.publications.LivePaperVersion",
             "^vocab:about",
@@ -455,7 +455,7 @@ class DatasetVersion(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("alias", "version_identifier")
+    existence_query_properties = ("alias", "version_identifier")
 
     def __init__(
         self,

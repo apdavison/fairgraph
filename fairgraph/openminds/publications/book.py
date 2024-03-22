@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import date
@@ -26,64 +26,64 @@ class Book(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the book.",
         ),
-        Field("abstract", str, "vocab:abstract", doc="no description available"),
-        Field(
+        Property("abstract", str, "vocab:abstract", doc="no description available"),
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
             multiple=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "cited_publications",
             ["openminds.core.DOI", "openminds.core.ISBN"],
             "vocab:citedPublication",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "copyright",
             "openminds.core.Copyright",
             "vocab:copyright",
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
-        Field("creation_date", date, "vocab:creationDate", doc="no description available"),
-        Field(
+        Property("creation_date", date, "vocab:creationDate", doc="no description available"),
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.ISBN"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("editors", "openminds.core.Person", "vocab:editor", multiple=True, doc="no description available"),
-        Field(
+        Property("editors", "openminds.core.Person", "vocab:editor", multiple=True, doc="no description available"),
+        Property(
             "funding",
             "openminds.core.Funding",
             "vocab:funding",
             multiple=True,
             doc="Money provided by a legal person for a particular purpose.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
+        Property(
             "keywords",
             [
                 "openminds.controlledterms.ActionStatusType",
@@ -169,27 +169,27 @@ class Book(KGObject):
             multiple=True,
             doc="Significant word or concept that are representative of the book.",
         ),
-        Field(
+        Property(
             "license",
             "openminds.core.License",
             "vocab:license",
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
-        Field("modification_date", date, "vocab:modificationDate", doc="no description available"),
-        Field("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
-        Field(
+        Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
+        Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
+        Property(
             "publisher",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:publisher",
             doc="no description available",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.publications.Chapter",
             "^vocab:isPartOf",
@@ -197,7 +197,7 @@ class Book(KGObject):
             multiple=True,
             doc="reverse of 'isPartOf'",
         ),
-        Field(
+        Property(
             "related_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -217,7 +217,7 @@ class Book(KGObject):
             doc="reverse of 'relatedPublication'",
         ),
     ]
-    existence_query_fields = ("name", "publication_date")
+    existence_query_properties = ("name", "publication_date")
 
     def __init__(
         self,

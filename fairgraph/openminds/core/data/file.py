@@ -5,7 +5,7 @@ Structured information on a file instance that is accessible via a URL.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 import os
 import mimetypes
@@ -36,65 +36,65 @@ class File(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the file.",
         ),
-        Field("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Field(
+        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
+        Property(
             "data_types",
             "openminds.controlledterms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "file_repository", "openminds.core.FileRepository", "vocab:fileRepository", doc="no description available"
         ),
-        Field(
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "hashes",
             "openminds.core.Hash",
             "vocab:hash",
             multiple=True,
             doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             required=True,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.FileBundle",
             "vocab:isPartOf",
             multiple=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "special_usage_role",
             "openminds.controlledterms.FileUsageRole",
             "vocab:specialUsageRole",
             doc="Particular function of something when it is used.",
         ),
-        Field(
+        Property(
             "storage_size",
             "openminds.core.QuantitativeValue",
             "vocab:storageSize",
             doc="Quantitative value defining how much disk space is used by an object on a computer system.",
         ),
-        Field(
+        Property(
             "describes",
             [
                 "openminds.core.BehavioralProtocol",
@@ -109,7 +109,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of describedIn, metadataLocation",
         ),
-        Field(
+        Property(
             "fully_documents",
             [
                 "openminds.core.MetaDataModelVersion",
@@ -124,7 +124,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'fullDocumentation'",
         ),
-        Field(
+        Property(
             "has_copies",
             "openminds.computation.LocalFile",
             "^vocab:copyOf",
@@ -132,7 +132,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'copyOf'",
         ),
-        Field(
+        Property(
             "is_also_part_of",
             "openminds.computation.WorkflowRecipeVersion",
             "^vocab:hasPart",
@@ -140,7 +140,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "is_configuration_of",
             "openminds.computation.WorkflowExecution",
             "^vocab:configuration",
@@ -148,7 +148,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'configuration'",
         ),
-        Field(
+        Property(
             "is_default_image_for",
             "openminds.sands.CustomCoordinateSpace",
             "^vocab:defaultImage",
@@ -156,7 +156,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'defaultImage'",
         ),
-        Field(
+        Property(
             "is_input_to",
             "openminds.core.DatasetVersion",
             "^vocab:inputData",
@@ -164,7 +164,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'inputData'",
         ),
-        Field(
+        Property(
             "is_location_of",
             ["openminds.ephys.Recording", "openminds.sands.ParcellationTerminologyVersion"],
             "^vocab:dataLocation",
@@ -172,7 +172,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'dataLocation'",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -191,7 +191,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of output, outputData",
         ),
-        Field(
+        Property(
             "is_preview_of",
             "openminds.core.ServiceLink",
             "^vocab:previewImage",
@@ -199,7 +199,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'previewImage'",
         ),
-        Field(
+        Property(
             "is_reference_for",
             "openminds.computation.ValidationTestVersion",
             "^vocab:referenceData",
@@ -207,7 +207,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'referenceData'",
         ),
-        Field(
+        Property(
             "is_source_data_of",
             "openminds.core.FileArchive",
             "^vocab:sourceData",
@@ -215,7 +215,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'sourceData'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -223,7 +223,7 @@ class File(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "specifies",
             [
                 "openminds.sands.AtlasAnnotation",
@@ -236,7 +236,7 @@ class File(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
-    existence_query_fields = ("iri", "hash")
+    existence_query_properties = ("iri", "hash")
 
     def __init__(
         self,

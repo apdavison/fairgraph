@@ -5,7 +5,7 @@ Structured information on the computer system or set of systems in which a compu
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Environment(KGObject):
@@ -22,36 +22,38 @@ class Environment(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the environment.",
         ),
-        Field("configuration", "openminds.core.Configuration", "vocab:configuration", doc="no description available"),
-        Field(
+        Property(
+            "configuration", "openminds.core.Configuration", "vocab:configuration", doc="no description available"
+        ),
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the environment.",
         ),
-        Field(
+        Property(
             "hardware",
             "openminds.computation.HardwareSystem",
             "vocab:hardware",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "software",
             "openminds.core.SoftwareVersion",
             "vocab:software",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "used_for",
             [
                 "openminds.computation.DataAnalysis",
@@ -69,7 +71,7 @@ class Environment(KGObject):
             doc="reverse of 'environment'",
         ),
     ]
-    existence_query_fields = ("hardware", "name")
+    existence_query_properties = ("hardware", "name")
 
     def __init__(
         self,

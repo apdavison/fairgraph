@@ -5,7 +5,7 @@ Structured information on a subject.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Subject(KGObject):
@@ -22,35 +22,35 @@ class Subject(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "biological_sex",
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the subject within a particular product.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.SubjectGroup",
             "vocab:isPartOf",
             multiple=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "species",
             ["openminds.controlledterms.Species", "openminds.core.Strain"],
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
         ),
-        Field(
+        Property(
             "studied_states",
             "openminds.core.SubjectState",
             "vocab:studiedState",
@@ -58,7 +58,7 @@ class Subject(KGObject):
             required=True,
             doc="Reference to a point in time at which the subject was studied in a particular mode or condition.",
         ),
-        Field(
+        Property(
             "has_study_results_in",
             "openminds.core.DatasetVersion",
             "^vocab:studiedSpecimen",
@@ -66,7 +66,7 @@ class Subject(KGObject):
             multiple=True,
             doc="reverse of 'studiedSpecimen'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -74,7 +74,7 @@ class Subject(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
             "^vocab:usedSpecimen",
@@ -83,7 +83,7 @@ class Subject(KGObject):
             doc="reverse of 'usedSpecimen'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

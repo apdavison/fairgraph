@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,52 +25,52 @@ class Service(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the service.",
         ),
-        Field(
+        Property(
             "definition",
             str,
             "vocab:definition",
             doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the service.",
         ),
-        Field(
+        Property(
             "interlex_identifier",
             IRI,
             "vocab:interlexIdentifier",
             doc="Persistent identifier for a term registered in the InterLex project.",
         ),
-        Field(
+        Property(
             "knowledge_space_link",
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
         ),
-        Field(
+        Property(
             "preferred_ontology_identifier",
             IRI,
             "vocab:preferredOntologyIdentifier",
             doc="Persistent identifier of a preferred ontological term.",
         ),
-        Field(
+        Property(
             "synonyms",
             str,
             "vocab:synonym",
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
-        Field(
+        Property(
             "describes",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -93,7 +93,7 @@ class Service(KGObject):
             multiple=True,
             doc="reverse of 'keyword'",
         ),
-        Field(
+        Property(
             "hosts",
             "openminds.publications.LivePaperResourceItem",
             "^vocab:hostedBy",
@@ -101,7 +101,7 @@ class Service(KGObject):
             multiple=True,
             doc="reverse of 'hostedBy'",
         ),
-        Field(
+        Property(
             "linked_from",
             "openminds.core.ServiceLink",
             "^vocab:service",
@@ -110,7 +110,7 @@ class Service(KGObject):
             doc="reverse of 'service'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

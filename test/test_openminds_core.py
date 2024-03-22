@@ -379,7 +379,7 @@ def test_count_models_with_filters(kg_client):
 @skip_if_no_connection
 def test_exists_method_with_known_id(kg_client):
     model = omcore.Model.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
-    assert model.existence_query_fields == ("name",)
+    assert model.existence_query_properties == ("name",)
 
     new_model = omcore.Model(id=model.id)
     assert new_model != model
@@ -390,7 +390,7 @@ def test_exists_method_with_known_id(kg_client):
 @skip_if_no_connection
 def test_exists_method_without_id(kg_client):
     model = omcore.Model.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
-    assert model.existence_query_fields == ("name",)
+    assert model.existence_query_properties == ("name",)
 
     new_model = omcore.Model(name=model.name)
     assert new_model != model
@@ -676,8 +676,8 @@ def test_class_docstring():
     assert "email address" in omcore.Person.__doc__
 
 
-def test_field_names():
-    assert omcore.Person.field_names == [
+def test_property_names():
+    assert omcore.Person.property_names == [
         "affiliations",
         "alternate_names",
         "associated_accounts",
@@ -697,7 +697,7 @@ def test_field_names():
         "published",
         "started",
     ]
-    assert omcore.Person.required_field_names == ["given_name"]
+    assert omcore.Person.required_property_names == ["given_name"]
 
 
 def test_diff():
@@ -714,7 +714,7 @@ def test_diff():
     )
     expected = {
         "id": ("0000", None),
-        "fields": {
+        "properties": {
             "given_name": ("Thorin", "Thorin son of Thráin"),
             "affiliations": (
                 omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),

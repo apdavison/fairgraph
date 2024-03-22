@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,16 +25,16 @@ class LivePaper(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the live paper."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the live paper."),
+        Property(
             "alias",
             str,
             "vocab:shortName",
             required=True,
             doc="Shortened or fully abbreviated name of the live paper.",
         ),
-        Field(
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
@@ -42,34 +42,34 @@ class LivePaper(KGObject):
             required=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the live paper.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             "openminds.core.DOI",
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the live paper."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the live paper."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "versions",
             "openminds.publications.LivePaperVersion",
             "vocab:hasVersion",
@@ -77,7 +77,7 @@ class LivePaper(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -85,7 +85,7 @@ class LivePaper(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -93,7 +93,7 @@ class LivePaper(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -102,7 +102,7 @@ class LivePaper(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("name", "alias")
+    existence_query_properties = ("name", "alias")
 
     def __init__(
         self,

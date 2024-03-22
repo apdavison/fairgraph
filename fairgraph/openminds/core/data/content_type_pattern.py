@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ContentTypePattern(KGObject):
@@ -22,17 +22,17 @@ class ContentTypePattern(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "content_type",
             "openminds.core.ContentType",
             "vocab:contentType",
             required=True,
             doc="no description available",
         ),
-        Field("regex", str, "vocab:regex", required=True, doc="no description available"),
-        Field(
+        Property("regex", str, "vocab:regex", required=True, doc="no description available"),
+        Property(
             "identifies_content_of",
             "openminds.core.FileRepository",
             "^vocab:contentTypePattern",
@@ -41,7 +41,7 @@ class ContentTypePattern(KGObject):
             doc="reverse of 'contentTypePattern'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

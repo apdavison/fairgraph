@@ -5,7 +5,7 @@ Structured information on a used license.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,26 +25,26 @@ class License(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
+        Property(
             "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the license."
         ),
-        Field(
+        Property(
             "legal_code",
             IRI,
             "vocab:legalCode",
             required=True,
             doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted.",
         ),
-        Field(
+        Property(
             "webpages",
             str,
             "vocab:webpage",
             multiple=True,
             doc="Hypertext document (block of information) found on the World Wide Web.",
         ),
-        Field(
+        Property(
             "is_applied_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -67,7 +67,7 @@ class License(KGObject):
             doc="reverse of 'license'",
         ),
     ]
-    existence_query_fields = ("alias",)
+    existence_query_properties = ("alias",)
 
     def __init__(
         self,

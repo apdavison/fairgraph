@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ViewerSpecification(EmbeddedMetadata):
@@ -21,14 +21,14 @@ class ViewerSpecification(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "anchor_points",
             "openminds.core.QuantitativeValue",
             "vocab:anchorPoint",
@@ -36,13 +36,13 @@ class ViewerSpecification(EmbeddedMetadata):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "camera_position",
             "openminds.sands.CoordinatePoint",
             "vocab:cameraPosition",
             doc="no description available",
         ),
-        Field(
+        Property(
             "preferred_display_color",
             ["openminds.controlledterms.Colormap", "openminds.sands.SingleColor"],
             "vocab:preferredDisplayColor",

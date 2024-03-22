@@ -5,7 +5,7 @@ Structured information about a protocol used in an experiment studying human or 
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class BehavioralProtocol(KGObject):
@@ -22,42 +22,42 @@ class BehavioralProtocol(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol.",
         ),
-        Field(
+        Property(
             "described_in",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:describedIn",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the behavioral protocol.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the behavioral protocol within a particular product.",
         ),
-        Field(
+        Property(
             "stimulations",
             ["openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique"],
             "vocab:stimulation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "stimulus_types",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -72,7 +72,7 @@ class BehavioralProtocol(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -80,7 +80,7 @@ class BehavioralProtocol(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.core.DatasetVersion", "openminds.core.ProtocolExecution"],
             "^vocab:behavioralProtocol",
@@ -89,7 +89,7 @@ class BehavioralProtocol(KGObject):
             doc="reverse of 'behavioralProtocol'",
         ),
     ]
-    existence_query_fields = ("description", "name")
+    existence_query_properties = ("description", "name")
 
     def __init__(
         self,

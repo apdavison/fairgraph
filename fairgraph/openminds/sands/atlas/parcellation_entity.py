@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ParcellationEntity(KGObject):
@@ -22,51 +22,51 @@ class ParcellationEntity(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
         ),
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Field("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
-        Field(
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
+        Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
+        Property(
             "definition",
             str,
             "vocab:definition",
             doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
         ),
-        Field(
+        Property(
             "has_parents",
             "openminds.sands.ParcellationEntity",
             "vocab:hasParent",
             multiple=True,
             doc="Reference to a parent object or legal person.",
         ),
-        Field(
+        Property(
             "ontology_identifiers",
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
             doc="Term or code used to identify the parcellation entity registered within a particular ontology.",
         ),
-        Field(
+        Property(
             "related_uberon_term",
             ["openminds.controlledterms.Organ", "openminds.controlledterms.UBERONParcellation"],
             "vocab:relatedUBERONTerm",
             doc="no description available",
         ),
-        Field(
+        Property(
             "versions",
             "openminds.sands.ParcellationEntityVersion",
             "vocab:hasVersion",
             multiple=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "has_children",
             ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"],
             "^vocab:hasParent",
@@ -74,7 +74,7 @@ class ParcellationEntity(KGObject):
             multiple=True,
             doc="reverse of 'hasParent'",
         ),
-        Field(
+        Property(
             "is_location_of",
             [
                 "openminds.core.TissueSample",
@@ -88,7 +88,7 @@ class ParcellationEntity(KGObject):
             multiple=True,
             doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
         ),
-        Field(
+        Property(
             "is_target_of",
             "openminds.sands.AnatomicalTargetPosition",
             "^vocab:anatomicalTarget",
@@ -96,7 +96,7 @@ class ParcellationEntity(KGObject):
             multiple=True,
             doc="reverse of 'anatomicalTarget'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -104,7 +104,7 @@ class ParcellationEntity(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "studied_in",
             [
                 "openminds.computation.DataAnalysis",
@@ -132,7 +132,7 @@ class ParcellationEntity(KGObject):
             doc="reverse of 'studyTarget'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

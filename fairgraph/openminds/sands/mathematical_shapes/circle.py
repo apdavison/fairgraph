@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Circle(EmbeddedMetadata):
@@ -21,8 +21,8 @@ class Circle(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "radius", "openminds.core.QuantitativeValue", "vocab:radius", required=True, doc="no description available"
         ),
     ]

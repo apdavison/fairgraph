@@ -39,10 +39,10 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
 
     Args:
         data (dict, optional): a JSON-LD document containing the KG representation of the metadata.
-        properties: the metadata properties (field names and values)
+        properties: the metadata properties (property names and values)
     """
 
-    fields = []
+    properties = []
 
     def __init__(self, data: Optional[JSONdict] = None, **properties):
         super().__init__(data=data, **properties)
@@ -59,9 +59,9 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
 
     def __repr__(self):
         template_parts = (
-            "{}={{self.{}!r}}".format(field.name, field.name)
-            for field in self.fields
-            if getattr(self, field.name) is not None
+            "{}={{self.{}!r}}".format(prop.name, prop.name)
+            for prop in self.properties
+            if getattr(self, prop.name) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)
@@ -89,9 +89,9 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         """
         Save to the KG any sub-components of the metadata object that are KGObjects.
         """
-        for field in self.fields:
-            assert field.intrinsic  # embedded metadata should not contain any reverse fields
-            values = getattr(self, field.name)
+        for prop in self.properties:
+            assert prop.intrinsic  # embedded metadata should not contain any reverse properties
+            values = getattr(self, prop.name)
             for value in as_list(values):
                 if isinstance(value, ContainsMetadata):
                     if value.space:

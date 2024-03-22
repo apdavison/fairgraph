@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import date
@@ -26,15 +26,15 @@ class LearningResource(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the learning resource.",
         ),
-        Field(
+        Property(
             "about",
             [
                 "openminds.computation.ValidationTest",
@@ -63,62 +63,62 @@ class LearningResource(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("abstract", str, "vocab:abstract", doc="no description available"),
-        Field(
+        Property("abstract", str, "vocab:abstract", doc="no description available"),
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
             multiple=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "cited_publications",
             ["openminds.core.DOI", "openminds.core.ISBN"],
             "vocab:citedPublication",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "copyright",
             "openminds.core.Copyright",
             "vocab:copyright",
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
-        Field("creation_date", date, "vocab:creationDate", doc="no description available"),
-        Field(
+        Property("creation_date", date, "vocab:creationDate", doc="no description available"),
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             "openminds.core.DOI",
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("editors", "openminds.core.Person", "vocab:editor", multiple=True, doc="no description available"),
-        Field(
+        Property("editors", "openminds.core.Person", "vocab:editor", multiple=True, doc="no description available"),
+        Property(
             "educational_level",
             "openminds.controlledterms.EducationalLevel",
             "vocab:educationalLevel",
             doc="no description available",
         ),
-        Field(
+        Property(
             "funding",
             "openminds.core.Funding",
             "vocab:funding",
             multiple=True,
             doc="Money provided by a legal person for a particular purpose.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
+        Property(
             "keywords",
             [
                 "openminds.controlledterms.ActionStatusType",
@@ -204,44 +204,44 @@ class LearningResource(KGObject):
             multiple=True,
             doc="Significant word or concept that are representative of the learning resource.",
         ),
-        Field("learning_outcome", str, "vocab:learningOutcome", doc="no description available"),
-        Field(
+        Property("learning_outcome", str, "vocab:learningOutcome", doc="no description available"),
+        Property(
             "license",
             "openminds.core.License",
             "vocab:license",
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
-        Field("modification_date", date, "vocab:modificationDate", doc="no description available"),
-        Field("order", int, "vocab:order", doc="no description available"),
-        Field("prerequisite", str, "vocab:prerequisite", doc="no description available"),
-        Field("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
-        Field(
+        Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
+        Property("order", int, "vocab:order", doc="no description available"),
+        Property("prerequisite", str, "vocab:prerequisite", doc="no description available"),
+        Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
+        Property(
             "publisher",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:publisher",
             doc="no description available",
         ),
-        Field(
+        Property(
             "required_time",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:requiredTime",
             doc="no description available",
         ),
-        Field("topic", str, "vocab:topic", doc="no description available"),
-        Field(
+        Property("topic", str, "vocab:topic", doc="no description available"),
+        Property(
             "type",
             "openminds.controlledterms.LearningResourceType",
             "vocab:type",
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
     ]
-    existence_query_fields = ("about", "name", "publication_date")
+    existence_query_properties = ("about", "name", "publication_date")
 
     def __init__(
         self,

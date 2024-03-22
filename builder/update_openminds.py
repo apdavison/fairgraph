@@ -224,14 +224,14 @@ def generate_python_name(json_name):
     return python_name
 
 
-def generate_doc(property, obj_title):
+def generate_doc(prop, obj_title):
     if obj_title.upper() == obj_title:  # for acronyms, e.g. DOI
         obj_title_readable = obj_title
     elif "UBERON" in obj_title:
         obj_title_readable = obj_title
     else:
         obj_title_readable = re.sub("([A-Z])", " \g<0>", obj_title).strip().lower()
-    doc = property.get("description", "no description available")
+    doc = prop.get("description", "no description available")
     doc = doc.replace("someone or something", f"the {obj_title_readable}")
     doc = doc.replace("something or somebody", f"the {obj_title_readable}")
     doc = doc.replace("something or someone", f"the {obj_title_readable}")
@@ -378,9 +378,9 @@ def get_default_space(schema_group, cls_name):
             raise KeyError(f"An entry for '{cls_name}' is missing from DEFAULT_SPACES['{schema_group}']")
 
 
-# in general, we use the required fields when deciding whether a given object already exists
+# in general, we use the required properties when deciding whether a given object already exists
 # in the KG. Sometimes this method is inappropriate or undesired, and so for some classes
-# we use a custom set of fields.
+# we use a custom set of properties.
 custom_existence_queries = {
     "LaunchConfiguration": ("executable", "name"),
     "Person": ("given_name", "family_name"),
@@ -426,24 +426,24 @@ custom_existence_queries = {
 }
 
 
-def get_existence_query(cls_name, fields):
+def get_existence_query(cls_name, properties):
     if cls_name in custom_existence_queries:
         return custom_existence_queries[cls_name]
 
-    for field in fields:
-        if field["name"] == "lookup_label":
+    for prop in properties:
+        if prop["name"] == "lookup_label":
             return ("lookup_label",)
 
-    required_field_names = []
-    for field in fields:
-        if field["required"]:
-            required_field_names.append(field["name"])
-    return tuple(required_field_names)
+    required_property_names = []
+    for prop in properties:
+        if prop["required"]:
+            required_property_names.append(prop["name"])
+    return tuple(required_property_names)
 
 
-def property_name_sort_key(property):
-    """Sort the name field to be first"""
-    name = property["name"]
+def property_name_sort_key(prop):
+    """Sort the name prop to be first"""
+    name = prop["name"]
     priorities = {
         "name": "0",
         "alias": "1",
@@ -576,7 +576,7 @@ class FairgraphClassBuilder:
         return os.path.join(*self.relative_path_without_extension)
 
     def translate(self, embedded=None, linked=None):
-        def get_type(property):
+        def get_type(prop):
             type_map = {
                 "string": "str",
                 "integer": "int",
@@ -588,38 +588,38 @@ class FairgraphClassBuilder:
                 "email": "str",  # todo: add an Email class for validation?
                 "ECMA262": "str",  #       ...
             }
-            if "_linkedTypes" in property:
+            if "_linkedTypes" in prop:
                 types = []
-                for item in property["_linkedTypes"]:
+                for item in prop["_linkedTypes"]:
                     openminds_module, class_name = item.split("/")[-2:]
                     openminds_module = generate_python_name(openminds_module)
                     types.append(f"openminds.{openminds_module}.{class_name}")
                 if len(types) == 1:
                     types = f'"{types[0]}"'
                 return types
-            elif "_embeddedTypes" in property:
+            elif "_embeddedTypes" in prop:
                 types = []
-                for item in property["_embeddedTypes"]:
+                for item in prop["_embeddedTypes"]:
                     openminds_module, class_name = item.split("/")[-2:]
                     openminds_module = generate_python_name(openminds_module)
                     types.append(f"openminds.{openminds_module}.{class_name}")
                 if len(types) == 1:
                     types = f'"{types[0]}"'
                 return types
-            elif "type" in property:
-                if isinstance(property["type"], list):
-                    return [type_map[item] for item in property["type"]]
+            elif "type" in prop:
+                if isinstance(prop["type"], list):
+                    return [type_map[item] for item in prop["type"]]
                 else:
-                    if property["type"] == "array":
-                        return type_map[property["items"]["type"]]
-                    elif "_formats" in property:
-                        assert isinstance(property["_formats"], list)
-                        if len(property["_formats"]) > 1:
-                            types = f"[{', '.join([type_map[p] for p in property['_formats']])}]"
+                    if prop["type"] == "array":
+                        return type_map[prop["items"]["type"]]
+                    elif "_formats" in prop:
+                        assert isinstance(prop["_formats"], list)
+                        if len(prop["_formats"]) > 1:
+                            types = f"[{', '.join([type_map[p] for p in prop['_formats']])}]"
                             return types
-                        return type_map[property["_formats"][0]]
+                        return type_map[prop["_formats"][0]]
                     else:
-                        return type_map[property["type"]]
+                        return type_map[prop["type"]]
 
             else:
                 raise NotImplementedError
@@ -629,42 +629,42 @@ class FairgraphClassBuilder:
         if self._schema_payload["_type"] in embedded:
             base_class = "EmbeddedMetadata"
             default_space = None
-            standard_init_fields = ""
+            standard_init_properties = ""
         else:
             base_class = "KGObject"
             default_space = get_default_space(module_name, class_name)
-            standard_init_fields = "id=id, space=space, scope=scope, "
+            standard_init_properties = "id=id, space=space, scope=scope, "
         properties = []
         plurals_special_cases = {
             # because this is a single item (PropertyValueList), but that item contains a list
             "environmentVariable": "environmentVariables",
         }
-        for iri, property in self._schema_payload["properties"].items():
-            allow_multiple = property.get("type", "") == "array"
+        for iri, prop in self._schema_payload["properties"].items():
+            allow_multiple = prop.get("type", "") == "array"
             if allow_multiple:
-                property_name = property["namePlural"]
-            elif property["name"] in plurals_special_cases:
-                property_name = plurals_special_cases[property["name"]]
+                property_name = prop["namePlural"]
+            elif prop["name"] in plurals_special_cases:
+                property_name = plurals_special_cases[prop["name"]]
             else:
-                property_name = property["name"]
+                property_name = prop["name"]
             properties.append(
                 {
                     "name": generate_python_name(property_name),
-                    "type_str": get_type(property),  # compress using JSON-LD context
-                    "iri": f"vocab:{property['name']}",
+                    "type_str": get_type(prop),  # compress using JSON-LD context
+                    "iri": f"vocab:{prop['name']}",
                     "allow_multiple": allow_multiple,
                     "required": iri in self._schema_payload.get("required", []),
-                    "doc": generate_doc(property, class_name),
-                    # "instructions": property.get("_instruction", "no instructions available"),
-                    "formatting": property.get("formatting", None),
-                    "multiline": property.get("multiline", None),
-                    "unique_items": property.get("uniqueItems", False),
-                    "min_items": property.get("minItems", None),
-                    "max_items": property.get("maxItems", None),
+                    "doc": generate_doc(prop, class_name),
+                    # "instructions": prop.get("_instruction", "no instructions available"),
+                    "formatting": prop.get("formatting", None),
+                    "multiline": prop.get("multiline", None),
+                    "unique_items": prop.get("uniqueItems", False),
+                    "min_items": prop.get("minItems", None),
+                    "max_items": prop.get("maxItems", None),
                 }
             )
         reverse_properties = []
-        forward_field_names = set(field["name"] for field in properties)
+        forward_property_names = set(prop["name"] for prop in properties)
         conflict_resolution = {
             "is_part_of": "is_also_part_of",
         }
@@ -697,7 +697,7 @@ class FairgraphClassBuilder:
                     iri = [f"^vocab:{name}" for name in forward_link_name]
                     doc = "reverse of " + ", ".join(name for name in forward_link_name)  # use _plural?
                 reverse_name_python = generate_python_name(reverse_link_name)
-                if reverse_name_python in forward_field_names:
+                if reverse_name_python in forward_property_names:
                     if reverse_name_python in conflict_resolution:
                         reverse_name_python = conflict_resolution[reverse_name_python]
                     else:
@@ -728,11 +728,11 @@ class FairgraphClassBuilder:
             "class_name": class_name,
             "default_space": default_space,
             "openminds_type": self._schema_payload["_type"],
-            "fields": sorted(properties, key=property_name_sort_key),
-            "reverse_fields": sorted(reverse_properties, key=property_name_sort_key),
+            "properties": sorted(properties, key=property_name_sort_key),
+            "reverse_properties": sorted(reverse_properties, key=property_name_sort_key),
             "additional_methods": "",
-            "existence_query_fields": get_existence_query(class_name, properties),
-            "standard_init_fields": standard_init_fields,
+            "existence_query_properties": get_existence_query(class_name, properties),
+            "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
         }
         import_map = {
@@ -743,14 +743,14 @@ class FairgraphClassBuilder:
             "[datetime, time]": "from datetime import datetime, time",
         }
         extra_imports = set()
-        for property in self.context["fields"]:
-            if isinstance(property["type_str"], list):
-                for t in property["type_str"]:
+        for prop in self.context["properties"]:
+            if isinstance(prop["type_str"], list):
+                for t in prop["type_str"]:
                     imp = import_map.get(t, None)
                     if imp:
                         extra_imports.add(imp)
             else:
-                imp = import_map.get(property["type_str"], None)
+                imp = import_map.get(prop["type_str"], None)
                 if imp:
                     extra_imports.add(imp)
         if extra_imports:
@@ -773,19 +773,19 @@ class FairgraphClassBuilder:
     def get_edges(self):
         embedded = set()
         linked = {}
-        for property in self._schema_payload["properties"].values():
-            for emb in property.get("_embeddedTypes", []):
+        for prop in self._schema_payload["properties"].values():
+            for emb in prop.get("_embeddedTypes", []):
                 embedded.add(emb)
-            for lnk in property.get("_linkedTypes", []):
-                reverse_link_name = property["nameForReverseLink"]
+            for lnk in prop.get("_linkedTypes", []):
+                reverse_link_name = prop["nameForReverseLink"]
                 if reverse_link_name is None:
-                    reverse_link_name = reverse_name_map[property["name"]]
+                    reverse_link_name = reverse_name_map[prop["name"]]
                 linked[lnk] = (
                     self._schema_payload["_type"],
-                    property["name"],
-                    property["namePlural"],
+                    prop["name"],
+                    prop["namePlural"],
                     reverse_link_name,
-                )  # linked from (cls, property name, property name plural, reverse name)
+                )  # linked from (cls, prop name, prop name plural, reverse name)
         return embedded, linked
 
 

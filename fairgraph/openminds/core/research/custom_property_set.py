@@ -5,7 +5,7 @@ Structured information about properties of an entity that are not represented in
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class CustomPropertySet(EmbeddedMetadata):
@@ -21,16 +21,16 @@ class CustomPropertySet(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("context", str, "vocab:context", required=True, doc="no description available"),
-        Field(
+    properties = [
+        Property("context", str, "vocab:context", required=True, doc="no description available"),
+        Property(
             "data_location",
             ["openminds.core.Configuration", "openminds.core.File", "openminds.core.PropertyValueList"],
             "vocab:dataLocation",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "relevant_for",
             [
                 "openminds.controlledterms.AnalysisTechnique",

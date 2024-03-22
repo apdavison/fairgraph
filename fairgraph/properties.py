@@ -1,5 +1,5 @@
 """
-Representations of metadata fields.
+Representations of metadata properties.
 """
 
 # Copyright 2018-2023 CNRS
@@ -134,23 +134,23 @@ def build_kg_object(
         return objects
 
 
-class Field(object):
+class Property(object):
     """
-    Representation of a metadata field.
+    Representation of a metadata property.
 
     Args:
-        name (str): The name of the field.
-        types (str, date, datetime, int, KGObject, EmbeddedMetadata): The types of values that the field can take.
-        path (URI): The globally unique identifier of this field.
-        required (bool, optional): Whether the field is required or not. Defaults to False.
-        default (Any, optional): The default value of the field if it is not provided.
-        multiple (bool, optional): Whether the field can have multiple values or not. Defaults to False.
+        name (str): The name of the property.
+        types (str, date, datetime, int, KGObject, EmbeddedMetadata): The types of values that the property can take.
+        path (URI): The globally unique identifier of this property.
+        required (bool, optional): Whether the property is required or not. Defaults to False.
+        default (Any, optional): The default value of the property if it is not provided.
+        multiple (bool, optional): Whether the property can have multiple values or not. Defaults to False.
         error_handling (str, optional): How to handle errors, such as the wrong type of value being provided.
             One of "error", "warning", "log", "none". Defaults to "warning".
-        reverse (str, optional): The name of the reverse field, if any.
-        doc (str, optional): The documentation of the field.
+        reverse (str, optional): The name of the reverse property, if any.
+        doc (str, optional): The documentation of the property.
 
-    The class also contains machinery for serialization into JSON-LD of values stored in fields in
+    The class also contains machinery for serialization into JSON-LD of values stored in properties in
     KGObjects and EmbeddedMetadata instances, and for de-serialization from JSON-LD into Python objects.
     """
 
@@ -190,7 +190,7 @@ class Field(object):
         self.doc = doc
 
     def __repr__(self):
-        return "Field(name='{}', types={}, path='{}', required={}, multiple={})".format(
+        return "Property(name='{}', types={}, path='{}', required={}, multiple={})".format(
             self.name, self._types, self.path, self.required, self.multiple
         )
 
@@ -209,9 +209,9 @@ class Field(object):
                     and any(issubclass(cls, _type) for _type in self.types for cls in item.classes)
                 ):
                     if item is None and self.required:
-                        errmsg = "Field '{}' is required but was not provided.".format(self.name)
+                        errmsg = "Property '{}' is required but was not provided.".format(self.name)
                     else:
-                        errmsg = "Field '{}' should be of type {}, not {}".format(self.name, self.types, type(item))
+                        errmsg = "Property '{}' should be of type {}, not {}".format(self.name, self.types, type(item))
                     ErrorHandling.handle_violation(self.error_handling, errmsg)
 
         if self.required or value is not None:
@@ -224,8 +224,8 @@ class Field(object):
     @property
     def intrinsic(self):
         """
-        Return True If the field contains data that is directly stored in the instance,
-        False if the field contains data that is obtained through a query
+        Return True If the prop contains data that is directly stored in the instance,
+        False if the prop contains data that is obtained through a query
         """
         return not self.reverse
 
@@ -279,7 +279,7 @@ class Field(object):
             elif len(value) == 1:
                 return serialize_single(value[0])
             elif self.error_handling != ErrorHandling.none:
-                errmsg = f"Single item expected for field {self.name} but received multiple"
+                errmsg = f"Single item expected for prop {self.name} but received multiple"
                 ErrorHandling.handle_violation(self.error_handling, errmsg)
             else:
                 return value
@@ -293,7 +293,7 @@ class Field(object):
         Args:
             data: the JSON-LD data
             client: a KG client
-            belongs_to: the ID of the object this field belongs to
+            belongs_to: the ID of the object this property belongs to
         """
         if data == []:
             return None
@@ -343,8 +343,8 @@ class Field(object):
             for cls in possible_classes:
                 for path in self.path:
                     assert path.startswith("^")
-                    for field in cls.fields:
-                        if path[1:] == field.path:
+                    for prop in cls.properties:
+                        if path[1:] == prop.path:
                             property_name = path
                             found_match = True
                             break
@@ -360,7 +360,7 @@ class Field(object):
 
     def get_query_properties(self, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
         """
-        Generate one or more QueryProperty instances for this field,
+        Generate one or more QueryProperty instances for this property,
         for use in constructing a KG query definition.
         """
 
@@ -377,7 +377,7 @@ class Field(object):
                     property_name = self.path
                     type_filter = None
                 if property_name.startswith("^"):
-                    # used to mark reverse fields. Maybe not necessary?
+                    # used to mark reverse properties. Maybe not necessary?
                     assert self.reverse
                     property_name = property_name[1:]
                 properties.append(
@@ -454,7 +454,7 @@ class Field(object):
             # we pass the filter through to the next level
             filter_obj = None
         else:
-            # we have a filter value for this field
+            # we have a filter value for this property
             if self.types[0] in (int, float, bool, datetime, date):
                 op = "EQUALS"
             else:
@@ -463,21 +463,21 @@ class Field(object):
 
         if any(issubclass(_type, ContainsMetadata) for _type in self.types):
             assert all(issubclass(_type, ContainsMetadata) for _type in self.types)
-            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True, reverse=self.reverse)
+            prop = QueryProperty(self.expanded_path, name=f"Q{self.name}", required=True, reverse=self.reverse)
             if filter_obj:
-                property.properties.append(QueryProperty("@id", filter=filter_obj))
+                prop.properties.append(QueryProperty("@id", filter=filter_obj))
             else:
                 for cls in self.types:
                     child_properties = cls.generate_query_filter_properties(filter)
                     if child_properties:
-                        # if the class has fields with the appropriate name
+                        # if the class has properties with the appropriate name
                         # we add them, then break to avoid adding the same
-                        # property twice
-                        property.properties.extend(child_properties)
+                        # prop twice
+                        prop.properties.extend(child_properties)
                         break
         else:
-            property = QueryProperty(self.expanded_path, name=f"Q{self.name}", filter=filter_obj, required=True)
-        return property
+            prop = QueryProperty(self.expanded_path, name=f"Q{self.name}", filter=filter_obj, required=True)
+        return prop
 
     def get_filter_value(self, value: Any) -> Union[str, List[str]]:
         """
@@ -486,9 +486,9 @@ class Field(object):
         Example:
             >>> import fairgraph.openminds.core as omcore
             >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
-            >>> field = Field(name='custodians', types=(omcore.Organization, omcore.Person),
-            ...               path="vocab:custodian", multiple=True)
-            >>> field.get_filter_value(person)
+            >>> prop = Property(name='custodians', types=(omcore.Organization, omcore.Person),
+            ...                  path="vocab:custodian", multiple=True)
+            >>> prop.get_filter_value(person)
             https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2
         """
 

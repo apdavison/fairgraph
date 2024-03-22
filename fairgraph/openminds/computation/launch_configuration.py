@@ -5,7 +5,7 @@ Structured information about the launch of a computational process.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class LaunchConfiguration(KGObject):
@@ -22,28 +22,28 @@ class LaunchConfiguration(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
         ),
-        Field("arguments", str, "vocab:argument", multiple=True, doc="no description available"),
-        Field(
+        Property("arguments", str, "vocab:argument", multiple=True, doc="no description available"),
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the launch configuration.",
         ),
-        Field(
+        Property(
             "environment_variables",
             "openminds.core.PropertyValueList",
             "vocab:environmentVariable",
             doc="no description available",
         ),
-        Field("executable", str, "vocab:executable", required=True, doc="no description available"),
-        Field(
+        Property("executable", str, "vocab:executable", required=True, doc="no description available"),
+        Property(
             "is_launch_configuration_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -60,7 +60,7 @@ class LaunchConfiguration(KGObject):
             doc="reverse of 'launchConfiguration'",
         ),
     ]
-    existence_query_fields = ("executable", "name")
+    existence_query_properties = ("executable", "name")
 
     def __init__(
         self,

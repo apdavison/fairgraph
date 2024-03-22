@@ -5,7 +5,7 @@ Structured information on the copyright.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Copyright(EmbeddedMetadata):
@@ -21,8 +21,8 @@ class Copyright(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "holders",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:holder",
@@ -30,7 +30,7 @@ class Copyright(EmbeddedMetadata):
             required=True,
             doc="Legal person in possession of something.",
         ),
-        Field(
+        Property(
             "years",
             str,
             "vocab:year",

@@ -5,7 +5,7 @@ Structured information about a relationship between two entities, such as a pers
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import date
@@ -24,21 +24,21 @@ class Affiliation(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "end_date",
             date,
             "vocab:endDate",
             doc="Date in the Gregorian calendar at which something terminates in time.",
         ),
-        Field(
+        Property(
             "member_of",
             ["openminds.core.Consortium", "openminds.core.Organization"],
             "vocab:memberOf",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "start_date",
             date,
             "vocab:startDate",

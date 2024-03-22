@@ -5,7 +5,7 @@ Structured information about a chemical substance.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ChemicalSubstance(KGObject):
@@ -22,34 +22,34 @@ class ChemicalSubstance(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "molecular_entity",
             "openminds.controlledterms.MolecularEntity",
             "vocab:molecularEntity",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "product_source",
             "openminds.chemicals.ProductSource",
             "vocab:productSource",
             doc="no description available",
         ),
-        Field(
+        Property(
             "purity",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:purity",
             doc="no description available",
         ),
-        Field(
+        Property(
             "composes",
             ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
             ["^vocab:insulatorMaterial", "^vocab:material"],
@@ -57,7 +57,7 @@ class ChemicalSubstance(KGObject):
             multiple=True,
             doc="reverse of insulatorMaterial, material",
         ),
-        Field(
+        Property(
             "labels",
             "openminds.ephys.PipetteUsage",
             "^vocab:labelingCompound",
@@ -66,7 +66,7 @@ class ChemicalSubstance(KGObject):
             doc="reverse of 'labelingCompound'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

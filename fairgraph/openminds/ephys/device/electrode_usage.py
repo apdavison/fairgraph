@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ElectrodeUsage(KGObject):
@@ -22,9 +22,9 @@ class ElectrodeUsage(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "anatomical_location",
             [
                 "openminds.controlledterms.CellType",
@@ -39,39 +39,39 @@ class ElectrodeUsage(KGObject):
             "vocab:anatomicalLocation",
             doc="no description available",
         ),
-        Field(
+        Property(
             "contact_resistance",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:contactResistance",
             doc="no description available",
         ),
-        Field(
+        Property(
             "device",
             "openminds.ephys.Electrode",
             "vocab:device",
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field(
+        Property(
             "metadata_locations",
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:metadataLocation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "spatial_location",
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
             doc="no description available",
         ),
-        Field(
+        Property(
             "used_specimen",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
             "vocab:usedSpecimen",
             doc="no description available",
         ),
-        Field(
+        Property(
             "generation_device",
             "openminds.stimulation.EphysStimulus",
             "^vocab:generatedBy",
@@ -79,7 +79,7 @@ class ElectrodeUsage(KGObject):
             multiple=True,
             doc="reverse of 'generatedBy'",
         ),
-        Field(
+        Property(
             "placed_by",
             "openminds.ephys.ElectrodePlacement",
             "^vocab:device",
@@ -87,7 +87,7 @@ class ElectrodeUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.ephys.CellPatching", "openminds.ephys.RecordingActivity"],
             "^vocab:device",
@@ -95,7 +95,7 @@ class ElectrodeUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_to_measure",
             "openminds.core.Measurement",
             "^vocab:measuredWith",
@@ -103,7 +103,7 @@ class ElectrodeUsage(KGObject):
             multiple=True,
             doc="reverse of 'measuredWith'",
         ),
-        Field(
+        Property(
             "used_to_record",
             "openminds.ephys.Recording",
             "^vocab:recordedWith",
@@ -112,7 +112,7 @@ class ElectrodeUsage(KGObject):
             doc="reverse of 'recordedWith'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

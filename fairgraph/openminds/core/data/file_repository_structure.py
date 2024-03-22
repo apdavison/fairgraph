@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class FileRepositoryStructure(KGObject):
@@ -22,9 +22,9 @@ class FileRepositoryStructure(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "file_path_patterns",
             "openminds.core.FilePathPattern",
             "vocab:filePathPattern",
@@ -32,7 +32,7 @@ class FileRepositoryStructure(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "structures",
             "openminds.core.FileRepository",
             "^vocab:structurePattern",
@@ -41,7 +41,7 @@ class FileRepositoryStructure(KGObject):
             doc="reverse of 'structurePattern'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self, lookup_label=None, file_path_patterns=None, structures=None, id=None, data=None, space=None, scope=None

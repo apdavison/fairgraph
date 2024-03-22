@@ -5,7 +5,7 @@ Structured information about a short text expressing an opinion on, or giving in
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import datetime
@@ -25,8 +25,8 @@ class Comment(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "about",
             [
                 "openminds.computation.ValidationTest",
@@ -54,11 +54,13 @@ class Comment(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("comment", str, "vocab:comment", required=True, doc="no description available"),
-        Field("commenter", "openminds.core.Person", "vocab:commenter", required=True, doc="no description available"),
-        Field("timestamp", datetime, "vocab:timestamp", required=True, doc="no description available"),
+        Property("comment", str, "vocab:comment", required=True, doc="no description available"),
+        Property(
+            "commenter", "openminds.core.Person", "vocab:commenter", required=True, doc="no description available"
+        ),
+        Property("timestamp", datetime, "vocab:timestamp", required=True, doc="no description available"),
     ]
-    existence_query_fields = ("about", "comment", "commenter", "timestamp")
+    existence_query_properties = ("about", "comment", "commenter", "timestamp")
 
     def __init__(
         self, about=None, comment=None, commenter=None, timestamp=None, id=None, data=None, space=None, scope=None

@@ -5,7 +5,7 @@ Structured information on a bundle of file instances.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class FileBundle(KGObject):
@@ -22,22 +22,22 @@ class FileBundle(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the file bundle.",
         ),
-        Field("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Field(
+        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "grouped_by",
             [
                 "openminds.computation.LocalFile",
@@ -92,33 +92,33 @@ class FileBundle(KGObject):
             multiple=True,
             doc="Reference to the aspect used to group something.",
         ),
-        Field(
+        Property(
             "grouping_types",
             "openminds.controlledterms.FileBundleGrouping",
             "vocab:groupingType",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "hash",
             "openminds.core.Hash",
             "vocab:hash",
             doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.FileBundle", "openminds.core.FileRepository"],
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "storage_size",
             "openminds.core.QuantitativeValue",
             "vocab:storageSize",
             doc="Quantitative value defining how much disk space is used by an object on a computer system.",
         ),
-        Field(
+        Property(
             "describes",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -131,7 +131,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'metadataLocation'",
         ),
-        Field(
+        Property(
             "has_parts",
             ["openminds.core.File", "openminds.core.FileBundle"],
             "^vocab:isPartOf",
@@ -139,7 +139,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'isPartOf'",
         ),
-        Field(
+        Property(
             "is_also_part_of",
             "openminds.computation.WorkflowRecipeVersion",
             "^vocab:hasPart",
@@ -147,7 +147,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "is_input_to",
             "openminds.core.DatasetVersion",
             "^vocab:inputData",
@@ -155,7 +155,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'inputData'",
         ),
-        Field(
+        Property(
             "is_location_of",
             ["openminds.core.ServiceLink", "openminds.ephys.Recording"],
             "^vocab:dataLocation",
@@ -163,7 +163,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'dataLocation'",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -182,7 +182,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of output, outputData",
         ),
-        Field(
+        Property(
             "is_reference_for",
             "openminds.computation.ValidationTestVersion",
             "^vocab:referenceData",
@@ -190,7 +190,7 @@ class FileBundle(KGObject):
             multiple=True,
             doc="reverse of 'referenceData'",
         ),
-        Field(
+        Property(
             "specifies",
             "openminds.stimulation.EphysStimulus",
             "^vocab:specification",
@@ -199,7 +199,7 @@ class FileBundle(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
-    existence_query_fields = ("is_part_of", "name")
+    existence_query_properties = ("is_part_of", "name")
 
     def __init__(
         self,

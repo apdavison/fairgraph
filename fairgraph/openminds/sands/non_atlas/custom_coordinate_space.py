@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class CustomCoordinateSpace(KGObject):
@@ -22,22 +22,22 @@ class CustomCoordinateSpace(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space.",
         ),
-        Field(
+        Property(
             "anatomical_axes_orientation",
             "openminds.controlledterms.AnatomicalAxesOrientation",
             "vocab:anatomicalAxesOrientation",
             required=True,
             doc="Relation between reference planes used in anatomy and mathematics.",
         ),
-        Field(
+        Property(
             "axes_origins",
             "openminds.core.QuantitativeValue",
             "vocab:axesOrigin",
@@ -45,21 +45,21 @@ class CustomCoordinateSpace(KGObject):
             required=True,
             doc="Special point in a coordinate system used as a fixed point of reference for the geometry of the surrounding space.",
         ),
-        Field(
+        Property(
             "default_images",
             "openminds.core.File",
             "vocab:defaultImage",
             multiple=True,
             doc="Two or three dimensional image that particluarly represents a specific coordinate space.",
         ),
-        Field(
+        Property(
             "native_unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:nativeUnit",
             required=True,
             doc="Determinate quantity used in the original measurement.",
         ),
-        Field(
+        Property(
             "is_coordinate_space_of",
             "openminds.sands.CustomAnnotation",
             "^vocab:coordinateSpace",
@@ -67,7 +67,7 @@ class CustomCoordinateSpace(KGObject):
             multiple=True,
             doc="reverse of 'coordinateSpace'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -76,7 +76,7 @@ class CustomCoordinateSpace(KGObject):
             doc="reverse of 'groupedBy'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

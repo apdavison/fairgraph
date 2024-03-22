@@ -1,7 +1,7 @@
 from datetime import date
 from uuid import uuid4
 from fairgraph.base import ErrorHandling
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 from fairgraph.kgobject import KGObject
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgproxy import KGProxy
@@ -14,11 +14,11 @@ class SomeOrganization(KGObject):
     context = {
         "vocab": "https://openminds.ebrains.eu/vocab/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", multiple=False, required=True),
-        Field("alias", str, "vocab:shortName", multiple=False, required=False),
+    properties = [
+        Property("name", str, "vocab:fullName", multiple=False, required=True),
+        Property("alias", str, "vocab:shortName", multiple=False, required=False),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
 
 class SomeAffiliation(EmbeddedMetadata):
@@ -26,10 +26,10 @@ class SomeAffiliation(EmbeddedMetadata):
     context = {
         "vocab": "https://openminds.ebrains.eu/vocab/",
     }
-    fields = [
-        Field("end_date", date, "vocab:endDate", multiple=False, required=False),
-        Field("member_of", (SomeOrganization,), "vocab:memberOf", multiple=False, required=False),
-        Field("start_date", date, "vocab:startDate", multiple=False, required=False),
+    properties = [
+        Property("end_date", date, "vocab:endDate", multiple=False, required=False),
+        Property("member_of", (SomeOrganization,), "vocab:memberOf", multiple=False, required=False),
+        Property("start_date", date, "vocab:startDate", multiple=False, required=False),
     ]
 
 
@@ -39,12 +39,12 @@ class SomeContactInformation(KGObject):
     context = {
         "vocab": "https://openminds.ebrains.eu/vocab/",
     }
-    fields = [Field("email", str, "vocab:email", multiple=False, required=True)]
-    existence_query_fields = ("email",)
+    properties = [Property("email", str, "vocab:email", multiple=False, required=True)]
+    existence_query_properties = ("email",)
 
 
 def test_serialize_embedded():
-    field_embedded_metadata = Field(
+    property_embedded_metadata = Property(
         "affiliations", (SomeAffiliation,), "vocab:affiliation", multiple=True, required=False
     )
 
@@ -57,7 +57,7 @@ def test_serialize_embedded():
             id=f"https://kg.ebrains.eu/api/instances/{uuid4()}",
         ),
     )
-    result = field_embedded_metadata.serialize(test_affiliation, follow_links=False)
+    result = property_embedded_metadata.serialize(test_affiliation, follow_links=False)
     expected = {
         "@type": SomeAffiliation.type_,
         "https://openminds.ebrains.eu/vocab/memberOf": {"@id": test_affiliation.member_of.id},
@@ -67,7 +67,7 @@ def test_serialize_embedded():
 
 
 def test_serialize_no_multiple():
-    field_no_multiple = Field(
+    property_no_multiple = Property(
         "contact_information",
         (SomeContactInformation,),
         "vocab:contactInformation",
@@ -81,59 +81,59 @@ def test_serialize_no_multiple():
     test_info = SomeContactInformation(
         email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"
     )
-    result = field_no_multiple.serialize(test_info, follow_links=False)
+    result = property_no_multiple.serialize(test_info, follow_links=False)
     expected = {"@id": test_info.id}
     assert result == expected
 
     # single proxy
     test_info = KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}")
-    result = field_no_multiple.serialize(test_info, follow_links=False)
+    result = property_no_multiple.serialize(test_info, follow_links=False)
     expected = {"@id": test_info.id}
     assert result == expected
 
     # two objects, strict
-    field_no_multiple.error_handling = ErrorHandling.error
+    property_no_multiple.error_handling = ErrorHandling.error
     test_info = [
         SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
     with pytest.raises(ValueError):
-        result = field_no_multiple.serialize(test_info, follow_links=False)
+        result = property_no_multiple.serialize(test_info, follow_links=False)
 
     # two objects, not strict
-    field_no_multiple.error_handling = ErrorHandling.none
+    property_no_multiple.error_handling = ErrorHandling.none
     test_info = [
         SomeContactInformation(email="someone@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         SomeContactInformation(email="sameperson@example.com", id=f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
-    result = field_no_multiple.serialize(test_info, follow_links=False)
+    result = property_no_multiple.serialize(test_info, follow_links=False)
     expected = [{"@id": test_info[0].id}, {"@id": test_info[1].id}]
     assert result == expected
 
     # two proxies, not strict
-    field_no_multiple.error_handling = ErrorHandling.none
+    property_no_multiple.error_handling = ErrorHandling.none
     test_info = [
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
         KGProxy(SomeContactInformation, f"https://kg.ebrains.eu/api/instances/{uuid4()}"),
     ]
-    result = field_no_multiple.serialize(test_info, follow_links=False)
+    result = property_no_multiple.serialize(test_info, follow_links=False)
     expected = [{"@id": test_info[0].id}, {"@id": test_info[1].id}]
     assert result == expected
 
 
 def test_deserialize():
-    date_field = Field("the_date", date, "TheDate", error_handling=ErrorHandling.error)
+    date_property = Property("the_date", date, "TheDate", error_handling=ErrorHandling.error)
     with pytest.raises(ValueError):
-        date_field.deserialize(42, client=None)
+        date_property.deserialize(42, client=None)
 
-    integer_field = Field("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
-    assert integer_field.deserialize(42, client=None) == 42
-    assert integer_field.deserialize(42.0, client=None) == 42
-    assert integer_field.deserialize("42", client=None) == 42
-    assert integer_field.deserialize([42, 42, 42], client=None) == [42, 42, 42]
-    assert integer_field.deserialize(["42", 42, "42"], client=None) == [42, 42, 42]
+    integer_property = Property("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
+    assert integer_property.deserialize(42, client=None) == 42
+    assert integer_property.deserialize(42.0, client=None) == 42
+    assert integer_property.deserialize("42", client=None) == 42
+    assert integer_property.deserialize([42, 42, 42], client=None) == [42, 42, 42]
+    assert integer_property.deserialize(["42", 42, "42"], client=None) == [42, 42, 42]
 
-    object_field = Field("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
+    object_property = Property("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
     obj_data = {
         "@id": "https://kg.ebrains.eu/api/instances/the_id",
         "@type": SomeOrganization.type_,
@@ -141,25 +141,25 @@ def test_deserialize():
         "https://openminds.ebrains.eu/vocab/shortName": "TU",
     }
     expected_obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
-    assert object_field.deserialize(obj_data, client=None) == expected_obj
+    assert object_property.deserialize(obj_data, client=None) == expected_obj
 
-    assert object_field.deserialize(None, client=None) is None
+    assert object_property.deserialize(None, client=None) is None
 
-    assert object_field.deserialize([None, obj_data, None, obj_data], client=None) == [expected_obj, expected_obj]
+    assert object_property.deserialize([None, obj_data, None, obj_data], client=None) == [expected_obj, expected_obj]
 
-    assert object_field.deserialize({"@list": [None, obj_data, None, obj_data]}, client=None) == [
+    assert object_property.deserialize({"@list": [None, obj_data, None, obj_data]}, client=None) == [
         expected_obj,
         expected_obj,
     ]
 
 
 def test_get_filter_value():
-    date_field = Field("the_date", date, "TheDate", error_handling=ErrorHandling.error)
-    assert date_field.get_filter_value(date(2023, 6, 2)) == "2023-06-02"
+    date_property = Property("the_date", date, "TheDate", error_handling=ErrorHandling.error)
+    assert date_property.get_filter_value(date(2023, 6, 2)) == "2023-06-02"
 
-    integer_field = Field("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
-    assert integer_field.get_filter_value(42) == 42
+    integer_property = Property("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
+    assert integer_property.get_filter_value(42) == 42
 
-    object_field = Field("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
+    object_property = Property("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
     obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
-    assert object_field.get_filter_value(obj) == "https://kg.ebrains.eu/api/instances/the_id"
+    assert object_property.get_filter_value(obj) == "https://kg.ebrains.eu/api/instances/the_id"

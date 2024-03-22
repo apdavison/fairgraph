@@ -5,7 +5,7 @@ Structured information about how to contact a given person or consortium.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ContactInformation(KGObject):
@@ -22,15 +22,15 @@ class ContactInformation(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "email",
             str,
             "vocab:email",
             required=True,
             doc="Address to which or from which an electronic mail can be sent.",
         ),
-        Field(
+        Property(
             "is_contact_information_of",
             ["openminds.core.Consortium", "openminds.core.Person"],
             "^vocab:contactInformation",
@@ -39,7 +39,7 @@ class ContactInformation(KGObject):
             doc="reverse of 'contactInformation'",
         ),
     ]
-    existence_query_fields = ("email",)
+    existence_query_properties = ("email",)
 
     def __init__(self, email=None, is_contact_information_of=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

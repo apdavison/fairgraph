@@ -7,7 +7,7 @@ from datetime import date, datetime
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 from fairgraph.caching import generate_cache_key
 import pytest
 
@@ -20,22 +20,22 @@ class MockEmbeddedObject(EmbeddedMetadata):
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "mock": "https://openminds.ebrains.eu/mock/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "a_string",
             str,
             "https://openminds.ebrains.eu/vocab/aString",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "a_date",
             date,
             "https://openminds.ebrains.eu/vocab/aDate",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "a_number",
             float,
             "https://openminds.ebrains.eu/vocab/aNumber",
@@ -54,7 +54,7 @@ class MockKGObject2(KGObject):
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "mock": "https://openminds.ebrains.eu/mock/",
     }
-    fields = [Field("a", int, "https://openminds.ebrains.eu/vocab/A", multiple=False, required=True)]
+    properties = [Property("a", int, "https://openminds.ebrains.eu/vocab/A", multiple=False, required=True)]
 
 
 class MockKGObject(KGObject):
@@ -66,113 +66,113 @@ class MockKGObject(KGObject):
         "vocab": "https://openminds.ebrains.eu/vocab/",
         "mock": "https://openminds.ebrains.eu/mock/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "a_required_string",
             str,
             "https://openminds.ebrains.eu/vocab/aRequiredString",
             multiple=False,
             required=True,
         ),
-        Field(
+        Property(
             "a_required_list_of_strings",
             str,
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings",
             multiple=True,
             required=True,
         ),
-        Field(
+        Property(
             "an_optional_string",
             str,
             "https://openminds.ebrains.eu/vocab/anOptionalString",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "an_optional_list_of_strings",
             str,
             "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings",
             multiple=True,
             required=False,
         ),
-        Field(
+        Property(
             "a_required_datetime",
             datetime,
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime",
             multiple=False,
             required=True,
         ),
-        Field(
+        Property(
             "a_required_list_of_datetimes",
             datetime,
             "https://openminds.ebrains.eu/vocab/aRequiredListOfDateTimes",
             multiple=True,
             required=True,
         ),
-        Field(
+        Property(
             "an_optional_datetime",
             datetime,
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "an_optional_list_of_datetimes",
             datetime,
             "https://openminds.ebrains.eu/vocab/anOptionalListOfDateTimes",
             multiple=True,
             required=False,
         ),
-        Field(
+        Property(
             "a_required_linked_object",
             ["test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject",
             multiple=False,
             required=True,
         ),
-        Field(
+        Property(
             "a_required_list_of_linked_objects",
             ["test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects",
             multiple=True,
             required=True,
         ),
-        Field(
+        Property(
             "an_optional_linked_object",
             MockKGObject2,
             "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "an_optional_list_of_linked_objects",
             ["test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects",
             multiple=True,
             required=False,
         ),
-        Field(
+        Property(
             "a_required_embedded_object",
             MockEmbeddedObject,
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject",
             multiple=False,
             required=True,
         ),
-        Field(
+        Property(
             "a_required_list_of_embedded_objects",
             MockEmbeddedObject,
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects",
             multiple=True,
             required=True,
         ),
-        Field(
+        Property(
             "an_optional_embedded_object",
             MockEmbeddedObject,
             "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject",
             multiple=False,
             required=False,
         ),
-        Field(
+        Property(
             "an_optional_list_of_embedded_objects",
             MockEmbeddedObject,
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects",
@@ -180,7 +180,7 @@ class MockKGObject(KGObject):
             required=False,
         ),
     ]
-    existence_query_fields = (
+    existence_query_properties = (
         "a_required_string",
         "a_required_datetime",
         "a_required_linked_object",
@@ -194,10 +194,10 @@ ID_NAMESPACE = "https://kg.ebrains.eu/api/instances/"
 class TestKGObject(object):
     object_counter = 0
 
-    def _construct_embedded_object_required_fields(self, n):
+    def _construct_embedded_object_required_properties(self, n):
         return MockEmbeddedObject(a_number=float(n))
 
-    def _construct_object_required_fields(self):
+    def _construct_object_required_properties(self):
         data = {
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
@@ -249,14 +249,14 @@ class TestKGObject(object):
                     id="https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456",
                 ),
             ],
-            a_required_embedded_object=self._construct_embedded_object_required_fields(41),
+            a_required_embedded_object=self._construct_embedded_object_required_properties(41),
             a_required_list_of_embedded_objects=[
-                self._construct_embedded_object_required_fields(42),
-                self._construct_embedded_object_required_fields(43),
+                self._construct_embedded_object_required_properties(42),
+                self._construct_embedded_object_required_properties(43),
             ],
         )
 
-    def _construct_object_all_fields(self):
+    def _construct_object_all_properties(self):
         data = {
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
@@ -326,10 +326,10 @@ class TestKGObject(object):
             a_required_list_of_datetimes=[datetime(1900, 1, 1), datetime(2000, 1, 1)],
             an_optional_datetime=datetime(1605, 11, 5),
             an_optional_list_of_datetimes=[datetime(1899, 12, 31), datetime(1999, 12, 31)],
-            a_required_linked_object=self._construct_object_required_fields(),
+            a_required_linked_object=self._construct_object_required_properties(),
             a_required_list_of_linked_objects=[
-                self._construct_object_required_fields(),
-                self._construct_object_required_fields(),
+                self._construct_object_required_properties(),
+                self._construct_object_required_properties(),
             ],
             an_optional_linked_object=MockKGObject2(
                 a=123,
@@ -340,22 +340,22 @@ class TestKGObject(object):
                     a=1234,
                     id="https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234",
                 ),
-                self._construct_object_required_fields(),
+                self._construct_object_required_properties(),
             ],
-            a_required_embedded_object=self._construct_embedded_object_required_fields(-1),
+            a_required_embedded_object=self._construct_embedded_object_required_properties(-1),
             a_required_list_of_embedded_objects=[
-                self._construct_embedded_object_required_fields(100),
-                self._construct_embedded_object_required_fields(200),
+                self._construct_embedded_object_required_properties(100),
+                self._construct_embedded_object_required_properties(200),
             ],
-            an_optional_embedded_object=self._construct_embedded_object_required_fields(17),
+            an_optional_embedded_object=self._construct_embedded_object_required_properties(17),
             an_optional_list_of_embedded_objects=[
-                self._construct_embedded_object_required_fields(18),
-                self._construct_embedded_object_required_fields(19),
+                self._construct_embedded_object_required_properties(18),
+                self._construct_embedded_object_required_properties(19),
             ],
         )
 
-    def test_construct_object_all_fields(self):
-        obj = self._construct_object_all_fields()
+    def test_construct_object_all_properties(self):
+        obj = self._construct_object_all_properties()
         assert obj.a_required_string == "apple"
         assert obj.an_optional_datetime == datetime(1605, 11, 5)
         assert isinstance(obj.a_required_linked_object, MockKGObject)
@@ -363,12 +363,12 @@ class TestKGObject(object):
         assert obj.an_optional_list_of_embedded_objects[1].a_number == 19.0
 
     def test_uuid(self):
-        obj = self._construct_object_required_fields()
+        obj = self._construct_object_required_properties()
         # this should probably be a UUID object but it"s not at present
         assert obj.uuid == "00000000-0000-0000-0000-000000000002"
 
     def test_build_existence_query(self):
-        obj = self._construct_object_all_fields()
+        obj = self._construct_object_all_properties()
         expected = {
             "a_required_datetime": "1789-07-14T00:00:00",
             "a_required_embedded_object": {
@@ -380,8 +380,8 @@ class TestKGObject(object):
         }
         assert obj._build_existence_query() == expected
 
-    def test_build_data_all_fields(self):
-        obj = self._construct_object_all_fields()
+    def test_build_data_all_properties(self):
+        obj = self._construct_object_all_properties()
         expected = {
             "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001",
             "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"],
@@ -442,17 +442,17 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon",
         }
-        assert obj.to_jsonld(include_empty_fields=True) == expected
+        assert obj.to_jsonld(include_empty_properties=True) == expected
 
     def test_modified_data(self):
-        obj = self._construct_object_all_fields()
+        obj = self._construct_object_all_properties()
         expected = {}
         assert obj.modified_data() == expected
 
         obj.a_required_string = "pomme"
         obj.an_optional_list_of_embedded_objects = [
-            self._construct_embedded_object_required_fields(-18),
-            self._construct_embedded_object_required_fields(19),
+            self._construct_embedded_object_required_properties(-18),
+            self._construct_embedded_object_required_properties(19),
         ]
         expected = {
             "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
@@ -470,7 +470,7 @@ class TestKGObject(object):
         assert obj.modified_data() == expected
 
     def test_update(self):
-        obj = self._construct_object_required_fields()
+        obj = self._construct_object_required_properties()
         assert obj.an_optional_datetime == None
         new_data = {
             "@id": obj.id,
@@ -478,7 +478,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["kumquat", "bilberry"],
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00",
         }
-        obj._update_empty_fields(new_data, client=None)
+        obj._update_empty_properties(new_data, client=None)
         assert obj.a_required_list_of_strings == [
             "banana",
             "pear",
@@ -486,11 +486,11 @@ class TestKGObject(object):
         assert obj.an_optional_datetime == datetime(1789, 7, 14)
 
     def test_exists__it_does_exist(self):
-        orig_object = self._construct_object_required_fields()
+        orig_object = self._construct_object_required_properties()
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_fields=True)
+                data = orig_object.to_jsonld(include_empty_properties=True)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
@@ -561,7 +561,7 @@ class TestKGObject(object):
         pass
 
     def test_repr(self):
-        orig_object = self._construct_object_required_fields()
+        orig_object = self._construct_object_required_properties()
         assert repr(orig_object) == (
             "MockKGObject(a_required_string='apple', a_required_list_of_strings=['banana', 'pear'], "
             "a_required_datetime=datetime.datetime(1789, 7, 14, 0, 0), "

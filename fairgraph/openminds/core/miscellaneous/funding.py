@@ -5,7 +5,7 @@ Structured information on used funding.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Funding(KGObject):
@@ -22,33 +22,33 @@ class Funding(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "acknowledgement",
             str,
             "vocab:acknowledgement",
             doc="Official declaration or avowal of appreciation of an act or achievement.",
         ),
-        Field(
+        Property(
             "award_number",
             str,
             "vocab:awardNumber",
             doc="Machine-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need.",
         ),
-        Field(
+        Property(
             "award_title",
             str,
             "vocab:awardTitle",
             doc="Human-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need.",
         ),
-        Field(
+        Property(
             "funder",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:funder",
             required=True,
             doc="Legal person that provides money for a particular purpose.",
         ),
-        Field(
+        Property(
             "funded",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -72,7 +72,7 @@ class Funding(KGObject):
             doc="reverse of 'funding'",
         ),
     ]
-    existence_query_fields = ("funder",)
+    existence_query_properties = ("funder",)
 
     def __init__(
         self,

@@ -5,7 +5,7 @@ An International Standard Serial Number of the ISSN International Centre.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ISSN(KGObject):
@@ -22,9 +22,9 @@ class ISSN(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISSN."),
-        Field(
+    properties = [
+        Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISSN."),
+        Property(
             "identifies",
             "openminds.publications.Periodical",
             "^vocab:digitalIdentifier",
@@ -32,7 +32,7 @@ class ISSN(KGObject):
             multiple=True,
             doc="reverse of 'digitalIdentifier'",
         ),
-        Field(
+        Property(
             "related_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -52,7 +52,7 @@ class ISSN(KGObject):
             doc="reverse of 'relatedPublication'",
         ),
     ]
-    existence_query_fields = ("identifier",)
+    existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, identifies=None, related_to=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

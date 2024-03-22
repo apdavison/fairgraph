@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class StockNumber(EmbeddedMetadata):
@@ -21,11 +21,13 @@ class StockNumber(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the stock number."
         ),
-        Field("vendor", "openminds.core.Organization", "vocab:vendor", required=True, doc="no description available"),
+        Property(
+            "vendor", "openminds.core.Organization", "vocab:vendor", required=True, doc="no description available"
+        ),
     ]
 
     def __init__(self, identifier=None, vendor=None, id=None, data=None, space=None, scope=None):

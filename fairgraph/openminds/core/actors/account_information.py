@@ -5,7 +5,7 @@ Structured information about a user account for a web service.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class AccountInformation(KGObject):
@@ -22,10 +22,12 @@ class AccountInformation(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("service", "openminds.core.WebService", "vocab:service", required=True, doc="no description available"),
-        Field("user_name", str, "vocab:userName", required=True, doc="no description available"),
-        Field(
+    properties = [
+        Property(
+            "service", "openminds.core.WebService", "vocab:service", required=True, doc="no description available"
+        ),
+        Property("user_name", str, "vocab:userName", required=True, doc="no description available"),
+        Property(
             "belongs_to",
             "openminds.core.Person",
             "^vocab:associatedAccount",
@@ -34,7 +36,7 @@ class AccountInformation(KGObject):
             doc="reverse of 'associatedAccount'",
         ),
     ]
-    existence_query_fields = ("service", "user_name")
+    existence_query_properties = ("service", "user_name")
 
     def __init__(self, service=None, user_name=None, belongs_to=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

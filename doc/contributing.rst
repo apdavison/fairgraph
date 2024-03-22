@@ -131,7 +131,7 @@ otherwise it will report on tests that failed or produced errors.
 
 To run tests from an individual file::
 
-    $ pytest test/test_fields.py
+    $ pytest test/test_properties.py
 
 Coding standards and style
 --------------------------

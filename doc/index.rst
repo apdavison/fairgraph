@@ -179,9 +179,9 @@ We can then use this as a filter::
 
    >>> rat_datasets = DatasetVersion.list(client, study_targets=rat)
 
-To see a list of the fields that can be used for filtering::
+To see a list of the properties that can be used for filtering::
 
-   >>> DatasetVersion.field_names
+   >>> DatasetVersion.property_names
    ['authors', 'behavioral_protocols', 'digital_identifier', 'ethics_assessment',
     'experimental_approachs', 'input_data', 'is_alternative_version_of', 'is_new_version_of',
     'license', 'preparation_designs', 'studied_specimens', 'techniques', 'data_types',

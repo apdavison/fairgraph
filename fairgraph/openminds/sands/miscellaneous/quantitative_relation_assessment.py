@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class QuantitativeRelationAssessment(EmbeddedMetadata):
@@ -21,21 +21,21 @@ class QuantitativeRelationAssessment(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "criteria",
             "openminds.core.ProtocolExecution",
             "vocab:criteria",
             doc="Aspects or standards on which a judgement or decision is based.",
         ),
-        Field(
+        Property(
             "in_relation_to",
             "openminds.sands.ParcellationEntityVersion",
             "vocab:inRelationTo",
             required=True,
             doc="Reference to a related element.",
         ),
-        Field(
+        Property(
             "quantitative_overlap",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:quantitativeOverlap",
