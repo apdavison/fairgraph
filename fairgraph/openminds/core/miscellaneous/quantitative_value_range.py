@@ -25,14 +25,14 @@ class QuantitativeValueRange(EmbeddedMetadata):
         Property("max_value", float, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
         Property(
             "max_value_unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:maxValueUnit",
             doc="no description available",
         ),
         Property("min_value", float, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
         Property(
             "min_value_unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:minValueUnit",
             doc="no description available",
         ),

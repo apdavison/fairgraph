@@ -84,7 +84,7 @@ class BrainAtlas(KGObject):
             doc="Term or code used to identify the brain atlas registered within a particular ontology.",
         ),
         Property(
-            "used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", doc="no description available"
+            "used_species", "openminds.controlled_terms.Species", "vocab:usedSpecies", doc="no description available"
         ),
         Property(
             "versions",

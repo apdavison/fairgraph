@@ -37,14 +37,14 @@ class AtlasAnnotation(EmbeddedMetadata):
         ),
         Property(
             "criteria_quality_type",
-            "openminds.controlledterms.CriteriaQualityType",
+            "openminds.controlled_terms.CriteriaQualityType",
             "vocab:criteriaQualityType",
             required=True,
             doc="Distinct class that defines how the judgement or decision was made for a particular criteria.",
         ),
         Property(
             "criteria_type",
-            "openminds.controlledterms.AnnotationCriteriaType",
+            "openminds.controlled_terms.AnnotationCriteriaType",
             "vocab:criteriaType",
             required=True,
             doc="no description available",
@@ -64,7 +64,7 @@ class AtlasAnnotation(EmbeddedMetadata):
         ),
         Property(
             "lateralities",
-            "openminds.controlledterms.Laterality",
+            "openminds.controlled_terms.Laterality",
             "vocab:laterality",
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
@@ -83,7 +83,7 @@ class AtlasAnnotation(EmbeddedMetadata):
         ),
         Property(
             "type",
-            "openminds.controlledterms.AnnotationType",
+            "openminds.controlled_terms.AnnotationType",
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",

@@ -32,7 +32,7 @@ class ChemicalSubstance(KGObject):
         ),
         Property(
             "molecular_entity",
-            "openminds.controlledterms.MolecularEntity",
+            "openminds.controlled_terms.MolecularEntity",
             "vocab:molecularEntity",
             required=True,
             doc="no description available",

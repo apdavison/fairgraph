@@ -15,7 +15,7 @@ from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
-from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()
@@ -47,7 +47,7 @@ class File(KGObject):
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(
             "data_types",
-            "openminds.controlledterms.DataType",
+            "openminds.controlled_terms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
@@ -84,7 +84,7 @@ class File(KGObject):
         ),
         Property(
             "special_usage_role",
-            "openminds.controlledterms.FileUsageRole",
+            "openminds.controlled_terms.FileUsageRole",
             "vocab:specialUsageRole",
             doc="Particular function of something when it is used.",
         ),
@@ -102,7 +102,7 @@ class File(KGObject):
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             ["^vocab:describedIn", "^vocab:metadataLocation"],
             reverse=["described_in", "metadata_locations"],

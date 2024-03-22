@@ -27,11 +27,11 @@ class PipetteUsage(KGObject):
         Property(
             "anatomical_location",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
-                "openminds.controlledterms.SubcellularEntity",
-                "openminds.controlledterms.UBERONParcellation",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
+                "openminds.controlled_terms.SubcellularEntity",
+                "openminds.controlled_terms.UBERONParcellation",
                 "openminds.sands.CustomAnatomicalEntity",
                 "openminds.sands.ParcellationEntity",
                 "openminds.sands.ParcellationEntityVersion",
@@ -76,7 +76,7 @@ class PipetteUsage(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:labelingCompound",
             doc="no description available",

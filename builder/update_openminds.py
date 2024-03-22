@@ -17,8 +17,6 @@ name_map = {
     "scope": "model_scope",
     "hasVersions": "versions",
     "hasEntity": "entities",
-    "controlledTerms": "controlledterms",
-    "specimenPrep": "specimenprep",
 }
 
 
@@ -213,14 +211,34 @@ reverse_name_map = {
     "wasInformedBy": "informed",
 }
 
+number_names = {
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine"
+}
 
 def generate_python_name(json_name):
     if json_name in name_map:
         python_name = name_map[json_name]
     else:
-        python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name)
+        python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name.strip())
         python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
-        python_name = python_name.replace("-", "_")
+        replacements = [
+            ("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")
+        ]
+        for before, after in replacements:
+            python_name = python_name.replace(before, after)
+        if python_name[0] in number_names:  # Python variables can't start with a number
+            python_name = number_names[python_name[0]] + python_name[1:]
+        if not python_name.isidentifier():
+            raise NameError(f"Cannot generate a valid Python name from '{json_name}'")
     return python_name
 
 
@@ -324,7 +342,7 @@ DEFAULT_SPACES = {
         }
     ),
     "computation": {"default": "computation"},
-    "controlledterms": {"default": "controlled"},
+    "controlled_terms": {"default": "controlled"},
     "sands": invert_dict(
         {
             "spatial": [
@@ -361,7 +379,7 @@ DEFAULT_SPACES = {
     "publications": {"default": "livepapers"},
     "ephys": {"default": "in-depth"},
     "chemicals": {"default": "in-depth"},
-    "specimenprep": {"default": "in-depth"},
+    "specimen_prep": {"default": "in-depth"},
     "stimulation": {"default": "in-depth"},
 }
 
@@ -456,7 +474,7 @@ def generate_class_name(iri):
     assert isinstance(iri, str)
     parts = iri.split("/")[-2:]
     for i in range(len(parts) - 1):
-        parts[i] = parts[i].lower()
+        parts[i] = generate_python_name(parts[i])
     return "openminds." + ".".join(parts)
 
 
@@ -531,7 +549,7 @@ from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
-from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()""",
@@ -755,7 +773,7 @@ class FairgraphClassBuilder:
                     extra_imports.add(imp)
         if extra_imports:
             self.context["preamble"] += "\n" + "\n".join(sorted(extra_imports))
-        if module_name == "controlledterms":
+        if module_name == "controlled_terms":
             self.context["docstring"] += get_controlled_terms_table(self._schema_payload["_type"])
 
     def build(self, embedded=None, linked=None):

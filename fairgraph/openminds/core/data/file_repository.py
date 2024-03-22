@@ -80,7 +80,7 @@ class FileRepository(KGObject):
         ),
         Property(
             "type",
-            "openminds.controlledterms.FileRepositoryType",
+            "openminds.controlled_terms.FileRepositoryType",
             "vocab:type",
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),

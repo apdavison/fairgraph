@@ -45,7 +45,7 @@ class Setup(KGObject):
                 "openminds.ephys.Electrode",
                 "openminds.ephys.ElectrodeArray",
                 "openminds.ephys.Pipette",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "vocab:hasPart",
             multiple=True,
@@ -62,7 +62,7 @@ class Setup(KGObject):
         ),
         Property(
             "types",
-            "openminds.controlledterms.SetupType",
+            "openminds.controlled_terms.SetupType",
             "vocab:type",
             multiple=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",

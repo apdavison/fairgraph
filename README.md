@@ -66,10 +66,10 @@ following the openMINDS structure. For example:
 
 ```
 >>> from fairgraph.openminds.core import DatasetVersion
->>> from fairgraph.openminds.controlledterms import Technique
+>>> from fairgraph.openminds.controlled_terms import Technique
 ```
 
-The following openMINDS modules are currently available: `core`, `controlledterms`, `sands`, `computation`, `ephys`, `publications`.
+The following openMINDS modules are currently available: `core`, `controlled_terms`, `sands`, `computation`, `chemicals`, `specimen_prep`, `ephys`, `publications`, `stimulation`.
 Using these classes, it is possible to list all metadata matching a particular criterion, e.g.
 
 ```

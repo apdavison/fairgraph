@@ -68,7 +68,7 @@ class Recording(KGObject):
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             "vocab:recordedWith",
             required=True,

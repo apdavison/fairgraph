@@ -96,7 +96,7 @@ If you know the unique identifier of an object, you can retrieve it directly::
    authors                    [KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/56f86f58-add6-4684-aaf1-91083e1165e9'), KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/3b0ceb13-5bcc-4f1d-8ddb-bd888a85b9c0'), KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/6e3edece-60bc-4a4a-8399-45b1ee597d71')]
    behavioral_protocols       None
    digital_identifier         KGProxy([<class 'fairgraph.openminds.core.miscellaneous.doi.DOI'>], 'https://kg.ebrains.eu/api/instances/c03106e1-1f30-446b-8439-ce77fc8358d6')
-   ethics_assessment          KGProxy([<class 'fairgraph.openminds.controlledterms.ethics_assessment.EthicsAssessment'>], 'https://kg.ebrains.eu/api/instances/a217a2f8-dcb8-4ca9-9923-517af2aebc5b')
+   ethics_assessment          KGProxy([<class 'fairgraph.openminds.controlled_terms.ethics_assessment.EthicsAssessment'>], 'https://kg.ebrains.eu/api/instances/a217a2f8-dcb8-4ca9-9923-517af2aebc5b')
    experimental_approachs     None
    input_data                 None
    is_alternative_version_of  None
@@ -107,7 +107,7 @@ If you know the unique identifier of an object, you can retrieve it directly::
    techniques                 None
    data_types                 None
    study_targets              None
-   accessibility              KGProxy([<class 'fairgraph.openminds.controlledterms.product_accessibility.ProductAccessibility'>], 'https://kg.ebrains.eu/api/instances/b2ff7a47-b349-48d7-8ce4-cf51868675f1')
+   accessibility              KGProxy([<class 'fairgraph.openminds.controlled_terms.product_accessibility.ProductAccessibility'>], 'https://kg.ebrains.eu/api/instances/b2ff7a47-b349-48d7-8ce4-cf51868675f1')
    copyright                  None
    custodians                 KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/762bd286-9d46-4ac5-889f-63b08d33c895')
    description                The Golgi cells, together with granule cells and mossy fibers, form a neuronal microcircuit regulating information transfer at the cerebellum input stage. In order to further investigate the Golgi cells properties and their excitatory synapses, whole-cell patch-clamp recordings were performed on acute parasagittal cerebellar slices obtained from juvenile GlyT2-GFP mice (p16-p21). Passive Golgi cells parameters were extracted in voltage-clamp mode by analyzing current relaxation induced by step voltage changes (IV protocol). Excitatory synaptic transmission properties were investigated by electrical stimulation of the mossy fibers bundle (5 pulses at 50 Hz, EPSC protocol, voltage-clamp mode.
@@ -172,7 +172,7 @@ For example, to filter by words in a dataset name::
 
 To filter by species, we first need to retrieve the species metadata::
 
-   >>> from fairgraph.openminds.controlledterms import Species
+   >>> from fairgraph.openminds.controlled_terms import Species
    >>> rat = Species.by_name("Rattus norvegicus", client)
 
 We can then use this as a filter::

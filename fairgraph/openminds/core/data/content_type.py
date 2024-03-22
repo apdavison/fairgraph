@@ -35,7 +35,7 @@ class ContentType(KGObject):
         ),
         Property(
             "data_types",
-            "openminds.controlledterms.DataType",
+            "openminds.controlled_terms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",

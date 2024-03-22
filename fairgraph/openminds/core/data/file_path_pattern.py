@@ -24,7 +24,7 @@ class FilePathPattern(EmbeddedMetadata):
     properties = [
         Property(
             "grouping_types",
-            "openminds.controlledterms.FileBundleGrouping",
+            "openminds.controlled_terms.FileBundleGrouping",
             "vocab:groupingType",
             multiple=True,
             required=True,

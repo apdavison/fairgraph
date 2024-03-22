@@ -42,7 +42,7 @@ class Strain(KGObject):
         ),
         Property(
             "breeding_type",
-            "openminds.controlledterms.BreedingType",
+            "openminds.controlled_terms.BreedingType",
             "vocab:breedingType",
             doc="no description available",
         ),
@@ -60,14 +60,14 @@ class Strain(KGObject):
         ),
         Property(
             "disease_models",
-            ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
+            ["openminds.controlled_terms.Disease", "openminds.controlled_terms.DiseaseModel"],
             "vocab:diseaseModel",
             multiple=True,
             doc="no description available",
         ),
         Property(
             "genetic_strain_type",
-            "openminds.controlledterms.GeneticStrainType",
+            "openminds.controlled_terms.GeneticStrainType",
             "vocab:geneticStrainType",
             required=True,
             doc="no description available",
@@ -83,7 +83,7 @@ class Strain(KGObject):
         Property("phenotype", str, "vocab:phenotype", doc="Physical expression of one or more genes of an organism."),
         Property(
             "species",
-            "openminds.controlledterms.Species",
+            "openminds.controlled_terms.Species",
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",

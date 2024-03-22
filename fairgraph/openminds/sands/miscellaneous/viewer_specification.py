@@ -44,7 +44,7 @@ class ViewerSpecification(EmbeddedMetadata):
         ),
         Property(
             "preferred_display_color",
-            ["openminds.controlledterms.Colormap", "openminds.sands.SingleColor"],
+            ["openminds.controlled_terms.Colormap", "openminds.sands.SingleColor"],
             "vocab:preferredDisplayColor",
             doc="no description available",
         ),

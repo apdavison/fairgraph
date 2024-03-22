@@ -27,11 +27,11 @@ class ElectrodeArrayUsage(KGObject):
         Property(
             "anatomical_locations_of_arrays",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
-                "openminds.controlledterms.SubcellularEntity",
-                "openminds.controlledterms.UBERONParcellation",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
+                "openminds.controlled_terms.SubcellularEntity",
+                "openminds.controlled_terms.UBERONParcellation",
                 "openminds.sands.CustomAnatomicalEntity",
                 "openminds.sands.ParcellationEntity",
                 "openminds.sands.ParcellationEntityVersion",
@@ -43,11 +43,11 @@ class ElectrodeArrayUsage(KGObject):
         Property(
             "anatomical_locations_of_electrodes",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
-                "openminds.controlledterms.SubcellularEntity",
-                "openminds.controlledterms.UBERONParcellation",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
+                "openminds.controlled_terms.SubcellularEntity",
+                "openminds.controlled_terms.UBERONParcellation",
                 "openminds.sands.CustomAnatomicalEntity",
                 "openminds.sands.ParcellationEntity",
                 "openminds.sands.ParcellationEntityVersion",

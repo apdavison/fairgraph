@@ -51,7 +51,7 @@ class ChemicalMixture(KGObject):
         ),
         Property(
             "type",
-            "openminds.controlledterms.ChemicalMixtureType",
+            "openminds.controlled_terms.ChemicalMixtureType",
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
@@ -69,8 +69,8 @@ class ChemicalMixture(KGObject):
             [
                 "openminds.ephys.CellPatching",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.TissueCulturePreparation",
-                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.specimen_prep.TissueCulturePreparation",
+                "openminds.specimen_prep.TissueSampleSlicing",
             ],
             ["^vocab:cultureMedium", "^vocab:pipetteSolution", "^vocab:tissueBathSolution"],
             reverse=["culture_media", "pipette_solutions", "tissue_bath_solutions"],

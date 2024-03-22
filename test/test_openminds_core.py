@@ -16,7 +16,7 @@ from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
 from fairgraph.kgobject import KGObject
 import fairgraph.openminds.core as omcore
-import fairgraph.openminds.controlledterms as omterms
+import fairgraph.openminds.controlled_terms as omterms
 from fairgraph.utility import ActivityLog, sha1sum
 
 from test.utils import mock_client, kg_client, skip_if_no_connection

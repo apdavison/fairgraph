@@ -27,11 +27,11 @@ class TissueSample(KGObject):
         Property(
             "anatomical_locations",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
-                "openminds.controlledterms.SubcellularEntity",
-                "openminds.controlledterms.UBERONParcellation",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
+                "openminds.controlled_terms.SubcellularEntity",
+                "openminds.controlled_terms.UBERONParcellation",
                 "openminds.sands.CustomAnatomicalEntity",
                 "openminds.sands.ParcellationEntity",
                 "openminds.sands.ParcellationEntityVersion",
@@ -42,7 +42,7 @@ class TissueSample(KGObject):
         ),
         Property(
             "biological_sex",
-            "openminds.controlledterms.BiologicalSex",
+            "openminds.controlled_terms.BiologicalSex",
             "vocab:biologicalSex",
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
@@ -61,7 +61,7 @@ class TissueSample(KGObject):
         ),
         Property(
             "lateralities",
-            "openminds.controlledterms.Laterality",
+            "openminds.controlled_terms.Laterality",
             "vocab:laterality",
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
@@ -69,9 +69,9 @@ class TissueSample(KGObject):
         Property(
             "origin",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
             ],
             "vocab:origin",
             required=True,
@@ -79,7 +79,7 @@ class TissueSample(KGObject):
         ),
         Property(
             "species",
-            ["openminds.controlledterms.Species", "openminds.core.Strain"],
+            ["openminds.controlled_terms.Species", "openminds.core.Strain"],
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
@@ -94,7 +94,7 @@ class TissueSample(KGObject):
         ),
         Property(
             "type",
-            "openminds.controlledterms.TissueSampleType",
+            "openminds.controlled_terms.TissueSampleType",
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",

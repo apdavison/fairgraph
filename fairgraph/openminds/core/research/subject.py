@@ -26,7 +26,7 @@ class Subject(KGObject):
         Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "biological_sex",
-            "openminds.controlledterms.BiologicalSex",
+            "openminds.controlled_terms.BiologicalSex",
             "vocab:biologicalSex",
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
@@ -45,7 +45,7 @@ class Subject(KGObject):
         ),
         Property(
             "species",
-            ["openminds.controlledterms.Species", "openminds.core.Strain"],
+            ["openminds.controlled_terms.Species", "openminds.core.Strain"],
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",

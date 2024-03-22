@@ -32,7 +32,7 @@ class SubjectGroup(KGObject):
         ),
         Property(
             "biological_sexes",
-            "openminds.controlledterms.BiologicalSex",
+            "openminds.controlled_terms.BiologicalSex",
             "vocab:biologicalSex",
             multiple=True,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
@@ -46,7 +46,7 @@ class SubjectGroup(KGObject):
         Property("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
         Property(
             "species",
-            ["openminds.controlledterms.Species", "openminds.core.Strain"],
+            ["openminds.controlled_terms.Species", "openminds.core.Strain"],
             "vocab:species",
             multiple=True,
             required=True,

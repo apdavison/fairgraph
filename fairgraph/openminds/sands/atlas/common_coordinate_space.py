@@ -84,7 +84,7 @@ class CommonCoordinateSpace(KGObject):
         ),
         Property(
             "used_species",
-            "openminds.controlledterms.Species",
+            "openminds.controlled_terms.Species",
             "vocab:usedSpecies",
             required=True,
             doc="no description available",

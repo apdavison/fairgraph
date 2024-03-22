@@ -24,7 +24,7 @@ class QuantitativeValue(EmbeddedMetadata):
     properties = [
         Property(
             "type_of_uncertainty",
-            "openminds.controlledterms.TypeOfUncertainty",
+            "openminds.controlled_terms.TypeOfUncertainty",
             "vocab:typeOfUncertainty",
             doc="Distinct technique used to quantify the uncertainty of a measurement.",
         ),
@@ -37,7 +37,7 @@ class QuantitativeValue(EmbeddedMetadata):
         ),
         Property(
             "unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:unit",
             doc="Determinate quantity adopted as a standard of measurement.",
         ),

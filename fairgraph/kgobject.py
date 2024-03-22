@@ -333,7 +333,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Example:
 
             >>> from fairgraph import KGClient
-            >>> import fairgraph.openminds.controlledterms as terms
+            >>> import fairgraph.openminds.controlled_terms as terms
             >>> interneuron_types = terms.CellType.list(client, name="interneuron")
             >>> for ct in interneuron_types[:4]:
             ...     print(f"{ct.name:<30} {ct.definition}")
@@ -401,7 +401,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Example:
 
             >>> from fairgraph import KGClient
-            >>> import fairgraph.openminds.controlledterms as terms
+            >>> import fairgraph.openminds.controlled_terms as terms
             >>> terms.CellType.count(client, name="interneuron")
             8
 

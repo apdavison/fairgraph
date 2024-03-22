@@ -31,7 +31,7 @@ class Channel(EmbeddedMetadata):
         ),
         Property(
             "unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:unit",
             required=True,
             doc="Determinate quantity adopted as a standard of measurement.",

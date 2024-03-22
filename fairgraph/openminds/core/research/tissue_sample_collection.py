@@ -33,11 +33,11 @@ class TissueSampleCollection(KGObject):
         Property(
             "anatomical_locations",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
-                "openminds.controlledterms.SubcellularEntity",
-                "openminds.controlledterms.UBERONParcellation",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
+                "openminds.controlled_terms.SubcellularEntity",
+                "openminds.controlled_terms.UBERONParcellation",
                 "openminds.sands.CustomAnatomicalEntity",
                 "openminds.sands.ParcellationEntity",
                 "openminds.sands.ParcellationEntityVersion",
@@ -48,7 +48,7 @@ class TissueSampleCollection(KGObject):
         ),
         Property(
             "biological_sexes",
-            "openminds.controlledterms.BiologicalSex",
+            "openminds.controlled_terms.BiologicalSex",
             "vocab:biologicalSex",
             multiple=True,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
@@ -61,7 +61,7 @@ class TissueSampleCollection(KGObject):
         ),
         Property(
             "lateralities",
-            "openminds.controlledterms.Laterality",
+            "openminds.controlled_terms.Laterality",
             "vocab:laterality",
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
@@ -70,9 +70,9 @@ class TissueSampleCollection(KGObject):
         Property(
             "origins",
             [
-                "openminds.controlledterms.CellType",
-                "openminds.controlledterms.Organ",
-                "openminds.controlledterms.OrganismSubstance",
+                "openminds.controlled_terms.CellType",
+                "openminds.controlled_terms.Organ",
+                "openminds.controlled_terms.OrganismSubstance",
             ],
             "vocab:origin",
             multiple=True,
@@ -81,7 +81,7 @@ class TissueSampleCollection(KGObject):
         ),
         Property(
             "species",
-            ["openminds.controlledterms.Species", "openminds.core.Strain"],
+            ["openminds.controlled_terms.Species", "openminds.core.Strain"],
             "vocab:species",
             multiple=True,
             required=True,
@@ -97,7 +97,7 @@ class TissueSampleCollection(KGObject):
         ),
         Property(
             "types",
-            "openminds.controlledterms.TissueSampleType",
+            "openminds.controlled_terms.TissueSampleType",
             "vocab:type",
             multiple=True,
             required=True,

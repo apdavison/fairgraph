@@ -38,7 +38,7 @@ class SubjectGroupState(KGObject):
         ),
         Property(
             "age_categories",
-            "openminds.controlledterms.AgeCategory",
+            "openminds.controlled_terms.AgeCategory",
             "vocab:ageCategory",
             multiple=True,
             required=True,
@@ -46,7 +46,7 @@ class SubjectGroupState(KGObject):
         ),
         Property(
             "attributes",
-            "openminds.controlledterms.SubjectAttribute",
+            "openminds.controlled_terms.SubjectAttribute",
             "vocab:attribute",
             multiple=True,
             doc="no description available",
@@ -56,7 +56,7 @@ class SubjectGroupState(KGObject):
         ),
         Property(
             "handedness",
-            "openminds.controlledterms.Handedness",
+            "openminds.controlled_terms.Handedness",
             "vocab:handedness",
             multiple=True,
             doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task.",
@@ -69,7 +69,7 @@ class SubjectGroupState(KGObject):
         ),
         Property(
             "pathologies",
-            ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
+            ["openminds.controlled_terms.Disease", "openminds.controlled_terms.DiseaseModel"],
             "vocab:pathology",
             multiple=True,
             doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease.",
@@ -100,7 +100,7 @@ class SubjectGroupState(KGObject):
         ),
         Property(
             "is_input_to",
-            ["openminds.ephys.RecordingActivity", "openminds.specimenprep.TissueCulturePreparation"],
+            ["openminds.ephys.RecordingActivity", "openminds.specimen_prep.TissueCulturePreparation"],
             "^vocab:input",
             reverse="inputs",
             multiple=True,

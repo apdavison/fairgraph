@@ -39,7 +39,7 @@ class Pipette(KGObject):
         ),
         Property(
             "device_type",
-            "openminds.controlledterms.DeviceType",
+            "openminds.controlled_terms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
@@ -80,7 +80,7 @@ class Pipette(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:material",
             doc="no description available",

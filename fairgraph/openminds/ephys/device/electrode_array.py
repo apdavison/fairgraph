@@ -36,7 +36,7 @@ class ElectrodeArray(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:conductorMaterial",
             doc="no description available",
@@ -49,7 +49,7 @@ class ElectrodeArray(KGObject):
         ),
         Property(
             "device_type",
-            "openminds.controlledterms.DeviceType",
+            "openminds.controlled_terms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
@@ -73,7 +73,7 @@ class ElectrodeArray(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:insulatorMaterial",
             doc="no description available",

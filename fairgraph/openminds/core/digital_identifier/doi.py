@@ -51,7 +51,7 @@ class DOI(KGObject):
                 "openminds.publications.ScholarlyArticle",
                 "openminds.sands.BrainAtlas",
                 "openminds.sands.CommonCoordinateSpace",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:digitalIdentifier",
             reverse="digital_identifiers",

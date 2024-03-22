@@ -1,30 +1,30 @@
-======================
-openminds.specimenprep
-======================
+=======================
+openminds.specimen_prep
+=======================
 
 In-depth metadata for the preparation of specimens (e.g. cell culture, surgical procedures, tissue slicing).
 
 
-.. autoclass:: fairgraph.openminds.specimenprep.CranialWindowPreparation
+.. autoclass:: fairgraph.openminds.specimen_prep.CranialWindowPreparation
    :members:
    :show-inheritance:
 
 
-.. autoclass:: fairgraph.openminds.specimenprep.TissueCulturePreparation
+.. autoclass:: fairgraph.openminds.specimen_prep.TissueCulturePreparation
    :members:
    :show-inheritance:
 
 
-.. autoclass:: fairgraph.openminds.specimenprep.TissueSampleSlicing
+.. autoclass:: fairgraph.openminds.specimen_prep.TissueSampleSlicing
    :members:
    :show-inheritance:
 
 
-.. autoclass:: fairgraph.openminds.specimenprep.SlicingDevice
+.. autoclass:: fairgraph.openminds.specimen_prep.SlicingDevice
    :members:
    :show-inheritance:
 
 
-.. autoclass:: fairgraph.openminds.specimenprep.SlicingDeviceUsage
+.. autoclass:: fairgraph.openminds.specimen_prep.SlicingDeviceUsage
    :members:
    :show-inheritance:

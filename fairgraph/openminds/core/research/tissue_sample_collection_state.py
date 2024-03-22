@@ -38,7 +38,7 @@ class TissueSampleCollectionState(KGObject):
         ),
         Property(
             "attributes",
-            "openminds.controlledterms.TissueSampleAttribute",
+            "openminds.controlled_terms.TissueSampleAttribute",
             "vocab:attribute",
             multiple=True,
             doc="no description available",
@@ -63,7 +63,7 @@ class TissueSampleCollectionState(KGObject):
         ),
         Property(
             "pathologies",
-            ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
+            ["openminds.controlled_terms.Disease", "openminds.controlled_terms.DiseaseModel"],
             "vocab:pathology",
             multiple=True,
             doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease.",
@@ -90,7 +90,7 @@ class TissueSampleCollectionState(KGObject):
         ),
         Property(
             "is_input_to",
-            ["openminds.ephys.RecordingActivity", "openminds.specimenprep.TissueCulturePreparation"],
+            ["openminds.ephys.RecordingActivity", "openminds.specimen_prep.TissueCulturePreparation"],
             "^vocab:input",
             reverse="inputs",
             multiple=True,
@@ -100,7 +100,7 @@ class TissueSampleCollectionState(KGObject):
             "is_output_of",
             [
                 "openminds.core.ProtocolExecution",
-                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.specimen_prep.TissueSampleSlicing",
                 "openminds.stimulation.StimulationActivity",
             ],
             "^vocab:output",

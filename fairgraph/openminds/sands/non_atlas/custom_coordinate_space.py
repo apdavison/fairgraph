@@ -32,7 +32,7 @@ class CustomCoordinateSpace(KGObject):
         ),
         Property(
             "anatomical_axes_orientation",
-            "openminds.controlledterms.AnatomicalAxesOrientation",
+            "openminds.controlled_terms.AnatomicalAxesOrientation",
             "vocab:anatomicalAxesOrientation",
             required=True,
             doc="Relation between reference planes used in anatomy and mathematics.",
@@ -54,7 +54,7 @@ class CustomCoordinateSpace(KGObject):
         ),
         Property(
             "native_unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:nativeUnit",
             required=True,
             doc="Determinate quantity used in the original measurement.",

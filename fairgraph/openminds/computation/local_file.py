@@ -34,7 +34,7 @@ class LocalFile(KGObject):
         Property("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
         Property(
             "data_types",
-            "openminds.controlledterms.DataType",
+            "openminds.controlled_terms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
@@ -54,7 +54,7 @@ class LocalFile(KGObject):
         Property("path", str, "vocab:path", required=True, doc="no description available"),
         Property(
             "special_usage_role",
-            "openminds.controlledterms.FileUsageRole",
+            "openminds.controlled_terms.FileUsageRole",
             "vocab:specialUsageRole",
             doc="Particular function of something when it is used.",
         ),

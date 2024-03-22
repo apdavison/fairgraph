@@ -35,7 +35,7 @@ class LivePaperResourceItem(KGObject):
         ),
         Property(
             "hosted_by",
-            ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlledterms.Service"],
+            ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlled_terms.Service"],
             "vocab:hostedBy",
             required=True,
             doc="Reference to an organization that provides facilities and services for something.",

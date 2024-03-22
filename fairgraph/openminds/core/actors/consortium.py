@@ -103,7 +103,7 @@ class Consortium(KGObject):
                 "openminds.ephys.Electrode",
                 "openminds.ephys.ElectrodeArray",
                 "openminds.ephys.Pipette",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:owner",
             reverse="owners",
