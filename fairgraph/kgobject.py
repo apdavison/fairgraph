@@ -430,10 +430,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         query_properties = []
         for property_name in self.existence_query_properties:
-            for prop in self.properties:
-                if prop.name == property_name:
-                    query_properties.append(prop)
-                    break
+            prop = self._property_lookup[property_name]
+            query_properties.append(prop)
         if len(query_properties) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         query = {}

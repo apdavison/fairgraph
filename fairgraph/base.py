@@ -100,7 +100,6 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                     value = value()
             elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
                 value = None
-            prop.check_value(value)
             setattr(self, prop.name, value)
         if len(properties_copy) > 0:
             if len(properties_copy) == 1:
@@ -116,6 +115,15 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         self.remote_data = {}
         if data:
             self.remote_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
+
+    def __setattr__(self, name, value):
+        try:
+            prop = self._property_lookup[name]
+        except KeyError:
+            super().__setattr__(name, value)
+        else:
+            prop.check_value(value)
+            super().__setattr__(name, value)
 
     def to_jsonld(
         self,
@@ -205,14 +213,12 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             value = ErrorHandling(value)
         if property_names:
             for property_name in as_list(property_names):
-                found = False
-                for prop in cls.properties:
-                    if prop.name == property_name:
-                        prop.error_handling = value
-                        found = True
-                        break
-                if not found:
+                try:
+                    prop = cls._property_lookup[property_name]
+                except KeyError:
                     raise ValueError("No such property: {}".format(property_name))
+                else:
+                    prop.error_handling = value
         else:
             for prop in cls.properties:
                 prop.error_handling = value
