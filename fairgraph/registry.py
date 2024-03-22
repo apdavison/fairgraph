@@ -5,7 +5,8 @@ based on names and type identifiers.
 """
 
 from __future__ import annotations
-from typing import TYPE_CHECKING, Union, List, Optional
+from typing import TYPE_CHECKING, Union, List
+from warnings import warn
 
 if TYPE_CHECKING:
     from .base import ContainsMetadata
@@ -98,3 +99,39 @@ class Registry(type):
     @property
     def required_property_names(cls) -> List[str]:
         return [f.name for f in cls.properties if f.required]
+
+    @property
+    def fields(cls):
+        warn(
+            "Use of the 'fields' attribute is deprecated, it will be removed in a future release. "
+            "Use 'properties' instead",
+            DeprecationWarning,
+        )
+        return cls.properties
+
+    @property
+    def field_names(cls):
+        warn(
+            "Use of the 'field_names' attribute is deprecated, it will be removed in a future release. "
+            "Use 'property_names' instead",
+            DeprecationWarning,
+        )
+        return cls.property_names
+
+    @property
+    def required_field_names(cls):
+        warn(
+            "Use of the 'required_field_names' attribute is deprecated, it will be removed in a future release. "
+            "Use 'required_property_names' instead",
+            DeprecationWarning,
+        )
+        return cls.property_names
+
+    @property
+    def existence_query_fields(cls):
+        warn(
+            "Use of the 'existence_query_fields' attribute is deprecated, it will be removed in a future release. "
+            "Use 'existence_query_properties' instead",
+            DeprecationWarning,
+        )
+        return cls.existence_query_properties
