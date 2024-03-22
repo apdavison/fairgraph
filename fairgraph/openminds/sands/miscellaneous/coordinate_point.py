@@ -5,7 +5,7 @@ Structured information on a coordinate point.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class CoordinatePoint(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class CoordinatePoint(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "coordinate_space",
             ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"],
             "vocab:coordinateSpace",
             required=True,
             doc="Two or three dimensional geometric setting.",
         ),
-        Field(
+        Property(
             "coordinates",
             "openminds.core.QuantitativeValue",
             "vocab:coordinates",

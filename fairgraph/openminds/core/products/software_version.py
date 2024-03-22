@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 from fairgraph.errors import ResolutionFailure
 from .software import Software
@@ -27,23 +27,23 @@ class SoftwareVersion(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", doc="Whole, non-abbreviated name of the software version."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", doc="Whole, non-abbreviated name of the software version."),
+        Property(
             "alias",
             str,
             "vocab:shortName",
             required=True,
             doc="Shortened or fully abbreviated name of the software version.",
         ),
-        Field(
+        Property(
             "accessibility",
             "openminds.controlledterms.ProductAccessibility",
             "vocab:accessibility",
             required=True,
             doc="Level to which something is accessible to the software version.",
         ),
-        Field(
+        Property(
             "application_categories",
             "openminds.controlledterms.SoftwareApplicationCategory",
             "vocab:applicationCategory",
@@ -51,33 +51,33 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Distinct class that groups software programs which perform a similar task or set of tasks.",
         ),
-        Field(
+        Property(
             "copyright",
             "openminds.core.Copyright",
             "vocab:copyright",
             doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the software version.",
         ),
-        Field(
+        Property(
             "developers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:developer",
             multiple=True,
             doc="Legal person that creates or improves products or services (e.g., software, applications, etc.).",
         ),
-        Field(
+        Property(
             "devices",
             "openminds.controlledterms.OperatingDevice",
             "vocab:device",
@@ -85,13 +85,13 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.SWHID", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "features",
             "openminds.controlledterms.SoftwareFeature",
             "vocab:feature",
@@ -99,55 +99,55 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Structure, form, or appearance that characterizes the software version.",
         ),
-        Field(
+        Property(
             "full_documentation",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:fullDocumentation",
             required=True,
             doc="Non-abridged instructions, comments, and information for using a particular product.",
         ),
-        Field(
+        Property(
             "funding",
             "openminds.core.Funding",
             "vocab:funding",
             multiple=True,
             doc="Money provided by a legal person for a particular purpose.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.core.SoftwareVersion",
             "vocab:hasPart",
             multiple=True,
             doc="no description available",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the software version."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the software version."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "input_formats",
             "openminds.core.ContentType",
             "vocab:inputFormat",
             multiple=True,
             doc="Format of data that is put into a process or machine.",
         ),
-        Field(
+        Property(
             "is_alternative_version_of",
             "openminds.core.SoftwareVersion",
             "vocab:isAlternativeVersionOf",
             multiple=True,
             doc="Reference to an original form where the essence was preserved, but presented in an alternative form.",
         ),
-        Field(
+        Property(
             "is_new_version_of",
             "openminds.core.SoftwareVersion",
             "vocab:isNewVersionOf",
             doc="Reference to a previous (potentially outdated) particular form of something.",
         ),
-        Field(
+        Property(
             "keywords",
             [
                 "openminds.controlledterms.ActionStatusType",
@@ -233,7 +233,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="Significant word or concept that are representative of the software version.",
         ),
-        Field(
+        Property(
             "languages",
             "openminds.controlledterms.Language",
             "vocab:language",
@@ -241,7 +241,7 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="System of communication (words, their pronunciation, and the methods of combining them) used and understood by a particular community.",
         ),
-        Field(
+        Property(
             "licenses",
             "openminds.core.License",
             "vocab:license",
@@ -249,7 +249,7 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
-        Field(
+        Property(
             "operating_systems",
             "openminds.controlledterms.OperatingSystem",
             "vocab:operatingSystem",
@@ -257,21 +257,21 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Software that controls the operation of a computer and directs the processing of programs.",
         ),
-        Field(
+        Property(
             "other_contributions",
             "openminds.core.Contribution",
             "vocab:otherContribution",
             multiple=True,
             doc="Giving or supplying of something (such as money or time) as a part or share other than what is covered elsewhere.",
         ),
-        Field(
+        Property(
             "output_formats",
             "openminds.core.ContentType",
             "vocab:outputFormat",
             multiple=True,
             doc="Format of data that comes out of, is delivered or produced by a process or machine.",
         ),
-        Field(
+        Property(
             "programming_languages",
             "openminds.controlledterms.ProgrammingLanguage",
             "vocab:programmingLanguage",
@@ -279,7 +279,7 @@ class SoftwareVersion(KGObject):
             required=True,
             doc="Distinct set of instructions for computer programs in order to produce various kinds of output.",
         ),
-        Field(
+        Property(
             "related_publications",
             [
                 "openminds.core.DOI",
@@ -294,48 +294,48 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="Reference to something that was made available for the general public to see or buy.",
         ),
-        Field(
+        Property(
             "release_date",
             date,
             "vocab:releaseDate",
             required=True,
             doc="Fixed date on which a product is due to become or was made available for the general public to see or buy",
         ),
-        Field(
+        Property(
             "repository",
             "openminds.core.FileRepository",
             "vocab:repository",
             doc="Place, room, or container where something is deposited or stored.",
         ),
-        Field(
+        Property(
             "requirements",
             str,
             "vocab:requirement",
             multiple=True,
             doc="Something essential to the existence, occurrence or function of something else.",
         ),
-        Field(
+        Property(
             "support_channels",
             str,
             "vocab:supportChannel",
             multiple=True,
             doc="Way of communication used to interact with users or customers.",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             required=True,
             doc="Term or code used to identify the version of something.",
         ),
-        Field(
+        Property(
             "version_innovation",
             str,
             "vocab:versionInnovation",
             required=True,
             doc="Documentation on what changed in comparison to a previously published form of something.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -343,7 +343,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "is_input_to",
             [
                 "openminds.computation.DataAnalysis",
@@ -359,7 +359,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'input'",
         ),
-        Field(
+        Property(
             "is_old_version_of",
             "openminds.core.SoftwareVersion",
             "^vocab:isNewVersionOf",
@@ -367,7 +367,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'isNewVersionOf'",
         ),
-        Field(
+        Property(
             "is_part_of",
             [
                 "openminds.computation.WorkflowRecipeVersion",
@@ -381,7 +381,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "is_version_of",
             "openminds.core.Software",
             "^vocab:hasVersion",
@@ -389,7 +389,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasVersion'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -397,7 +397,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "publication",
             "openminds.publications.LivePaperVersion",
             "^vocab:about",
@@ -405,7 +405,7 @@ class SoftwareVersion(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.computation.Environment", "openminds.computation.SoftwareAgent"],
             "^vocab:software",
@@ -414,7 +414,7 @@ class SoftwareVersion(KGObject):
             doc="reverse of 'software'",
         ),
     ]
-    existence_query_fields = ("alias", "version_identifier")
+    existence_query_properties = ("alias", "version_identifier")
 
     def __init__(
         self,

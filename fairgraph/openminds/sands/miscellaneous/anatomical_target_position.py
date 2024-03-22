@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class AnatomicalTargetPosition(EmbeddedMetadata):
@@ -21,14 +21,14 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "anatomical_targets",
             [
                 "openminds.controlledterms.CellType",
@@ -45,14 +45,14 @@ class AnatomicalTargetPosition(EmbeddedMetadata):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "spatial_locations",
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "target_identification_type",
             "openminds.controlledterms.AnatomicalIdentificationType",
             "vocab:targetIdentificationType",

@@ -30,11 +30,11 @@ If a previously-created node has been retrieved from the Knowledge Graph, it wil
 and therefore calling :meth:`save()` will update the node with this ID.
 
 If a new Python object is created with the same or similar metadata, **fairgraph** queries for
-a node with matching metadata for a *subset* of the fields.
-If you want to know which fields are included in the match, examine the :attr:`existence_query_fields`
+a node with matching metadata for a *subset* of the properties.
+If you want to know which properties are included in the match, examine the :attr:`existence_query_properties`
 attribute, e.g.::
 
-    >>> SoftwareVersion.existence_query_fields
+    >>> SoftwareVersion.existence_query_properties
     ('alias', 'version_identifier')
 
 

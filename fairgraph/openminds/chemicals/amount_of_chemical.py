@@ -5,7 +5,7 @@ Structured information about the amount of a given chemical that was used.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class AmountOfChemical(EmbeddedMetadata):
@@ -21,9 +21,9 @@ class AmountOfChemical(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("amount", "openminds.core.QuantitativeValue", "vocab:amount", doc="no description available"),
-        Field(
+    properties = [
+        Property("amount", "openminds.core.QuantitativeValue", "vocab:amount", doc="no description available"),
+        Property(
             "chemical_product",
             [
                 "openminds.chemicals.ChemicalMixture",

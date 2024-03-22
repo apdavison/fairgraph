@@ -5,7 +5,7 @@ Structured information about a measurement performed during a scientific experim
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import datetime
@@ -24,21 +24,21 @@ class Measurement(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "measured_quantity",
             "openminds.controlledterms.MeasuredQuantity",
             "vocab:measuredQuantity",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "measured_with",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -49,8 +49,8 @@ class Measurement(EmbeddedMetadata):
             "vocab:measuredWith",
             doc="no description available",
         ),
-        Field("timestamp", datetime, "vocab:timestamp", doc="no description available"),
-        Field(
+        Property("timestamp", datetime, "vocab:timestamp", doc="no description available"),
+        Property(
             "values",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:value",

@@ -5,7 +5,7 @@ Structured information on a software tool (concept level).
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,26 +25,26 @@ class Software(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the software."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the software."),
+        Property(
             "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the software."
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the software.",
         ),
-        Field(
+        Property(
             "developers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:developer",
@@ -52,20 +52,20 @@ class Software(KGObject):
             required=True,
             doc="Legal person that creates or improves products or services (e.g., software, applications, etc.).",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.RRID", "openminds.core.SWHID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the software."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the software."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "versions",
             "openminds.core.SoftwareVersion",
             "vocab:hasVersion",
@@ -73,7 +73,7 @@ class Software(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -81,7 +81,7 @@ class Software(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -89,7 +89,7 @@ class Software(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -98,7 +98,7 @@ class Software(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("alias",)
+    existence_query_properties = ("alias",)
 
     def __init__(
         self,

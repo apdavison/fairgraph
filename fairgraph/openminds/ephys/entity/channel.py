@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Channel(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class Channel(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             required=True,
             doc="Term or code that identifies the channel within a particular product.",
         ),
-        Field(
+        Property(
             "unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:unit",

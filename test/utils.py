@@ -56,9 +56,9 @@ class MockKGClient:
             raise NotImplementedError
 
     def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
-        for property in query["structure"]:
-            if property.get("propertyName", "") == "Qname":
-                filter_value = property["filter"]["value"]
+        for prop in query["structure"]:
+            if prop.get("propertyName", "") == "Qname":
+                filter_value = prop["filter"]["value"]
                 if "Dummy new model" in filter_value:
                     return MockKGResponse(None)
                 elif "protein structure" in filter_value:
@@ -118,8 +118,8 @@ class MockKGClient:
                     )
                 elif "The Lonely Mountain" in filter_value:
                     return MockKGResponse([])
-            elif property.get("propertyName", "") == "Qgiven_name":
-                filter_value = property["filter"]["value"]
+            elif prop.get("propertyName", "") == "Qgiven_name":
+                filter_value = prop["filter"]["value"]
                 if filter_value == "Thorin":
                     return MockKGResponse([])
         raise NotImplementedError("case not yet handled by mock client")

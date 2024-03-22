@@ -5,7 +5,7 @@ Structured information about a piece of software or web service that can perform
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SoftwareAgent(KGObject):
@@ -22,23 +22,25 @@ class SoftwareAgent(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the software agent.",
         ),
-        Field("environment", "openminds.computation.Environment", "vocab:environment", doc="no description available"),
-        Field(
+        Property(
+            "environment", "openminds.computation.Environment", "vocab:environment", doc="no description available"
+        ),
+        Property(
             "software",
             "openminds.core.SoftwareVersion",
             "vocab:software",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "activities",
             [
                 "openminds.core.ProtocolExecution",
@@ -55,7 +57,7 @@ class SoftwareAgent(KGObject):
             multiple=True,
             doc="reverse of 'performedBy'",
         ),
-        Field(
+        Property(
             "started",
             [
                 "openminds.computation.DataAnalysis",
@@ -73,7 +75,7 @@ class SoftwareAgent(KGObject):
             doc="reverse of 'startedBy'",
         ),
     ]
-    existence_query_fields = ("name", "software")
+    existence_query_properties = ("name", "software")
 
     def __init__(
         self,

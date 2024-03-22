@@ -5,7 +5,7 @@ A representation of a range of quantitative values.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class QuantitativeValueRange(EmbeddedMetadata):
@@ -21,16 +21,16 @@ class QuantitativeValueRange(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("max_value", float, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
-        Field(
+    properties = [
+        Property("max_value", float, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
+        Property(
             "max_value_unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:maxValueUnit",
             doc="no description available",
         ),
-        Field("min_value", float, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
-        Field(
+        Property("min_value", float, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
+        Property(
             "min_value_unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:minValueUnit",

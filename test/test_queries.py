@@ -261,7 +261,7 @@ def test_query_builder(example_query_model_version):
     assert generated == expected
 
 
-def test_query_with_reverse_fields(example_query_repository_with_reverse):
+def test_query_with_reverse_properties(example_query_repository_with_reverse):
     generated = example_query_repository_with_reverse.serialize()
     expected = {
         "@context": {
@@ -404,7 +404,7 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
 
 
 @skip_if_no_connection
-def test_execute_query_with_reverse_fields_and_instance_id(kg_client, example_query_repository_with_reverse):
+def test_execute_query_with_reverse_properties_and_instance_id(kg_client, example_query_repository_with_reverse):
     target_id = "https://kg.ebrains.eu/api/instances/2f8d64f3-d848-49bd-baa6-a2c7080c98da"
     response = kg_client._kg_client.queries.test_query(
         payload=example_query_repository_with_reverse.serialize(),
@@ -423,7 +423,7 @@ def test_execute_query_with_reverse_fields_and_instance_id(kg_client, example_qu
 
 
 @skip_if_no_connection
-def test_execute_query_with_reverse_fields_and_filter(kg_client, example_query_repository_with_reverse):
+def test_execute_query_with_reverse_properties_and_filter(kg_client, example_query_repository_with_reverse):
     response = kg_client._kg_client.queries.test_query(
         payload=example_query_repository_with_reverse.serialize(),
         additional_request_params={"dataset_alias": "data-brette-etal-2007-benchmark2-v1"},

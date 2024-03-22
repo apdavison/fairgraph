@@ -117,8 +117,8 @@ For example, to see only datasets whose name contain the phrase 'patch-clamp'::
 .. warning:: the filtering system is currently primitive, and unaware of hierarchies, e.g.
              filtering by "hippocampus" **will not** return cells with the brain region set to
              "hippocampus CA1". This is on our list of things to fix soon!
-             To see a list of possible search terms, use the :meth:`fields` attribute,
-             e.g. ``DatasetVersion.fields``.
+             To see a list of possible search terms, use the :meth:`properties` attribute,
+             e.g. ``DatasetVersion.properties``.
 
 
 Retrieving a specific node based on its name or id

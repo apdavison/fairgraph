@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class StringProperty(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class StringProperty(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the string property.",
         ),
-        Field("value", str, "vocab:value", required=True, doc="Entry for a property."),
+        Property("value", str, "vocab:value", required=True, doc="Entry for a property."),
     ]
 
     def __init__(self, name=None, value=None, id=None, data=None, space=None, scope=None):

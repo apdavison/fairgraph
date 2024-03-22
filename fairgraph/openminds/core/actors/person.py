@@ -5,7 +5,7 @@ Structured information on a person.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Person(KGObject):
@@ -22,44 +22,44 @@ class Person(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "affiliations",
             "openminds.core.Affiliation",
             "vocab:affiliation",
             multiple=True,
             doc="Declaration of a person being closely associated to an organization.",
         ),
-        Field("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
-        Field(
+        Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
+        Property(
             "associated_accounts",
             "openminds.core.AccountInformation",
             "vocab:associatedAccount",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "contact_information",
             "openminds.core.ContactInformation",
             "vocab:contactInformation",
             doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
         ),
-        Field(
+        Property(
             "digital_identifiers",
             "openminds.core.ORCID",
             "vocab:digitalIdentifier",
             multiple=True,
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field("family_name", str, "vocab:familyName", doc="Name borne in common by members of a family."),
-        Field(
+        Property("family_name", str, "vocab:familyName", doc="Name borne in common by members of a family."),
+        Property(
             "given_name",
             str,
             "vocab:givenName",
             required=True,
             doc="Name given to a person, including all potential middle names, but excluding the family name.",
         ),
-        Field(
+        Property(
             "activities",
             [
                 "openminds.core.ProtocolExecution",
@@ -76,7 +76,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'performedBy'",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:commenter",
@@ -84,7 +84,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'commenter'",
         ),
-        Field(
+        Property(
             "coordinated_projects",
             "openminds.core.Project",
             "^vocab:coordinator",
@@ -92,7 +92,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'coordinator'",
         ),
-        Field(
+        Property(
             "developed",
             [
                 "openminds.computation.ValidationTest",
@@ -113,7 +113,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'developer'",
         ),
-        Field(
+        Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
@@ -121,7 +121,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'funder'",
         ),
-        Field(
+        Property(
             "is_custodian_of",
             [
                 "openminds.core.Dataset",
@@ -138,7 +138,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'custodian'",
         ),
-        Field(
+        Property(
             "is_owner_of",
             [
                 "openminds.ephys.Electrode",
@@ -151,7 +151,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'owner'",
         ),
-        Field(
+        Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
@@ -159,7 +159,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'provider'",
         ),
-        Field(
+        Property(
             "manufactured",
             "openminds.core.Setup",
             "^vocab:manufacturer",
@@ -167,7 +167,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'manufacturer'",
         ),
-        Field(
+        Property(
             "published",
             [
                 "openminds.publications.Book",
@@ -180,7 +180,7 @@ class Person(KGObject):
             multiple=True,
             doc="reverse of 'publisher'",
         ),
-        Field(
+        Property(
             "started",
             [
                 "openminds.computation.DataAnalysis",
@@ -198,7 +198,7 @@ class Person(KGObject):
             doc="reverse of 'startedBy'",
         ),
     ]
-    existence_query_fields = ("given_name", "family_name")
+    existence_query_properties = ("given_name", "family_name")
 
     def __init__(
         self,

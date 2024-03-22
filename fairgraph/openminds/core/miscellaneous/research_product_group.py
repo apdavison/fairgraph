@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ResearchProductGroup(KGObject):
@@ -22,9 +22,9 @@ class ResearchProductGroup(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("context", str, "vocab:context", required=True, doc="no description available"),
-        Field(
+    properties = [
+        Property("context", str, "vocab:context", required=True, doc="no description available"),
+        Property(
             "has_parts",
             [
                 "openminds.computation.ValidationTest",
@@ -54,7 +54,7 @@ class ResearchProductGroup(KGObject):
             doc="no description available",
         ),
     ]
-    existence_query_fields = ("context", "has_parts")
+    existence_query_properties = ("context", "has_parts")
 
     def __init__(self, context=None, has_parts=None, id=None, data=None, space=None, scope=None):
         return super().__init__(id=id, space=space, scope=scope, data=data, context=context, has_parts=has_parts)

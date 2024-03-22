@@ -5,7 +5,7 @@ Structured information about an execution of a computational workflow.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class WorkflowExecution(KGObject):
@@ -22,15 +22,17 @@ class WorkflowExecution(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "configuration",
             ["openminds.core.Configuration", "openminds.core.File"],
             "vocab:configuration",
             doc="no description available",
         ),
-        Field("recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"),
-        Field(
+        Property(
+            "recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"
+        ),
+        Property(
             "stages",
             [
                 "openminds.computation.DataAnalysis",
@@ -45,14 +47,14 @@ class WorkflowExecution(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "started_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:startedBy",
             doc="no description available",
         ),
     ]
-    existence_query_fields = ("stages",)
+    existence_query_properties = ("stages",)
 
     def __init__(
         self, configuration=None, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None

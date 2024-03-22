@@ -33,7 +33,7 @@ def set_error_handling(value):
 
     Args:
         value (str): action to follow when there is a validation failure.
-            (e.g. if a required field is not provided).
+            (e.g. if a required property is not provided).
             Possible values: "error", "warning", "log", None
     """
     for cls in list_kg_classes() + list_embedded_metadata_classes():

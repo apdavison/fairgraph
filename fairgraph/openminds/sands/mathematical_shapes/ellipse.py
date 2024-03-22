@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Ellipse(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class Ellipse(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "semi_major_axis",
             "openminds.core.QuantitativeValue",
             "vocab:semiMajorAxis",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "semi_minor_axis",
             "openminds.core.QuantitativeValue",
             "vocab:semiMinorAxis",

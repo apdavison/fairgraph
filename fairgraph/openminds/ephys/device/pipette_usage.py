@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class PipetteUsage(KGObject):
@@ -22,9 +22,9 @@ class PipetteUsage(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "anatomical_location",
             [
                 "openminds.controlledterms.CellType",
@@ -39,39 +39,39 @@ class PipetteUsage(KGObject):
             "vocab:anatomicalLocation",
             doc="no description available",
         ),
-        Field(
+        Property(
             "chloride_reversal_potentials",
             "openminds.core.Measurement",
             "vocab:chlorideReversalPotential",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "compensation_current",
             "openminds.core.Measurement",
             "vocab:compensationCurrent",
             doc="no description available",
         ),
-        Field(
+        Property(
             "device",
             "openminds.ephys.Pipette",
             "vocab:device",
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field(
+        Property(
             "end_membrane_potential",
             "openminds.core.Measurement",
             "vocab:endMembranePotential",
             doc="no description available",
         ),
-        Field(
+        Property(
             "holding_potential", "openminds.core.Measurement", "vocab:holdingPotential", doc="no description available"
         ),
-        Field(
+        Property(
             "input_resistance", "openminds.core.Measurement", "vocab:inputResistance", doc="no description available"
         ),
-        Field(
+        Property(
             "labeling_compound",
             [
                 "openminds.chemicals.ChemicalMixture",
@@ -81,55 +81,57 @@ class PipetteUsage(KGObject):
             "vocab:labelingCompound",
             doc="no description available",
         ),
-        Field(
+        Property(
             "liquid_junction_potential",
             "openminds.core.Measurement",
             "vocab:liquidJunctionPotential",
             doc="no description available",
         ),
-        Field(
+        Property(
             "metadata_locations",
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:metadataLocation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "pipette_resistance",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:pipetteResistance",
             doc="no description available",
         ),
-        Field(
+        Property(
             "pipette_solution",
             "openminds.chemicals.ChemicalMixture",
             "vocab:pipetteSolution",
             required=True,
             doc="no description available",
         ),
-        Field("seal_resistance", "openminds.core.Measurement", "vocab:sealResistance", doc="no description available"),
-        Field(
+        Property(
+            "seal_resistance", "openminds.core.Measurement", "vocab:sealResistance", doc="no description available"
+        ),
+        Property(
             "series_resistance", "openminds.core.Measurement", "vocab:seriesResistance", doc="no description available"
         ),
-        Field(
+        Property(
             "spatial_location",
             "openminds.sands.CoordinatePoint",
             "vocab:spatialLocation",
             doc="no description available",
         ),
-        Field(
+        Property(
             "start_membrane_potential",
             "openminds.core.Measurement",
             "vocab:startMembranePotential",
             doc="no description available",
         ),
-        Field(
+        Property(
             "used_specimen",
             ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
             "vocab:usedSpecimen",
             doc="no description available",
         ),
-        Field(
+        Property(
             "generation_device",
             "openminds.stimulation.EphysStimulus",
             "^vocab:generatedBy",
@@ -137,7 +139,7 @@ class PipetteUsage(KGObject):
             multiple=True,
             doc="reverse of 'generatedBy'",
         ),
-        Field(
+        Property(
             "placed_by",
             "openminds.ephys.ElectrodePlacement",
             "^vocab:device",
@@ -145,7 +147,7 @@ class PipetteUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.ephys.CellPatching", "openminds.ephys.RecordingActivity"],
             "^vocab:device",
@@ -153,7 +155,7 @@ class PipetteUsage(KGObject):
             multiple=True,
             doc="reverse of 'device'",
         ),
-        Field(
+        Property(
             "used_to_measure",
             "openminds.core.Measurement",
             "^vocab:measuredWith",
@@ -161,7 +163,7 @@ class PipetteUsage(KGObject):
             multiple=True,
             doc="reverse of 'measuredWith'",
         ),
-        Field(
+        Property(
             "used_to_record",
             "openminds.ephys.Recording",
             "^vocab:recordedWith",
@@ -170,7 +172,7 @@ class PipetteUsage(KGObject):
             doc="reverse of 'recordedWith'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

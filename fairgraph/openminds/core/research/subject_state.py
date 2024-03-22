@@ -5,7 +5,7 @@ Structured information on a temporary state of a subject.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SubjectState(KGObject):
@@ -22,67 +22,69 @@ class SubjectState(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "age",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:age",
             doc="Time of life or existence at which some particular qualification, capacity or event arises.",
         ),
-        Field(
+        Property(
             "age_category",
             "openminds.controlledterms.AgeCategory",
             "vocab:ageCategory",
             required=True,
             doc="Distinct life cycle class that is defined by a similar age or age range (developmental stage) within a group of individual beings.",
         ),
-        Field(
+        Property(
             "attributes",
             "openminds.controlledterms.SubjectAttribute",
             "vocab:attribute",
             multiple=True,
             doc="no description available",
         ),
-        Field("descended_from", "openminds.core.SubjectState", "vocab:descendedFrom", doc="no description available"),
-        Field(
+        Property(
+            "descended_from", "openminds.core.SubjectState", "vocab:descendedFrom", doc="no description available"
+        ),
+        Property(
             "handedness",
             "openminds.controlledterms.Handedness",
             "vocab:handedness",
             doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the subject state within a particular product.",
         ),
-        Field(
+        Property(
             "pathologies",
             ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
             "vocab:pathology",
             multiple=True,
             doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease.",
         ),
-        Field(
+        Property(
             "relative_time_indication",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:relativeTimeIndication",
             doc="no description available",
         ),
-        Field(
+        Property(
             "weight",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:weight",
             doc="Amount that a thing or being weighs.",
         ),
-        Field(
+        Property(
             "has_children",
             [
                 "openminds.core.SubjectState",
@@ -94,7 +96,7 @@ class SubjectState(KGObject):
             multiple=True,
             doc="reverse of 'descendedFrom'",
         ),
-        Field(
+        Property(
             "is_input_to",
             [
                 "openminds.ephys.RecordingActivity",
@@ -106,7 +108,7 @@ class SubjectState(KGObject):
             multiple=True,
             doc="reverse of 'input'",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.core.ProtocolExecution",
@@ -120,7 +122,7 @@ class SubjectState(KGObject):
             multiple=True,
             doc="reverse of 'output'",
         ),
-        Field(
+        Property(
             "is_state_of",
             "openminds.core.Subject",
             "^vocab:studiedState",
@@ -128,7 +130,7 @@ class SubjectState(KGObject):
             multiple=True,
             doc="reverse of 'studiedState'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -136,7 +138,7 @@ class SubjectState(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -150,7 +152,7 @@ class SubjectState(KGObject):
             doc="reverse of 'usedSpecimen'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

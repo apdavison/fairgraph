@@ -5,7 +5,7 @@ Structured information about a file that is not accessible via a URL.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class LocalFile(KGObject):
@@ -22,49 +22,49 @@ class LocalFile(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the local file.",
         ),
-        Field("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Field("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
-        Field(
+        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
+        Property("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
+        Property(
             "data_types",
             "openminds.controlledterms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "hash",
             "openminds.core.Hash",
             "vocab:hash",
             doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
         ),
-        Field("path", str, "vocab:path", required=True, doc="no description available"),
-        Field(
+        Property("path", str, "vocab:path", required=True, doc="no description available"),
+        Property(
             "special_usage_role",
             "openminds.controlledterms.FileUsageRole",
             "vocab:specialUsageRole",
             doc="Particular function of something when it is used.",
         ),
-        Field(
+        Property(
             "storage_size",
             "openminds.core.QuantitativeValue",
             "vocab:storageSize",
             doc="Quantitative value defining how much disk space is used by an object on a computer system.",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -80,7 +80,7 @@ class LocalFile(KGObject):
             multiple=True,
             doc="reverse of 'output'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -89,7 +89,7 @@ class LocalFile(KGObject):
             doc="reverse of 'groupedBy'",
         ),
     ]
-    existence_query_fields = ("name", "path")
+    existence_query_properties = ("name", "path")
 
     def __init__(
         self,

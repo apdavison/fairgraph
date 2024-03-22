@@ -5,7 +5,7 @@ A representation of an array of quantitative values, optionally with uncertainti
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class QuantitativeValueArray(KGObject):
@@ -22,36 +22,36 @@ class QuantitativeValueArray(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "negative_uncertainties",
             float,
             "vocab:negativeUncertainties",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "positive_uncertainties",
             float,
             "vocab:positiveUncertainties",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "type_of_uncertainty",
             "openminds.controlledterms.TypeOfUncertainty",
             "vocab:typeOfUncertainty",
             doc="Distinct technique used to quantify the uncertainty of a measurement.",
         ),
-        Field(
+        Property(
             "unit",
             "openminds.controlledterms.UnitOfMeasurement",
             "vocab:unit",
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Field("values", float, "vocab:values", multiple=True, required=True, doc="no description available"),
+        Property("values", float, "vocab:values", multiple=True, required=True, doc="no description available"),
     ]
-    existence_query_fields = ("values",)
+    existence_query_properties = ("values",)
 
     def __init__(
         self,

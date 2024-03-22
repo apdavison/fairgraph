@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,8 +25,8 @@ class ServiceLink(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "data_location",
             [
                 "openminds.core.File",
@@ -40,10 +40,10 @@ class ServiceLink(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("display_label", str, "vocab:displayLabel", doc="no description available"),
-        Field("open_data_in", IRI, "vocab:openDataIn", required=True, doc="no description available"),
-        Field("preview_image", "openminds.core.File", "vocab:previewImage", doc="no description available"),
-        Field(
+        Property("display_label", str, "vocab:displayLabel", doc="no description available"),
+        Property("open_data_in", IRI, "vocab:openDataIn", required=True, doc="no description available"),
+        Property("preview_image", "openminds.core.File", "vocab:previewImage", doc="no description available"),
+        Property(
             "service",
             "openminds.controlledterms.Service",
             "vocab:service",
@@ -51,7 +51,7 @@ class ServiceLink(KGObject):
             doc="no description available",
         ),
     ]
-    existence_query_fields = ("data_location", "open_data_in", "service")
+    existence_query_properties = ("data_location", "open_data_in", "service")
 
     def __init__(
         self,

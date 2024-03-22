@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SingleColor(KGObject):
@@ -22,10 +22,10 @@ class SingleColor(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("value", str, "vocab:value", required=True, doc="Entry for a property."),
+    properties = [
+        Property("value", str, "vocab:value", required=True, doc="Entry for a property."),
     ]
-    existence_query_fields = ("value",)
+    existence_query_properties = ("value",)
 
     def __init__(self, value=None, id=None, data=None, space=None, scope=None):
         return super().__init__(id=id, space=space, scope=scope, data=data, value=value)

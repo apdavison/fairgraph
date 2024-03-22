@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class CustomAnatomicalEntity(KGObject):
@@ -22,35 +22,35 @@ class CustomAnatomicalEntity(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity.",
         ),
-        Field(
+        Property(
             "has_annotations",
             "openminds.sands.CustomAnnotation",
             "vocab:hasAnnotation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "related_uberon_term",
             ["openminds.controlledterms.Organ", "openminds.controlledterms.UBERONParcellation"],
             "vocab:relatedUBERONTerm",
             doc="no description available",
         ),
-        Field(
+        Property(
             "relation_assessments",
             ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "is_location_of",
             [
                 "openminds.core.TissueSample",
@@ -64,7 +64,7 @@ class CustomAnatomicalEntity(KGObject):
             multiple=True,
             doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
         ),
-        Field(
+        Property(
             "is_target_of",
             "openminds.sands.AnatomicalTargetPosition",
             "^vocab:anatomicalTarget",
@@ -72,7 +72,7 @@ class CustomAnatomicalEntity(KGObject):
             multiple=True,
             doc="reverse of 'anatomicalTarget'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -80,7 +80,7 @@ class CustomAnatomicalEntity(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "studied_in",
             [
                 "openminds.computation.DataAnalysis",
@@ -108,7 +108,7 @@ class CustomAnatomicalEntity(KGObject):
             doc="reverse of 'studyTarget'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

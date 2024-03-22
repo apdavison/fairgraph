@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class PublicationIssue(KGObject):
@@ -22,16 +22,16 @@ class PublicationIssue(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "is_part_of",
             "openminds.publications.PublicationVolume",
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field("issue_number", str, "vocab:issueNumber", required=True, doc="no description available"),
-        Field(
+        Property("issue_number", str, "vocab:issueNumber", required=True, doc="no description available"),
+        Property(
             "has_parts",
             "openminds.publications.ScholarlyArticle",
             "^vocab:isPartOf",
@@ -40,7 +40,7 @@ class PublicationIssue(KGObject):
             doc="reverse of 'isPartOf'",
         ),
     ]
-    existence_query_fields = ("is_part_of", "issue_number")
+    existence_query_properties = ("is_part_of", "issue_number")
 
     def __init__(self, is_part_of=None, issue_number=None, has_parts=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

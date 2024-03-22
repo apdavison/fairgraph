@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class EphysStimulus(KGObject):
@@ -22,9 +22,9 @@ class EphysStimulus(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "delivered_by",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -35,14 +35,14 @@ class EphysStimulus(KGObject):
             "vocab:deliveredBy",
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the ephys stimulus.",
         ),
-        Field("epoch", "openminds.core.QuantitativeValue", "vocab:epoch", doc="no description available"),
-        Field(
+        Property("epoch", "openminds.core.QuantitativeValue", "vocab:epoch", doc="no description available"),
+        Property(
             "generated_by",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -53,14 +53,14 @@ class EphysStimulus(KGObject):
             "vocab:generatedBy",
             doc="no description available",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             required=True,
             doc="Term or code that identifies the ephys stimulus within a particular product.",
         ),
-        Field(
+        Property(
             "specifications",
             [
                 "openminds.core.Configuration",
@@ -72,13 +72,13 @@ class EphysStimulus(KGObject):
             multiple=True,
             doc="Detailed and precise presentation of, or proposal for something.",
         ),
-        Field(
+        Property(
             "type",
             "openminds.controlledterms.ElectricalStimulusType",
             "vocab:type",
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "is_stimulus_for",
             "openminds.stimulation.StimulationActivity",
             "^vocab:stimulus",
@@ -87,7 +87,7 @@ class EphysStimulus(KGObject):
             doc="reverse of 'stimulus'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

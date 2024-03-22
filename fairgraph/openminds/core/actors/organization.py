@@ -5,7 +5,7 @@ Structured information on an organization.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,32 +25,32 @@ class Organization(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the organization."),
-        Field("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the organization."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the organization."),
+        Property("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the organization."),
+        Property(
             "affiliations",
             "openminds.core.Affiliation",
             "vocab:affiliation",
             multiple=True,
             doc="Declaration of a person being closely associated to an organization.",
         ),
-        Field(
+        Property(
             "digital_identifiers",
             ["openminds.core.GRIDID", "openminds.core.RORID", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             multiple=True,
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "has_parents",
             "openminds.core.Organization",
             "vocab:hasParent",
             multiple=True,
             doc="Reference to a parent object or legal person.",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the organization."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the organization."),
+        Property(
             "coordinated_projects",
             "openminds.core.Project",
             "^vocab:coordinator",
@@ -58,7 +58,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'coordinator'",
         ),
-        Field(
+        Property(
             "developed",
             [
                 "openminds.computation.ValidationTest",
@@ -79,7 +79,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'developer'",
         ),
-        Field(
+        Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
@@ -87,7 +87,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'funder'",
         ),
-        Field(
+        Property(
             "has_children",
             "openminds.core.Organization",
             "^vocab:hasParent",
@@ -95,7 +95,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'hasParent'",
         ),
-        Field(
+        Property(
             "has_members",
             "openminds.core.Affiliation",
             "^vocab:memberOf",
@@ -103,7 +103,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'memberOf'",
         ),
-        Field(
+        Property(
             "hosts",
             ["openminds.core.FileRepository", "openminds.publications.LivePaperResourceItem"],
             "^vocab:hostedBy",
@@ -111,7 +111,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'hostedBy'",
         ),
-        Field(
+        Property(
             "is_custodian_of",
             [
                 "openminds.core.Dataset",
@@ -128,7 +128,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'custodian'",
         ),
-        Field(
+        Property(
             "is_owner_of",
             [
                 "openminds.ephys.Electrode",
@@ -141,7 +141,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'owner'",
         ),
-        Field(
+        Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
@@ -149,7 +149,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'provider'",
         ),
-        Field(
+        Property(
             "manufactured",
             "openminds.core.Setup",
             "^vocab:manufacturer",
@@ -157,7 +157,7 @@ class Organization(KGObject):
             multiple=True,
             doc="reverse of 'manufacturer'",
         ),
-        Field(
+        Property(
             "published",
             [
                 "openminds.publications.Book",
@@ -171,7 +171,7 @@ class Organization(KGObject):
             doc="reverse of 'publisher'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,22 +25,22 @@ class WebResource(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Field(
+    properties = [
+        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             required=True,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
+        Property(
             "describes",
             ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
             "^vocab:describedIn",
@@ -48,7 +48,7 @@ class WebResource(KGObject):
             multiple=True,
             doc="reverse of 'describedIn'",
         ),
-        Field(
+        Property(
             "fully_documents",
             [
                 "openminds.computation.WorkflowRecipeVersion",
@@ -64,7 +64,7 @@ class WebResource(KGObject):
             multiple=True,
             doc="reverse of 'fullDocumentation'",
         ),
-        Field(
+        Property(
             "is_applied_to",
             "openminds.core.DatasetVersion",
             "^vocab:license",
@@ -72,7 +72,7 @@ class WebResource(KGObject):
             multiple=True,
             doc="reverse of 'license'",
         ),
-        Field(
+        Property(
             "is_output_of",
             "openminds.core.ModelVersion",
             "^vocab:outputData",
@@ -80,7 +80,7 @@ class WebResource(KGObject):
             multiple=True,
             doc="reverse of 'outputData'",
         ),
-        Field(
+        Property(
             "is_reference_for",
             "openminds.computation.ValidationTestVersion",
             "^vocab:referenceData",
@@ -89,7 +89,7 @@ class WebResource(KGObject):
             doc="reverse of 'referenceData'",
         ),
     ]
-    existence_query_fields = ("iri",)
+    existence_query_properties = ("iri",)
 
     def __init__(
         self,

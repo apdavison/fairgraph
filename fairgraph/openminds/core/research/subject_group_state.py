@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SubjectGroupState(KGObject):
@@ -22,21 +22,21 @@ class SubjectGroupState(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "age",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:age",
             doc="Time of life or existence at which some particular qualification, capacity or event arises.",
         ),
-        Field(
+        Property(
             "age_categories",
             "openminds.controlledterms.AgeCategory",
             "vocab:ageCategory",
@@ -44,49 +44,49 @@ class SubjectGroupState(KGObject):
             required=True,
             doc="Distinct life cycle class that is defined by a similar age or age range (developmental stage) within a group of individual beings.",
         ),
-        Field(
+        Property(
             "attributes",
             "openminds.controlledterms.SubjectAttribute",
             "vocab:attribute",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "descended_from", "openminds.core.SubjectGroupState", "vocab:descendedFrom", doc="no description available"
         ),
-        Field(
+        Property(
             "handedness",
             "openminds.controlledterms.Handedness",
             "vocab:handedness",
             multiple=True,
             doc="Degree to which an organism prefers one hand or foot over the other hand or foot during the performance of a task.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the subject group state within a particular product.",
         ),
-        Field(
+        Property(
             "pathologies",
             ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
             "vocab:pathology",
             multiple=True,
             doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease.",
         ),
-        Field(
+        Property(
             "relative_time_indication",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:relativeTimeIndication",
             doc="no description available",
         ),
-        Field(
+        Property(
             "weight",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:weight",
             doc="Amount that a thing or being weighs.",
         ),
-        Field(
+        Property(
             "has_children",
             [
                 "openminds.core.SubjectGroupState",
@@ -98,7 +98,7 @@ class SubjectGroupState(KGObject):
             multiple=True,
             doc="reverse of 'descendedFrom'",
         ),
-        Field(
+        Property(
             "is_input_to",
             ["openminds.ephys.RecordingActivity", "openminds.specimenprep.TissueCulturePreparation"],
             "^vocab:input",
@@ -106,7 +106,7 @@ class SubjectGroupState(KGObject):
             multiple=True,
             doc="reverse of 'input'",
         ),
-        Field(
+        Property(
             "is_output_of",
             ["openminds.core.ProtocolExecution", "openminds.stimulation.StimulationActivity"],
             "^vocab:output",
@@ -114,7 +114,7 @@ class SubjectGroupState(KGObject):
             multiple=True,
             doc="reverse of 'output'",
         ),
-        Field(
+        Property(
             "is_state_of",
             "openminds.core.SubjectGroup",
             "^vocab:studiedState",
@@ -122,7 +122,7 @@ class SubjectGroupState(KGObject):
             multiple=True,
             doc="reverse of 'studiedState'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -131,7 +131,7 @@ class SubjectGroupState(KGObject):
             doc="reverse of 'groupedBy'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

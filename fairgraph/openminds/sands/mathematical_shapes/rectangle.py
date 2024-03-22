@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Rectangle(EmbeddedMetadata):
@@ -21,11 +21,11 @@ class Rectangle(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "length", "openminds.core.QuantitativeValue", "vocab:length", required=True, doc="no description available"
         ),
-        Field(
+        Property(
             "width", "openminds.core.QuantitativeValue", "vocab:width", required=True, doc="no description available"
         ),
     ]

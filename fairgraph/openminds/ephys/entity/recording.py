@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Recording(KGObject):
@@ -22,20 +22,20 @@ class Recording(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             doc="Word or phrase that constitutes the distinctive designation of the recording.",
         ),
-        Field(
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "channels",
             "openminds.ephys.Channel",
             "vocab:channel",
@@ -43,26 +43,26 @@ class Recording(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "data_location",
             ["openminds.core.File", "openminds.core.FileBundle"],
             "vocab:dataLocation",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the recording within a particular product.",
         ),
-        Field(
+        Property(
             "previous_recording",
             "openminds.ephys.Recording",
             "vocab:previousRecording",
             doc="no description available",
         ),
-        Field(
+        Property(
             "recorded_with",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -74,14 +74,14 @@ class Recording(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "sampling_frequency",
             "openminds.core.QuantitativeValue",
             "vocab:samplingFrequency",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "next_recording",
             "openminds.ephys.Recording",
             "^vocab:previousRecording",
@@ -90,7 +90,7 @@ class Recording(KGObject):
             doc="reverse of 'previousRecording'",
         ),
     ]
-    existence_query_fields = ("channels", "data_location", "recorded_with", "sampling_frequency")
+    existence_query_properties = ("channels", "data_location", "recorded_with", "sampling_frequency")
 
     def __init__(
         self,

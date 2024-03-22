@@ -5,7 +5,7 @@ Structured information on a temporary state of a tissue sample.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class TissueSampleState(KGObject):
@@ -22,28 +22,28 @@ class TissueSampleState(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "age",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:age",
             doc="Time of life or existence at which some particular qualification, capacity or event arises.",
         ),
-        Field(
+        Property(
             "attributes",
             "openminds.controlledterms.TissueSampleAttribute",
             "vocab:attribute",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "descended_from",
             [
                 "openminds.core.SubjectGroupState",
@@ -55,32 +55,32 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the tissue sample state within a particular product.",
         ),
-        Field(
+        Property(
             "pathologies",
             ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
             "vocab:pathology",
             multiple=True,
             doc="Structural and functional deviation from the normal that constitutes a disease or characterizes a particular disease.",
         ),
-        Field(
+        Property(
             "relative_time_indication",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:relativeTimeIndication",
             doc="no description available",
         ),
-        Field(
+        Property(
             "weight",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:weight",
             doc="Amount that a thing or being weighs.",
         ),
-        Field(
+        Property(
             "has_children",
             ["openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"],
             "^vocab:descendedFrom",
@@ -88,7 +88,7 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="reverse of 'descendedFrom'",
         ),
-        Field(
+        Property(
             "is_input_to",
             "openminds.ephys.RecordingActivity",
             "^vocab:input",
@@ -96,7 +96,7 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="reverse of 'input'",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.core.ProtocolExecution",
@@ -111,7 +111,7 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="reverse of 'output'",
         ),
-        Field(
+        Property(
             "is_state_of",
             "openminds.core.TissueSample",
             "^vocab:studiedState",
@@ -119,7 +119,7 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="reverse of 'studiedState'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -127,7 +127,7 @@ class TissueSampleState(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
@@ -141,7 +141,7 @@ class TissueSampleState(KGObject):
             doc="reverse of 'usedSpecimen'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

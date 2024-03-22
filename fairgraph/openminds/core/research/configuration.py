@@ -5,7 +5,7 @@ Structured information about the properties or parameters of an entity or proces
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Configuration(KGObject):
@@ -22,17 +22,17 @@ class Configuration(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field("configuration", str, "vocab:configuration", required=True, doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property("configuration", str, "vocab:configuration", required=True, doc="no description available"),
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "is_configuration_of",
             [
                 "openminds.computation.Environment",
@@ -44,7 +44,7 @@ class Configuration(KGObject):
             multiple=True,
             doc="reverse of 'configuration'",
         ),
-        Field(
+        Property(
             "specifies",
             "openminds.stimulation.EphysStimulus",
             "^vocab:specification",
@@ -53,7 +53,7 @@ class Configuration(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
-    existence_query_fields = ("configuration",)
+    existence_query_properties = ("configuration",)
 
     def __init__(
         self,

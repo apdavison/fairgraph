@@ -5,7 +5,7 @@ Structured information on a research project.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Protocol(KGObject):
@@ -22,28 +22,28 @@ class Protocol(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the protocol.",
         ),
-        Field(
+        Property(
             "described_in",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:describedIn",
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the protocol.",
         ),
-        Field(
+        Property(
             "stimulus_types",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -58,7 +58,7 @@ class Protocol(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "techniques",
             [
                 "openminds.controlledterms.AnalysisTechnique",
@@ -71,7 +71,7 @@ class Protocol(KGObject):
             required=True,
             doc="Method of accomplishing a desired aim.",
         ),
-        Field(
+        Property(
             "used_in",
             [
                 "openminds.core.DatasetVersion",
@@ -90,7 +90,7 @@ class Protocol(KGObject):
             doc="reverse of 'protocol'",
         ),
     ]
-    existence_query_fields = ("name",)
+    existence_query_properties = ("name",)
 
     def __init__(
         self,

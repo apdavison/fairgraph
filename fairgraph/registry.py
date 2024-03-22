@@ -5,7 +5,8 @@ based on names and type identifiers.
 """
 
 from __future__ import annotations
-from typing import TYPE_CHECKING, Union, List, Optional
+from typing import TYPE_CHECKING, Union, List
+from warnings import warn
 
 if TYPE_CHECKING:
     from .base import ContainsMetadata
@@ -65,7 +66,7 @@ Args
 class Registry(type):
     """Metaclass for registering Knowledge Graph classes."""
 
-    fields = []
+    properties = []
 
     def __new__(meta, name, bases, class_dict):
         cls = type.__new__(meta, name, bases, class_dict)
@@ -75,8 +76,8 @@ class Registry(type):
 
     def _get_doc(cls) -> str:
         """Dynamically generate docstrings"""
-        field_docs = []
-        if hasattr(cls, "fields"):
+        property_docs = []
+        if hasattr(cls, "properties"):
 
             def gen_path(type_):
                 if type_.__module__ == "builtins":
@@ -84,17 +85,53 @@ class Registry(type):
                 else:
                     return "~{}.{}".format(type_.__module__, type_.__name__)
 
-            for field in cls.fields:
-                doc = "{} : {}\n    {}".format(field.name, ", ".join(gen_path(t) for t in field.types), field.doc)
-                field_docs.append(doc)
-        return docstring_template.format(base=cls._base_docstring, args="\n".join(field_docs))
+            for prop in cls.properties:
+                doc = "{} : {}\n    {}".format(prop.name, ", ".join(gen_path(t) for t in prop.types), prop.doc)
+                property_docs.append(doc)
+        return docstring_template.format(base=cls._base_docstring, args="\n".join(property_docs))
 
     __doc__ = property(_get_doc)
 
     @property
-    def field_names(cls) -> List[str]:
-        return [f.name for f in cls.fields]
+    def property_names(cls) -> List[str]:
+        return [f.name for f in cls.properties]
 
     @property
-    def required_field_names(cls) -> List[str]:
-        return [f.name for f in cls.fields if f.required]
+    def required_property_names(cls) -> List[str]:
+        return [f.name for f in cls.properties if f.required]
+
+    @property
+    def fields(cls):
+        warn(
+            "Use of the 'fields' attribute is deprecated, it will be removed in a future release. "
+            "Use 'properties' instead",
+            DeprecationWarning,
+        )
+        return cls.properties
+
+    @property
+    def field_names(cls):
+        warn(
+            "Use of the 'field_names' attribute is deprecated, it will be removed in a future release. "
+            "Use 'property_names' instead",
+            DeprecationWarning,
+        )
+        return cls.property_names
+
+    @property
+    def required_field_names(cls):
+        warn(
+            "Use of the 'required_field_names' attribute is deprecated, it will be removed in a future release. "
+            "Use 'required_property_names' instead",
+            DeprecationWarning,
+        )
+        return cls.property_names
+
+    @property
+    def existence_query_fields(cls):
+        warn(
+            "Use of the 'existence_query_fields' attribute is deprecated, it will be removed in a future release. "
+            "Use 'existence_query_properties' instead",
+            DeprecationWarning,
+        )
+        return cls.existence_query_properties

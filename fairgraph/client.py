@@ -170,7 +170,7 @@ class KGClient(object):
 
         Args:
             query (Dict[str, Any]): A dictionary containing the query definition in JSON-LD.
-            filter (Dict[str, str]): A dictionary of filters to apply to the query. Each key represents the property name to filter on,
+            filter (Dict[str, str]): A dictionary of filters to apply to the query. Each key represents the prop name to filter on,
                 and the value represents the value(s) to filter on.
             instance_id (Optional[URI]): The URI of a specific KG instance to retrieve.
             from_index (int): The index of the first result to return (0-based).
@@ -330,7 +330,7 @@ class KGClient(object):
                 else:
                     data = response.data
                 # in some circumstances, the KG returns "minimal" metadata,
-                # e.g. with just the id and fullName fields
+                # e.g. with just the id and fullName properties
                 # this means the user does not have full access, so we count this as no data
                 if require_full_data and data and "http://schema.org/identifier" not in data:
                     data = None

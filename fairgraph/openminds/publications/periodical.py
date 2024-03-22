@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Periodical(KGObject):
@@ -22,21 +22,21 @@ class Periodical(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             doc="Word or phrase that constitutes the distinctive designation of the periodical.",
         ),
-        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Field(
+        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
+        Property(
             "digital_identifier",
             "openminds.core.ISSN",
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.publications.PublicationVolume",
             "^vocab:isPartOf",
@@ -45,7 +45,7 @@ class Periodical(KGObject):
             doc="reverse of 'isPartOf'",
         ),
     ]
-    existence_query_fields = ("abbreviation",)
+    existence_query_properties = ("abbreviation",)
 
     def __init__(
         self,

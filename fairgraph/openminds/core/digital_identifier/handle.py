@@ -5,7 +5,7 @@ A persistent identifier for an information resource provided by the Handle Syste
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class HANDLE(KGObject):
@@ -22,9 +22,11 @@ class HANDLE(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the HANDLE."),
-        Field(
+    properties = [
+        Property(
+            "identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the HANDLE."
+        ),
+        Property(
             "related_to",
             [
                 "openminds.computation.ValidationTestVersion",
@@ -44,7 +46,7 @@ class HANDLE(KGObject):
             doc="reverse of 'relatedPublication'",
         ),
     ]
-    existence_query_fields = ("identifier",)
+    existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, related_to=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

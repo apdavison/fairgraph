@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,23 +25,25 @@ class FileArchive(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "format",
             "openminds.core.ContentType",
             "vocab:format",
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             required=True,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field("source_data", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"),
-        Field(
+        Property(
+            "source_data", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"
+        ),
+        Property(
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
@@ -49,7 +51,7 @@ class FileArchive(KGObject):
             multiple=True,
             doc="reverse of 'dataLocation'",
         ),
-        Field(
+        Property(
             "is_output_of",
             [
                 "openminds.computation.DataAnalysis",
@@ -63,7 +65,7 @@ class FileArchive(KGObject):
             doc="reverse of 'output'",
         ),
     ]
-    existence_query_fields = ("iri", "format")
+    existence_query_properties = ("iri", "format")
 
     def __init__(
         self,

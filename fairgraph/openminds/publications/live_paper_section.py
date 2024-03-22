@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class LivePaperSection(KGObject):
@@ -22,36 +22,36 @@ class LivePaperSection(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the live paper section.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the live paper section.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.publications.LivePaperVersion",
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field("order", int, "vocab:order", required=True, doc="no description available"),
-        Field(
+        Property("order", int, "vocab:order", required=True, doc="no description available"),
+        Property(
             "type",
             str,
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.publications.LivePaperResourceItem",
             "^vocab:isPartOf",
@@ -60,7 +60,7 @@ class LivePaperSection(KGObject):
             doc="reverse of 'isPartOf'",
         ),
     ]
-    existence_query_fields = ("is_part_of", "name", "order", "type")
+    existence_query_properties = ("is_part_of", "name", "order", "type")
 
     def __init__(
         self,

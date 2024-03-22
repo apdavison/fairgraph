@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Strain(KGObject):
@@ -22,81 +22,81 @@ class Strain(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the strain.",
         ),
-        Field(
+        Property(
             "alternate_identifiers", str, "vocab:alternateIdentifier", multiple=True, doc="no description available"
         ),
-        Field(
+        Property(
             "background_strains",
             "openminds.core.Strain",
             "vocab:backgroundStrain",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "breeding_type",
             "openminds.controlledterms.BreedingType",
             "vocab:breedingType",
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the strain.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             "openminds.core.RRID",
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "disease_models",
             ["openminds.controlledterms.Disease", "openminds.controlledterms.DiseaseModel"],
             "vocab:diseaseModel",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "genetic_strain_type",
             "openminds.controlledterms.GeneticStrainType",
             "vocab:geneticStrainType",
             required=True,
             doc="no description available",
         ),
-        Field("laboratory_code", str, "vocab:laboratoryCode", doc="no description available"),
-        Field(
+        Property("laboratory_code", str, "vocab:laboratoryCode", doc="no description available"),
+        Property(
             "ontology_identifiers",
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
             doc="Term or code used to identify the strain registered within a particular ontology.",
         ),
-        Field("phenotype", str, "vocab:phenotype", doc="Physical expression of one or more genes of an organism."),
-        Field(
+        Property("phenotype", str, "vocab:phenotype", doc="Physical expression of one or more genes of an organism."),
+        Property(
             "species",
             "openminds.controlledterms.Species",
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
         ),
-        Field("stock_number", "openminds.core.StockNumber", "vocab:stockNumber", doc="no description available"),
-        Field(
+        Property("stock_number", "openminds.core.StockNumber", "vocab:stockNumber", doc="no description available"),
+        Property(
             "synonyms",
             str,
             "vocab:synonym",
             multiple=True,
             doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
         ),
-        Field(
+        Property(
             "is_background_strain_of",
             "openminds.core.Strain",
             "^vocab:backgroundStrain",
@@ -104,7 +104,7 @@ class Strain(KGObject):
             multiple=True,
             doc="reverse of 'backgroundStrain'",
         ),
-        Field(
+        Property(
             "is_species_of",
             [
                 "openminds.core.Subject",
@@ -118,7 +118,7 @@ class Strain(KGObject):
             doc="reverse of 'species'",
         ),
     ]
-    existence_query_fields = ("genetic_strain_type", "name", "species")
+    existence_query_properties = ("genetic_strain_type", "name", "species")
 
     def __init__(
         self,

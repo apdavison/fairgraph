@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from datetime import datetime, time
@@ -25,30 +25,30 @@ class TissueSampleSlicing(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
             "vocab:customPropertySet",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             doc="Longer statement or account giving the characteristics of the tissue sample slicing.",
         ),
-        Field(
+        Property(
             "device",
             "openminds.specimenprep.SlicingDeviceUsage",
             "vocab:device",
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
-        Field("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
-        Field(
+        Property("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
+        Property(
             "inputs",
             [
                 "openminds.core.SubjectState",
@@ -60,14 +60,14 @@ class TissueSampleSlicing(KGObject):
             required=True,
             doc="Something or someone that is put into or participates in a process or machine.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.DatasetVersion",
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "outputs",
             ["openminds.core.TissueSampleCollectionState", "openminds.core.TissueSampleState"],
             "vocab:output",
@@ -75,20 +75,20 @@ class TissueSampleSlicing(KGObject):
             required=True,
             doc="Something or someone that comes out of, is delivered or produced by a process or machine.",
         ),
-        Field(
+        Property(
             "performed_by",
             ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
             "vocab:performedBy",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "preparation_design",
             "openminds.controlledterms.PreparationType",
             "vocab:preparationDesign",
             doc="no description available",
         ),
-        Field(
+        Property(
             "protocols",
             "openminds.core.Protocol",
             "vocab:protocol",
@@ -96,8 +96,8 @@ class TissueSampleSlicing(KGObject):
             required=True,
             doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
         ),
-        Field("start_time", [datetime, time], "vocab:startTime", doc="no description available"),
-        Field(
+        Property("start_time", [datetime, time], "vocab:startTime", doc="no description available"),
+        Property(
             "study_targets",
             [
                 "openminds.controlledterms.AuditoryStimulusType",
@@ -133,20 +133,20 @@ class TissueSampleSlicing(KGObject):
             multiple=True,
             doc="Structure or function that was targeted within a study.",
         ),
-        Field(
+        Property(
             "temperature",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
             "vocab:temperature",
             doc="no description available",
         ),
-        Field(
+        Property(
             "tissue_bath_solution",
             "openminds.chemicals.ChemicalMixture",
             "vocab:tissueBathSolution",
             doc="no description available",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

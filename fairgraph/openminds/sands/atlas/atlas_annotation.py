@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class AtlasAnnotation(EmbeddedMetadata):
@@ -21,67 +21,67 @@ class AtlasAnnotation(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "anchor_points",
             "openminds.core.QuantitativeValue",
             "vocab:anchorPoint",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "criteria",
             "openminds.core.ProtocolExecution",
             "vocab:criteria",
             doc="Aspects or standards on which a judgement or decision is based.",
         ),
-        Field(
+        Property(
             "criteria_quality_type",
             "openminds.controlledterms.CriteriaQualityType",
             "vocab:criteriaQualityType",
             required=True,
             doc="Distinct class that defines how the judgement or decision was made for a particular criteria.",
         ),
-        Field(
+        Property(
             "criteria_type",
             "openminds.controlledterms.AnnotationCriteriaType",
             "vocab:criteriaType",
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "inspired_by",
             "openminds.core.File",
             "vocab:inspiredBy",
             multiple=True,
             doc="Reference to an inspiring element.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the atlas annotation within a particular product.",
         ),
-        Field(
+        Property(
             "lateralities",
             "openminds.controlledterms.Laterality",
             "vocab:laterality",
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
         ),
-        Field(
+        Property(
             "preferred_visualization",
             "openminds.sands.ViewerSpecification",
             "vocab:preferredVisualization",
             doc="no description available",
         ),
-        Field(
+        Property(
             "specification",
             "openminds.core.File",
             "vocab:specification",
             doc="Detailed and precise presentation of, or proposal for something.",
         ),
-        Field(
+        Property(
             "type",
             "openminds.controlledterms.AnnotationType",
             "vocab:type",

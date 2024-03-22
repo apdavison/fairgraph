@@ -5,7 +5,7 @@ A persistent identifier for a research organization, provided by the Research Or
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class RORID(KGObject):
@@ -22,9 +22,9 @@ class RORID(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the RORID."),
-        Field(
+    properties = [
+        Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the RORID."),
+        Property(
             "identifies",
             "openminds.core.Organization",
             "^vocab:digitalIdentifier",
@@ -33,7 +33,7 @@ class RORID(KGObject):
             doc="reverse of 'digitalIdentifier'",
         ),
     ]
-    existence_query_fields = ("identifier",)
+    existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, identifies=None, id=None, data=None, space=None, scope=None):
         return super().__init__(

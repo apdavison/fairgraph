@@ -5,7 +5,7 @@ Structured information on a brain atlas (concept level).
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,17 +25,17 @@ class BrainAtlas(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the brain atlas."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the brain atlas."),
+        Property(
             "alias",
             str,
             "vocab:shortName",
             required=True,
             doc="Shortened or fully abbreviated name of the brain atlas.",
         ),
-        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Field(
+        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
+        Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:author",
@@ -43,50 +43,50 @@ class BrainAtlas(KGObject):
             required=True,
             doc="Creator of a literary or creative work, as well as a dataset publication.",
         ),
-        Field(
+        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
             multiple=True,
             doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the brain atlas.",
         ),
-        Field(
+        Property(
             "digital_identifier",
             ["openminds.core.DOI", "openminds.core.ISBN", "openminds.core.RRID"],
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
-        Field(
+        Property(
             "has_terminology",
             "openminds.sands.ParcellationTerminology",
             "vocab:hasTerminology",
             required=True,
             doc="no description available",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the brain atlas."),
-        Field(
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the brain atlas."),
+        Property(
             "how_to_cite",
             str,
             "vocab:howToCite",
             doc="Preferred format for citing a particular object or legal person.",
         ),
-        Field(
+        Property(
             "ontology_identifier",
             IRI,
             "vocab:ontologyIdentifier",
             doc="Term or code used to identify the brain atlas registered within a particular ontology.",
         ),
-        Field(
+        Property(
             "used_species", "openminds.controlledterms.Species", "vocab:usedSpecies", doc="no description available"
         ),
-        Field(
+        Property(
             "versions",
             "openminds.sands.BrainAtlasVersion",
             "vocab:hasVersion",
@@ -94,7 +94,7 @@ class BrainAtlas(KGObject):
             required=True,
             doc="Reference to variants of an original.",
         ),
-        Field(
+        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -102,7 +102,7 @@ class BrainAtlas(KGObject):
             multiple=True,
             doc="reverse of 'about'",
         ),
-        Field(
+        Property(
             "is_input_to",
             "openminds.core.DatasetVersion",
             "^vocab:inputData",
@@ -110,7 +110,7 @@ class BrainAtlas(KGObject):
             multiple=True,
             doc="reverse of 'inputData'",
         ),
-        Field(
+        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -118,7 +118,7 @@ class BrainAtlas(KGObject):
             multiple=True,
             doc="reverse of 'hasPart'",
         ),
-        Field(
+        Property(
             "learning_resources",
             "openminds.publications.LearningResource",
             "^vocab:about",
@@ -127,7 +127,7 @@ class BrainAtlas(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_fields = ("digital_identifier",)
+    existence_query_properties = ("digital_identifier",)
 
     def __init__(
         self,

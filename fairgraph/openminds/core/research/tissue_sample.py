@@ -5,7 +5,7 @@ Structured information on a tissue sample.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class TissueSample(KGObject):
@@ -22,9 +22,9 @@ class TissueSample(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "anatomical_locations",
             [
                 "openminds.controlledterms.CellType",
@@ -40,33 +40,33 @@ class TissueSample(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "biological_sex",
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the tissue sample within a particular product.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.core.TissueSampleCollection",
             "vocab:isPartOf",
             multiple=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "lateralities",
             "openminds.controlledterms.Laterality",
             "vocab:laterality",
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
         ),
-        Field(
+        Property(
             "origin",
             [
                 "openminds.controlledterms.CellType",
@@ -77,14 +77,14 @@ class TissueSample(KGObject):
             required=True,
             doc="Source at which something begins or rises, or from which something derives.",
         ),
-        Field(
+        Property(
             "species",
             ["openminds.controlledterms.Species", "openminds.core.Strain"],
             "vocab:species",
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
         ),
-        Field(
+        Property(
             "studied_states",
             "openminds.core.TissueSampleState",
             "vocab:studiedState",
@@ -92,14 +92,14 @@ class TissueSample(KGObject):
             required=True,
             doc="Reference to a point in time at which the tissue sample was studied in a particular mode or condition.",
         ),
-        Field(
+        Property(
             "type",
             "openminds.controlledterms.TissueSampleType",
             "vocab:type",
             required=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
-        Field(
+        Property(
             "has_study_results_in",
             "openminds.core.DatasetVersion",
             "^vocab:studiedSpecimen",
@@ -107,7 +107,7 @@ class TissueSample(KGObject):
             multiple=True,
             doc="reverse of 'studiedSpecimen'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -115,7 +115,7 @@ class TissueSample(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
             "^vocab:usedSpecimen",
@@ -124,7 +124,7 @@ class TissueSample(KGObject):
             doc="reverse of 'usedSpecimen'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

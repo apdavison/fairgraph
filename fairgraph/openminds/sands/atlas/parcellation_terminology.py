@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ParcellationTerminology(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class ParcellationTerminology(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "data_locations",
             "openminds.core.File",
             "vocab:dataLocation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "has_entities",
             "openminds.sands.ParcellationEntity",
             "vocab:hasEntity",
@@ -37,7 +37,7 @@ class ParcellationTerminology(EmbeddedMetadata):
             required=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "ontology_identifiers",
             str,
             "vocab:ontologyIdentifier",

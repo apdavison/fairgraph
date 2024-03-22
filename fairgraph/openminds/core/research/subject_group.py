@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class SubjectGroup(KGObject):
@@ -22,29 +22,29 @@ class SubjectGroup(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field(
+    properties = [
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field(
+        Property(
             "biological_sexes",
             "openminds.controlledterms.BiologicalSex",
             "vocab:biologicalSex",
             multiple=True,
             doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
         ),
-        Field(
+        Property(
             "internal_identifier",
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the subject group within a particular product.",
         ),
-        Field("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
-        Field(
+        Property("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
+        Property(
             "species",
             ["openminds.controlledterms.Species", "openminds.core.Strain"],
             "vocab:species",
@@ -52,7 +52,7 @@ class SubjectGroup(KGObject):
             required=True,
             doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
         ),
-        Field(
+        Property(
             "studied_states",
             "openminds.core.SubjectGroupState",
             "vocab:studiedState",
@@ -60,7 +60,7 @@ class SubjectGroup(KGObject):
             required=True,
             doc="Reference to a point in time at which the subject group was studied in a particular mode or condition.",
         ),
-        Field(
+        Property(
             "has_parts",
             "openminds.core.Subject",
             "^vocab:isPartOf",
@@ -68,7 +68,7 @@ class SubjectGroup(KGObject):
             multiple=True,
             doc="reverse of 'isPartOf'",
         ),
-        Field(
+        Property(
             "has_study_results_in",
             "openminds.core.DatasetVersion",
             "^vocab:studiedSpecimen",
@@ -76,7 +76,7 @@ class SubjectGroup(KGObject):
             multiple=True,
             doc="reverse of 'studiedSpecimen'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -84,7 +84,7 @@ class SubjectGroup(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "used_in",
             ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
             "^vocab:usedSpecimen",
@@ -93,7 +93,7 @@ class SubjectGroup(KGObject):
             doc="reverse of 'usedSpecimen'",
         ),
     ]
-    existence_query_fields = ("lookup_label",)
+    existence_query_properties = ("lookup_label",)
 
     def __init__(
         self,

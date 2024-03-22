@@ -5,7 +5,7 @@ Structured information on a research project.
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,26 +25,26 @@ class Project(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the project."),
-        Field(
+    properties = [
+        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the project."),
+        Property(
             "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the project."
         ),
-        Field(
+        Property(
             "coordinators",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:coordinator",
             multiple=True,
             doc="Legal person who organizes the collaborative work of people or groups.",
         ),
-        Field(
+        Property(
             "description",
             str,
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the project.",
         ),
-        Field(
+        Property(
             "has_parts",
             [
                 "openminds.computation.ValidationTest",
@@ -73,9 +73,9 @@ class Project(KGObject):
             required=True,
             doc="no description available",
         ),
-        Field("homepage", IRI, "vocab:homepage", doc="Main website of the project."),
+        Property("homepage", IRI, "vocab:homepage", doc="Main website of the project."),
     ]
-    existence_query_fields = ("alias",)
+    existence_query_properties = ("alias",)
 
     def __init__(
         self,

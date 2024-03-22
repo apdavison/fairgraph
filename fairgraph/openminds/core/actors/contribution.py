@@ -5,7 +5,7 @@ Structured information on the contribution made to a research product.
 # this file was auto-generated
 
 from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class Contribution(EmbeddedMetadata):
@@ -21,15 +21,15 @@ class Contribution(EmbeddedMetadata):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "contributor",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:contributor",
             required=True,
             doc="Legal person that gave or supplied something as a part or share.",
         ),
-        Field(
+        Property(
             "types",
             "openminds.controlledterms.ContributionType",
             "vocab:type",

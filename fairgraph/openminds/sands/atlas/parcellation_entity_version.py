@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 class ParcellationEntityVersion(KGObject):
@@ -22,66 +22,66 @@ class ParcellationEntityVersion(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version.",
         ),
-        Field("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Field("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Field(
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
+        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
             doc="Mention of what deserves additional attention or notice.",
         ),
-        Field("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
-        Field("corrected_name", str, "vocab:correctedName", doc="no description available"),
-        Field(
+        Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
+        Property("corrected_name", str, "vocab:correctedName", doc="no description available"),
+        Property(
             "has_annotations",
             "openminds.sands.AtlasAnnotation",
             "vocab:hasAnnotation",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "has_parents",
             ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"],
             "vocab:hasParent",
             multiple=True,
             doc="Reference to a parent object or legal person.",
         ),
-        Field(
+        Property(
             "ontology_identifiers",
             str,
             "vocab:ontologyIdentifier",
             multiple=True,
             doc="Term or code used to identify the parcellation entity version registered within a particular ontology.",
         ),
-        Field(
+        Property(
             "relation_assessments",
             ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
             "vocab:relationAssessment",
             multiple=True,
             doc="no description available",
         ),
-        Field(
+        Property(
             "version_identifier",
             str,
             "vocab:versionIdentifier",
             required=True,
             doc="Term or code used to identify the version of something.",
         ),
-        Field(
+        Property(
             "version_innovation",
             str,
             "vocab:versionInnovation",
             doc="Documentation on what changed in comparison to a previously published form of something.",
         ),
-        Field(
+        Property(
             "has_children",
             "openminds.sands.ParcellationEntityVersion",
             "^vocab:hasParent",
@@ -89,7 +89,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasParent'",
         ),
-        Field(
+        Property(
             "is_location_of",
             [
                 "openminds.core.ServiceLink",
@@ -104,7 +104,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes, dataLocation",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.sands.ParcellationTerminologyVersion",
             "^vocab:hasEntity",
@@ -112,7 +112,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasEntity'",
         ),
-        Field(
+        Property(
             "is_target_of",
             "openminds.sands.AnatomicalTargetPosition",
             "^vocab:anatomicalTarget",
@@ -120,7 +120,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of 'anatomicalTarget'",
         ),
-        Field(
+        Property(
             "is_used_to_group",
             "openminds.core.FileBundle",
             "^vocab:groupedBy",
@@ -128,7 +128,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of 'groupedBy'",
         ),
-        Field(
+        Property(
             "is_version_of",
             "openminds.sands.ParcellationEntity",
             "^vocab:hasVersion",
@@ -136,7 +136,7 @@ class ParcellationEntityVersion(KGObject):
             multiple=True,
             doc="reverse of 'hasVersion'",
         ),
-        Field(
+        Property(
             "studied_in",
             [
                 "openminds.computation.DataAnalysis",
@@ -164,7 +164,7 @@ class ParcellationEntityVersion(KGObject):
             doc="reverse of 'studyTarget'",
         ),
     ]
-    existence_query_fields = ("name", "version_identifier")
+    existence_query_properties = ("name", "version_identifier")
 
     def __init__(
         self,

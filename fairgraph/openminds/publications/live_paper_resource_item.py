@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from fairgraph import KGObject, IRI
-from fairgraph.fields import Field
+from fairgraph.properties import Property
 
 
 from fairgraph.base import IRI
@@ -25,36 +25,36 @@ class LivePaperResourceItem(KGObject):
         "terms": "https://openminds.ebrains.eu/controlledTerms/",
         "core": "https://openminds.ebrains.eu/core/",
     }
-    fields = [
-        Field(
+    properties = [
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the live paper resource item.",
         ),
-        Field(
+        Property(
             "hosted_by",
             ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlledterms.Service"],
             "vocab:hostedBy",
             required=True,
             doc="Reference to an organization that provides facilities and services for something.",
         ),
-        Field(
+        Property(
             "iri",
             IRI,
             "vocab:IRI",
             required=True,
             doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
         ),
-        Field(
+        Property(
             "is_part_of",
             "openminds.publications.LivePaperSection",
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
-        Field(
+        Property(
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
@@ -63,7 +63,7 @@ class LivePaperResourceItem(KGObject):
             doc="reverse of 'dataLocation'",
         ),
     ]
-    existence_query_fields = ("name", "iri", "is_also_part_of")
+    existence_query_properties = ("name", "iri", "is_also_part_of")
 
     def __init__(
         self,
