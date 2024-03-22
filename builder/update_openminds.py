@@ -889,6 +889,19 @@ def main(openminds_root, ignore=[]):
             fp.write(content)
             fp.write(om_module_functions)
 
+    with open("../fairgraph/openminds/controlledterms.py", "w") as fp:
+        fp.writelines([
+            "from warnings import warn\n"
+            "from .controlled_terms import *\n"
+            "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
+        ])
+    with open("../fairgraph/openminds/specimenprep.py", "w") as fp:
+        fp.writelines([
+            "from warnings import warn\n"
+            "from .specimen_prep import *\n"
+            "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
+        ])
+
     init_file_path = os.path.join("..", "fairgraph", "openminds", "__init__.py")
     with open(init_file_path, "w") as fp:
         fp.write(f"from . import ({', '.join(sorted(openminds_modules))})\n")
