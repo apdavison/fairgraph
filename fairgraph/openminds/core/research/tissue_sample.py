@@ -23,7 +23,6 @@ class TissueSample(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "anatomical_locations",
             [
@@ -66,6 +65,7 @@ class TissueSample(KGObject):
             multiple=True,
             doc="Differentiation between a pair of lateral homologous parts of the body.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "origin",
             [
@@ -131,15 +131,15 @@ class TissueSample(KGObject):
         lookup_label=None,
         anatomical_locations=None,
         biological_sex=None,
+        has_study_results_in=None,
         internal_identifier=None,
         is_part_of=None,
+        is_used_to_group=None,
         lateralities=None,
         origin=None,
         species=None,
         studied_states=None,
         type=None,
-        has_study_results_in=None,
-        is_used_to_group=None,
         used_in=None,
         id=None,
         data=None,
@@ -154,14 +154,14 @@ class TissueSample(KGObject):
             lookup_label=lookup_label,
             anatomical_locations=anatomical_locations,
             biological_sex=biological_sex,
+            has_study_results_in=has_study_results_in,
             internal_identifier=internal_identifier,
             is_part_of=is_part_of,
+            is_used_to_group=is_used_to_group,
             lateralities=lateralities,
             origin=origin,
             species=species,
             studied_states=studied_states,
             type=type,
-            has_study_results_in=has_study_results_in,
-            is_used_to_group=is_used_to_group,
             used_in=used_in,
         )

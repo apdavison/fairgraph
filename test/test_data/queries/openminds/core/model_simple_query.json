@@ -39,15 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/abstractionLevel",
       "propertyName": "vocab:abstractionLevel",
       "structure": [
@@ -102,6 +93,24 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/hasVersion",
+      "propertyName": "vocab:hasVersion",
+      "ensureOrder": true,
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
       "propertyName": "vocab:homepage"
     },
@@ -122,21 +131,12 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/studyTarget",
-      "propertyName": "vocab:studyTarget",
-      "ensureOrder": true,
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ]
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/hasVersion",
-      "propertyName": "vocab:hasVersion",
+      "path": "https://openminds.ebrains.eu/vocab/studyTarget",
+      "propertyName": "vocab:studyTarget",
       "ensureOrder": true,
       "structure": [
         {

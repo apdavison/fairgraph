@@ -24,14 +24,14 @@ class SoftwareAgent(KGObject):
     }
     properties = [
         Property(
+            "environment", "openminds.computation.Environment", "vocab:environment", doc="no description available"
+        ),
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the software agent.",
-        ),
-        Property(
-            "environment", "openminds.computation.Environment", "vocab:environment", doc="no description available"
         ),
         Property(
             "software",
@@ -80,9 +80,9 @@ class SoftwareAgent(KGObject):
     def __init__(
         self,
         name=None,
+        activities=None,
         environment=None,
         software=None,
-        activities=None,
         started=None,
         id=None,
         data=None,
@@ -95,8 +95,8 @@ class SoftwareAgent(KGObject):
             scope=scope,
             data=data,
             name=name,
+            activities=activities,
             environment=environment,
             software=software,
-            activities=activities,
             started=started,
         )

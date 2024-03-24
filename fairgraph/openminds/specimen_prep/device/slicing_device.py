@@ -24,14 +24,6 @@ class SlicingDevice(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the slicing device.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
             "description",
             str,
             "vocab:description",
@@ -50,12 +42,20 @@ class SlicingDevice(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the slicing device.",
         ),
         Property(
             "owners",
@@ -91,10 +91,10 @@ class SlicingDevice(KGObject):
         description=None,
         device_type=None,
         digital_identifier=None,
+        is_part_of=None,
         manufacturers=None,
         owners=None,
         serial_number=None,
-        is_part_of=None,
         usage=None,
         id=None,
         data=None,
@@ -111,9 +111,9 @@ class SlicingDevice(KGObject):
             description=description,
             device_type=device_type,
             digital_identifier=digital_identifier,
+            is_part_of=is_part_of,
             manufacturers=manufacturers,
             owners=owners,
             serial_number=serial_number,
-            is_part_of=is_part_of,
             usage=usage,
         )

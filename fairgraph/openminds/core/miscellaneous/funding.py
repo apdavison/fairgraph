@@ -79,8 +79,8 @@ class Funding(KGObject):
         acknowledgement=None,
         award_number=None,
         award_title=None,
-        funder=None,
         funded=None,
+        funder=None,
         id=None,
         data=None,
         space=None,
@@ -94,6 +94,6 @@ class Funding(KGObject):
             acknowledgement=acknowledgement,
             award_number=award_number,
             award_title=award_title,
-            funder=funder,
             funded=funded,
+            funder=funder,
         )

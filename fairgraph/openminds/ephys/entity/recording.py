@@ -24,12 +24,6 @@ class Recording(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the recording.",
-        ),
-        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
@@ -55,6 +49,12 @@ class Recording(KGObject):
             str,
             "vocab:internalIdentifier",
             doc="Term or code that identifies the recording within a particular product.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            doc="Word or phrase that constitutes the distinctive designation of the recording.",
         ),
         Property(
             "previous_recording",
@@ -99,10 +99,10 @@ class Recording(KGObject):
         channels=None,
         data_location=None,
         internal_identifier=None,
+        next_recording=None,
         previous_recording=None,
         recorded_with=None,
         sampling_frequency=None,
-        next_recording=None,
         id=None,
         data=None,
         space=None,
@@ -118,8 +118,8 @@ class Recording(KGObject):
             channels=channels,
             data_location=data_location,
             internal_identifier=internal_identifier,
+            next_recording=next_recording,
             previous_recording=previous_recording,
             recorded_with=recorded_with,
             sampling_frequency=sampling_frequency,
-            next_recording=next_recording,
         )

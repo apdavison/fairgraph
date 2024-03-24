@@ -26,7 +26,6 @@ class CellPatching(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "bath_temperature",
             ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
@@ -75,6 +74,7 @@ class CellPatching(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "outputs",
             ["openminds.core.TissueSampleState", "openminds.core.SubjectState"],

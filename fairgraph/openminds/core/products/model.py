@@ -26,10 +26,6 @@ class Model(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the model."),
-        Property(
-            "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the model."
-        ),
         Property(
             "abstraction_level",
             "openminds.controlled_terms.ModelAbstractionLevel",
@@ -65,6 +61,15 @@ class Model(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the model."),
+        Property(
+            "has_versions",
+            "openminds.core.ModelVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            required=True,
+            doc="Reference to variants of an original.",
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the model."),
         Property(
             "how_to_cite",
@@ -78,6 +83,13 @@ class Model(KGObject):
             "vocab:scope",
             required=True,
             doc="Extent of something.",
+        ),
+        Property(
+            "short_name",
+            str,
+            "vocab:shortName",
+            required=True,
+            doc="Shortened or fully abbreviated name of the model.",
         ),
         Property(
             "study_targets",
@@ -117,14 +129,6 @@ class Model(KGObject):
             doc="Structure or function that was targeted within a study.",
         ),
         Property(
-            "versions",
-            "openminds.core.ModelVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            required=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -149,25 +153,29 @@ class Model(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_properties = ("name",)
+    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    existence_query_properties = ("full_name",)
 
     def __init__(
         self,
         name=None,
         alias=None,
         abstraction_level=None,
+        comments=None,
         custodians=None,
         description=None,
         developers=None,
         digital_identifier=None,
+        full_name=None,
+        has_versions=None,
         homepage=None,
         how_to_cite=None,
-        model_scope=None,
-        study_targets=None,
-        versions=None,
-        comments=None,
         is_part_of=None,
         learning_resources=None,
+        model_scope=None,
+        short_name=None,
+        study_targets=None,
+        versions=None,
         id=None,
         data=None,
         space=None,
@@ -181,16 +189,19 @@ class Model(KGObject):
             name=name,
             alias=alias,
             abstraction_level=abstraction_level,
+            comments=comments,
             custodians=custodians,
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
+            full_name=full_name,
+            has_versions=has_versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
-            model_scope=model_scope,
-            study_targets=study_targets,
-            versions=versions,
-            comments=comments,
             is_part_of=is_part_of,
             learning_resources=learning_resources,
+            model_scope=model_scope,
+            short_name=short_name,
+            study_targets=study_targets,
+            versions=versions,
         )

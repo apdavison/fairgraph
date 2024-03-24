@@ -23,7 +23,6 @@ class Subject(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "biological_sex",
             "openminds.controlled_terms.BiologicalSex",
@@ -43,6 +42,7 @@ class Subject(KGObject):
             multiple=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "species",
             ["openminds.controlled_terms.Species", "openminds.core.Strain"],
@@ -89,12 +89,12 @@ class Subject(KGObject):
         self,
         lookup_label=None,
         biological_sex=None,
+        has_study_results_in=None,
         internal_identifier=None,
         is_part_of=None,
+        is_used_to_group=None,
         species=None,
         studied_states=None,
-        has_study_results_in=None,
-        is_used_to_group=None,
         used_in=None,
         id=None,
         data=None,
@@ -108,11 +108,11 @@ class Subject(KGObject):
             data=data,
             lookup_label=lookup_label,
             biological_sex=biological_sex,
+            has_study_results_in=has_study_results_in,
             internal_identifier=internal_identifier,
             is_part_of=is_part_of,
+            is_used_to_group=is_used_to_group,
             species=species,
             studied_states=studied_states,
-            has_study_results_in=has_study_results_in,
-            is_used_to_group=is_used_to_group,
             used_in=used_in,
         )

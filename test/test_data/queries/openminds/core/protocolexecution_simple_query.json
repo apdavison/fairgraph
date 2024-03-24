@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
       "propertyName": "vocab:behavioralProtocol",
       "ensureOrder": true,
@@ -126,6 +121,11 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/output",

@@ -23,7 +23,6 @@ class Configuration(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property("configuration", str, "vocab:configuration", required=True, doc="no description available"),
         Property(
             "format",
@@ -32,6 +31,7 @@ class Configuration(KGObject):
             required=True,
             doc="Method of digitally organizing and structuring data or information.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "is_configuration_of",
             [

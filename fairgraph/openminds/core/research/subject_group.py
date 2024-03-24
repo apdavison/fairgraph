@@ -23,7 +23,6 @@ class SubjectGroup(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "additional_remarks",
             str,
@@ -43,6 +42,7 @@ class SubjectGroup(KGObject):
             "vocab:internalIdentifier",
             doc="Term or code that identifies the subject group within a particular product.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
         Property(
             "species",
@@ -100,13 +100,13 @@ class SubjectGroup(KGObject):
         lookup_label=None,
         additional_remarks=None,
         biological_sexes=None,
+        has_parts=None,
+        has_study_results_in=None,
         internal_identifier=None,
+        is_used_to_group=None,
         number_of_subjects=None,
         species=None,
         studied_states=None,
-        has_parts=None,
-        has_study_results_in=None,
-        is_used_to_group=None,
         used_in=None,
         id=None,
         data=None,
@@ -121,12 +121,12 @@ class SubjectGroup(KGObject):
             lookup_label=lookup_label,
             additional_remarks=additional_remarks,
             biological_sexes=biological_sexes,
+            has_parts=has_parts,
+            has_study_results_in=has_study_results_in,
             internal_identifier=internal_identifier,
+            is_used_to_group=is_used_to_group,
             number_of_subjects=number_of_subjects,
             species=species,
             studied_states=studied_states,
-            has_parts=has_parts,
-            has_study_results_in=has_study_results_in,
-            is_used_to_group=is_used_to_group,
             used_in=used_in,
         )

@@ -23,7 +23,6 @@ class FileRepositoryStructure(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "file_path_patterns",
             "openminds.core.FilePathPattern",
@@ -32,6 +31,7 @@ class FileRepositoryStructure(KGObject):
             required=True,
             doc="no description available",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "structures",
             "openminds.core.FileRepository",

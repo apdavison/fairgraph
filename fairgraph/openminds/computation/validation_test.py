@@ -27,16 +27,6 @@ class ValidationTest(KGObject):
     }
     properties = [
         Property(
-            "name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the validation test."
-        ),
-        Property(
-            "alias",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the validation test.",
-        ),
-        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
@@ -64,6 +54,21 @@ class ValidationTest(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property(
+            "full_name",
+            str,
+            "vocab:fullName",
+            required=True,
+            doc="Whole, non-abbreviated name of the validation test.",
+        ),
+        Property(
+            "has_versions",
+            "openminds.computation.ValidationTestVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            required=True,
+            doc="Reference to variants of an original.",
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the validation test."),
         Property(
             "how_to_cite",
@@ -84,6 +89,13 @@ class ValidationTest(KGObject):
             "openminds.controlled_terms.DifferenceMeasure",
             "vocab:scoreType",
             doc="no description available",
+        ),
+        Property(
+            "short_name",
+            str,
+            "vocab:shortName",
+            required=True,
+            doc="Shortened or fully abbreviated name of the validation test.",
         ),
         Property(
             "study_targets",
@@ -122,14 +134,6 @@ class ValidationTest(KGObject):
             doc="Structure or function that was targeted within a study.",
         ),
         Property(
-            "versions",
-            "openminds.computation.ValidationTestVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            required=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:about",
@@ -154,26 +158,30 @@ class ValidationTest(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_properties = ("name", "alias")
+    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    existence_query_properties = ("full_name", "short_name")
 
     def __init__(
         self,
         name=None,
         alias=None,
+        comments=None,
         custodians=None,
         description=None,
         developers=None,
         digital_identifier=None,
+        full_name=None,
+        has_versions=None,
         homepage=None,
         how_to_cite=None,
+        is_part_of=None,
+        learning_resources=None,
         model_scope=None,
         reference_data_acquisitions=None,
         score_type=None,
+        short_name=None,
         study_targets=None,
         versions=None,
-        comments=None,
-        is_part_of=None,
-        learning_resources=None,
         id=None,
         data=None,
         space=None,
@@ -186,18 +194,21 @@ class ValidationTest(KGObject):
             data=data,
             name=name,
             alias=alias,
+            comments=comments,
             custodians=custodians,
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
+            full_name=full_name,
+            has_versions=has_versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
+            is_part_of=is_part_of,
+            learning_resources=learning_resources,
             model_scope=model_scope,
             reference_data_acquisitions=reference_data_acquisitions,
             score_type=score_type,
+            short_name=short_name,
             study_targets=study_targets,
             versions=versions,
-            comments=comments,
-            is_part_of=is_part_of,
-            learning_resources=learning_resources,
         )

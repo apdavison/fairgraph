@@ -27,13 +27,6 @@ class Laterality(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the laterality.",
-        ),
-        Property(
             "definition",
             str,
             "vocab:definition",
@@ -56,6 +49,13 @@ class Laterality(KGObject):
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the laterality.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -113,13 +113,13 @@ class Laterality(KGObject):
         self,
         name=None,
         definition=None,
+        describes=None,
         description=None,
         interlex_identifier=None,
+        is_laterality_of=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
-        is_laterality_of=None,
         id=None,
         data=None,
         space=None,
@@ -132,11 +132,11 @@ class Laterality(KGObject):
             data=data,
             name=name,
             definition=definition,
+            describes=describes,
             description=description,
             interlex_identifier=interlex_identifier,
+            is_laterality_of=is_laterality_of,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
-            is_laterality_of=is_laterality_of,
         )

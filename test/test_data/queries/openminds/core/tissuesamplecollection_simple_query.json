@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
       "propertyName": "vocab:additionalRemarks"
     },
@@ -89,6 +84,11 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/numberOfTissueSamples",

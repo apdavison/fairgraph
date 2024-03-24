@@ -26,7 +26,6 @@ class ProtocolExecution(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "behavioral_protocols",
             "openminds.core.BehavioralProtocol",
@@ -72,6 +71,7 @@ class ProtocolExecution(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "outputs",
             [
@@ -159,6 +159,7 @@ class ProtocolExecution(KGObject):
     def __init__(
         self,
         lookup_label=None,
+        based_on_protocol_execution=None,
         behavioral_protocols=None,
         custom_property_sets=None,
         description=None,
@@ -171,7 +172,6 @@ class ProtocolExecution(KGObject):
         protocols=None,
         start_time=None,
         study_targets=None,
-        based_on_protocol_execution=None,
         id=None,
         data=None,
         space=None,
@@ -183,6 +183,7 @@ class ProtocolExecution(KGObject):
             scope=scope,
             data=data,
             lookup_label=lookup_label,
+            based_on_protocol_execution=based_on_protocol_execution,
             behavioral_protocols=behavioral_protocols,
             custom_property_sets=custom_property_sets,
             description=description,
@@ -195,5 +196,4 @@ class ProtocolExecution(KGObject):
             protocols=protocols,
             start_time=start_time,
             study_targets=study_targets,
-            based_on_protocol_execution=based_on_protocol_execution,
         )

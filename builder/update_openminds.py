@@ -1,6 +1,7 @@
 import argparse
 from collections import defaultdict
 from glob import glob
+from itertools import chain
 import json
 import re
 import os
@@ -12,11 +13,18 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 
 name_map = {
-    "shortName": "alias",
-    "fullName": "name",
-    "scope": "model_scope",
-    "hasVersions": "versions",
-    "hasEntity": "entities",
+    "scope": "model_scope",  # this is because 'scope' is already a keyword
+                             # we could rename the 'scope' keyword to 'stage'
+                             # but we would have the same problem, as there is
+                             # a property named 'stage'
+                             # Suggested resolution: rename the property "scope" in openMINDS to "hasScope"
+}
+
+global_aliases = {
+    "short_name": "alias",
+    "full_name": "name",
+    "has_versions": "versions",
+    "has_entity": "entities",
 }
 
 
@@ -413,29 +421,29 @@ custom_existence_queries = {
     "RORID": ("identifier",),
     "SWHID": ("identifier",),
     "WebResource": ("iri",),
-    "Dataset": ("alias",),
-    "DatasetVersion": ("alias", "version_identifier"),
-    "MetaDataModel": ("alias",),
-    "MetaDataModelVersion": ("alias", "version_identifier"),
-    "Model": ("name",),  # here we use 'name' instead of 'alias' for backwards compatibility
-    "ModelVersion": ("name", "version_identifier"),
-    "Project": ("alias",),
-    "Software": ("alias",),
-    "SoftwareVersion": ("alias", "version_identifier"),
+    "Dataset": ("short_name",),
+    "DatasetVersion": ("short_name", "version_identifier"),
+    "MetaDataModel": ("short_name",),
+    "MetaDataModelVersion": ("short_name", "version_identifier"),
+    "Model": ("full_name",),  # here we use 'full_name' instead of 'short_name' for backwards compatibility
+    "ModelVersion": ("full_name", "version_identifier"),
+    "Project": ("short_name",),
+    "Software": ("short_name",),
+    "SoftwareVersion": ("short_name", "version_identifier"),
     "Protocol": ("name",),
     "BrainAtlas": ("digital_identifier",),
-    "BrainAtlasVersion": ("alias", "version_identifier"),
-    "CommonCoordinateSpace": ("alias", "version_identifier"),
+    "BrainAtlasVersion": ("short_name", "version_identifier"),
+    "CommonCoordinateSpace": ("short_name", "version_identifier"),
     "ParcellationEntity": ("name",),
     "ParcellationEntityVersion": ("name", "version_identifier"),
-    "ParcellationTerminologyVersion": ("alias", "version_identifier"),
+    "ParcellationTerminologyVersion": ("short_name", "version_identifier"),
     "CustomCoordinateSpace": ("name",),
-    "WorkflowRecipe": ("name",),
-    "WorkflowRecipeVersion": ("name", "version_identifier"),
-    "ValidationTest": ("name", "alias"),
-    "ValidationTestVersion": ("alias", "version_identifier"),
-    "LivePaper": ("name", "alias"),
-    "LivePaperVersion": ("alias", "version_identifier"),
+    "WorkflowRecipe": ("full_name",),
+    "WorkflowRecipeVersion": ("full_name", "version_identifier"),
+    "ValidationTest": ("full_name", "short_name"),
+    "ValidationTestVersion": ("short_name", "version_identifier"),
+    "LivePaper": ("full_name", "short_name"),
+    "LivePaperVersion": ("short_name", "version_identifier"),
     "LivePaperResourceItem": ("name", "iri", "is_also_part_of"),
     "ScholarlyArticle": ("name",),
     "WorkflowExecution": ("stages",),
@@ -459,15 +467,16 @@ def get_existence_query(cls_name, properties):
     return tuple(required_property_names)
 
 
-def property_name_sort_key(prop):
+def property_name_sort_key(property_name):
     """Sort the name prop to be first"""
-    name = prop["name"]
     priorities = {
         "name": "0",
+        "fullName": "0",
         "alias": "1",
+        "shortName": "1",
         "lookup_label": "3",
     }
-    return priorities.get(name, name)
+    return priorities.get(property_name, property_name)
 
 
 def generate_class_name(iri):
@@ -657,6 +666,7 @@ class FairgraphClassBuilder:
             # because this is a single item (PropertyValueList), but that item contains a list
             "environmentVariable": "environmentVariables",
         }
+        aliases = {}
         for iri, prop in self._schema_payload["properties"].items():
             allow_multiple = prop.get("type", "") == "array"
             if allow_multiple:
@@ -665,9 +675,10 @@ class FairgraphClassBuilder:
                 property_name = plurals_special_cases[prop["name"]]
             else:
                 property_name = prop["name"]
+            python_name = generate_python_name(property_name)
             properties.append(
                 {
-                    "name": generate_python_name(property_name),
+                    "name": python_name,
                     "type_str": get_type(prop),  # compress using JSON-LD context
                     "iri": f"vocab:{prop['name']}",
                     "allow_multiple": allow_multiple,
@@ -681,6 +692,8 @@ class FairgraphClassBuilder:
                     "max_items": prop.get("maxItems", None),
                 }
             )
+            if python_name in global_aliases:
+                aliases[global_aliases[python_name]] = python_name
         reverse_properties = []
         forward_property_names = set(prop["name"] for prop in properties)
         conflict_resolution = {
@@ -746,12 +759,17 @@ class FairgraphClassBuilder:
             "class_name": class_name,
             "default_space": default_space,
             "openminds_type": self._schema_payload["_type"],
-            "properties": sorted(properties, key=property_name_sort_key),
-            "reverse_properties": sorted(reverse_properties, key=property_name_sort_key),
+            "properties": sorted(properties, key=lambda p: p["name"]),
+            "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "additional_methods": "",
             "existence_query_properties": get_existence_query(class_name, properties),
             "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
+            "aliases":  aliases,
+            "constructor_arguments": sorted(
+                [p["name"] for p in chain(properties, reverse_properties)] + list(aliases.keys()),
+                key=property_name_sort_key
+            )
         }
         import_map = {
             "date": "from datetime import date",

@@ -26,7 +26,6 @@ class Visualization(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
@@ -67,6 +66,7 @@ class Visualization(KGObject):
             "vocab:launchConfiguration",
             doc="no description available",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "outputs",
             [
@@ -199,7 +199,9 @@ class Visualization(KGObject):
         description=None,
         end_time=None,
         environment=None,
+        informed=None,
         inputs=None,
+        is_part_of=None,
         launch_configuration=None,
         outputs=None,
         performed_by=None,
@@ -212,8 +214,6 @@ class Visualization(KGObject):
         tags=None,
         techniques=None,
         was_informed_by=None,
-        informed=None,
-        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -229,7 +229,9 @@ class Visualization(KGObject):
             description=description,
             end_time=end_time,
             environment=environment,
+            informed=informed,
             inputs=inputs,
+            is_part_of=is_part_of,
             launch_configuration=launch_configuration,
             outputs=outputs,
             performed_by=performed_by,
@@ -242,6 +244,4 @@ class Visualization(KGObject):
             tags=tags,
             techniques=techniques,
             was_informed_by=was_informed_by,
-            informed=informed,
-            is_part_of=is_part_of,
         )

@@ -57,7 +57,7 @@ class MockKGClient:
 
     def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
         for prop in query["structure"]:
-            if prop.get("propertyName", "") == "Qname":
+            if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
                 filter_value = prop["filter"]["value"]
                 if "Dummy new model" in filter_value:
                     return MockKGResponse(None)

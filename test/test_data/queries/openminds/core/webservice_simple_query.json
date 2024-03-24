@@ -39,15 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/custodian",
       "propertyName": "vocab:custodian",
       "ensureOrder": true,
@@ -78,12 +69,9 @@
       ]
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage"
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/howToCite",
-      "propertyName": "vocab:howToCite"
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasVersion",
@@ -97,6 +85,18 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/homepage",
+      "propertyName": "vocab:homepage"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/howToCite",
+      "propertyName": "vocab:howToCite"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
     },
     {
       "path": {

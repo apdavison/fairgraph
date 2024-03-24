@@ -26,7 +26,6 @@ class StimulationActivity(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "custom_property_sets",
             "openminds.core.CustomPropertySet",
@@ -61,6 +60,7 @@ class StimulationActivity(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "outputs",
             [

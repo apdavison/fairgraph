@@ -44,12 +44,12 @@
       "sort": true
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/legalCode",
       "propertyName": "vocab:legalCode"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/webpage",

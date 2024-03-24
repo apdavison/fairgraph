@@ -61,6 +61,13 @@ def as_list(obj: Union[None, KGObject, dict, str, list, tuple]) -> list:
     return L
 
 
+def invert_dict(D):
+    newD = {}
+    for key, value in D.items():
+        newD[value] = key
+    return newD
+
+
 def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Union[str, Tuple[str, ...]]:
     """
     Expands a URI or a list of URIs using a given context.

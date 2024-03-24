@@ -27,13 +27,6 @@ class LivePaperResourceItem(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the live paper resource item.",
-        ),
-        Property(
             "hosted_by",
             ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlled_terms.Service"],
             "vocab:hostedBy",
@@ -55,6 +48,13 @@ class LivePaperResourceItem(KGObject):
             doc="Reference to the ensemble of multiple things or beings.",
         ),
         Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the live paper resource item.",
+        ),
+        Property(
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
@@ -70,8 +70,8 @@ class LivePaperResourceItem(KGObject):
         name=None,
         hosted_by=None,
         iri=None,
-        is_part_of=None,
         is_location_of=None,
+        is_part_of=None,
         id=None,
         data=None,
         space=None,
@@ -85,6 +85,6 @@ class LivePaperResourceItem(KGObject):
             name=name,
             hosted_by=hosted_by,
             iri=iri,
-            is_part_of=is_part_of,
             is_location_of=is_location_of,
+            is_part_of=is_part_of,
         )

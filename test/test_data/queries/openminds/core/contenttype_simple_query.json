@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/dataType",
       "propertyName": "vocab:dataType",
       "ensureOrder": true,
@@ -68,6 +63,11 @@
       "path": "https://openminds.ebrains.eu/vocab/fileExtension",
       "propertyName": "vocab:fileExtension",
       "ensureOrder": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/relatedMediaType",

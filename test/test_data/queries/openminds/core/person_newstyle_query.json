@@ -62,14 +62,6 @@
               "path": "@type"
             },
             {
-              "path": "https://openminds.ebrains.eu/vocab/fullName",
-              "propertyName": "vocab:fullName"
-            },
-            {
-              "path": "https://openminds.ebrains.eu/vocab/shortName",
-              "propertyName": "vocab:shortName"
-            },
-            {
               "path": "https://openminds.ebrains.eu/vocab/contactInformation",
               "propertyName": "vocab:contactInformation",
               "structure": [
@@ -82,8 +74,16 @@
               ]
             },
             {
+              "path": "https://openminds.ebrains.eu/vocab/fullName",
+              "propertyName": "vocab:fullName"
+            },
+            {
               "path": "https://openminds.ebrains.eu/vocab/homepage",
               "propertyName": "vocab:homepage"
+            },
+            {
+              "path": "https://openminds.ebrains.eu/vocab/shortName",
+              "propertyName": "vocab:shortName"
             },
             {
               "path": {
@@ -264,14 +264,6 @@
               "path": "@type"
             },
             {
-              "path": "https://openminds.ebrains.eu/vocab/fullName",
-              "propertyName": "vocab:fullName"
-            },
-            {
-              "path": "https://openminds.ebrains.eu/vocab/shortName",
-              "propertyName": "vocab:shortName"
-            },
-            {
               "path": "https://openminds.ebrains.eu/vocab/affiliation",
               "propertyName": "vocab:affiliation",
               "ensureOrder": true,
@@ -315,6 +307,10 @@
               ]
             },
             {
+              "path": "https://openminds.ebrains.eu/vocab/fullName",
+              "propertyName": "vocab:fullName"
+            },
+            {
               "path": "https://openminds.ebrains.eu/vocab/hasParent",
               "propertyName": "vocab:hasParent",
               "ensureOrder": true,
@@ -324,14 +320,6 @@
                 },
                 {
                   "path": "@type"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/fullName",
-                  "propertyName": "vocab:fullName"
-                },
-                {
-                  "path": "https://openminds.ebrains.eu/vocab/shortName",
-                  "propertyName": "vocab:shortName"
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/affiliation",
@@ -377,6 +365,10 @@
                   ]
                 },
                 {
+                  "path": "https://openminds.ebrains.eu/vocab/fullName",
+                  "propertyName": "vocab:fullName"
+                },
+                {
                   "path": "https://openminds.ebrains.eu/vocab/hasParent",
                   "propertyName": "vocab:hasParent",
                   "ensureOrder": true,
@@ -392,6 +384,10 @@
                 {
                   "path": "https://openminds.ebrains.eu/vocab/homepage",
                   "propertyName": "vocab:homepage"
+                },
+                {
+                  "path": "https://openminds.ebrains.eu/vocab/shortName",
+                  "propertyName": "vocab:shortName"
                 },
                 {
                   "path": {
@@ -591,6 +587,10 @@
             {
               "path": "https://openminds.ebrains.eu/vocab/homepage",
               "propertyName": "vocab:homepage"
+            },
+            {
+              "path": "https://openminds.ebrains.eu/vocab/shortName",
+              "propertyName": "vocab:shortName"
             },
             {
               "path": {
@@ -1057,7 +1057,7 @@
               "structure": [
                 {
                   "path": "https://openminds.ebrains.eu/vocab/shortName",
-                  "propertyName": "Qalias",
+                  "propertyName": "Qshort_name",
                   "filter": {
                     "op": "CONTAINS",
                     "value": "FZJ"

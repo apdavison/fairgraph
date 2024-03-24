@@ -23,13 +23,6 @@ class LocalFile(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the local file.",
-        ),
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
         Property(
@@ -50,6 +43,13 @@ class LocalFile(KGObject):
             "openminds.core.Hash",
             "vocab:hash",
             doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the local file.",
         ),
         Property("path", str, "vocab:path", required=True, doc="no description available"),
         Property(
@@ -99,11 +99,11 @@ class LocalFile(KGObject):
         data_types=None,
         format=None,
         hash=None,
+        is_output_of=None,
+        is_used_to_group=None,
         path=None,
         special_usage_role=None,
         storage_size=None,
-        is_output_of=None,
-        is_used_to_group=None,
         id=None,
         data=None,
         space=None,
@@ -120,9 +120,9 @@ class LocalFile(KGObject):
             data_types=data_types,
             format=format,
             hash=hash,
+            is_output_of=is_output_of,
+            is_used_to_group=is_used_to_group,
             path=path,
             special_usage_role=special_usage_role,
             storage_size=storage_size,
-            is_output_of=is_output_of,
-            is_used_to_group=is_used_to_group,
         )

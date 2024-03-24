@@ -26,14 +26,6 @@ class LivePaper(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the live paper."),
-        Property(
-            "alias",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the live paper.",
-        ),
         Property(
             "authors",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -62,6 +54,17 @@ class LivePaper(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property(
+            "full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the live paper."
+        ),
+        Property(
+            "has_versions",
+            "openminds.publications.LivePaperVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            required=True,
+            doc="Reference to variants of an original.",
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the live paper."),
         Property(
             "how_to_cite",
@@ -70,12 +73,11 @@ class LivePaper(KGObject):
             doc="Preferred format for citing a particular object or legal person.",
         ),
         Property(
-            "versions",
-            "openminds.publications.LivePaperVersion",
-            "vocab:hasVersion",
-            multiple=True,
+            "short_name",
+            str,
+            "vocab:shortName",
             required=True,
-            doc="Reference to variants of an original.",
+            doc="Shortened or fully abbreviated name of the live paper.",
         ),
         Property(
             "comments",
@@ -102,22 +104,26 @@ class LivePaper(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_properties = ("name", "alias")
+    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    existence_query_properties = ("full_name", "short_name")
 
     def __init__(
         self,
         name=None,
         alias=None,
         authors=None,
+        comments=None,
         custodians=None,
         description=None,
         digital_identifier=None,
+        full_name=None,
+        has_versions=None,
         homepage=None,
         how_to_cite=None,
-        versions=None,
-        comments=None,
         is_part_of=None,
         learning_resources=None,
+        short_name=None,
+        versions=None,
         id=None,
         data=None,
         space=None,
@@ -131,13 +137,16 @@ class LivePaper(KGObject):
             name=name,
             alias=alias,
             authors=authors,
+            comments=comments,
             custodians=custodians,
             description=description,
             digital_identifier=digital_identifier,
+            full_name=full_name,
+            has_versions=has_versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
-            versions=versions,
-            comments=comments,
             is_part_of=is_part_of,
             learning_resources=learning_resources,
+            short_name=short_name,
+            versions=versions,
         )

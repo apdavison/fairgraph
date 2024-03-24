@@ -24,13 +24,6 @@ class Protocol(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the protocol.",
-        ),
-        Property(
             "described_in",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:describedIn",
@@ -42,6 +35,13 @@ class Protocol(KGObject):
             "vocab:description",
             required=True,
             doc="Longer statement or account giving the characteristics of the protocol.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the protocol.",
         ),
         Property(
             "stimulus_types",

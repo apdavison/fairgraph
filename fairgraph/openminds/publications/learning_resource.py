@@ -28,13 +28,6 @@ class LearningResource(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the learning resource.",
-        ),
-        Property(
             "about",
             [
                 "openminds.computation.ValidationTest",
@@ -212,6 +205,13 @@ class LearningResource(KGObject):
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
         Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the learning resource.",
+        ),
         Property("order", int, "vocab:order", doc="no description available"),
         Property("prerequisite", str, "vocab:prerequisite", doc="no description available"),
         Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),

@@ -23,18 +23,18 @@ class Periodical(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the periodical.",
-        ),
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(
             "digital_identifier",
             "openminds.core.ISSN",
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            doc="Word or phrase that constitutes the distinctive designation of the periodical.",
         ),
         Property(
             "has_parts",

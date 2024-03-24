@@ -27,13 +27,6 @@ class Language(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the language.",
-        ),
-        Property(
             "definition",
             str,
             "vocab:definition",
@@ -56,6 +49,13 @@ class Language(KGObject):
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the language.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -107,12 +107,12 @@ class Language(KGObject):
         self,
         name=None,
         definition=None,
+        describes=None,
         description=None,
         interlex_identifier=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
         used_in=None,
         id=None,
         data=None,
@@ -126,11 +126,11 @@ class Language(KGObject):
             data=data,
             name=name,
             definition=definition,
+            describes=describes,
             description=description,
             interlex_identifier=interlex_identifier,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
             used_in=used_in,
         )

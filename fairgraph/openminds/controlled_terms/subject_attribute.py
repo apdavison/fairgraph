@@ -27,13 +27,6 @@ class SubjectAttribute(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the subject attribute.",
-        ),
-        Property(
             "definition",
             str,
             "vocab:definition",
@@ -56,6 +49,13 @@ class SubjectAttribute(KGObject):
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the subject attribute.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -108,13 +108,13 @@ class SubjectAttribute(KGObject):
         self,
         name=None,
         definition=None,
+        describes=None,
         description=None,
         interlex_identifier=None,
+        is_attribute_of=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
-        is_attribute_of=None,
         id=None,
         data=None,
         space=None,
@@ -127,11 +127,11 @@ class SubjectAttribute(KGObject):
             data=data,
             name=name,
             definition=definition,
+            describes=describes,
             description=description,
             interlex_identifier=interlex_identifier,
+            is_attribute_of=is_attribute_of,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
-            is_attribute_of=is_attribute_of,
         )

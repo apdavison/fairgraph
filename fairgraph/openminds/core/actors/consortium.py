@@ -26,15 +26,17 @@ class Consortium(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."),
-        Property("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
         Property(
             "contact_information",
             "openminds.core.ContactInformation",
             "vocab:contactInformation",
             doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
         ),
+        Property(
+            "full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the consortium."),
+        Property("short_name", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
         Property(
             "coordinated_projects",
             "openminds.core.Project",
@@ -140,23 +142,26 @@ class Consortium(KGObject):
             doc="reverse of 'publisher'",
         ),
     ]
-    existence_query_properties = ("name",)
+    aliases = {"name": "full_name", "alias": "short_name"}
+    existence_query_properties = ("full_name",)
 
     def __init__(
         self,
         name=None,
         alias=None,
         contact_information=None,
-        homepage=None,
         coordinated_projects=None,
         developed=None,
+        full_name=None,
         funded=None,
         has_members=None,
+        homepage=None,
         is_custodian_of=None,
         is_owner_of=None,
         is_provider_of=None,
         manufactured=None,
         published=None,
+        short_name=None,
         id=None,
         data=None,
         space=None,
@@ -170,14 +175,16 @@ class Consortium(KGObject):
             name=name,
             alias=alias,
             contact_information=contact_information,
-            homepage=homepage,
             coordinated_projects=coordinated_projects,
             developed=developed,
+            full_name=full_name,
             funded=funded,
             has_members=has_members,
+            homepage=homepage,
             is_custodian_of=is_custodian_of,
             is_owner_of=is_owner_of,
             is_provider_of=is_provider_of,
             manufactured=manufactured,
             published=published,
+            short_name=short_name,
         )

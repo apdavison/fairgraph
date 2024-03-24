@@ -29,13 +29,6 @@ class ScholarlyArticle(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the scholarly article.",
-        ),
         Property("abstract", str, "vocab:abstract", doc="no description available"),
         Property(
             "authors",
@@ -186,6 +179,13 @@ class ScholarlyArticle(KGObject):
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
         Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the scholarly article.",
+        ),
         Property("pagination", str, "vocab:pagination", doc="no description available"),
         Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
         Property(
@@ -242,8 +242,8 @@ class ScholarlyArticle(KGObject):
         pagination=None,
         publication_date=None,
         publisher=None,
-        version_identifier=None,
         related_to=None,
+        version_identifier=None,
         id=None,
         data=None,
         space=None,
@@ -272,8 +272,8 @@ class ScholarlyArticle(KGObject):
             pagination=pagination,
             publication_date=publication_date,
             publisher=publisher,
-            version_identifier=version_identifier,
             related_to=related_to,
+            version_identifier=version_identifier,
         )
 
     def get_journal(self, client, with_volume=False, with_issue=False):

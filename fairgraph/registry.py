@@ -67,6 +67,7 @@ class Registry(type):
     """Metaclass for registering Knowledge Graph classes."""
 
     properties = []
+    aliases = {}
 
     def __new__(meta, name, bases, class_dict):
         cls = type.__new__(meta, name, bases, class_dict)

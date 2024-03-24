@@ -39,15 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
-      "sort": true
-    },
-    {
-      "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/accessibility",
       "propertyName": "vocab:accessibility",
       "structure": [
@@ -178,6 +169,11 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/fullName",
+      "propertyName": "vocab:fullName",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/funding",
@@ -397,6 +393,10 @@
       "path": "https://openminds.ebrains.eu/vocab/requirement",
       "propertyName": "vocab:requirement",
       "ensureOrder": true
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/shortName",
+      "propertyName": "vocab:shortName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/supportChannel",

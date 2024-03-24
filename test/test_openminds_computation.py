@@ -36,7 +36,6 @@ class TestEnvironment:
                     "filter": {"op": "EQUALS", "value": "myspace_1234"},
                 },
                 {"path": "@type"},
-                {"path": "https://openminds.ebrains.eu/vocab/name", "propertyName": "vocab:name", "sort": True},
                 {
                     "path": "https://openminds.ebrains.eu/vocab/configuration",
                     "propertyName": "vocab:configuration",
@@ -48,6 +47,7 @@ class TestEnvironment:
                     "propertyName": "vocab:hardware",
                     "structure": [{"path": "@id"}, {"path": "@type"}],
                 },
+                {"path": "https://openminds.ebrains.eu/vocab/name", "propertyName": "vocab:name", "sort": True},
                 {
                     "path": "https://openminds.ebrains.eu/vocab/software",
                     "propertyName": "vocab:software",
@@ -61,12 +61,6 @@ class TestEnvironment:
                     "structure": [{"path": "@id"}, {"path": "@type"}],
                 },
                 {
-                    "path": "https://openminds.ebrains.eu/vocab/name",
-                    "propertyName": "Qname",
-                    "filter": {"op": "CONTAINS", "value": "foo"},
-                    "required": True,
-                },
-                {
                     "path": "https://openminds.ebrains.eu/vocab/description",
                     "propertyName": "Qdescription",
                     "filter": {"op": "CONTAINS", "value": "bar"},
@@ -77,6 +71,12 @@ class TestEnvironment:
                     "propertyName": "Qhardware",
                     "required": True,
                     "structure": [{"path": "@id", "filter": {"op": "CONTAINS", "value": "some_id"}}],
+                },
+                {
+                    "path": "https://openminds.ebrains.eu/vocab/name",
+                    "propertyName": "Qname",
+                    "filter": {"op": "CONTAINS", "value": "foo"},
+                    "required": True,
                 },
                 {
                     "path": "https://openminds.ebrains.eu/vocab/software",

@@ -258,8 +258,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # todo: move this to openminds generation, and include only in those subclasses
         # that have an alias
         # todo: also count 'lookup_name' as an alias
-        if "alias" not in cls.property_names:
-            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' property")
+        if "short_name" not in cls.property_names:
+            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' or 'short_name' property")
         candidates = as_list(
             cls.list(
                 client,

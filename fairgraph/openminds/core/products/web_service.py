@@ -26,14 +26,6 @@ class WebService(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the web service."),
-        Property(
-            "alias",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the web service.",
-        ),
         Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -56,6 +48,17 @@ class WebService(KGObject):
             required=True,
             doc="Legal person that creates or improves products or services (e.g., software, applications, etc.).",
         ),
+        Property(
+            "full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the web service."
+        ),
+        Property(
+            "has_versions",
+            "openminds.core.WebServiceVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            required=True,
+            doc="Reference to variants of an original.",
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the web service."),
         Property(
             "how_to_cite",
@@ -64,12 +67,11 @@ class WebService(KGObject):
             doc="Preferred format for citing a particular object or legal person.",
         ),
         Property(
-            "versions",
-            "openminds.core.WebServiceVersion",
-            "vocab:hasVersion",
-            multiple=True,
+            "short_name",
+            str,
+            "vocab:shortName",
             required=True,
-            doc="Reference to variants of an original.",
+            doc="Shortened or fully abbreviated name of the web service.",
         ),
         Property(
             "comments",
@@ -112,23 +114,27 @@ class WebService(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_properties = ("description", "developers", "name", "versions", "alias")
+    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    existence_query_properties = ("description", "developers", "full_name", "has_versions", "short_name")
 
     def __init__(
         self,
         name=None,
         alias=None,
+        comments=None,
         custodians=None,
         description=None,
         developers=None,
-        homepage=None,
-        how_to_cite=None,
-        versions=None,
-        comments=None,
+        full_name=None,
         has_accounts=None,
+        has_versions=None,
+        homepage=None,
         hosts=None,
+        how_to_cite=None,
         is_part_of=None,
         learning_resources=None,
+        short_name=None,
+        versions=None,
         id=None,
         data=None,
         space=None,
@@ -141,15 +147,18 @@ class WebService(KGObject):
             data=data,
             name=name,
             alias=alias,
+            comments=comments,
             custodians=custodians,
             description=description,
             developers=developers,
-            homepage=homepage,
-            how_to_cite=how_to_cite,
-            versions=versions,
-            comments=comments,
+            full_name=full_name,
             has_accounts=has_accounts,
+            has_versions=has_versions,
+            homepage=homepage,
             hosts=hosts,
+            how_to_cite=how_to_cite,
             is_part_of=is_part_of,
             learning_resources=learning_resources,
+            short_name=short_name,
+            versions=versions,
         )

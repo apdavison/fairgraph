@@ -27,13 +27,6 @@ class Chapter(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the chapter.",
-        ),
         Property("abstract", str, "vocab:abstract", doc="no description available"),
         Property(
             "authors",
@@ -184,6 +177,13 @@ class Chapter(KGObject):
             doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
         ),
         Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the chapter.",
+        ),
         Property("pagination", str, "vocab:pagination", doc="no description available"),
         Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
         Property(
@@ -240,8 +240,8 @@ class Chapter(KGObject):
         pagination=None,
         publication_date=None,
         publisher=None,
-        version_identifier=None,
         related_to=None,
+        version_identifier=None,
         id=None,
         data=None,
         space=None,
@@ -270,6 +270,6 @@ class Chapter(KGObject):
             pagination=pagination,
             publication_date=publication_date,
             publisher=publisher,
-            version_identifier=version_identifier,
             related_to=related_to,
+            version_identifier=version_identifier,
         )

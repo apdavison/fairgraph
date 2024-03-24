@@ -24,12 +24,6 @@ class ChemicalMixture(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the chemical mixture.",
-        ),
-        Property(
             "additional_remarks",
             str,
             "vocab:additionalRemarks",
@@ -42,6 +36,12 @@ class ChemicalMixture(KGObject):
             multiple=True,
             required=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            doc="Word or phrase that constitutes the distinctive designation of the chemical mixture.",
         ),
         Property(
             "product_source",
@@ -84,10 +84,10 @@ class ChemicalMixture(KGObject):
         self,
         name=None,
         additional_remarks=None,
+        composes=None,
         has_parts=None,
         product_source=None,
         type=None,
-        composes=None,
         used_in=None,
         id=None,
         data=None,
@@ -101,9 +101,9 @@ class ChemicalMixture(KGObject):
             data=data,
             name=name,
             additional_remarks=additional_remarks,
+            composes=composes,
             has_parts=has_parts,
             product_source=product_source,
             type=type,
-            composes=composes,
             used_in=used_in,
         )

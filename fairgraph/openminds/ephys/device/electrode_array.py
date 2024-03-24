@@ -24,14 +24,6 @@ class ElectrodeArray(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the electrode array.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
             "conductor_material",
             [
                 "openminds.chemicals.ChemicalMixture",
@@ -90,12 +82,20 @@ class ElectrodeArray(KGObject):
             "vocab:intrinsicResistance",
             doc="no description available",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the electrode array.",
         ),
         Property(
             "number_of_electrodes", int, "vocab:numberOfElectrodes", required=True, doc="no description available"
@@ -139,11 +139,11 @@ class ElectrodeArray(KGObject):
         insulator_material=None,
         internal_identifier=None,
         intrinsic_resistance=None,
+        is_part_of=None,
         manufacturers=None,
         number_of_electrodes=None,
         owners=None,
         serial_number=None,
-        is_part_of=None,
         usage=None,
         id=None,
         data=None,
@@ -165,10 +165,10 @@ class ElectrodeArray(KGObject):
             insulator_material=insulator_material,
             internal_identifier=internal_identifier,
             intrinsic_resistance=intrinsic_resistance,
+            is_part_of=is_part_of,
             manufacturers=manufacturers,
             number_of_electrodes=number_of_electrodes,
             owners=owners,
             serial_number=serial_number,
-            is_part_of=is_part_of,
             usage=usage,
         )

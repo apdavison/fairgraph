@@ -27,13 +27,6 @@ class ActionStatusType(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the action status type.",
-        ),
-        Property(
             "definition",
             str,
             "vocab:definition",
@@ -56,6 +49,13 @@ class ActionStatusType(KGObject):
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the action status type.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -116,13 +116,13 @@ class ActionStatusType(KGObject):
         self,
         name=None,
         definition=None,
+        describes=None,
         description=None,
         interlex_identifier=None,
+        is_status_of=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
-        is_status_of=None,
         id=None,
         data=None,
         space=None,
@@ -135,11 +135,11 @@ class ActionStatusType(KGObject):
             data=data,
             name=name,
             definition=definition,
+            describes=describes,
             description=description,
             interlex_identifier=interlex_identifier,
+            is_status_of=is_status_of,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
-            is_status_of=is_status_of,
         )

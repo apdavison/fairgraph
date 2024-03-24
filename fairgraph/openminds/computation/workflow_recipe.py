@@ -27,16 +27,6 @@ class WorkflowRecipe(KGObject):
     }
     properties = [
         Property(
-            "name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the workflow recipe."
-        ),
-        Property(
-            "alias",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the workflow recipe.",
-        ),
-        Property(
             "custodians",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:custodian",
@@ -64,6 +54,21 @@ class WorkflowRecipe(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property(
+            "full_name",
+            str,
+            "vocab:fullName",
+            required=True,
+            doc="Whole, non-abbreviated name of the workflow recipe.",
+        ),
+        Property(
+            "has_versions",
+            "openminds.computation.WorkflowRecipeVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            required=True,
+            doc="Reference to variants of an original.",
+        ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the workflow recipe."),
         Property(
             "how_to_cite",
@@ -72,12 +77,11 @@ class WorkflowRecipe(KGObject):
             doc="Preferred format for citing a particular object or legal person.",
         ),
         Property(
-            "versions",
-            "openminds.computation.WorkflowRecipeVersion",
-            "vocab:hasVersion",
-            multiple=True,
+            "short_name",
+            str,
+            "vocab:shortName",
             required=True,
-            doc="Reference to variants of an original.",
+            doc="Shortened or fully abbreviated name of the workflow recipe.",
         ),
         Property(
             "comments",
@@ -104,22 +108,26 @@ class WorkflowRecipe(KGObject):
             doc="reverse of 'about'",
         ),
     ]
-    existence_query_properties = ("name",)
+    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    existence_query_properties = ("full_name",)
 
     def __init__(
         self,
         name=None,
         alias=None,
+        comments=None,
         custodians=None,
         description=None,
         developers=None,
         digital_identifier=None,
+        full_name=None,
+        has_versions=None,
         homepage=None,
         how_to_cite=None,
-        versions=None,
-        comments=None,
         is_part_of=None,
         learning_resources=None,
+        short_name=None,
+        versions=None,
         id=None,
         data=None,
         space=None,
@@ -132,14 +140,17 @@ class WorkflowRecipe(KGObject):
             data=data,
             name=name,
             alias=alias,
+            comments=comments,
             custodians=custodians,
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
+            full_name=full_name,
+            has_versions=has_versions,
             homepage=homepage,
             how_to_cite=how_to_cite,
-            versions=versions,
-            comments=comments,
             is_part_of=is_part_of,
             learning_resources=learning_resources,
+            short_name=short_name,
+            versions=versions,
         )

@@ -26,7 +26,6 @@ class TissueCulturePreparation(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "culture_medium",
             "openminds.chemicals.ChemicalMixture",
@@ -75,6 +74,7 @@ class TissueCulturePreparation(KGObject):
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "outputs",
             "openminds.core.TissueSampleState",

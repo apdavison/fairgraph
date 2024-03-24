@@ -23,7 +23,6 @@ class ElectrodeUsage(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "anatomical_location",
             [
@@ -52,6 +51,7 @@ class ElectrodeUsage(KGObject):
             required=True,
             doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "metadata_locations",
             ["openminds.core.File", "openminds.core.FileBundle"],
@@ -120,12 +120,12 @@ class ElectrodeUsage(KGObject):
         anatomical_location=None,
         contact_resistance=None,
         device=None,
-        metadata_locations=None,
-        spatial_location=None,
-        used_specimen=None,
         generation_device=None,
+        metadata_locations=None,
         placed_by=None,
+        spatial_location=None,
         used_in=None,
+        used_specimen=None,
         used_to_measure=None,
         used_to_record=None,
         id=None,
@@ -142,12 +142,12 @@ class ElectrodeUsage(KGObject):
             anatomical_location=anatomical_location,
             contact_resistance=contact_resistance,
             device=device,
-            metadata_locations=metadata_locations,
-            spatial_location=spatial_location,
-            used_specimen=used_specimen,
             generation_device=generation_device,
+            metadata_locations=metadata_locations,
             placed_by=placed_by,
+            spatial_location=spatial_location,
             used_in=used_in,
+            used_specimen=used_specimen,
             used_to_measure=used_to_measure,
             used_to_record=used_to_record,
         )

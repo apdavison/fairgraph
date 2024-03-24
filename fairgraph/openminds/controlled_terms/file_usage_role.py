@@ -27,13 +27,6 @@ class FileUsageRole(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the file usage role.",
-        ),
-        Property(
             "definition",
             str,
             "vocab:definition",
@@ -56,6 +49,13 @@ class FileUsageRole(KGObject):
             IRI,
             "vocab:knowledgeSpaceLink",
             doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the file usage role.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -108,13 +108,13 @@ class FileUsageRole(KGObject):
         self,
         name=None,
         definition=None,
+        describes=None,
         description=None,
+        file=None,
         interlex_identifier=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        describes=None,
-        file=None,
         id=None,
         data=None,
         space=None,
@@ -127,11 +127,11 @@ class FileUsageRole(KGObject):
             data=data,
             name=name,
             definition=definition,
+            describes=describes,
             description=description,
+            file=file,
             interlex_identifier=interlex_identifier,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            describes=describes,
-            file=file,
         )

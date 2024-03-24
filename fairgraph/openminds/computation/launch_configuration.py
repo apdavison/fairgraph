@@ -23,12 +23,6 @@ class LaunchConfiguration(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
-        ),
         Property("arguments", str, "vocab:argument", multiple=True, doc="no description available"),
         Property(
             "description",
@@ -43,6 +37,12 @@ class LaunchConfiguration(KGObject):
             doc="no description available",
         ),
         Property("executable", str, "vocab:executable", required=True, doc="no description available"),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
+        ),
         Property(
             "is_launch_configuration_of",
             [

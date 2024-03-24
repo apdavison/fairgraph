@@ -24,18 +24,18 @@ class CustomAnatomicalEntity(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity.",
-        ),
-        Property(
             "has_annotations",
             "openminds.sands.CustomAnnotation",
             "vocab:hasAnnotation",
             multiple=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the custom anatomical entity.",
         ),
         Property(
             "related_uberon_term",
@@ -114,11 +114,11 @@ class CustomAnatomicalEntity(KGObject):
         self,
         name=None,
         has_annotations=None,
-        related_uberon_term=None,
-        relation_assessments=None,
         is_location_of=None,
         is_target_of=None,
         is_used_to_group=None,
+        related_uberon_term=None,
+        relation_assessments=None,
         studied_in=None,
         id=None,
         data=None,
@@ -132,10 +132,10 @@ class CustomAnatomicalEntity(KGObject):
             data=data,
             name=name,
             has_annotations=has_annotations,
-            related_uberon_term=related_uberon_term,
-            relation_assessments=relation_assessments,
             is_location_of=is_location_of,
             is_target_of=is_target_of,
             is_used_to_group=is_used_to_group,
+            related_uberon_term=related_uberon_term,
+            relation_assessments=relation_assessments,
             studied_in=studied_in,
         )
