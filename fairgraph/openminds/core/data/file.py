@@ -236,6 +236,7 @@ class File(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
+    aliases = {"hash": "hashes"}
     existence_query_properties = ("iri", "hash")
 
     def __init__(
@@ -248,6 +249,7 @@ class File(KGObject):
         format=None,
         fully_documents=None,
         has_copies=None,
+        hash=None,
         hashes=None,
         iri=None,
         is_also_part_of=None,
@@ -282,6 +284,7 @@ class File(KGObject):
             format=format,
             fully_documents=fully_documents,
             has_copies=has_copies,
+            hash=hash,
             hashes=hashes,
             iri=iri,
             is_also_part_of=is_also_part_of,
