@@ -24,14 +24,6 @@ class Pipette(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the pipette.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
             "description",
             str,
             "vocab:description",
@@ -39,7 +31,7 @@ class Pipette(KGObject):
         ),
         Property(
             "device_type",
-            "openminds.controlledterms.DeviceType",
+            "openminds.controlled_terms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
@@ -68,6 +60,7 @@ class Pipette(KGObject):
             "vocab:internalIdentifier",
             doc="Term or code that identifies the pipette within a particular product.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -80,10 +73,17 @@ class Pipette(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:material",
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the pipette.",
         ),
         Property(
             "owners",
@@ -122,11 +122,11 @@ class Pipette(KGObject):
         external_diameter=None,
         internal_diameter=None,
         internal_identifier=None,
+        is_part_of=None,
         manufacturers=None,
         material=None,
         owners=None,
         serial_number=None,
-        is_part_of=None,
         usage=None,
         id=None,
         data=None,
@@ -146,10 +146,10 @@ class Pipette(KGObject):
             external_diameter=external_diameter,
             internal_diameter=internal_diameter,
             internal_identifier=internal_identifier,
+            is_part_of=is_part_of,
             manufacturers=manufacturers,
             material=material,
             owners=owners,
             serial_number=serial_number,
-            is_part_of=is_part_of,
             usage=usage,
         )

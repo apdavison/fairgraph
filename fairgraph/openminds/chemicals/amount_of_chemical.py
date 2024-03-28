@@ -28,7 +28,7 @@ class AmountOfChemical(EmbeddedMetadata):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:chemicalProduct",
             required=True,

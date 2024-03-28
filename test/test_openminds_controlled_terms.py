@@ -1,4 +1,4 @@
-import fairgraph.openminds.controlledterms as terms
+import fairgraph.openminds.controlled_terms as terms
 
 
 def test_initialization():

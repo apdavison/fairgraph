@@ -51,7 +51,7 @@ class DOI(KGObject):
                 "openminds.publications.ScholarlyArticle",
                 "openminds.sands.BrainAtlas",
                 "openminds.sands.CommonCoordinateSpace",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:digitalIdentifier",
             reverse="digital_identifiers",
@@ -82,8 +82,8 @@ class DOI(KGObject):
 
     def __init__(
         self,
-        identifier=None,
         describes=None,
+        identifier=None,
         identifies=None,
         related_to=None,
         id=None,
@@ -96,8 +96,8 @@ class DOI(KGObject):
             space=space,
             scope=scope,
             data=data,
-            identifier=identifier,
             describes=describes,
+            identifier=identifier,
             identifies=identifies,
             related_to=related_to,
         )

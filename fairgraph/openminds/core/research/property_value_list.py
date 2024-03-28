@@ -62,9 +62,9 @@ class PropertyValueList(KGObject):
     def __init__(
         self,
         lookup_label=None,
-        property_value_pairs=None,
         defines_environment_of=None,
         is_configuration_of=None,
+        property_value_pairs=None,
         specifies=None,
         id=None,
         data=None,
@@ -77,8 +77,8 @@ class PropertyValueList(KGObject):
             scope=scope,
             data=data,
             lookup_label=lookup_label,
-            property_value_pairs=property_value_pairs,
             defines_environment_of=defines_environment_of,
             is_configuration_of=is_configuration_of,
+            property_value_pairs=property_value_pairs,
             specifies=specifies,
         )

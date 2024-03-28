@@ -15,7 +15,7 @@ from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
-from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()
@@ -37,17 +37,10 @@ class File(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the file.",
-        ),
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(
             "data_types",
-            "openminds.controlledterms.DataType",
+            "openminds.controlled_terms.DataType",
             "vocab:dataType",
             multiple=True,
             doc="no description available",
@@ -83,8 +76,15 @@ class File(KGObject):
             doc="Reference to the ensemble of multiple things or beings.",
         ),
         Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the file.",
+        ),
+        Property(
             "special_usage_role",
-            "openminds.controlledterms.FileUsageRole",
+            "openminds.controlled_terms.FileUsageRole",
             "vocab:specialUsageRole",
             doc="Particular function of something when it is used.",
         ),
@@ -102,7 +102,7 @@ class File(KGObject):
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             ["^vocab:describedIn", "^vocab:metadataLocation"],
             reverse=["described_in", "metadata_locations"],
@@ -236,6 +236,7 @@ class File(KGObject):
             doc="reverse of 'specification'",
         ),
     ]
+    aliases = {"hash": "hashes"}
     existence_query_properties = ("iri", "hash")
 
     def __init__(
@@ -243,27 +244,28 @@ class File(KGObject):
         name=None,
         content_description=None,
         data_types=None,
+        describes=None,
         file_repository=None,
         format=None,
-        hashes=None,
-        iri=None,
-        is_part_of=None,
-        special_usage_role=None,
-        storage_size=None,
-        describes=None,
         fully_documents=None,
         has_copies=None,
+        hash=None,
+        hashes=None,
+        iri=None,
         is_also_part_of=None,
         is_configuration_of=None,
         is_default_image_for=None,
         is_input_to=None,
         is_location_of=None,
         is_output_of=None,
+        is_part_of=None,
         is_preview_of=None,
         is_reference_for=None,
         is_source_data_of=None,
         is_used_to_group=None,
+        special_usage_role=None,
         specifies=None,
+        storage_size=None,
         id=None,
         data=None,
         space=None,
@@ -277,27 +279,28 @@ class File(KGObject):
             name=name,
             content_description=content_description,
             data_types=data_types,
+            describes=describes,
             file_repository=file_repository,
             format=format,
-            hashes=hashes,
-            iri=iri,
-            is_part_of=is_part_of,
-            special_usage_role=special_usage_role,
-            storage_size=storage_size,
-            describes=describes,
             fully_documents=fully_documents,
             has_copies=has_copies,
+            hash=hash,
+            hashes=hashes,
+            iri=iri,
             is_also_part_of=is_also_part_of,
             is_configuration_of=is_configuration_of,
             is_default_image_for=is_default_image_for,
             is_input_to=is_input_to,
             is_location_of=is_location_of,
             is_output_of=is_output_of,
+            is_part_of=is_part_of,
             is_preview_of=is_preview_of,
             is_reference_for=is_reference_for,
             is_source_data_of=is_source_data_of,
             is_used_to_group=is_used_to_group,
+            special_usage_role=special_usage_role,
             specifies=specifies,
+            storage_size=storage_size,
         )
 
     @classmethod

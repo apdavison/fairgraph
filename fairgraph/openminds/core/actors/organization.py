@@ -26,8 +26,6 @@ class Organization(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the organization."),
-        Property("alias", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the organization."),
         Property(
             "affiliations",
             "openminds.core.Affiliation",
@@ -43,6 +41,9 @@ class Organization(KGObject):
             doc="Digital handle to identify objects or legal persons.",
         ),
         Property(
+            "full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the organization."
+        ),
+        Property(
             "has_parents",
             "openminds.core.Organization",
             "vocab:hasParent",
@@ -50,6 +51,7 @@ class Organization(KGObject):
             doc="Reference to a parent object or legal person.",
         ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the organization."),
+        Property("short_name", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the organization."),
         Property(
             "coordinated_projects",
             "openminds.core.Project",
@@ -134,7 +136,7 @@ class Organization(KGObject):
                 "openminds.ephys.Electrode",
                 "openminds.ephys.ElectrodeArray",
                 "openminds.ephys.Pipette",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:owner",
             reverse="owners",
@@ -171,27 +173,30 @@ class Organization(KGObject):
             doc="reverse of 'publisher'",
         ),
     ]
-    existence_query_properties = ("name",)
+    aliases = {"name": "full_name", "alias": "short_name"}
+    existence_query_properties = ("full_name",)
 
     def __init__(
         self,
         name=None,
         alias=None,
         affiliations=None,
-        digital_identifiers=None,
-        has_parents=None,
-        homepage=None,
         coordinated_projects=None,
         developed=None,
+        digital_identifiers=None,
+        full_name=None,
         funded=None,
         has_children=None,
         has_members=None,
+        has_parents=None,
+        homepage=None,
         hosts=None,
         is_custodian_of=None,
         is_owner_of=None,
         is_provider_of=None,
         manufactured=None,
         published=None,
+        short_name=None,
         id=None,
         data=None,
         space=None,
@@ -205,18 +210,20 @@ class Organization(KGObject):
             name=name,
             alias=alias,
             affiliations=affiliations,
-            digital_identifiers=digital_identifiers,
-            has_parents=has_parents,
-            homepage=homepage,
             coordinated_projects=coordinated_projects,
             developed=developed,
+            digital_identifiers=digital_identifiers,
+            full_name=full_name,
             funded=funded,
             has_children=has_children,
             has_members=has_members,
+            has_parents=has_parents,
+            homepage=homepage,
             hosts=hosts,
             is_custodian_of=is_custodian_of,
             is_owner_of=is_owner_of,
             is_provider_of=is_provider_of,
             manufactured=manufactured,
             published=published,
+            short_name=short_name,
         )

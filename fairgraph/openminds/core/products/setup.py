@@ -24,13 +24,6 @@ class Setup(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the setup.",
-        ),
-        Property(
             "description",
             str,
             "vocab:description",
@@ -45,7 +38,7 @@ class Setup(KGObject):
                 "openminds.ephys.Electrode",
                 "openminds.ephys.ElectrodeArray",
                 "openminds.ephys.Pipette",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "vocab:hasPart",
             multiple=True,
@@ -61,8 +54,15 @@ class Setup(KGObject):
             doc="no description available",
         ),
         Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the setup.",
+        ),
+        Property(
             "types",
-            "openminds.controlledterms.SetupType",
+            "openminds.controlled_terms.SetupType",
             "vocab:type",
             multiple=True,
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
@@ -91,10 +91,10 @@ class Setup(KGObject):
         name=None,
         description=None,
         has_parts=None,
+        is_part_of=None,
         location=None,
         manufacturers=None,
         types=None,
-        is_part_of=None,
         used_in=None,
         id=None,
         data=None,
@@ -109,9 +109,9 @@ class Setup(KGObject):
             name=name,
             description=description,
             has_parts=has_parts,
+            is_part_of=is_part_of,
             location=location,
             manufacturers=manufacturers,
             types=types,
-            is_part_of=is_part_of,
             used_in=used_in,
         )

@@ -31,7 +31,7 @@ class Contribution(EmbeddedMetadata):
         ),
         Property(
             "types",
-            "openminds.controlledterms.ContributionType",
+            "openminds.controlled_terms.ContributionType",
             "vocab:type",
             multiple=True,
             required=True,

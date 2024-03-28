@@ -26,10 +26,6 @@ class Project(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the project."),
-        Property(
-            "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the project."
-        ),
         Property(
             "coordinators",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
@@ -44,6 +40,7 @@ class Project(KGObject):
             required=True,
             doc="Longer statement or account giving the characteristics of the project.",
         ),
+        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the project."),
         Property(
             "has_parts",
             [
@@ -74,8 +71,16 @@ class Project(KGObject):
             doc="no description available",
         ),
         Property("homepage", IRI, "vocab:homepage", doc="Main website of the project."),
+        Property(
+            "short_name",
+            str,
+            "vocab:shortName",
+            required=True,
+            doc="Shortened or fully abbreviated name of the project.",
+        ),
     ]
-    existence_query_properties = ("alias",)
+    aliases = {"name": "full_name", "alias": "short_name"}
+    existence_query_properties = ("short_name",)
 
     def __init__(
         self,
@@ -83,8 +88,10 @@ class Project(KGObject):
         alias=None,
         coordinators=None,
         description=None,
+        full_name=None,
         has_parts=None,
         homepage=None,
+        short_name=None,
         id=None,
         data=None,
         space=None,
@@ -99,6 +106,8 @@ class Project(KGObject):
             alias=alias,
             coordinators=coordinators,
             description=description,
+            full_name=full_name,
             has_parts=has_parts,
             homepage=homepage,
+            short_name=short_name,
         )

@@ -24,17 +24,17 @@ class HardwareSystem(KGObject):
     }
     properties = [
         Property(
+            "description",
+            str,
+            "vocab:description",
+            doc="Longer statement or account giving the characteristics of the hardware system.",
+        ),
+        Property(
             "name",
             str,
             "vocab:name",
             required=True,
             doc="Word or phrase that constitutes the distinctive designation of the hardware system.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the hardware system.",
         ),
         Property(
             "version_identifier",
@@ -57,8 +57,8 @@ class HardwareSystem(KGObject):
         self,
         name=None,
         description=None,
-        version_identifier=None,
         used_by=None,
+        version_identifier=None,
         id=None,
         data=None,
         space=None,
@@ -71,6 +71,6 @@ class HardwareSystem(KGObject):
             data=data,
             name=name,
             description=description,
-            version_identifier=version_identifier,
             used_by=used_by,
+            version_identifier=version_identifier,
         )

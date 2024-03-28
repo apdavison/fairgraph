@@ -68,8 +68,8 @@ class ISBN(KGObject):
 
     def __init__(
         self,
-        identifier=None,
         cited_in=None,
+        identifier=None,
         identifies=None,
         related_to=None,
         id=None,
@@ -82,8 +82,8 @@ class ISBN(KGObject):
             space=space,
             scope=scope,
             data=data,
-            identifier=identifier,
             cited_in=cited_in,
+            identifier=identifier,
             identifies=identifies,
             related_to=related_to,
         )

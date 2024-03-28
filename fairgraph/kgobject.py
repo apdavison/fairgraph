@@ -258,8 +258,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # todo: move this to openminds generation, and include only in those subclasses
         # that have an alias
         # todo: also count 'lookup_name' as an alias
-        if "alias" not in cls.property_names:
-            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' property")
+        if "short_name" not in cls.property_names:
+            raise AttributeError(f"{cls.__name__} doesn't have an 'alias' or 'short_name' property")
         candidates = as_list(
             cls.list(
                 client,
@@ -333,7 +333,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Example:
 
             >>> from fairgraph import KGClient
-            >>> import fairgraph.openminds.controlledterms as terms
+            >>> import fairgraph.openminds.controlled_terms as terms
             >>> interneuron_types = terms.CellType.list(client, name="interneuron")
             >>> for ct in interneuron_types[:4]:
             ...     print(f"{ct.name:<30} {ct.definition}")
@@ -401,7 +401,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Example:
 
             >>> from fairgraph import KGClient
-            >>> import fairgraph.openminds.controlledterms as terms
+            >>> import fairgraph.openminds.controlled_terms as terms
             >>> terms.CellType.count(client, name="interneuron")
             8
 
@@ -430,10 +430,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         query_properties = []
         for property_name in self.existence_query_properties:
-            for prop in self.properties:
-                if prop.name == property_name:
-                    query_properties.append(prop)
-                    break
+            prop = self._property_lookup[property_name]
+            query_properties.append(prop)
         if len(query_properties) < 1:
             raise Exception("Empty existence query for class {}".format(self.__class__.__name__))
         query = {}

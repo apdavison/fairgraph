@@ -41,7 +41,7 @@ class QualitativeRelationAssessment(EmbeddedMetadata):
         ),
         Property(
             "qualitative_overlap",
-            "openminds.controlledterms.QualitativeOverlap",
+            "openminds.controlled_terms.QualitativeOverlap",
             "vocab:qualitativeOverlap",
             required=True,
             doc="Semantic characterization of how much two things occupy the same space.",

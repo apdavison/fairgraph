@@ -38,7 +38,7 @@ class AccountInformation(KGObject):
     ]
     existence_query_properties = ("service", "user_name")
 
-    def __init__(self, service=None, user_name=None, belongs_to=None, id=None, data=None, space=None, scope=None):
+    def __init__(self, belongs_to=None, service=None, user_name=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
-            id=id, space=space, scope=scope, data=data, service=service, user_name=user_name, belongs_to=belongs_to
+            id=id, space=space, scope=scope, data=data, belongs_to=belongs_to, service=service, user_name=user_name
         )

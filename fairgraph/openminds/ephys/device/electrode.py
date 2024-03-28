@@ -24,19 +24,11 @@ class Electrode(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the electrode.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
             "conductor_material",
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:conductorMaterial",
             doc="no description available",
@@ -49,7 +41,7 @@ class Electrode(KGObject):
         ),
         Property(
             "device_type",
-            "openminds.controlledterms.DeviceType",
+            "openminds.controlled_terms.DeviceType",
             "vocab:deviceType",
             required=True,
             doc="no description available",
@@ -65,7 +57,7 @@ class Electrode(KGObject):
             [
                 "openminds.chemicals.ChemicalMixture",
                 "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlledterms.MolecularEntity",
+                "openminds.controlled_terms.MolecularEntity",
             ],
             "vocab:insulatorMaterial",
             doc="no description available",
@@ -82,12 +74,20 @@ class Electrode(KGObject):
             "vocab:intrinsicResistance",
             doc="no description available",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "manufacturers",
             ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
             "vocab:manufacturer",
             multiple=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the electrode.",
         ),
         Property(
             "owners",
@@ -127,10 +127,10 @@ class Electrode(KGObject):
         insulator_material=None,
         internal_identifier=None,
         intrinsic_resistance=None,
+        is_part_of=None,
         manufacturers=None,
         owners=None,
         serial_number=None,
-        is_part_of=None,
         usage=None,
         id=None,
         data=None,
@@ -151,9 +151,9 @@ class Electrode(KGObject):
             insulator_material=insulator_material,
             internal_identifier=internal_identifier,
             intrinsic_resistance=intrinsic_resistance,
+            is_part_of=is_part_of,
             manufacturers=manufacturers,
             owners=owners,
             serial_number=serial_number,
-            is_part_of=is_part_of,
             usage=usage,
         )

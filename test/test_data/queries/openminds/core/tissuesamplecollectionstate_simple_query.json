@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
       "propertyName": "vocab:additionalRemarks"
     },
@@ -169,6 +164,11 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
       "propertyName": "vocab:internalIdentifier"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/pathology",

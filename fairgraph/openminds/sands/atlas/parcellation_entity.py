@@ -23,14 +23,6 @@ class ParcellationEntity(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
         Property(
@@ -47,6 +39,21 @@ class ParcellationEntity(KGObject):
             doc="Reference to a parent object or legal person.",
         ),
         Property(
+            "has_versions",
+            "openminds.sands.ParcellationEntityVersion",
+            "vocab:hasVersion",
+            multiple=True,
+            doc="Reference to variants of an original.",
+        ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
+        ),
+        Property(
             "ontology_identifiers",
             str,
             "vocab:ontologyIdentifier",
@@ -55,16 +62,9 @@ class ParcellationEntity(KGObject):
         ),
         Property(
             "related_uberon_term",
-            ["openminds.controlledterms.Organ", "openminds.controlledterms.UBERONParcellation"],
+            ["openminds.controlled_terms.Organ", "openminds.controlled_terms.UBERONParcellation"],
             "vocab:relatedUBERONTerm",
             doc="no description available",
-        ),
-        Property(
-            "versions",
-            "openminds.sands.ParcellationEntityVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            doc="Reference to variants of an original.",
         ),
         Property(
             "has_children",
@@ -121,9 +121,9 @@ class ParcellationEntity(KGObject):
                 "openminds.ephys.CellPatching",
                 "openminds.ephys.ElectrodePlacement",
                 "openminds.ephys.RecordingActivity",
-                "openminds.specimenprep.CranialWindowPreparation",
-                "openminds.specimenprep.TissueCulturePreparation",
-                "openminds.specimenprep.TissueSampleSlicing",
+                "openminds.specimen_prep.CranialWindowPreparation",
+                "openminds.specimen_prep.TissueCulturePreparation",
+                "openminds.specimen_prep.TissueSampleSlicing",
                 "openminds.stimulation.StimulationActivity",
             ],
             "^vocab:studyTarget",
@@ -132,6 +132,7 @@ class ParcellationEntity(KGObject):
             doc="reverse of 'studyTarget'",
         ),
     ]
+    aliases = {"versions": "has_versions"}
     existence_query_properties = ("name",)
 
     def __init__(
@@ -141,15 +142,16 @@ class ParcellationEntity(KGObject):
         abbreviation=None,
         alternate_names=None,
         definition=None,
-        has_parents=None,
-        ontology_identifiers=None,
-        related_uberon_term=None,
-        versions=None,
         has_children=None,
+        has_parents=None,
+        has_versions=None,
         is_location_of=None,
         is_target_of=None,
         is_used_to_group=None,
+        ontology_identifiers=None,
+        related_uberon_term=None,
         studied_in=None,
+        versions=None,
         id=None,
         data=None,
         space=None,
@@ -165,13 +167,14 @@ class ParcellationEntity(KGObject):
             abbreviation=abbreviation,
             alternate_names=alternate_names,
             definition=definition,
-            has_parents=has_parents,
-            ontology_identifiers=ontology_identifiers,
-            related_uberon_term=related_uberon_term,
-            versions=versions,
             has_children=has_children,
+            has_parents=has_parents,
+            has_versions=has_versions,
             is_location_of=is_location_of,
             is_target_of=is_target_of,
             is_used_to_group=is_used_to_group,
+            ontology_identifiers=ontology_identifiers,
+            related_uberon_term=related_uberon_term,
             studied_in=studied_in,
+            versions=versions,
         )

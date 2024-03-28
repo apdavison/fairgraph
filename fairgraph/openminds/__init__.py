@@ -1,1 +1,1 @@
-from . import chemicals, computation, controlledterms, core, ephys, publications, sands, specimenprep, stimulation
+from . import chemicals, computation, controlled_terms, core, ephys, publications, sands, specimen_prep, stimulation

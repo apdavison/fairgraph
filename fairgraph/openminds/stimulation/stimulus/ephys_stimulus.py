@@ -23,14 +23,13 @@ class EphysStimulus(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "delivered_by",
             [
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             "vocab:deliveredBy",
             doc="no description available",
@@ -48,7 +47,7 @@ class EphysStimulus(KGObject):
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             "vocab:generatedBy",
             doc="no description available",
@@ -60,6 +59,7 @@ class EphysStimulus(KGObject):
             required=True,
             doc="Term or code that identifies the ephys stimulus within a particular product.",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "specifications",
             [
@@ -74,7 +74,7 @@ class EphysStimulus(KGObject):
         ),
         Property(
             "type",
-            "openminds.controlledterms.ElectricalStimulusType",
+            "openminds.controlled_terms.ElectricalStimulusType",
             "vocab:type",
             doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
         ),
@@ -97,9 +97,9 @@ class EphysStimulus(KGObject):
         epoch=None,
         generated_by=None,
         internal_identifier=None,
+        is_stimulus_for=None,
         specifications=None,
         type=None,
-        is_stimulus_for=None,
         id=None,
         data=None,
         space=None,
@@ -116,7 +116,7 @@ class EphysStimulus(KGObject):
             epoch=epoch,
             generated_by=generated_by,
             internal_identifier=internal_identifier,
+            is_stimulus_for=is_stimulus_for,
             specifications=specifications,
             type=type,
-            is_stimulus_for=is_stimulus_for,
         )

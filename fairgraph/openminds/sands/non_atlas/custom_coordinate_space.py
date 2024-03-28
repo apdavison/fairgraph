@@ -24,15 +24,8 @@ class CustomCoordinateSpace(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space.",
-        ),
-        Property(
             "anatomical_axes_orientation",
-            "openminds.controlledterms.AnatomicalAxesOrientation",
+            "openminds.controlled_terms.AnatomicalAxesOrientation",
             "vocab:anatomicalAxesOrientation",
             required=True,
             doc="Relation between reference planes used in anatomy and mathematics.",
@@ -53,8 +46,15 @@ class CustomCoordinateSpace(KGObject):
             doc="Two or three dimensional image that particluarly represents a specific coordinate space.",
         ),
         Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space.",
+        ),
+        Property(
             "native_unit",
-            "openminds.controlledterms.UnitOfMeasurement",
+            "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:nativeUnit",
             required=True,
             doc="Determinate quantity used in the original measurement.",
@@ -84,9 +84,9 @@ class CustomCoordinateSpace(KGObject):
         anatomical_axes_orientation=None,
         axes_origins=None,
         default_images=None,
-        native_unit=None,
         is_coordinate_space_of=None,
         is_used_to_group=None,
+        native_unit=None,
         id=None,
         data=None,
         space=None,
@@ -101,7 +101,7 @@ class CustomCoordinateSpace(KGObject):
             anatomical_axes_orientation=anatomical_axes_orientation,
             axes_origins=axes_origins,
             default_images=default_images,
-            native_unit=native_unit,
             is_coordinate_space_of=is_coordinate_space_of,
             is_used_to_group=is_used_to_group,
+            native_unit=native_unit,
         )

@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/description",
       "propertyName": "vocab:description"
     },
@@ -76,6 +71,11 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/type",

@@ -33,10 +33,10 @@ class CustomPropertySet(EmbeddedMetadata):
         Property(
             "relevant_for",
             [
-                "openminds.controlledterms.AnalysisTechnique",
-                "openminds.controlledterms.StimulationApproach",
-                "openminds.controlledterms.StimulationTechnique",
-                "openminds.controlledterms.Technique",
+                "openminds.controlled_terms.AnalysisTechnique",
+                "openminds.controlled_terms.StimulationApproach",
+                "openminds.controlled_terms.StimulationTechnique",
+                "openminds.controlled_terms.Technique",
             ],
             "vocab:relevantFor",
             required=True,

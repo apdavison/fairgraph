@@ -67,10 +67,14 @@ class Registry(type):
     """Metaclass for registering Knowledge Graph classes."""
 
     properties = []
+    aliases = {}
 
     def __new__(meta, name, bases, class_dict):
         cls = type.__new__(meta, name, bases, class_dict)
         cls._base_docstring = class_dict.get("__doc__", "").strip()
+        cls._property_lookup = {
+            prop.name: prop for prop in cls.properties
+        }
         register_class(cls)
         return cls
 
@@ -94,7 +98,7 @@ class Registry(type):
 
     @property
     def property_names(cls) -> List[str]:
-        return [f.name for f in cls.properties]
+        return list(cls._property_lookup.keys())
 
     @property
     def required_property_names(cls) -> List[str]:

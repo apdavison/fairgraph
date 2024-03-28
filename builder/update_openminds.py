@@ -1,6 +1,7 @@
 import argparse
 from collections import defaultdict
 from glob import glob
+from itertools import chain
 import json
 import re
 import os
@@ -12,13 +13,19 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 
 name_map = {
-    "shortName": "alias",
-    "fullName": "name",
-    "scope": "model_scope",
-    "hasVersions": "versions",
-    "hasEntity": "entities",
-    "controlledTerms": "controlledterms",
-    "specimenPrep": "specimenprep",
+    "scope": "model_scope",  # this is because 'scope' is already a keyword
+                             # we could rename the 'scope' keyword to 'stage'
+                             # but we would have the same problem, as there is
+                             # a property named 'stage'
+                             # Suggested resolution: rename the property "scope" in openMINDS to "hasScope"
+}
+
+global_aliases = {
+    "short_name": "alias",
+    "full_name": "name",
+    "has_versions": "versions",
+    "has_entity": "entities",
+    "hashes": "hash"
 }
 
 
@@ -213,14 +220,34 @@ reverse_name_map = {
     "wasInformedBy": "informed",
 }
 
+number_names = {
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine"
+}
 
 def generate_python_name(json_name):
     if json_name in name_map:
         python_name = name_map[json_name]
     else:
-        python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name)
+        python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name.strip())
         python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
-        python_name = python_name.replace("-", "_")
+        replacements = [
+            ("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")
+        ]
+        for before, after in replacements:
+            python_name = python_name.replace(before, after)
+        if python_name[0] in number_names:  # Python variables can't start with a number
+            python_name = number_names[python_name[0]] + python_name[1:]
+        if not python_name.isidentifier():
+            raise NameError(f"Cannot generate a valid Python name from '{json_name}'")
     return python_name
 
 
@@ -324,7 +351,7 @@ DEFAULT_SPACES = {
         }
     ),
     "computation": {"default": "computation"},
-    "controlledterms": {"default": "controlled"},
+    "controlled_terms": {"default": "controlled"},
     "sands": invert_dict(
         {
             "spatial": [
@@ -361,7 +388,7 @@ DEFAULT_SPACES = {
     "publications": {"default": "livepapers"},
     "ephys": {"default": "in-depth"},
     "chemicals": {"default": "in-depth"},
-    "specimenprep": {"default": "in-depth"},
+    "specimen_prep": {"default": "in-depth"},
     "stimulation": {"default": "in-depth"},
 }
 
@@ -395,29 +422,29 @@ custom_existence_queries = {
     "RORID": ("identifier",),
     "SWHID": ("identifier",),
     "WebResource": ("iri",),
-    "Dataset": ("alias",),
-    "DatasetVersion": ("alias", "version_identifier"),
-    "MetaDataModel": ("alias",),
-    "MetaDataModelVersion": ("alias", "version_identifier"),
-    "Model": ("name",),  # here we use 'name' instead of 'alias' for backwards compatibility
-    "ModelVersion": ("name", "version_identifier"),
-    "Project": ("alias",),
-    "Software": ("alias",),
-    "SoftwareVersion": ("alias", "version_identifier"),
+    "Dataset": ("short_name",),
+    "DatasetVersion": ("short_name", "version_identifier"),
+    "MetaDataModel": ("short_name",),
+    "MetaDataModelVersion": ("short_name", "version_identifier"),
+    "Model": ("full_name",),  # here we use 'full_name' instead of 'short_name' for backwards compatibility
+    "ModelVersion": ("full_name", "version_identifier"),
+    "Project": ("short_name",),
+    "Software": ("short_name",),
+    "SoftwareVersion": ("short_name", "version_identifier"),
     "Protocol": ("name",),
     "BrainAtlas": ("digital_identifier",),
-    "BrainAtlasVersion": ("alias", "version_identifier"),
-    "CommonCoordinateSpace": ("alias", "version_identifier"),
+    "BrainAtlasVersion": ("short_name", "version_identifier"),
+    "CommonCoordinateSpace": ("short_name", "version_identifier"),
     "ParcellationEntity": ("name",),
     "ParcellationEntityVersion": ("name", "version_identifier"),
-    "ParcellationTerminologyVersion": ("alias", "version_identifier"),
+    "ParcellationTerminologyVersion": ("short_name", "version_identifier"),
     "CustomCoordinateSpace": ("name",),
-    "WorkflowRecipe": ("name",),
-    "WorkflowRecipeVersion": ("name", "version_identifier"),
-    "ValidationTest": ("name", "alias"),
-    "ValidationTestVersion": ("alias", "version_identifier"),
-    "LivePaper": ("name", "alias"),
-    "LivePaperVersion": ("alias", "version_identifier"),
+    "WorkflowRecipe": ("full_name",),
+    "WorkflowRecipeVersion": ("full_name", "version_identifier"),
+    "ValidationTest": ("full_name", "short_name"),
+    "ValidationTestVersion": ("short_name", "version_identifier"),
+    "LivePaper": ("full_name", "short_name"),
+    "LivePaperVersion": ("short_name", "version_identifier"),
     "LivePaperResourceItem": ("name", "iri", "is_also_part_of"),
     "ScholarlyArticle": ("name",),
     "WorkflowExecution": ("stages",),
@@ -441,22 +468,23 @@ def get_existence_query(cls_name, properties):
     return tuple(required_property_names)
 
 
-def property_name_sort_key(prop):
+def property_name_sort_key(property_name):
     """Sort the name prop to be first"""
-    name = prop["name"]
     priorities = {
         "name": "0",
+        "fullName": "0",
         "alias": "1",
+        "shortName": "1",
         "lookup_label": "3",
     }
-    return priorities.get(name, name)
+    return priorities.get(property_name, property_name)
 
 
 def generate_class_name(iri):
     assert isinstance(iri, str)
     parts = iri.split("/")[-2:]
     for i in range(len(parts) - 1):
-        parts[i] = parts[i].lower()
+        parts[i] = generate_python_name(parts[i])
     return "openminds." + ".".join(parts)
 
 
@@ -531,7 +559,7 @@ from urllib.parse import quote, urlparse, urlunparse
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
-from ...controlledterms.unit_of_measurement import UnitOfMeasurement
+from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()""",
@@ -639,6 +667,7 @@ class FairgraphClassBuilder:
             # because this is a single item (PropertyValueList), but that item contains a list
             "environmentVariable": "environmentVariables",
         }
+        aliases = {}
         for iri, prop in self._schema_payload["properties"].items():
             allow_multiple = prop.get("type", "") == "array"
             if allow_multiple:
@@ -647,9 +676,10 @@ class FairgraphClassBuilder:
                 property_name = plurals_special_cases[prop["name"]]
             else:
                 property_name = prop["name"]
+            python_name = generate_python_name(property_name)
             properties.append(
                 {
-                    "name": generate_python_name(property_name),
+                    "name": python_name,
                     "type_str": get_type(prop),  # compress using JSON-LD context
                     "iri": f"vocab:{prop['name']}",
                     "allow_multiple": allow_multiple,
@@ -663,6 +693,8 @@ class FairgraphClassBuilder:
                     "max_items": prop.get("maxItems", None),
                 }
             )
+            if python_name in global_aliases:
+                aliases[global_aliases[python_name]] = python_name
         reverse_properties = []
         forward_property_names = set(prop["name"] for prop in properties)
         conflict_resolution = {
@@ -728,12 +760,17 @@ class FairgraphClassBuilder:
             "class_name": class_name,
             "default_space": default_space,
             "openminds_type": self._schema_payload["_type"],
-            "properties": sorted(properties, key=property_name_sort_key),
-            "reverse_properties": sorted(reverse_properties, key=property_name_sort_key),
+            "properties": sorted(properties, key=lambda p: p["name"]),
+            "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "additional_methods": "",
             "existence_query_properties": get_existence_query(class_name, properties),
             "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
+            "aliases":  aliases,
+            "constructor_arguments": sorted(
+                [p["name"] for p in chain(properties, reverse_properties)] + list(aliases.keys()),
+                key=property_name_sort_key
+            )
         }
         import_map = {
             "date": "from datetime import date",
@@ -755,7 +792,7 @@ class FairgraphClassBuilder:
                     extra_imports.add(imp)
         if extra_imports:
             self.context["preamble"] += "\n" + "\n".join(sorted(extra_imports))
-        if module_name == "controlledterms":
+        if module_name == "controlled_terms":
             self.context["docstring"] += get_controlled_terms_table(self._schema_payload["_type"])
 
     def build(self, embedded=None, linked=None):
@@ -870,6 +907,19 @@ def main(openminds_root, ignore=[]):
             fp.writelines(om_module_header)
             fp.write(content)
             fp.write(om_module_functions)
+
+    with open("../fairgraph/openminds/controlledterms.py", "w") as fp:
+        fp.writelines([
+            "from warnings import warn\n"
+            "from .controlled_terms import *\n"
+            "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
+        ])
+    with open("../fairgraph/openminds/specimenprep.py", "w") as fp:
+        fp.writelines([
+            "from warnings import warn\n"
+            "from .specimen_prep import *\n"
+            "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
+        ])
 
     init_file_path = os.path.join("..", "fairgraph", "openminds", "__init__.py")
     with open(init_file_path, "w") as fp:

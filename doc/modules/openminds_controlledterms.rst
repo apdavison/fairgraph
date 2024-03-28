@@ -1,538 +1,538 @@
-=========================
-openminds.controlledterms
-=========================
+==========================
+openminds.controlled_terms
+==========================
 
 Consistent definition of neuroscience terms.
 
-* :class:`~fairgraph.openminds.controlledterms.ActionStatusType`
-* :class:`~fairgraph.openminds.controlledterms.AgeCategory`
-* :class:`~fairgraph.openminds.controlledterms.AnalysisTechnique`
-* :class:`~fairgraph.openminds.controlledterms.AnatomicalAxesOrientation`
-* :class:`~fairgraph.openminds.controlledterms.AnatomicalIdentificationType`
-* :class:`~fairgraph.openminds.controlledterms.AnatomicalPlane`
-* :class:`~fairgraph.openminds.controlledterms.AnnotationCriteriaType`
-* :class:`~fairgraph.openminds.controlledterms.AnnotationType`
-* :class:`~fairgraph.openminds.controlledterms.AtlasType`
-* :class:`~fairgraph.openminds.controlledterms.AuditoryStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.BiologicalOrder`
-* :class:`~fairgraph.openminds.controlledterms.BiologicalSex`
-* :class:`~fairgraph.openminds.controlledterms.BreedingType`
-* :class:`~fairgraph.openminds.controlledterms.CellCultureType`
-* :class:`~fairgraph.openminds.controlledterms.CellType`
-* :class:`~fairgraph.openminds.controlledterms.ChemicalMixtureType`
-* :class:`~fairgraph.openminds.controlledterms.Colormap`
-* :class:`~fairgraph.openminds.controlledterms.ContributionType`
-* :class:`~fairgraph.openminds.controlledterms.CranialWindowConstructionType`
-* :class:`~fairgraph.openminds.controlledterms.CranialWindowReinforcementType`
-* :class:`~fairgraph.openminds.controlledterms.CriteriaQualityType`
-* :class:`~fairgraph.openminds.controlledterms.DataType`
-* :class:`~fairgraph.openminds.controlledterms.DeviceType`
-* :class:`~fairgraph.openminds.controlledterms.DifferenceMeasure`
-* :class:`~fairgraph.openminds.controlledterms.Disease`
-* :class:`~fairgraph.openminds.controlledterms.DiseaseModel`
-* :class:`~fairgraph.openminds.controlledterms.EducationalLevel`
-* :class:`~fairgraph.openminds.controlledterms.ElectricalStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.EthicsAssessment`
-* :class:`~fairgraph.openminds.controlledterms.ExperimentalApproach`
-* :class:`~fairgraph.openminds.controlledterms.FileBundleGrouping`
-* :class:`~fairgraph.openminds.controlledterms.FileRepositoryType`
-* :class:`~fairgraph.openminds.controlledterms.FileUsageRole`
-* :class:`~fairgraph.openminds.controlledterms.GeneticStrainType`
-* :class:`~fairgraph.openminds.controlledterms.GustatoryStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.Handedness`
-* :class:`~fairgraph.openminds.controlledterms.Language`
-* :class:`~fairgraph.openminds.controlledterms.Laterality`
-* :class:`~fairgraph.openminds.controlledterms.LearningResourceType`
-* :class:`~fairgraph.openminds.controlledterms.MeasuredQuantity`
-* :class:`~fairgraph.openminds.controlledterms.MetaDataModelType`
-* :class:`~fairgraph.openminds.controlledterms.ModelAbstractionLevel`
-* :class:`~fairgraph.openminds.controlledterms.ModelScope`
-* :class:`~fairgraph.openminds.controlledterms.MolecularEntity`
-* :class:`~fairgraph.openminds.controlledterms.OlfactoryStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.OperatingDevice`
-* :class:`~fairgraph.openminds.controlledterms.OperatingSystem`
-* :class:`~fairgraph.openminds.controlledterms.OpticalStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.Organ`
-* :class:`~fairgraph.openminds.controlledterms.OrganismSubstance`
-* :class:`~fairgraph.openminds.controlledterms.OrganismSystem`
-* :class:`~fairgraph.openminds.controlledterms.PatchClampVariation`
-* :class:`~fairgraph.openminds.controlledterms.PreparationType`
-* :class:`~fairgraph.openminds.controlledterms.ProductAccessibility`
-* :class:`~fairgraph.openminds.controlledterms.ProgrammingLanguage`
-* :class:`~fairgraph.openminds.controlledterms.QualitativeOverlap`
-* :class:`~fairgraph.openminds.controlledterms.SemanticDataType`
-* :class:`~fairgraph.openminds.controlledterms.Service`
-* :class:`~fairgraph.openminds.controlledterms.SetupType`
-* :class:`~fairgraph.openminds.controlledterms.SoftwareApplicationCategory`
-* :class:`~fairgraph.openminds.controlledterms.SoftwareFeature`
-* :class:`~fairgraph.openminds.controlledterms.Species`
-* :class:`~fairgraph.openminds.controlledterms.StimulationApproach`
-* :class:`~fairgraph.openminds.controlledterms.StimulationTechnique`
-* :class:`~fairgraph.openminds.controlledterms.SubcellularEntity`
-* :class:`~fairgraph.openminds.controlledterms.SubjectAttribute`
-* :class:`~fairgraph.openminds.controlledterms.TactileStimulusType`
-* :class:`~fairgraph.openminds.controlledterms.Technique`
-* :class:`~fairgraph.openminds.controlledterms.TermSuggestion`
-* :class:`~fairgraph.openminds.controlledterms.Terminology`
-* :class:`~fairgraph.openminds.controlledterms.TissueSampleAttribute`
-* :class:`~fairgraph.openminds.controlledterms.TissueSampleType`
-* :class:`~fairgraph.openminds.controlledterms.TypeOfUncertainty`
-* :class:`~fairgraph.openminds.controlledterms.UBERONParcellation`
-* :class:`~fairgraph.openminds.controlledterms.UnitOfMeasurement`
-* :class:`~fairgraph.openminds.controlledterms.VisualStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.ActionStatusType`
+* :class:`~fairgraph.openminds.controlled_terms.AgeCategory`
+* :class:`~fairgraph.openminds.controlled_terms.AnalysisTechnique`
+* :class:`~fairgraph.openminds.controlled_terms.AnatomicalAxesOrientation`
+* :class:`~fairgraph.openminds.controlled_terms.AnatomicalIdentificationType`
+* :class:`~fairgraph.openminds.controlled_terms.AnatomicalPlane`
+* :class:`~fairgraph.openminds.controlled_terms.AnnotationCriteriaType`
+* :class:`~fairgraph.openminds.controlled_terms.AnnotationType`
+* :class:`~fairgraph.openminds.controlled_terms.AtlasType`
+* :class:`~fairgraph.openminds.controlled_terms.AuditoryStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.BiologicalOrder`
+* :class:`~fairgraph.openminds.controlled_terms.BiologicalSex`
+* :class:`~fairgraph.openminds.controlled_terms.BreedingType`
+* :class:`~fairgraph.openminds.controlled_terms.CellCultureType`
+* :class:`~fairgraph.openminds.controlled_terms.CellType`
+* :class:`~fairgraph.openminds.controlled_terms.ChemicalMixtureType`
+* :class:`~fairgraph.openminds.controlled_terms.Colormap`
+* :class:`~fairgraph.openminds.controlled_terms.ContributionType`
+* :class:`~fairgraph.openminds.controlled_terms.CranialWindowConstructionType`
+* :class:`~fairgraph.openminds.controlled_terms.CranialWindowReinforcementType`
+* :class:`~fairgraph.openminds.controlled_terms.CriteriaQualityType`
+* :class:`~fairgraph.openminds.controlled_terms.DataType`
+* :class:`~fairgraph.openminds.controlled_terms.DeviceType`
+* :class:`~fairgraph.openminds.controlled_terms.DifferenceMeasure`
+* :class:`~fairgraph.openminds.controlled_terms.Disease`
+* :class:`~fairgraph.openminds.controlled_terms.DiseaseModel`
+* :class:`~fairgraph.openminds.controlled_terms.EducationalLevel`
+* :class:`~fairgraph.openminds.controlled_terms.ElectricalStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.EthicsAssessment`
+* :class:`~fairgraph.openminds.controlled_terms.ExperimentalApproach`
+* :class:`~fairgraph.openminds.controlled_terms.FileBundleGrouping`
+* :class:`~fairgraph.openminds.controlled_terms.FileRepositoryType`
+* :class:`~fairgraph.openminds.controlled_terms.FileUsageRole`
+* :class:`~fairgraph.openminds.controlled_terms.GeneticStrainType`
+* :class:`~fairgraph.openminds.controlled_terms.GustatoryStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.Handedness`
+* :class:`~fairgraph.openminds.controlled_terms.Language`
+* :class:`~fairgraph.openminds.controlled_terms.Laterality`
+* :class:`~fairgraph.openminds.controlled_terms.LearningResourceType`
+* :class:`~fairgraph.openminds.controlled_terms.MeasuredQuantity`
+* :class:`~fairgraph.openminds.controlled_terms.MetaDataModelType`
+* :class:`~fairgraph.openminds.controlled_terms.ModelAbstractionLevel`
+* :class:`~fairgraph.openminds.controlled_terms.ModelScope`
+* :class:`~fairgraph.openminds.controlled_terms.MolecularEntity`
+* :class:`~fairgraph.openminds.controlled_terms.OlfactoryStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.OperatingDevice`
+* :class:`~fairgraph.openminds.controlled_terms.OperatingSystem`
+* :class:`~fairgraph.openminds.controlled_terms.OpticalStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.Organ`
+* :class:`~fairgraph.openminds.controlled_terms.OrganismSubstance`
+* :class:`~fairgraph.openminds.controlled_terms.OrganismSystem`
+* :class:`~fairgraph.openminds.controlled_terms.PatchClampVariation`
+* :class:`~fairgraph.openminds.controlled_terms.PreparationType`
+* :class:`~fairgraph.openminds.controlled_terms.ProductAccessibility`
+* :class:`~fairgraph.openminds.controlled_terms.ProgrammingLanguage`
+* :class:`~fairgraph.openminds.controlled_terms.QualitativeOverlap`
+* :class:`~fairgraph.openminds.controlled_terms.SemanticDataType`
+* :class:`~fairgraph.openminds.controlled_terms.Service`
+* :class:`~fairgraph.openminds.controlled_terms.SetupType`
+* :class:`~fairgraph.openminds.controlled_terms.SoftwareApplicationCategory`
+* :class:`~fairgraph.openminds.controlled_terms.SoftwareFeature`
+* :class:`~fairgraph.openminds.controlled_terms.Species`
+* :class:`~fairgraph.openminds.controlled_terms.StimulationApproach`
+* :class:`~fairgraph.openminds.controlled_terms.StimulationTechnique`
+* :class:`~fairgraph.openminds.controlled_terms.SubcellularEntity`
+* :class:`~fairgraph.openminds.controlled_terms.SubjectAttribute`
+* :class:`~fairgraph.openminds.controlled_terms.TactileStimulusType`
+* :class:`~fairgraph.openminds.controlled_terms.Technique`
+* :class:`~fairgraph.openminds.controlled_terms.TermSuggestion`
+* :class:`~fairgraph.openminds.controlled_terms.Terminology`
+* :class:`~fairgraph.openminds.controlled_terms.TissueSampleAttribute`
+* :class:`~fairgraph.openminds.controlled_terms.TissueSampleType`
+* :class:`~fairgraph.openminds.controlled_terms.TypeOfUncertainty`
+* :class:`~fairgraph.openminds.controlled_terms.UBERONParcellation`
+* :class:`~fairgraph.openminds.controlled_terms.UnitOfMeasurement`
+* :class:`~fairgraph.openminds.controlled_terms.VisualStimulusType`
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ActionStatusType
+.. autoclass:: fairgraph.openminds.controlled_terms.ActionStatusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AgeCategory
+.. autoclass:: fairgraph.openminds.controlled_terms.AgeCategory
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnalysisTechnique
+.. autoclass:: fairgraph.openminds.controlled_terms.AnalysisTechnique
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnatomicalAxesOrientation
+.. autoclass:: fairgraph.openminds.controlled_terms.AnatomicalAxesOrientation
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnatomicalIdentificationType
+.. autoclass:: fairgraph.openminds.controlled_terms.AnatomicalIdentificationType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnatomicalPlane
+.. autoclass:: fairgraph.openminds.controlled_terms.AnatomicalPlane
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnnotationCriteriaType
+.. autoclass:: fairgraph.openminds.controlled_terms.AnnotationCriteriaType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AnnotationType
+.. autoclass:: fairgraph.openminds.controlled_terms.AnnotationType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AtlasType
+.. autoclass:: fairgraph.openminds.controlled_terms.AtlasType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.AuditoryStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.AuditoryStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.BiologicalOrder
+.. autoclass:: fairgraph.openminds.controlled_terms.BiologicalOrder
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.BiologicalSex
+.. autoclass:: fairgraph.openminds.controlled_terms.BiologicalSex
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.BreedingType
+.. autoclass:: fairgraph.openminds.controlled_terms.BreedingType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.CellCultureType
+.. autoclass:: fairgraph.openminds.controlled_terms.CellCultureType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.CellType
+.. autoclass:: fairgraph.openminds.controlled_terms.CellType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ChemicalMixtureType
+.. autoclass:: fairgraph.openminds.controlled_terms.ChemicalMixtureType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Colormap
+.. autoclass:: fairgraph.openminds.controlled_terms.Colormap
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ContributionType
+.. autoclass:: fairgraph.openminds.controlled_terms.ContributionType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.CranialWindowConstructionType
+.. autoclass:: fairgraph.openminds.controlled_terms.CranialWindowConstructionType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.CranialWindowReinforcementType
+.. autoclass:: fairgraph.openminds.controlled_terms.CranialWindowReinforcementType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.CriteriaQualityType
+.. autoclass:: fairgraph.openminds.controlled_terms.CriteriaQualityType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.DataType
+.. autoclass:: fairgraph.openminds.controlled_terms.DataType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.DeviceType
+.. autoclass:: fairgraph.openminds.controlled_terms.DeviceType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.DifferenceMeasure
+.. autoclass:: fairgraph.openminds.controlled_terms.DifferenceMeasure
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Disease
+.. autoclass:: fairgraph.openminds.controlled_terms.Disease
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.DiseaseModel
+.. autoclass:: fairgraph.openminds.controlled_terms.DiseaseModel
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.EducationalLevel
+.. autoclass:: fairgraph.openminds.controlled_terms.EducationalLevel
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ElectricalStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.ElectricalStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.EthicsAssessment
+.. autoclass:: fairgraph.openminds.controlled_terms.EthicsAssessment
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ExperimentalApproach
+.. autoclass:: fairgraph.openminds.controlled_terms.ExperimentalApproach
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.FileBundleGrouping
+.. autoclass:: fairgraph.openminds.controlled_terms.FileBundleGrouping
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.FileRepositoryType
+.. autoclass:: fairgraph.openminds.controlled_terms.FileRepositoryType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.FileUsageRole
+.. autoclass:: fairgraph.openminds.controlled_terms.FileUsageRole
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.GeneticStrainType
+.. autoclass:: fairgraph.openminds.controlled_terms.GeneticStrainType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.GustatoryStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.GustatoryStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Handedness
+.. autoclass:: fairgraph.openminds.controlled_terms.Handedness
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Language
+.. autoclass:: fairgraph.openminds.controlled_terms.Language
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Laterality
+.. autoclass:: fairgraph.openminds.controlled_terms.Laterality
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.LearningResourceType
+.. autoclass:: fairgraph.openminds.controlled_terms.LearningResourceType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.MeasuredQuantity
+.. autoclass:: fairgraph.openminds.controlled_terms.MeasuredQuantity
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.MetaDataModelType
+.. autoclass:: fairgraph.openminds.controlled_terms.MetaDataModelType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ModelAbstractionLevel
+.. autoclass:: fairgraph.openminds.controlled_terms.ModelAbstractionLevel
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ModelScope
+.. autoclass:: fairgraph.openminds.controlled_terms.ModelScope
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.MolecularEntity
+.. autoclass:: fairgraph.openminds.controlled_terms.MolecularEntity
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OlfactoryStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.OlfactoryStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OperatingDevice
+.. autoclass:: fairgraph.openminds.controlled_terms.OperatingDevice
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OperatingSystem
+.. autoclass:: fairgraph.openminds.controlled_terms.OperatingSystem
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OpticalStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.OpticalStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Organ
+.. autoclass:: fairgraph.openminds.controlled_terms.Organ
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OrganismSubstance
+.. autoclass:: fairgraph.openminds.controlled_terms.OrganismSubstance
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.OrganismSystem
+.. autoclass:: fairgraph.openminds.controlled_terms.OrganismSystem
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.PatchClampVariation
+.. autoclass:: fairgraph.openminds.controlled_terms.PatchClampVariation
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.PreparationType
+.. autoclass:: fairgraph.openminds.controlled_terms.PreparationType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ProductAccessibility
+.. autoclass:: fairgraph.openminds.controlled_terms.ProductAccessibility
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.ProgrammingLanguage
+.. autoclass:: fairgraph.openminds.controlled_terms.ProgrammingLanguage
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.QualitativeOverlap
+.. autoclass:: fairgraph.openminds.controlled_terms.QualitativeOverlap
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SemanticDataType
+.. autoclass:: fairgraph.openminds.controlled_terms.SemanticDataType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Service
+.. autoclass:: fairgraph.openminds.controlled_terms.Service
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SetupType
+.. autoclass:: fairgraph.openminds.controlled_terms.SetupType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SoftwareApplicationCategory
+.. autoclass:: fairgraph.openminds.controlled_terms.SoftwareApplicationCategory
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SoftwareFeature
+.. autoclass:: fairgraph.openminds.controlled_terms.SoftwareFeature
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Species
+.. autoclass:: fairgraph.openminds.controlled_terms.Species
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.StimulationApproach
+.. autoclass:: fairgraph.openminds.controlled_terms.StimulationApproach
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.StimulationTechnique
+.. autoclass:: fairgraph.openminds.controlled_terms.StimulationTechnique
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SubcellularEntity
+.. autoclass:: fairgraph.openminds.controlled_terms.SubcellularEntity
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.SubjectAttribute
+.. autoclass:: fairgraph.openminds.controlled_terms.SubjectAttribute
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.TactileStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.TactileStimulusType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Technique
+.. autoclass:: fairgraph.openminds.controlled_terms.Technique
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.TermSuggestion
+.. autoclass:: fairgraph.openminds.controlled_terms.TermSuggestion
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.Terminology
+.. autoclass:: fairgraph.openminds.controlled_terms.Terminology
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.TissueSampleAttribute
+.. autoclass:: fairgraph.openminds.controlled_terms.TissueSampleAttribute
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.TissueSampleType
+.. autoclass:: fairgraph.openminds.controlled_terms.TissueSampleType
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.TypeOfUncertainty
+.. autoclass:: fairgraph.openminds.controlled_terms.TypeOfUncertainty
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.UBERONParcellation
+.. autoclass:: fairgraph.openminds.controlled_terms.UBERONParcellation
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.UnitOfMeasurement
+.. autoclass:: fairgraph.openminds.controlled_terms.UnitOfMeasurement
    :members:
    :show-inheritance:
 
 ----
 
-.. autoclass:: fairgraph.openminds.controlledterms.VisualStimulusType
+.. autoclass:: fairgraph.openminds.controlled_terms.VisualStimulusType
    :members:
    :show-inheritance:

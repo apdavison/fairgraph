@@ -16,7 +16,7 @@ from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
 from fairgraph.kgobject import KGObject
 import fairgraph.openminds.core as omcore
-import fairgraph.openminds.controlledterms as omterms
+import fairgraph.openminds.controlled_terms as omterms
 from fairgraph.utility import ActivityLog, sha1sum
 
 from test.utils import mock_client, kg_client, skip_if_no_connection
@@ -379,7 +379,7 @@ def test_count_models_with_filters(kg_client):
 @skip_if_no_connection
 def test_exists_method_with_known_id(kg_client):
     model = omcore.Model.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
-    assert model.existence_query_properties == ("name",)
+    assert model.existence_query_properties == ("full_name",)
 
     new_model = omcore.Model(id=model.id)
     assert new_model != model
@@ -390,7 +390,7 @@ def test_exists_method_with_known_id(kg_client):
 @skip_if_no_connection
 def test_exists_method_without_id(kg_client):
     model = omcore.Model.from_id("708024f7-9dd7-4c92-ae95-936db23c6d99", kg_client)
-    assert model.existence_query_properties == ("name",)
+    assert model.existence_query_properties == ("full_name",)
 
     new_model = omcore.Model(name=model.name)
     assert new_model != model

@@ -26,16 +26,20 @@ class License(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
-        Property(
-            "alias", str, "vocab:shortName", required=True, doc="Shortened or fully abbreviated name of the license."
-        ),
+        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
         Property(
             "legal_code",
             IRI,
             "vocab:legalCode",
             required=True,
             doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted.",
+        ),
+        Property(
+            "short_name",
+            str,
+            "vocab:shortName",
+            required=True,
+            doc="Shortened or fully abbreviated name of the license.",
         ),
         Property(
             "webpages",
@@ -67,15 +71,18 @@ class License(KGObject):
             doc="reverse of 'license'",
         ),
     ]
+    aliases = {"name": "full_name", "alias": "short_name"}
     existence_query_properties = ("alias",)
 
     def __init__(
         self,
         name=None,
         alias=None,
-        legal_code=None,
-        webpages=None,
+        full_name=None,
         is_applied_to=None,
+        legal_code=None,
+        short_name=None,
+        webpages=None,
         id=None,
         data=None,
         space=None,
@@ -88,7 +95,9 @@ class License(KGObject):
             data=data,
             name=name,
             alias=alias,
-            legal_code=legal_code,
-            webpages=webpages,
+            full_name=full_name,
             is_applied_to=is_applied_to,
+            legal_code=legal_code,
+            short_name=short_name,
+            webpages=webpages,
         )

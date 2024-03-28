@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/describedIn",
       "propertyName": "vocab:describedIn",
       "ensureOrder": true,
@@ -63,6 +58,11 @@
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
       "propertyName": "vocab:internalIdentifier"
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/name",
+      "propertyName": "vocab:name",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulation",

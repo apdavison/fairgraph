@@ -24,13 +24,6 @@ class Environment(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the environment.",
-        ),
-        Property(
             "configuration", "openminds.core.Configuration", "vocab:configuration", doc="no description available"
         ),
         Property(
@@ -45,6 +38,13 @@ class Environment(KGObject):
             "vocab:hardware",
             required=True,
             doc="no description available",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the environment.",
         ),
         Property(
             "software",

@@ -23,7 +23,6 @@ class ContentTypePattern(KGObject):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property(
             "content_type",
             "openminds.core.ContentType",
@@ -31,6 +30,7 @@ class ContentTypePattern(KGObject):
             required=True,
             doc="no description available",
         ),
+        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
         Property("regex", str, "vocab:regex", required=True, doc="no description available"),
         Property(
             "identifies_content_of",
@@ -47,8 +47,8 @@ class ContentTypePattern(KGObject):
         self,
         lookup_label=None,
         content_type=None,
-        regex=None,
         identifies_content_of=None,
+        regex=None,
         id=None,
         data=None,
         space=None,
@@ -61,6 +61,6 @@ class ContentTypePattern(KGObject):
             data=data,
             lookup_label=lookup_label,
             content_type=content_type,
-            regex=regex,
             identifies_content_of=identifies_content_of,
+            regex=regex,
         )

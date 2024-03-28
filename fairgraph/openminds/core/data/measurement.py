@@ -33,7 +33,7 @@ class Measurement(EmbeddedMetadata):
         ),
         Property(
             "measured_quantity",
-            "openminds.controlledterms.MeasuredQuantity",
+            "openminds.controlled_terms.MeasuredQuantity",
             "vocab:measuredQuantity",
             required=True,
             doc="no description available",
@@ -44,7 +44,7 @@ class Measurement(EmbeddedMetadata):
                 "openminds.ephys.ElectrodeArrayUsage",
                 "openminds.ephys.ElectrodeUsage",
                 "openminds.ephys.PipetteUsage",
-                "openminds.specimenprep.SlicingDeviceUsage",
+                "openminds.specimen_prep.SlicingDeviceUsage",
             ],
             "vocab:measuredWith",
             doc="no description available",

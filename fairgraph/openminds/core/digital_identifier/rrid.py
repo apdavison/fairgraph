@@ -39,7 +39,7 @@ class RRID(KGObject):
                 "openminds.sands.BrainAtlasVersion",
                 "openminds.sands.CommonCoordinateSpace",
                 "openminds.sands.CommonCoordinateSpaceVersion",
-                "openminds.specimenprep.SlicingDevice",
+                "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:digitalIdentifier",
             reverse="digital_identifiers",

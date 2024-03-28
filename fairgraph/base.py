@@ -34,6 +34,7 @@ from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
     normalize_data,
+    invert_dict
 )
 
 if TYPE_CHECKING:
@@ -81,27 +82,35 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
     space: Union[str, None]
     default_space: Union[str, None]
     remote_data: Optional[JSONdict]
+    aliases: Dict[str, str] = {}
 
     def __init__(self, data: Optional[Dict] = None, **properties):
         properties_copy = copy(properties)
         for prop in self.properties:
             try:
-                value = properties[prop.name]
+                val = properties[prop.name]
             except KeyError:
                 if prop.required:
                     msg = "Property '{}' is required.".format(prop.name)
                     ErrorHandling.handle_violation(prop.error_handling, msg)
-                value = None
+                val = None
             else:
                 properties_copy.pop(prop.name)
-            if value is None:
-                value = prop.default
-                if callable(value):
-                    value = value()
-            elif isinstance(value, (list, tuple)) and len(value) == 0:  # empty list
-                value = None
-            prop.check_value(value)
-            setattr(self, prop.name, value)
+            if val is None:
+                val = prop.default
+                if callable(val):
+                    val = val()
+            elif isinstance(val, (list, tuple)) and len(val) == 0:  # empty list
+                val = None
+            setattr(self, prop.name, val)
+        for name_, alias_ in self.aliases.items():
+            # the trailing underscores are because 'name' and 'alias' can be keys in 'properties'
+            if name_ in properties_copy:
+                val = properties_copy.pop(name_)
+                if val is not None:
+                    if properties.get(alias_, None):
+                        raise ValueError(f"'{name_}' is an alias for '{alias_}', you cannot specify both")
+                    setattr(self, alias_, val)
         if len(properties_copy) > 0:
             if len(properties_copy) == 1:
                 raise NameError(f'{self.__class__.__name__} does not have a property named "{list(properties_copy)[0]}".')
@@ -116,6 +125,27 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         self.remote_data = {}
         if data:
             self.remote_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
+
+    def __getattribute__(self, name):
+        try:
+            return object.__getattribute__(self, name)
+        except AttributeError:
+            if name in self.aliases:
+                return object.__getattribute__(self, self.aliases[name])
+            else:
+                raise
+
+    def __setattr__(self, name, value):
+        try:
+            prop = self._property_lookup[name]
+        except KeyError:
+            if name in self.aliases:
+                setattr(self, self.aliases[name], value)
+            else:
+                super().__setattr__(name, value)
+        else:
+            prop.check_value(value)
+            super().__setattr__(name, value)
 
     def to_jsonld(
         self,
@@ -205,14 +235,12 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             value = ErrorHandling(value)
         if property_names:
             for property_name in as_list(property_names):
-                found = False
-                for prop in cls.properties:
-                    if prop.name == property_name:
-                        prop.error_handling = value
-                        found = True
-                        break
-                if not found:
+                try:
+                    prop = cls._property_lookup[property_name]
+                except KeyError:
                     raise ValueError("No such property: {}".format(property_name))
+                else:
+                    prop.error_handling = value
         else:
             for prop in cls.properties:
                 prop.error_handling = value
@@ -232,9 +260,16 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
              'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
         """
         normalized = {}
+        filter_dict_copy = filter_dict.copy()
+
+        # handle aliases
+        for name_, alias_ in cls.aliases.items():
+            if name_ in filter_dict_copy:
+                filter_dict_copy[alias_] = filter_dict_copy.pop(name_)
+
         for prop in cls.properties:
-            if prop.name in filter_dict:
-                value = filter_dict[prop.name]
+            if prop.name in filter_dict_copy:
+                value = filter_dict_copy[prop.name]
                 if isinstance(value, dict):
                     normalized[prop.name] = {}
                     for child_cls in prop.types:
@@ -253,9 +288,15 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
         """
         properties = [QueryProperty("@type")]
+        reverse_aliases = invert_dict(cls.aliases)
         for prop in cls.properties:
-            if prop.is_link and follow_links and prop.name in follow_links:
-                properties.extend(prop.get_query_properties(follow_links[prop.name]))
+            if prop.is_link and follow_links:
+                if prop.name in follow_links:
+                    properties.extend(prop.get_query_properties(follow_links[prop.name]))
+                elif reverse_aliases.get(prop.name, None) in follow_links:
+                    properties.extend(prop.get_query_properties(follow_links[reverse_aliases[prop.name]]))
+                else:
+                    properties.extend(prop.get_query_properties())
             else:
                 properties.extend(prop.get_query_properties())
         return properties
@@ -344,37 +385,45 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         """
         use_scope = scope or self.scope or "released"
         if follow_links:
+            reverse_aliases = invert_dict(self.__class__.aliases)
             for prop in self.properties:
-                if prop.is_link and prop.name in follow_links:
-                    if issubclass(prop.types[0], ContainsMetadata):
-                        values = getattr(self, prop.name)
-                        resolved_values: List[Any] = []
-                        for value in as_list(values):
-                            if isinstance(value, Resolvable):
-                                if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
-                                    # i.e. isinstance(value, KGObject) - already resolved
-                                    resolved_values.append(value)
-                                else:
-                                    try:
-                                        resolved_value = value.resolve(
-                                            client,
-                                            scope=use_scope,
-                                            use_cache=use_cache,
-                                            follow_links=follow_links[prop.name],
-                                        )
-                                    except ResolutionFailure as err:
-                                        warn(str(err))
+                if prop.is_link:
+                    follow_name = None
+                    if prop.name in follow_links:
+                        follow_name = prop.name
+                    elif reverse_aliases.get(prop.name, None) in follow_links:
+                        follow_name = reverse_aliases[prop.name]
+
+                    if follow_name:
+                        if issubclass(prop.types[0], ContainsMetadata):
+                            values = getattr(self, prop.name)
+                            resolved_values: List[Any] = []
+                            for value in as_list(values):
+                                if isinstance(value, Resolvable):
+                                    if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
+                                        # i.e. isinstance(value, KGObject) - already resolved
                                         resolved_values.append(value)
                                     else:
-                                        resolved_values.append(resolved_value)
-                        if isinstance(values, RepresentsSingleObject):
-                            assert len(resolved_values) == 1
-                            setattr(self, prop.name, resolved_values[0])
-                        elif values is None:
-                            assert len(resolved_values) == 0
-                            setattr(self, prop.name, None)
-                        else:
-                            setattr(self, prop.name, resolved_values)
+                                        try:
+                                            resolved_value = value.resolve(
+                                                client,
+                                                scope=use_scope,
+                                                use_cache=use_cache,
+                                                follow_links=follow_links[follow_name],
+                                            )
+                                        except ResolutionFailure as err:
+                                            warn(str(err))
+                                            resolved_values.append(value)
+                                        else:
+                                            resolved_values.append(resolved_value)
+                            if isinstance(values, RepresentsSingleObject):
+                                assert len(resolved_values) == 1
+                                setattr(self, prop.name, resolved_values[0])
+                            elif values is None:
+                                assert len(resolved_values) == 0
+                                setattr(self, prop.name, None)
+                            else:
+                                setattr(self, prop.name, resolved_values)
         return self
 
 

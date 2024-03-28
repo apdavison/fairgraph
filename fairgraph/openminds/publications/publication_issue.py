@@ -42,13 +42,13 @@ class PublicationIssue(KGObject):
     ]
     existence_query_properties = ("is_part_of", "issue_number")
 
-    def __init__(self, is_part_of=None, issue_number=None, has_parts=None, id=None, data=None, space=None, scope=None):
+    def __init__(self, has_parts=None, is_part_of=None, issue_number=None, id=None, data=None, space=None, scope=None):
         return super().__init__(
             id=id,
             space=space,
             scope=scope,
             data=data,
+            has_parts=has_parts,
             is_part_of=is_part_of,
             issue_number=issue_number,
-            has_parts=has_parts,
         )

@@ -45,7 +45,7 @@ class ServiceLink(KGObject):
         Property("preview_image", "openminds.core.File", "vocab:previewImage", doc="no description available"),
         Property(
             "service",
-            "openminds.controlledterms.Service",
+            "openminds.controlled_terms.Service",
             "vocab:service",
             required=True,
             doc="no description available",

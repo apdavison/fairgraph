@@ -24,13 +24,6 @@ class LivePaperSection(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the live paper section.",
-        ),
-        Property(
             "description",
             str,
             "vocab:description",
@@ -42,6 +35,13 @@ class LivePaperSection(KGObject):
             "vocab:isPartOf",
             required=True,
             doc="Reference to the ensemble of multiple things or beings.",
+        ),
+        Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the live paper section.",
         ),
         Property("order", int, "vocab:order", required=True, doc="no description available"),
         Property(
@@ -66,10 +66,10 @@ class LivePaperSection(KGObject):
         self,
         name=None,
         description=None,
+        has_parts=None,
         is_part_of=None,
         order=None,
         type=None,
-        has_parts=None,
         id=None,
         data=None,
         space=None,
@@ -82,8 +82,8 @@ class LivePaperSection(KGObject):
             data=data,
             name=name,
             description=description,
+            has_parts=has_parts,
             is_part_of=is_part_of,
             order=order,
             type=type,
-            has_parts=has_parts,
         )

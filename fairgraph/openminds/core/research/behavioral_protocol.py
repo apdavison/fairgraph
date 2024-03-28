@@ -24,13 +24,6 @@ class BehavioralProtocol(KGObject):
     }
     properties = [
         Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol.",
-        ),
-        Property(
             "described_in",
             ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
             "vocab:describedIn",
@@ -51,8 +44,15 @@ class BehavioralProtocol(KGObject):
             doc="Term or code that identifies the behavioral protocol within a particular product.",
         ),
         Property(
+            "name",
+            str,
+            "vocab:name",
+            required=True,
+            doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol.",
+        ),
+        Property(
             "stimulations",
-            ["openminds.controlledterms.StimulationApproach", "openminds.controlledterms.StimulationTechnique"],
+            ["openminds.controlled_terms.StimulationApproach", "openminds.controlled_terms.StimulationTechnique"],
             "vocab:stimulation",
             multiple=True,
             doc="no description available",
@@ -60,13 +60,13 @@ class BehavioralProtocol(KGObject):
         Property(
             "stimulus_types",
             [
-                "openminds.controlledterms.AuditoryStimulusType",
-                "openminds.controlledterms.ElectricalStimulusType",
-                "openminds.controlledterms.GustatoryStimulusType",
-                "openminds.controlledterms.OlfactoryStimulusType",
-                "openminds.controlledterms.OpticalStimulusType",
-                "openminds.controlledterms.TactileStimulusType",
-                "openminds.controlledterms.VisualStimulusType",
+                "openminds.controlled_terms.AuditoryStimulusType",
+                "openminds.controlled_terms.ElectricalStimulusType",
+                "openminds.controlled_terms.GustatoryStimulusType",
+                "openminds.controlled_terms.OlfactoryStimulusType",
+                "openminds.controlled_terms.OpticalStimulusType",
+                "openminds.controlled_terms.TactileStimulusType",
+                "openminds.controlled_terms.VisualStimulusType",
             ],
             "vocab:stimulusType",
             multiple=True,
@@ -97,9 +97,9 @@ class BehavioralProtocol(KGObject):
         described_in=None,
         description=None,
         internal_identifier=None,
+        is_used_to_group=None,
         stimulations=None,
         stimulus_types=None,
-        is_used_to_group=None,
         used_in=None,
         id=None,
         data=None,
@@ -115,8 +115,8 @@ class BehavioralProtocol(KGObject):
             described_in=described_in,
             description=description,
             internal_identifier=internal_identifier,
+            is_used_to_group=is_used_to_group,
             stimulations=stimulations,
             stimulus_types=stimulus_types,
-            is_used_to_group=is_used_to_group,
             used_in=used_in,
         )

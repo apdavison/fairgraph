@@ -39,11 +39,6 @@
       "path": "@type"
     },
     {
-      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
-      "sort": true
-    },
-    {
       "path": "https://openminds.ebrains.eu/vocab/contentType",
       "propertyName": "vocab:contentType",
       "structure": [
@@ -54,6 +49,11 @@
           "path": "@type"
         }
       ]
+    },
+    {
+      "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
+      "propertyName": "vocab:lookupLabel",
+      "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/regex",
