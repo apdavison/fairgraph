@@ -773,7 +773,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             warn("Multiple objects with the same name, returning the first. " "Use 'all=True' to retrieve them all")
             return objects[0]
 
-    def show(self, max_width: Optional[int] = None):
+    def show(self, max_width: Optional[int] = None, include_empty_properties=False):
         """
         Print a table showing the metadata contained in this object.
         """
@@ -783,7 +783,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             ("id", str(self.id)),
             ("space", str(self.space)),
             ("type", self.type_[0]),
-        ] + [(prop.name, str(getattr(self, prop.name, None))) for prop in self.properties]
+        ]
+        for prop in self.properties:
+            value = getattr(self, prop.name, None)
+            if include_empty_properties or not isinstance(value, (type(None), KGQuery)):
+                data.append((prop.name, str(value)))
         if max_width:
             value_column_width = max_width - max(len(item[0]) for item in data)
 
