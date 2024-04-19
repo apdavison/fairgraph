@@ -2,11 +2,16 @@
 Release notes
 =============
 
-Version 0.11.1
+Version 0.12.0
 ==============
 
-- a small number of bug fixes
+The main change in this release is the harmonization of terminology between fairgraph and the openMINDS Python library.
+In particular, Field/fields has been changed to Property/properties, but there are also various other changes.
+The previous names should still work, and should emit a deprecation warning.
+The previous names will be removed in a future release.
 
+In addition, the openminds module builder has been rewritten using the new openMINDS build pipeline.
+This should not have resulted in any substantive changes to the released fairgraph package.
 
 Version 0.11.0
 ==============
