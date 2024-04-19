@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "fairgraph"
-copyright = "2018-2023, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi"
+copyright = "2018-2024, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi"
 author = "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen, Peyman Najafi"
 
 # The short X.Y version
