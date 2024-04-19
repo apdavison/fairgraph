@@ -135,7 +135,13 @@ class QueryProperty:
         if self.type_filter or self.reverse:
             data["path"] = {"@id": data["path"]}
             if self.type_filter:
-                data["path"]["typeFilter"] = {"@id": self.type_filter}
+                if isinstance(self.type_filter, (list, tuple)):
+                    data["path"]["typeFilter"] = [
+                        {"@id": type_iri} for type_iri in self.type_filter
+                    ]
+                else:
+                    assert isinstance(self.type_filter, str)
+                    data["path"]["typeFilter"] = {"@id": self.type_filter}
             if self.reverse:
                 data["path"]["reverse"] = True
         if self.expect_single:
