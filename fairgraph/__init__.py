@@ -19,12 +19,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+from openminds import IRI
 from .client import KGClient
 from .kgobject import KGObject
 from .embedded import EmbeddedMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-from .base import IRI
+
 
 __version__ = "0.12.0"
 

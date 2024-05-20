@@ -33,12 +33,16 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
+
+from openminds.registry import lookup_type
+from openminds import IRI
+
 from .utility import expand_uri, as_list, expand_filter, ActivityLog
-from .registry import lookup_type
 from .queries import Query
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
-from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
+from .base import RepresentsSingleObject, SupportsQuerying, JSONdict
+from .node import ContainsMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 
@@ -528,7 +532,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Return a dict containing the properties that have been modified locally
         from the values originally obtained from the Knowledge Graph.
         """
-        current_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
+        current_data = self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
         modified_data = {}
         for key, current_value in current_data.items():
             if not key.startswith("@"):
@@ -614,7 +618,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                local_data = self.to_jsonld()
+                local_data = self.to_jsonld(embed_linked_nodes=False)
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
@@ -667,7 +671,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            local_data = self.to_jsonld()
+            local_data = self.to_jsonld(embed_linked_nodes=False)
             logger.info("  - creating instance with data {}".format(local_data))
             try:
                 instance_data = client.create_new_instance(
@@ -693,7 +697,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         if self.id:
-            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld()))
+            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld(embed_linked_nodes=False)))
             object_cache[self.id] = self
         else:
             logger.warning("Object has no id - see log for the underlying error")

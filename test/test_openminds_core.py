@@ -10,8 +10,9 @@ import urllib.request
 
 import pytest
 
+from openminds import IRI
+
 from fairgraph.utility import as_list
-from fairgraph.base import IRI
 from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
 from fairgraph.kgobject import KGObject
@@ -479,8 +480,8 @@ def test_to_jsonld():
         "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
         "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
     }
-    assert person1.to_jsonld(follow_links=True) == expected1
-    assert person1.to_jsonld(follow_links=False) == expected1
+    assert person1.to_jsonld(embed_linked_nodes=True) == expected1
+    assert person1.to_jsonld(embed_linked_nodes=False) == expected1
 
     person2 = omcore.Person(
         id="0000",
@@ -512,8 +513,8 @@ def test_to_jsonld():
         "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
         "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
     }
-    assert person2.to_jsonld(follow_links=True) == expected2a
-    assert person2.to_jsonld(follow_links=False) == expected2b
+    assert person2.to_jsonld(embed_linked_nodes=True) == expected2a
+    assert person2.to_jsonld(embed_linked_nodes=False) == expected2b
 
 
 @skip_if_using_production_server

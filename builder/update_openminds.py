@@ -489,7 +489,7 @@ def generate_class_name(iri):
     parts = iri.split("/")[-2:]
     for i in range(len(parts) - 1):
         parts[i] = generate_python_name(parts[i])
-    return "openminds." + ".".join(parts)
+    return "openminds.latest." + ".".join(parts)
 
 
 def get_controlled_terms_table(type_):
@@ -713,7 +713,7 @@ class FairgraphClassBuilder:
                     (forward_link_name,) = unique_forward_link_names
                     (forward_link_name_plural,) = set(linked_from[reverse_link_name][1])
                     _forward_link_name_python = generate_python_name(forward_link_name_plural)
-                    iri = f"^vocab:{forward_link_name}"
+                    iri = forward_link_name
                     doc = f"reverse of '{forward_link_name}'"  # use _plural?
                     types_str = sorted(types_str)
                     if len(types_str) == 1:
@@ -730,7 +730,7 @@ class FairgraphClassBuilder:
                         forward_link_name = linked_from[reverse_link_name][0]
                         forward_link_name_plural = linked_from[reverse_link_name][1]
                     _forward_link_name_python = [generate_python_name(name) for name in forward_link_name_plural]
-                    iri = [f"^vocab:{name}" for name in forward_link_name]
+                    iri = [name for name in forward_link_name]
                     doc = "reverse of " + ", ".join(name for name in forward_link_name)  # use _plural?
                 reverse_name_python = generate_python_name(reverse_link_name)
                 if reverse_name_python in forward_property_names:
@@ -761,6 +761,7 @@ class FairgraphClassBuilder:
             "docstring": self._schema_payload.get("description", "<description not available>"),
             "base_class": base_class,
             "preamble": preamble.get(class_name, ""),  # default value, may be updated below
+            "module_name": module_name,
             "class_name": class_name,
             "default_space": default_space,
             "openminds_type": self._schema_payload["_type"],
@@ -780,7 +781,7 @@ class FairgraphClassBuilder:
             "date": "from datetime import date",
             "datetime": "from datetime import datetime",
             "time": "from datetime import time",
-            "IRI": "from fairgraph.base import IRI",
+            "IRI": "from openminds import IRI",
             "[datetime, time]": "from datetime import datetime, time",
         }
         extra_imports = set()

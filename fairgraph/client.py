@@ -114,7 +114,12 @@ class KGClient(object):
             try:
                 self._kg_client_builder = kg(host).with_token(os.environ["KG_AUTH_TOKEN"])
             except KeyError:
-                raise AuthenticationError("Need to provide either token or client id/secret.")
+                iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
+                self._kg_client_builder = kg(host).with_device_flow(
+                    client_id="kg-core-python",
+                    open_id_configuration_url=iam_config_url
+                )
+                #raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = self._kg_client_builder.build()
         self.__kg_admin_client = None
         self.host = host

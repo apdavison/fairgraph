@@ -4,35 +4,20 @@
 
 # this file was auto-generated
 
-from fairgraph import {{ base_class }}, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.{{ module_name }} import {{ class_name }}
+from fairgraph import {{ base_class }}
 
 {{preamble}}
 
 
-class {{ class_name }}({{ base_class }}):
+class {{ class_name }}({{ class_name }}, {{ base_class }}):
     """
     {{ docstring }}
     """
     {%- if default_space %}
     default_space = "{{ default_space }}"
     {%- endif %}
-    type_ = "{{ openminds_type }}"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/"
-    }
-    properties = [
-        {% for prop in properties -%}
-        Property("{{prop.name}}", {{prop.type_str}}, "{{prop.iri}}",
-            {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
-            {%- if prop.required %}required={{prop.required}},{% endif -%}
-            doc="{{prop.doc}}"),
-        {% endfor %}
-    ]
     reverse_properties = [
         {% for prop in reverse_properties -%}
         Property(
@@ -49,7 +34,7 @@ class {{ class_name }}({{ base_class }}):
             {% endif -%}
             {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
             {%- if prop.required %}, required={{prop.required}},{% endif -%}
-            doc="{{prop.doc}}"),
+            description="{{prop.doc}}"),
         {% endfor %}
     ]
     {%- if aliases %}

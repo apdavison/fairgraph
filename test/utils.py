@@ -6,7 +6,8 @@ from fairgraph.errors import AuthenticationError
 
 import pytest
 
-kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
+#kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
+kg_host = "core.kg.ebrains.eu"  # don't use production for testing
 have_kg_connection = False
 no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
 

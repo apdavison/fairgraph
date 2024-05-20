@@ -1,9 +1,10 @@
-from fairgraph.registry import Registry
-from fairgraph.properties import Property
+from openminds.properties import Property
+
+from fairgraph.registry import Node
 
 
 def test_docstring_generation():
-    class Foo(metaclass=Registry):
+    class Foo(metaclass=Node):
         """This is the base docstring"""
 
         properties = [Property("foo", str, "Foo", doc="foo-foo")]

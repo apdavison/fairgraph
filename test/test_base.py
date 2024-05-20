@@ -4,16 +4,18 @@ Tests of fairgraph.base module.
 """
 
 from datetime import date, datetime
+from openminds.base import Node
+from openminds.properties import Property
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
-from fairgraph.properties import Property
 from fairgraph.caching import generate_cache_key
 import pytest
 
 
-class MockEmbeddedObject(EmbeddedMetadata):
+class MockEmbeddedObject(EmbeddedMetadata, Node):
     type_ = "https://openminds.ebrains.eu/mock/MockEmbeddedObject"
+    schema_version = "latest"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -47,9 +49,10 @@ class MockEmbeddedObject(EmbeddedMetadata):
     existence_query_properties = ("a_number",)
 
 
-class MockKGObject2(KGObject):
+class MockKGObject2(KGObject, Node):
     default_space = "mock"
     type_ = "https://openminds.ebrains.eu/mock/MockKGObject2"
+    schema_version = "latest"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -60,9 +63,10 @@ class MockKGObject2(KGObject):
     reverse_properties = []
 
 
-class MockKGObject(KGObject):
+class MockKGObject(KGObject, Node):
     default_space = "mock"
     type_ = "https://openminds.ebrains.eu/mock/MockKGObject"
+    schema_version = "latest"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -128,14 +132,14 @@ class MockKGObject(KGObject):
         ),
         Property(
             "a_required_linked_object",
-            ["test_base.MockKGObject", MockKGObject2],
+            ["test.test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject",
             multiple=False,
             required=True,
         ),
         Property(
             "a_required_list_of_linked_objects",
-            ["test_base.MockKGObject", MockKGObject2],
+            ["test.test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects",
             multiple=True,
             required=True,
@@ -149,7 +153,7 @@ class MockKGObject(KGObject):
         ),
         Property(
             "an_optional_list_of_linked_objects",
-            ["test_base.MockKGObject", MockKGObject2],
+            ["test.test_base.MockKGObject", MockKGObject2],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects",
             multiple=True,
             required=False,
@@ -443,7 +447,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon",
         }
-        assert obj.to_jsonld(include_empty_properties=True) == expected
+        assert obj.to_jsonld(include_empty_properties=True, embed_linked_nodes=False) == expected
 
     def test_modified_data(self):
         obj = self._construct_object_all_properties()
@@ -491,7 +495,7 @@ class TestKGObject(object):
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_properties=True)
+                data = orig_object.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
@@ -593,7 +597,7 @@ class TestKGProxy:
 
     def test_initialization_with_string(self):
         uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
-        proxy = KGProxy("test_base.MockKGObject", uri)
+        proxy = KGProxy("test.test_base.MockKGObject", uri)
         assert proxy.cls is MockKGObject
         assert proxy.id == uri
 

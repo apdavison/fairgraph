@@ -22,10 +22,11 @@ from __future__ import annotations
 import logging
 from typing import Dict, List, Optional, Union, Any, TYPE_CHECKING
 
+from openminds.registry import lookup
+
 from .utility import as_list, expand_filter
-from .registry import lookup
 from .caching import object_cache
-from .base import Resolvable, SupportsQuerying, ContainsMetadata
+from .base import Resolvable, SupportsQuerying
 
 if TYPE_CHECKING:
     from .client import KGClient

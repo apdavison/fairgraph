@@ -17,7 +17,18 @@ This module provides Python classes to assist in writing Knowledge Graph queries
 # limitations under the License.
 
 from __future__ import annotations
-from typing import Optional, List, Any, Dict
+from typing import Optional, List, Any, Dict, Union
+from uuid import UUID
+from datetime import date, datetime
+import logging
+from warnings import warn
+
+from openminds.base import IRI, EmbeddedMetadata, LinkedMetadata, Node
+
+from .utility import as_list, expand_uri
+
+
+logger = logging.getLogger("fairgraph")
 
 
 class Filter:
@@ -246,3 +257,208 @@ class Query:
 
 
 # todo: I think only one property can have "sort": True - need to check this
+
+
+
+def _get_query_property_name(property, possible_classes):
+    if isinstance(property.path, str):
+        property_name = property.path
+    else:
+        assert isinstance(property.path, list)
+        found_match = False
+        for cls in possible_classes:
+            for path in property.path:
+                for prop in cls.properties:
+                    if path == prop.path:
+                        property_name = path
+                        found_match = True
+                        break
+                if found_match:
+                    break
+            if found_match:
+                break
+        assert found_match
+    return property_name
+
+
+def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
+    """
+    Generate one or more QueryProperty instances for this property,
+    for use in constructing a KG query definition.
+    """
+    expanded_path = expand_uri(property.path, {"@vocab": "https://openminds.ebrains.eu/vocab/"})
+    properties = []
+    if any(issubclass(_type, EmbeddedMetadata) for _type in property.types):
+        if not all(issubclass(_type, EmbeddedMetadata) for _type in property.types):
+            warn(f"Mixed types in {property}")
+            return properties
+        for cls in property.types:
+            if len(property.types) > 1:
+                property_name = f"{property.path}__{cls.__name__}"
+                type_filter = cls.type_[0]
+            else:
+                property_name = property.path
+                type_filter = None
+            properties.append(
+                QueryProperty(
+                    expanded_path,
+                    name=property_name,
+                    reverse=property.reverse,
+                    type_filter=type_filter,
+                    ensure_order=property.multiple,
+                    properties=cls.generate_query_properties(follow_links),
+                )
+            )
+    elif any(issubclass(_type, LinkedMetadata) for _type in property.types):
+        assert all(issubclass(_type, LinkedMetadata) for _type in property.types)
+        if follow_links is not None:
+            for cls in property.types:
+                property_name = _get_query_property_name(property, possible_classes=[cls])
+                if len(property.types) > 1:
+                    property_name = f"{property_name}__{cls.__name__}"
+                    type_filter = cls.type_[0]
+                else:
+                    type_filter = None
+
+                properties.append(
+                    QueryProperty(
+                        expanded_path,
+                        name=property_name,
+                        reverse=property.reverse,
+                        type_filter=type_filter,
+                        ensure_order=property.multiple,
+                        properties=[QueryProperty("@id"), *cls.generate_query_properties(follow_links)],
+                    )
+                )
+        else:
+            if isinstance(property.path, str):
+                property_name = property.path
+                properties.append(
+                    QueryProperty(
+                        expanded_path,
+                        name=property_name,
+                        reverse=property.reverse,
+                        type_filter=None,
+                        ensure_order=property.multiple,
+                        properties=[
+                            QueryProperty("@id"),
+                            QueryProperty("@type"),
+                        ],
+                    )
+                )
+            else:
+                assert isinstance(property.path, list)
+                logger.warning(f"Cannot yet handle case where property.path is a list: {property}")
+    else:
+        assert not property.reverse
+        properties.append(
+            QueryProperty(
+                expanded_path,
+                name=property.path,
+                reverse=property.reverse,
+                ensure_order=property.multiple,
+            )
+        )
+    return properties
+
+
+def get_query_filter_property(property, filter: Any) -> QueryProperty:
+    """
+    Generate a QueryProperty instance containing a filter,
+    for use in constructing a KG query definition.
+    """
+    assert filter is not None
+    if isinstance(filter, dict):
+        # we pass the filter through to the next level
+        filter_obj = None
+    else:
+        # we have a filter value for this property
+        if property.types[0] in (int, float, bool, datetime, date):
+            op = "EQUALS"
+        else:
+            op = "CONTAINS"
+        filter_obj = Filter(op, value=filter)
+
+    expanded_path = expand_uri(property.path, {"@vocab": "https://openminds.ebrains.eu/vocab/"})
+
+    if any(issubclass(_type, Node) for _type in property.types):
+        assert all(issubclass(_type, Node) for _type in property.types)
+        prop = QueryProperty(expanded_path, name=f"Q{property.name}", required=True, reverse=property.reverse)
+        if filter_obj:
+            prop.properties.append(QueryProperty("@id", filter=filter_obj))
+        else:
+            for cls in property.types:
+                child_properties = cls.generate_query_filter_properties(filter)
+                if child_properties:
+                    # if the class has properties with the appropriate name
+                    # we add them, then break to avoid adding the same
+                    # prop twice
+                    prop.properties.extend(child_properties)
+                    break
+    else:
+        prop = QueryProperty(expanded_path, name=f"Q{property.name}", filter=filter_obj, required=True)
+    return prop
+
+
+def get_filter_value(property, value: Any) -> Union[str, List[str]]:
+    """
+    Normalize a value for use in a KG query
+
+    Example:
+        >>> import fairgraph.openminds.core as omcore
+        >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
+        >>> prop = Property(name='custodians', types=(omcore.Organization, omcore.Person),
+        ...                  path="vocab:custodian", multiple=True)
+        >>> get_filter_value(prop, person)
+        https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2
+    """
+    from .kgproxy import KGProxy
+
+    def is_valid(val):
+        if isinstance(val, str):
+            try:
+                val = UUID(val)
+            except ValueError:
+                pass
+        return isinstance(val, (IRI, UUID, *property.types)) or (isinstance(val, KGProxy) and val.cls in property.types)
+
+    if isinstance(value, list) and len(value) > 0:
+        valid_type = all(is_valid(item) for item in value)
+        have_multiple = True
+    else:
+        valid_type = is_valid(value)
+        have_multiple = False
+    if not valid_type:
+        if property.name == "hash":  # bit of a hack
+            filter_value = value
+        elif isinstance(value, str) and value.startswith("http"):  # for @id
+            filter_value = value
+        else:
+            raise TypeError("{} must be of type {}, not {}".format(property.name, property.types, type(value)))
+
+    filter_items = []
+    for item in as_list(value):
+        if isinstance(item, IRI):
+            filter_item = item.value
+        elif isinstance(item, (date, datetime)):
+            filter_item = item.isoformat()
+        elif hasattr(item, "id"):
+            filter_item = item.id
+        elif isinstance(item, UUID):
+            # todo: consider using client.uri_from_uuid()
+            # would require passing client as arg
+            filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
+        elif isinstance(item, str) and "+" in item:  # workaround for KG bug
+            invalid_char_index = item.index("+")
+            if invalid_char_index < 3:
+                raise ValueError(f"Cannot use {item} as filter, contains invalid characters")
+            filter_item = item[:invalid_char_index]
+            warn(f"Truncating filter value {item} --> {filter_item}")
+        else:
+            filter_item = item
+        filter_items.append(filter_item)
+
+    if have_multiple:
+        return filter_items
+    else:
+        return filter_items[0]

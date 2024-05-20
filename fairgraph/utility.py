@@ -94,11 +94,14 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
         if uri.startswith("http") or uri.startswith("@"):
             expanded_uris.append(uri)
         else:
-            prefix, identifier = uri.split(":")
-            if prefix.startswith("^"):  # used to indicate a reverse connection
-                prefix = prefix[1:]
+            parts = uri.split(":")
+            if len(parts) == 1:
+                prefix = "@vocab"
+                identifier = uri
+            else:
+                prefix, identifier = parts
             if prefix not in context:
-                raise ValueError("prefix {prefix} not found in context")
+                raise ValueError(f"prefix {prefix} not found in context")
             base_url = context[prefix]
             if not base_url.endswith("/"):
                 base_url.append("/")

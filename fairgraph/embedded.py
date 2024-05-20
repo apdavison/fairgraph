@@ -24,7 +24,8 @@ from typing import Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 from .utility import as_list, ActivityLog
-from .base import Resolvable, ContainsMetadata, JSONdict
+from .base import Resolvable, JSONdict
+from .node import ContainsMetadata
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -67,7 +68,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return template.format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
+        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(embed_linked_nodes=False)
 
     @classmethod
     def from_kg_instance(cls, data: JSONdict, client: KGClient) -> Union[None, EmbeddedMetadata]:

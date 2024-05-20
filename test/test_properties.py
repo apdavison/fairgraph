@@ -1,10 +1,11 @@
 from datetime import date
 from uuid import uuid4
+from openminds.properties import Property
 from fairgraph.base import ErrorHandling
-from fairgraph.properties import Property
 from fairgraph.kgobject import KGObject
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgproxy import KGProxy
+from fairgraph.queries import get_filter_value
 import pytest
 
 
@@ -158,11 +159,11 @@ def test_deserialize():
 
 def test_get_filter_value():
     date_property = Property("the_date", date, "TheDate", error_handling=ErrorHandling.error)
-    assert date_property.get_filter_value(date(2023, 6, 2)) == "2023-06-02"
+    assert get_filter_value(date_property, date(2023, 6, 2)) == "2023-06-02"
 
     integer_property = Property("the_number", int, "TheNumber", error_handling=ErrorHandling.error)
-    assert integer_property.get_filter_value(42) == 42
+    assert get_filter_value(integer_property, 42) == 42
 
     object_property = Property("the_object", SomeOrganization, "TheObject", error_handling=ErrorHandling.error)
     obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
-    assert object_property.get_filter_value(obj) == "https://kg.ebrains.eu/api/instances/the_id"
+    assert get_filter_value(object_property, obj) == "https://kg.ebrains.eu/api/instances/the_id"

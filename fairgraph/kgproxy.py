@@ -22,7 +22,8 @@ from __future__ import annotations
 import logging
 from typing import List, Optional, Tuple, Union, Dict, Any, TYPE_CHECKING
 
-from .registry import lookup
+from openminds.registry import lookup
+
 from .errors import ResolutionFailure
 from .caching import object_cache
 from .base import RepresentsSingleObject
