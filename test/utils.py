@@ -7,6 +7,7 @@ import pytest
 
 kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
 have_kg_connection = False
+
 try:
     client = KGClient(host=kg_host)
 except AuthenticationError:

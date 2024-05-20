@@ -47,6 +47,7 @@ class FileBundle(KGObject):
                 "openminds.controlled_terms.GeneticStrainType",
                 "openminds.controlled_terms.GustatoryStimulusType",
                 "openminds.controlled_terms.Handedness",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.MolecularEntity",
                 "openminds.controlled_terms.OlfactoryStimulusType",
                 "openminds.controlled_terms.OpticalStimulusType",
@@ -118,6 +119,8 @@ class FileBundle(KGObject):
             "vocab:storageSize",
             doc="Quantitative value defining how much disk space is used by an object on a computer system.",
         ),
+    ]
+    reverse_properties = [
         Property(
             "describes",
             [

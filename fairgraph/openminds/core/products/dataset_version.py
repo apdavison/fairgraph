@@ -101,7 +101,7 @@ class DatasetVersion(KGObject):
         ),
         Property(
             "full_documentation",
-            ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
+            ["openminds.core.DOI", "openminds.core.File", "openminds.core.ISBN", "openminds.core.WebResource"],
             "vocab:fullDocumentation",
             required=True,
             doc="Non-abridged instructions, comments, and information for using a particular product.",
@@ -193,6 +193,7 @@ class DatasetVersion(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -358,6 +359,7 @@ class DatasetVersion(KGObject):
             "techniques",
             [
                 "openminds.controlled_terms.AnalysisTechnique",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.StimulationApproach",
                 "openminds.controlled_terms.StimulationTechnique",
                 "openminds.controlled_terms.Technique",
@@ -381,6 +383,8 @@ class DatasetVersion(KGObject):
             required=True,
             doc="Documentation on what changed in comparison to a previously published form of something.",
         ),
+    ]
+    reverse_properties = [
         Property(
             "comments",
             "openminds.core.Comment",

@@ -62,6 +62,7 @@ class Protocol(KGObject):
             "techniques",
             [
                 "openminds.controlled_terms.AnalysisTechnique",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.StimulationApproach",
                 "openminds.controlled_terms.StimulationTechnique",
                 "openminds.controlled_terms.Technique",
@@ -71,6 +72,8 @@ class Protocol(KGObject):
             required=True,
             doc="Method of accomplishing a desired aim.",
         ),
+    ]
+    reverse_properties = [
         Property(
             "used_in",
             [

@@ -154,6 +154,7 @@ class LearningResource(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -241,6 +242,7 @@ class LearningResource(KGObject):
             doc="Term or code used to identify the version of something.",
         ),
     ]
+    reverse_properties = []
     existence_query_properties = ("about", "name", "publication_date")
 
     def __init__(
