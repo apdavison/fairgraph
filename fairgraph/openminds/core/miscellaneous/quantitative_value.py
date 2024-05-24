@@ -13,7 +13,7 @@ class QuantitativeValue(EmbeddedMetadata):
     Structured information on a quantitative value.
     """
 
-    type_ = ["https://openminds.ebrains.eu/core/QuantitativeValue"]
+    type_ = "https://openminds.ebrains.eu/core/QuantitativeValue"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

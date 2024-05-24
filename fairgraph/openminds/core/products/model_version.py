@@ -19,7 +19,7 @@ class ModelVersion(KGObject):
     """
 
     default_space = "model"
-    type_ = ["https://openminds.ebrains.eu/core/ModelVersion"]
+    type_ = "https://openminds.ebrains.eu/core/ModelVersion"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

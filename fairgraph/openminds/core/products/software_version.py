@@ -19,7 +19,7 @@ class SoftwareVersion(KGObject):
     """
 
     default_space = "software"
-    type_ = ["https://openminds.ebrains.eu/core/SoftwareVersion"]
+    type_ = "https://openminds.ebrains.eu/core/SoftwareVersion"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",

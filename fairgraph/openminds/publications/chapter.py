@@ -18,7 +18,7 @@ class Chapter(KGObject):
     """
 
     default_space = "livepapers"
-    type_ = ["https://openminds.ebrains.eu/publications/Chapter"]
+    type_ = "https://openminds.ebrains.eu/publications/Chapter"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
