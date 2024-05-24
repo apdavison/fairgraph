@@ -5,10 +5,11 @@ from fairgraph.errors import AuthenticationError
 
 import pytest
 
-
+kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
 have_kg_connection = False
+
 try:
-    client = KGClient(host="core.kg-ppd.ebrains.eu")  # don't use production for testing
+    client = KGClient(host=kg_host)
 except AuthenticationError:
     pass
 else:
@@ -20,6 +21,10 @@ no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUT
 
 def skip_if_no_connection(f):
     return pytest.mark.skipif(not have_kg_connection, reason=no_kg_err_msg)(f)
+
+
+def skip_if_using_production_server(f):
+    return pytest.mark.skipif("kg-ppd" not in kg_host, reason="Using production server for testing")(f)
 
 
 @pytest.fixture(scope="session")

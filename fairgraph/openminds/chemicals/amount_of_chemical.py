@@ -35,7 +35,7 @@ class AmountOfChemical(EmbeddedMetadata):
             doc="no description available",
         ),
     ]
-    existence_query_properties = ("chemical_product", "amount")
+    reverse_properties = []
 
     def __init__(self, amount=None, chemical_product=None, id=None, data=None, space=None, scope=None):
         return super().__init__(data=data, amount=amount, chemical_product=chemical_product)

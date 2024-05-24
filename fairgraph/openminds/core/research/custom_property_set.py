@@ -34,6 +34,7 @@ class CustomPropertySet(EmbeddedMetadata):
             "relevant_for",
             [
                 "openminds.controlled_terms.AnalysisTechnique",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.StimulationApproach",
                 "openminds.controlled_terms.StimulationTechnique",
                 "openminds.controlled_terms.Technique",
@@ -43,6 +44,7 @@ class CustomPropertySet(EmbeddedMetadata):
             doc="Reference to what or whom the custom property set bears significance.",
         ),
     ]
+    reverse_properties = []
 
     def __init__(
         self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, scope=None

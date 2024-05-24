@@ -43,7 +43,7 @@ class QuantitativeValue(EmbeddedMetadata):
         ),
         Property("value", float, "vocab:value", required=True, doc="Entry for a property."),
     ]
-    existence_query_properties = ("value", "unit", "uncertainties")
+    reverse_properties = []
 
     def __init__(
         self,

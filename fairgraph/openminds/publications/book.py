@@ -119,6 +119,7 @@ class Book(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRIPulseSequence",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -189,6 +190,8 @@ class Book(KGObject):
             "vocab:versionIdentifier",
             doc="Term or code used to identify the version of something.",
         ),
+    ]
+    reverse_properties = [
         Property(
             "has_parts",
             "openminds.publications.Chapter",
