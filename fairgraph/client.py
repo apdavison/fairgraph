@@ -87,6 +87,7 @@ class KGClient(object):
                               and "core.kg.ebrains.eu" to work with the production KG.
         client_id (str, optional): For use together with client_secret in place of the token if you have a service account.
         client_secret (str, optional): The client secret to use for authentication. Required if client_id is provided.
+        allow_interactive (bool, default True): if true, allow authentication via web browser
 
     Raises:
         ImportError: If the kg_core package is not installed.
@@ -99,6 +100,7 @@ class KGClient(object):
         host: str = "core.kg-ppd.ebrains.eu",
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
+        allow_interactive = True
     ):
         if not have_kg_core:
             raise ImportError(
@@ -114,7 +116,14 @@ class KGClient(object):
             try:
                 self._kg_client_builder = kg(host).with_token(os.environ["KG_AUTH_TOKEN"])
             except KeyError:
-                raise AuthenticationError("Need to provide either token or client id/secret.")
+                if allow_interactive:
+                    iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
+                    self._kg_client_builder = kg(host).with_device_flow(
+                        client_id="kg-core-python",
+                        open_id_configuration_url=iam_config_url
+                    )
+                else:
+                    raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = self._kg_client_builder.build()
         self.__kg_admin_client = None
         self.host = host
