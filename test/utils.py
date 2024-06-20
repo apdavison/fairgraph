@@ -11,7 +11,7 @@ have_kg_connection = False
 no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
 
 try:
-    client = KGClient(host=kg_host)
+    client = KGClient(host=kg_host, allow_interactive=False)
 except AuthenticationError:
     pass
 except SSLError:
