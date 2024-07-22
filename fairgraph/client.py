@@ -34,6 +34,7 @@ except ImportError:
     have_kg_core = False
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
+from .registry import lookup_type
 
 if TYPE_CHECKING:
     from .kgobject import KGObject
@@ -583,7 +584,10 @@ class KGClient(object):
                 space_name = f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
         if result:  # error
-            raise Exception(f"Unable to configure KG space for space '{space_name}': {result}")
+            err_msg = f"Unable to configure KG space for space '{space_name}': {result}"
+            if not space_name.startswith("collab="):
+                err_msg += f". If you are trying to configure a collab space, ensure the space name starts with 'collab-'"
+            raise Exception(err_msg)
         for cls in types:
             result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=cls.type_)
             if result:  # error
@@ -600,6 +604,29 @@ class KGClient(object):
         response = self._kg_client.instances.move(instance_id=self.uuid_from_uri(uri), space=destination_space)
         if response.error:
             raise Exception(response.error)
+
+    def space_info(self, space_name: str, scope: str = "released"):
+        """
+        Return information about the types and number of instances in a space.
+
+        The return format is a dictionary whose keys are classes and the values are the
+        number of instances of each class in the given spaces.
+        """
+        result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[scope])
+        if result.error:
+            raise Exception(result.error)
+        response = {}
+        for item in result.data:
+            try:
+                cls = lookup_type(item.identifier)
+            except KeyError as err:
+                if "vocab/meta/type/Query" in str(err):
+                    pass
+                else:
+                    raise
+            else:
+                response[cls] = item.occurrences
+        return response
 
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """
