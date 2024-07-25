@@ -514,9 +514,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     client=client,
                     filters=query_filter,
                 )
-                instances = client.query(query=query, size=1, scope="any").data
+                instances = client.query(query=query, size=2, scope="any").data
 
                 if instances:
+                    if len(instances) > 1:
+                        raise Exception("Existence query is not specific enough")
+
+                    # it seems that sometimes the "query" endpoint returns instances
+                    # which the "instances" endpoint doesn't know about, so here we double check that
+                    # the instance can be found
+                    instance = client.instance_from_full_uri(instances[0]["@id"], scope="any")
+                    if instance is None:
+                        return False
+
                     self.id = instances[0]["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
