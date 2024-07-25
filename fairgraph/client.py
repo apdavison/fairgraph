@@ -421,12 +421,15 @@ class KGClient(object):
         error_context = f"replace_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def delete_instance(self, instance_id: str, ignore_not_found: bool = True):
+    def delete_instance(self, instance_id: str, ignore_not_found: bool = True, ignore_errors: bool = True):
         """
         Delete a KG instance.
         """
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
+        if response:  # error
+            if not ignore_errors:
+                raise Exception(response.message)
         return response
 
     def uri_from_uuid(self, uuid: str) -> str:
@@ -627,6 +630,32 @@ class KGClient(object):
             else:
                 response[cls] = item.occurrences
         return response
+
+    def clean_space(self, space_name):
+        """Delete all instances from a given space."""
+        # todo: check for released instances, they must be unreleased
+        #       before deletion.
+        space_info = self.space_info(space_name, scope="in progress")
+        if sum(space_info.values()) > 0:
+            print(f"The space '{space_name}' contains the following instances:\n")
+            for cls, count in space_info.items():
+                if count > 0:
+                    print(cls.__name__, count)
+            response = input("\nAre you sure you want to delete them? ")
+            if response not in ("y", "Y", "yes", "YES"):
+                return
+            for cls, count in space_info.items():
+                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
+                    print(f"Deleting {cls.__name__} instances", end="")
+                    instances = cls.list(self, scope="in progress", space=space_name)
+                    assert len(instances) <= count
+                    for instance in instances:
+                        assert instance.space == space_name
+                        print(".", end="")
+                        instance.delete(self, ignore_errors=False)
+                    print()
+        else:
+            print(f"The space '{space_name}' is already clean")
 
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """
