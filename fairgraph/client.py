@@ -657,6 +657,34 @@ class KGClient(object):
         else:
             print(f"The space '{space_name}' is already clean")
 
+    def move_all_to_space(self, source_space: str, destination_space: str):
+        """
+        Move all the KG instances in one space to another.
+        """
+        assert source_space != destination_space
+        space_info = self.space_info(source_space, scope="in progress")
+        if sum(space_info.values()) > 0:
+            print(f"The space '{source_space}' contains the following instances:\n")
+            for cls, count in space_info.items():
+                if count > 0:
+                    print(cls.__name__, count)
+            response = input(f"\nAre you sure you want to move them to space '{destination_space}'? ")
+            if response not in ("y", "Y", "yes", "YES"):
+                return
+            for cls, count in space_info.items():
+                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
+                    print(f"Moving {cls.__name__} instances", end="")
+                    instances = cls.list(self, scope="in progress", space=source_space)
+                    assert len(instances) <= count
+                    for instance in instances:
+                        assert instance.space == source_space
+                        print(".", end="")
+                        self.move_to_space(instance.id, destination_space)
+                    print()
+        else:
+            print(f"The space '{source_space}' is empty, nothing to move.")
+
+
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """
         Release status of a KG instance identified by its URI.
