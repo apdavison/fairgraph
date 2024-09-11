@@ -470,7 +470,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
-    def exists(self, client: KGClient) -> bool:
+    def exists(self, client: KGClient, ignore_duplicates: bool = False) -> bool:
         """Check if this object already exists in the KnowledgeGraph"""
 
         if self.id:
@@ -517,7 +517,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 instances = client.query(query=query, size=2, scope="any").data
 
                 if instances:
-                    if len(instances) > 1:
+                    if len(instances) > 1 and not ignore_duplicates:
                         raise Exception("Existence query is not specific enough")
 
                     # it seems that sometimes the "query" endpoint returns instances
@@ -557,6 +557,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
+        ignore_duplicates: bool = False
     ):
         """
         Store the current object in the Knowledge Graph, either updating an existing instance
@@ -591,7 +592,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         elif (
                             isinstance(value, KGObject)
                             and value.__class__.default_space == "controlled"
-                            and value.exists(client)
+                            and value.exists(client, ignore_duplicates=ignore_duplicates)
                             and value.space == "controlled"
                         ):
                             continue
@@ -601,7 +602,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             target_space = space
                         if target_space == "controlled":
                             assert isinstance(value, KGObject)  # for type checking
-                            if value.exists(client) and value.space == "controlled":
+                            if value.exists(client, ignore_duplicates=ignore_duplicates) and value.space == "controlled":
                                 continue
                             else:
                                 raise AuthorizationError("Cannot write to controlled space")
@@ -610,6 +611,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             space=target_space,
                             recursive=True,
                             activity_log=activity_log,
+                            ignore_duplicates=ignore_duplicates
                         )
         if space is None:
             if self.space is None:
@@ -617,7 +619,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        if self.exists(client):
+        if self.exists(client, ignore_duplicates=ignore_duplicates):
             if not self.allow_update:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), update not allowed by user")
                 if activity_log:

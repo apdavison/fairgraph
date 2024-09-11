@@ -85,6 +85,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         recursive: bool = True,
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
+        ignore_duplicates: bool = False
     ):
         """
         Save to the KG any sub-components of the metadata object that are KGObjects.
@@ -98,7 +99,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                         target_space = value.space
                     elif (
                         value.__class__.default_space == "controlled"
-                        and value.exists(client)
+                        and value.exists(client, ignore_duplicates=ignore_duplicates)
                         and value.space == "controlled"
                     ):
                         continue
@@ -108,8 +109,9 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                         assert space is not None  # for type checking
                         target_space = space
                     if target_space == "controlled":
-                        if value.exists(client) and value.space == "controlled":
+                        if value.exists(client, ignore_duplicates=ignore_duplicates) and value.space == "controlled":
                             continue
                         else:
                             raise Exception("Cannot write to controlled space")
-                    value.save(client, space=target_space, recursive=recursive, activity_log=activity_log)
+                    value.save(client, space=target_space, recursive=recursive, activity_log=activity_log,
+                               ignore_duplicates=ignore_duplicates)

@@ -211,6 +211,7 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
+        ignore_duplicates: bool = False
     ):
         pass
 
