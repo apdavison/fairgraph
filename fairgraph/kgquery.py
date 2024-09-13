@@ -107,14 +107,16 @@ class KGQuery(Resolvable, SupportsQuerying):
         scope = scope or self.preferred_scope
         objects: List[KGObject] = []
         for cls in self.classes:
-            query = cls.generate_query(client=client, filters=self.filter, space=space, follow_links=follow_links)
-            instances = client.query(
-                query=query,
-                size=size,
-                from_index=from_index,
-                scope=scope,
-            ).data
-            objects.extend(cls.from_kg_instance(instance_data, client) for instance_data in instances)
+            if hasattr(cls, "generate_query"):
+                # if cls is EmbeddedMetadata we cannot query it
+                query = cls.generate_query(client=client, filters=self.filter, space=space, follow_links=follow_links)
+                instances = client.query(
+                    query=query,
+                    size=size,
+                    from_index=from_index,
+                    scope=scope,
+                ).data
+                objects.extend(cls.from_kg_instance(instance_data, client) for instance_data in instances)
         for obj in objects:
             object_cache[obj.id] = obj
 
