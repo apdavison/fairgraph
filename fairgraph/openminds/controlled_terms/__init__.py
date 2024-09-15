@@ -50,6 +50,7 @@ from .model_abstraction_level import ModelAbstractionLevel
 from .model_scope import ModelScope
 from .molecular_entity import MolecularEntity
 from .mri_pulse_sequence import MRIPulseSequence
+from .mri_weighting import MRIWeighting
 from .olfactory_stimulus_type import OlfactoryStimulusType
 from .operating_device import OperatingDevice
 from .operating_system import OperatingSystem

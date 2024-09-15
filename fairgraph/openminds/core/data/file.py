@@ -187,6 +187,7 @@ class File(KGObject):
                 "openminds.core.ModelVersion",
                 "openminds.core.ProtocolExecution",
                 "openminds.ephys.RecordingActivity",
+                "openminds.stimulation.StimulationActivity",
             ],
             ["^vocab:output", "^vocab:outputData"],
             reverse=["output_data", "outputs"],
@@ -313,7 +314,7 @@ class File(KGObject):
                 value=float(os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")
             ),
             hashes=Hash(algorithm="SHA1", digest=sha1sum(relative_path)),
-            format=ContentType(name=mimetypes.guess_type(relative_path)[0])
+            format=ContentType(name=mimetypes.guess_type(relative_path)[0]),
             # todo: query ContentTypes since that contains additional, EBRAINS-specific content types
         )
         return obj

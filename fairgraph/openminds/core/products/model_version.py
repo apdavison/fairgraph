@@ -161,6 +161,7 @@ class ModelVersion(KGObject):
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",

@@ -64,6 +64,8 @@ class StimulationActivity(KGObject):
         Property(
             "outputs",
             [
+                "openminds.core.File",
+                "openminds.core.FileBundle",
                 "openminds.core.SubjectGroupState",
                 "openminds.core.SubjectState",
                 "openminds.core.TissueSampleCollectionState",
