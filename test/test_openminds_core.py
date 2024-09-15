@@ -343,6 +343,13 @@ def test_query_across_reverse_links(kg_client):
 
 
 @skip_if_no_connection
+def test_resolve_reverse_link(kg_client):
+    repo = omcore.FileRepository.from_id("c569b826-9d2e-4ba0-9363-561906c67cd6", kg_client)
+    files = repo.files.resolve(kg_client)
+    assert len(files) == 37
+
+
+@skip_if_no_connection
 def test_count_released_models(kg_client):
     models = omcore.Model.list(kg_client, scope="released", space="model", api="core", size=1000)
     n_models = omcore.Model.count(kg_client, scope="released", space="model", api="core")
