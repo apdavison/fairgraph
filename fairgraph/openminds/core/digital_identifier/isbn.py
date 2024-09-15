@@ -36,15 +36,15 @@ class ISBN(KGObject):
             "^vocab:citedPublication",
             reverse="cited_publications",
             multiple=True,
-            doc="reverse of 'citedPublication'",
+            doc="reverse of 'cited_publications'",
         ),
         Property(
             "identifies",
             ["openminds.publications.Book", "openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
@@ -63,7 +63,7 @@ class ISBN(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)

@@ -93,7 +93,7 @@ class DataType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_data_type_of",
@@ -101,7 +101,7 @@ class DataType(KGObject):
             "^vocab:dataType",
             reverse="data_types",
             multiple=True,
-            doc="reverse of 'dataType'",
+            doc="reverse of 'data_types'",
         ),
     ]
     existence_query_properties = ("name",)

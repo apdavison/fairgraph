@@ -40,7 +40,7 @@ class ContentTypePattern(KGObject):
             "^vocab:contentTypePattern",
             reverse="content_type_patterns",
             multiple=True,
-            doc="reverse of 'contentTypePattern'",
+            doc="reverse of 'content_type_patterns'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

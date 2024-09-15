@@ -30,9 +30,9 @@ class ISSN(KGObject):
             "identifies",
             "openminds.publications.Periodical",
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
@@ -51,7 +51,7 @@ class ISSN(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)

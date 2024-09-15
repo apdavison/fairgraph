@@ -93,15 +93,15 @@ class ModelAbstractionLevel(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_abstraction_level_of",
             "openminds.core.Model",
             "^vocab:abstractionLevel",
-            reverse="abstraction_levels",
+            reverse="abstraction_level",
             multiple=True,
-            doc="reverse of 'abstractionLevel'",
+            doc="reverse of 'abstraction_level'",
         ),
     ]
     existence_query_properties = ("name",)

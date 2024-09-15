@@ -86,7 +86,7 @@ class EphysStimulus(KGObject):
             "^vocab:stimulus",
             reverse="stimuli",
             multiple=True,
-            doc="reverse of 'stimulus'",
+            doc="reverse of 'stimuli'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

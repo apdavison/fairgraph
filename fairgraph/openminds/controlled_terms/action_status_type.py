@@ -93,7 +93,7 @@ class ActionStatusType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_status_of",
@@ -107,7 +107,7 @@ class ActionStatusType(KGObject):
                 "openminds.computation.Visualization",
             ],
             "^vocab:status",
-            reverse="statuses",
+            reverse="status",
             multiple=True,
             doc="reverse of 'status'",
         ),

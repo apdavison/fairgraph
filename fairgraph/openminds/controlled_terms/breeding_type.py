@@ -92,15 +92,15 @@ class BreedingType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_breeding_type_of",
             "openminds.core.Strain",
             "^vocab:breedingType",
-            reverse="breeding_types",
+            reverse="breeding_type",
             multiple=True,
-            doc="reverse of 'breedingType'",
+            doc="reverse of 'breeding_type'",
         ),
         Property(
             "is_used_to_group",
@@ -108,7 +108,7 @@ class BreedingType(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -135,7 +135,7 @@ class BreedingType(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

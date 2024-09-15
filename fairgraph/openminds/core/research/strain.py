@@ -104,7 +104,7 @@ class Strain(KGObject):
             "^vocab:backgroundStrain",
             reverse="background_strains",
             multiple=True,
-            doc="reverse of 'backgroundStrain'",
+            doc="reverse of 'background_strains'",
         ),
         Property(
             "is_species_of",

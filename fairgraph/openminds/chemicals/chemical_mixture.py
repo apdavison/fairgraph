@@ -62,9 +62,9 @@ class ChemicalMixture(KGObject):
             "composes",
             ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
             ["^vocab:insulatorMaterial", "^vocab:material"],
-            reverse=["insulator_materials", "materials"],
+            reverse=["insulator_material", "material"],
             multiple=True,
-            doc="reverse of insulatorMaterial, material",
+            doc="reverse of insulator_material, material",
         ),
         Property(
             "used_in",
@@ -75,9 +75,9 @@ class ChemicalMixture(KGObject):
                 "openminds.specimen_prep.TissueSampleSlicing",
             ],
             ["^vocab:cultureMedium", "^vocab:pipetteSolution", "^vocab:tissueBathSolution"],
-            reverse=["culture_media", "pipette_solutions", "tissue_bath_solutions"],
+            reverse=["culture_medium", "pipette_solution", "tissue_bath_solution"],
             multiple=True,
-            doc="reverse of cultureMedium, pipetteSolution, tissueBathSolution",
+            doc="reverse of culture_medium, pipette_solution, tissue_bath_solution",
         ),
     ]
     existence_query_properties = ("has_parts", "type")

@@ -93,15 +93,15 @@ class MeasuredQuantity(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "measurement",
             "openminds.core.Measurement",
             "^vocab:measuredQuantity",
-            reverse="measured_quantities",
+            reverse="measured_quantity",
             multiple=True,
-            doc="reverse of 'measuredQuantity'",
+            doc="reverse of 'measured_quantity'",
         ),
     ]
     existence_query_properties = ("name",)

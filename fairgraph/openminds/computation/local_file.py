@@ -80,7 +80,7 @@ class LocalFile(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_used_to_group",
@@ -88,7 +88,7 @@ class LocalFile(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("name", "path")

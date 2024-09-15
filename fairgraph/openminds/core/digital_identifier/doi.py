@@ -32,7 +32,7 @@ class DOI(KGObject):
             "^vocab:describedIn",
             reverse="described_in",
             multiple=True,
-            doc="reverse of 'describedIn'",
+            doc="reverse of 'described_in'",
         ),
         Property(
             "identifies",
@@ -56,9 +56,9 @@ class DOI(KGObject):
                 "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
@@ -77,7 +77,7 @@ class DOI(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)

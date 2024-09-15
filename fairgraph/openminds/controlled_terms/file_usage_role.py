@@ -93,15 +93,15 @@ class FileUsageRole(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "file",
             ["openminds.computation.LocalFile", "openminds.core.File"],
             "^vocab:specialUsageRole",
-            reverse="special_usage_roles",
+            reverse="special_usage_role",
             multiple=True,
-            doc="reverse of 'specialUsageRole'",
+            doc="reverse of 'special_usage_role'",
         ),
     ]
     existence_query_properties = ("name",)

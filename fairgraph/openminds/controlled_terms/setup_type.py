@@ -93,7 +93,7 @@ class SetupType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_type_of",
@@ -101,7 +101,7 @@ class SetupType(KGObject):
             "^vocab:type",
             reverse="types",
             multiple=True,
-            doc="reverse of 'type'",
+            doc="reverse of 'types'",
         ),
     ]
     existence_query_properties = ("name",)

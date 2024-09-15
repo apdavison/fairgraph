@@ -57,7 +57,7 @@ class SoftwareAgent(KGObject):
             "^vocab:performedBy",
             reverse="performed_by",
             multiple=True,
-            doc="reverse of 'performedBy'",
+            doc="reverse of 'performed_by'",
         ),
         Property(
             "started",
@@ -74,7 +74,7 @@ class SoftwareAgent(KGObject):
             "^vocab:startedBy",
             reverse="started_by",
             multiple=True,
-            doc="reverse of 'startedBy'",
+            doc="reverse of 'started_by'",
         ),
     ]
     existence_query_properties = ("name", "software")

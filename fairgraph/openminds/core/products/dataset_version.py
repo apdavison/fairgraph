@@ -410,7 +410,7 @@ class DatasetVersion(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
         Property(
             "is_input_to",
@@ -418,7 +418,7 @@ class DatasetVersion(KGObject):
             "^vocab:input",
             reverse="inputs",
             multiple=True,
-            doc="reverse of 'input'",
+            doc="reverse of 'inputs'",
         ),
         Property(
             "is_old_version_of",
@@ -426,7 +426,7 @@ class DatasetVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
@@ -434,7 +434,7 @@ class DatasetVersion(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -442,7 +442,7 @@ class DatasetVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

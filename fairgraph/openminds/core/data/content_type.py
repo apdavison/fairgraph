@@ -79,9 +79,9 @@ class ContentType(KGObject):
             "is_defined_by",
             "openminds.core.ContentTypePattern",
             "^vocab:contentType",
-            reverse="content_types",
+            reverse="content_type",
             multiple=True,
-            doc="reverse of 'contentType'",
+            doc="reverse of 'content_type'",
         ),
         Property(
             "is_format_of",
@@ -98,7 +98,7 @@ class ContentType(KGObject):
                 "openminds.core.WebResource",
             ],
             "^vocab:format",
-            reverse="formats",
+            reverse="format",
             multiple=True,
             doc="reverse of 'format'",
         ),
@@ -108,7 +108,7 @@ class ContentType(KGObject):
             "^vocab:outputFormat",
             reverse="output_formats",
             multiple=True,
-            doc="reverse of 'outputFormat'",
+            doc="reverse of 'output_formats'",
         ),
         Property(
             "is_specification_format_of",
@@ -116,7 +116,7 @@ class ContentType(KGObject):
             "^vocab:specificationFormat",
             reverse="specification_formats",
             multiple=True,
-            doc="reverse of 'specificationFormat'",
+            doc="reverse of 'specification_formats'",
         ),
     ]
     existence_query_properties = ("name",)

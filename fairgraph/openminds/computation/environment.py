@@ -68,7 +68,7 @@ class Environment(KGObject):
                 "openminds.computation.Visualization",
             ],
             "^vocab:environment",
-            reverse="environments",
+            reverse="environment",
             multiple=True,
             doc="reverse of 'environment'",
         ),

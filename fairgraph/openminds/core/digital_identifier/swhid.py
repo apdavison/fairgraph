@@ -37,9 +37,9 @@ class SWHID(KGObject):
                 "openminds.core.SoftwareVersion",
             ],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
     ]
     existence_query_properties = ("identifier",)

@@ -93,7 +93,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_defined_by",
@@ -101,7 +101,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'groupingType'",
+            doc="reverse of 'grouping_types'",
         ),
         Property(
             "is_used_to_group",
@@ -109,7 +109,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'groupingType'",
+            doc="reverse of 'grouping_types'",
         ),
     ]
     existence_query_properties = ("name",)

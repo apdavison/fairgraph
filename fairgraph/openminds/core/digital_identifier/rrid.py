@@ -44,9 +44,9 @@ class RRID(KGObject):
                 "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
     ]
     existence_query_properties = ("identifier",)

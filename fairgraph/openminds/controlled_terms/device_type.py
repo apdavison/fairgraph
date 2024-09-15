@@ -93,7 +93,7 @@ class DeviceType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_type_of",
@@ -104,9 +104,9 @@ class DeviceType(KGObject):
                 "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:deviceType",
-            reverse="device_types",
+            reverse="device_type",
             multiple=True,
-            doc="reverse of 'deviceType'",
+            doc="reverse of 'device_type'",
         ),
     ]
     existence_query_properties = ("name",)

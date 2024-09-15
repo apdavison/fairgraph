@@ -93,15 +93,15 @@ class DifferenceMeasure(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_score_type_of",
             "openminds.computation.ValidationTest",
             "^vocab:scoreType",
-            reverse="score_types",
+            reverse="score_type",
             multiple=True,
-            doc="reverse of 'scoreType'",
+            doc="reverse of 'score_type'",
         ),
     ]
     existence_query_properties = ("name",)

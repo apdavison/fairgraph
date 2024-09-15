@@ -93,15 +93,15 @@ class AnatomicalPlane(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_in",
             "openminds.specimen_prep.SlicingDeviceUsage",
             "^vocab:slicingPlane",
-            reverse="slicing_planes",
+            reverse="slicing_plane",
             multiple=True,
-            doc="reverse of 'slicingPlane'",
+            doc="reverse of 'slicing_plane'",
         ),
     ]
     existence_query_properties = ("name",)

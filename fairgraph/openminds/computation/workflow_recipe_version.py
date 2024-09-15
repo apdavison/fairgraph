@@ -303,7 +303,7 @@ class WorkflowRecipeVersion(KGObject):
                 "openminds.computation.WorkflowExecution",
             ],
             "^vocab:recipe",
-            reverse="recipes",
+            reverse="recipe",
             multiple=True,
             doc="reverse of 'recipe'",
         ),
@@ -313,7 +313,7 @@ class WorkflowRecipeVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
@@ -321,7 +321,7 @@ class WorkflowRecipeVersion(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -329,7 +329,7 @@ class WorkflowRecipeVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

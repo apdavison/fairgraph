@@ -89,7 +89,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:hasParent",
             reverse="has_parents",
             multiple=True,
-            doc="reverse of 'hasParent'",
+            doc="reverse of 'has_parents'",
         ),
         Property(
             "is_location_of",
@@ -102,9 +102,14 @@ class ParcellationEntityVersion(KGObject):
                 "openminds.ephys.PipetteUsage",
             ],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes", "^vocab:dataLocation"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes", "data_locations"],
+            reverse=[
+                "anatomical_location",
+                "anatomical_locations",
+                "anatomical_locations_of_electrodes",
+                "data_location",
+            ],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes, dataLocation",
+            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes, data_location",
         ),
         Property(
             "is_part_of",
@@ -112,7 +117,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:hasEntity",
             reverse="has_entities",
             multiple=True,
-            doc="reverse of 'hasEntity'",
+            doc="reverse of 'has_entities'",
         ),
         Property(
             "is_target_of",
@@ -120,7 +125,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -128,7 +133,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "is_version_of",
@@ -136,7 +141,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "studied_in",
@@ -163,7 +168,7 @@ class ParcellationEntityVersion(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name", "version_identifier")

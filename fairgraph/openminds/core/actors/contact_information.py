@@ -38,7 +38,7 @@ class ContactInformation(KGObject):
             "^vocab:contactInformation",
             reverse="contact_information",
             multiple=True,
-            doc="reverse of 'contactInformation'",
+            doc="reverse of 'contact_information'",
         ),
     ]
     existence_query_properties = ("email",)

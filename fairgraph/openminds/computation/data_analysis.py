@@ -183,7 +183,7 @@ class DataAnalysis(KGObject):
             "^vocab:wasInformedBy",
             reverse="was_informed_by",
             multiple=True,
-            doc="reverse of 'wasInformedBy'",
+            doc="reverse of 'was_informed_by'",
         ),
         Property(
             "is_part_of",
@@ -191,7 +191,7 @@ class DataAnalysis(KGObject):
             "^vocab:stage",
             reverse="stages",
             multiple=True,
-            doc="reverse of 'stage'",
+            doc="reverse of 'stages'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

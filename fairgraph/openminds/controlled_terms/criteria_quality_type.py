@@ -93,15 +93,15 @@ class CriteriaQualityType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_by_annotation",
             ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
             "^vocab:criteriaQualityType",
-            reverse="criteria_quality_types",
+            reverse="criteria_quality_type",
             multiple=True,
-            doc="reverse of 'criteriaQualityType'",
+            doc="reverse of 'criteria_quality_type'",
         ),
     ]
     existence_query_properties = ("name",)

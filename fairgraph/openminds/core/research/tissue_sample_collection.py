@@ -111,7 +111,7 @@ class TissueSampleCollection(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
         Property(
             "has_study_results_in",
@@ -119,7 +119,7 @@ class TissueSampleCollection(KGObject):
             "^vocab:studiedSpecimen",
             reverse="studied_specimens",
             multiple=True,
-            doc="reverse of 'studiedSpecimen'",
+            doc="reverse of 'studied_specimens'",
         ),
         Property(
             "is_used_to_group",
@@ -127,7 +127,7 @@ class TissueSampleCollection(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
@@ -135,7 +135,7 @@ class TissueSampleCollection(KGObject):
             "^vocab:usedSpecimen",
             reverse="used_specimens",
             multiple=True,
-            doc="reverse of 'usedSpecimen'",
+            doc="reverse of 'used_specimens'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

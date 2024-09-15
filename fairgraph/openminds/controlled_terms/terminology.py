@@ -93,15 +93,15 @@ class Terminology(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "suggested_in",
             "openminds.controlled_terms.TermSuggestion",
             "^vocab:addExistingTerminology",
-            reverse="add_existing_terminologies",
+            reverse="add_existing_terminology",
             multiple=True,
-            doc="reverse of 'addExistingTerminology'",
+            doc="reverse of 'add_existing_terminology'",
         ),
     ]
     existence_query_properties = ("name",)

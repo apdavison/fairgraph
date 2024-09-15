@@ -59,7 +59,7 @@ class LivePaperSection(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("is_part_of", "name", "order", "type")

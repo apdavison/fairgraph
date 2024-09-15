@@ -38,9 +38,9 @@ class FileRepositoryStructure(KGObject):
             "structures",
             "openminds.core.FileRepository",
             "^vocab:structurePattern",
-            reverse="structure_patterns",
+            reverse="structure_pattern",
             multiple=True,
-            doc="reverse of 'structurePattern'",
+            doc="reverse of 'structure_pattern'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
