@@ -92,7 +92,7 @@ class Language(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_in",
@@ -100,7 +100,7 @@ class Language(KGObject):
             "^vocab:language",
             reverse="languages",
             multiple=True,
-            doc="reverse of 'language'",
+            doc="reverse of 'languages'",
         ),
     ]
     existence_query_properties = ("name",)

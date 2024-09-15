@@ -113,7 +113,7 @@ class CommonCoordinateSpace(KGObject):
             "^vocab:inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'inputData'",
+            doc="reverse of 'input_data'",
         ),
         Property(
             "is_part_of",
@@ -121,7 +121,7 @@ class CommonCoordinateSpace(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_used_to_group",
@@ -129,7 +129,7 @@ class CommonCoordinateSpace(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "learning_resources",

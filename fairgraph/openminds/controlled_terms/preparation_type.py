@@ -92,7 +92,7 @@ class PreparationType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_for",
@@ -108,9 +108,9 @@ class PreparationType(KGObject):
                 "openminds.stimulation.StimulationActivity",
             ],
             "^vocab:preparationDesign",
-            reverse="preparation_designs",
+            reverse="preparation_design",
             multiple=True,
-            doc="reverse of 'preparationDesign'",
+            doc="reverse of 'preparation_design'",
         ),
     ]
     existence_query_properties = ("name",)

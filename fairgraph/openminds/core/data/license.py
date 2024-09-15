@@ -68,7 +68,7 @@ class License(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "^vocab:license",
-            reverse="licenses",
+            reverse="license",
             multiple=True,
             doc="reverse of 'license'",
         ),

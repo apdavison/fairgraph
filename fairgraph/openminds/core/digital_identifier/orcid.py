@@ -32,7 +32,7 @@ class ORCID(KGObject):
             "^vocab:digitalIdentifier",
             reverse="digital_identifiers",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifiers'",
         ),
     ]
     existence_query_properties = ("identifier",)

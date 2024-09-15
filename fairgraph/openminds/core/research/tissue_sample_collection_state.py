@@ -88,7 +88,7 @@ class TissueSampleCollectionState(KGObject):
             "^vocab:descendedFrom",
             reverse="descended_from",
             multiple=True,
-            doc="reverse of 'descendedFrom'",
+            doc="reverse of 'descended_from'",
         ),
         Property(
             "is_input_to",
@@ -96,7 +96,7 @@ class TissueSampleCollectionState(KGObject):
             "^vocab:input",
             reverse="inputs",
             multiple=True,
-            doc="reverse of 'input'",
+            doc="reverse of 'inputs'",
         ),
         Property(
             "is_output_of",
@@ -108,7 +108,7 @@ class TissueSampleCollectionState(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_state_of",
@@ -116,7 +116,7 @@ class TissueSampleCollectionState(KGObject):
             "^vocab:studiedState",
             reverse="studied_states",
             multiple=True,
-            doc="reverse of 'studiedState'",
+            doc="reverse of 'studied_states'",
         ),
         Property(
             "is_used_to_group",
@@ -124,7 +124,7 @@ class TissueSampleCollectionState(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

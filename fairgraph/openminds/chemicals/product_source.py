@@ -50,9 +50,9 @@ class ProductSource(KGObject):
             "is_source_of",
             ["openminds.chemicals.ChemicalMixture", "openminds.chemicals.ChemicalSubstance"],
             "^vocab:productSource",
-            reverse="product_sources",
+            reverse="product_source",
             multiple=True,
-            doc="reverse of 'productSource'",
+            doc="reverse of 'product_source'",
         ),
     ]
     existence_query_properties = ("product_name", "provider")

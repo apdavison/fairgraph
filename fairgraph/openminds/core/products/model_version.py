@@ -303,15 +303,15 @@ class ModelVersion(KGObject):
             "^vocab:input",
             reverse="inputs",
             multiple=True,
-            doc="reverse of 'input'",
+            doc="reverse of 'inputs'",
         ),
         Property(
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
         Property(
             "is_old_version_of",
@@ -319,7 +319,7 @@ class ModelVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_output_of",
@@ -327,7 +327,7 @@ class ModelVersion(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_part_of",
@@ -335,7 +335,7 @@ class ModelVersion(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -343,7 +343,7 @@ class ModelVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

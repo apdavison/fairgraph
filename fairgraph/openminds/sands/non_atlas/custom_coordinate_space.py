@@ -65,9 +65,9 @@ class CustomCoordinateSpace(KGObject):
             "is_coordinate_space_of",
             "openminds.sands.CustomAnnotation",
             "^vocab:coordinateSpace",
-            reverse="coordinate_spaces",
+            reverse="coordinate_space",
             multiple=True,
-            doc="reverse of 'coordinateSpace'",
+            doc="reverse of 'coordinate_space'",
         ),
         Property(
             "is_used_to_group",
@@ -75,7 +75,7 @@ class CustomCoordinateSpace(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("name",)

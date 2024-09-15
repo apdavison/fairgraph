@@ -49,9 +49,9 @@ class FileArchive(KGObject):
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
         Property(
             "is_output_of",
@@ -64,7 +64,7 @@ class FileArchive(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
     ]
     existence_query_properties = ("iri", "format")

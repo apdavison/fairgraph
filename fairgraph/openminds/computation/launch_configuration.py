@@ -57,9 +57,9 @@ class LaunchConfiguration(KGObject):
                 "openminds.computation.Visualization",
             ],
             "^vocab:launchConfiguration",
-            reverse="launch_configurations",
+            reverse="launch_configuration",
             multiple=True,
-            doc="reverse of 'launchConfiguration'",
+            doc="reverse of 'launch_configuration'",
         ),
     ]
     existence_query_properties = ("executable", "name")

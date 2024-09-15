@@ -219,7 +219,7 @@ class Chapter(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("authors", "is_part_of", "name", "publication_date")

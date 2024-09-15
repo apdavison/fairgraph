@@ -199,7 +199,7 @@ class Book(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
         Property(
             "related_to",
@@ -218,7 +218,7 @@ class Book(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("name", "publication_date")

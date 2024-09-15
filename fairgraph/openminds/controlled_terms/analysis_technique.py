@@ -92,7 +92,7 @@ class AnalysisTechnique(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_used_to_group",
@@ -100,7 +100,7 @@ class AnalysisTechnique(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
@@ -118,7 +118,7 @@ class AnalysisTechnique(KGObject):
             "^vocab:technique",
             reverse="techniques",
             multiple=True,
-            doc="reverse of 'technique'",
+            doc="reverse of 'techniques'",
         ),
     ]
     existence_query_properties = ("name",)

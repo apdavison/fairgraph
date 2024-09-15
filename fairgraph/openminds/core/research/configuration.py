@@ -42,7 +42,7 @@ class Configuration(KGObject):
                 "openminds.computation.WorkflowExecution",
             ],
             "^vocab:configuration",
-            reverse="configurations",
+            reverse="configuration",
             multiple=True,
             doc="reverse of 'configuration'",
         ),
@@ -52,7 +52,7 @@ class Configuration(KGObject):
             "^vocab:specification",
             reverse="specifications",
             multiple=True,
-            doc="reverse of 'specification'",
+            doc="reverse of 'specifications'",
         ),
     ]
     existence_query_properties = ("configuration",)

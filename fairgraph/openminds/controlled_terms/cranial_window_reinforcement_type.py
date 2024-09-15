@@ -93,15 +93,15 @@ class CranialWindowReinforcementType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_for",
             "openminds.specimen_prep.CranialWindowPreparation",
             "^vocab:reinforcementType",
-            reverse="reinforcement_types",
+            reverse="reinforcement_type",
             multiple=True,
-            doc="reverse of 'reinforcementType'",
+            doc="reverse of 'reinforcement_type'",
         ),
     ]
     existence_query_properties = ("name",)

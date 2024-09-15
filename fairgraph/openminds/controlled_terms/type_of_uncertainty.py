@@ -93,15 +93,15 @@ class TypeOfUncertainty(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "value",
             "openminds.core.QuantitativeValueArray",
             "^vocab:typeOfUncertainty",
-            reverse="types_of_uncertainty",
+            reverse="type_of_uncertainty",
             multiple=True,
-            doc="reverse of 'typeOfUncertainty'",
+            doc="reverse of 'type_of_uncertainty'",
         ),
     ]
     existence_query_properties = ("name",)

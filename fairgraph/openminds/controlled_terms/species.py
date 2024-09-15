@@ -78,7 +78,7 @@ class Species(KGObject):
             "^vocab:usedSpecies",
             reverse="used_species",
             multiple=True,
-            doc="reverse of 'usedSpecies'",
+            doc="reverse of 'used_species'",
         ),
         Property(
             "describes",
@@ -100,7 +100,7 @@ class Species(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_species_of",
@@ -122,7 +122,7 @@ class Species(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -149,7 +149,7 @@ class Species(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

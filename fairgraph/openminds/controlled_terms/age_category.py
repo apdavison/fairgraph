@@ -93,7 +93,7 @@ class AgeCategory(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_age_category_of",
@@ -101,7 +101,7 @@ class AgeCategory(KGObject):
             "^vocab:ageCategory",
             reverse="age_categories",
             multiple=True,
-            doc="reverse of 'ageCategory'",
+            doc="reverse of 'age_categories'",
         ),
     ]
     existence_query_properties = ("name",)

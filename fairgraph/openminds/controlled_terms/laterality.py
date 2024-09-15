@@ -93,7 +93,7 @@ class Laterality(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_laterality_of",
@@ -106,7 +106,7 @@ class Laterality(KGObject):
             "^vocab:laterality",
             reverse="lateralities",
             multiple=True,
-            doc="reverse of 'laterality'",
+            doc="reverse of 'lateralities'",
         ),
     ]
     existence_query_properties = ("name",)

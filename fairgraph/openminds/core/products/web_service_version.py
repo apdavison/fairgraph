@@ -284,7 +284,7 @@ class WebServiceVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
@@ -292,7 +292,7 @@ class WebServiceVersion(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -300,7 +300,7 @@ class WebServiceVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",
@@ -322,7 +322,7 @@ class WebServiceVersion(KGObject):
                 "openminds.computation.Visualization",
             ],
             "^vocab:environment",
-            reverse="environments",
+            reverse="environment",
             multiple=True,
             doc="reverse of 'environment'",
         ),

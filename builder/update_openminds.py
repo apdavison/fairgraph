@@ -707,31 +707,38 @@ class FairgraphClassBuilder:
         if linked:
             linked_from = linked[self._schema_payload["_type"]]
             for reverse_link_name in linked_from:
-                unique_forward_link_names = set(linked_from[reverse_link_name][0])
+                unique_forward_iris = set(linked_from[reverse_link_name][0])
                 types_str = [generate_class_name(iri) for iri in linked_from[reverse_link_name][2]]
-                if len(unique_forward_link_names) == 1:
-                    (forward_link_name,) = unique_forward_link_names
-                    (forward_link_name_plural,) = set(linked_from[reverse_link_name][1])
-                    _forward_link_name_python = generate_python_name(forward_link_name_plural)
-                    iri = f"^vocab:{forward_link_name}"
-                    doc = f"reverse of '{forward_link_name}'"  # use _plural?
+                if len(unique_forward_iris) == 1:
+                    (forward_iri,) = unique_forward_iris
+                    forward_link_names = set(linked_from[reverse_link_name][1])
+                    if len(forward_link_names) == 1:
+                        (forward_link_name,) = forward_link_names
+                    else:
+                        forward_link_name = sorted(forward_link_names)[0]
+                        print(f"Multiple forward link names found: {forward_link_names}, using {forward_link_name}")
+                    # if "FileRepository" in self._schema_payload["_type"]:
+                    #     breakpoint()
+                    _forward_link_name_python = generate_python_name(forward_link_name)
+                    iri = f"^vocab:{forward_iri}"
+                    doc = f"reverse of '{_forward_link_name_python}'"
                     types_str = sorted(types_str)
                     if len(types_str) == 1:
                         types_str = f'"{types_str[0]}"'
                 else:
                     backwards_compatible = True
                     if backwards_compatible:
-                        forward_link_name = sorted(set(linked_from[reverse_link_name][0]))
-                        forward_link_name_plural = sorted(set(linked_from[reverse_link_name][1]))
+                        forward_iri = sorted(set(linked_from[reverse_link_name][0]))
+                        forward_link_name = sorted(set(linked_from[reverse_link_name][1]))
                         types_str = sorted(types_str)
                     else:
                         # this is a better solution, since we keep the match between types and names
                         # in the order of the lists, but is not backwards compatible
-                        forward_link_name = linked_from[reverse_link_name][0]
-                        forward_link_name_plural = linked_from[reverse_link_name][1]
-                    _forward_link_name_python = [generate_python_name(name) for name in forward_link_name_plural]
-                    iri = [f"^vocab:{name}" for name in forward_link_name]
-                    doc = "reverse of " + ", ".join(name for name in forward_link_name)  # use _plural?
+                        forward_iri = linked_from[reverse_link_name][0]
+                        forward_link_name = linked_from[reverse_link_name][1]
+                    _forward_link_name_python = [generate_python_name(name) for name in forward_link_name]
+                    iri = [f"^vocab:{part}" for part in forward_iri]
+                    doc = "reverse of " + ", ".join(name for name in _forward_link_name_python)
                 reverse_name_python = generate_python_name(reverse_link_name)
                 if reverse_name_python in forward_property_names:
                     if reverse_name_python in conflict_resolution:
@@ -821,12 +828,15 @@ class FairgraphClassBuilder:
                 reverse_link_name = prop["nameForReverseLink"]
                 if reverse_link_name is None:
                     reverse_link_name = reverse_name_map[prop["name"]]
+                allow_multiple = prop.get("type", "") == "array"
                 linked[lnk] = (
                     self._schema_payload["_type"],
-                    prop["name"],
-                    prop["namePlural"],
+                    prop["name"],  # property name
+                    prop["namePlural"] if allow_multiple else prop["name"],  # forward link name
                     reverse_link_name,
                 )  # linked from (cls, prop name, prop name plural, reverse name)
+                # if self._schema_payload["_type"].endswith("File"):
+                #     breakpoint()
         return embedded, linked
 
 
@@ -845,16 +855,16 @@ def main(openminds_root, ignore=[]):
     for schema_file_path in schema_file_paths:
         embedded_in, linked_from = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).get_edges()
         embedded.update(embedded_in)
-        for openminds_type, (link_type, property_name, property_name_plural, reverse_name) in linked_from.items():
+        for openminds_type, (link_type, property_name, forward_name, reverse_name) in linked_from.items():
             if link_type not in embedded:
                 if isinstance(reverse_name, dict):
                     reverse_name = reverse_name[link_type]
                 if reverse_name in linked[openminds_type]:
                     linked[openminds_type][reverse_name][0].append(property_name)
-                    linked[openminds_type][reverse_name][1].append(property_name_plural)
+                    linked[openminds_type][reverse_name][1].append(forward_name)
                     linked[openminds_type][reverse_name][2].append(link_type)
                 else:
-                    linked[openminds_type][reverse_name] = ([property_name], [property_name_plural], [link_type])
+                    linked[openminds_type][reverse_name] = ([property_name], [forward_name], [link_type])
     conflicts = set(linked).intersection(embedded)
     if conflicts:
         print(f"Found schema(s) that are both linked and embedded: {conflicts}")

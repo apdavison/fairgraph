@@ -36,9 +36,9 @@ class IdentifiersDotOrgID(KGObject):
             "identifies",
             ["openminds.core.Dataset", "openminds.core.DatasetVersion"],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
     ]
     existence_query_properties = ("identifier",)

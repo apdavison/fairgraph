@@ -93,7 +93,7 @@ class SubjectAttribute(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_attribute_of",
@@ -101,7 +101,7 @@ class SubjectAttribute(KGObject):
             "^vocab:attribute",
             reverse="attributes",
             multiple=True,
-            doc="reverse of 'attribute'",
+            doc="reverse of 'attributes'",
         ),
     ]
     existence_query_properties = ("name",)

@@ -87,9 +87,9 @@ class Recording(KGObject):
             "next_recording",
             "openminds.ephys.Recording",
             "^vocab:previousRecording",
-            reverse="previous_recordings",
+            reverse="previous_recording",
             multiple=True,
-            doc="reverse of 'previousRecording'",
+            doc="reverse of 'previous_recording'",
         ),
     ]
     existence_query_properties = ("channels", "data_location", "recorded_with", "sampling_frequency")

@@ -92,7 +92,7 @@ class OperatingSystem(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_by",
@@ -100,7 +100,7 @@ class OperatingSystem(KGObject):
             "^vocab:operatingSystem",
             reverse="operating_systems",
             multiple=True,
-            doc="reverse of 'operatingSystem'",
+            doc="reverse of 'operating_systems'",
         ),
     ]
     existence_query_properties = ("name",)

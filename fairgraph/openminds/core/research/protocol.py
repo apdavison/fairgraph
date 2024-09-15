@@ -91,7 +91,7 @@ class Protocol(KGObject):
             "^vocab:protocol",
             reverse="protocols",
             multiple=True,
-            doc="reverse of 'protocol'",
+            doc="reverse of 'protocols'",
         ),
     ]
     existence_query_properties = ("name",)

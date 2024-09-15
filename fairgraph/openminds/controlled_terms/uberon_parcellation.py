@@ -76,9 +76,9 @@ class UBERONParcellation(KGObject):
             "defines",
             ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"],
             "^vocab:relatedUBERONTerm",
-            reverse="related_uberon_terms",
+            reverse="related_uberon_term",
             multiple=True,
-            doc="reverse of 'relatedUBERONTerm'",
+            doc="reverse of 'related_uberon_term'",
         ),
         Property(
             "describes",
@@ -100,7 +100,7 @@ class UBERONParcellation(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_location_of",
@@ -112,9 +112,9 @@ class UBERONParcellation(KGObject):
                 "openminds.ephys.PipetteUsage",
             ],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes"],
+            reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
+            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
@@ -122,7 +122,7 @@ class UBERONParcellation(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -130,7 +130,7 @@ class UBERONParcellation(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -157,7 +157,7 @@ class UBERONParcellation(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

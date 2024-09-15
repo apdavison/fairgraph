@@ -93,7 +93,7 @@ class OperatingDevice(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
     ]
     existence_query_properties = ("name",)

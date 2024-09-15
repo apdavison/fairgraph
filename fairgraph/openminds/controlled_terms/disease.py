@@ -92,7 +92,7 @@ class Disease(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_modeled_by",
@@ -100,7 +100,7 @@ class Disease(KGObject):
             "^vocab:diseaseModel",
             reverse="disease_models",
             multiple=True,
-            doc="reverse of 'diseaseModel'",
+            doc="reverse of 'disease_models'",
         ),
         Property(
             "is_used_to_group",
@@ -108,7 +108,7 @@ class Disease(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "specimen_state",
@@ -121,7 +121,7 @@ class Disease(KGObject):
             "^vocab:pathology",
             reverse="pathologies",
             multiple=True,
-            doc="reverse of 'pathology'",
+            doc="reverse of 'pathologies'",
         ),
         Property(
             "studied_in",
@@ -148,7 +148,7 @@ class Disease(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

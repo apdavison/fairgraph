@@ -35,7 +35,7 @@ class AccountInformation(KGObject):
             "^vocab:associatedAccount",
             reverse="associated_accounts",
             multiple=True,
-            doc="reverse of 'associatedAccount'",
+            doc="reverse of 'associated_accounts'",
         ),
     ]
     existence_query_properties = ("service", "user_name")

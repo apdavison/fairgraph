@@ -55,17 +55,17 @@ class ChemicalSubstance(KGObject):
             "composes",
             ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
             ["^vocab:insulatorMaterial", "^vocab:material"],
-            reverse=["insulator_materials", "materials"],
+            reverse=["insulator_material", "material"],
             multiple=True,
-            doc="reverse of insulatorMaterial, material",
+            doc="reverse of insulator_material, material",
         ),
         Property(
             "labels",
             "openminds.ephys.PipetteUsage",
             "^vocab:labelingCompound",
-            reverse="labeling_compounds",
+            reverse="labeling_compound",
             multiple=True,
-            doc="reverse of 'labelingCompound'",
+            doc="reverse of 'labeling_compound'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

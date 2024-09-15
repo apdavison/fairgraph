@@ -92,15 +92,15 @@ class OrganismSubstance(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_location_of",
             ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage"],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes"],
+            reverse=["anatomical_location", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
+            doc="reverse of anatomical_location, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
@@ -108,7 +108,7 @@ class OrganismSubstance(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -116,13 +116,13 @@ class OrganismSubstance(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "sample",
             ["openminds.core.TissueSample", "openminds.core.TissueSampleCollection"],
             "^vocab:origin",
-            reverse="origins",
+            reverse="origin",
             multiple=True,
             doc="reverse of 'origin'",
         ),
@@ -151,7 +151,7 @@ class OrganismSubstance(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

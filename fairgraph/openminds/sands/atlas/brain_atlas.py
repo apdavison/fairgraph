@@ -112,7 +112,7 @@ class BrainAtlas(KGObject):
             "^vocab:inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'inputData'",
+            doc="reverse of 'input_data'",
         ),
         Property(
             "is_part_of",
@@ -120,7 +120,7 @@ class BrainAtlas(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "learning_resources",

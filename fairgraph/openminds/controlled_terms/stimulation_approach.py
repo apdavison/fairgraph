@@ -92,7 +92,7 @@ class StimulationApproach(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_used_to_group",
@@ -100,7 +100,7 @@ class StimulationApproach(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
@@ -108,7 +108,7 @@ class StimulationApproach(KGObject):
             ["^vocab:stimulation", "^vocab:technique"],
             reverse=["stimulations", "techniques"],
             multiple=True,
-            doc="reverse of stimulation, technique",
+            doc="reverse of stimulations, techniques",
         ),
     ]
     existence_query_properties = ("name",)

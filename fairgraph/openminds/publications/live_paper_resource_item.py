@@ -60,9 +60,9 @@ class LivePaperResourceItem(KGObject):
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
     ]
     existence_query_properties = ("name", "iri", "is_also_part_of")

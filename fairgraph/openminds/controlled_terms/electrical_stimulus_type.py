@@ -92,13 +92,13 @@ class ElectricalStimulusType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_type_of",
             "openminds.stimulation.EphysStimulus",
             "^vocab:type",
-            reverse="types",
+            reverse="type",
             multiple=True,
             doc="reverse of 'type'",
         ),
@@ -108,7 +108,7 @@ class ElectricalStimulusType(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -135,7 +135,7 @@ class ElectricalStimulusType(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
         Property(
             "used_in",
@@ -143,7 +143,7 @@ class ElectricalStimulusType(KGObject):
             "^vocab:stimulusType",
             reverse="stimulus_types",
             multiple=True,
-            doc="reverse of 'stimulusType'",
+            doc="reverse of 'stimulus_types'",
         ),
     ]
     existence_query_properties = ("name",)
