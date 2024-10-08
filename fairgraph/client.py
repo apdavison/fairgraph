@@ -652,7 +652,7 @@ class KGClient(object):
                     for instance in instances:
                         assert instance.space == space_name
                         print(".", end="")
-                        instance.delete(self, ignore_errors=False)
+                        instance.delete(self, ignore_not_found=False)
                     print()
         else:
             print(f"The space '{space_name}' is already clean")
