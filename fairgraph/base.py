@@ -517,7 +517,7 @@ class IRI:
         else:
             iri = value
         if not iri.startswith("http"):
-            raise ValueError("Invalid IRI")
+            raise ValueError(f"Invalid IRI: '{iri}'")
         self.value: str = iri
 
     def __eq__(self, other):

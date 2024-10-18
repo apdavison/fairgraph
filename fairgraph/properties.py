@@ -327,6 +327,8 @@ class Property(object):
                 else:
                     return int(data)
             elif self.types[0] == IRI:
+                if data == "":
+                    return None
                 return IRI(data)
             else:
                 return data
