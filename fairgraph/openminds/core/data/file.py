@@ -240,7 +240,7 @@ class File(KGObject):
         ),
     ]
     aliases = {"hash": "hashes"}
-    existence_query_properties = ("iri", "hash")
+    existence_query_properties = ("iri", "hashes")
 
     def __init__(
         self,

@@ -174,6 +174,7 @@ class KGClient(object):
         scope: str = "released",
         id_key: str = "@id",
         use_stored_query: bool = False,
+        restrict_to_spaces: Optional[List[str]] = None
     ) -> ResultPage[JsonLdDocument]:
         """
         Execute a Knowledge Graph (KG) query with the given filters and query definition.
@@ -204,6 +205,7 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
+                    restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)
@@ -217,6 +219,7 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
+                    restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(response, error_context=error_context)

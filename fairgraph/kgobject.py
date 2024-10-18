@@ -35,7 +35,7 @@ except ImportError:
     have_tabulate = False
 from .utility import expand_uri, as_list, expand_filter, ActivityLog
 from .registry import lookup_type
-from .queries import Query
+from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
@@ -470,7 +470,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
-    def exists(self, client: KGClient, ignore_duplicates: bool = False) -> bool:
+    def exists(
+        self,
+        client: KGClient,
+        ignore_duplicates: bool = False,
+        in_spaces: Optional[List[str]] = None
+    ) -> bool:
         """Check if this object already exists in the KnowledgeGraph"""
 
         if self.id:
@@ -509,12 +514,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
-                query = self.__class__.generate_query(
-                    space=None,
+                query = self.__class__.generate_minimal_query(
                     client=client,
                     filters=query_filter,
                 )
-                instances = client.query(query=query, size=2, scope="any").data
+
+                instances = client.query(query=query, size=2, scope="any", restrict_to_spaces=in_spaces).data
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
@@ -527,10 +532,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     if instance is None:
                         return False
 
-                    self.id = instances[0]["@id"]
+                    self.id = instance["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_properties(instances[0], client)  # also updates `remote_data`
+                    self._update_empty_properties(instance, client)  # also updates `remote_data`
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
@@ -619,7 +624,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        if self.exists(client, ignore_duplicates=ignore_duplicates):
+        if self.exists(client, ignore_duplicates=ignore_duplicates, in_spaces=[space]):
             if not self.allow_update:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), update not allowed by user")
                 if activity_log:
@@ -838,6 +843,41 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 prop.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.
+        return query.serialize()
+
+    @classmethod
+    def generate_minimal_query(
+        cls,
+        client: KGClient,
+        filters: Optional[Dict[str, Any]] = None,
+        label: Optional[str] = None,
+    ) -> Union[Dict[str, Any], None]:
+        """
+        Generate a minimal KG query definition as a JSON-LD document.
+        Such a query returns only the @id of any instances that are found.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            filters (dict): A dictonary defining search parameters for the query.
+            label (str, optional): a label for the query
+
+        Returns:
+            A JSON-LD document containing the KG query definition.
+
+        """
+        if filters:
+            normalized_filters = cls.normalize_filter(expand_filter(filters))
+        else:
+            normalized_filters = None
+        # first pass, we build the basic structure
+        query = Query(
+            node_type=cls.type_,
+            label=label,
+            space=None,
+            properties=[QueryProperty("@type")],
+        )
+        # second pass, we add filters
+        query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         return query.serialize()
 
     def children(

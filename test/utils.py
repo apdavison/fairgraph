@@ -62,7 +62,7 @@ class MockKGClient:
         else:
             raise NotImplementedError
 
-    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
+    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released", restrict_to_spaces=None):
         for prop in query["structure"]:
             if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
                 filter_value = prop["filter"]["value"]

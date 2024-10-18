@@ -34,6 +34,7 @@ class Hash(EmbeddedMetadata):
         ),
     ]
     reverse_properties = []
+    existence_query_properties = ("algorithm", "digest")
 
     def __init__(self, algorithm=None, digest=None, id=None, data=None, space=None, scope=None):
         return super().__init__(data=data, algorithm=algorithm, digest=digest)
