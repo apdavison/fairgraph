@@ -267,7 +267,7 @@ class Property(object):
             elif value is None:
                 return None
             else:
-                raise ValueError("don't know how to serialize this value")
+                raise ValueError(f"fairgraph cannot serialize a value of type {type(value)} (for property '{self.name}')")
 
         if isinstance(value, (list, tuple)):
             if self.multiple or self.error_handling != ErrorHandling.error:
