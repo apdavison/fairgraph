@@ -214,6 +214,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
+        Returns:
+            Either a KGObject of the correct type, or None.
+            A return value of None means either the object doesn't exist
+            or the user doesn't have permission to access it.
         """
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
