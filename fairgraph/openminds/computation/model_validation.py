@@ -9,6 +9,7 @@ from fairgraph.properties import Property
 
 
 from datetime import datetime, time
+from numbers import Real
 
 
 class ModelValidation(KGObject):
@@ -94,7 +95,7 @@ class ModelValidation(KGObject):
             multiple=True,
             doc="no description available",
         ),
-        Property("score", float, "vocab:score", doc="no description available"),
+        Property("score", Real, "vocab:score", doc="no description available"),
         Property("start_time", [datetime, time], "vocab:startTime", required=True, doc="no description available"),
         Property(
             "started_by",

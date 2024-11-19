@@ -7,6 +7,8 @@ Structured information on a quantitative value.
 from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.properties import Property
 
+from numbers import Real
+
 
 class QuantitativeValue(EmbeddedMetadata):
     """
@@ -30,7 +32,7 @@ class QuantitativeValue(EmbeddedMetadata):
         ),
         Property(
             "uncertainties",
-            float,
+            Real,
             "vocab:uncertainty",
             multiple=True,
             doc="Quantitative value range defining the uncertainty of a measurement.",
@@ -41,7 +43,7 @@ class QuantitativeValue(EmbeddedMetadata):
             "vocab:unit",
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Property("value", float, "vocab:value", required=True, doc="Entry for a property."),
+        Property("value", Real, "vocab:value", required=True, doc="Entry for a property."),
     ]
     reverse_properties = []
 

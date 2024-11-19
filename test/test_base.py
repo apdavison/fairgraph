@@ -4,6 +4,7 @@ Tests of fairgraph.base module.
 """
 
 from datetime import date, datetime
+from numbers import Real
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
@@ -37,7 +38,7 @@ class MockEmbeddedObject(EmbeddedMetadata):
         ),
         Property(
             "a_number",
-            float,
+            Real,
             "https://openminds.ebrains.eu/vocab/aNumber",
             multiple=False,
             required=True,

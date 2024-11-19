@@ -557,6 +557,7 @@ def get_controlled_terms_table(type_):
 preamble = {
     "File": """import os
 import mimetypes
+from numbers import Real
 from pathlib import Path
 from urllib.request import urlretrieve
 from urllib.parse import quote, urlparse, urlunparse
@@ -612,7 +613,7 @@ class FairgraphClassBuilder:
             type_map = {
                 "string": "str",
                 "integer": "int",
-                "number": "float",
+                "number": "Real",
                 "date": "date",
                 "date-time": "datetime",
                 "time": "time",

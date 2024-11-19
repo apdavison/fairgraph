@@ -7,6 +7,8 @@ A representation of a range of quantitative values.
 from fairgraph import EmbeddedMetadata, IRI
 from fairgraph.properties import Property
 
+from numbers import Real
+
 
 class QuantitativeValueRange(EmbeddedMetadata):
     """
@@ -22,14 +24,14 @@ class QuantitativeValueRange(EmbeddedMetadata):
         "core": "https://openminds.ebrains.eu/core/",
     }
     properties = [
-        Property("max_value", float, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
+        Property("max_value", Real, "vocab:maxValue", required=True, doc="Greatest quantity attained or allowed."),
         Property(
             "max_value_unit",
             "openminds.controlled_terms.UnitOfMeasurement",
             "vocab:maxValueUnit",
             doc="no description available",
         ),
-        Property("min_value", float, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
+        Property("min_value", Real, "vocab:minValue", required=True, doc="Smallest quantity attained or allowed."),
         Property(
             "min_value_unit",
             "openminds.controlled_terms.UnitOfMeasurement",

@@ -18,6 +18,7 @@ Representations of metadata properties.
 
 from __future__ import annotations
 import logging
+import numbers
 from datetime import date, datetime
 from collections.abc import Iterable, Mapping
 from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING, Union
@@ -249,7 +250,7 @@ class Property(object):
         """
 
         def serialize_single(value):
-            if isinstance(value, (str, int, float, dict)):
+            if isinstance(value, (str, numbers.Real, dict)):
                 return value
             elif isinstance(value, EmbeddedMetadata):
                 return value.to_jsonld(follow_links=follow_links)
@@ -457,7 +458,7 @@ class Property(object):
             filter_obj = None
         else:
             # we have a filter value for this property
-            if self.types[0] in (int, float, bool, datetime, date):
+            if self.types[0] in (int, float, numbers.Real, bool, datetime, date):
                 op = "EQUALS"
             else:
                 op = "CONTAINS"
