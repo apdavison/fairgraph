@@ -10,6 +10,9 @@ from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
 from fairgraph.properties import Property
 from fairgraph.caching import generate_cache_key
+from fairgraph.errors import CannotBuildExistenceQuery
+from fairgraph.base import ErrorHandling
+
 import pytest
 
 
@@ -382,6 +385,20 @@ class TestKGObject(object):
         }
         assert obj._build_existence_query() == expected
 
+    def test_build_existence_query_with_missing_properties(self):
+        obj = self._construct_object_all_properties()
+        prop_name = MockKGObject.existence_query_properties[0]
+        obj.id = None
+        prop = obj._property_lookup[prop_name]
+        orig_error_handling = prop.error_handling
+        prop.error_handling = ErrorHandling.none
+        setattr(obj, prop_name, None)  # remove a required property
+
+        with pytest.raises(CannotBuildExistenceQuery) as exc_info:
+            obj._build_existence_query()
+        assert exc_info.value.args[0] == f"Required value for '{prop_name}' is missing"
+        prop.error_handling = orig_error_handling
+
     def test_build_data_all_properties(self):
         obj = self._construct_object_all_properties()
         expected = {
@@ -558,6 +575,19 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalString": "lime",
         }
         assert new_obj.modified_data() == expected
+
+    def test_exists_insufficient_query_properties(self):
+        """If an object is missing required metadata, exists should return False"""
+        for prop_name in MockKGObject.existence_query_properties:
+            obj = self._construct_object_required_properties()
+            obj.id = None
+            prop = obj._property_lookup[prop_name]
+            orig_error_handling = prop.error_handling
+            prop.error_handling = ErrorHandling.none
+            setattr(obj, prop_name, None)  # remove a required property
+            exists = obj.exists(client=None)
+            assert not exists
+            prop.error_handling = orig_error_handling
 
     def test_exists__it_does_not_exist(self):
         pass

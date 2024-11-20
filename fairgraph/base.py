@@ -462,10 +462,12 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
                     query.update({f"{query_property_name}__{key}": val for key, val in sub_query.items()})
             elif isinstance(value, (list, tuple)):
                 raise CannotBuildExistenceQuery("not implemented yet")
+            elif value is None:
+                raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
             else:
-                query_val = property.serialize(getattr(self, property.name), follow_links=False)
+                query_val = property.serialize(value, follow_links=False)
                 if query_val is None:
-                    raise CannotBuildExistenceQuery("Required value is missing")
+                    raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
                 query[query_property_name] = query_val
         return query
 
