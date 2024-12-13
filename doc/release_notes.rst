@@ -3,6 +3,18 @@ Release notes
 =============
 
 
+Version 0.12.2
+==============
+
+This version includes various small changes and bug fixes.
+
+- Improvements to `client.user_info()` implementation, to give better error messages in case of failure.
+- Use numbers.Real in place of float in fields where openMINDS specifies type "number".
+- More informative error message for unserializable values.
+- Optimization of the `exists()` method, to improve performance by using a simpler query.
+- Allow restricting `exists()` to specific spaces.
+- Don't allow creating IRI objects with an empty string.
+
 Version 0.12.1
 ==============
 
