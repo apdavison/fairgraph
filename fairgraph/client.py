@@ -508,10 +508,15 @@ class KGClient(object):
         This information is that associated with the authorization token used.
         """
         if self._user_info is None:
-            try:
-                self._user_info = self._kg_client.users.my_info().data
-            except KeyError:
-                self._user_info is None
+            response = self._kg_client.users.my_info()
+            if response.data:
+                self._user_info = response.data
+            elif response.error.code == 401:
+                raise AuthenticationError()
+            elif response.error.code == 403:
+                raise AuthorizationError()
+            else:
+                raise Exception(response.error)
         return self._user_info
 
     def spaces(
