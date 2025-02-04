@@ -15,13 +15,6 @@ class SubjectState(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/SubjectState"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "additional_remarks",

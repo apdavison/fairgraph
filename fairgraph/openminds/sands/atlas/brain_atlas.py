@@ -1,5 +1,5 @@
 """
-Structured information on a brain atlas (concept level).
+<description not available>
 """
 
 # this file was auto-generated
@@ -13,18 +13,11 @@ from fairgraph.base import IRI
 
 class BrainAtlas(KGObject):
     """
-    Structured information on a brain atlas (concept level).
+    <description not available>
     """
 
     default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/BrainAtlas"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(

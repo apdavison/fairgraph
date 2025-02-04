@@ -101,7 +101,7 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
                 raise ValueError("prefix {prefix} not found in context")
             base_url = context[prefix]
             if not base_url.endswith("/"):
-                base_url.append("/")
+                base_url += "/"
             expanded_uris.append(f"{base_url}{identifier}")
     if isinstance(uri_list, str):
         return expanded_uris[0]

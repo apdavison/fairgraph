@@ -18,13 +18,6 @@ class WebService(KGObject):
 
     default_space = "webservice"
     type_ = "https://openminds.ebrains.eu/core/WebService"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "custodians",
@@ -92,14 +85,6 @@ class WebService(KGObject):
             doc="reverse of 'service'",
         ),
         Property(
-            "hosts",
-            "openminds.publications.LivePaperResourceItem",
-            "^vocab:hostedBy",
-            reverse="hosted_by",
-            multiple=True,
-            doc="reverse of 'hosted_by'",
-        ),
-        Property(
             "is_part_of",
             ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
             "^vocab:hasPart",
@@ -131,7 +116,6 @@ class WebService(KGObject):
         has_accounts=None,
         has_versions=None,
         homepage=None,
-        hosts=None,
         how_to_cite=None,
         is_part_of=None,
         learning_resources=None,
@@ -157,7 +141,6 @@ class WebService(KGObject):
             has_accounts=has_accounts,
             has_versions=has_versions,
             homepage=homepage,
-            hosts=hosts,
             how_to_cite=how_to_cite,
             is_part_of=is_part_of,
             learning_resources=learning_resources,

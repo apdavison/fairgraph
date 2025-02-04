@@ -45,6 +45,11 @@ logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
+default_context = {
+    "vocab": "https://openminds.ebrains.eu/vocab/",
+    #"vocab": "https://openminds.om-i.org/props/"
+}
+
 
 class ErrorHandling(str, Enum):
     error = "error"
@@ -76,7 +81,7 @@ class Resolvable:  # all
 class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and EmbeddedMetadata
     properties: List[Property]
     reverse_properties: List[Property]
-    context: Dict[str, str]
+    context: Dict[str, str] = default_context
     type_: str
     scope: Optional[str]
     space: Union[str, None]

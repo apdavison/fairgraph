@@ -2,7 +2,7 @@ from copy import deepcopy
 from uuid import uuid4
 from requests.exceptions import SSLError
 from fairgraph.client import KGClient
-from fairgraph.errors import AuthenticationError
+from fairgraph.errors import AuthenticationError, AuthorizationError
 
 import pytest
 
@@ -17,8 +17,13 @@ except AuthenticationError:
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
 else:
-    if client.user_info():
-        have_kg_connection = True
+    try:
+        user_info = client.user_info()
+    except (AuthenticationError, AuthorizationError):
+        pass
+    else:
+        if user_info:
+            have_kg_connection = True
 
 
 def skip_if_no_connection(f):
