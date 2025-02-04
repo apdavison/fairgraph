@@ -34,6 +34,11 @@ def register_class(target_class: ContainsMetadata):
                 registry["types"][type_] = [registry["types"][type_], target_class]
         else:
             registry["types"][type_] = target_class
+            # during the openMINDS v3 - v4 transition, we register both
+            # old and new type namespades
+            if "openminds.ebrains.eu" in type_:
+                alt_type = f"https://openminds.om-i.org/types/{type_.split('/')[-1]}"
+                registry["types"][alt_type] = target_class
 
 
 def lookup(class_name: str) -> ContainsMetadata:

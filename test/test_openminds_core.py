@@ -807,7 +807,7 @@ def test_person_me(kg_client):
 # def test_children():
 
 
-def test_with_new_namespace():
+def test_with_new_namespace_from_core():
     data = {
         "https://openminds.om-i.org/props/hasVersion": {
             "@id": "https://kg.ebrains.eu/api/instances/7035d53f-1597-4a45-9f72-23c2c933ec66"
@@ -846,15 +846,98 @@ def test_with_new_namespace():
         "https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt": "2022-02-04T15:11:40.157Z",
         "https://core.kg.ebrains.eu/vocab/meta/lastReleasedAt": "2023-03-23T10:09:30.130Z",
     }
-    from fairgraph.base import default_context
-    orig_vocab = default_context["vocab"]
     orig_type = omcore.Model.type_
-    default_context["vocab"] = "https://openminds.om-i.org/props/"
-    omcore.Model.type_ = "https://openminds.om-i.org/types/Model"
-
     obj = omcore.Model.from_kg_instance(data, client=None, scope="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
-
-    default_context["vocab"] = orig_vocab
     omcore.Model.type_ = orig_type
+
+
+def test_with_new_namespace_from_query():
+    data = {
+        "@id": "https://kg.ebrains.eu/api/instances/708024f7-9dd7-4c92-ae95-936db23c6d99",
+        "https://schema.hbp.eu/myQuery/space": "model",
+        "@type": ["https://openminds.om-i.org/types/Model"],
+        "vocab:abstractionLevel": {"@id": "https://kg.ebrains.eu/api/instances/57becc19-f0a1-4d23-99bb-eb3b7d3cdb9a"},
+        "vocab:custodian": [
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/2905ce6c-bc89-4c99-b8b0-0fa9a17d1897",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/3477f916-5494-42ae-8b07-d2cb48231657",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/a594cfe2-f53a-470f-b52e-697b8d5a8958",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/5dcb9bd9-f93f-48c4-88e0-ff0ed4221ac8",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/5ad4749a-6e5a-4512-86ff-b89834c1b87c",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+        ],
+        "vocab:description": "The scaffolding procedure has been enhanced compared to version 1.0. It's able to generate a scalable cerebellar structure, embedding specific 3D positions for each neuron and specific pair connections. Customized placement strategies allow to match layered density and encumbrance for each neuron type. Customized connection strategies allow to match anisotropic geometrical fields of intersection, and statistical convergence and divergence ratios.\nThe scaffold can host different neuron models. Several input stimulation patterns can be used to investigate network complex dynamics, revealing the relationships between structural constraints and underlying neuron mechanisms with the cerebellar circuit functioning, over space and time.\n\nMain link to Sonata conversion can be found here:\nhttps://github.com/SelezioneCasuale/scaffold/tree/sonata-version/scaffold",
+        "vocab:developer": [
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/2905ce6c-bc89-4c99-b8b0-0fa9a17d1897",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/3477f916-5494-42ae-8b07-d2cb48231657",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/a594cfe2-f53a-470f-b52e-697b8d5a8958",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/5dcb9bd9-f93f-48c4-88e0-ff0ed4221ac8",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/5ad4749a-6e5a-4512-86ff-b89834c1b87c",
+                "@type": ["https://openminds.om-i.org/types/Person"],
+            },
+        ],
+        "vocab:digitalIdentifier": [],
+        "vocab:fullName": "Scaffold Model of Cerebellum microcircuit version 2.0",
+        "vocab:hasVersion": [
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/7035d53f-1597-4a45-9f72-23c2c933ec66",
+                "@type": ["https://openminds.om-i.org/types/ModelVersion"],
+            }
+        ],
+        "vocab:homepage": None,
+        "vocab:howToCite": None,
+        "vocab:scope": [
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/6c678004-b8e0-4339-90c5-824e66503eb9",
+                "@type": ["https://openminds.om-i.org/types/ModelScope"],
+            }
+        ],
+        "vocab:shortName": None,
+        "vocab:studyTarget": [
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/ab532423-1fd7-4255-8c6f-f99dc6df814f",
+                "@type": ["https://openminds.om-i.org/types/Species"],
+            },
+            {
+                "@id": "https://kg.ebrains.eu/api/instances/a70b0307-22fc-4730-a61f-fd279f43a3cf",
+                "@type": ["https://openminds.om-i.org/types/UBERONParcellation"],
+            },
+        ],
+        "vocab:about": [],
+        "vocab:hasPart": [],
+        "@context": {"vocab": "https://openminds.om-i.org/props/"},
+    }
+    #omcore.set_error_handling("error")
+    orig_types = (omcore.Model.type_, omcore.Person.type_)
+    obj = omcore.Model.from_kg_instance(data, client=None, scope="released")
+    assert obj.abstraction_level
+    assert len(obj.developers) == 5
+    omcore.Model.type_, omcore.Person.type_ = orig_types
