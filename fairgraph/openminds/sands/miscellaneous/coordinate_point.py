@@ -1,5 +1,5 @@
 """
-Structured information on a coordinate point.
+<description not available>
 """
 
 # this file was auto-generated
@@ -10,17 +10,10 @@ from fairgraph.properties import Property
 
 class CoordinatePoint(EmbeddedMetadata):
     """
-    Structured information on a coordinate point.
+    <description not available>
     """
 
     type_ = "https://openminds.ebrains.eu/sands/CoordinatePoint"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "coordinate_space",

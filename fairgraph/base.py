@@ -33,7 +33,8 @@ from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
     normalize_data,
-    invert_dict
+    invert_dict,
+    types_match
 )
 
 if TYPE_CHECKING:
@@ -44,6 +45,15 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
+
+default_context = {
+    "v3": {
+        "vocab": "https://openminds.ebrains.eu/vocab/",
+    },
+    "v4": {
+        "vocab": "https://openminds.om-i.org/props/"
+    }
+}
 
 
 class ErrorHandling(str, Enum):
@@ -76,7 +86,7 @@ class Resolvable:  # all
 class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and EmbeddedMetadata
     properties: List[Property]
     reverse_properties: List[Property]
-    context: Dict[str, str]
+    context: Dict[str, str] = default_context["v3"]
     type_: str
     scope: Optional[str]
     space: Union[str, None]
@@ -322,7 +332,19 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
 
     @classmethod
     def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool = False):
+        # check types match
+        if cls.type_ not in data["@type"]:
+            if types_match(cls.type_, data["@type"][0]):
+                cls.type_ = data["@type"][0]
+            else:
+                raise TypeError("type mismatch {} - {}".format(cls.type_, data["@type"]))
+
         # normalize data by expanding keys
+        if "om-i.org" in cls.type_:
+            cls.context = default_context["v4"]
+        else:
+            cls.context = default_context["v3"]
+
         D = {"@type": data["@type"]}
         if include_id:
             D["@id"] = data["@id"]
@@ -340,8 +362,6 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             elif key[0] != "@":
                 normalised_key = expand_uri(key, cls.context)
                 D[normalised_key] = value
-        if cls.type_ not in D["@type"]:
-            raise TypeError("type mismatch {} - {}".format(cls.type_, D["@type"]))
 
         def _get_type_from_data(data_item):
             type_ = data_item.get("@type", None)

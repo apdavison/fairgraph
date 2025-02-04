@@ -32,21 +32,16 @@ from dateutil import parser as date_parser
 
 from .registry import lookup, lookup_type
 from .utility import as_list
-from .base import IRI, JSONdict, ContainsMetadata, ErrorHandling
+from .base import IRI, JSONdict, ContainsMetadata, ErrorHandling, default_context
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .kgobject import KGObject
 from .embedded import EmbeddedMetadata
-from .utility import expand_uri
+from .utility import expand_uri, types_match
 from .queries import Filter, QueryProperty
 
 
 logger = logging.getLogger("fairgraph")
-
-
-global_context = {
-    "vocab": "https://openminds.ebrains.eu/vocab/",
-}
 
 
 def is_resolved(item: JSONdict) -> bool:
@@ -94,7 +89,7 @@ def build_kg_object(
         if len(possible_classes) > 1:
             if "@type" in item:
                 for cls in possible_classes:
-                    if item["@type"] == [cls.type_]:
+                    if types_match(item["@type"][0], cls.type_):
                         kg_cls = cls
                         break
             else:
@@ -189,6 +184,7 @@ class Property(object):
         self.error_handling = error_handling
         self.reverse = reverse
         self.doc = doc
+        self.context = default_context["v3"]
 
     def __repr__(self):
         return "Property(name='{}', types={}, path='{}', required={}, multiple={})".format(
@@ -236,7 +232,7 @@ class Property(object):
 
     @property
     def expanded_path(self) -> str:
-        return expand_uri(self.path, global_context)
+        return expand_uri(self.path, self.context)
 
     def serialize(self, value: Any, follow_links: bool = False):
         """

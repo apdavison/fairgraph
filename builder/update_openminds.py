@@ -32,9 +32,9 @@ global_aliases = {
 reverse_name_map = {
     "RRID": "identifies",
     "about": {
-        "https://openminds.ebrains.eu/publications/LearningResource": "learningResources",
-        "https://openminds.ebrains.eu/core/Comment": "comments",
-        "https://openminds.ebrains.eu/publications/LivePaperVersion": "publication",
+        "LearningResource": "learningResources",
+        "Comment": "comments",
+        "LivePaperVersion": "publication",
     },
     "abstractionLevel": "isAbstractionLevelOf",
     "accessibility": "isAccessibilityOf",
@@ -82,16 +82,16 @@ reverse_name_map = {
     "describedIn": "describes",
     "developer": "developed",
     "device": {
-        "https://openminds.ebrains.eu/ephys/ElectrodeArrayUsage": "usage",
-        "https://openminds.ebrains.eu/ephys/RecordingActivity": "usedIn",
-        "https://openminds.ebrains.eu/ephys/ElectrodePlacement": "placedBy",
-        "https://openminds.ebrains.eu/ephys/CellPatching": "usedIn",
-        "https://openminds.ebrains.eu/ephys/Recording": "usedFor",
-        "https://openminds.ebrains.eu/core/Measurement": "usedFor",
-        "https://openminds.ebrains.eu/specimenPrep/TissueSampleSlicing": "usedFor",
-        "https://openminds.ebrains.eu/specimenPrep/SlicingDeviceUsage": "usage",
-        "https://openminds.ebrains.eu/ephys/PipetteUsage": "usage",
-        "https://openminds.ebrains.eu/ephys/ElectrodeUsage": "usage",
+        "ElectrodeArrayUsage": "usage",
+        "RecordingActivity": "usedIn",
+        "ElectrodePlacement": "placedBy",
+        "CellPatching": "usedIn",
+        "Recording": "usedFor",
+        "Measurement": "usedFor",
+        "TissueSampleSlicing": "usedFor",
+        "SlicingDeviceUsage": "usage",
+        "PipetteUsage": "usage",
+        "ElectrodeUsage": "usage",
     },
     "deviceType": "isTypeOf",  # TODO: replace with "type"?
     "digitalIdentifier": "identifies",
@@ -112,8 +112,8 @@ reverse_name_map = {
     "geneticStrainType": "isGeneticStrainTypeOf",  # or "strain"
     "groupedBy": "isUsedToGroup",
     "groupingType": {
-        "https://openminds.ebrains.eu/core/FileBundle": "isUsedToGroup",
-        "https://openminds.ebrains.eu/core/FilePathPattern": "isDefinedBy",
+        "FileBundle": "isUsedToGroup",
+        "FilePathPattern": "isDefinedBy",
     },
     "handedness": "subjectStates",  # or "isHandednessOf"
     "hardware": "usedBy",  # or "isPartOfEnvironment"
@@ -181,8 +181,8 @@ reverse_name_map = {
     "scoreType": "isScoreTypeOf",
     "serializationFormat": "usedBy",
     "service": {
-        "https://openminds.ebrains.eu/core/ServiceLink": "linkedFrom",
-        "https://openminds.ebrains.eu/core/AccountInformation": "hasAccounts",
+        "ServiceLink": "linkedFrom",
+        "AccountInformation": "hasAccounts",
     },
     "setup": "usedIn",
     "slicingDevice": "usedIn",  # TODO: slicingDevice --> device?
@@ -209,9 +209,9 @@ reverse_name_map = {
     "type": "isTypeOf",
     "typeOfUncertainty": "value",
     "unit": {
-        "https://openminds.ebrains.eu/ephys/Channel": "usedIn",
-        "https://openminds.ebrains.eu/core/QuantitativeValue": "value",
-        "https://openminds.ebrains.eu/core/QuantitativeValueArray": "value",
+        "Channel": "usedIn",
+        "QuantitativeValue": "value",
+        "QuantitativeValueArray": "value",
     },
     "usedSpecies": "commonCoordinateSpace",
     "usedSpecimen": "usedIn",
@@ -411,7 +411,7 @@ def get_default_space(schema_group, cls_name):
 custom_existence_queries = {
     "LaunchConfiguration": ("executable", "name"),
     "Person": ("given_name", "family_name"),
-    "File": ("iri", "hash"),
+    "File": ("iri", "hashes"),
     "FileRepository": ("iri",),
     "License": ("alias",),
     "DOI": ("identifier",),
@@ -454,6 +454,7 @@ custom_existence_queries = {
     "Periodical": ("abbreviation",),
     "AmountOfChemical": ("chemical_product", "amount"),
     "QuantitativeValue": ("value", "unit", "uncertainties"),
+    "Hash": ("algorithm", "digest")
 }
 
 
@@ -484,12 +485,11 @@ def property_name_sort_key(property_name):
     return priorities.get(property_name, property_name)
 
 
-def generate_class_name(iri):
+def generate_class_name(iri, module_map=None):
     assert isinstance(iri, str)
-    parts = iri.split("/")[-2:]
-    for i in range(len(parts) - 1):
-        parts[i] = generate_python_name(parts[i])
-    return "openminds." + ".".join(parts)
+    class_name = iri.split("/")[-1]
+    module_name = generate_python_name(module_map[iri])
+    return f"openminds.{module_name}.{class_name}"
 
 
 def get_controlled_terms_table(type_):
@@ -557,7 +557,6 @@ def get_controlled_terms_table(type_):
 preamble = {
     "File": """import os
 import mimetypes
-from numbers import Real
 from pathlib import Path
 from urllib.request import urlretrieve
 from urllib.parse import quote, urlparse, urlunparse
@@ -587,6 +586,17 @@ from .web_service import WebService""",
 }
 
 
+def get_type_from_schema(schema_payload, override=True):
+    if override:  # temporarily use the old namespaces, until the KG is updated
+        cls_name = schema_payload["_type"].split("/")[-1]
+        module_name = schema_payload['_module']
+        if module_name == "SANDS":
+            module_name = "sands"
+        return f"https://openminds.ebrains.eu/{module_name}/{cls_name}"
+    else:
+        return schema_payload["_type"]
+
+
 class FairgraphClassBuilder:
     """docstring"""
 
@@ -608,7 +618,7 @@ class FairgraphClassBuilder:
     def _target_file_without_extension(self) -> str:
         return os.path.join(*self.relative_path_without_extension)
 
-    def translate(self, embedded=None, linked=None):
+    def translate(self, embedded=None, linked=None, module_map=None):
         def get_type(prop):
             type_map = {
                 "string": "str",
@@ -621,11 +631,12 @@ class FairgraphClassBuilder:
                 "email": "str",  # todo: add an Email class for validation?
                 "ECMA262": "str",  #       ...
             }
+            #breakpoint()
             if "_linkedTypes" in prop:
                 types = []
                 for item in prop["_linkedTypes"]:
-                    openminds_module, class_name = item.split("/")[-2:]
-                    openminds_module = generate_python_name(openminds_module)
+                    class_name = item.split("/")[-1]
+                    openminds_module = generate_python_name(module_map[item])
                     types.append(f"openminds.{openminds_module}.{class_name}")
                 if len(types) == 1:
                     types = f'"{types[0]}"'
@@ -633,8 +644,8 @@ class FairgraphClassBuilder:
             elif "_embeddedTypes" in prop:
                 types = []
                 for item in prop["_embeddedTypes"]:
-                    openminds_module, class_name = item.split("/")[-2:]
-                    openminds_module = generate_python_name(openminds_module)
+                    class_name = item.split("/")[-1]
+                    openminds_module = generate_python_name(module_map[item])
                     types.append(f"openminds.{openminds_module}.{class_name}")
                 if len(types) == 1:
                     types = f'"{types[0]}"'
@@ -709,7 +720,7 @@ class FairgraphClassBuilder:
             linked_from = linked[self._schema_payload["_type"]]
             for reverse_link_name in linked_from:
                 unique_forward_iris = set(linked_from[reverse_link_name][0])
-                types_str = [generate_class_name(iri) for iri in linked_from[reverse_link_name][2]]
+                types_str = [generate_class_name(iri, module_map) for iri in linked_from[reverse_link_name][2]]
                 if len(unique_forward_iris) == 1:
                     (forward_iri,) = unique_forward_iris
                     forward_link_names = set(linked_from[reverse_link_name][1])
@@ -771,7 +782,7 @@ class FairgraphClassBuilder:
             "preamble": preamble.get(class_name, ""),  # default value, may be updated below
             "class_name": class_name,
             "default_space": default_space,
-            "openminds_type": self._schema_payload["_type"],
+            "openminds_type": get_type_from_schema(self._schema_payload, override=True),
             "properties": sorted(properties, key=lambda p: p["name"]),
             "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "additional_methods": "",
@@ -790,6 +801,7 @@ class FairgraphClassBuilder:
             "time": "from datetime import time",
             "IRI": "from fairgraph.base import IRI",
             "[datetime, time]": "from datetime import datetime, time",
+            "Real": "from numbers import Real"
         }
         extra_imports = set()
         for prop in self.context["properties"]:
@@ -807,11 +819,11 @@ class FairgraphClassBuilder:
         if module_name == "controlled_terms":
             self.context["docstring"] += get_controlled_terms_table(self._schema_payload["_type"])
 
-    def build(self, embedded=None, linked=None):
+    def build(self, embedded=None, linked=None, module_map=None):
         target_file_path = os.path.join(self.target_path_root, f"{self._target_file_without_extension()}.py")
         os.makedirs(os.path.dirname(target_file_path), exist_ok=True)
 
-        self.translate(embedded=embedded, linked=linked)
+        self.translate(embedded=embedded, linked=linked, module_map=module_map)
 
         with open(target_file_path, "w") as target_file:
             contents = self.env.get_template(self.template_name).render(self.context)
@@ -840,6 +852,9 @@ class FairgraphClassBuilder:
                 #     breakpoint()
         return embedded, linked
 
+    def get_module_map(self):
+        return self._schema_payload["_type"], self._schema_payload["_module"]
+
 
 def main(openminds_root, ignore=[]):
     target_path = os.path.join("..", "fairgraph", "openminds")
@@ -850,6 +865,12 @@ def main(openminds_root, ignore=[]):
     schema_file_paths = glob(os.path.join(openminds_root, f"**/*.schema.omi.json"), recursive=True)
     python_modules = defaultdict(list)
 
+    # Zeroth pass - map schemas to modules
+    module_map = {}
+    for schema_file_path in schema_file_paths:
+        type_, module_name = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).get_module_map()
+        module_map[type_] = module_name
+
     # First pass - figure out which schemas are embedded and which are linked
     embedded = set()
     linked = defaultdict(dict)
@@ -859,7 +880,8 @@ def main(openminds_root, ignore=[]):
         for openminds_type, (link_type, property_name, forward_name, reverse_name) in linked_from.items():
             if link_type not in embedded:
                 if isinstance(reverse_name, dict):
-                    reverse_name = reverse_name[link_type]
+                    cls_name = link_type.split("/")[-1]
+                    reverse_name = reverse_name[cls_name]
                 if reverse_name in linked[openminds_type]:
                     linked[openminds_type][reverse_name][0].append(property_name)
                     linked[openminds_type][reverse_name][1].append(forward_name)
@@ -876,7 +898,7 @@ def main(openminds_root, ignore=[]):
     # Second pass - create a Python module for each openMINDS schema
     for schema_file_path in schema_file_paths:
         module_path, class_name = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).build(
-            embedded=embedded, linked=linked
+            embedded=embedded, linked=linked, module_map=module_map
         )
 
         parts = module_path.split(".")

@@ -2,7 +2,7 @@ import os
 import json
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter
+from fairgraph.queries import Query, QueryProperty, Filter, migrate_query
 import fairgraph.openminds.core as omcore
 from .utils import kg_client, mock_client, skip_if_no_connection
 
@@ -506,3 +506,23 @@ def test_generate_query_with_follow_named_links(mock_client):
         )
         expected = json.load(fp)
         assert generated == expected
+
+
+def test_migrate_query():
+    path_orig = os.path.join(
+        os.path.dirname(__file__),
+        "test_data",
+        "queries",
+        "openminds",
+        "core",
+        "dataset_simple_query.json",
+    )
+    with open(path_orig) as fp:
+        orig_query = json.load(fp)
+    migrated_query = migrate_query(orig_query)
+
+    path_expected = path_orig.replace(".json", "_v4.json")
+    with open(path_expected) as fp:
+        expected = json.load(fp)
+
+    assert migrated_query == expected

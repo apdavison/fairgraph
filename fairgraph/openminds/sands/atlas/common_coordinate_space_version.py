@@ -19,13 +19,6 @@ class CommonCoordinateSpaceVersion(KGObject):
 
     default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/CommonCoordinateSpaceVersion"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(
@@ -352,7 +345,7 @@ class CommonCoordinateSpaceVersion(KGObject):
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup", "openminds.core.SoftwareVersion"],
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,

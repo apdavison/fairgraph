@@ -18,17 +18,10 @@ class LivePaperResourceItem(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/LivePaperResourceItem"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "hosted_by",
-            ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlled_terms.Service"],
+            "openminds.core.Organization",
             "vocab:hostedBy",
             required=True,
             doc="Reference to an organization that provides facilities and services for something.",

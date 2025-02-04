@@ -18,13 +18,6 @@ class Service(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/Service"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -96,14 +89,6 @@ class Service(KGObject):
             doc="reverse of 'keywords'",
         ),
         Property(
-            "hosts",
-            "openminds.publications.LivePaperResourceItem",
-            "^vocab:hostedBy",
-            reverse="hosted_by",
-            multiple=True,
-            doc="reverse of 'hosted_by'",
-        ),
-        Property(
             "linked_from",
             "openminds.core.ServiceLink",
             "^vocab:service",
@@ -120,7 +105,6 @@ class Service(KGObject):
         definition=None,
         describes=None,
         description=None,
-        hosts=None,
         interlex_identifier=None,
         knowledge_space_link=None,
         linked_from=None,
@@ -140,7 +124,6 @@ class Service(KGObject):
             definition=definition,
             describes=describes,
             description=description,
-            hosts=hosts,
             interlex_identifier=interlex_identifier,
             knowledge_space_link=knowledge_space_link,
             linked_from=linked_from,

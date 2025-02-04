@@ -1,5 +1,5 @@
 """
-Structured information on an organization.
+An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
 """
 
 # this file was auto-generated
@@ -13,18 +13,11 @@ from fairgraph.base import IRI
 
 class Organization(KGObject):
     """
-    Structured information on an organization.
+    An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
     """
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Organization"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "affiliations",

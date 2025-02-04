@@ -18,13 +18,6 @@ class WebResource(KGObject):
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/WebResource"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(

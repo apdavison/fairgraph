@@ -15,13 +15,6 @@ class Periodical(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/Periodical"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(
@@ -34,6 +27,7 @@ class Periodical(KGObject):
             "name",
             str,
             "vocab:name",
+            required=True,
             doc="Word or phrase that constitutes the distinctive designation of the periodical.",
         ),
     ]

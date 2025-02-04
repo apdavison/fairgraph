@@ -527,7 +527,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
-                        raise Exception("Existence query is not specific enough")
+                        raise Exception(f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}")
 
                     # it seems that sometimes the "query" endpoint returns instances
                     # which the "instances" endpoint doesn't know about, so here we double check that
