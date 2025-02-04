@@ -35,6 +35,7 @@ except ImportError:
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
 from .registry import lookup_type
+from .queries import migrate_query
 
 if TYPE_CHECKING:
     from .kgobject import KGObject
@@ -132,6 +133,7 @@ class KGClient(object):
         self.cache: Dict[str, JsonLdDocument] = {}
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
+        self.migrated = None
 
     @property
     def _kg_admin_client(self):
@@ -194,6 +196,19 @@ class KGClient(object):
             A ResultPage object containing a list of JSON-LD instances that satisfy the query,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
+
+        # the following section is a temporary work-around for use during the transitional period
+        # from openMINDS v3 to v4 (change of namespace)
+        if self.migrated is None:
+            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
+            if "om-i.org" in result["@type"]:
+                self.migrated = True
+            else:
+                self.migrated = False
+
+        if self.migrated:
+            query = migrate_query(query)
+
         query_id = query.get("@id", None)
 
         if use_stored_query:

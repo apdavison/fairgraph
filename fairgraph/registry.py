@@ -35,7 +35,7 @@ def register_class(target_class: ContainsMetadata):
         else:
             registry["types"][type_] = target_class
             # during the openMINDS v3 - v4 transition, we register both
-            # old and new type namespades
+            # old and new type namespaces
             if "openminds.ebrains.eu" in type_:
                 alt_type = f"https://openminds.om-i.org/types/{type_.split('/')[-1]}"
                 registry["types"][alt_type] = target_class

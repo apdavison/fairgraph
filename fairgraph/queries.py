@@ -17,6 +17,7 @@ This module provides Python classes to assist in writing Knowledge Graph queries
 # limitations under the License.
 
 from __future__ import annotations
+from copy import deepcopy
 from typing import Optional, List, Any, Dict
 
 
@@ -246,3 +247,17 @@ class Query:
 
 
 # todo: I think only one property can have "sort": True - need to check this
+
+
+def migrate_query(query):
+    """Map from v3 to v4+ openMINDS namespace"""
+    migrated_query = deepcopy(query)
+    type_ = migrated_query["meta"]["type"]
+    migrated_query["meta"]["type"] = f'https://openminds.om-i.org/types/{type_.split("/")[-1]}'
+    replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
+    for item in migrated_query["structure"]:
+        if isinstance(item["path"], str):
+            item["path"] = item["path"].replace(*replacement)
+        else:
+            item["path"]["@id"] = item["path"]["@id"].replace(*replacement)
+    return migrated_query
