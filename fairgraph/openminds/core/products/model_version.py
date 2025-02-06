@@ -60,6 +60,7 @@ class ModelVersion(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property("entry_point", str, "vocab:entryPoint", doc="no description available"),
         Property(
             "formats",
             "openminds.core.ContentType",
@@ -369,6 +370,7 @@ class ModelVersion(KGObject):
         description=None,
         developers=None,
         digital_identifier=None,
+        entry_point=None,
         formats=None,
         full_documentation=None,
         full_name=None,
@@ -416,6 +418,7 @@ class ModelVersion(KGObject):
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
+            entry_point=entry_point,
             formats=formats,
             full_documentation=full_documentation,
             full_name=full_name,
