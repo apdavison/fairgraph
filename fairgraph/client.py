@@ -556,8 +556,13 @@ class KGClient(object):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        response = self._kg_client.spaces.list(permissions=bool(permissions), pagination=Pagination(start=0, size=100))
-        accessible_spaces = self._check_response(response).data
+        response = self._check_response(
+            self._kg_client.spaces.list(
+                permissions=bool(permissions),
+                pagination=Pagination(start=0, size=50)
+            )
+        )
+        accessible_spaces = list(response.items())  # makes additional requests if multiple pages of results
         if permissions and isinstance(permissions, Iterable):
             filtered_spaces = []
             for space in accessible_spaces:
