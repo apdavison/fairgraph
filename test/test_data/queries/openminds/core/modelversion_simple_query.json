@@ -120,6 +120,10 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/entryPoint",
+      "propertyName": "vocab:entryPoint"
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/format",
       "propertyName": "vocab:format",
       "ensureOrder": true,
