@@ -157,6 +157,10 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
             prop.check_value(value)
             super().__setattr__(name, value)
 
+    @classmethod
+    def get_property(cls, name):
+        return cls._property_lookup[name]
+
     def to_jsonld(
         self,
         normalized: bool = True,
