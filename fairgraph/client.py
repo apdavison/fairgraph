@@ -636,7 +636,7 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
-    def space_info(self, space_name: str, scope: str = "released"):
+    def space_info(self, space_name: str, scope: str = "released", ignore_errors: bool = False):
         """
         Return information about the types and number of instances in a space.
 
@@ -651,7 +651,12 @@ class KGClient(object):
             try:
                 cls = lookup_type(item.identifier)
             except KeyError as err:
-                if "vocab/meta/type/Query" in str(err):
+                ignore_list = [
+                    "https://core.kg.ebrains.eu/vocab/type/Bookmark",
+                    "https://core.kg.ebrains.eu/vocab/meta/type/Query",
+                    "https://openminds.ebrains.eu/core/URL"
+                ]
+                if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
                     pass
                 else:
                     raise
@@ -663,7 +668,7 @@ class KGClient(object):
         """Delete all instances from a given space."""
         # todo: check for released instances, they must be unreleased
         #       before deletion.
-        space_info = self.space_info(space_name, scope="in progress")
+        space_info = self.space_info(space_name, scope="in progress", ignore_errors=True)
         if sum(space_info.values()) > 0:
             print(f"The space '{space_name}' contains the following instances:\n")
             for cls, count in space_info.items():
