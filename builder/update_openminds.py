@@ -447,7 +447,7 @@ custom_existence_queries = {
     "ValidationTestVersion": ("short_name", "version_identifier"),
     "LivePaper": ("full_name", "short_name"),
     "LivePaperVersion": ("short_name", "version_identifier"),
-    "LivePaperResourceItem": ("name", "iri", "is_also_part_of"),
+    "LivePaperResourceItem": ("name", "iri", "is_part_of"),
     "ScholarlyArticle": ("name",),
     "WorkflowExecution": ("stages",),
     "Configuration": ("configuration",),

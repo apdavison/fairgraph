@@ -58,7 +58,7 @@ class LivePaperResourceItem(KGObject):
             doc="reverse of 'data_location'",
         ),
     ]
-    existence_query_properties = ("name", "iri", "is_also_part_of")
+    existence_query_properties = ("name", "iri", "is_part_of")
 
     def __init__(
         self,
