@@ -200,6 +200,7 @@ class KGClient(object):
         # the following section is a temporary work-around for use during the transitional period
         # from openMINDS v3 to v4 (change of namespace)
         if self.migrated is None:
+            # this is the released controlled term for "left handedness", which should be accessible to everyone
             result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
             if "om-i.org" in result["@type"]:
                 self.migrated = True
@@ -344,17 +345,16 @@ class KGClient(object):
         else:
 
             def _get_instance(scope):
-                try:
-                    response = self._kg_client.instances.get_by_id(
-                        stage=STAGE_MAP[scope],
-                        instance_id=self.uuid_from_uri(uri),
-                        extended_response_configuration=default_response_configuration,
-                    )
-                except Exception as err:
-                    if "404" in str(err):
-                        data = None
-                    else:
-                        raise
+                response = self._kg_client.instances.get_by_id(
+                    stage=STAGE_MAP[scope],
+                    instance_id=self.uuid_from_uri(uri),
+                    extended_response_configuration=default_response_configuration,
+                )
+                error_context = f"_get_instance(scope={scope} uri={uri})"
+                response = self._check_response(response, error_context=error_context, ignore_not_found=True)
+                if response.error:
+                    assert response.error.code == 404  # all other errors should have been trapped by the check
+                    data = None
                 else:
                     data = response.data
                 # in some circumstances, the KG returns "minimal" metadata,
