@@ -134,17 +134,27 @@ class QueryProperty:
         if self.properties:
             data["structure"] = [prop.serialize() for prop in self.properties]
         if self.type_filter or self.reverse:
-            data["path"] = {"@id": data["path"]}
+            if isinstance(self.path, str):
+                first_path_element = {"@id": self.path}
+            else:
+                # for now we only support specifying type filters/reverse
+                # for the first element in a multi-element path
+                assert isinstance(self.path, (list, tuple))
+                first_path_element = {"@id": self.path[0]}
             if self.type_filter:
                 if isinstance(self.type_filter, (list, tuple)):
-                    data["path"]["typeFilter"] = [
+                    first_path_element["typeFilter"] = [
                         {"@id": type_iri} for type_iri in self.type_filter
                     ]
                 else:
                     assert isinstance(self.type_filter, str)
-                    data["path"]["typeFilter"] = {"@id": self.type_filter}
+                    first_path_element["typeFilter"] = {"@id": self.type_filter}
             if self.reverse:
-                data["path"]["reverse"] = True
+                first_path_element["reverse"] = True
+            if isinstance(self.path, str):
+                data["path"] = first_path_element
+            else:
+                data["path"] = [first_path_element, *self.path[1:]]
         if self.expect_single:
             data["singleValue"] = "FIRST"
         return data
