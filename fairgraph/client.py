@@ -27,7 +27,7 @@ from uuid import uuid4, UUID
 try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
-    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation
+    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error
 
     have_kg_core = True
 except ImportError:
@@ -102,7 +102,7 @@ class KGClient(object):
         host: str = "core.kg-ppd.ebrains.eu",
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        allow_interactive = True
+        allow_interactive: bool = True,
     ):
         if not have_kg_core:
             raise ImportError(
@@ -150,7 +150,25 @@ class KGClient(object):
         response: ResultPage[JsonLdDocument],
         ignore_not_found: bool = False,
         error_context: str = "",
+        expected_instance_id: Optional[str] = None,
     ) -> ResultPage[JsonLdDocument]:
+        if expected_instance_id and not response.error:
+            if response.total > 1:
+                # if an instance_id is specified, we expect there to be only one result
+                # if there are more, it seems to mean that the instance_id does not exist
+                response.error = Error(
+                    code=404,
+                    message=(
+                        f"Received multiple results when specifying instance_id {expected_instance_id}"
+                        "This indicates the instance does not exist."
+                    ),
+                )
+                response.data = []
+                response.size = response.total = 0
+            else:
+                if response.size == 1:
+                    if str(expected_instance_id) not in response.data[0]["@id"]:
+                        raise Exception("mismatched instance_id")
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
@@ -224,7 +242,9 @@ class KGClient(object):
                     restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
-                return self._check_response(response, error_context=error_context)
+                return self._check_response(
+                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                )
 
         else:
 
@@ -238,7 +258,9 @@ class KGClient(object):
                     restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
-                return self._check_response(response, error_context=error_context)
+                return self._check_response(
+                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                )
 
         if scope == "any":
             # the following implementation is simple but very inefficient
