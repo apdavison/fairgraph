@@ -15,13 +15,6 @@ class Pipette(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/Pipette"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "description",
@@ -101,13 +94,13 @@ class Pipette(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "usage",
             "openminds.ephys.PipetteUsage",
             "^vocab:device",
-            reverse="devices",
+            reverse="device",
             multiple=True,
             doc="reverse of 'device'",
         ),

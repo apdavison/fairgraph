@@ -18,13 +18,6 @@ class DataCopy(KGObject):
 
     default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/DataCopy"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "custom_property_sets",
@@ -179,7 +172,7 @@ class DataCopy(KGObject):
             "^vocab:wasInformedBy",
             reverse="was_informed_by",
             multiple=True,
-            doc="reverse of 'wasInformedBy'",
+            doc="reverse of 'was_informed_by'",
         ),
         Property(
             "is_part_of",
@@ -187,7 +180,7 @@ class DataCopy(KGObject):
             "^vocab:stage",
             reverse="stages",
             multiple=True,
-            doc="reverse of 'stage'",
+            doc="reverse of 'stages'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

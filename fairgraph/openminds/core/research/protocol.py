@@ -15,13 +15,6 @@ class Protocol(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/Protocol"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "described_in",
@@ -63,6 +56,7 @@ class Protocol(KGObject):
             [
                 "openminds.controlled_terms.AnalysisTechnique",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.StimulationApproach",
                 "openminds.controlled_terms.StimulationTechnique",
                 "openminds.controlled_terms.Technique",
@@ -90,7 +84,7 @@ class Protocol(KGObject):
             "^vocab:protocol",
             reverse="protocols",
             multiple=True,
-            doc="reverse of 'protocol'",
+            doc="reverse of 'protocols'",
         ),
     ]
     existence_query_properties = ("name",)

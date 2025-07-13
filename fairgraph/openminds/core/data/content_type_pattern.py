@@ -15,13 +15,6 @@ class ContentTypePattern(KGObject):
 
     default_space = "files"
     type_ = "https://openminds.ebrains.eu/core/ContentTypePattern"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "content_type",
@@ -40,7 +33,7 @@ class ContentTypePattern(KGObject):
             "^vocab:contentTypePattern",
             reverse="content_type_patterns",
             multiple=True,
-            doc="reverse of 'contentTypePattern'",
+            doc="reverse of 'content_type_patterns'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

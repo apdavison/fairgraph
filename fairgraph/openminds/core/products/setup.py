@@ -15,13 +15,6 @@ class Setup(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/Setup"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "description",
@@ -75,13 +68,13 @@ class Setup(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "used_in",
             "openminds.stimulation.StimulationActivity",
             "^vocab:setup",
-            reverse="setups",
+            reverse="setup",
             multiple=True,
             doc="reverse of 'setup'",
         ),

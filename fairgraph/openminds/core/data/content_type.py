@@ -18,13 +18,6 @@ class ContentType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/core/ContentType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "data_types",
@@ -79,9 +72,9 @@ class ContentType(KGObject):
             "is_defined_by",
             "openminds.core.ContentTypePattern",
             "^vocab:contentType",
-            reverse="content_types",
+            reverse="content_type",
             multiple=True,
-            doc="reverse of 'contentType'",
+            doc="reverse of 'content_type'",
         ),
         Property(
             "is_format_of",
@@ -98,7 +91,7 @@ class ContentType(KGObject):
                 "openminds.core.WebResource",
             ],
             "^vocab:format",
-            reverse="formats",
+            reverse="format",
             multiple=True,
             doc="reverse of 'format'",
         ),
@@ -108,7 +101,7 @@ class ContentType(KGObject):
             "^vocab:outputFormat",
             reverse="output_formats",
             multiple=True,
-            doc="reverse of 'outputFormat'",
+            doc="reverse of 'output_formats'",
         ),
         Property(
             "is_specification_format_of",
@@ -116,7 +109,7 @@ class ContentType(KGObject):
             "^vocab:specificationFormat",
             reverse="specification_formats",
             multiple=True,
-            doc="reverse of 'specificationFormat'",
+            doc="reverse of 'specification_formats'",
         ),
     ]
     existence_query_properties = ("name",)

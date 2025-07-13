@@ -18,13 +18,6 @@ class DiseaseModel(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/DiseaseModel"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -92,7 +85,7 @@ class DiseaseModel(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_modeled_by",
@@ -100,7 +93,7 @@ class DiseaseModel(KGObject):
             "^vocab:diseaseModel",
             reverse="disease_models",
             multiple=True,
-            doc="reverse of 'diseaseModel'",
+            doc="reverse of 'disease_models'",
         ),
         Property(
             "is_used_to_group",
@@ -108,7 +101,7 @@ class DiseaseModel(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "specimen_state",
@@ -121,7 +114,7 @@ class DiseaseModel(KGObject):
             "^vocab:pathology",
             reverse="pathologies",
             multiple=True,
-            doc="reverse of 'pathology'",
+            doc="reverse of 'pathologies'",
         ),
         Property(
             "studied_in",
@@ -148,7 +141,7 @@ class DiseaseModel(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

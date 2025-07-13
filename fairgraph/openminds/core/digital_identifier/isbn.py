@@ -15,13 +15,6 @@ class ISBN(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/ISBN"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISBN."),
     ]
@@ -36,15 +29,15 @@ class ISBN(KGObject):
             "^vocab:citedPublication",
             reverse="cited_publications",
             multiple=True,
-            doc="reverse of 'citedPublication'",
+            doc="reverse of 'cited_publications'",
         ),
         Property(
             "identifies",
             ["openminds.publications.Book", "openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
@@ -63,7 +56,7 @@ class ISBN(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)

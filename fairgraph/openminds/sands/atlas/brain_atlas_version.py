@@ -1,5 +1,5 @@
 """
-Structured information on a brain atlas (version level).
+<description not available>
 """
 
 # this file was auto-generated
@@ -14,18 +14,11 @@ from fairgraph.base import IRI
 
 class BrainAtlasVersion(KGObject):
     """
-    Structured information on a brain atlas (version level).
+    <description not available>
     """
 
     default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/BrainAtlasVersion"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(
@@ -159,7 +152,9 @@ class BrainAtlasVersion(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -318,7 +313,7 @@ class BrainAtlasVersion(KGObject):
             ["^vocab:input", "^vocab:inputData"],
             reverse=["input_data", "inputs"],
             multiple=True,
-            doc="reverse of input, inputData",
+            doc="reverse of input_data, inputs",
         ),
         Property(
             "is_old_version_of",
@@ -326,15 +321,15 @@ class BrainAtlasVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup", "openminds.core.SoftwareVersion"],
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -342,7 +337,7 @@ class BrainAtlasVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

@@ -18,13 +18,6 @@ class PreparationType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/PreparationType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -92,7 +85,7 @@ class PreparationType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_for",
@@ -108,9 +101,9 @@ class PreparationType(KGObject):
                 "openminds.stimulation.StimulationActivity",
             ],
             "^vocab:preparationDesign",
-            reverse="preparation_designs",
+            reverse="preparation_design",
             multiple=True,
-            doc="reverse of 'preparationDesign'",
+            doc="reverse of 'preparation_design'",
         ),
     ]
     existence_query_properties = ("name",)

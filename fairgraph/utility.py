@@ -19,6 +19,7 @@
 
 from __future__ import annotations
 import hashlib
+import logging
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
 
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from .client import KGClient
     from .kgobject import KGObject
 
+logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 ATTACHMENT_SIZE_LIMIT = 1024 * 1024  # 1 MB
@@ -104,7 +106,7 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
                 raise ValueError(f"prefix {prefix} not found in context")
             base_url = context[prefix]
             if not base_url.endswith("/"):
-                base_url.append("/")
+                base_url += "/"
             expanded_uris.append(f"{base_url}{identifier}")
     if isinstance(uri_list, str):
         return expanded_uris[0]
@@ -421,3 +423,16 @@ def accepted_terms_of_use(client: KGClient, accept_terms_of_use: bool = False) -
         else:
             warnings.warn("Please accept the terms of use before downloading the dataset")
             return False
+
+
+def types_match(a, b):
+    # temporarily, during the openMINDS transition v3-v4, we allow different namespaces for the types
+    assert isinstance(a, str), a
+    assert isinstance(b, str), b
+    if a == b:
+        return True
+    elif a.split("/")[-1] == b.split("/")[-1]:
+        logger.warning(f"Replacing {a} with {b}")
+        return True
+    else:
+        return False

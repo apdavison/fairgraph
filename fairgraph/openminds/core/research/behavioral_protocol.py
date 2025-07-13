@@ -15,13 +15,6 @@ class BehavioralProtocol(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/BehavioralProtocol"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "described_in",
@@ -80,7 +73,7 @@ class BehavioralProtocol(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
@@ -88,7 +81,7 @@ class BehavioralProtocol(KGObject):
             "^vocab:behavioralProtocol",
             reverse="behavioral_protocols",
             multiple=True,
-            doc="reverse of 'behavioralProtocol'",
+            doc="reverse of 'behavioral_protocols'",
         ),
     ]
     existence_query_properties = ("description", "name")

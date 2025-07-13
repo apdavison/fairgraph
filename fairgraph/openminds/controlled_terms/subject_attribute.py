@@ -18,13 +18,6 @@ class SubjectAttribute(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/SubjectAttribute"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,7 +86,7 @@ class SubjectAttribute(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_attribute_of",
@@ -101,7 +94,7 @@ class SubjectAttribute(KGObject):
             "^vocab:attribute",
             reverse="attributes",
             multiple=True,
-            doc="reverse of 'attribute'",
+            doc="reverse of 'attributes'",
         ),
     ]
     existence_query_properties = ("name",)

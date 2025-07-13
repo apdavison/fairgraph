@@ -18,13 +18,6 @@ class AnatomicalPlane(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/AnatomicalPlane"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,15 +86,15 @@ class AnatomicalPlane(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_in",
             "openminds.specimen_prep.SlicingDeviceUsage",
             "^vocab:slicingPlane",
-            reverse="slicing_planes",
+            reverse="slicing_plane",
             multiple=True,
-            doc="reverse of 'slicingPlane'",
+            doc="reverse of 'slicing_plane'",
         ),
     ]
     existence_query_properties = ("name",)

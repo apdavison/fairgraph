@@ -18,13 +18,6 @@ class MolecularEntity(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/MolecularEntity"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -81,9 +74,9 @@ class MolecularEntity(KGObject):
                 "openminds.ephys.Pipette",
             ],
             ["^vocab:insulatorMaterial", "^vocab:material", "^vocab:molecularEntity"],
-            reverse=["insulator_materials", "materials", "molecular_entities"],
+            reverse=["insulator_material", "material", "molecular_entity"],
             multiple=True,
-            doc="reverse of insulatorMaterial, material, molecularEntity",
+            doc="reverse of insulator_material, material, molecular_entity",
         ),
         Property(
             "describes",
@@ -105,7 +98,7 @@ class MolecularEntity(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_used_to_group",
@@ -113,15 +106,15 @@ class MolecularEntity(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "labels",
             "openminds.ephys.PipetteUsage",
             "^vocab:labelingCompound",
-            reverse="labeling_compounds",
+            reverse="labeling_compound",
             multiple=True,
-            doc="reverse of 'labelingCompound'",
+            doc="reverse of 'labeling_compound'",
         ),
         Property(
             "studied_in",
@@ -148,7 +141,7 @@ class MolecularEntity(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

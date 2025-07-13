@@ -17,6 +17,7 @@ This module provides Python classes to assist in writing Knowledge Graph queries
 # limitations under the License.
 
 from __future__ import annotations
+from copy import deepcopy
 from typing import Optional, List, Any, Dict, Union
 from uuid import UUID
 from datetime import date, datetime
@@ -144,17 +145,27 @@ class QueryProperty:
         if self.properties:
             data["structure"] = [prop.serialize() for prop in self.properties]
         if self.type_filter or self.reverse:
-            data["path"] = {"@id": data["path"]}
+            if isinstance(self.path, str):
+                first_path_element = {"@id": self.path}
+            else:
+                # for now we only support specifying type filters/reverse
+                # for the first element in a multi-element path
+                assert isinstance(self.path, (list, tuple))
+                first_path_element = {"@id": self.path[0]}
             if self.type_filter:
                 if isinstance(self.type_filter, (list, tuple)):
-                    data["path"]["typeFilter"] = [
+                    first_path_element["typeFilter"] = [
                         {"@id": type_iri} for type_iri in self.type_filter
                     ]
                 else:
                     assert isinstance(self.type_filter, str)
-                    data["path"]["typeFilter"] = {"@id": self.type_filter}
+                    first_path_element["typeFilter"] = {"@id": self.type_filter}
             if self.reverse:
-                data["path"]["reverse"] = True
+                first_path_element["reverse"] = True
+            if isinstance(self.path, str):
+                data["path"] = first_path_element
+            else:
+                data["path"] = [first_path_element, *self.path[1:]]
         if self.expect_single:
             data["singleValue"] = "FIRST"
         return data
@@ -219,18 +230,22 @@ class Query:
         self.label = label
         self.space = space
         self.properties = [QueryProperty("@id", filter=Filter("EQUALS", parameter="id"))]
-        if space:
-            self.properties.append(
-                QueryProperty(
-                    "https://core.kg.ebrains.eu/vocab/meta/space",
-                    name="query:space",
-                    filter=Filter("EQUALS", value=self.space),
-                )
-            )
-        else:
-            self.properties.append(QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"))
         if properties:
             self.properties.extend(properties)
+        if space:
+            found = False
+            for property in self.properties:
+                if property.path == "https://core.kg.ebrains.eu/vocab/meta/space":
+                    property.filter = Filter("EQUALS", value=self.space)
+                    found = True
+            if not found:
+                self.properties.append(
+                    QueryProperty(
+                        "https://core.kg.ebrains.eu/vocab/meta/space",
+                        name="query:space",
+                        filter=Filter("EQUALS", value=self.space)
+                    )
+                )
 
     def add_property(self, prop: QueryProperty):
         assert isinstance(prop, QueryProperty)
@@ -462,3 +477,17 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
         return filter_items
     else:
         return filter_items[0]
+
+
+def migrate_query(query):
+    """Map from v3 to v4+ openMINDS namespace"""
+    migrated_query = deepcopy(query)
+    type_ = migrated_query["meta"]["type"]
+    migrated_query["meta"]["type"] = f'https://openminds.om-i.org/types/{type_.split("/")[-1]}'
+    replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
+    for item in migrated_query["structure"]:
+        if isinstance(item["path"], str):
+            item["path"] = item["path"].replace(*replacement)
+        else:
+            item["path"]["@id"] = item["path"]["@id"].replace(*replacement)
+    return migrated_query

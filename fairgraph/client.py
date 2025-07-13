@@ -27,13 +27,16 @@ from uuid import uuid4, UUID
 try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
-    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation
+    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error
 
     have_kg_core = True
 except ImportError:
     have_kg_core = False
 
+from openminds.registry import lookup_type
+
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
+from .queries import migrate_query
 
 if TYPE_CHECKING:
     from .kgobject import KGObject
@@ -87,6 +90,7 @@ class KGClient(object):
                               and "core.kg.ebrains.eu" to work with the production KG.
         client_id (str, optional): For use together with client_secret in place of the token if you have a service account.
         client_secret (str, optional): The client secret to use for authentication. Required if client_id is provided.
+        allow_interactive (bool, default True): if true, allow authentication via web browser
 
     Raises:
         ImportError: If the kg_core package is not installed.
@@ -99,6 +103,7 @@ class KGClient(object):
         host: str = "core.kg-ppd.ebrains.eu",
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
+        allow_interactive: bool = True,
     ):
         if not have_kg_core:
             raise ImportError(
@@ -114,12 +119,14 @@ class KGClient(object):
             try:
                 self._kg_client_builder = kg(host).with_token(os.environ["KG_AUTH_TOKEN"])
             except KeyError:
-                iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
-                self._kg_client_builder = kg(host).with_device_flow(
-                    client_id="kg-core-python",
-                    open_id_configuration_url=iam_config_url
-                )
-                #raise AuthenticationError("Need to provide either token or client id/secret.")
+                if allow_interactive:
+                    iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
+                    self._kg_client_builder = kg(host).with_device_flow(
+                        client_id="kg-core-python",
+                        open_id_configuration_url=iam_config_url
+                    )
+                else:
+                    raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = self._kg_client_builder.build()
         self.__kg_admin_client = None
         self.host = host
@@ -127,6 +134,7 @@ class KGClient(object):
         self.cache: Dict[str, JsonLdDocument] = {}
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
+        self.migrated = None
 
     @property
     def _kg_admin_client(self):
@@ -143,7 +151,25 @@ class KGClient(object):
         response: ResultPage[JsonLdDocument],
         ignore_not_found: bool = False,
         error_context: str = "",
+        expected_instance_id: Optional[str] = None,
     ) -> ResultPage[JsonLdDocument]:
+        if expected_instance_id and not response.error:
+            if response.total > 1:
+                # if an instance_id is specified, we expect there to be only one result
+                # if there are more, it seems to mean that the instance_id does not exist
+                response.error = Error(
+                    code=404,
+                    message=(
+                        f"Received multiple results when specifying instance_id {expected_instance_id}"
+                        "This indicates the instance does not exist."
+                    ),
+                )
+                response.data = []
+                response.size = response.total = 0
+            else:
+                if response.size == 1:
+                    if str(expected_instance_id) not in response.data[0]["@id"]:
+                        raise Exception("mismatched instance_id")
         if response.error:
             # todo: handle "ignore_not_found"
             if response.error.code == 403:
@@ -169,6 +195,7 @@ class KGClient(object):
         scope: str = "released",
         id_key: str = "@id",
         use_stored_query: bool = False,
+        restrict_to_spaces: Optional[List[str]] = None
     ) -> ResultPage[JsonLdDocument]:
         """
         Execute a Knowledge Graph (KG) query with the given filters and query definition.
@@ -188,6 +215,20 @@ class KGClient(object):
             A ResultPage object containing a list of JSON-LD instances that satisfy the query,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
+
+        # the following section is a temporary work-around for use during the transitional period
+        # from openMINDS v3 to v4 (change of namespace)
+        if self.migrated is None:
+            # this is the released controlled term for "left handedness", which should be accessible to everyone
+            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
+            if "om-i.org" in result["@type"]:
+                self.migrated = True
+            else:
+                self.migrated = False
+
+        if self.migrated:
+            query = migrate_query(query)
+
         query_id = query.get("@id", None)
 
         if use_stored_query:
@@ -199,9 +240,12 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
+                    restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
-                return self._check_response(response, error_context=error_context)
+                return self._check_response(
+                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                )
 
         else:
 
@@ -212,9 +256,12 @@ class KGClient(object):
                     stage=STAGE_MAP[scope],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
+                    restrict_to_spaces=restrict_to_spaces
                 )
                 error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
-                return self._check_response(response, error_context=error_context)
+                return self._check_response(
+                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                )
 
         if scope == "any":
             # the following implementation is simple but very inefficient
@@ -321,17 +368,16 @@ class KGClient(object):
         else:
 
             def _get_instance(scope):
-                try:
-                    response = self._kg_client.instances.get_by_id(
-                        stage=STAGE_MAP[scope],
-                        instance_id=self.uuid_from_uri(uri),
-                        extended_response_configuration=default_response_configuration,
-                    )
-                except Exception as err:
-                    if "404" in str(err):
-                        data = None
-                    else:
-                        raise
+                response = self._kg_client.instances.get_by_id(
+                    stage=STAGE_MAP[scope],
+                    instance_id=self.uuid_from_uri(uri),
+                    extended_response_configuration=default_response_configuration,
+                )
+                error_context = f"_get_instance(scope={scope} uri={uri})"
+                response = self._check_response(response, error_context=error_context, ignore_not_found=True)
+                if response.error:
+                    assert response.error.code == 404  # all other errors should have been trapped by the check
+                    data = None
                 else:
                     data = response.data
                 # in some circumstances, the KG returns "minimal" metadata,
@@ -416,12 +462,15 @@ class KGClient(object):
         error_context = f"replace_instance(data={data}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
-    def delete_instance(self, instance_id: str, ignore_not_found: bool = True):
+    def delete_instance(self, instance_id: str, ignore_not_found: bool = True, ignore_errors: bool = True):
         """
         Delete a KG instance.
         """
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
+        if response:  # error
+            if not ignore_errors:
+                raise Exception(response.message)
         return response
 
     def uri_from_uuid(self, uuid: str) -> str:
@@ -497,10 +546,15 @@ class KGClient(object):
         This information is that associated with the authorization token used.
         """
         if self._user_info is None:
-            try:
-                self._user_info = self._kg_client.users.my_info().data
-            except KeyError:
-                self._user_info is None
+            response = self._kg_client.users.my_info()
+            if response.data:
+                self._user_info = response.data
+            elif response.error.code == 401:
+                raise AuthenticationError()
+            elif response.error.code == 403:
+                raise AuthorizationError()
+            else:
+                raise Exception(response.error)
         return self._user_info
 
     def spaces(
@@ -525,8 +579,13 @@ class KGClient(object):
             for permission in permissions:
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
-        response = self._kg_client.spaces.list(permissions=bool(permissions), pagination=Pagination(start=0, size=100))
-        accessible_spaces = self._check_response(response).data
+        response = self._check_response(
+            self._kg_client.spaces.list(
+                permissions=bool(permissions),
+                pagination=Pagination(start=0, size=50)
+            )
+        )
+        accessible_spaces = list(response.items())  # makes additional requests if multiple pages of results
         if permissions and isinstance(permissions, Iterable):
             filtered_spaces = []
             for space in accessible_spaces:
@@ -579,7 +638,10 @@ class KGClient(object):
                 space_name = f"collab-{collab_id}"
         result = self._kg_admin_client.create_space_definition(space=space_name)
         if result:  # error
-            raise Exception(f"Unable to configure KG space for space '{space_name}': {result}")
+            err_msg = f"Unable to configure KG space for space '{space_name}': {result}"
+            if not space_name.startswith("collab="):
+                err_msg += f". If you are trying to configure a collab space, ensure the space name starts with 'collab-'"
+            raise Exception(err_msg)
         for cls in types:
             result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=cls.type_)
             if result:  # error
@@ -596,6 +658,88 @@ class KGClient(object):
         response = self._kg_client.instances.move(instance_id=self.uuid_from_uri(uri), space=destination_space)
         if response.error:
             raise Exception(response.error)
+
+    def space_info(self, space_name: str, scope: str = "released", ignore_errors: bool = False):
+        """
+        Return information about the types and number of instances in a space.
+
+        The return format is a dictionary whose keys are classes and the values are the
+        number of instances of each class in the given spaces.
+        """
+        result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[scope])
+        if result.error:
+            raise Exception(result.error)
+        response = {}
+        for item in result.data:
+            try:
+                cls = lookup_type(item.identifier)
+            except KeyError as err:
+                ignore_list = [
+                    "https://core.kg.ebrains.eu/vocab/type/Bookmark",
+                    "https://core.kg.ebrains.eu/vocab/meta/type/Query",
+                    "https://openminds.ebrains.eu/core/URL"
+                ]
+                if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
+                    pass
+                else:
+                    raise
+            else:
+                response[cls] = item.occurrences
+        return response
+
+    def clean_space(self, space_name):
+        """Delete all instances from a given space."""
+        # todo: check for released instances, they must be unreleased
+        #       before deletion.
+        space_info = self.space_info(space_name, scope="in progress", ignore_errors=True)
+        if sum(space_info.values()) > 0:
+            print(f"The space '{space_name}' contains the following instances:\n")
+            for cls, count in space_info.items():
+                if count > 0:
+                    print(cls.__name__, count)
+            response = input("\nAre you sure you want to delete them? ")
+            if response not in ("y", "Y", "yes", "YES"):
+                return
+            for cls, count in space_info.items():
+                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
+                    print(f"Deleting {cls.__name__} instances", end="")
+                    instances = cls.list(self, scope="in progress", space=space_name)
+                    assert len(instances) <= count
+                    for instance in instances:
+                        assert instance.space == space_name
+                        print(".", end="")
+                        instance.delete(self, ignore_not_found=False)
+                    print()
+        else:
+            print(f"The space '{space_name}' is already clean")
+
+    def move_all_to_space(self, source_space: str, destination_space: str):
+        """
+        Move all the KG instances in one space to another.
+        """
+        assert source_space != destination_space
+        space_info = self.space_info(source_space, scope="in progress")
+        if sum(space_info.values()) > 0:
+            print(f"The space '{source_space}' contains the following instances:\n")
+            for cls, count in space_info.items():
+                if count > 0:
+                    print(cls.__name__, count)
+            response = input(f"\nAre you sure you want to move them to space '{destination_space}'? ")
+            if response not in ("y", "Y", "yes", "YES"):
+                return
+            for cls, count in space_info.items():
+                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
+                    print(f"Moving {cls.__name__} instances", end="")
+                    instances = cls.list(self, scope="in progress", space=source_space)
+                    assert len(instances) <= count
+                    for instance in instances:
+                        assert instance.space == source_space
+                        print(".", end="")
+                        self.move_to_space(instance.id, destination_space)
+                    print()
+        else:
+            print(f"The space '{source_space}' is empty, nothing to move.")
+
 
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """

@@ -15,13 +15,6 @@ class LivePaperSection(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/LivePaperSection"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "description",
@@ -59,7 +52,7 @@ class LivePaperSection(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("is_part_of", "name", "order", "type")

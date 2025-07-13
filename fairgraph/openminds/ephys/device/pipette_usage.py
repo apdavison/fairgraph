@@ -15,13 +15,6 @@ class PipetteUsage(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/PipetteUsage"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "anatomical_location",
@@ -139,7 +132,7 @@ class PipetteUsage(KGObject):
             "^vocab:generatedBy",
             reverse="generated_by",
             multiple=True,
-            doc="reverse of 'generatedBy'",
+            doc="reverse of 'generated_by'",
         ),
         Property(
             "placed_by",
@@ -147,7 +140,7 @@ class PipetteUsage(KGObject):
             "^vocab:device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'device'",
+            doc="reverse of 'devices'",
         ),
         Property(
             "used_in",
@@ -155,7 +148,7 @@ class PipetteUsage(KGObject):
             "^vocab:device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'device'",
+            doc="reverse of 'devices'",
         ),
         Property(
             "used_to_measure",
@@ -163,7 +156,7 @@ class PipetteUsage(KGObject):
             "^vocab:measuredWith",
             reverse="measured_with",
             multiple=True,
-            doc="reverse of 'measuredWith'",
+            doc="reverse of 'measured_with'",
         ),
         Property(
             "used_to_record",
@@ -171,7 +164,7 @@ class PipetteUsage(KGObject):
             "^vocab:recordedWith",
             reverse="recorded_with",
             multiple=True,
-            doc="reverse of 'recordedWith'",
+            doc="reverse of 'recorded_with'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

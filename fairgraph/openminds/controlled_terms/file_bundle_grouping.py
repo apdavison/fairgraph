@@ -18,13 +18,6 @@ class FileBundleGrouping(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/FileBundleGrouping"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,7 +86,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_defined_by",
@@ -101,7 +94,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'groupingType'",
+            doc="reverse of 'grouping_types'",
         ),
         Property(
             "is_used_to_group",
@@ -109,7 +102,7 @@ class FileBundleGrouping(KGObject):
             "^vocab:groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'groupingType'",
+            doc="reverse of 'grouping_types'",
         ),
     ]
     existence_query_properties = ("name",)

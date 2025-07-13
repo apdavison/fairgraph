@@ -15,13 +15,6 @@ class EphysStimulus(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/stimulation/EphysStimulus"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "delivered_by",
@@ -86,7 +79,7 @@ class EphysStimulus(KGObject):
             "^vocab:stimulus",
             reverse="stimuli",
             multiple=True,
-            doc="reverse of 'stimulus'",
+            doc="reverse of 'stimuli'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

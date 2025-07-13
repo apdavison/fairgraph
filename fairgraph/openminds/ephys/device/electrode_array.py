@@ -1,5 +1,5 @@
 """
-<description not available>
+Structured information on an electrode array.
 """
 
 # this file was auto-generated
@@ -10,18 +10,11 @@ from fairgraph.properties import Property
 
 class ElectrodeArray(KGObject):
     """
-    <description not available>
+    Structured information on an electrode array.
     """
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/ElectrodeArray"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "conductor_material",
@@ -116,13 +109,13 @@ class ElectrodeArray(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "usage",
             "openminds.ephys.ElectrodeArrayUsage",
             "^vocab:device",
-            reverse="devices",
+            reverse="device",
             multiple=True,
             doc="reverse of 'device'",
         ),

@@ -18,13 +18,6 @@ class AnatomicalIdentificationType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/AnatomicalIdentificationType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,15 +86,15 @@ class AnatomicalIdentificationType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_type_of",
             "openminds.sands.AnatomicalTargetPosition",
             "^vocab:targetIdentificationType",
-            reverse="target_identification_types",
+            reverse="target_identification_type",
             multiple=True,
-            doc="reverse of 'targetIdentificationType'",
+            doc="reverse of 'target_identification_type'",
         ),
     ]
     existence_query_properties = ("name",)

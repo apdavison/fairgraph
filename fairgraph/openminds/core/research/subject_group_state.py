@@ -15,13 +15,6 @@ class SubjectGroupState(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/SubjectGroupState"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "additional_remarks",
@@ -98,7 +91,7 @@ class SubjectGroupState(KGObject):
             "^vocab:descendedFrom",
             reverse="descended_from",
             multiple=True,
-            doc="reverse of 'descendedFrom'",
+            doc="reverse of 'descended_from'",
         ),
         Property(
             "is_input_to",
@@ -106,7 +99,7 @@ class SubjectGroupState(KGObject):
             "^vocab:input",
             reverse="inputs",
             multiple=True,
-            doc="reverse of 'input'",
+            doc="reverse of 'inputs'",
         ),
         Property(
             "is_output_of",
@@ -114,7 +107,7 @@ class SubjectGroupState(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_state_of",
@@ -122,7 +115,7 @@ class SubjectGroupState(KGObject):
             "^vocab:studiedState",
             reverse="studied_states",
             multiple=True,
-            doc="reverse of 'studiedState'",
+            doc="reverse of 'studied_states'",
         ),
         Property(
             "is_used_to_group",
@@ -130,7 +123,7 @@ class SubjectGroupState(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

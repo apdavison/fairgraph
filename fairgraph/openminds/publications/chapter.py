@@ -19,13 +19,6 @@ class Chapter(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/Chapter"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abstract", str, "vocab:abstract", doc="no description available"),
         Property(
@@ -127,7 +120,9 @@ class Chapter(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -218,7 +213,7 @@ class Chapter(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("authors", "is_part_of", "name", "publication_date")

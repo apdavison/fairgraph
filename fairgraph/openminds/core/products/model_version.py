@@ -20,13 +20,6 @@ class ModelVersion(KGObject):
 
     default_space = "model"
     type_ = "https://openminds.ebrains.eu/core/ModelVersion"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "accessibility",
@@ -34,6 +27,17 @@ class ModelVersion(KGObject):
             "vocab:accessibility",
             required=True,
             doc="Level to which something is accessible to the model version.",
+        ),
+        Property(
+            "configuration",
+            [
+                "openminds.core.Configuration",
+                "openminds.core.File",
+                "openminds.core.PropertyValueList",
+                "openminds.core.WebResource",
+            ],
+            "vocab:configuration",
+            doc="no description available",
         ),
         Property(
             "copyright",
@@ -67,6 +71,7 @@ class ModelVersion(KGObject):
             "vocab:digitalIdentifier",
             doc="Digital handle to identify objects or legal persons.",
         ),
+        Property("entry_point", str, "vocab:entryPoint", doc="no description available"),
         Property(
             "formats",
             "openminds.core.ContentType",
@@ -160,7 +165,9 @@ class ModelVersion(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -302,15 +309,15 @@ class ModelVersion(KGObject):
             "^vocab:input",
             reverse="inputs",
             multiple=True,
-            doc="reverse of 'input'",
+            doc="reverse of 'inputs'",
         ),
         Property(
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
         Property(
             "is_old_version_of",
@@ -318,7 +325,7 @@ class ModelVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_output_of",
@@ -326,15 +333,15 @@ class ModelVersion(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup", "openminds.core.SoftwareVersion"],
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -342,7 +349,7 @@ class ModelVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",
@@ -370,11 +377,13 @@ class ModelVersion(KGObject):
         alias=None,
         accessibility=None,
         comments=None,
+        configuration=None,
         copyright=None,
         custodians=None,
         description=None,
         developers=None,
         digital_identifier=None,
+        entry_point=None,
         formats=None,
         full_documentation=None,
         full_name=None,
@@ -417,11 +426,13 @@ class ModelVersion(KGObject):
             alias=alias,
             accessibility=accessibility,
             comments=comments,
+            configuration=configuration,
             copyright=copyright,
             custodians=custodians,
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
+            entry_point=entry_point,
             formats=formats,
             full_documentation=full_documentation,
             full_name=full_name,

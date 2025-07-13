@@ -18,13 +18,6 @@ class DataType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/DataType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,7 +86,7 @@ class DataType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_data_type_of",
@@ -101,7 +94,7 @@ class DataType(KGObject):
             "^vocab:dataType",
             reverse="data_types",
             multiple=True,
-            doc="reverse of 'dataType'",
+            doc="reverse of 'data_types'",
         ),
     ]
     existence_query_properties = ("name",)

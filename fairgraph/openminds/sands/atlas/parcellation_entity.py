@@ -15,13 +15,6 @@ class ParcellationEntity(KGObject):
 
     default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/ParcellationEntity"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
@@ -74,7 +67,7 @@ class ParcellationEntity(KGObject):
             "^vocab:hasParent",
             reverse="has_parents",
             multiple=True,
-            doc="reverse of 'hasParent'",
+            doc="reverse of 'has_parents'",
         ),
         Property(
             "is_location_of",
@@ -86,9 +79,9 @@ class ParcellationEntity(KGObject):
                 "openminds.ephys.PipetteUsage",
             ],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes"],
+            reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
+            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
@@ -96,7 +89,7 @@ class ParcellationEntity(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -104,7 +97,7 @@ class ParcellationEntity(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -131,7 +124,7 @@ class ParcellationEntity(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     aliases = {"versions": "has_versions"}

@@ -15,13 +15,6 @@ class LocalFile(KGObject):
 
     default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/LocalFile"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
@@ -80,7 +73,7 @@ class LocalFile(KGObject):
             "^vocab:output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'output'",
+            doc="reverse of 'outputs'",
         ),
         Property(
             "is_used_to_group",
@@ -88,7 +81,7 @@ class LocalFile(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("name", "path")

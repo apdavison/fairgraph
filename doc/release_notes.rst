@@ -2,6 +2,36 @@
 Release notes
 =============
 
+
+Version 0.12.2
+==============
+
+This version includes various small changes and bug fixes.
+
+- Improvements to `client.user_info()` implementation, to give better error messages in case of failure.
+- Use numbers.Real in place of float in fields where openMINDS specifies type "number".
+- More informative error message for unserializable values.
+- Optimization of the `exists()` method, to improve performance by using a simpler query.
+- Allow restricting `exists()` to specific spaces.
+- Don't allow creating IRI objects with an empty string.
+
+Version 0.12.1
+==============
+
+This version includes various small changes and bug fixes.
+
+- Reverse properties/fields, introduced in version 0.11, are now contained in the attribute :attr:`reverse_properties`,
+  which makes it easier to operate only on intrinsic, "forward" properties or only on reverse properties.
+- The :attr:`type_` attribute is now a string (as in openMINDS Python), rather than a single-element list containing that string (as in the KG).
+- The :class:`KGClient` now allows interactive authentication via a web-browser ("device flow"),
+  if the client cannot find an authorization token.
+  To disable this (for example for non-interactive use), create the client with ``allow_interactive=False``.
+- Added methods :meth:`space_info()` and :meth:`clean_space()` to :class:`KGClient`, to make it easier to clean up private and collab KG spaces used for testing and development.
+- Added method :meth:`move_all_to_space()` method to :class:`KGClient`, primarily intended for use by KG curators.
+- Added the option to ignore duplicates in :meth:`node.exists()` calls (by default, if multiple nodes match the existence query an Exception will be raised)
+- Updated the :mod:`openminds` module to include the latest changes in the openMINDS schemas.
+- Partially fixed a `bug <https://github.com/HumanBrainProject/fairgraph/issues/92>`_ in which resolving certain reverse links is broken.
+
 Version 0.12.0
 ==============
 
@@ -85,10 +115,10 @@ and you can also make queries across these reverse links, e.g.
 Other changes
 -------------
 
-- made the `follow_links` argument to `resolve()` behave the same way as for `list()`, `from_id()`, etc.,
+- made the ``follow_links`` argument to :meth:`resolve()` behave the same way as for :meth:`list()`, :meth:`from_id()`, etc.,
   i.e. it expects a structure of nested dicts to specify explicitly which links to follow,
   rather than an integer meaning "follow all links for this number of levels".
-- added :func:`set_error_handling()` as a module-level function, so you can control the behaviour of all classes in a module (e.g. `fairgraph.openminds.core`) in a single line.
+- added :func:`set_error_handling()` as a module-level function, so you can control the behaviour of all classes in a module (e.g. ``fairgraph.openminds.core``) in a single line.
 
 
 Version 0.10.0

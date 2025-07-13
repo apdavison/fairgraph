@@ -18,6 +18,7 @@ class {{ class_name }}({{ class_name }}, {{ base_class }}):
     {%- if default_space %}
     default_space = "{{ default_space }}"
     {%- endif %}
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         {% for prop in reverse_properties -%}
         Property(

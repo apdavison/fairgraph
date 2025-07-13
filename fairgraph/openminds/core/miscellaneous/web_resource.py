@@ -18,13 +18,6 @@ class WebResource(KGObject):
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/WebResource"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(
@@ -48,7 +41,7 @@ class WebResource(KGObject):
             "^vocab:describedIn",
             reverse="described_in",
             multiple=True,
-            doc="reverse of 'describedIn'",
+            doc="reverse of 'described_in'",
         ),
         Property(
             "fully_documents",
@@ -62,15 +55,15 @@ class WebResource(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "^vocab:fullDocumentation",
-            reverse="full_documentations",
+            reverse="full_documentation",
             multiple=True,
-            doc="reverse of 'fullDocumentation'",
+            doc="reverse of 'full_documentation'",
         ),
         Property(
             "is_applied_to",
             "openminds.core.DatasetVersion",
             "^vocab:license",
-            reverse="licenses",
+            reverse="license",
             multiple=True,
             doc="reverse of 'license'",
         ),
@@ -80,7 +73,7 @@ class WebResource(KGObject):
             "^vocab:outputData",
             reverse="output_data",
             multiple=True,
-            doc="reverse of 'outputData'",
+            doc="reverse of 'output_data'",
         ),
         Property(
             "is_reference_for",
@@ -88,7 +81,7 @@ class WebResource(KGObject):
             "^vocab:referenceData",
             reverse="reference_data",
             multiple=True,
-            doc="reverse of 'referenceData'",
+            doc="reverse of 'reference_data'",
         ),
     ]
     existence_query_properties = ("iri",)

@@ -18,13 +18,6 @@ class ModelAbstractionLevel(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,15 +86,15 @@ class ModelAbstractionLevel(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_abstraction_level_of",
             "openminds.core.Model",
             "^vocab:abstractionLevel",
-            reverse="abstraction_levels",
+            reverse="abstraction_level",
             multiple=True,
-            doc="reverse of 'abstractionLevel'",
+            doc="reverse of 'abstraction_level'",
         ),
     ]
     existence_query_properties = ("name",)

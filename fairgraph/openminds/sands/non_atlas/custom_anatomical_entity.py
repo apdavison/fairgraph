@@ -15,13 +15,6 @@ class CustomAnatomicalEntity(KGObject):
 
     default_space = "spatial"
     type_ = "https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "has_annotations",
@@ -62,9 +55,9 @@ class CustomAnatomicalEntity(KGObject):
                 "openminds.ephys.PipetteUsage",
             ],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes"],
+            reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
+            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
@@ -72,7 +65,7 @@ class CustomAnatomicalEntity(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -80,7 +73,7 @@ class CustomAnatomicalEntity(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
@@ -107,7 +100,7 @@ class CustomAnatomicalEntity(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

@@ -15,13 +15,6 @@ class SlicingDeviceUsage(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/specimenPrep/SlicingDeviceUsage"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "device",
@@ -88,7 +81,7 @@ class SlicingDeviceUsage(KGObject):
             "^vocab:generatedBy",
             reverse="generated_by",
             multiple=True,
-            doc="reverse of 'generatedBy'",
+            doc="reverse of 'generated_by'",
         ),
         Property(
             "placed_by",
@@ -96,13 +89,13 @@ class SlicingDeviceUsage(KGObject):
             "^vocab:device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'device'",
+            doc="reverse of 'devices'",
         ),
         Property(
             "used_for",
             "openminds.specimen_prep.TissueSampleSlicing",
             "^vocab:device",
-            reverse="devices",
+            reverse="device",
             multiple=True,
             doc="reverse of 'device'",
         ),
@@ -112,7 +105,7 @@ class SlicingDeviceUsage(KGObject):
             "^vocab:device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'device'",
+            doc="reverse of 'devices'",
         ),
         Property(
             "used_to_measure",
@@ -120,7 +113,7 @@ class SlicingDeviceUsage(KGObject):
             "^vocab:measuredWith",
             reverse="measured_with",
             multiple=True,
-            doc="reverse of 'measuredWith'",
+            doc="reverse of 'measured_with'",
         ),
         Property(
             "used_to_record",
@@ -128,7 +121,7 @@ class SlicingDeviceUsage(KGObject):
             "^vocab:recordedWith",
             reverse="recorded_with",
             multiple=True,
-            doc="reverse of 'recordedWith'",
+            doc="reverse of 'recorded_with'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

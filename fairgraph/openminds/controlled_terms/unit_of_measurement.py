@@ -18,13 +18,6 @@ class UnitOfMeasurement(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/UnitOfMeasurement"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -92,29 +85,24 @@ class UnitOfMeasurement(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_by",
             ["openminds.sands.CommonCoordinateSpaceVersion", "openminds.sands.CustomCoordinateSpace"],
             "^vocab:nativeUnit",
-            reverse="native_units",
+            reverse="native_unit",
             multiple=True,
-            doc="reverse of 'nativeUnit'",
+            doc="reverse of 'native_unit'",
         ),
         Property(
-            "used_in",
-            "openminds.ephys.Channel",
-            "^vocab:unit",
-            reverse="units",
-            multiple=True,
-            doc="reverse of 'unit'",
+            "used_in", "openminds.ephys.Channel", "^vocab:unit", reverse="unit", multiple=True, doc="reverse of 'unit'"
         ),
         Property(
             "value",
             "openminds.core.QuantitativeValueArray",
             "^vocab:unit",
-            reverse="units",
+            reverse="unit",
             multiple=True,
             doc="reverse of 'unit'",
         ),

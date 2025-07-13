@@ -15,13 +15,6 @@ class FileBundle(KGObject):
 
     default_space = "files"
     type_ = "https://openminds.ebrains.eu/core/FileBundle"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(
@@ -48,6 +41,7 @@ class FileBundle(KGObject):
                 "openminds.controlled_terms.GustatoryStimulusType",
                 "openminds.controlled_terms.Handedness",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MolecularEntity",
                 "openminds.controlled_terms.OlfactoryStimulusType",
                 "openminds.controlled_terms.OpticalStimulusType",
@@ -132,7 +126,7 @@ class FileBundle(KGObject):
             "^vocab:metadataLocation",
             reverse="metadata_locations",
             multiple=True,
-            doc="reverse of 'metadataLocation'",
+            doc="reverse of 'metadata_locations'",
         ),
         Property(
             "has_parts",
@@ -140,7 +134,7 @@ class FileBundle(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
         Property(
             "is_also_part_of",
@@ -148,7 +142,7 @@ class FileBundle(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_input_to",
@@ -156,15 +150,15 @@ class FileBundle(KGObject):
             "^vocab:inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'inputData'",
+            doc="reverse of 'input_data'",
         ),
         Property(
             "is_location_of",
             ["openminds.core.ServiceLink", "openminds.ephys.Recording"],
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
         Property(
             "is_output_of",
@@ -179,11 +173,12 @@ class FileBundle(KGObject):
                 "openminds.core.ModelVersion",
                 "openminds.core.ProtocolExecution",
                 "openminds.ephys.RecordingActivity",
+                "openminds.stimulation.StimulationActivity",
             ],
             ["^vocab:output", "^vocab:outputData"],
             reverse=["output_data", "outputs"],
             multiple=True,
-            doc="reverse of output, outputData",
+            doc="reverse of output_data, outputs",
         ),
         Property(
             "is_reference_for",
@@ -191,7 +186,7 @@ class FileBundle(KGObject):
             "^vocab:referenceData",
             reverse="reference_data",
             multiple=True,
-            doc="reverse of 'referenceData'",
+            doc="reverse of 'reference_data'",
         ),
         Property(
             "specifies",
@@ -199,7 +194,7 @@ class FileBundle(KGObject):
             "^vocab:specification",
             reverse="specifications",
             multiple=True,
-            doc="reverse of 'specification'",
+            doc="reverse of 'specifications'",
         ),
     ]
     existence_query_properties = ("is_part_of", "name")

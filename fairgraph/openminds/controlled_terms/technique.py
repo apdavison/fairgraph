@@ -18,13 +18,6 @@ class Technique(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/Technique"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -92,7 +85,7 @@ class Technique(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_reference_for",
@@ -100,7 +93,7 @@ class Technique(KGObject):
             "^vocab:referenceDataAcquisition",
             reverse="reference_data_acquisitions",
             multiple=True,
-            doc="reverse of 'referenceDataAcquisition'",
+            doc="reverse of 'reference_data_acquisitions'",
         ),
         Property(
             "is_used_to_group",
@@ -108,7 +101,7 @@ class Technique(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
@@ -116,7 +109,7 @@ class Technique(KGObject):
             "^vocab:technique",
             reverse="techniques",
             multiple=True,
-            doc="reverse of 'technique'",
+            doc="reverse of 'techniques'",
         ),
     ]
     existence_query_properties = ("name",)

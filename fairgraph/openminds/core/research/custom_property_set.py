@@ -14,13 +14,6 @@ class CustomPropertySet(EmbeddedMetadata):
     """
 
     type_ = "https://openminds.ebrains.eu/core/CustomPropertySet"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("context", str, "vocab:context", required=True, doc="no description available"),
         Property(
@@ -35,6 +28,7 @@ class CustomPropertySet(EmbeddedMetadata):
             [
                 "openminds.controlled_terms.AnalysisTechnique",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.StimulationApproach",
                 "openminds.controlled_terms.StimulationTechnique",
                 "openminds.controlled_terms.Technique",

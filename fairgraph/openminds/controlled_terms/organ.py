@@ -18,13 +18,6 @@ class Organ(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/Organ"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -76,9 +69,9 @@ class Organ(KGObject):
             "defines",
             ["openminds.sands.CustomAnatomicalEntity", "openminds.sands.ParcellationEntity"],
             "^vocab:relatedUBERONTerm",
-            reverse="related_uberon_terms",
+            reverse="related_uberon_term",
             multiple=True,
-            doc="reverse of 'relatedUBERONTerm'",
+            doc="reverse of 'related_uberon_term'",
         ),
         Property(
             "describes",
@@ -100,15 +93,15 @@ class Organ(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_location_of",
             ["openminds.ephys.ElectrodeArrayUsage", "openminds.ephys.ElectrodeUsage", "openminds.ephys.PipetteUsage"],
             ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
-            reverse=["anatomical_locations", "anatomical_locations_of_electrodes"],
+            reverse=["anatomical_location", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomicalLocation, anatomicalLocationOfElectrodes",
+            doc="reverse of anatomical_location, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
@@ -116,7 +109,7 @@ class Organ(KGObject):
             "^vocab:anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomicalTarget'",
+            doc="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
@@ -124,13 +117,13 @@ class Organ(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "sample",
             ["openminds.core.TissueSample", "openminds.core.TissueSampleCollection"],
             "^vocab:origin",
-            reverse="origins",
+            reverse="origin",
             multiple=True,
             doc="reverse of 'origin'",
         ),
@@ -159,7 +152,7 @@ class Organ(KGObject):
             "^vocab:studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'studyTarget'",
+            doc="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)

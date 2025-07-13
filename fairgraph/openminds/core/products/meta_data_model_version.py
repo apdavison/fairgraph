@@ -19,13 +19,6 @@ class MetaDataModelVersion(KGObject):
 
     default_space = "metadatamodel"
     type_ = "https://openminds.ebrains.eu/core/MetaDataModelVersion"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "accessibility",
@@ -146,7 +139,9 @@ class MetaDataModelVersion(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -297,7 +292,7 @@ class MetaDataModelVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
@@ -305,7 +300,7 @@ class MetaDataModelVersion(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_version_of",
@@ -313,7 +308,7 @@ class MetaDataModelVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

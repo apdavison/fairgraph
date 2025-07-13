@@ -19,13 +19,6 @@ class Book(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/Book"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abstract", str, "vocab:abstract", doc="no description available"),
         Property(
@@ -119,7 +112,9 @@ class Book(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -198,7 +193,7 @@ class Book(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
         Property(
             "related_to",
@@ -217,7 +212,7 @@ class Book(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("name", "publication_date")

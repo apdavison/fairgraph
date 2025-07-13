@@ -38,7 +38,7 @@ from openminds.registry import lookup_type
 from openminds import IRI
 
 from .utility import expand_uri, as_list, expand_filter, ActivityLog
-from .queries import Query
+from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import RepresentsSingleObject, SupportsQuerying, JSONdict
@@ -218,6 +218,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
+        Returns:
+            Either a KGObject of the correct type, or None.
+            A return value of None means either the object doesn't exist
+            or the user doesn't have permission to access it.
         """
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
@@ -474,7 +478,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
-    def exists(self, client: KGClient) -> bool:
+    def exists(
+        self,
+        client: KGClient,
+        ignore_duplicates: bool = False,
+        in_spaces: Optional[List[str]] = None
+    ) -> bool:
         """Check if this object already exists in the KnowledgeGraph"""
 
         if self.id:
@@ -513,18 +522,28 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         self.remote_data = cached_obj.remote_data  # copy or update needed?
                     return True
 
-                query = self.__class__.generate_query(
-                    space=None,
+                query = self.__class__.generate_minimal_query(
                     client=client,
                     filters=query_filter,
                 )
-                instances = client.query(query=query, size=1, scope="any").data
+
+                instances = client.query(query=query, size=2, scope="any", restrict_to_spaces=in_spaces).data
 
                 if instances:
-                    self.id = instances[0]["@id"]
+                    if len(instances) > 1 and not ignore_duplicates:
+                        raise Exception(f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}")
+
+                    # it seems that sometimes the "query" endpoint returns instances
+                    # which the "instances" endpoint doesn't know about, so here we double check that
+                    # the instance can be found
+                    instance = client.instance_from_full_uri(instances[0]["@id"], scope="any")
+                    if instance is None:
+                        return False
+
+                    self.id = instance["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_properties(instances[0], client)  # also updates `remote_data`
+                    self._update_empty_properties(instance, client)  # also updates `remote_data`
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
@@ -551,6 +570,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
+        ignore_duplicates: bool = False
     ):
         """
         Store the current object in the Knowledge Graph, either updating an existing instance
@@ -585,7 +605,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                         elif (
                             isinstance(value, KGObject)
                             and value.__class__.default_space == "controlled"
-                            and value.exists(client)
+                            and value.exists(client, ignore_duplicates=ignore_duplicates)
                             and value.space == "controlled"
                         ):
                             continue
@@ -595,7 +615,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             target_space = space
                         if target_space == "controlled":
                             assert isinstance(value, KGObject)  # for type checking
-                            if value.exists(client) and value.space == "controlled":
+                            if value.exists(client, ignore_duplicates=ignore_duplicates) and value.space == "controlled":
                                 continue
                             else:
                                 raise AuthorizationError("Cannot write to controlled space")
@@ -604,6 +624,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             space=target_space,
                             recursive=True,
                             activity_log=activity_log,
+                            ignore_duplicates=ignore_duplicates
                         )
         if space is None:
             if self.space is None:
@@ -611,7 +632,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        if self.exists(client):
+        if self.exists(client, ignore_duplicates=ignore_duplicates, in_spaces=[space]):
             if not self.allow_update:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), update not allowed by user")
                 if activity_log:
@@ -830,6 +851,41 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 prop.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.
+        return query.serialize()
+
+    @classmethod
+    def generate_minimal_query(
+        cls,
+        client: KGClient,
+        filters: Optional[Dict[str, Any]] = None,
+        label: Optional[str] = None,
+    ) -> Union[Dict[str, Any], None]:
+        """
+        Generate a minimal KG query definition as a JSON-LD document.
+        Such a query returns only the @id of any instances that are found.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            filters (dict): A dictonary defining search parameters for the query.
+            label (str, optional): a label for the query
+
+        Returns:
+            A JSON-LD document containing the KG query definition.
+
+        """
+        if filters:
+            normalized_filters = cls.normalize_filter(expand_filter(filters))
+        else:
+            normalized_filters = None
+        # first pass, we build the basic structure
+        query = Query(
+            node_type=cls.type_,
+            label=label,
+            space=None,
+            properties=[QueryProperty("@type")],
+        )
+        # second pass, we add filters
+        query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         return query.serialize()
 
     def children(

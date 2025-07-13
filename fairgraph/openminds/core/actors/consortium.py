@@ -18,13 +18,6 @@ class Consortium(KGObject):
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Consortium"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "contact_information",
@@ -45,7 +38,7 @@ class Consortium(KGObject):
             "^vocab:coordinator",
             reverse="coordinators",
             multiple=True,
-            doc="reverse of 'coordinator'",
+            doc="reverse of 'coordinators'",
         ),
         Property(
             "developed",
@@ -66,13 +59,13 @@ class Consortium(KGObject):
             "^vocab:developer",
             reverse="developers",
             multiple=True,
-            doc="reverse of 'developer'",
+            doc="reverse of 'developers'",
         ),
         Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
-            reverse="funders",
+            reverse="funder",
             multiple=True,
             doc="reverse of 'funder'",
         ),
@@ -82,7 +75,7 @@ class Consortium(KGObject):
             "^vocab:memberOf",
             reverse="member_of",
             multiple=True,
-            doc="reverse of 'memberOf'",
+            doc="reverse of 'member_of'",
         ),
         Property(
             "is_custodian_of",
@@ -99,7 +92,7 @@ class Consortium(KGObject):
             "^vocab:custodian",
             reverse="custodians",
             multiple=True,
-            doc="reverse of 'custodian'",
+            doc="reverse of 'custodians'",
         ),
         Property(
             "is_owner_of",
@@ -112,13 +105,13 @@ class Consortium(KGObject):
             "^vocab:owner",
             reverse="owners",
             multiple=True,
-            doc="reverse of 'owner'",
+            doc="reverse of 'owners'",
         ),
         Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
-            reverse="providers",
+            reverse="provider",
             multiple=True,
             doc="reverse of 'provider'",
         ),
@@ -128,7 +121,7 @@ class Consortium(KGObject):
             "^vocab:manufacturer",
             reverse="manufacturers",
             multiple=True,
-            doc="reverse of 'manufacturer'",
+            doc="reverse of 'manufacturers'",
         ),
         Property(
             "published",
@@ -139,7 +132,7 @@ class Consortium(KGObject):
                 "openminds.publications.ScholarlyArticle",
             ],
             "^vocab:publisher",
-            reverse="publishers",
+            reverse="publisher",
             multiple=True,
             doc="reverse of 'publisher'",
         ),

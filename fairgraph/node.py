@@ -31,18 +31,27 @@ logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
+default_context = {
+    "v3": {
+        "vocab": "https://openminds.ebrains.eu/vocab/",
+    },
+    "v4": {
+        "vocab": "https://openminds.om-i.org/props/"
+    }
+}
 
 
 class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMetadata
     properties: List[Property] = []
     reverse_properties: List[Property] = []
-    context: Dict[str, str]
+    context: Dict[str, str] = default_context["v3"]
     type_: str
     scope: Optional[str]
     space: Union[str, None]
     default_space: Union[str, None]
     remote_data: Optional[JSONdict]
     aliases: Dict[str, str] = {}
+    error_handling: ErrorHandling = ErrorHandling.log
 
     def __init__(self, data: Optional[Dict] = None, **properties):
         properties_copy = copy(properties)
@@ -52,7 +61,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             except KeyError:
                 if prop.required:
                     msg = "Property '{}' is required.".format(prop.name)
-                    ErrorHandling.handle_violation(prop.error_handling, msg)
+                    ErrorHandling.handle_violation(self.error_handling, msg)
                 val = None
             else:
                 properties_copy.pop(prop.name)
@@ -102,50 +111,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         else:
             failures = prop.validate(value)
             if failures:
-                raise Exception("TODO")  #   ErrorHandling.handle_violation(self.error_handling, errmsg)
+                errmsg = str(failures)  # todo: create a nicer error message
+                ErrorHandling.handle_violation(self.error_handling, errmsg)
             super().__setattr__(name, value)
 
-    # def to_jsonld(
-    #     self,
-    #     normalized: bool = True,
-    #     follow_links: bool = False,
-    #     include_empty_properties: bool = False,
-    #     include_reverse_properties: bool = False,
-    # ):
-    #     """
-    #     Return a JSON-LD representation of this metadata object
-
-    #     Args:
-    #         normalized (bool): Whether to expand all URIs. Defaults to True.
-    #         follow_links (bool, optional): Whether to represent linked objects just by their "@id"
-    #             or to include their full metadata. Defaults to False.
-    #         include_empty_properties (bool, optional): Whether to include empty properties (with value "null").
-    #             Defaults to False.
-
-    #     """
-    #     if self.properties:
-    #         data: JSONdict = {"@type": [self.type_]}
-    #         if hasattr(self, "id") and self.id:
-    #             data["@id"] = self.id
-    #         for prop in self.__class__.all_properties:
-    #             if prop.intrinsic or include_reverse_properties:
-    #                 expanded_path = prop.expanded_path
-    #                 value = getattr(self, prop.name)
-    #                 if include_empty_properties or prop.required or value is not None:
-    #                     serialized = prop.serialize(value, follow_links=follow_links)
-    #                     if expanded_path in data:
-    #                         if isinstance(data[expanded_path], list):
-    #                             data[expanded_path].append(serialized)
-    #                         else:
-    #                             data[expanded_path] = [data[expanded_path], serialized]
-    #                     else:
-    #                         data[expanded_path] = serialized
-    #         if normalized:
-    #             return normalize_data(data, self.context)
-    #         else:
-    #             return data
-    #     else:
-    #         raise NotImplementedError("to be implemented by child classes")
+    @classmethod
+    def get_property(cls, name):
+        return cls._property_lookup[name]
 
     @classmethod
     def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
@@ -169,12 +141,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
+        ignore_duplicates: bool = False
     ):
         pass
 
     @classmethod
     def set_error_handling(
-        cls, value: Union[ErrorHandling, None], property_names: Optional[Union[str, List[str]]] = None
+        cls, value: Union[ErrorHandling, None]
     ):
         """
         Control validation for this class.
@@ -188,20 +161,9 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 the mode will be applied only to those properties.
         """
         if value is None:
-            value = ErrorHandling.none
+            cls.error_handling = ErrorHandling.none
         else:
-            value = ErrorHandling(value)
-        if property_names:
-            for property_name in as_list(property_names):
-                try:
-                    prop = cls._property_lookup[property_name]
-                except KeyError:
-                    raise ValueError("No such property: {}".format(property_name))
-                else:
-                    prop.error_handling = value
-        else:
-            for prop in cls.all_properties:
-                prop.error_handling = value
+            cls.error_handling = ErrorHandling(value)
 
     @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
@@ -245,7 +207,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         Args:
             follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
         """
-        properties = [QueryProperty("@type")]
+        if issubclass(cls, RepresentsSingleObject):  # KGObject
+            properties = [
+                QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"),
+                QueryProperty("@type"),
+            ]
+        else:  # EmbeddedMetadata
+            properties = [QueryProperty("@type")]
         reverse_aliases = invert_dict(cls.aliases)
         for prop in cls.all_properties:
             if prop.is_link and follow_links:
@@ -279,7 +247,18 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
     @classmethod
     def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool = False):
+        # check types match
+        if cls.type_ not in data["@type"]:
+            if types_match(cls.type_, data["@type"][0]):
+                cls.type_ = data["@type"][0]
+            else:
+                raise TypeError("type mismatch {} - {}".format(cls.type_, data["@type"]))
         # normalize data by expanding keys
+        if "om-i.org" in cls.type_:
+            cls.context = default_context["v4"]
+        else:
+            cls.context = default_context["v3"]
+
         D = {"@type": data["@type"]}
         if include_id:
             D["@id"] = data["@id"]
@@ -297,8 +276,6 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             elif key[0] != "@":
                 normalised_key = expand_uri(key, cls.context)
                 D[normalised_key] = value
-        if cls.type_ not in D["@type"]:
-            raise TypeError("type mismatch {} - {}".format(cls.type_, D["@type"]))
 
         def _get_type_from_data(data_item):
             type_ = data_item.get("@type", None)
@@ -337,7 +314,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 else:
                     deserialized_data[prop.name] = None
             else:
-                deserialized_data[prop.name] = prop.deserialize(data_item)
+                deserialized_data[prop.name] = prop.deserialize(data_item, client)
         return deserialized_data
 
     def resolve(
@@ -430,9 +407,11 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     query.update({f"{query_property_name}__{key}": val for key, val in sub_query.items()})
             elif isinstance(value, (list, tuple)):
                 raise CannotBuildExistenceQuery("not implemented yet")
+            elif value is None:
+                raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
             else:
                 query_val = value_to_jsonld(value, include_empty_properties=False, embed_linked_nodes=False)
                 if query_val is None:
-                    raise CannotBuildExistenceQuery("Required value is missing")
+                    raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
                 query[query_property_name] = query_val
         return query

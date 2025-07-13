@@ -15,13 +15,6 @@ class Recording(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/Recording"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "additional_remarks",
@@ -87,9 +80,9 @@ class Recording(KGObject):
             "next_recording",
             "openminds.ephys.Recording",
             "^vocab:previousRecording",
-            reverse="previous_recordings",
+            reverse="previous_recording",
             multiple=True,
-            doc="reverse of 'previousRecording'",
+            doc="reverse of 'previous_recording'",
         ),
     ]
     existence_query_properties = ("channels", "data_location", "recorded_with", "sampling_frequency")

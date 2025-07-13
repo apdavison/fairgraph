@@ -8,6 +8,9 @@ from fairgraph import KGObject, IRI
 from fairgraph.properties import Property
 
 
+from numbers import Real
+
+
 class QuantitativeValueArray(KGObject):
     """
     A representation of an array of quantitative values, optionally with uncertainties.
@@ -15,24 +18,17 @@ class QuantitativeValueArray(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/QuantitativeValueArray"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "negative_uncertainties",
-            float,
+            Real,
             "vocab:negativeUncertainties",
             multiple=True,
             doc="no description available",
         ),
         Property(
             "positive_uncertainties",
-            float,
+            Real,
             "vocab:positiveUncertainties",
             multiple=True,
             doc="no description available",
@@ -49,7 +45,7 @@ class QuantitativeValueArray(KGObject):
             "vocab:unit",
             doc="Determinate quantity adopted as a standard of measurement.",
         ),
-        Property("values", float, "vocab:values", multiple=True, required=True, doc="no description available"),
+        Property("values", Real, "vocab:values", multiple=True, required=True, doc="no description available"),
     ]
     reverse_properties = []
     existence_query_properties = ("values",)

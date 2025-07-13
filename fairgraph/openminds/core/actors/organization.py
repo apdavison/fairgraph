@@ -1,5 +1,5 @@
 """
-Structured information on an organization.
+An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
 """
 
 # this file was auto-generated
@@ -13,18 +13,11 @@ from fairgraph.base import IRI
 
 class Organization(KGObject):
     """
-    Structured information on an organization.
+    An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
     """
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Organization"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "affiliations",
@@ -60,7 +53,7 @@ class Organization(KGObject):
             "^vocab:coordinator",
             reverse="coordinators",
             multiple=True,
-            doc="reverse of 'coordinator'",
+            doc="reverse of 'coordinators'",
         ),
         Property(
             "developed",
@@ -81,13 +74,13 @@ class Organization(KGObject):
             "^vocab:developer",
             reverse="developers",
             multiple=True,
-            doc="reverse of 'developer'",
+            doc="reverse of 'developers'",
         ),
         Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
-            reverse="funders",
+            reverse="funder",
             multiple=True,
             doc="reverse of 'funder'",
         ),
@@ -97,7 +90,7 @@ class Organization(KGObject):
             "^vocab:hasParent",
             reverse="has_parents",
             multiple=True,
-            doc="reverse of 'hasParent'",
+            doc="reverse of 'has_parents'",
         ),
         Property(
             "has_members",
@@ -105,7 +98,7 @@ class Organization(KGObject):
             "^vocab:memberOf",
             reverse="member_of",
             multiple=True,
-            doc="reverse of 'memberOf'",
+            doc="reverse of 'member_of'",
         ),
         Property(
             "hosts",
@@ -113,7 +106,7 @@ class Organization(KGObject):
             "^vocab:hostedBy",
             reverse="hosted_by",
             multiple=True,
-            doc="reverse of 'hostedBy'",
+            doc="reverse of 'hosted_by'",
         ),
         Property(
             "is_custodian_of",
@@ -130,7 +123,7 @@ class Organization(KGObject):
             "^vocab:custodian",
             reverse="custodians",
             multiple=True,
-            doc="reverse of 'custodian'",
+            doc="reverse of 'custodians'",
         ),
         Property(
             "is_owner_of",
@@ -143,13 +136,13 @@ class Organization(KGObject):
             "^vocab:owner",
             reverse="owners",
             multiple=True,
-            doc="reverse of 'owner'",
+            doc="reverse of 'owners'",
         ),
         Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
-            reverse="providers",
+            reverse="provider",
             multiple=True,
             doc="reverse of 'provider'",
         ),
@@ -159,7 +152,7 @@ class Organization(KGObject):
             "^vocab:manufacturer",
             reverse="manufacturers",
             multiple=True,
-            doc="reverse of 'manufacturer'",
+            doc="reverse of 'manufacturers'",
         ),
         Property(
             "published",
@@ -170,7 +163,7 @@ class Organization(KGObject):
                 "openminds.publications.ScholarlyArticle",
             ],
             "^vocab:publisher",
-            reverse="publishers",
+            reverse="publisher",
             multiple=True,
             doc="reverse of 'publisher'",
         ),

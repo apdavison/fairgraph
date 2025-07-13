@@ -29,13 +29,6 @@ class File(KGObject):
 
     default_space = "files"
     type_ = "https://openminds.ebrains.eu/core/File"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("content_description", str, "vocab:contentDescription", doc="no description available"),
         Property(
@@ -109,7 +102,7 @@ class File(KGObject):
             ["^vocab:describedIn", "^vocab:metadataLocation"],
             reverse=["described_in", "metadata_locations"],
             multiple=True,
-            doc="reverse of describedIn, metadataLocation",
+            doc="reverse of described_in, metadata_locations",
         ),
         Property(
             "fully_documents",
@@ -122,9 +115,9 @@ class File(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "^vocab:fullDocumentation",
-            reverse="full_documentations",
+            reverse="full_documentation",
             multiple=True,
-            doc="reverse of 'fullDocumentation'",
+            doc="reverse of 'full_documentation'",
         ),
         Property(
             "has_copies",
@@ -132,7 +125,7 @@ class File(KGObject):
             "^vocab:copyOf",
             reverse="copy_of",
             multiple=True,
-            doc="reverse of 'copyOf'",
+            doc="reverse of 'copy_of'",
         ),
         Property(
             "is_also_part_of",
@@ -140,13 +133,13 @@ class File(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_configuration_of",
             "openminds.computation.WorkflowExecution",
             "^vocab:configuration",
-            reverse="configurations",
+            reverse="configuration",
             multiple=True,
             doc="reverse of 'configuration'",
         ),
@@ -156,7 +149,7 @@ class File(KGObject):
             "^vocab:defaultImage",
             reverse="default_images",
             multiple=True,
-            doc="reverse of 'defaultImage'",
+            doc="reverse of 'default_images'",
         ),
         Property(
             "is_input_to",
@@ -164,15 +157,15 @@ class File(KGObject):
             "^vocab:inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'inputData'",
+            doc="reverse of 'input_data'",
         ),
         Property(
             "is_location_of",
             ["openminds.ephys.Recording", "openminds.sands.ParcellationTerminologyVersion"],
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
         Property(
             "is_output_of",
@@ -187,19 +180,20 @@ class File(KGObject):
                 "openminds.core.ModelVersion",
                 "openminds.core.ProtocolExecution",
                 "openminds.ephys.RecordingActivity",
+                "openminds.stimulation.StimulationActivity",
             ],
             ["^vocab:output", "^vocab:outputData"],
             reverse=["output_data", "outputs"],
             multiple=True,
-            doc="reverse of output, outputData",
+            doc="reverse of output_data, outputs",
         ),
         Property(
             "is_preview_of",
             "openminds.core.ServiceLink",
             "^vocab:previewImage",
-            reverse="preview_images",
+            reverse="preview_image",
             multiple=True,
-            doc="reverse of 'previewImage'",
+            doc="reverse of 'preview_image'",
         ),
         Property(
             "is_reference_for",
@@ -207,7 +201,7 @@ class File(KGObject):
             "^vocab:referenceData",
             reverse="reference_data",
             multiple=True,
-            doc="reverse of 'referenceData'",
+            doc="reverse of 'reference_data'",
         ),
         Property(
             "is_source_data_of",
@@ -215,7 +209,7 @@ class File(KGObject):
             "^vocab:sourceData",
             reverse="source_data",
             multiple=True,
-            doc="reverse of 'sourceData'",
+            doc="reverse of 'source_data'",
         ),
         Property(
             "is_used_to_group",
@@ -223,7 +217,7 @@ class File(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "specifies",
@@ -233,13 +227,13 @@ class File(KGObject):
                 "openminds.stimulation.EphysStimulus",
             ],
             "^vocab:specification",
-            reverse="specifications",
+            reverse="specification",
             multiple=True,
             doc="reverse of 'specification'",
         ),
     ]
     aliases = {"hash": "hashes"}
-    existence_query_properties = ("iri", "hash")
+    existence_query_properties = ("iri", "hashes")
 
     def __init__(
         self,
@@ -313,7 +307,7 @@ class File(KGObject):
                 value=float(os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")
             ),
             hashes=Hash(algorithm="SHA1", digest=sha1sum(relative_path)),
-            format=ContentType(name=mimetypes.guess_type(relative_path)[0])
+            format=ContentType(name=mimetypes.guess_type(relative_path)[0]),
             # todo: query ContentTypes since that contains additional, EBRAINS-specific content types
         )
         return obj

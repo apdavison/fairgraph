@@ -18,13 +18,6 @@ class FileRepository(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/FileRepository"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "content_type_patterns",
@@ -101,7 +94,7 @@ class FileRepository(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "^vocab:repository",
-            reverse="repositories",
+            reverse="repository",
             multiple=True,
             doc="reverse of 'repository'",
         ),
@@ -109,9 +102,9 @@ class FileRepository(KGObject):
             "files",
             "openminds.core.File",
             "^vocab:fileRepository",
-            reverse="file_repositories",
+            reverse="file_repository",
             multiple=True,
-            doc="reverse of 'fileRepository'",
+            doc="reverse of 'file_repository'",
         ),
         Property(
             "has_parts",
@@ -119,7 +112,7 @@ class FileRepository(KGObject):
             "^vocab:isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'isPartOf'",
+            doc="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("iri",)

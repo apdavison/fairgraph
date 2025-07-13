@@ -18,13 +18,6 @@ class DeviceType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/DeviceType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,7 +86,7 @@ class DeviceType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "is_type_of",
@@ -104,9 +97,9 @@ class DeviceType(KGObject):
                 "openminds.specimen_prep.SlicingDevice",
             ],
             "^vocab:deviceType",
-            reverse="device_types",
+            reverse="device_type",
             multiple=True,
-            doc="reverse of 'deviceType'",
+            doc="reverse of 'device_type'",
         ),
     ]
     existence_query_properties = ("name",)

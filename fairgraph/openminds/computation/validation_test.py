@@ -18,13 +18,6 @@ class ValidationTest(KGObject):
 
     default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/ValidationTest"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "custodians",
@@ -149,7 +142,7 @@ class ValidationTest(KGObject):
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "learning_resources",

@@ -2,7 +2,7 @@ from copy import deepcopy
 from uuid import uuid4
 from requests.exceptions import SSLError
 from fairgraph.client import KGClient
-from fairgraph.errors import AuthenticationError
+from fairgraph.errors import AuthenticationError, AuthorizationError
 
 import pytest
 
@@ -12,14 +12,19 @@ have_kg_connection = False
 no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
 
 try:
-    client = KGClient(host=kg_host)
+    client = KGClient(host=kg_host, allow_interactive=False)
 except AuthenticationError:
     pass
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
 else:
-    if client.user_info():
-        have_kg_connection = True
+    try:
+        user_info = client.user_info()
+    except (AuthenticationError, AuthorizationError):
+        pass
+    else:
+        if user_info:
+            have_kg_connection = True
 
 
 def skip_if_no_connection(f):
@@ -63,7 +68,7 @@ class MockKGClient:
         else:
             raise NotImplementedError
 
-    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released"):
+    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released", restrict_to_spaces=None):
         for prop in query["structure"]:
             if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
                 filter_value = prop["filter"]["value"]

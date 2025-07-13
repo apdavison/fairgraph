@@ -26,7 +26,7 @@ author = "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheis
 # The short X.Y version
 version = "0.12"
 # The full version, including alpha/beta/rc tags
-release = "0.12.0"
+release = "0.12.2"
 
 
 # -- General configuration ---------------------------------------------------

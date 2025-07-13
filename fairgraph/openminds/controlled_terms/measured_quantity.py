@@ -18,13 +18,6 @@ class MeasuredQuantity(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/MeasuredQuantity"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,15 +86,15 @@ class MeasuredQuantity(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "measurement",
             "openminds.core.Measurement",
             "^vocab:measuredQuantity",
-            reverse="measured_quantities",
+            reverse="measured_quantity",
             multiple=True,
-            doc="reverse of 'measuredQuantity'",
+            doc="reverse of 'measured_quantity'",
         ),
     ]
     existence_query_properties = ("name",)

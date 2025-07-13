@@ -15,13 +15,6 @@ class Person(KGObject):
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Person"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "affiliations",
@@ -76,13 +69,13 @@ class Person(KGObject):
             "^vocab:performedBy",
             reverse="performed_by",
             multiple=True,
-            doc="reverse of 'performedBy'",
+            doc="reverse of 'performed_by'",
         ),
         Property(
             "comments",
             "openminds.core.Comment",
             "^vocab:commenter",
-            reverse="commenters",
+            reverse="commenter",
             multiple=True,
             doc="reverse of 'commenter'",
         ),
@@ -92,7 +85,7 @@ class Person(KGObject):
             "^vocab:coordinator",
             reverse="coordinators",
             multiple=True,
-            doc="reverse of 'coordinator'",
+            doc="reverse of 'coordinators'",
         ),
         Property(
             "developed",
@@ -113,13 +106,13 @@ class Person(KGObject):
             "^vocab:developer",
             reverse="developers",
             multiple=True,
-            doc="reverse of 'developer'",
+            doc="reverse of 'developers'",
         ),
         Property(
             "funded",
             "openminds.core.Funding",
             "^vocab:funder",
-            reverse="funders",
+            reverse="funder",
             multiple=True,
             doc="reverse of 'funder'",
         ),
@@ -138,7 +131,7 @@ class Person(KGObject):
             "^vocab:custodian",
             reverse="custodians",
             multiple=True,
-            doc="reverse of 'custodian'",
+            doc="reverse of 'custodians'",
         ),
         Property(
             "is_owner_of",
@@ -151,13 +144,13 @@ class Person(KGObject):
             "^vocab:owner",
             reverse="owners",
             multiple=True,
-            doc="reverse of 'owner'",
+            doc="reverse of 'owners'",
         ),
         Property(
             "is_provider_of",
             "openminds.chemicals.ProductSource",
             "^vocab:provider",
-            reverse="providers",
+            reverse="provider",
             multiple=True,
             doc="reverse of 'provider'",
         ),
@@ -167,7 +160,7 @@ class Person(KGObject):
             "^vocab:manufacturer",
             reverse="manufacturers",
             multiple=True,
-            doc="reverse of 'manufacturer'",
+            doc="reverse of 'manufacturers'",
         ),
         Property(
             "published",
@@ -178,7 +171,7 @@ class Person(KGObject):
                 "openminds.publications.ScholarlyArticle",
             ],
             "^vocab:publisher",
-            reverse="publishers",
+            reverse="publisher",
             multiple=True,
             doc="reverse of 'publisher'",
         ),
@@ -197,7 +190,7 @@ class Person(KGObject):
             "^vocab:startedBy",
             reverse="started_by",
             multiple=True,
-            doc="reverse of 'startedBy'",
+            doc="reverse of 'started_by'",
         ),
     ]
     existence_query_properties = ("given_name", "family_name")

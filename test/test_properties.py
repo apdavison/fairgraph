@@ -125,6 +125,28 @@ def test_serialize_no_multiple():
     assert result == expected
 
 
+def test_serialize_unknown():
+    some_property = Property(
+        "contact_information",
+        (SomeContactInformation,),
+        "vocab:contactInformation",
+        multiple=False,
+        required=False,
+        error_handling=ErrorHandling.error,
+    )
+    client = None
+
+    # single object
+    test_info = complex(1, -1)
+    with pytest.raises(ValueError) as excinfo:
+        result = some_property.serialize(test_info, follow_links=False)
+    expected_error_message = (
+        "fairgraph cannot serialize a value of type <class 'complex'> "
+        "(for property 'contact_information')"
+    )
+    assert excinfo.value.args[0] == expected_error_message
+
+
 def test_deserialize():
     date_property = Property("the_date", date, "TheDate", error_handling=ErrorHandling.error)
     with pytest.raises(ValueError):

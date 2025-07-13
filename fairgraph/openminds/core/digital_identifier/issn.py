@@ -15,13 +15,6 @@ class ISSN(KGObject):
 
     default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/ISSN"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISSN."),
     ]
@@ -30,9 +23,9 @@ class ISSN(KGObject):
             "identifies",
             "openminds.publications.Periodical",
             "^vocab:digitalIdentifier",
-            reverse="digital_identifiers",
+            reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digitalIdentifier'",
+            doc="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
@@ -51,7 +44,7 @@ class ISSN(KGObject):
             "^vocab:relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'relatedPublication'",
+            doc="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)

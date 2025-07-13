@@ -15,13 +15,6 @@ class ChemicalSubstance(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/chemicals/ChemicalSubstance"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "additional_remarks",
@@ -55,17 +48,17 @@ class ChemicalSubstance(KGObject):
             "composes",
             ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
             ["^vocab:insulatorMaterial", "^vocab:material"],
-            reverse=["insulator_materials", "materials"],
+            reverse=["insulator_material", "material"],
             multiple=True,
-            doc="reverse of insulatorMaterial, material",
+            doc="reverse of insulator_material, material",
         ),
         Property(
             "labels",
             "openminds.ephys.PipetteUsage",
             "^vocab:labelingCompound",
-            reverse="labeling_compounds",
+            reverse="labeling_compound",
             multiple=True,
-            doc="reverse of 'labelingCompound'",
+            doc="reverse of 'labeling_compound'",
         ),
     ]
     existence_query_properties = ("lookup_label",)

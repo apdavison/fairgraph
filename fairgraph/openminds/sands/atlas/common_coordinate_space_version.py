@@ -19,13 +19,6 @@ class CommonCoordinateSpaceVersion(KGObject):
 
     default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/CommonCoordinateSpaceVersion"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
         Property(
@@ -172,7 +165,9 @@ class CommonCoordinateSpaceVersion(KGObject):
                 "openminds.controlled_terms.Language",
                 "openminds.controlled_terms.Laterality",
                 "openminds.controlled_terms.LearningResourceType",
+                "openminds.controlled_terms.MRAcquisitionType",
                 "openminds.controlled_terms.MRIPulseSequence",
+                "openminds.controlled_terms.MRIWeighting",
                 "openminds.controlled_terms.MeasuredQuantity",
                 "openminds.controlled_terms.MeasuredSignalType",
                 "openminds.controlled_terms.MetaDataModelType",
@@ -325,9 +320,9 @@ class CommonCoordinateSpaceVersion(KGObject):
             "is_coordinate_space_of",
             ["openminds.sands.BrainAtlasVersion", "openminds.sands.CustomAnnotation"],
             "^vocab:coordinateSpace",
-            reverse="coordinate_spaces",
+            reverse="coordinate_space",
             multiple=True,
-            doc="reverse of 'coordinateSpace'",
+            doc="reverse of 'coordinate_space'",
         ),
         Property(
             "is_input_to",
@@ -339,7 +334,7 @@ class CommonCoordinateSpaceVersion(KGObject):
             ["^vocab:input", "^vocab:inputData"],
             reverse=["input_data", "inputs"],
             multiple=True,
-            doc="reverse of input, inputData",
+            doc="reverse of input_data, inputs",
         ),
         Property(
             "is_old_version_of",
@@ -347,15 +342,15 @@ class CommonCoordinateSpaceVersion(KGObject):
             "^vocab:isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
-            doc="reverse of 'isNewVersionOf'",
+            doc="reverse of 'is_new_version_of'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
+            ["openminds.core.Project", "openminds.core.ResearchProductGroup", "openminds.core.SoftwareVersion"],
             "^vocab:hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'hasPart'",
+            doc="reverse of 'has_parts'",
         ),
         Property(
             "is_used_to_group",
@@ -363,7 +358,7 @@ class CommonCoordinateSpaceVersion(KGObject):
             "^vocab:groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'groupedBy'",
+            doc="reverse of 'grouped_by'",
         ),
         Property(
             "is_version_of",
@@ -371,7 +366,7 @@ class CommonCoordinateSpaceVersion(KGObject):
             "^vocab:hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'hasVersion'",
+            doc="reverse of 'has_versions'",
         ),
         Property(
             "learning_resources",

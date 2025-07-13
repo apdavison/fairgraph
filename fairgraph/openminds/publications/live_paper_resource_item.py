@@ -18,13 +18,6 @@ class LivePaperResourceItem(KGObject):
 
     default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/LivePaperResourceItem"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "hosted_by",
@@ -60,12 +53,12 @@ class LivePaperResourceItem(KGObject):
             "is_location_of",
             "openminds.core.ServiceLink",
             "^vocab:dataLocation",
-            reverse="data_locations",
+            reverse="data_location",
             multiple=True,
-            doc="reverse of 'dataLocation'",
+            doc="reverse of 'data_location'",
         ),
     ]
-    existence_query_properties = ("name", "iri", "is_also_part_of")
+    existence_query_properties = ("name", "iri", "is_part_of")
 
     def __init__(
         self,

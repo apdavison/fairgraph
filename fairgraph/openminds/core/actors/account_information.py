@@ -15,13 +15,6 @@ class AccountInformation(KGObject):
 
     default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/AccountInformation"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "service", "openminds.core.WebService", "vocab:service", required=True, doc="no description available"
@@ -35,7 +28,7 @@ class AccountInformation(KGObject):
             "^vocab:associatedAccount",
             reverse="associated_accounts",
             multiple=True,
-            doc="reverse of 'associatedAccount'",
+            doc="reverse of 'associated_accounts'",
         ),
     ]
     existence_query_properties = ("service", "user_name")

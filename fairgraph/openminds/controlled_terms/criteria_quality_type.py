@@ -18,13 +18,6 @@ class CriteriaQualityType(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/CriteriaQualityType"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "definition",
@@ -93,15 +86,15 @@ class CriteriaQualityType(KGObject):
             "^vocab:keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keyword'",
+            doc="reverse of 'keywords'",
         ),
         Property(
             "used_by_annotation",
             ["openminds.sands.AtlasAnnotation", "openminds.sands.CustomAnnotation"],
             "^vocab:criteriaQualityType",
-            reverse="criteria_quality_types",
+            reverse="criteria_quality_type",
             multiple=True,
-            doc="reverse of 'criteriaQualityType'",
+            doc="reverse of 'criteria_quality_type'",
         ),
     ]
     existence_query_properties = ("name",)

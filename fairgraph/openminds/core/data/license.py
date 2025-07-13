@@ -18,13 +18,6 @@ class License(KGObject):
 
     default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/core/License"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
         Property(
@@ -68,7 +61,7 @@ class License(KGObject):
                 "openminds.sands.CommonCoordinateSpaceVersion",
             ],
             "^vocab:license",
-            reverse="licenses",
+            reverse="license",
             multiple=True,
             doc="reverse of 'license'",
         ),

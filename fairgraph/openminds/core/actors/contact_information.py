@@ -15,13 +15,6 @@ class ContactInformation(KGObject):
 
     default_space = "restricted"
     type_ = "https://openminds.ebrains.eu/core/ContactInformation"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "email",
@@ -38,7 +31,7 @@ class ContactInformation(KGObject):
             "^vocab:contactInformation",
             reverse="contact_information",
             multiple=True,
-            doc="reverse of 'contactInformation'",
+            doc="reverse of 'contact_information'",
         ),
     ]
     existence_query_properties = ("email",)

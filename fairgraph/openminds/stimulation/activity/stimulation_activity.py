@@ -18,13 +18,6 @@ class StimulationActivity(KGObject):
 
     default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/stimulation/StimulationActivity"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "custom_property_sets",
@@ -64,6 +57,8 @@ class StimulationActivity(KGObject):
         Property(
             "outputs",
             [
+                "openminds.core.File",
+                "openminds.core.FileBundle",
                 "openminds.core.SubjectGroupState",
                 "openminds.core.SubjectState",
                 "openminds.core.TissueSampleCollectionState",

@@ -14,13 +14,6 @@ class Circle(EmbeddedMetadata):
     """
 
     type_ = "https://openminds.ebrains.eu/sands/Circle"
-    context = {
-        "schema": "http://schema.org/",
-        "kg": "https://kg.ebrains.eu/api/instances/",
-        "vocab": "https://openminds.ebrains.eu/vocab/",
-        "terms": "https://openminds.ebrains.eu/controlledTerms/",
-        "core": "https://openminds.ebrains.eu/core/",
-    }
     properties = [
         Property(
             "radius", "openminds.core.QuantitativeValue", "vocab:radius", required=True, doc="no description available"
