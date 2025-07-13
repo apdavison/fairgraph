@@ -14,6 +14,10 @@ def example_query_model_version():
         label="fg-testing-modelversion",
         space="model",
         properties=[
+            QueryProperty(
+                "https://core.kg.ebrains.eu/vocab/meta/space",
+                name="query:space"
+            ),
             QueryProperty("@type"),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fullName",
@@ -73,6 +77,10 @@ def example_query_model():
         label="fg-testing-model",
         space="model",
         properties=[
+            QueryProperty(
+                "https://core.kg.ebrains.eu/vocab/meta/space",
+                name="query:space"
+            ),
             QueryProperty("@type"),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fullName",
@@ -114,6 +122,10 @@ def example_query_repository_with_reverse():
     return Query(
         node_type="https://openminds.ebrains.eu/core/FileRepository",
         properties=[
+            QueryProperty(
+                "https://core.kg.ebrains.eu/vocab/meta/space",
+                name="query:space"
+            ),
             QueryProperty("https://openminds.ebrains.eu/vocab/IRI", name="location"),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fileRepository",
@@ -416,7 +428,7 @@ def test_execute_query_with_reverse_properties_and_instance_id(kg_client, exampl
     assert len(data) == 1
     assert (
         data[0]["location"]
-        == "https://object.cscs.ch/v1/AUTH_7e4157014a3d4c1f8ffe270b57008fd4/brette-etal-2007?prefix=Benchmark2"
+        == "https://data-proxy.ebrains.eu/api/v1/buckets/p7e415-brette-etal-2007?prefix=Benchmark2"
     )
     assert "VAbenchmarks" in data[0]["files"][0]["filename"]
     assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
@@ -434,7 +446,7 @@ def test_execute_query_with_reverse_properties_and_filter(kg_client, example_que
     assert len(data) == 1
     assert (
         data[0]["location"]
-        == "https://object.cscs.ch/v1/AUTH_7e4157014a3d4c1f8ffe270b57008fd4/brette-etal-2007?prefix=Benchmark2"
+        == "https://data-proxy.ebrains.eu/api/v1/buckets/p7e415-brette-etal-2007?prefix=Benchmark2"
     )
     assert "VAbenchmarks" in data[0]["files"][0]["filename"]
     assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
@@ -451,12 +463,12 @@ def test_openminds_core_queries(mock_client):
             "core",
             f"{cls.__name__.lower()}_simple_query.json",
         )
+        generated = cls.generate_query(
+            space="collab-foobar",
+            client=mock_client,
+            follow_links=None,
+        )
         with open(path_expected) as fp:
-            generated = cls.generate_query(
-                space="collab-foobar",
-                client=mock_client,
-                follow_links=None,
-            )
             expected = json.load(fp)
             assert generated == expected
 
@@ -505,7 +517,7 @@ def test_generate_query_with_follow_named_links(mock_client):
             follow_links={"affiliations": {"member_of": {"has_parents": {}}}, "contact_information": {}},
         )
         expected = json.load(fp)
-        assert generated == expected
+    assert generated == expected
 
 
 def test_migrate_query():
@@ -566,14 +578,6 @@ def test_generate_query_type_filter_flattened():
                     "parameter": "id"
                 }
             },
-            {
-                "propertyName": "query:space",
-                "path": "https://core.kg.ebrains.eu/vocab/meta/space",
-                "filter": {
-                    "op": "EQUALS",
-                    "value": "livepapers"
-                }
-            },
             {"propertyName": "short_name", "path": "https://openminds.ebrains.eu/vocab/shortName"},
             {
                 "propertyName": "related_publications",
@@ -584,6 +588,14 @@ def test_generate_query_type_filter_flattened():
                     },
                     "https://openminds.ebrains.eu/vocab/identifier"
                 ]
+            },
+            {
+                "propertyName": "query:space",
+                "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+                "filter": {
+                    "op": "EQUALS",
+                    "value": "livepapers"
+                }
             }
         ]
     }

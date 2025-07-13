@@ -302,7 +302,15 @@ class ContainsMetadata(Resolvable, metaclass=Registry):  # KGObject and Embedded
         Args:
             follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
         """
-        properties = [QueryProperty("@type")]
+        if issubclass(cls, RepresentsSingleObject):  # KGObject
+            properties = [
+                QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"),
+                QueryProperty("@type"),
+            ]
+        else:  # EmbeddedMetadata
+            properties = [
+                QueryProperty("@type"),
+            ]
         reverse_aliases = invert_dict(cls.aliases)
         for prop in cls.all_properties:
             if prop.is_link and follow_links:

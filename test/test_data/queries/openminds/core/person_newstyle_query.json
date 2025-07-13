@@ -59,6 +59,10 @@
               "path": "@id"
             },
             {
+              "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+              "propertyName": "query:space"
+            },
+            {
               "path": "@type"
             },
             {
@@ -261,6 +265,10 @@
               "path": "@id"
             },
             {
+              "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+              "propertyName": "query:space"
+            },
+            {
               "path": "@type"
             },
             {
@@ -317,6 +325,10 @@
               "structure": [
                 {
                   "path": "@id"
+                },
+                {
+                  "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+                  "propertyName": "query:space"
                 },
                 {
                   "path": "@type"
@@ -817,6 +829,10 @@
       "structure": [
         {
           "path": "@id"
+        },
+        {
+          "path": "https://core.kg.ebrains.eu/vocab/meta/space",
+          "propertyName": "query:space"
         },
         {
           "path": "@type"

@@ -219,18 +219,22 @@ class Query:
         self.label = label
         self.space = space
         self.properties = [QueryProperty("@id", filter=Filter("EQUALS", parameter="id"))]
-        if space:
-            self.properties.append(
-                QueryProperty(
-                    "https://core.kg.ebrains.eu/vocab/meta/space",
-                    name="query:space",
-                    filter=Filter("EQUALS", value=self.space),
-                )
-            )
-        else:
-            self.properties.append(QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"))
         if properties:
             self.properties.extend(properties)
+        if space:
+            found = False
+            for property in self.properties:
+                if property.path == "https://core.kg.ebrains.eu/vocab/meta/space":
+                    property.filter = Filter("EQUALS", value=self.space)
+                    found = True
+            if not found:
+                self.properties.append(
+                    QueryProperty(
+                        "https://core.kg.ebrains.eu/vocab/meta/space",
+                        name="query:space",
+                        filter=Filter("EQUALS", value=self.space)
+                    )
+                )
 
     def add_property(self, prop: QueryProperty):
         assert isinstance(prop, QueryProperty)
