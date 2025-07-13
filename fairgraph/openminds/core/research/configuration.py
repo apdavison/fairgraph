@@ -33,6 +33,7 @@ class Configuration(KGObject):
                 "openminds.computation.Environment",
                 "openminds.computation.ValidationTestVersion",
                 "openminds.computation.WorkflowExecution",
+                "openminds.core.ModelVersion",
             ],
             "^vocab:configuration",
             reverse="configuration",

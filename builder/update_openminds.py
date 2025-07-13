@@ -729,8 +729,8 @@ class FairgraphClassBuilder:
                     else:
                         forward_link_name = sorted(forward_link_names)[0]
                         print(f"Multiple forward link names found: {forward_link_names}, using {forward_link_name}")
-                    # if "FileRepository" in self._schema_payload["_type"]:
-                    #     breakpoint()
+                        # todo: we should fix this at some point, using just the first forward_link_name causes things to break
+                        #       making this a dictionary keyed by class names should work?
                     _forward_link_name_python = generate_python_name(forward_link_name)
                     iri = f"^vocab:{forward_iri}"
                     doc = f"reverse of '{_forward_link_name_python}'"

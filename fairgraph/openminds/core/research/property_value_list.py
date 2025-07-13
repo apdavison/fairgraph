@@ -37,7 +37,7 @@ class PropertyValueList(KGObject):
         ),
         Property(
             "is_configuration_of",
-            "openminds.computation.ValidationTestVersion",
+            ["openminds.computation.ValidationTestVersion", "openminds.core.ModelVersion"],
             "^vocab:configuration",
             reverse="configuration",
             multiple=True,

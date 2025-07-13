@@ -51,6 +51,18 @@
       ]
     },
     {
+      "path": "https://openminds.ebrains.eu/vocab/configuration",
+      "propertyName": "vocab:configuration",
+      "structure": [
+        {
+          "path": "@id"
+        },
+        {
+          "path": "@type"
+        }
+      ]
+    },
+    {
       "path": "https://openminds.ebrains.eu/vocab/copyright",
       "propertyName": "vocab:copyright",
       "structure": [

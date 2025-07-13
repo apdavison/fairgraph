@@ -49,6 +49,7 @@ from .meta_data_model_type import MetaDataModelType
 from .model_abstraction_level import ModelAbstractionLevel
 from .model_scope import ModelScope
 from .molecular_entity import MolecularEntity
+from .mr_acquisition_type import MRAcquisitionType
 from .mri_pulse_sequence import MRIPulseSequence
 from .mri_weighting import MRIWeighting
 from .olfactory_stimulus_type import OlfactoryStimulusType

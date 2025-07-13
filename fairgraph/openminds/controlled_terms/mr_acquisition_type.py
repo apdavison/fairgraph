@@ -11,13 +11,13 @@ from fairgraph.properties import Property
 from fairgraph.base import IRI
 
 
-class Service(KGObject):
+class MRAcquisitionType(KGObject):
     """
     <description not available>
     """
 
     default_space = "controlled"
-    type_ = "https://openminds.ebrains.eu/controlledTerms/Service"
+    type_ = "https://openminds.ebrains.eu/controlledTerms/MRAcquisitionType"
     properties = [
         Property(
             "definition",
@@ -29,7 +29,7 @@ class Service(KGObject):
             "description",
             str,
             "vocab:description",
-            doc="Longer statement or account giving the characteristics of the service.",
+            doc="Longer statement or account giving the characteristics of the m r acquisition type.",
         ),
         Property(
             "interlex_identifier",
@@ -48,7 +48,7 @@ class Service(KGObject):
             str,
             "vocab:name",
             required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the service.",
+            doc="Word or phrase that constitutes the distinctive designation of the m r acquisition type.",
         ),
         Property(
             "preferred_ontology_identifier",
@@ -88,22 +88,6 @@ class Service(KGObject):
             multiple=True,
             doc="reverse of 'keywords'",
         ),
-        Property(
-            "hosts",
-            "openminds.publications.LivePaperResourceItem",
-            "^vocab:hostedBy",
-            reverse="hosted_by",
-            multiple=True,
-            doc="reverse of 'hosted_by'",
-        ),
-        Property(
-            "linked_from",
-            "openminds.core.ServiceLink",
-            "^vocab:service",
-            reverse="service",
-            multiple=True,
-            doc="reverse of 'service'",
-        ),
     ]
     existence_query_properties = ("name",)
 
@@ -113,10 +97,8 @@ class Service(KGObject):
         definition=None,
         describes=None,
         description=None,
-        hosts=None,
         interlex_identifier=None,
         knowledge_space_link=None,
-        linked_from=None,
         preferred_ontology_identifier=None,
         synonyms=None,
         id=None,
@@ -133,10 +115,8 @@ class Service(KGObject):
             definition=definition,
             describes=describes,
             description=description,
-            hosts=hosts,
             interlex_identifier=interlex_identifier,
             knowledge_space_link=knowledge_space_link,
-            linked_from=linked_from,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
