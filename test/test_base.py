@@ -5,7 +5,7 @@ Tests of fairgraph.base module.
 
 from datetime import date, datetime
 from numbers import Real
-from openminds.base import Node
+from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata
 from openminds.properties import Property
 from fairgraph.embedded import EmbeddedMetadata
 from fairgraph.kgobject import KGObject
@@ -17,9 +17,10 @@ from fairgraph.base import ErrorHandling
 import pytest
 
 
-class MockEmbeddedObject(EmbeddedMetadata, Node):
+class MockEmbeddedObject(EmbeddedMetadata, OMEmbeddedMetadata):
     type_ = "https://openminds.ebrains.eu/mock/MockEmbeddedObject"
     schema_version = "latest"
+    preferred_import_path = "test.test_base.MockEmbeddedObject"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -53,10 +54,11 @@ class MockEmbeddedObject(EmbeddedMetadata, Node):
     existence_query_properties = ("a_number",)
 
 
-class MockKGObject2(KGObject, Node):
+class MockKGObject2(KGObject, LinkedMetadata):
     default_space = "mock"
     type_ = "https://openminds.ebrains.eu/mock/MockKGObject2"
     schema_version = "latest"
+    preferred_import_path = "test.test_base.MockKGObject2"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -67,10 +69,11 @@ class MockKGObject2(KGObject, Node):
     reverse_properties = []
 
 
-class MockKGObject(KGObject, Node):
+class MockKGObject(KGObject, LinkedMetadata):
     default_space = "mock"
     type_ = "https://openminds.ebrains.eu/mock/MockKGObject"
     schema_version = "latest"
+    preferred_import_path = "test.test_base.MockKGObject"
     context = {
         "schema": "http://schema.org/",
         "kg": "https://kg.ebrains.eu/api/instances/",
@@ -207,7 +210,7 @@ class TestKGObject(object):
     object_counter = 0
 
     def _construct_embedded_object_required_properties(self, n):
-        return MockEmbeddedObject(a_number=float(n))
+        return MockEmbeddedObject(a_number=n)
 
     def _construct_object_required_properties(self):
         data = {
@@ -324,7 +327,7 @@ class TestKGObject(object):
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"},
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
             ],
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": ["plum, peach, apricot"],
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon",
         }
         return MockKGObject(
@@ -333,7 +336,7 @@ class TestKGObject(object):
             a_required_string="apple",
             a_required_list_of_strings=["banana", "pear"],
             an_optional_string="melon",
-            an_optional_list_of_strings=["plum, peach, apricot"],
+            an_optional_list_of_strings=["plum, peach, apricot"],  # note that this is a single string containing commas
             a_required_datetime=datetime(1789, 7, 14),
             a_required_list_of_datetimes=[datetime(1900, 1, 1), datetime(2000, 1, 1)],
             an_optional_datetime=datetime(1605, 11, 5),
@@ -394,23 +397,26 @@ class TestKGObject(object):
         prop_name = MockKGObject.existence_query_properties[0]
         obj.id = None
         prop = obj._property_lookup[prop_name]
-        orig_error_handling = prop.error_handling
-        prop.error_handling = ErrorHandling.none
+        orig_error_handling = obj.__class__.error_handling
+        obj.__class__.error_handling = ErrorHandling.none
         setattr(obj, prop_name, None)  # remove a required property
 
         with pytest.raises(CannotBuildExistenceQuery) as exc_info:
             obj._build_existence_query()
         assert exc_info.value.args[0] == f"Required value for '{prop_name}' is missing"
-        prop.error_handling = orig_error_handling
+        obj.__class__.error_handling = orig_error_handling
 
     def test_build_data_all_properties(self):
         obj = self._construct_object_all_properties()
         expected = {
+            "@context": {
+                "@vocab": "https://openminds.ebrains.eu/vocab/",
+            },
             "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001",
-            "@type": ["https://openminds.ebrains.eu/mock/MockKGObject"],
+            "@type": "https://openminds.ebrains.eu/mock/MockKGObject",
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                 "https://openminds.ebrains.eu/vocab/aNumber": -1.0,
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
@@ -422,11 +428,11 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 100.0,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 200.0,
                 },
             ],
@@ -438,7 +444,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1605-11-05T00:00:00",
             "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                 "https://openminds.ebrains.eu/vocab/aNumber": 17.0,
             },
             "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": {
@@ -450,11 +456,11 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 18.0,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 19.0,
                 },
             ],
@@ -462,10 +468,10 @@ class TestKGObject(object):
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"},
                 {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"},
             ],
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": "plum, peach, apricot",
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": ["plum, peach, apricot"],
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon",
         }
-        assert obj.to_jsonld(include_empty_properties=True, embed_linked_nodes=False) == expected
+        assert obj.to_jsonld(include_empty_properties=False, embed_linked_nodes=False) == expected
 
     def test_modified_data(self):
         obj = self._construct_object_all_properties()
@@ -481,12 +487,16 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aDate": None,
                     "https://openminds.ebrains.eu/vocab/aNumber": -18,
+                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aDate": None,
                     "https://openminds.ebrains.eu/vocab/aNumber": 19,
+                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
             ],
         }
@@ -586,12 +596,12 @@ class TestKGObject(object):
             obj = self._construct_object_required_properties()
             obj.id = None
             prop = obj._property_lookup[prop_name]
-            orig_error_handling = prop.error_handling
-            prop.error_handling = ErrorHandling.none
+            orig_error_handling = obj.__class__.error_handling
+            obj.__class__.error_handling = ErrorHandling.none
             setattr(obj, prop_name, None)  # remove a required property
             exists = obj.exists(client=None)
             assert not exists
-            prop.error_handling = orig_error_handling
+            obj.__class__.error_handling = orig_error_handling
 
     def test_exists__it_does_not_exist(self):
         pass
