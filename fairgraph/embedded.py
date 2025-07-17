@@ -71,12 +71,12 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(embed_linked_nodes=False)
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient) -> Union[None, EmbeddedMetadata]:
+    def from_json_ld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
         """Create an instance of the class from a JSON-LD document."""
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")
             return None
-        deserialized_data = cls._deserialize_data(data, client)
+        deserialized_data = cls._deserialize_data(data)
         return cls(data=data, **deserialized_data)
 
     def save(

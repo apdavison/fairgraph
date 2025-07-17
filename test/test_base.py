@@ -511,7 +511,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["kumquat", "bilberry"],
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1789-07-14T00:00:00",
         }
-        obj._update_empty_properties(new_data, client=None)
+        obj._update_empty_properties(new_data)
         assert obj.a_required_list_of_strings == [
             "banana",
             "pear",

@@ -430,8 +430,7 @@ def test__update():
         "https://openminds.ebrains.eu/vocab/familyName": "Bianchi",
         "https://openminds.ebrains.eu/vocab/givenName": "Daniela",
     }
-    client = None
-    person = omcore.Person.from_kg_instance(example_data, client=client, scope="in progress")
+    person = omcore.Person.from_jsonld(example_data, scope="in progress")
     for key in (
         "http://schema.org/identifier",
         "https://core.kg.ebrains.eu/vocab/meta/revision",
@@ -848,7 +847,7 @@ def test_with_new_namespace_from_core():
         "https://core.kg.ebrains.eu/vocab/meta/lastReleasedAt": "2023-03-23T10:09:30.130Z",
     }
     orig_type = omcore.Model.type_
-    obj = omcore.Model.from_kg_instance(data, client=None, scope="released")
+    obj = omcore.Model.from_jsonld(data, scope="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_ = orig_type
@@ -938,7 +937,7 @@ def test_with_new_namespace_from_query():
     }
     #omcore.set_error_handling("error")
     orig_types = (omcore.Model.type_, omcore.Person.type_)
-    obj = omcore.Model.from_kg_instance(data, client=None, scope="released")
+    obj = omcore.Model.from_jsonld(data, scope="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_, omcore.Person.type_ = orig_types

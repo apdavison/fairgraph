@@ -117,7 +117,7 @@ class KGQuery(Resolvable, SupportsQuerying):
                     from_index=from_index,
                     scope=scope,
                 ).data
-                objects.extend(cls.from_kg_instance(instance_data, client) for instance_data in instances)
+                objects.extend(cls.from_jsonld(instance_data, client) for instance_data in instances)
         for obj in objects:
             object_cache[obj.id] = obj
 

@@ -145,14 +145,14 @@ def test_serialize_unknown():
 def test_deserialize():
     date_property = Property("the_date", date, "TheDate")
     # with pytest.raises(ValueError):
-    #     date_property.deserialize(42, client=None)
+    #     date_property.deserialize(42)
 
     integer_property = Property("the_number", int, "TheNumber")
-    assert integer_property.deserialize(42, client=None) == 42
-    assert integer_property.deserialize(42.0, client=None) == 42
-    assert integer_property.deserialize("42", client=None) == 42
-    assert integer_property.deserialize([42, 42, 42], client=None) == [42, 42, 42]
-    assert integer_property.deserialize(["42", 42, "42"], client=None) == [42, 42, 42]
+    assert integer_property.deserialize(42) == 42
+    assert integer_property.deserialize(42.0) == 42
+    assert integer_property.deserialize("42") == 42
+    assert integer_property.deserialize([42, 42, 42]) == [42, 42, 42]
+    assert integer_property.deserialize(["42", 42, "42"]) == [42, 42, 42]
 
     object_property = Property("the_object", SomeOrganization, "TheObject")
     obj_data = {
@@ -162,13 +162,13 @@ def test_deserialize():
         "https://openminds.ebrains.eu/vocab/shortName": "TU",
     }
     expected_obj = SomeOrganization(name="The University", alias="TU", id="https://kg.ebrains.eu/api/instances/the_id")
-    assert object_property.deserialize(obj_data, client=None) == expected_obj
+    assert object_property.deserialize(obj_data) == expected_obj
 
-    assert object_property.deserialize(None, client=None) is None
+    assert object_property.deserialize(None) is None
 
-    assert object_property.deserialize([None, obj_data, None, obj_data], client=None) == [expected_obj, expected_obj]
+    assert object_property.deserialize([None, obj_data, None, obj_data]) == [expected_obj, expected_obj]
 
-    assert object_property.deserialize({"@list": [None, obj_data, None, obj_data]}, client=None) == [
+    assert object_property.deserialize({"@list": [None, obj_data, None, obj_data]}) == [
         expected_obj,
         expected_obj,
     ]

@@ -120,17 +120,10 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         return cls._property_lookup[name]
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
+    def from_jsonld(cls, data: JSONdict, scope: Optional[str] = None) -> ContainsMetadata:
         """
         Create an instance of the class from a JSON-LD document.
         """
-        if scope:
-            return cls.from_kg_instance(data, client, scope)
-        else:
-            return cls.from_kg_instance(data, client)
-
-    @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None) -> ContainsMetadata:
         pass
 
     def save(
@@ -246,7 +239,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         return properties
 
     @classmethod
-    def _deserialize_data(cls, data: JSONdict, client: KGClient, include_id: bool = False):
+    def _deserialize_data(cls, data: JSONdict, include_id: bool = False):
         # check types match
         if cls.type_ not in data["@type"]:
             if types_match(cls.type_, data["@type"][0]):
@@ -314,7 +307,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 else:
                     deserialized_data[prop.name] = None
             else:
-                deserialized_data[prop.name] = prop.deserialize(data_item, client)
+                deserialized_data[prop.name] = prop.deserialize(data_item)
         return deserialized_data
 
     def resolve(

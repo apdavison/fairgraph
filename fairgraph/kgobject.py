@@ -107,9 +107,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return self._space
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
+    def from_jsonld(cls, data: JSONdict, scope: Optional[str] = None) -> KGObject:
         """Create an instance of the class from a JSON-LD document."""
-        deserialized_data = cls._deserialize_data(data, client, include_id=True)
+        deserialized_data = cls._deserialize_data(data, include_id=True)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
     # @classmethod
@@ -165,7 +165,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if data is None:
             return None
         else:
-            return cls.from_kg_instance(data, client, scope=scope)
+            return cls.from_jsonld(data, client, scope=scope)
 
     @classmethod
     def from_uuid(
@@ -238,7 +238,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
             cls_from_data = lookup_type(data["@type"][0])
-            return cls_from_data.from_kg_instance(data, client, scope=scope)
+            return cls_from_data.from_jsonld(data, client, scope=scope)
 
     @classmethod
     def from_alias(
@@ -377,7 +377,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
 
-        return [cls.from_kg_instance(instance, client, scope=scope) for instance in instances]
+        return [cls.from_jsonld(instance, client, scope=scope) for instance in instances]
 
     @classmethod
     def count(
@@ -428,10 +428,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             response = client.list(cls.type_, space=space, scope=scope, from_index=0, size=1)
         return response.total
 
-    def _update_empty_properties(self, data: JSONdict, client: KGClient):
+    def _update_empty_properties(self, data: JSONdict):
         """Replace any empty properties (value None) with the supplied data"""
         cls = self.__class__
-        deserialized_data = cls._deserialize_data(data, client, include_id=True)
+        deserialized_data = cls._deserialize_data(data, include_id=True)
         for prop in cls.all_properties:
             current_value = getattr(self, prop.name, None)
             if current_value is None:
@@ -496,7 +496,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 self._raw_remote_data = data
             obj_exists = bool(data)
             if obj_exists:
-                self._update_empty_properties(data, client)  # also updates `remote_data`
+                self._update_empty_properties(data)  # also updates `remote_data`
             return obj_exists
         else:
             try:
@@ -543,7 +543,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     self.id = instance["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_properties(instance, client)  # also updates `remote_data`
+                    self._update_empty_properties(instance)  # also updates `remote_data`
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
