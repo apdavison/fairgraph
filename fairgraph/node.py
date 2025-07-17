@@ -247,10 +247,11 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             else:
                 raise TypeError("type mismatch {} - {}".format(cls.type_, data["@type"]))
         # normalize data by expanding keys
+        context = copy(cls.context)
         if "om-i.org" in cls.type_:
-            cls.context = default_context["v4"]
+            context = default_context["v4"]
         else:
-            cls.context = default_context["v3"]
+            context = default_context["v3"]
 
         D = {"@type": data["@type"]}
         if include_id:
@@ -258,7 +259,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
-                normalised_key = expand_uri(key, cls.context)
+                normalised_key = expand_uri(key, context)
                 value = [item for item in as_list(value) if item["@type"][0].endswith(type_filter)]
                 if normalised_key in D:
                     D[normalised_key].extend(value)
@@ -267,7 +268,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             elif key.startswith("Q"):  # for 'Q' properties in data from queries
                 D[key] = value
             elif key[0] != "@":
-                normalised_key = expand_uri(key, cls.context)
+                normalised_key = expand_uri(key, context)
                 D[normalised_key] = value
 
         def _get_type_from_data(data_item):
@@ -279,7 +280,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
         deserialized_data = {}
         for prop in cls.all_properties:
-            expanded_path = expand_uri(prop.path, cls.context)
+            expanded_path = expand_uri(prop.path, context)
             data_item = D.get(expanded_path)
             if data_item is not None and prop.reverse:
                 # for reverse properties, more than one property can have the same path
