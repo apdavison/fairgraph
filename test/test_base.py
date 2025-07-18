@@ -523,7 +523,7 @@ class TestKGObject(object):
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
+                data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=False)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@context"] = orig_object.context
@@ -531,17 +531,22 @@ class TestKGObject(object):
                 return data
 
         MockKGObject.set_error_handling("none")  # stop the constructor from complaining
-        new_obj = MockKGObject(id=orig_object.id, a_required_list_of_strings=["coconut"], an_optional_string="lime")
+        new_obj = MockKGObject(
+            id=orig_object.id,
+            a_required_list_of_strings=["coconut"],
+            an_optional_string="lime",
+            a_required_embedded_object=MockEmbeddedObject(a_number=41, a_string="forty one")
+        )
         MockKGObject.set_error_handling("error")
         assert new_obj.a_required_list_of_strings == ["coconut"]
         assert new_obj.remote_data == {}
-        assert new_obj.a_required_embedded_object == None
+        assert new_obj.a_required_embedded_object.a_string == "forty one"
 
         assert (
             new_obj.exists(MockClient()) and new_obj.space == "collab-foobar"
         )  # has the side-effect of setting .remote_data
 
-        assert new_obj.a_required_embedded_object == MockEmbeddedObject(a_number=41.0)
+        # check that all the metadata for the existing instance have been retrieved
         expected = {
             "@context": MockKGObject.context,
             "@id": orig_object.id,
@@ -549,8 +554,8 @@ class TestKGObject(object):
             "https://core.kg.ebrains.eu/vocab/meta/space": "collab-foobar",
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                "https://openminds.ebrains.eu/vocab/aNumber": 41.0,
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                "https://openminds.ebrains.eu/vocab/aNumber": 41
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
@@ -561,12 +566,12 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                    "https://openminds.ebrains.eu/vocab/aNumber": 42.0,
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aNumber": 42,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
-                    "https://openminds.ebrains.eu/vocab/aNumber": 43.0,
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aNumber": 43,
                 },
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
@@ -585,8 +590,16 @@ class TestKGObject(object):
         assert new_obj.a_required_datetime == datetime(1789, 7, 14)
 
         expected = {
-            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": "coconut",  # note no square brackets, single item in list. Is this desired?
+            "https://openminds.ebrains.eu/vocab/aRequiredListOfStrings": ["coconut"],
             "https://openminds.ebrains.eu/vocab/anOptionalString": "lime",
+            "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                # modified embedded metadata needs to include _all_ properties,
+                # not just those that have changed
+                "https://openminds.ebrains.eu/vocab/aNumber": 41,
+                "https://openminds.ebrains.eu/vocab/aString": "forty one",
+                "https://openminds.ebrains.eu/vocab/aDate": None,
+            },
         }
         assert new_obj.modified_data() == expected
 
@@ -617,9 +630,9 @@ class TestKGObject(object):
             "a_required_list_of_linked_objects=[MockKGObject2(a=2345, space=None, "
             "id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002345), "
             "MockKGObject2(a=3456, space=None, id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003456)], "
-            "a_required_embedded_object=MockEmbeddedObject(a_number=41.0), "
-            "a_required_list_of_embedded_objects=[MockEmbeddedObject(a_number=42.0), "
-            "MockEmbeddedObject(a_number=43.0)], space=None, "
+            "a_required_embedded_object=MockEmbeddedObject(a_number=41), "
+            "a_required_list_of_embedded_objects=[MockEmbeddedObject(a_number=42), "
+            "MockEmbeddedObject(a_number=43)], space=None, "
             "id=https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002)"
         )
 

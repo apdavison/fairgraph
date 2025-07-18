@@ -71,7 +71,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(embed_linked_nodes=False)
 
     @classmethod
-    def from_json_ld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
+    def from_jsonld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
         """Create an instance of the class from a JSON-LD document."""
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")

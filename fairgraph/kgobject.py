@@ -436,7 +436,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             current_value = getattr(self, prop.name, None)
             if current_value is None:
                 value = deserialized_data[prop.name]
-                setattr(self, prop.name, value)
+                if value is not None:
+                    setattr(self, prop.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
             if not key.startswith("Q"):
@@ -551,6 +552,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Return a dict containing the properties that have been modified locally
         from the values originally obtained from the Knowledge Graph.
         """
+
+        def values_are_equal(local, remote):
+            if type(local) != type(remote):
+                return False
+            if isinstance(local, list):
+                if len(local) != len(remote):
+                    return False
+                return all(values_are_equal(a, b) for a, b in zip(local, remote))
+            elif isinstance(local, dict):
+                return all(values_are_equal(local[key], remote.get(key, None)) for key in local.keys() if not (local[key] is None and key not in remote))
+            else:
+                return local == remote
+
         current_data = self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
         modified_data = {}
         for key, current_value in current_data.items():
@@ -558,7 +572,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 assert key.startswith("http")  # keys should all be expanded by this point
                 assert self.remote_data is not None
                 remote_value = self.remote_data.get(key, None)
-                if current_value != remote_value:
+                if not values_are_equal(current_value, remote_value):
                     modified_data[key] = current_value
         return modified_data
 
@@ -671,6 +685,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                                 activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
                         else:
                             try:
+                                # Note: if modified_data includes embedded objects
+                                # then _all_ fields of the embedded objects must be provided,
+                                # not only those that have changed.
                                 client.update_instance(self.uuid, modified_data)
                             except AuthorizationError as err:
                                 if ignore_auth_errors:

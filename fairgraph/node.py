@@ -4,11 +4,12 @@ from copy import copy
 import logging
 from warnings import warn
 
-from openminds.base import value_to_jsonld
+from openminds.base import value_to_jsonld, Link
 from openminds.properties import Property
 
 from .registry import Node
 from .base import Resolvable, ErrorHandling, RepresentsSingleObject
+from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .queries import (
     QueryProperty,
@@ -124,7 +125,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         """
         Create an instance of the class from a JSON-LD document.
         """
-        pass
+        raise NotImplementedError("This should be implemented by subclasses")
 
     def save(
         self,
@@ -136,7 +137,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         ignore_auth_errors: bool = False,
         ignore_duplicates: bool = False
     ):
-        pass
+        raise NotImplementedError("This should be implemented by subclasses")
 
     @classmethod
     def set_error_handling(
