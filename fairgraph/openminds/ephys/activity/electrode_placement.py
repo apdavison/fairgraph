@@ -4,137 +4,22 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.ephys import ElectrodePlacement
+from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class ElectrodePlacement(KGObject):
+class ElectrodePlacement(KGObject, ElectrodePlacement):
     """
     <description not available>
     """
 
-    default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/ElectrodePlacement"
-    properties = [
-        Property(
-            "custom_property_sets",
-            "openminds.core.CustomPropertySet",
-            "vocab:customPropertySet",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the electrode placement.",
-        ),
-        Property(
-            "devices",
-            [
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
-            ],
-            "vocab:device",
-            multiple=True,
-            required=True,
-            doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
-        ),
-        Property("end_time", [datetime, time], "vocab:endTime", doc="no description available"),
-        Property(
-            "inputs",
-            ["openminds.core.TissueSampleState", "openminds.core.SubjectState"],
-            "vocab:input",
-            multiple=True,
-            required=True,
-            doc="Something or someone that is put into or participates in a process or machine.",
-        ),
-        Property(
-            "is_part_of",
-            "openminds.core.DatasetVersion",
-            "vocab:isPartOf",
-            required=True,
-            doc="Reference to the ensemble of multiple things or beings.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "outputs",
-            ["openminds.core.TissueSampleState", "openminds.core.SubjectState"],
-            "vocab:output",
-            multiple=True,
-            required=True,
-            doc="Something or someone that comes out of, is delivered or produced by a process or machine.",
-        ),
-        Property(
-            "performed_by",
-            ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
-            "vocab:performedBy",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "preparation_design",
-            "openminds.controlled_terms.PreparationType",
-            "vocab:preparationDesign",
-            doc="no description available",
-        ),
-        Property(
-            "protocols",
-            "openminds.core.Protocol",
-            "vocab:protocol",
-            multiple=True,
-            required=True,
-            doc="Plan that describes the process of a scientific or medical experiment, treatment, or procedure.",
-        ),
-        Property("start_time", [datetime, time], "vocab:startTime", doc="no description available"),
-        Property(
-            "study_targets",
-            [
-                "openminds.controlled_terms.AuditoryStimulusType",
-                "openminds.controlled_terms.BiologicalOrder",
-                "openminds.controlled_terms.BiologicalSex",
-                "openminds.controlled_terms.BreedingType",
-                "openminds.controlled_terms.CellCultureType",
-                "openminds.controlled_terms.CellType",
-                "openminds.controlled_terms.Disease",
-                "openminds.controlled_terms.DiseaseModel",
-                "openminds.controlled_terms.ElectricalStimulusType",
-                "openminds.controlled_terms.GeneticStrainType",
-                "openminds.controlled_terms.GustatoryStimulusType",
-                "openminds.controlled_terms.Handedness",
-                "openminds.controlled_terms.MolecularEntity",
-                "openminds.controlled_terms.OlfactoryStimulusType",
-                "openminds.controlled_terms.OpticalStimulusType",
-                "openminds.controlled_terms.Organ",
-                "openminds.controlled_terms.OrganismSubstance",
-                "openminds.controlled_terms.OrganismSystem",
-                "openminds.controlled_terms.Species",
-                "openminds.controlled_terms.SubcellularEntity",
-                "openminds.controlled_terms.TactileStimulusType",
-                "openminds.controlled_terms.TermSuggestion",
-                "openminds.controlled_terms.TissueSampleType",
-                "openminds.controlled_terms.UBERONParcellation",
-                "openminds.controlled_terms.VisualStimulusType",
-                "openminds.sands.CustomAnatomicalEntity",
-                "openminds.sands.ParcellationEntity",
-                "openminds.sands.ParcellationEntityVersion",
-            ],
-            "vocab:studyTarget",
-            multiple=True,
-            doc="Structure or function that was targeted within a study.",
-        ),
-        Property(
-            "target_position",
-            "openminds.sands.AnatomicalTargetPosition",
-            "vocab:targetPosition",
-            doc="no description available",
-        ),
-    ]
+    default_space = "in-depth"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("lookup_label",)
 
@@ -159,7 +44,8 @@ class ElectrodePlacement(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

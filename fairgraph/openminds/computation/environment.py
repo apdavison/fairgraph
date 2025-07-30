@@ -4,66 +4,36 @@ Structured information on the computer system or set of systems in which a compu
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import Environment
+from fairgraph import KGObject
 
 
-class Environment(KGObject):
+class Environment(KGObject, Environment):
     """
     Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
 
-    default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/Environment"
-    properties = [
-        Property(
-            "configuration", "openminds.core.Configuration", "vocab:configuration", doc="no description available"
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the environment.",
-        ),
-        Property(
-            "hardware",
-            "openminds.computation.HardwareSystem",
-            "vocab:hardware",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the environment.",
-        ),
-        Property(
-            "software",
-            "openminds.core.SoftwareVersion",
-            "vocab:software",
-            multiple=True,
-            doc="no description available",
-        ),
-    ]
+    default_space = "computation"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "used_for",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.SoftwareAgent",
-                "openminds.computation.Visualization",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.SoftwareAgent",
+                "openminds.latest.computation.Visualization",
             ],
-            "^vocab:environment",
+            "environment",
             reverse="environment",
             multiple=True,
-            doc="reverse of 'environment'",
+            description="reverse of 'environment'",
         ),
     ]
     existence_query_properties = ("hardware", "name")
@@ -81,7 +51,8 @@ class Environment(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

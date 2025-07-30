@@ -4,73 +4,44 @@ Structured information about a mixture of chemical substances.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.chemicals import ChemicalMixture
+from fairgraph import KGObject
 
 
-class ChemicalMixture(KGObject):
+class ChemicalMixture(KGObject, ChemicalMixture):
     """
     Structured information about a mixture of chemical substances.
     """
 
-    default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/chemicals/ChemicalMixture"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property(
-            "has_parts",
-            "openminds.chemicals.AmountOfChemical",
-            "vocab:hasPart",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the chemical mixture.",
-        ),
-        Property(
-            "product_source",
-            "openminds.chemicals.ProductSource",
-            "vocab:productSource",
-            doc="no description available",
-        ),
-        Property(
-            "type",
-            "openminds.controlled_terms.ChemicalMixtureType",
-            "vocab:type",
-            required=True,
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-    ]
+    default_space = "in-depth"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "composes",
-            ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
-            ["^vocab:insulatorMaterial", "^vocab:material"],
+            [
+                "openminds.latest.ephys.Electrode",
+                "openminds.latest.ephys.ElectrodeArray",
+                "openminds.latest.ephys.Pipette",
+            ],
+            ["insulatorMaterial", "material"],
             reverse=["insulator_material", "material"],
             multiple=True,
-            doc="reverse of insulator_material, material",
+            description="reverse of insulator_material, material",
         ),
         Property(
             "used_in",
             [
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.TissueCulturePreparation",
-                "openminds.specimen_prep.TissueSampleSlicing",
+                "openminds.latest.ephys.CellPatching",
+                "openminds.latest.ephys.PipetteUsage",
+                "openminds.latest.specimen_prep.TissueCulturePreparation",
+                "openminds.latest.specimen_prep.TissueSampleSlicing",
             ],
-            ["^vocab:cultureMedium", "^vocab:pipetteSolution", "^vocab:tissueBathSolution"],
+            ["cultureMedium", "pipetteSolution", "tissueBathSolution"],
             reverse=["culture_medium", "pipette_solution", "tissue_bath_solution"],
             multiple=True,
-            doc="reverse of culture_medium, pipette_solution, tissue_bath_solution",
+            description="reverse of culture_medium, pipette_solution, tissue_bath_solution",
         ),
     ]
     existence_query_properties = ("has_parts", "type")
@@ -89,7 +60,8 @@ class ChemicalMixture(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

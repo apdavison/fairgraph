@@ -4,47 +4,46 @@ A persistent identifier for a research resource provided by the Resource Identif
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import RRID
+from fairgraph import KGObject
 
 
-class RRID(KGObject):
+class RRID(KGObject, RRID):
     """
     A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
 
-    default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/RRID"
-    properties = [
-        Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the RRID."),
-    ]
+    default_space = "common"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "identifies",
             [
-                "openminds.chemicals.ProductSource",
-                "openminds.core.Organization",
-                "openminds.core.Software",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.Strain",
-                "openminds.ephys.Electrode",
-                "openminds.ephys.ElectrodeArray",
-                "openminds.ephys.Pipette",
-                "openminds.sands.BrainAtlas",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpace",
-                "openminds.sands.CommonCoordinateSpaceVersion",
-                "openminds.specimen_prep.SlicingDevice",
+                "openminds.latest.chemicals.ProductSource",
+                "openminds.latest.core.Organization",
+                "openminds.latest.core.Software",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.Strain",
+                "openminds.latest.ephys.Electrode",
+                "openminds.latest.ephys.ElectrodeArray",
+                "openminds.latest.ephys.Pipette",
+                "openminds.latest.sands.BrainAtlas",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpace",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.specimen_prep.SlicingDevice",
             ],
-            "^vocab:digitalIdentifier",
+            "digitalIdentifier",
             reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digital_identifier'",
+            description="reverse of 'digital_identifier'",
         ),
     ]
     existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, identifies=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(
-            id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
+        return KGObject.__init__(
+            self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )

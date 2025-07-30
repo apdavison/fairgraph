@@ -4,60 +4,43 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import FileArchive
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class FileArchive(KGObject):
+class FileArchive(KGObject, FileArchive):
     """
     <description not available>
     """
 
-    default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/FileArchive"
-    properties = [
-        Property(
-            "format",
-            "openminds.core.ContentType",
-            "vocab:format",
-            required=True,
-            doc="Method of digitally organizing and structuring data or information.",
-        ),
-        Property(
-            "iri",
-            IRI,
-            "vocab:IRI",
-            required=True,
-            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
-        ),
-        Property(
-            "source_data", "openminds.core.File", "vocab:sourceData", multiple=True, doc="no description available"
-        ),
-    ]
+    default_space = "dataset"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_location_of",
-            "openminds.core.ServiceLink",
-            "^vocab:dataLocation",
+            "openminds.latest.core.ServiceLink",
+            "dataLocation",
             reverse="data_location",
             multiple=True,
-            doc="reverse of 'data_location'",
+            description="reverse of 'data_location'",
         ),
         Property(
             "is_output_of",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.Visualization",
             ],
-            "^vocab:output",
+            "output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'outputs'",
+            description="reverse of 'outputs'",
         ),
     ]
     existence_query_properties = ("iri", "format")
@@ -74,7 +57,8 @@ class FileArchive(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,84 +4,43 @@ Structured information about a file that is not accessible via a URL.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import LocalFile
+from fairgraph import KGObject
 
 
-class LocalFile(KGObject):
+class LocalFile(KGObject, LocalFile):
     """
     Structured information about a file that is not accessible via a URL.
     """
 
-    default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/LocalFile"
-    properties = [
-        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Property("copy_of", "openminds.core.File", "vocab:copyOf", doc="no description available"),
-        Property(
-            "data_types",
-            "openminds.controlled_terms.DataType",
-            "vocab:dataType",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "format",
-            "openminds.core.ContentType",
-            "vocab:format",
-            doc="Method of digitally organizing and structuring data or information.",
-        ),
-        Property(
-            "hash",
-            "openminds.core.Hash",
-            "vocab:hash",
-            doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the local file.",
-        ),
-        Property("path", str, "vocab:path", required=True, doc="no description available"),
-        Property(
-            "special_usage_role",
-            "openminds.controlled_terms.FileUsageRole",
-            "vocab:specialUsageRole",
-            doc="Particular function of something when it is used.",
-        ),
-        Property(
-            "storage_size",
-            "openminds.core.QuantitativeValue",
-            "vocab:storageSize",
-            doc="Quantitative value defining how much disk space is used by an object on a computer system.",
-        ),
-    ]
+    default_space = "computation"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_output_of",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.Visualization",
             ],
-            "^vocab:output",
+            "output",
             reverse="outputs",
             multiple=True,
-            doc="reverse of 'outputs'",
+            description="reverse of 'outputs'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("name", "path")
@@ -104,7 +63,8 @@ class LocalFile(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

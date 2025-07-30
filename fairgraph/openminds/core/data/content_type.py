@@ -4,112 +4,65 @@ Structured information on the content type of a file instance, bundle or reposit
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import ContentType
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class ContentType(KGObject):
+class ContentType(KGObject, ContentType):
     """
     Structured information on the content type of a file instance, bundle or repository.
     """
 
-    default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/core/ContentType"
-    properties = [
-        Property(
-            "data_types",
-            "openminds.controlled_terms.DataType",
-            "vocab:dataType",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the content type.",
-        ),
-        Property("display_label", str, "vocab:displayLabel", doc="no description available"),
-        Property(
-            "file_extensions",
-            str,
-            "vocab:fileExtension",
-            multiple=True,
-            doc="String of characters attached as suffix to the names of files of a particular format.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the content type.",
-        ),
-        Property(
-            "related_media_type",
-            IRI,
-            "vocab:relatedMediaType",
-            doc="Reference to an official two-part identifier for file formats and format contents.",
-        ),
-        Property(
-            "specification",
-            IRI,
-            "vocab:specification",
-            doc="Detailed and precise presentation of, or proposal for something.",
-        ),
-        Property(
-            "synonyms",
-            str,
-            "vocab:synonym",
-            multiple=True,
-            doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
-        ),
-    ]
+    default_space = "controlled"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_defined_by",
-            "openminds.core.ContentTypePattern",
-            "^vocab:contentType",
+            "openminds.latest.core.ContentTypePattern",
+            "contentType",
             reverse="content_type",
             multiple=True,
-            doc="reverse of 'content_type'",
+            description="reverse of 'content_type'",
         ),
         Property(
             "is_format_of",
             [
-                "openminds.computation.LocalFile",
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.Configuration",
-                "openminds.core.File",
-                "openminds.core.FileArchive",
-                "openminds.core.FileBundle",
-                "openminds.core.FileRepository",
-                "openminds.core.ModelVersion",
-                "openminds.core.WebResource",
+                "openminds.latest.computation.LocalFile",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.Configuration",
+                "openminds.latest.core.File",
+                "openminds.latest.core.FileArchive",
+                "openminds.latest.core.FileBundle",
+                "openminds.latest.core.FileRepository",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.WebResource",
             ],
-            "^vocab:format",
+            "format",
             reverse="format",
             multiple=True,
-            doc="reverse of 'format'",
+            description="reverse of 'format'",
         ),
         Property(
             "is_output_format_of",
-            ["openminds.core.SoftwareVersion", "openminds.core.WebServiceVersion"],
-            "^vocab:outputFormat",
+            ["openminds.latest.core.SoftwareVersion", "openminds.latest.core.WebServiceVersion"],
+            "outputFormat",
             reverse="output_formats",
             multiple=True,
-            doc="reverse of 'output_formats'",
+            description="reverse of 'output_formats'",
         ),
         Property(
             "is_specification_format_of",
-            "openminds.core.MetaDataModelVersion",
-            "^vocab:specificationFormat",
+            "openminds.latest.core.MetaDataModelVersion",
+            "specificationFormat",
             reverse="specification_formats",
             multiple=True,
-            doc="reverse of 'specification_formats'",
+            description="reverse of 'specification_formats'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -133,7 +86,8 @@ class ContentType(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

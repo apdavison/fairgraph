@@ -4,55 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.publications import LivePaperSection
+from fairgraph import KGObject
 
 
-class LivePaperSection(KGObject):
+class LivePaperSection(KGObject, LivePaperSection):
     """
     <description not available>
     """
 
-    default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/LivePaperSection"
-    properties = [
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the live paper section.",
-        ),
-        Property(
-            "is_part_of",
-            "openminds.publications.LivePaperVersion",
-            "vocab:isPartOf",
-            required=True,
-            doc="Reference to the ensemble of multiple things or beings.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the live paper section.",
-        ),
-        Property("order", int, "vocab:order", required=True, doc="no description available"),
-        Property(
-            "type",
-            str,
-            "vocab:type",
-            required=True,
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-    ]
+    default_space = "livepapers"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.publications.LivePaperResourceItem",
-            "^vocab:isPartOf",
+            "openminds.latest.publications.LivePaperResourceItem",
+            "isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'is_part_of'",
+            description="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("is_part_of", "name", "order", "type")
@@ -70,7 +42,8 @@ class LivePaperSection(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

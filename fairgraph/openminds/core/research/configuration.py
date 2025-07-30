@@ -4,49 +4,40 @@ Structured information about the properties or parameters of an entity or proces
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Configuration
+from fairgraph import KGObject
 
 
-class Configuration(KGObject):
+class Configuration(KGObject, Configuration):
     """
     Structured information about the properties or parameters of an entity or process.
     """
 
-    default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Configuration"
-    properties = [
-        Property("configuration", str, "vocab:configuration", required=True, doc="no description available"),
-        Property(
-            "format",
-            "openminds.core.ContentType",
-            "vocab:format",
-            required=True,
-            doc="Method of digitally organizing and structuring data or information.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-    ]
+    default_space = "common"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_configuration_of",
             [
-                "openminds.computation.Environment",
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowExecution",
-                "openminds.core.ModelVersion",
+                "openminds.latest.computation.Environment",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowExecution",
+                "openminds.latest.core.ModelVersion",
             ],
-            "^vocab:configuration",
+            "configuration",
             reverse="configuration",
             multiple=True,
-            doc="reverse of 'configuration'",
+            description="reverse of 'configuration'",
         ),
         Property(
             "specifies",
-            "openminds.stimulation.EphysStimulus",
-            "^vocab:specification",
+            "openminds.latest.stimulation.EphysStimulus",
+            "specification",
             reverse="specifications",
             multiple=True,
-            doc="reverse of 'specifications'",
+            description="reverse of 'specifications'",
         ),
     ]
     existence_query_properties = ("configuration",)
@@ -63,7 +54,8 @@ class Configuration(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,57 +4,27 @@ Structured information about an execution of a computational workflow.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import WorkflowExecution
+from fairgraph import KGObject
 
 
-class WorkflowExecution(KGObject):
+class WorkflowExecution(KGObject, WorkflowExecution):
     """
     Structured information about an execution of a computational workflow.
     """
 
-    default_space = "computation"
     type_ = "https://openminds.ebrains.eu/computation/WorkflowExecution"
-    properties = [
-        Property(
-            "configuration",
-            ["openminds.core.Configuration", "openminds.core.File"],
-            "vocab:configuration",
-            doc="no description available",
-        ),
-        Property(
-            "recipe", "openminds.computation.WorkflowRecipeVersion", "vocab:recipe", doc="no description available"
-        ),
-        Property(
-            "stages",
-            [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
-            ],
-            "vocab:stage",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "started_by",
-            ["openminds.computation.SoftwareAgent", "openminds.core.Person"],
-            "vocab:startedBy",
-            doc="no description available",
-        ),
-    ]
+    default_space = "computation"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("stages",)
 
     def __init__(
         self, configuration=None, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

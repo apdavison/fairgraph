@@ -4,127 +4,84 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import ParcellationEntity
+from fairgraph import KGObject
 
 
-class ParcellationEntity(KGObject):
+class ParcellationEntity(KGObject, ParcellationEntity):
     """
     <description not available>
     """
 
-    default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/ParcellationEntity"
-    properties = [
-        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
-        Property(
-            "definition",
-            str,
-            "vocab:definition",
-            doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
-        ),
-        Property(
-            "has_parents",
-            "openminds.sands.ParcellationEntity",
-            "vocab:hasParent",
-            multiple=True,
-            doc="Reference to a parent object or legal person.",
-        ),
-        Property(
-            "has_versions",
-            "openminds.sands.ParcellationEntityVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the parcellation entity.",
-        ),
-        Property(
-            "ontology_identifiers",
-            str,
-            "vocab:ontologyIdentifier",
-            multiple=True,
-            doc="Term or code used to identify the parcellation entity registered within a particular ontology.",
-        ),
-        Property(
-            "related_uberon_term",
-            ["openminds.controlled_terms.Organ", "openminds.controlled_terms.UBERONParcellation"],
-            "vocab:relatedUBERONTerm",
-            doc="no description available",
-        ),
-    ]
+    default_space = "atlas"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_children",
-            ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"],
-            "^vocab:hasParent",
+            ["openminds.latest.sands.ParcellationEntity", "openminds.latest.sands.ParcellationEntityVersion"],
+            "hasParent",
             reverse="has_parents",
             multiple=True,
-            doc="reverse of 'has_parents'",
+            description="reverse of 'has_parents'",
         ),
         Property(
             "is_location_of",
             [
-                "openminds.core.TissueSample",
-                "openminds.core.TissueSampleCollection",
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
+                "openminds.latest.core.TissueSample",
+                "openminds.latest.core.TissueSampleCollection",
+                "openminds.latest.ephys.ElectrodeArrayUsage",
+                "openminds.latest.ephys.ElectrodeUsage",
+                "openminds.latest.ephys.PipetteUsage",
             ],
-            ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes"],
+            ["anatomicalLocation", "anatomicalLocationOfElectrodes"],
             reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
             multiple=True,
-            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes",
+            description="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes",
         ),
         Property(
             "is_target_of",
-            "openminds.sands.AnatomicalTargetPosition",
-            "^vocab:anatomicalTarget",
+            "openminds.latest.sands.AnatomicalTargetPosition",
+            "anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomical_targets'",
+            description="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.DatasetVersion",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimen_prep.CranialWindowPreparation",
-                "openminds.specimen_prep.TissueCulturePreparation",
-                "openminds.specimen_prep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.ValidationTest",
+                "openminds.latest.computation.Visualization",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.Model",
+                "openminds.latest.core.ProtocolExecution",
+                "openminds.latest.ephys.CellPatching",
+                "openminds.latest.ephys.ElectrodePlacement",
+                "openminds.latest.ephys.RecordingActivity",
+                "openminds.latest.specimen_prep.CranialWindowPreparation",
+                "openminds.latest.specimen_prep.TissueCulturePreparation",
+                "openminds.latest.specimen_prep.TissueSampleSlicing",
+                "openminds.latest.stimulation.StimulationActivity",
             ],
-            "^vocab:studyTarget",
+            "studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'study_targets'",
+            description="reverse of 'study_targets'",
         ),
     ]
     aliases = {"versions": "has_versions"}
@@ -152,7 +109,8 @@ class ParcellationEntity(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

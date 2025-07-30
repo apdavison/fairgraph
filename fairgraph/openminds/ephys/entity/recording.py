@@ -4,85 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.ephys import Recording
+from fairgraph import KGObject
 
 
-class Recording(KGObject):
+class Recording(KGObject, Recording):
     """
     <description not available>
     """
 
-    default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/ephys/Recording"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property(
-            "channels",
-            "openminds.ephys.Channel",
-            "vocab:channel",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "data_location",
-            ["openminds.core.File", "openminds.core.FileBundle"],
-            "vocab:dataLocation",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            doc="Term or code that identifies the recording within a particular product.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the recording.",
-        ),
-        Property(
-            "previous_recording",
-            "openminds.ephys.Recording",
-            "vocab:previousRecording",
-            doc="no description available",
-        ),
-        Property(
-            "recorded_with",
-            [
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
-            ],
-            "vocab:recordedWith",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "sampling_frequency",
-            "openminds.core.QuantitativeValue",
-            "vocab:samplingFrequency",
-            required=True,
-            doc="no description available",
-        ),
-    ]
+    default_space = "in-depth"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "next_recording",
-            "openminds.ephys.Recording",
-            "^vocab:previousRecording",
+            "openminds.latest.ephys.Recording",
+            "previousRecording",
             reverse="previous_recording",
             multiple=True,
-            doc="reverse of 'previous_recording'",
+            description="reverse of 'previous_recording'",
         ),
     ]
     existence_query_properties = ("channels", "data_location", "recorded_with", "sampling_frequency")
@@ -103,7 +45,8 @@ class Recording(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

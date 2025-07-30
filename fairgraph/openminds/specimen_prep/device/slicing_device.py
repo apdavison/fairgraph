@@ -4,77 +4,35 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.specimen_prep import SlicingDevice
+from fairgraph import KGObject
 
 
-class SlicingDevice(KGObject):
+class SlicingDevice(KGObject, SlicingDevice):
     """
     <description not available>
     """
 
-    default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/specimenPrep/SlicingDevice"
-    properties = [
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the slicing device.",
-        ),
-        Property(
-            "device_type",
-            "openminds.controlled_terms.DeviceType",
-            "vocab:deviceType",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "digital_identifier",
-            ["openminds.core.DOI", "openminds.core.RRID"],
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "manufacturers",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:manufacturer",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the slicing device.",
-        ),
-        Property(
-            "owners",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:owner",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property("serial_number", str, "vocab:serialNumber", doc="no description available"),
-    ]
+    default_space = "in-depth"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.core.Setup",
-            "^vocab:hasPart",
+            "openminds.latest.core.Setup",
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "usage",
-            "openminds.specimen_prep.SlicingDeviceUsage",
-            "^vocab:device",
+            "openminds.latest.specimen_prep.SlicingDeviceUsage",
+            "device",
             reverse="device",
             multiple=True,
-            doc="reverse of 'device'",
+            description="reverse of 'device'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -96,7 +54,8 @@ class SlicingDevice(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

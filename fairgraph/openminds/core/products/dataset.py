@@ -4,97 +4,46 @@ Structured information on data originating from human/animal studies or simulati
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Dataset
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class Dataset(KGObject):
+class Dataset(KGObject, Dataset):
     """
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
 
-    default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/Dataset"
-    properties = [
-        Property(
-            "authors",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:author",
-            multiple=True,
-            required=True,
-            doc="Creator of a literary or creative work, as well as a dataset publication.",
-        ),
-        Property(
-            "custodians",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:custodian",
-            multiple=True,
-            doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the dataset.",
-        ),
-        Property(
-            "digital_identifier",
-            ["openminds.core.DOI", "openminds.core.IdentifiersDotOrgID"],
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the dataset."),
-        Property(
-            "has_versions",
-            "openminds.core.DatasetVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            required=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property("homepage", IRI, "vocab:homepage", doc="Main website of the dataset."),
-        Property(
-            "how_to_cite",
-            str,
-            "vocab:howToCite",
-            doc="Preferred format for citing a particular object or legal person.",
-        ),
-        Property(
-            "short_name",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the dataset.",
-        ),
-    ]
+    default_space = "dataset"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "comments",
-            "openminds.core.Comment",
-            "^vocab:about",
+            "openminds.latest.core.Comment",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
-            "^vocab:hasPart",
+            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "learning_resources",
-            "openminds.publications.LearningResource",
-            "^vocab:about",
+            "openminds.latest.publications.LearningResource",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
     ]
     aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
@@ -122,7 +71,8 @@ class Dataset(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

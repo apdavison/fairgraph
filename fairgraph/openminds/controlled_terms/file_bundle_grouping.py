@@ -4,105 +4,61 @@ Structured information on the grouping mechanism of a file bundle.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.controlled_terms import FileBundleGrouping
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class FileBundleGrouping(KGObject):
+class FileBundleGrouping(KGObject, FileBundleGrouping):
     """
     Structured information on the grouping mechanism of a file bundle.
     """
 
-    default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/FileBundleGrouping"
-    properties = [
-        Property(
-            "definition",
-            str,
-            "vocab:definition",
-            doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the file bundle grouping.",
-        ),
-        Property(
-            "interlex_identifier",
-            IRI,
-            "vocab:interlexIdentifier",
-            doc="Persistent identifier for a term registered in the InterLex project.",
-        ),
-        Property(
-            "knowledge_space_link",
-            IRI,
-            "vocab:knowledgeSpaceLink",
-            doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the file bundle grouping.",
-        ),
-        Property(
-            "preferred_ontology_identifier",
-            IRI,
-            "vocab:preferredOntologyIdentifier",
-            doc="Persistent identifier of a preferred ontological term.",
-        ),
-        Property(
-            "synonyms",
-            str,
-            "vocab:synonym",
-            multiple=True,
-            doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
-        ),
-    ]
+    default_space = "controlled"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "describes",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:keyword",
+            "keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keywords'",
+            description="reverse of 'keywords'",
         ),
         Property(
             "is_defined_by",
-            "openminds.core.FilePathPattern",
-            "^vocab:groupingType",
+            "openminds.latest.core.FilePathPattern",
+            "groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'grouping_types'",
+            description="reverse of 'grouping_types'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupingType",
+            "openminds.latest.core.FileBundle",
+            "groupingType",
             reverse="grouping_types",
             multiple=True,
-            doc="reverse of 'grouping_types'",
+            description="reverse of 'grouping_types'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -124,7 +80,8 @@ class FileBundleGrouping(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

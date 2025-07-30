@@ -4,54 +4,21 @@ Structured information about a measurement performed during a scientific experim
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Measurement
+from fairgraph import EmbeddedMetadata
 
 
 from datetime import datetime
 
 
-class Measurement(EmbeddedMetadata):
+class Measurement(EmbeddedMetadata, Measurement):
     """
     Structured information about a measurement performed during a scientific experiment.
     """
 
     type_ = "https://openminds.ebrains.eu/core/Measurement"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property(
-            "measured_quantity",
-            "openminds.controlled_terms.MeasuredQuantity",
-            "vocab:measuredQuantity",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "measured_with",
-            [
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
-            ],
-            "vocab:measuredWith",
-            doc="no description available",
-        ),
-        Property("timestamp", datetime, "vocab:timestamp", doc="no description available"),
-        Property(
-            "values",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:value",
-            multiple=True,
-            required=True,
-            doc="Entry for a property.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(
@@ -66,7 +33,8 @@ class Measurement(EmbeddedMetadata):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return EmbeddedMetadata.__init__(
+            self,
             data=data,
             additional_remarks=additional_remarks,
             measured_quantity=measured_quantity,

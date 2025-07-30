@@ -4,115 +4,57 @@ Structured information on a file repository.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import FileRepository
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class FileRepository(KGObject):
+class FileRepository(KGObject, FileRepository):
     """
     Structured information on a file repository.
     """
 
-    default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/FileRepository"
-    properties = [
-        Property(
-            "content_type_patterns",
-            "openminds.core.ContentTypePattern",
-            "vocab:contentTypePattern",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "format",
-            "openminds.core.ContentType",
-            "vocab:format",
-            doc="Method of digitally organizing and structuring data or information.",
-        ),
-        Property(
-            "hash",
-            "openminds.core.Hash",
-            "vocab:hash",
-            doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
-        ),
-        Property(
-            "hosted_by",
-            "openminds.core.Organization",
-            "vocab:hostedBy",
-            required=True,
-            doc="Reference to an organization that provides facilities and services for something.",
-        ),
-        Property(
-            "iri",
-            IRI,
-            "vocab:IRI",
-            required=True,
-            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the file repository.",
-        ),
-        Property(
-            "storage_size",
-            "openminds.core.QuantitativeValue",
-            "vocab:storageSize",
-            doc="Quantitative value defining how much disk space is used by an object on a computer system.",
-        ),
-        Property(
-            "structure_pattern",
-            "openminds.core.FileRepositoryStructure",
-            "vocab:structurePattern",
-            doc="no description available",
-        ),
-        Property(
-            "type",
-            "openminds.controlled_terms.FileRepositoryType",
-            "vocab:type",
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-    ]
+    default_space = "dataset"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "contains_content_of",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:repository",
+            "repository",
             reverse="repository",
             multiple=True,
-            doc="reverse of 'repository'",
+            description="reverse of 'repository'",
         ),
         Property(
             "files",
-            "openminds.core.File",
-            "^vocab:fileRepository",
+            "openminds.latest.core.File",
+            "fileRepository",
             reverse="file_repository",
             multiple=True,
-            doc="reverse of 'file_repository'",
+            description="reverse of 'file_repository'",
         ),
         Property(
             "has_parts",
-            "openminds.core.FileBundle",
-            "^vocab:isPartOf",
+            "openminds.latest.core.FileBundle",
+            "isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'is_part_of'",
+            description="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("iri",)
@@ -136,7 +78,8 @@ class FileRepository(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,71 +4,35 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import CustomCoordinateSpace
+from fairgraph import KGObject
 
 
-class CustomCoordinateSpace(KGObject):
+class CustomCoordinateSpace(KGObject, CustomCoordinateSpace):
     """
     <description not available>
     """
 
-    default_space = "spatial"
     type_ = "https://openminds.ebrains.eu/sands/CustomCoordinateSpace"
-    properties = [
-        Property(
-            "anatomical_axes_orientation",
-            "openminds.controlled_terms.AnatomicalAxesOrientation",
-            "vocab:anatomicalAxesOrientation",
-            required=True,
-            doc="Relation between reference planes used in anatomy and mathematics.",
-        ),
-        Property(
-            "axes_origins",
-            "openminds.core.QuantitativeValue",
-            "vocab:axesOrigin",
-            multiple=True,
-            required=True,
-            doc="Special point in a coordinate system used as a fixed point of reference for the geometry of the surrounding space.",
-        ),
-        Property(
-            "default_images",
-            "openminds.core.File",
-            "vocab:defaultImage",
-            multiple=True,
-            doc="Two or three dimensional image that particluarly represents a specific coordinate space.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the custom coordinate space.",
-        ),
-        Property(
-            "native_unit",
-            "openminds.controlled_terms.UnitOfMeasurement",
-            "vocab:nativeUnit",
-            required=True,
-            doc="Determinate quantity used in the original measurement.",
-        ),
-    ]
+    default_space = "spatial"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_coordinate_space_of",
-            "openminds.sands.CustomAnnotation",
-            "^vocab:coordinateSpace",
+            "openminds.latest.sands.CustomAnnotation",
+            "coordinateSpace",
             reverse="coordinate_space",
             multiple=True,
-            doc="reverse of 'coordinate_space'",
+            description="reverse of 'coordinate_space'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -87,7 +51,8 @@ class CustomCoordinateSpace(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

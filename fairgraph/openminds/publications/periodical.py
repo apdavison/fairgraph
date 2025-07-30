@@ -4,41 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.publications import Periodical
+from fairgraph import KGObject
 
 
-class Periodical(KGObject):
+class Periodical(KGObject, Periodical):
     """
     <description not available>
     """
 
-    default_space = "livepapers"
     type_ = "https://openminds.ebrains.eu/publications/Periodical"
-    properties = [
-        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Property(
-            "digital_identifier",
-            "openminds.core.ISSN",
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the periodical.",
-        ),
-    ]
+    default_space = "livepapers"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.publications.PublicationVolume",
-            "^vocab:isPartOf",
+            "openminds.latest.publications.PublicationVolume",
+            "isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'is_part_of'",
+            description="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("abbreviation",)
@@ -54,7 +40,8 @@ class Periodical(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,8 +4,9 @@ Structured information on a file instance that is accessible via a URL.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import File
+from fairgraph import KGObject
 
 import os
 import mimetypes
@@ -19,217 +20,159 @@ from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class File(KGObject):
+class File(KGObject, File):
     """
     Structured information on a file instance that is accessible via a URL.
     """
 
-    default_space = "files"
     type_ = "https://openminds.ebrains.eu/core/File"
-    properties = [
-        Property("content_description", str, "vocab:contentDescription", doc="no description available"),
-        Property(
-            "data_types",
-            "openminds.controlled_terms.DataType",
-            "vocab:dataType",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "file_repository", "openminds.core.FileRepository", "vocab:fileRepository", doc="no description available"
-        ),
-        Property(
-            "format",
-            "openminds.core.ContentType",
-            "vocab:format",
-            doc="Method of digitally organizing and structuring data or information.",
-        ),
-        Property(
-            "hashes",
-            "openminds.core.Hash",
-            "vocab:hash",
-            multiple=True,
-            doc="Term used for the process of converting any data into a single value. Often also directly refers to the resulting single value.",
-        ),
-        Property(
-            "iri",
-            IRI,
-            "vocab:IRI",
-            required=True,
-            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
-        ),
-        Property(
-            "is_part_of",
-            "openminds.core.FileBundle",
-            "vocab:isPartOf",
-            multiple=True,
-            doc="Reference to the ensemble of multiple things or beings.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the file.",
-        ),
-        Property(
-            "special_usage_role",
-            "openminds.controlled_terms.FileUsageRole",
-            "vocab:specialUsageRole",
-            doc="Particular function of something when it is used.",
-        ),
-        Property(
-            "storage_size",
-            "openminds.core.QuantitativeValue",
-            "vocab:storageSize",
-            doc="Quantitative value defining how much disk space is used by an object on a computer system.",
-        ),
-    ]
+    default_space = "files"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "describes",
             [
-                "openminds.core.BehavioralProtocol",
-                "openminds.core.Protocol",
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
+                "openminds.latest.core.BehavioralProtocol",
+                "openminds.latest.core.Protocol",
+                "openminds.latest.ephys.ElectrodeArrayUsage",
+                "openminds.latest.ephys.ElectrodeUsage",
+                "openminds.latest.ephys.PipetteUsage",
+                "openminds.latest.specimen_prep.SlicingDeviceUsage",
             ],
-            ["^vocab:describedIn", "^vocab:metadataLocation"],
+            ["describedIn", "metadataLocation"],
             reverse=["described_in", "metadata_locations"],
             multiple=True,
-            doc="reverse of described_in, metadata_locations",
+            description="reverse of described_in, metadata_locations",
         ),
         Property(
             "fully_documents",
             [
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:fullDocumentation",
+            "fullDocumentation",
             reverse="full_documentation",
             multiple=True,
-            doc="reverse of 'full_documentation'",
+            description="reverse of 'full_documentation'",
         ),
         Property(
             "has_copies",
-            "openminds.computation.LocalFile",
-            "^vocab:copyOf",
+            "openminds.latest.computation.LocalFile",
+            "copyOf",
             reverse="copy_of",
             multiple=True,
-            doc="reverse of 'copy_of'",
+            description="reverse of 'copy_of'",
         ),
         Property(
             "is_also_part_of",
-            "openminds.computation.WorkflowRecipeVersion",
-            "^vocab:hasPart",
+            "openminds.latest.computation.WorkflowRecipeVersion",
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "is_configuration_of",
-            "openminds.computation.WorkflowExecution",
-            "^vocab:configuration",
+            "openminds.latest.computation.WorkflowExecution",
+            "configuration",
             reverse="configuration",
             multiple=True,
-            doc="reverse of 'configuration'",
+            description="reverse of 'configuration'",
         ),
         Property(
             "is_default_image_for",
-            "openminds.sands.CustomCoordinateSpace",
-            "^vocab:defaultImage",
+            "openminds.latest.sands.CustomCoordinateSpace",
+            "defaultImage",
             reverse="default_images",
             multiple=True,
-            doc="reverse of 'default_images'",
+            description="reverse of 'default_images'",
         ),
         Property(
             "is_input_to",
-            "openminds.core.DatasetVersion",
-            "^vocab:inputData",
+            "openminds.latest.core.DatasetVersion",
+            "inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'input_data'",
+            description="reverse of 'input_data'",
         ),
         Property(
             "is_location_of",
-            ["openminds.ephys.Recording", "openminds.sands.ParcellationTerminologyVersion"],
-            "^vocab:dataLocation",
+            ["openminds.latest.ephys.Recording", "openminds.latest.sands.ParcellationTerminologyVersion"],
+            "dataLocation",
             reverse="data_location",
             multiple=True,
-            doc="reverse of 'data_location'",
+            description="reverse of 'data_location'",
         ),
         Property(
             "is_output_of",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
-                "openminds.core.ModelVersion",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.RecordingActivity",
-                "openminds.stimulation.StimulationActivity",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.Visualization",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.ProtocolExecution",
+                "openminds.latest.ephys.RecordingActivity",
+                "openminds.latest.stimulation.StimulationActivity",
             ],
-            ["^vocab:output", "^vocab:outputData"],
+            ["output", "outputData"],
             reverse=["output_data", "outputs"],
             multiple=True,
-            doc="reverse of output_data, outputs",
+            description="reverse of output_data, outputs",
         ),
         Property(
             "is_preview_of",
-            "openminds.core.ServiceLink",
-            "^vocab:previewImage",
+            "openminds.latest.core.ServiceLink",
+            "previewImage",
             reverse="preview_image",
             multiple=True,
-            doc="reverse of 'preview_image'",
+            description="reverse of 'preview_image'",
         ),
         Property(
             "is_reference_for",
-            "openminds.computation.ValidationTestVersion",
-            "^vocab:referenceData",
+            "openminds.latest.computation.ValidationTestVersion",
+            "referenceData",
             reverse="reference_data",
             multiple=True,
-            doc="reverse of 'reference_data'",
+            description="reverse of 'reference_data'",
         ),
         Property(
             "is_source_data_of",
-            "openminds.core.FileArchive",
-            "^vocab:sourceData",
+            "openminds.latest.core.FileArchive",
+            "sourceData",
             reverse="source_data",
             multiple=True,
-            doc="reverse of 'source_data'",
+            description="reverse of 'source_data'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "specifies",
             [
-                "openminds.sands.AtlasAnnotation",
-                "openminds.sands.CustomAnnotation",
-                "openminds.stimulation.EphysStimulus",
+                "openminds.latest.sands.AtlasAnnotation",
+                "openminds.latest.sands.CustomAnnotation",
+                "openminds.latest.stimulation.EphysStimulus",
             ],
-            "^vocab:specification",
+            "specification",
             reverse="specification",
             multiple=True,
-            doc="reverse of 'specification'",
+            description="reverse of 'specification'",
         ),
     ]
     aliases = {"hash": "hashes"}
@@ -267,7 +210,8 @@ class File(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

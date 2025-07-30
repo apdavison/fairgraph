@@ -4,74 +4,22 @@ Structured information on a research project.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Project
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class Project(KGObject):
+class Project(KGObject, Project):
     """
     Structured information on a research project.
     """
 
-    default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Project"
-    properties = [
-        Property(
-            "coordinators",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:coordinator",
-            multiple=True,
-            doc="Legal person who organizes the collaborative work of people or groups.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the project.",
-        ),
-        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the project."),
-        Property(
-            "has_parts",
-            [
-                "openminds.computation.ValidationTest",
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipe",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.Dataset",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModel",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.Model",
-                "openminds.core.ModelVersion",
-                "openminds.core.Software",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebService",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaper",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlas",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpace",
-                "openminds.sands.CommonCoordinateSpaceVersion",
-            ],
-            "vocab:hasPart",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property("homepage", IRI, "vocab:homepage", doc="Main website of the project."),
-        Property(
-            "short_name",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the project.",
-        ),
-    ]
+    default_space = "common"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     aliases = {"name": "full_name", "alias": "short_name"}
     existence_query_properties = ("short_name",)
@@ -91,7 +39,8 @@ class Project(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,145 +4,101 @@ Structured information on the species.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.controlled_terms import Species
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class Species(KGObject):
+class Species(KGObject, Species):
     """
     Structured information on the species.
     """
 
-    default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/controlledTerms/Species"
-    properties = [
-        Property(
-            "definition",
-            str,
-            "vocab:definition",
-            doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the species.",
-        ),
-        Property(
-            "interlex_identifier",
-            IRI,
-            "vocab:interlexIdentifier",
-            doc="Persistent identifier for a term registered in the InterLex project.",
-        ),
-        Property(
-            "knowledge_space_link",
-            IRI,
-            "vocab:knowledgeSpaceLink",
-            doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the species.",
-        ),
-        Property(
-            "preferred_ontology_identifier",
-            IRI,
-            "vocab:preferredOntologyIdentifier",
-            doc="Persistent identifier of a preferred ontological term.",
-        ),
-        Property(
-            "synonyms",
-            str,
-            "vocab:synonym",
-            multiple=True,
-            doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
-        ),
-    ]
+    default_space = "controlled"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "common_coordinate_space",
-            ["openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
-            "^vocab:usedSpecies",
+            ["openminds.latest.sands.BrainAtlas", "openminds.latest.sands.CommonCoordinateSpace"],
+            "usedSpecies",
             reverse="used_species",
             multiple=True,
-            doc="reverse of 'used_species'",
+            description="reverse of 'used_species'",
         ),
         Property(
             "describes",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:keyword",
+            "keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keywords'",
+            description="reverse of 'keywords'",
         ),
         Property(
             "is_species_of",
             [
-                "openminds.core.Strain",
-                "openminds.core.Subject",
-                "openminds.core.SubjectGroup",
-                "openminds.core.TissueSample",
-                "openminds.core.TissueSampleCollection",
+                "openminds.latest.core.Strain",
+                "openminds.latest.core.Subject",
+                "openminds.latest.core.SubjectGroup",
+                "openminds.latest.core.TissueSample",
+                "openminds.latest.core.TissueSampleCollection",
             ],
-            "^vocab:species",
+            "species",
             reverse="species",
             multiple=True,
-            doc="reverse of 'species'",
+            description="reverse of 'species'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "studied_in",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.DatasetVersion",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimen_prep.CranialWindowPreparation",
-                "openminds.specimen_prep.TissueCulturePreparation",
-                "openminds.specimen_prep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.ValidationTest",
+                "openminds.latest.computation.Visualization",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.Model",
+                "openminds.latest.core.ProtocolExecution",
+                "openminds.latest.ephys.CellPatching",
+                "openminds.latest.ephys.ElectrodePlacement",
+                "openminds.latest.ephys.RecordingActivity",
+                "openminds.latest.specimen_prep.CranialWindowPreparation",
+                "openminds.latest.specimen_prep.TissueCulturePreparation",
+                "openminds.latest.specimen_prep.TissueSampleSlicing",
+                "openminds.latest.stimulation.StimulationActivity",
             ],
-            "^vocab:studyTarget",
+            "studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'study_targets'",
+            description="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -166,7 +122,8 @@ class Species(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

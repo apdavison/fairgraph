@@ -4,67 +4,42 @@ Structured information on used funding.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Funding
+from fairgraph import KGObject
 
 
-class Funding(KGObject):
+class Funding(KGObject, Funding):
     """
     Structured information on used funding.
     """
 
-    default_space = "common"
     type_ = "https://openminds.ebrains.eu/core/Funding"
-    properties = [
-        Property(
-            "acknowledgement",
-            str,
-            "vocab:acknowledgement",
-            doc="Official declaration or avowal of appreciation of an act or achievement.",
-        ),
-        Property(
-            "award_number",
-            str,
-            "vocab:awardNumber",
-            doc="Machine-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need.",
-        ),
-        Property(
-            "award_title",
-            str,
-            "vocab:awardTitle",
-            doc="Human-readable identifier for a benefit that is conferred or bestowed on the basis of merit or need.",
-        ),
-        Property(
-            "funder",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:funder",
-            required=True,
-            doc="Legal person that provides money for a particular purpose.",
-        ),
-    ]
+    default_space = "common"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "funded",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:funding",
+            "funding",
             reverse="funding",
             multiple=True,
-            doc="reverse of 'funding'",
+            description="reverse of 'funding'",
         ),
     ]
     existence_query_properties = ("funder",)
@@ -81,7 +56,8 @@ class Funding(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

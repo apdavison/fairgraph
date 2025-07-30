@@ -4,25 +4,19 @@
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import StockNumber
+from fairgraph import EmbeddedMetadata
 
 
-class StockNumber(EmbeddedMetadata):
+class StockNumber(EmbeddedMetadata, StockNumber):
     """
     <description not available>
     """
 
     type_ = "https://openminds.ebrains.eu/core/StockNumber"
-    properties = [
-        Property(
-            "identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the stock number."
-        ),
-        Property(
-            "vendor", "openminds.core.Organization", "vocab:vendor", required=True, doc="no description available"
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, identifier=None, vendor=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, identifier=identifier, vendor=vendor)
+        return EmbeddedMetadata.__init__(self, data=data, identifier=identifier, vendor=vendor)

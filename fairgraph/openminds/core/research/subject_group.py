@@ -4,88 +4,51 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import SubjectGroup
+from fairgraph import KGObject
 
 
-class SubjectGroup(KGObject):
+class SubjectGroup(KGObject, SubjectGroup):
     """
     <description not available>
     """
 
-    default_space = "dataset"
     type_ = "https://openminds.ebrains.eu/core/SubjectGroup"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property(
-            "biological_sexes",
-            "openminds.controlled_terms.BiologicalSex",
-            "vocab:biologicalSex",
-            multiple=True,
-            doc="Differentiation of individuals of most species (animals and plants) based on the type of gametes they produce.",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            doc="Term or code that identifies the subject group within a particular product.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property("number_of_subjects", int, "vocab:numberOfSubjects", doc="no description available"),
-        Property(
-            "species",
-            ["openminds.controlled_terms.Species", "openminds.core.Strain"],
-            "vocab:species",
-            multiple=True,
-            required=True,
-            doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
-        ),
-        Property(
-            "studied_states",
-            "openminds.core.SubjectGroupState",
-            "vocab:studiedState",
-            multiple=True,
-            required=True,
-            doc="Reference to a point in time at which the subject group was studied in a particular mode or condition.",
-        ),
-    ]
+    default_space = "dataset"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.core.Subject",
-            "^vocab:isPartOf",
+            "openminds.latest.core.Subject",
+            "isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'is_part_of'",
+            description="reverse of 'is_part_of'",
         ),
         Property(
             "has_study_results_in",
-            "openminds.core.DatasetVersion",
-            "^vocab:studiedSpecimen",
+            "openminds.latest.core.DatasetVersion",
+            "studiedSpecimen",
             reverse="studied_specimens",
             multiple=True,
-            doc="reverse of 'studied_specimens'",
+            description="reverse of 'studied_specimens'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
-            ["openminds.sands.BrainAtlasVersion", "openminds.sands.CommonCoordinateSpaceVersion"],
-            "^vocab:usedSpecimen",
+            ["openminds.latest.sands.BrainAtlasVersion", "openminds.latest.sands.CommonCoordinateSpaceVersion"],
+            "usedSpecimen",
             reverse="used_specimens",
             multiple=True,
-            doc="reverse of 'used_specimens'",
+            description="reverse of 'used_specimens'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -108,7 +71,8 @@ class SubjectGroup(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

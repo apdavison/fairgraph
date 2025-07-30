@@ -4,22 +4,21 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import SingleColor
+from fairgraph import KGObject
 
 
-class SingleColor(KGObject):
+class SingleColor(KGObject, SingleColor):
     """
     <description not available>
     """
 
-    default_space = "atlas"
     type_ = "https://openminds.ebrains.eu/sands/SingleColor"
-    properties = [
-        Property("value", str, "vocab:value", required=True, doc="Entry for a property."),
-    ]
+    default_space = "atlas"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("value",)
 
     def __init__(self, value=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(id=id, space=space, scope=scope, data=data, value=value)
+        return KGObject.__init__(self, id=id, space=space, scope=scope, data=data, value=value)

@@ -4,66 +4,44 @@ Structured information on a used license.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import License
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class License(KGObject):
+class License(KGObject, License):
     """
     Structured information on a used license.
     """
 
-    default_space = "controlled"
     type_ = "https://openminds.ebrains.eu/core/License"
-    properties = [
-        Property("full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the license."),
-        Property(
-            "legal_code",
-            IRI,
-            "vocab:legalCode",
-            required=True,
-            doc="Type of legislation that claims to cover the law system (complete or parts) as it existed at the time the code was enacted.",
-        ),
-        Property(
-            "short_name",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the license.",
-        ),
-        Property(
-            "webpages",
-            str,
-            "vocab:webpage",
-            multiple=True,
-            doc="Hypertext document (block of information) found on the World Wide Web.",
-        ),
-    ]
+    default_space = "controlled"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_applied_to",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:license",
+            "license",
             reverse="license",
             multiple=True,
-            doc="reverse of 'license'",
+            description="reverse of 'license'",
         ),
     ]
     aliases = {"name": "full_name", "alias": "short_name"}
@@ -83,7 +61,8 @@ class License(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

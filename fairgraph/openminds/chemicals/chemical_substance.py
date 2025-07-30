@@ -4,61 +4,39 @@ Structured information about a chemical substance.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.chemicals import ChemicalSubstance
+from fairgraph import KGObject
 
 
-class ChemicalSubstance(KGObject):
+class ChemicalSubstance(KGObject, ChemicalSubstance):
     """
     Structured information about a chemical substance.
     """
 
-    default_space = "in-depth"
     type_ = "https://openminds.ebrains.eu/chemicals/ChemicalSubstance"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "molecular_entity",
-            "openminds.controlled_terms.MolecularEntity",
-            "vocab:molecularEntity",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "product_source",
-            "openminds.chemicals.ProductSource",
-            "vocab:productSource",
-            doc="no description available",
-        ),
-        Property(
-            "purity",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:purity",
-            doc="no description available",
-        ),
-    ]
+    default_space = "in-depth"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "composes",
-            ["openminds.ephys.Electrode", "openminds.ephys.ElectrodeArray", "openminds.ephys.Pipette"],
-            ["^vocab:insulatorMaterial", "^vocab:material"],
+            [
+                "openminds.latest.ephys.Electrode",
+                "openminds.latest.ephys.ElectrodeArray",
+                "openminds.latest.ephys.Pipette",
+            ],
+            ["insulatorMaterial", "material"],
             reverse=["insulator_material", "material"],
             multiple=True,
-            doc="reverse of insulator_material, material",
+            description="reverse of insulator_material, material",
         ),
         Property(
             "labels",
-            "openminds.ephys.PipetteUsage",
-            "^vocab:labelingCompound",
+            "openminds.latest.ephys.PipetteUsage",
+            "labelingCompound",
             reverse="labeling_compound",
             multiple=True,
-            doc="reverse of 'labeling_compound'",
+            description="reverse of 'labeling_compound'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -77,7 +55,8 @@ class ChemicalSubstance(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

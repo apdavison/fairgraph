@@ -4,44 +4,18 @@
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import ViewerSpecification
+from fairgraph import EmbeddedMetadata
 
 
-class ViewerSpecification(EmbeddedMetadata):
+class ViewerSpecification(EmbeddedMetadata, ViewerSpecification):
     """
     <description not available>
     """
 
     type_ = "https://openminds.ebrains.eu/sands/ViewerSpecification"
-    properties = [
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property(
-            "anchor_points",
-            "openminds.core.QuantitativeValue",
-            "vocab:anchorPoint",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "camera_position",
-            "openminds.sands.CoordinatePoint",
-            "vocab:cameraPosition",
-            doc="no description available",
-        ),
-        Property(
-            "preferred_display_color",
-            ["openminds.controlled_terms.Colormap", "openminds.sands.SingleColor"],
-            "vocab:preferredDisplayColor",
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(
@@ -55,7 +29,8 @@ class ViewerSpecification(EmbeddedMetadata):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return EmbeddedMetadata.__init__(
+            self,
             data=data,
             additional_remarks=additional_remarks,
             anchor_points=anchor_points,
