@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
-      "propertyName": "vocab:contactInformation",
+      "propertyName": "contactInformation",
       "structure": [
         {
           "path": "@id"
@@ -48,27 +48,28 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
+      "propertyName": "fullName",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage"
+      "propertyName": "homepage"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
+      "propertyName": "shortName"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/coordinator",
         "reverse": true
       },
-      "propertyName": "vocab:coordinator",
+      "propertyName": "coordinator",
       "ensureOrder": true,
       "structure": [
         {
@@ -84,7 +85,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/developer",
         "reverse": true
       },
-      "propertyName": "vocab:developer",
+      "propertyName": "developer",
       "ensureOrder": true,
       "structure": [
         {
@@ -100,7 +101,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/funder",
         "reverse": true
       },
-      "propertyName": "vocab:funder",
+      "propertyName": "funder",
       "ensureOrder": true,
       "structure": [
         {
@@ -116,7 +117,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/memberOf",
         "reverse": true
       },
-      "propertyName": "vocab:memberOf",
+      "propertyName": "memberOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -124,11 +125,11 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/endDate",
-          "propertyName": "vocab:endDate"
+          "propertyName": "endDate"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/memberOf",
-          "propertyName": "vocab:memberOf",
+          "propertyName": "memberOf",
           "structure": [
             {
               "path": "@id"
@@ -136,11 +137,12 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/startDate",
-          "propertyName": "vocab:startDate"
+          "propertyName": "startDate"
         }
       ]
     },
@@ -149,7 +151,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/custodian",
         "reverse": true
       },
-      "propertyName": "vocab:custodian",
+      "propertyName": "custodian",
       "ensureOrder": true,
       "structure": [
         {
@@ -165,7 +167,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/owner",
         "reverse": true
       },
-      "propertyName": "vocab:owner",
+      "propertyName": "owner",
       "ensureOrder": true,
       "structure": [
         {
@@ -181,7 +183,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/provider",
         "reverse": true
       },
-      "propertyName": "vocab:provider",
+      "propertyName": "provider",
       "ensureOrder": true,
       "structure": [
         {
@@ -197,7 +199,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/manufacturer",
         "reverse": true
       },
-      "propertyName": "vocab:manufacturer",
+      "propertyName": "manufacturer",
       "ensureOrder": true,
       "structure": [
         {
@@ -213,7 +215,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/publisher",
         "reverse": true
       },
-      "propertyName": "vocab:publisher",
+      "propertyName": "publisher",
       "ensureOrder": true,
       "structure": [
         {

@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/service",
-      "propertyName": "vocab:service",
+      "propertyName": "service",
       "structure": [
         {
           "path": "@id"
@@ -48,18 +48,19 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/userName",
-      "propertyName": "vocab:userName"
+      "propertyName": "userName"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/associatedAccount",
         "reverse": true
       },
-      "propertyName": "vocab:associatedAccount",
+      "propertyName": "associatedAccount",
       "ensureOrder": true,
       "structure": [
         {

@@ -37,7 +37,7 @@ except ImportError:
 from openminds.registry import lookup_type
 from openminds import IRI
 
-from .utility import expand_uri, as_list, expand_filter, ActivityLog
+from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data
 from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
@@ -61,7 +61,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     Should not be instantiated directly, intended to be subclassed.
     """
 
-    properties: List[Property] = []
     existence_query_properties: Tuple[str, ...] = ("name",)
     # Note that this default value of existence_query_properties should in
     # many cases be over-ridden.
@@ -165,7 +164,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if data is None:
             return None
         else:
-            return cls.from_jsonld(data, client, scope=scope)
+            return cls.from_jsonld(data, scope=scope)
 
     @classmethod
     def from_uuid(
@@ -238,7 +237,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
             cls_from_data = lookup_type(data["@type"][0])
-            return cls_from_data.from_jsonld(data, client, scope=scope)
+            return cls_from_data.from_jsonld(data, scope=scope)
 
     @classmethod
     def from_alias(
@@ -376,8 +375,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             instances = client.list(cls.type_, space=space, from_index=from_index, size=size, scope=scope).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
-
-        return [cls.from_jsonld(instance, client, scope=scope) for instance in instances]
+        return [cls.from_jsonld(data=instance, scope=scope) for instance in instances]
 
     @classmethod
     def count(
@@ -454,10 +452,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if self.id and other.id and self.id != other.id:
             return True
         for prop in self.properties:
-            assert prop.intrinsic
             val_self = getattr(self, prop.name)
             val_other = getattr(other, prop.name)
             if val_self != val_other:
+                #if self.uuid == "ab532423-1fd7-4255-8c6f-f99dc6df814f":
+                #    raise Exception("breakpoint")
                 return True
         return False
 
@@ -472,7 +471,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if self.id != other.id:
                 differences["id"] = (self.id, other.id)
             for prop in self.properties:
-                assert prop.intrinsic
                 val_self = getattr(self, prop.name)
                 val_other = getattr(other, prop.name)
                 if val_self != val_other:
@@ -565,7 +563,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             else:
                 return local == remote
 
-        current_data = self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
+        current_data = normalize_data(
+            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
+            self.context
+        )
         modified_data = {}
         for key, current_value in current_data.items():
             if not key.startswith("@"):
@@ -606,7 +607,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if recursive:
             for prop in self.properties:
-                assert prop.intrinsic
                 # we do not save reverse properties, those objects must be saved separately
                 # this could be revisited, but we'll have to be careful about loops
                 # if saving recursively
@@ -653,7 +653,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                local_data = self.to_jsonld(embed_linked_nodes=False)
+                local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
@@ -675,9 +675,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             f"  - updating - {self.__class__.__name__}(id={self.id}) - properties changed: {modified_data.keys()}"
                         )
                         skip_update = False
-                        if "vocab:storageSize" in modified_data:
+                        if "storageSize" in modified_data:
                             warn("Removing storage size from update because this prop is currently locked by the KG")
-                            modified_data.pop("vocab:storageSize")
+                            modified_data.pop("storageSize")
                             skip_update = len(modified_data) == 0
 
                         if skip_update:
@@ -864,7 +864,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         # third pass, we add sorting, which can only happen at the top level
         for prop in query.properties:
-            if prop.name in ("vocab:name", "vocab:fullName", "vocab:lookupLabel"):
+            if prop.name in ("name", "fullName", "lookupLabel"):
                 prop.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.

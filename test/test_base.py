@@ -487,16 +487,12 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
-                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aDate": None,
+                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
                     "https://openminds.ebrains.eu/vocab/aNumber": -18,
-                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
                 {
-                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aDate": None,
+                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
                     "https://openminds.ebrains.eu/vocab/aNumber": 19,
-                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
             ],
         }
@@ -646,19 +642,19 @@ class TestKGProxy:
     def test_initialization_with_class(self):
         uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
         proxy = KGProxy(MockKGObject, uri)
-        assert proxy.cls is MockKGObject
+        assert proxy.classes[0] is MockKGObject
         assert proxy.id == uri
 
     def test_initialization_with_string(self):
         uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
         proxy = KGProxy("test.test_base.MockKGObject", uri)
-        assert proxy.cls is MockKGObject
+        assert proxy.classes[0] is MockKGObject
         assert proxy.id == uri
 
     def test_properties(self):
         uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
         proxy = KGProxy(MockKGObject, uri)
-        assert proxy.type == "https://openminds.ebrains.eu/mock/MockKGObject"
+        assert proxy.type == ["https://openminds.ebrains.eu/mock/MockKGObject"]
         assert proxy.classes == [MockKGObject]
         assert proxy.uuid == "00000000-0000-0000-0000-000000001234"
 

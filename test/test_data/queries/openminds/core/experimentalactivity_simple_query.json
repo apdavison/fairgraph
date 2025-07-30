@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel"
+      "propertyName": "lookupLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/customPropertySet",
-      "propertyName": "vocab:customPropertySet",
+      "propertyName": "customPropertySet",
       "filter": {
         "op": "CONTAINS",
         "parameter": "custom_property_sets"
@@ -56,11 +56,11 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/context",
-          "propertyName": "vocab:context"
+          "propertyName": "context"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/definedIn",
-          "propertyName": "vocab:definedIn",
+          "propertyName": "definedIn",
           "structure": [
             {
               "path": "@id"
@@ -72,7 +72,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/relevantFor",
-          "propertyName": "vocab:relevantFor",
+          "propertyName": "relevantFor",
           "structure": [
             {
               "path": "@id"
@@ -86,15 +86,15 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/endedAtTime",
-      "propertyName": "vocab:endedAtTime"
+      "propertyName": "endedAtTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/input",
-      "propertyName": "vocab:input",
+      "propertyName": "input",
       "ensureOrder": true,
       "structure": [
         {
@@ -107,7 +107,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
-      "propertyName": "vocab:isPartOf",
+      "propertyName": "isPartOf",
       "structure": [
         {
           "path": "@id"
@@ -119,7 +119,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/output",
-      "propertyName": "vocab:output",
+      "propertyName": "output",
       "ensureOrder": true,
       "structure": [
         {
@@ -132,7 +132,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/performedBy",
-      "propertyName": "vocab:performedBy",
+      "propertyName": "performedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -145,7 +145,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/preparationDesign",
-      "propertyName": "vocab:preparationDesign",
+      "propertyName": "preparationDesign",
       "structure": [
         {
           "path": "@id"
@@ -157,7 +157,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/protocol",
-      "propertyName": "vocab:protocol",
+      "propertyName": "protocol",
       "ensureOrder": true,
       "structure": [
         {
@@ -170,11 +170,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/startedAtTime",
-      "propertyName": "vocab:startedAtTime"
+      "propertyName": "startedAtTime"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/studyTarget",
-      "propertyName": "vocab:studyTarget",
+      "propertyName": "studyTarget",
       "ensureOrder": true,
       "structure": [
         {

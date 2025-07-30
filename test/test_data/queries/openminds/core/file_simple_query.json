@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contentDescription",
-      "propertyName": "vocab:contentDescription"
+      "propertyName": "contentDescription"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/dataType",
-      "propertyName": "vocab:dataType",
+      "propertyName": "dataType",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,7 +57,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fileRepository",
-      "propertyName": "vocab:fileRepository",
+      "propertyName": "fileRepository",
       "structure": [
         {
           "path": "@id"
@@ -65,11 +65,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/format",
-      "propertyName": "vocab:format",
+      "propertyName": "format",
       "structure": [
         {
           "path": "@id"
@@ -77,11 +78,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hash",
-      "propertyName": "vocab:hash",
+      "propertyName": "hash",
       "ensureOrder": true,
       "structure": [
         {
@@ -89,21 +91,21 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/algorithm",
-          "propertyName": "vocab:algorithm"
+          "propertyName": "algorithm"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/digest",
-          "propertyName": "vocab:digest"
+          "propertyName": "digest"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI"
+      "propertyName": "IRI"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
-      "propertyName": "vocab:isPartOf",
+      "propertyName": "isPartOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -116,12 +118,12 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/specialUsageRole",
-      "propertyName": "vocab:specialUsageRole",
+      "propertyName": "specialUsageRole",
       "structure": [
         {
           "path": "@id"
@@ -129,18 +131,19 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
-      "propertyName": "vocab:storageSize",
+      "propertyName": "storageSize",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
+          "propertyName": "typeOfUncertainty",
           "structure": [
             {
               "path": "@id"
@@ -148,16 +151,17 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
+          "propertyName": "uncertainty",
           "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
+          "propertyName": "unit",
           "structure": [
             {
               "path": "@id"
@@ -165,20 +169,22 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
+          "propertyName": "value"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/fullDocumentation",
         "reverse": true
       },
-      "propertyName": "vocab:fullDocumentation",
+      "propertyName": "fullDocumentation",
       "ensureOrder": true,
       "structure": [
         {
@@ -194,7 +200,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/copyOf",
         "reverse": true
       },
-      "propertyName": "vocab:copyOf",
+      "propertyName": "copyOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -210,7 +216,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/hasPart",
         "reverse": true
       },
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -226,7 +232,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/configuration",
         "reverse": true
       },
-      "propertyName": "vocab:configuration",
+      "propertyName": "configuration",
       "ensureOrder": true,
       "structure": [
         {
@@ -242,7 +248,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/defaultImage",
         "reverse": true
       },
-      "propertyName": "vocab:defaultImage",
+      "propertyName": "defaultImage",
       "ensureOrder": true,
       "structure": [
         {
@@ -258,7 +264,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/inputData",
         "reverse": true
       },
-      "propertyName": "vocab:inputData",
+      "propertyName": "inputData",
       "ensureOrder": true,
       "structure": [
         {
@@ -274,7 +280,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/previewImage",
         "reverse": true
       },
-      "propertyName": "vocab:previewImage",
+      "propertyName": "previewImage",
       "ensureOrder": true,
       "structure": [
         {
@@ -290,7 +296,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/referenceData",
         "reverse": true
       },
-      "propertyName": "vocab:referenceData",
+      "propertyName": "referenceData",
       "ensureOrder": true,
       "structure": [
         {
@@ -306,7 +312,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/sourceData",
         "reverse": true
       },
-      "propertyName": "vocab:sourceData",
+      "propertyName": "sourceData",
       "ensureOrder": true,
       "structure": [
         {
@@ -322,7 +328,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "groupedBy",
       "ensureOrder": true,
       "structure": [
         {

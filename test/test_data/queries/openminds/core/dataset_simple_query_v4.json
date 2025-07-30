@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.om-i.org/props/author",
-      "propertyName": "vocab:author",
+      "propertyName": "author",
       "ensureOrder": true,
       "structure": [
         {
@@ -53,7 +53,7 @@
     },
     {
       "path": "https://openminds.om-i.org/props/custodian",
-      "propertyName": "vocab:custodian",
+      "propertyName": "custodian",
       "ensureOrder": true,
       "structure": [
         {
@@ -66,11 +66,12 @@
     },
     {
       "path": "https://openminds.om-i.org/props/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.om-i.org/props/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
+      "propertyName": "digitalIdentifier",
+      "singleValue": "FIRST",
       "structure": [
         {
           "path": "@id"
@@ -82,12 +83,12 @@
     },
     {
       "path": "https://openminds.om-i.org/props/fullName",
-      "propertyName": "vocab:fullName",
+      "propertyName": "fullName",
       "sort": true
     },
     {
       "path": "https://openminds.om-i.org/props/hasVersion",
-      "propertyName": "vocab:hasVersion",
+      "propertyName": "hasVersion",
       "ensureOrder": true,
       "structure": [
         {
@@ -100,22 +101,22 @@
     },
     {
       "path": "https://openminds.om-i.org/props/homepage",
-      "propertyName": "vocab:homepage"
+      "propertyName": "homepage"
     },
     {
       "path": "https://openminds.om-i.org/props/howToCite",
-      "propertyName": "vocab:howToCite"
+      "propertyName": "howToCite"
     },
     {
       "path": "https://openminds.om-i.org/props/shortName",
-      "propertyName": "vocab:shortName"
+      "propertyName": "shortName"
     },
     {
       "path": {
         "@id": "https://openminds.om-i.org/props/about",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "about",
       "ensureOrder": true,
       "structure": [
         {
@@ -131,7 +132,7 @@
         "@id": "https://openminds.om-i.org/props/hasPart",
         "reverse": true
       },
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -147,7 +148,7 @@
         "@id": "https://openminds.om-i.org/props/about",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "about",
       "ensureOrder": true,
       "structure": [
         {

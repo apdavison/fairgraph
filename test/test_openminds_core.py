@@ -200,10 +200,11 @@ def test_retrieve_released_model_versions_no_follow(kg_client):
                     assert isinstance(ct_proxy, KGProxy)
                     assert ct_proxy.classes == [omcore.ContentType]
             if api == "query":
-                assert isinstance(ver.is_version_of, KGProxy)
+                assert isinstance(ver.is_version_of[0], KGProxy)
+                assert ver.is_version_of[0].classes == [omcore.Model]
             else:
                 assert isinstance(ver.is_version_of, KGQuery)
-            assert ver.is_version_of.classes == [omcore.Model]
+                assert ver.is_version_of.classes == [omcore.Model]
 
 
 @skip_if_no_connection
@@ -233,7 +234,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
             for fmt in as_list(ver.formats):
                 assert isinstance(fmt, omcore.ContentType)
         # check first level reverse links have been resolved
-        model = ver.is_version_of
+        model = ver.is_version_of[0]
         assert isinstance(model, omcore.Model)
         # check forward links from first level reverse links
         assert ver.id in [ver2.id for ver2 in as_list(model.versions)]
@@ -335,7 +336,7 @@ def test_query_across_reverse_links(kg_client):
     assert len(versions) < 100
     for version in versions:
         orgs = []
-        model = version.is_version_of
+        model = version.is_version_of[0]
         for dev in as_list(model.developers):
             for affil in as_list(dev.affiliations):
                 if affil.member_of:
@@ -474,20 +475,25 @@ def test_to_jsonld():
         affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
     )
     expected1 = {
-        "@id": "0000",
-        "@type": ["https://openminds.ebrains.eu/core/Person"],
-        "https://openminds.ebrains.eu/vocab/affiliation": {
-            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
-            "https://openminds.ebrains.eu/vocab/memberOf": {
-                "@type": ["https://openminds.ebrains.eu/core/Organization"],
-                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
-            },
+        "@context": {
+            "@vocab": "https://openminds.ebrains.eu/vocab/"
         },
-        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
-        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+        "@id": "0000",
+        "@type": "https://openminds.ebrains.eu/core/Person",
+        "affiliation": [{
+            "@type": "https://openminds.ebrains.eu/core/Affiliation",
+            "memberOf": {
+                "@type": "https://openminds.ebrains.eu/core/Organization",
+                "fullName": "The Lonely Mountain",
+            },
+        }],
+        "familyName": "Oakenshield",
+        "givenName": "Thorin",
     }
-    assert person1.to_jsonld(embed_linked_nodes=True) == expected1
-    assert person1.to_jsonld(embed_linked_nodes=False) == expected1
+    assert person1.to_jsonld(embed_linked_nodes=True, include_empty_properties=False) == expected1
+    with pytest.raises(ValueError) as err:
+        person1.to_jsonld(embed_linked_nodes=False, include_empty_properties=False)
+        assert "Exporting as a stand-alone JSON-LD document requires @id to be defined" in err
 
     person2 = omcore.Person(
         id="0000",
@@ -496,31 +502,37 @@ def test_to_jsonld():
         affiliations=omcore.Affiliation(member_of=omcore.Organization(id="1111", name="The Lonely Mountain")),
     )
     expected2a = {
-        "@id": "0000",
-        "@type": ["https://openminds.ebrains.eu/core/Person"],
-        "https://openminds.ebrains.eu/vocab/affiliation": {
-            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
-            "https://openminds.ebrains.eu/vocab/memberOf": {
-                "@id": "1111",
-                "@type": ["https://openminds.ebrains.eu/core/Organization"],
-                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
-            },
+        "@context": {
+            "@vocab": "https://openminds.ebrains.eu/vocab/"
         },
-        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
-        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+        "@id": "0000",
+        "@type": "https://openminds.ebrains.eu/core/Person",
+        "affiliation": [{
+            "@type": "https://openminds.ebrains.eu/core/Affiliation",
+            "memberOf": {
+                "@id": "1111",
+                "@type": "https://openminds.ebrains.eu/core/Organization",
+                "fullName": "The Lonely Mountain",
+            },
+        }],
+        "familyName": "Oakenshield",
+        "givenName": "Thorin",
     }
     expected2b = {
-        "@id": "0000",
-        "@type": ["https://openminds.ebrains.eu/core/Person"],
-        "https://openminds.ebrains.eu/vocab/affiliation": {
-            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
-            "https://openminds.ebrains.eu/vocab/memberOf": {"@id": "1111"},
+        "@context": {
+            "@vocab": "https://openminds.ebrains.eu/vocab/"
         },
-        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
-        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+        "@id": "0000",
+        "@type": "https://openminds.ebrains.eu/core/Person",
+        "affiliation": [{
+            "@type": "https://openminds.ebrains.eu/core/Affiliation",
+            "memberOf": {"@id": "1111"},
+        }],
+        "familyName": "Oakenshield",
+        "givenName": "Thorin",
     }
-    assert person2.to_jsonld(embed_linked_nodes=True) == expected2a
-    assert person2.to_jsonld(embed_linked_nodes=False) == expected2b
+    assert person2.to_jsonld(embed_linked_nodes=True, include_empty_properties=False) == expected2a
+    assert person2.to_jsonld(embed_linked_nodes=False, include_empty_properties=False) == expected2b
 
 
 @skip_if_using_production_server
@@ -696,7 +708,9 @@ def test_property_names():
         "contact_information",
         "digital_identifiers",
         "family_name",
-        "given_name",
+        "given_name"
+    ]
+    assert omcore.Person.reverse_property_names == [
         "activities",
         "comments",
         "coordinated_projects",
@@ -717,20 +731,20 @@ def test_diff():
         id="0000",
         given_name="Thorin",
         family_name="Oakenshield",
-        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(id="1000", name="The Lonely Mountain")),
     )
     person2 = omcore.Person(
         given_name="Thorin son of Thráin",
         family_name="Oakenshield",
-        affiliations=omcore.Affiliation(member_of=omcore.Organization(name="Erebor")),
+        affiliations=omcore.Affiliation(member_of=omcore.Organization(id="1001", name="Erebor")),
     )
     expected = {
         "id": ("0000", None),
         "properties": {
             "given_name": ("Thorin", "Thorin son of Thráin"),
             "affiliations": (
-                omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
-                omcore.Affiliation(member_of=omcore.Organization(name="Erebor")),
+                omcore.Affiliation(member_of=omcore.Organization(id="1000", name="The Lonely Mountain")),
+                omcore.Affiliation(member_of=omcore.Organization(id="1001", name="Erebor")),
             ),
         },
     }
@@ -858,8 +872,8 @@ def test_with_new_namespace_from_query():
         "@id": "https://kg.ebrains.eu/api/instances/708024f7-9dd7-4c92-ae95-936db23c6d99",
         "https://schema.hbp.eu/myQuery/space": "model",
         "@type": ["https://openminds.om-i.org/types/Model"],
-        "vocab:abstractionLevel": {"@id": "https://kg.ebrains.eu/api/instances/57becc19-f0a1-4d23-99bb-eb3b7d3cdb9a"},
-        "vocab:custodian": [
+        "abstractionLevel": {"@id": "https://kg.ebrains.eu/api/instances/57becc19-f0a1-4d23-99bb-eb3b7d3cdb9a"},
+        "custodian": [
             {
                 "@id": "https://kg.ebrains.eu/api/instances/2905ce6c-bc89-4c99-b8b0-0fa9a17d1897",
                 "@type": ["https://openminds.om-i.org/types/Person"],
@@ -881,8 +895,8 @@ def test_with_new_namespace_from_query():
                 "@type": ["https://openminds.om-i.org/types/Person"],
             },
         ],
-        "vocab:description": "The scaffolding procedure has been enhanced compared to version 1.0. It's able to generate a scalable cerebellar structure, embedding specific 3D positions for each neuron and specific pair connections. Customized placement strategies allow to match layered density and encumbrance for each neuron type. Customized connection strategies allow to match anisotropic geometrical fields of intersection, and statistical convergence and divergence ratios.\nThe scaffold can host different neuron models. Several input stimulation patterns can be used to investigate network complex dynamics, revealing the relationships between structural constraints and underlying neuron mechanisms with the cerebellar circuit functioning, over space and time.\n\nMain link to Sonata conversion can be found here:\nhttps://github.com/SelezioneCasuale/scaffold/tree/sonata-version/scaffold",
-        "vocab:developer": [
+        "description": "The scaffolding procedure has been enhanced compared to version 1.0. It's able to generate a scalable cerebellar structure, embedding specific 3D positions for each neuron and specific pair connections. Customized placement strategies allow to match layered density and encumbrance for each neuron type. Customized connection strategies allow to match anisotropic geometrical fields of intersection, and statistical convergence and divergence ratios.\nThe scaffold can host different neuron models. Several input stimulation patterns can be used to investigate network complex dynamics, revealing the relationships between structural constraints and underlying neuron mechanisms with the cerebellar circuit functioning, over space and time.\n\nMain link to Sonata conversion can be found here:\nhttps://github.com/SelezioneCasuale/scaffold/tree/sonata-version/scaffold",
+        "developer": [
             {
                 "@id": "https://kg.ebrains.eu/api/instances/2905ce6c-bc89-4c99-b8b0-0fa9a17d1897",
                 "@type": ["https://openminds.om-i.org/types/Person"],
@@ -904,24 +918,24 @@ def test_with_new_namespace_from_query():
                 "@type": ["https://openminds.om-i.org/types/Person"],
             },
         ],
-        "vocab:digitalIdentifier": [],
-        "vocab:fullName": "Scaffold Model of Cerebellum microcircuit version 2.0",
-        "vocab:hasVersion": [
+        "digitalIdentifier": [],
+        "fullName": "Scaffold Model of Cerebellum microcircuit version 2.0",
+        "hasVersion": [
             {
                 "@id": "https://kg.ebrains.eu/api/instances/7035d53f-1597-4a45-9f72-23c2c933ec66",
                 "@type": ["https://openminds.om-i.org/types/ModelVersion"],
             }
         ],
-        "vocab:homepage": None,
-        "vocab:howToCite": None,
-        "vocab:scope": [
+        "homepage": None,
+        "howToCite": None,
+        "scope": [
             {
                 "@id": "https://kg.ebrains.eu/api/instances/6c678004-b8e0-4339-90c5-824e66503eb9",
                 "@type": ["https://openminds.om-i.org/types/ModelScope"],
             }
         ],
-        "vocab:shortName": None,
-        "vocab:studyTarget": [
+        "shortName": None,
+        "studyTarget": [
             {
                 "@id": "https://kg.ebrains.eu/api/instances/ab532423-1fd7-4255-8c6f-f99dc6df814f",
                 "@type": ["https://openminds.om-i.org/types/Species"],
@@ -931,9 +945,9 @@ def test_with_new_namespace_from_query():
                 "@type": ["https://openminds.om-i.org/types/UBERONParcellation"],
             },
         ],
-        "vocab:about": [],
-        "vocab:hasPart": [],
-        "@context": {"vocab": "https://openminds.om-i.org/props/"},
+        "about": [],
+        "hasPart": [],
+        "@context": {"@vocab": "https://openminds.om-i.org/props/"},
     }
     #omcore.set_error_handling("error")
     orig_types = (omcore.Model.type_, omcore.Person.type_)

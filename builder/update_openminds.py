@@ -697,7 +697,7 @@ class FairgraphClassBuilder:
                 {
                     "name": python_name,
                     "type_str": get_type(prop),  # compress using JSON-LD context
-                    "iri": f"vocab:{prop['name']}",
+                    "iri": f"{prop['name']}",
                     "allow_multiple": allow_multiple,
                     "required": iri in self._schema_payload.get("required", []),
                     "doc": generate_doc(prop, class_name),

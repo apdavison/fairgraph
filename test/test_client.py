@@ -54,19 +54,19 @@ def test_query_filter_by_space(kg_client):
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fullName",
-                name="vocab:fullName",
+                name="fullName",
                 filter=Filter("CONTAINS", parameter="name"),
                 sorted=True,
                 required=True,
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/custodian",
-                name="vocab:custodian",
+                name="custodian",
                 type_filter="https://openminds.ebrains.eu/core/Person",
                 properties=[
                     QueryProperty(
                         "https://openminds.ebrains.eu/vocab/familyName",
-                        name="vocab:familyName",
+                        name="familyName",
                     ),
                 ],
             ),

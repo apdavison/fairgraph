@@ -40,20 +40,20 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
+      "propertyName": "fullName",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/legalCode",
-      "propertyName": "vocab:legalCode"
+      "propertyName": "legalCode"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
+      "propertyName": "shortName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/webpage",
-      "propertyName": "vocab:webpage",
+      "propertyName": "webpage",
       "ensureOrder": true
     },
     {
@@ -61,7 +61,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/license",
         "reverse": true
       },
-      "propertyName": "vocab:license",
+      "propertyName": "license",
       "ensureOrder": true,
       "structure": [
         {

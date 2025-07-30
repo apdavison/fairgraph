@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/format",
-      "propertyName": "vocab:format",
+      "propertyName": "format",
       "structure": [
         {
           "path": "@id"
@@ -48,15 +48,16 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI"
+      "propertyName": "IRI"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/sourceData",
-      "propertyName": "vocab:sourceData",
+      "propertyName": "sourceData",
       "ensureOrder": true,
       "structure": [
         {
@@ -72,7 +73,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/dataLocation",
         "reverse": true
       },
-      "propertyName": "vocab:dataLocation",
+      "propertyName": "dataLocation",
       "ensureOrder": true,
       "structure": [
         {
@@ -88,7 +89,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/output",
         "reverse": true
       },
-      "propertyName": "vocab:output",
+      "propertyName": "output",
       "ensureOrder": true,
       "structure": [
         {

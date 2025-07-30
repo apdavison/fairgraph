@@ -40,14 +40,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/identifier",
-      "propertyName": "vocab:identifier"
+      "propertyName": "identifier"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/relatedPublication",
         "reverse": true
       },
-      "propertyName": "vocab:relatedPublication",
+      "propertyName": "relatedPublication",
       "ensureOrder": true,
       "structure": [
         {

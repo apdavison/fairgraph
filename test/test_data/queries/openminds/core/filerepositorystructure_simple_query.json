@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/filePathPattern",
-      "propertyName": "vocab:filePathPattern",
+      "propertyName": "filePathPattern",
       "ensureOrder": true,
       "structure": [
         {
@@ -48,7 +48,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/groupingType",
-          "propertyName": "vocab:groupingType",
+          "propertyName": "groupingType",
           "ensureOrder": true,
           "structure": [
             {
@@ -61,13 +61,13 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/regex",
-          "propertyName": "vocab:regex"
+          "propertyName": "regex"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
+      "propertyName": "lookupLabel",
       "sort": true
     },
     {
@@ -75,7 +75,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/structurePattern",
         "reverse": true
       },
-      "propertyName": "vocab:structurePattern",
+      "propertyName": "structurePattern",
       "ensureOrder": true,
       "structure": [
         {

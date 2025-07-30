@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/about",
-      "propertyName": "vocab:about",
+      "propertyName": "about",
       "structure": [
         {
           "path": "@id"
@@ -48,15 +48,16 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/comment",
-      "propertyName": "vocab:comment"
+      "propertyName": "comment"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/commenter",
-      "propertyName": "vocab:commenter",
+      "propertyName": "commenter",
       "structure": [
         {
           "path": "@id"
@@ -64,11 +65,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/timestamp",
-      "propertyName": "vocab:timestamp"
+      "propertyName": "timestamp"
     }
   ]
 }

@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/describedIn",
-      "propertyName": "vocab:describedIn",
+      "propertyName": "describedIn",
       "ensureOrder": true,
       "structure": [
         {
@@ -53,20 +53,20 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier"
+      "propertyName": "internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulation",
-      "propertyName": "vocab:stimulation",
+      "propertyName": "stimulation",
       "ensureOrder": true,
       "structure": [
         {
@@ -79,7 +79,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulusType",
-      "propertyName": "vocab:stimulusType",
+      "propertyName": "stimulusType",
       "ensureOrder": true,
       "structure": [
         {
@@ -95,7 +95,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "groupedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -111,7 +111,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/behavioralProtocol",
         "reverse": true
       },
-      "propertyName": "vocab:behavioralProtocol",
+      "propertyName": "behavioralProtocol",
       "ensureOrder": true,
       "structure": [
         {

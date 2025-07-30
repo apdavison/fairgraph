@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
-      "propertyName": "vocab:additionalRemarks"
+      "propertyName": "additionalRemarks"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/anatomicalLocation",
-      "propertyName": "vocab:anatomicalLocation",
+      "propertyName": "anatomicalLocation",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,7 +57,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
-      "propertyName": "vocab:biologicalSex",
+      "propertyName": "biologicalSex",
       "ensureOrder": true,
       "structure": [
         {
@@ -70,11 +70,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier"
+      "propertyName": "internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/laterality",
-      "propertyName": "vocab:laterality",
+      "propertyName": "laterality",
       "ensureOrder": true,
       "structure": [
         {
@@ -87,16 +87,16 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
+      "propertyName": "lookupLabel",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/numberOfTissueSamples",
-      "propertyName": "vocab:numberOfTissueSamples"
+      "propertyName": "numberOfTissueSamples"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/origin",
-      "propertyName": "vocab:origin",
+      "propertyName": "origin",
       "ensureOrder": true,
       "structure": [
         {
@@ -109,7 +109,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
-      "propertyName": "vocab:species",
+      "propertyName": "species",
       "ensureOrder": true,
       "structure": [
         {
@@ -122,7 +122,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/studiedState",
-      "propertyName": "vocab:studiedState",
+      "propertyName": "studiedState",
       "ensureOrder": true,
       "structure": [
         {
@@ -135,7 +135,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/type",
-      "propertyName": "vocab:type",
+      "propertyName": "type",
       "ensureOrder": true,
       "structure": [
         {
@@ -151,7 +151,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/isPartOf",
         "reverse": true
       },
-      "propertyName": "vocab:isPartOf",
+      "propertyName": "isPartOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -167,7 +167,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
         "reverse": true
       },
-      "propertyName": "vocab:studiedSpecimen",
+      "propertyName": "studiedSpecimen",
       "ensureOrder": true,
       "structure": [
         {
@@ -183,7 +183,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "groupedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -199,7 +199,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
         "reverse": true
       },
-      "propertyName": "vocab:usedSpecimen",
+      "propertyName": "usedSpecimen",
       "ensureOrder": true,
       "structure": [
         {

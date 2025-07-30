@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/describedIn",
-      "propertyName": "vocab:describedIn",
+      "propertyName": "describedIn",
       "structure": [
         {
           "path": "@id"
@@ -48,20 +48,21 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stimulusType",
-      "propertyName": "vocab:stimulusType",
+      "propertyName": "stimulusType",
       "ensureOrder": true,
       "structure": [
         {
@@ -74,7 +75,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/technique",
-      "propertyName": "vocab:technique",
+      "propertyName": "technique",
       "ensureOrder": true,
       "structure": [
         {
@@ -90,7 +91,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/protocol",
         "reverse": true
       },
-      "propertyName": "vocab:protocol",
+      "propertyName": "protocol",
       "ensureOrder": true,
       "structure": [
         {

@@ -21,20 +21,20 @@ def example_query_model_version():
             QueryProperty("@type"),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fullName",
-                name="vocab:fullName",
+                name="fullName",
                 filter=Filter("CONTAINS", parameter="name"),
                 sorted=True,
                 required=True,
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/versionIdentifier",
-                name="vocab:versionIdentifier",
+                name="versionIdentifier",
                 filter=Filter("EQUALS", parameter="version"),
                 required=True,
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/format",
-                name="vocab:format",
+                name="format",
                 ensure_order=True,
                 properties=[
                     QueryProperty("@id", filter=Filter("EQUALS", parameter="format")),
@@ -43,24 +43,24 @@ def example_query_model_version():
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/custodian",
-                name="vocab:custodian",
+                name="custodian",
                 ensure_order=True,
                 type_filter="https://openminds.ebrains.eu/core/Person",
                 properties=[
                     QueryProperty("@id", filter=Filter("EQUALS", parameter="custodian")),
                     QueryProperty(
                         "https://openminds.ebrains.eu/vocab/affiliation",
-                        name="vocab:affiliation",
+                        name="affiliation",
                         properties=[
                             QueryProperty("@type"),
                             QueryProperty(
                                 "https://openminds.ebrains.eu/vocab/memberOf",
-                                name="vocab:memberOf",
+                                name="memberOf",
                                 properties=[QueryProperty("@id")],
                             ),
                             QueryProperty(
                                 "https://openminds.ebrains.eu/vocab/startDate",
-                                name="vocab:startDate",
+                                name="startDate",
                             ),
                         ],
                     ),
@@ -84,32 +84,32 @@ def example_query_model():
             QueryProperty("@type"),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/fullName",
-                name="vocab:fullName",
+                name="fullName",
                 filter=Filter("CONTAINS", parameter="name"),
                 sorted=True,
                 required=True,
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/custodian",
-                name="vocab:custodian",
+                name="custodian",
                 type_filter="https://openminds.ebrains.eu/core/Person",
                 properties=[
                     # QueryProperty("@type"),
                     QueryProperty(
                         "https://openminds.ebrains.eu/vocab/familyName",
-                        name="vocab:familyName",
+                        name="familyName",
                     ),
                 ],
             ),
             QueryProperty(
                 "https://openminds.ebrains.eu/vocab/custodian",
-                name="vocab:organization",
+                name="organization",
                 type_filter="https://openminds.ebrains.eu/core/Organization",
                 properties=[
                     # QueryProperty("@type"),
                     QueryProperty(
                         "https://openminds.ebrains.eu/vocab/shortName",
-                        name="vocab:shortName",
+                        name="shortName",
                     ),
                 ],
             ),
@@ -219,20 +219,20 @@ def test_query_builder(example_query_model_version):
             {
                 "filter": {"op": "CONTAINS", "parameter": "name"},
                 "path": "https://openminds.ebrains.eu/vocab/fullName",
-                "propertyName": "vocab:fullName",
+                "propertyName": "fullName",
                 "required": True,
                 "sort": True,
             },
             {
                 "filter": {"op": "EQUALS", "parameter": "version"},
                 "path": "https://openminds.ebrains.eu/vocab/versionIdentifier",
-                "propertyName": "vocab:versionIdentifier",
+                "propertyName": "versionIdentifier",
                 "required": True,
             },
             {
                 "ensureOrder": True,
                 "path": "https://openminds.ebrains.eu/vocab/format",
-                "propertyName": "vocab:format",
+                "propertyName": "format",
                 "structure": [
                     {"filter": {"op": "EQUALS", "parameter": "format"}, "path": "@id"},
                     {"path": "@type"},
@@ -244,7 +244,7 @@ def test_query_builder(example_query_model_version):
                     "@id": "https://openminds.ebrains.eu/vocab/custodian",
                     "typeFilter": {"@id": "https://openminds.ebrains.eu/core/Person"},
                 },
-                "propertyName": "vocab:custodian",
+                "propertyName": "custodian",
                 "structure": [
                     {
                         "filter": {"op": "EQUALS", "parameter": "custodian"},
@@ -252,17 +252,17 @@ def test_query_builder(example_query_model_version):
                     },
                     {
                         "path": "https://openminds.ebrains.eu/vocab/affiliation",
-                        "propertyName": "vocab:affiliation",
+                        "propertyName": "affiliation",
                         "structure": [
                             {"path": "@type"},
                             {
                                 "path": "https://openminds.ebrains.eu/vocab/memberOf",
-                                "propertyName": "vocab:memberOf",
+                                "propertyName": "memberOf",
                                 "structure": [{"path": "@id"}],
                             },
                             {
                                 "path": "https://openminds.ebrains.eu/vocab/startDate",
-                                "propertyName": "vocab:startDate",
+                                "propertyName": "startDate",
                             },
                         ],
                     },
@@ -382,21 +382,21 @@ def test_execute_query(kg_client, example_query_model_version):
             "@id",
             "@type",
             "https://schema.hbp.eu/myQuery/space",
-            "vocab:custodian",
-            "vocab:format",
-            "vocab:versionIdentifier",
-            "vocab:fullName",
+            "custodian",
+            "format",
+            "versionIdentifier",
+            "fullName",
         ]
     )
     data0 = data[0]
     assert set(data0.keys()) == expected_keys
 
-    if data0["vocab:custodian"]:
-        custodian0 = data0["vocab:custodian"][0]
-        assert set(custodian0.keys()) == set(["@id", "vocab:affiliation"])
-        if custodian0["vocab:affiliation"]:
-            affil0 = custodian0["vocab:affiliation"][0]
-            assert set(affil0.keys()) == set(["@type", "vocab:memberOf", "vocab:startDate"])
+    if data0["custodian"]:
+        custodian0 = data0["custodian"][0]
+        assert set(custodian0.keys()) == set(["@id", "affiliation"])
+        if custodian0["affiliation"]:
+            affil0 = custodian0["affiliation"][0]
+            assert set(affil0.keys()) == set(["@type", "memberOf", "startDate"])
 
 
 @skip_if_no_connection
@@ -410,9 +410,9 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
     )
     data = response.data
     assert len(data) == 1
-    assert data[0]["vocab:fullName"] == "AdEx Neuron Models with PyNN"
-    assert data[0]["vocab:custodian"][0]["vocab:familyName"] == "Destexhe"
-    # assert data[0]["vocab:organization"][0]["vocab:shortName"] == "Destexhe Lab"
+    assert data[0]["fullName"] == "AdEx Neuron Models with PyNN"
+    assert data[0]["custodian"][0]["familyName"] == "Destexhe"
+    # assert data[0]["organization"][0]["shortName"] == "Destexhe Lab"
 
 
 @skip_if_no_connection
@@ -483,20 +483,20 @@ def test_generate_query_with_follow_one_link(mock_client):
             "core",
             f"{cls.__name__.lower()}_resolved-1_query.json",
         )
+        generated = cls.generate_query(
+            space=None,
+            client=mock_client,
+            filters=None,
+            follow_links={
+                "affiliations": {"member_of": {}},
+                "associated_accounts": {},
+                "contact_information": {},
+                "digital_identifiers": {},
+            },
+        )
         with open(path_expected) as fp:
-            generated = cls.generate_query(
-                space=None,
-                client=mock_client,
-                filters=None,
-                follow_links={
-                    "affiliations": {"member_of": {}},
-                    "associated_accounts": {},
-                    "contact_information": {},
-                    "digital_identifiers": {},
-                },
-            )
             expected = json.load(fp)
-            assert generated == expected
+        assert generated == expected
 
 
 def test_generate_query_with_follow_named_links(mock_client):
@@ -509,13 +509,13 @@ def test_generate_query_with_follow_named_links(mock_client):
         "core",
         f"{cls.__name__.lower()}_newstyle_query.json",
     )
+    generated = cls.generate_query(
+        space=None,
+        client=mock_client,
+        filters={"affiliations__member_of__has_parents__alias": "FZJ"},
+        follow_links={"affiliations": {"member_of": {"has_parents": {}}}, "contact_information": {}},
+    )
     with open(path_expected) as fp:
-        generated = cls.generate_query(
-            space=None,
-            client=mock_client,
-            filters={"affiliations__member_of__has_parents__alias": "FZJ"},
-            follow_links={"affiliations": {"member_of": {"has_parents": {}}}, "contact_information": {}},
-        )
         expected = json.load(fp)
     assert generated == expected
 

@@ -43,8 +43,6 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         properties: the metadata properties (property names and values)
     """
 
-    properties = []
-
     def __init__(self, data: Optional[JSONdict] = None, **properties):
         super().__init__(data=data, **properties)
 

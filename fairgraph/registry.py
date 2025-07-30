@@ -17,6 +17,16 @@ if TYPE_CHECKING:
     from .node import ContainsMetadata
 
 
+docstring_template = """
+{base}
+
+Args
+----
+{args}
+
+"""
+
+
 class Node(Registry):
     """Metaclass for registering Knowledge Graph classes."""
 
@@ -33,13 +43,42 @@ class Node(Registry):
         class_dict["class_name"] = ".".join(
             class_dict["__module__"].replace("fairgraph.openminds", "openminds.latest").split(".")[:3] + [name]
         )
+        class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)
         cls._property_lookup = {prop.name: prop for prop in (cls.properties + cls.reverse_properties)}
         return cls
 
+    def _get_doc(cls) -> str:
+        """Dynamically generate docstrings"""
+        # todo: consider generating the docstring in the build pipeline,
+        #       avoiding all this run-time messing about
+        field_docs = []
+        if hasattr(cls, "properties"):
+
+            def gen_path(type_):
+                if type_.__module__ == "builtins":
+                    return type_.__name__
+                else:
+                    return "~{}.{}".format(type_.__module__, type_.__name__)
+
+            for property in cls.all_properties:
+                doc = "{} : {}\n    {}".format(
+                    property.name, ", ".join(gen_path(t) for t in property.types), property.description
+                )
+                # todo: add property.instructions if present
+                field_docs.append(doc)
+        # todo: also document id, data, space, scope
+        return docstring_template.format(base=cls._base_docstring, args="\n".join(field_docs))
+
+    __doc__ = property(_get_doc)  # type: ignore[assignment]
+
     @property
     def all_properties(cls):
         return chain(cls.properties, cls.reverse_properties)
+
+    @property
+    def reverse_property_names(cls):
+        return [p.name for p in cls.reverse_properties]
 
     @property
     def fields(cls):

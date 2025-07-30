@@ -40,19 +40,19 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/acknowledgement",
-      "propertyName": "vocab:acknowledgement"
+      "propertyName": "acknowledgement"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/awardNumber",
-      "propertyName": "vocab:awardNumber"
+      "propertyName": "awardNumber"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/awardTitle",
-      "propertyName": "vocab:awardTitle"
+      "propertyName": "awardTitle"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/funder",
-      "propertyName": "vocab:funder",
+      "propertyName": "funder",
       "structure": [
         {
           "path": "@id"
@@ -60,14 +60,15 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/funding",
         "reverse": true
       },
-      "propertyName": "vocab:funding",
+      "propertyName": "funding",
       "ensureOrder": true,
       "structure": [
         {

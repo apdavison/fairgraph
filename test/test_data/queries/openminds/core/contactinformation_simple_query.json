@@ -40,14 +40,14 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/email",
-      "propertyName": "vocab:email"
+      "propertyName": "email"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/contactInformation",
         "reverse": true
       },
-      "propertyName": "vocab:contactInformation",
+      "propertyName": "contactInformation",
       "ensureOrder": true,
       "structure": [
         {

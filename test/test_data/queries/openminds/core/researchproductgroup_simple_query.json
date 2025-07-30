@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/context",
-      "propertyName": "vocab:context"
+      "propertyName": "context"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasPart",
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {

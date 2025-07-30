@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/configuration",
-      "propertyName": "vocab:configuration"
+      "propertyName": "configuration"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/format",
-      "propertyName": "vocab:format",
+      "propertyName": "format",
       "structure": [
         {
           "path": "@id"
@@ -52,11 +52,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
+      "propertyName": "lookupLabel",
       "sort": true
     },
     {
@@ -64,7 +65,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/configuration",
         "reverse": true
       },
-      "propertyName": "vocab:configuration",
+      "propertyName": "configuration",
       "ensureOrder": true,
       "structure": [
         {
@@ -80,7 +81,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/specification",
         "reverse": true
       },
-      "propertyName": "vocab:specification",
+      "propertyName": "specification",
       "ensureOrder": true,
       "structure": [
         {

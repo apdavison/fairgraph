@@ -40,17 +40,17 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/negativeUncertainties",
-      "propertyName": "vocab:negativeUncertainties",
+      "propertyName": "negativeUncertainties",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/positiveUncertainties",
-      "propertyName": "vocab:positiveUncertainties",
+      "propertyName": "positiveUncertainties",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-      "propertyName": "vocab:typeOfUncertainty",
+      "propertyName": "typeOfUncertainty",
       "structure": [
         {
           "path": "@id"
@@ -58,11 +58,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/unit",
-      "propertyName": "vocab:unit",
+      "propertyName": "unit",
       "structure": [
         {
           "path": "@id"
@@ -70,11 +71,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/values",
-      "propertyName": "vocab:values",
+      "propertyName": "values",
       "ensureOrder": true
     }
   ]

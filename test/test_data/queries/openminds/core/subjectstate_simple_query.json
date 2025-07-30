@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/additionalRemarks",
-      "propertyName": "vocab:additionalRemarks"
+      "propertyName": "additionalRemarks"
     },
     {
       "path": {
@@ -49,14 +49,14 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
         }
       },
-      "propertyName": "vocab:age__QuantitativeValue",
+      "propertyName": "age__QuantitativeValue",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
+          "propertyName": "typeOfUncertainty",
           "structure": [
             {
               "path": "@id"
@@ -64,16 +64,17 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
+          "propertyName": "uncertainty",
           "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
+          "propertyName": "unit",
           "structure": [
             {
               "path": "@id"
@@ -81,13 +82,15 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
+          "propertyName": "value"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
@@ -96,18 +99,18 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
         }
       },
-      "propertyName": "vocab:age__QuantitativeValueRange",
+      "propertyName": "age__QuantitativeValueRange",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValue",
-          "propertyName": "vocab:maxValue"
+          "propertyName": "maxValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-          "propertyName": "vocab:maxValueUnit",
+          "propertyName": "maxValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -115,15 +118,16 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValue",
-          "propertyName": "vocab:minValue"
+          "propertyName": "minValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-          "propertyName": "vocab:minValueUnit",
+          "propertyName": "minValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -131,13 +135,15 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/ageCategory",
-      "propertyName": "vocab:ageCategory",
+      "propertyName": "ageCategory",
       "structure": [
         {
           "path": "@id"
@@ -145,11 +151,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/attribute",
-      "propertyName": "vocab:attribute",
+      "propertyName": "attribute",
       "ensureOrder": true,
       "structure": [
         {
@@ -162,7 +169,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/descendedFrom",
-      "propertyName": "vocab:descendedFrom",
+      "propertyName": "descendedFrom",
       "structure": [
         {
           "path": "@id"
@@ -170,11 +177,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/handedness",
-      "propertyName": "vocab:handedness",
+      "propertyName": "handedness",
       "structure": [
         {
           "path": "@id"
@@ -182,20 +190,21 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier"
+      "propertyName": "internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
+      "propertyName": "lookupLabel",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/pathology",
-      "propertyName": "vocab:pathology",
+      "propertyName": "pathology",
       "ensureOrder": true,
       "structure": [
         {
@@ -213,14 +222,14 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
         }
       },
-      "propertyName": "vocab:relativeTimeIndication__QuantitativeValue",
+      "propertyName": "relativeTimeIndication__QuantitativeValue",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
+          "propertyName": "typeOfUncertainty",
           "structure": [
             {
               "path": "@id"
@@ -228,16 +237,17 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
+          "propertyName": "uncertainty",
           "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
+          "propertyName": "unit",
           "structure": [
             {
               "path": "@id"
@@ -245,13 +255,15 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
+          "propertyName": "value"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
@@ -260,18 +272,18 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
         }
       },
-      "propertyName": "vocab:relativeTimeIndication__QuantitativeValueRange",
+      "propertyName": "relativeTimeIndication__QuantitativeValueRange",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValue",
-          "propertyName": "vocab:maxValue"
+          "propertyName": "maxValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-          "propertyName": "vocab:maxValueUnit",
+          "propertyName": "maxValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -279,15 +291,16 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValue",
-          "propertyName": "vocab:minValue"
+          "propertyName": "minValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-          "propertyName": "vocab:minValueUnit",
+          "propertyName": "minValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -295,9 +308,11 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
@@ -306,14 +321,14 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValue"
         }
       },
-      "propertyName": "vocab:weight__QuantitativeValue",
+      "propertyName": "weight__QuantitativeValue",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
+          "propertyName": "typeOfUncertainty",
           "structure": [
             {
               "path": "@id"
@@ -321,16 +336,17 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
+          "propertyName": "uncertainty",
           "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
+          "propertyName": "unit",
           "structure": [
             {
               "path": "@id"
@@ -338,13 +354,15 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
+          "propertyName": "value"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
@@ -353,18 +371,18 @@
           "@id": "https://openminds.ebrains.eu/core/QuantitativeValueRange"
         }
       },
-      "propertyName": "vocab:weight__QuantitativeValueRange",
+      "propertyName": "weight__QuantitativeValueRange",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValue",
-          "propertyName": "vocab:maxValue"
+          "propertyName": "maxValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/maxValueUnit",
-          "propertyName": "vocab:maxValueUnit",
+          "propertyName": "maxValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -372,15 +390,16 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValue",
-          "propertyName": "vocab:minValue"
+          "propertyName": "minValue"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/minValueUnit",
-          "propertyName": "vocab:minValueUnit",
+          "propertyName": "minValueUnit",
           "structure": [
             {
               "path": "@id"
@@ -388,16 +407,18 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/descendedFrom",
         "reverse": true
       },
-      "propertyName": "vocab:descendedFrom",
+      "propertyName": "descendedFrom",
       "ensureOrder": true,
       "structure": [
         {
@@ -413,7 +434,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/input",
         "reverse": true
       },
-      "propertyName": "vocab:input",
+      "propertyName": "input",
       "ensureOrder": true,
       "structure": [
         {
@@ -429,7 +450,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/output",
         "reverse": true
       },
-      "propertyName": "vocab:output",
+      "propertyName": "output",
       "ensureOrder": true,
       "structure": [
         {
@@ -445,7 +466,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/studiedState",
         "reverse": true
       },
-      "propertyName": "vocab:studiedState",
+      "propertyName": "studiedState",
       "ensureOrder": true,
       "structure": [
         {
@@ -461,7 +482,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "groupedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -477,7 +498,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
         "reverse": true
       },
-      "propertyName": "vocab:usedSpecimen",
+      "propertyName": "usedSpecimen",
       "ensureOrder": true,
       "structure": [
         {

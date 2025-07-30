@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/custodian",
-      "propertyName": "vocab:custodian",
+      "propertyName": "custodian",
       "ensureOrder": true,
       "structure": [
         {
@@ -53,11 +53,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/developer",
-      "propertyName": "vocab:developer",
+      "propertyName": "developer",
       "ensureOrder": true,
       "structure": [
         {
@@ -70,12 +70,12 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fullName",
-      "propertyName": "vocab:fullName",
+      "propertyName": "fullName",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasVersion",
-      "propertyName": "vocab:hasVersion",
+      "propertyName": "hasVersion",
       "ensureOrder": true,
       "structure": [
         {
@@ -88,22 +88,22 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/homepage",
-      "propertyName": "vocab:homepage"
+      "propertyName": "homepage"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/howToCite",
-      "propertyName": "vocab:howToCite"
+      "propertyName": "howToCite"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/shortName",
-      "propertyName": "vocab:shortName"
+      "propertyName": "shortName"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/about",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "about",
       "ensureOrder": true,
       "structure": [
         {
@@ -119,7 +119,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/service",
         "reverse": true
       },
-      "propertyName": "vocab:service",
+      "propertyName": "service",
       "ensureOrder": true,
       "structure": [
         {
@@ -135,7 +135,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/hostedBy",
         "reverse": true
       },
-      "propertyName": "vocab:hostedBy",
+      "propertyName": "hostedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -151,7 +151,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/hasPart",
         "reverse": true
       },
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -167,7 +167,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/about",
         "reverse": true
       },
-      "propertyName": "vocab:about",
+      "propertyName": "about",
       "ensureOrder": true,
       "structure": [
         {

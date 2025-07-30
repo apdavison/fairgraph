@@ -11,10 +11,11 @@ from fairgraph import {{ base_class }}
 {{preamble}}
 
 
-class {{ class_name }}({{ class_name }}, {{ base_class }}):
+class {{ class_name }}({{base_class}}, {{ class_name }}):
     """
     {{ docstring }}
     """
+    type_ = "{{ openminds_type }}"
     {%- if default_space %}
     default_space = "{{ default_space }}"
     {%- endif %}
@@ -46,5 +47,5 @@ class {{ class_name }}({{ class_name }}, {{ base_class }}):
     {%- endif %}
 
     def __init__(self {%- for arg in constructor_arguments -%}, {{arg}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
-        return super().__init__({{ standard_init_properties }}data=data {%- for arg in constructor_arguments -%}, {{arg}}={{arg}}{%- endfor -%})
+        return {{ base_class }}.__init__(self, {{ standard_init_properties }}data=data {%- for arg in constructor_arguments -%}, {{arg}}={{arg}}{%- endfor -%})
 {{ additional_methods }}

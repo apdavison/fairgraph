@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/dataType",
-      "propertyName": "vocab:dataType",
+      "propertyName": "dataType",
       "ensureOrder": true,
       "structure": [
         {
@@ -53,33 +53,33 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/displayLabel",
-      "propertyName": "vocab:displayLabel"
+      "propertyName": "displayLabel"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/fileExtension",
-      "propertyName": "vocab:fileExtension",
+      "propertyName": "fileExtension",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/relatedMediaType",
-      "propertyName": "vocab:relatedMediaType"
+      "propertyName": "relatedMediaType"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/specification",
-      "propertyName": "vocab:specification"
+      "propertyName": "specification"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/synonym",
-      "propertyName": "vocab:synonym",
+      "propertyName": "synonym",
       "ensureOrder": true
     },
     {
@@ -87,7 +87,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/contentType",
         "reverse": true
       },
-      "propertyName": "vocab:contentType",
+      "propertyName": "contentType",
       "ensureOrder": true,
       "structure": [
         {
@@ -103,7 +103,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/format",
         "reverse": true
       },
-      "propertyName": "vocab:format",
+      "propertyName": "format",
       "ensureOrder": true,
       "structure": [
         {
@@ -119,7 +119,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/outputFormat",
         "reverse": true
       },
-      "propertyName": "vocab:outputFormat",
+      "propertyName": "outputFormat",
       "ensureOrder": true,
       "structure": [
         {
@@ -135,7 +135,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/specificationFormat",
         "reverse": true
       },
-      "propertyName": "vocab:specificationFormat",
+      "propertyName": "specificationFormat",
       "ensureOrder": true,
       "structure": [
         {

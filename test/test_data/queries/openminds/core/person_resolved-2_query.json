@@ -36,7 +36,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/affiliation",
-      "propertyName": "vocab:affiliation",
+      "propertyName": "affiliation",
       "ensureOrder": true,
       "structure": [
         {
@@ -44,7 +44,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/endDate",
-          "propertyName": "vocab:endDate"
+          "propertyName": "endDate"
         },
         {
           "path": {
@@ -53,7 +53,7 @@
               "@id": "https://openminds.ebrains.eu/core/Consortium"
             }
           },
-          "propertyName": "vocab:memberOf__Consortium",
+          "propertyName": "memberOf__Consortium",
           "structure": [
             {
               "path": "@id"
@@ -63,16 +63,16 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/fullName",
-              "propertyName": "vocab:fullName",
+              "propertyName": "fullName",
               "sort": true
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/shortName",
-              "propertyName": "vocab:shortName"
+              "propertyName": "shortName"
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/contactInformation",
-              "propertyName": "vocab:contactInformation",
+              "propertyName": "contactInformation",
               "structure": [
                 {
                   "path": "@id"
@@ -82,13 +82,13 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/email",
-                  "propertyName": "vocab:email"
+                  "propertyName": "email"
                 }
               ]
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/homepage",
-              "propertyName": "vocab:homepage"
+              "propertyName": "homepage"
             }
           ]
         },
@@ -99,7 +99,7 @@
               "@id": "https://openminds.ebrains.eu/core/Organization"
             }
           },
-          "propertyName": "vocab:memberOf__Organization",
+          "propertyName": "memberOf__Organization",
           "structure": [
             {
               "path": "@id"
@@ -109,16 +109,16 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/fullName",
-              "propertyName": "vocab:fullName",
+              "propertyName": "fullName",
               "sort": true
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/shortName",
-              "propertyName": "vocab:shortName"
+              "propertyName": "shortName"
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/affiliation",
-              "propertyName": "vocab:affiliation",
+              "propertyName": "affiliation",
               "ensureOrder": true,
               "structure": [
                 {
@@ -126,7 +126,7 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/endDate",
-                  "propertyName": "vocab:endDate"
+                  "propertyName": "endDate"
                 },
                 {
                   "path": {
@@ -135,7 +135,7 @@
                       "@id": "https://openminds.ebrains.eu/core/Consortium"
                     }
                   },
-                  "propertyName": "vocab:memberOf__Consortium",
+                  "propertyName": "memberOf__Consortium",
                   "structure": [
                     {
                       "path": "@id"
@@ -145,16 +145,16 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/fullName",
-                      "propertyName": "vocab:fullName",
+                      "propertyName": "fullName",
                       "sort": true
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/shortName",
-                      "propertyName": "vocab:shortName"
+                      "propertyName": "shortName"
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
-                      "propertyName": "vocab:contactInformation",
+                      "propertyName": "contactInformation",
                       "structure": [
                         {
                           "path": "@id"
@@ -166,7 +166,7 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/homepage",
-                      "propertyName": "vocab:homepage"
+                      "propertyName": "homepage"
                     }
                   ]
                 },
@@ -177,7 +177,7 @@
                       "@id": "https://openminds.ebrains.eu/core/Organization"
                     }
                   },
-                  "propertyName": "vocab:memberOf__Organization",
+                  "propertyName": "memberOf__Organization",
                   "structure": [
                     {
                       "path": "@id"
@@ -187,16 +187,16 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/fullName",
-                      "propertyName": "vocab:fullName",
+                      "propertyName": "fullName",
                       "sort": true
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/shortName",
-                      "propertyName": "vocab:shortName"
+                      "propertyName": "shortName"
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/affiliation",
-                      "propertyName": "vocab:affiliation",
+                      "propertyName": "affiliation",
                       "ensureOrder": true,
                       "structure": [
                         {
@@ -204,11 +204,11 @@
                         },
                         {
                           "path": "https://openminds.ebrains.eu/vocab/endDate",
-                          "propertyName": "vocab:endDate"
+                          "propertyName": "endDate"
                         },
                         {
                           "path": "https://openminds.ebrains.eu/vocab/memberOf",
-                          "propertyName": "vocab:memberOf",
+                          "propertyName": "memberOf",
                           "structure": [
                             {
                               "path": "@id"
@@ -220,13 +220,13 @@
                         },
                         {
                           "path": "https://openminds.ebrains.eu/vocab/startDate",
-                          "propertyName": "vocab:startDate"
+                          "propertyName": "startDate"
                         }
                       ]
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-                      "propertyName": "vocab:digitalIdentifier",
+                      "propertyName": "digitalIdentifier",
                       "ensureOrder": true,
                       "structure": [
                         {
@@ -239,7 +239,7 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/hasParent",
-                      "propertyName": "vocab:hasParent",
+                      "propertyName": "hasParent",
                       "ensureOrder": true,
                       "structure": [
                         {
@@ -252,13 +252,13 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/homepage",
-                      "propertyName": "vocab:homepage"
+                      "propertyName": "homepage"
                     }
                   ]
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/startDate",
-                  "propertyName": "vocab:startDate"
+                  "propertyName": "startDate"
                 }
               ]
             },
@@ -269,7 +269,7 @@
                   "@id": "https://openminds.ebrains.eu/core/GRIDID"
                 }
               },
-              "propertyName": "vocab:digitalIdentifier__GRIDID",
+              "propertyName": "digitalIdentifier__GRIDID",
               "ensureOrder": true,
               "structure": [
                 {
@@ -280,7 +280,7 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/identifier",
-                  "propertyName": "vocab:identifier"
+                  "propertyName": "identifier"
                 }
               ]
             },
@@ -291,7 +291,7 @@
                   "@id": "https://openminds.ebrains.eu/core/RORID"
                 }
               },
-              "propertyName": "vocab:digitalIdentifier__RORID",
+              "propertyName": "digitalIdentifier__RORID",
               "ensureOrder": true,
               "structure": [
                 {
@@ -302,7 +302,7 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/identifier",
-                  "propertyName": "vocab:identifier"
+                  "propertyName": "identifier"
                 }
               ]
             },
@@ -313,7 +313,7 @@
                   "@id": "https://openminds.ebrains.eu/core/RRID"
                 }
               },
-              "propertyName": "vocab:digitalIdentifier__RRID",
+              "propertyName": "digitalIdentifier__RRID",
               "ensureOrder": true,
               "structure": [
                 {
@@ -324,13 +324,13 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/identifier",
-                  "propertyName": "vocab:identifier"
+                  "propertyName": "identifier"
                 }
               ]
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/hasParent",
-              "propertyName": "vocab:hasParent",
+              "propertyName": "hasParent",
               "ensureOrder": true,
               "structure": [
                 {
@@ -341,16 +341,16 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/fullName",
-                  "propertyName": "vocab:fullName",
+                  "propertyName": "fullName",
                   "sort": true
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/shortName",
-                  "propertyName": "vocab:shortName"
+                  "propertyName": "shortName"
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/affiliation",
-                  "propertyName": "vocab:affiliation",
+                  "propertyName": "affiliation",
                   "ensureOrder": true,
                   "structure": [
                     {
@@ -358,11 +358,11 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/endDate",
-                      "propertyName": "vocab:endDate"
+                      "propertyName": "endDate"
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/memberOf",
-                      "propertyName": "vocab:memberOf",
+                      "propertyName": "memberOf",
                       "structure": [
                         {
                           "path": "@id"
@@ -374,13 +374,13 @@
                     },
                     {
                       "path": "https://openminds.ebrains.eu/vocab/startDate",
-                      "propertyName": "vocab:startDate"
+                      "propertyName": "startDate"
                     }
                   ]
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-                  "propertyName": "vocab:digitalIdentifier",
+                  "propertyName": "digitalIdentifier",
                   "ensureOrder": true,
                   "structure": [
                     {
@@ -393,7 +393,7 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/hasParent",
-                  "propertyName": "vocab:hasParent",
+                  "propertyName": "hasParent",
                   "ensureOrder": true,
                   "structure": [
                     {
@@ -406,30 +406,30 @@
                 },
                 {
                   "path": "https://openminds.ebrains.eu/vocab/homepage",
-                  "propertyName": "vocab:homepage"
+                  "propertyName": "homepage"
                 }
               ]
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/homepage",
-              "propertyName": "vocab:homepage"
+              "propertyName": "homepage"
             }
           ]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/startDate",
-          "propertyName": "vocab:startDate"
+          "propertyName": "startDate"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/alternateName",
-      "propertyName": "vocab:alternateName",
+      "propertyName": "alternateName",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/associatedAccount",
-      "propertyName": "vocab:associatedAccount",
+      "propertyName": "associatedAccount",
       "ensureOrder": true,
       "structure": [
         {
@@ -440,7 +440,7 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/service",
-          "propertyName": "vocab:service",
+          "propertyName": "service",
           "structure": [
             {
               "path": "@id"
@@ -450,16 +450,16 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/fullName",
-              "propertyName": "vocab:fullName",
+              "propertyName": "fullName",
               "sort": true
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/shortName",
-              "propertyName": "vocab:shortName"
+              "propertyName": "shortName"
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/custodian",
-              "propertyName": "vocab:custodian",
+              "propertyName": "custodian",
               "ensureOrder": true,
               "structure": [
                 {
@@ -472,11 +472,11 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/description",
-              "propertyName": "vocab:description"
+              "propertyName": "description"
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/developer",
-              "propertyName": "vocab:developer",
+              "propertyName": "developer",
               "ensureOrder": true,
               "structure": [
                 {
@@ -489,7 +489,7 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/hasVersion",
-              "propertyName": "vocab:hasVersion",
+              "propertyName": "hasVersion",
               "ensureOrder": true,
               "structure": [
                 {
@@ -502,23 +502,23 @@
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/homepage",
-              "propertyName": "vocab:homepage"
+              "propertyName": "homepage"
             },
             {
               "path": "https://openminds.ebrains.eu/vocab/howToCite",
-              "propertyName": "vocab:howToCite"
+              "propertyName": "howToCite"
             }
           ]
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/userName",
-          "propertyName": "vocab:userName"
+          "propertyName": "userName"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contactInformation",
-      "propertyName": "vocab:contactInformation",
+      "propertyName": "contactInformation",
       "structure": [
         {
           "path": "@id"
@@ -528,13 +528,13 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/email",
-          "propertyName": "vocab:email"
+          "propertyName": "email"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
+      "propertyName": "digitalIdentifier",
       "ensureOrder": true,
       "structure": [
         {
@@ -545,17 +545,17 @@
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/identifier",
-          "propertyName": "vocab:identifier"
+          "propertyName": "identifier"
         }
       ]
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/familyName",
-      "propertyName": "vocab:familyName"
+      "propertyName": "familyName"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/givenName",
-      "propertyName": "vocab:givenName"
+      "propertyName": "givenName"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import os
 import tempfile
 import pytest
-from fairgraph.utility import expand_filter, compact_uri, in_notebook, accepted_terms_of_use, sha1sum
+from fairgraph.utility import (expand_filter, compact_uri, in_notebook, accepted_terms_of_use, sha1sum, normalize_data)
 from .utils import kg_client, skip_if_no_connection
 
 
@@ -57,3 +57,37 @@ def test_sha1sum():
     fp.close()
     assert sha1sum(fp.name) == "80a963e503e9ed478c2cc528fd344d58122929c2"
     os.remove(fp.name)
+
+
+def test_normalize_data():
+    data = {
+        "@context": {
+            "@vocab": "https://openminds.ebrains.eu/vocab/"
+        },
+        "@id": "0000",
+        "@type": "https://openminds.ebrains.eu/core/Person",
+        "affiliation": {
+            "@type": "https://openminds.ebrains.eu/core/Affiliation",
+            "memberOf": {
+                "@type": "https://openminds.ebrains.eu/core/Organization",
+                "fullName": "The Lonely Mountain",
+            },
+        },
+        "familyName": "Oakenshield",
+        "givenName": "Thorin",
+    }
+    context = data.pop("@context")
+    expected = {
+        "@id": "0000",
+        "@type": ["https://openminds.ebrains.eu/core/Person"],
+        "https://openminds.ebrains.eu/vocab/affiliation": {
+            "@type": ["https://openminds.ebrains.eu/core/Affiliation"],
+            "https://openminds.ebrains.eu/vocab/memberOf": {
+                "@type": ["https://openminds.ebrains.eu/core/Organization"],
+                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
+            },
+        },
+        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
+        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+    }
+    assert normalize_data(data, context) == expected

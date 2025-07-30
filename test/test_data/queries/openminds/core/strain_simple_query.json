@@ -40,12 +40,12 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/alternateIdentifier",
-      "propertyName": "vocab:alternateIdentifier",
+      "propertyName": "alternateIdentifier",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/backgroundStrain",
-      "propertyName": "vocab:backgroundStrain",
+      "propertyName": "backgroundStrain",
       "ensureOrder": true,
       "structure": [
         {
@@ -58,7 +58,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/breedingType",
-      "propertyName": "vocab:breedingType",
+      "propertyName": "breedingType",
       "structure": [
         {
           "path": "@id"
@@ -66,15 +66,16 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/digitalIdentifier",
-      "propertyName": "vocab:digitalIdentifier",
+      "propertyName": "digitalIdentifier",
       "structure": [
         {
           "path": "@id"
@@ -82,11 +83,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/diseaseModel",
-      "propertyName": "vocab:diseaseModel",
+      "propertyName": "diseaseModel",
       "ensureOrder": true,
       "structure": [
         {
@@ -99,7 +101,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/geneticStrainType",
-      "propertyName": "vocab:geneticStrainType",
+      "propertyName": "geneticStrainType",
       "structure": [
         {
           "path": "@id"
@@ -107,29 +109,30 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/laboratoryCode",
-      "propertyName": "vocab:laboratoryCode"
+      "propertyName": "laboratoryCode"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/ontologyIdentifier",
-      "propertyName": "vocab:ontologyIdentifier",
+      "propertyName": "ontologyIdentifier",
       "ensureOrder": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/phenotype",
-      "propertyName": "vocab:phenotype"
+      "propertyName": "phenotype"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
-      "propertyName": "vocab:species",
+      "propertyName": "species",
       "structure": [
         {
           "path": "@id"
@@ -137,22 +140,23 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/stockNumber",
-      "propertyName": "vocab:stockNumber",
+      "propertyName": "stockNumber",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/identifier",
-          "propertyName": "vocab:identifier"
+          "propertyName": "identifier"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/vendor",
-          "propertyName": "vocab:vendor",
+          "propertyName": "vendor",
           "structure": [
             {
               "path": "@id"
@@ -160,13 +164,15 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/synonym",
-      "propertyName": "vocab:synonym",
+      "propertyName": "synonym",
       "ensureOrder": true
     },
     {
@@ -174,7 +180,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/backgroundStrain",
         "reverse": true
       },
-      "propertyName": "vocab:backgroundStrain",
+      "propertyName": "backgroundStrain",
       "ensureOrder": true,
       "structure": [
         {
@@ -190,7 +196,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/species",
         "reverse": true
       },
-      "propertyName": "vocab:species",
+      "propertyName": "species",
       "ensureOrder": true,
       "structure": [
         {

@@ -40,11 +40,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/description",
-      "propertyName": "vocab:description"
+      "propertyName": "description"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hasPart",
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -57,11 +57,11 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/location",
-      "propertyName": "vocab:location"
+      "propertyName": "location"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/manufacturer",
-      "propertyName": "vocab:manufacturer",
+      "propertyName": "manufacturer",
       "ensureOrder": true,
       "structure": [
         {
@@ -74,12 +74,12 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/type",
-      "propertyName": "vocab:type",
+      "propertyName": "type",
       "ensureOrder": true,
       "structure": [
         {
@@ -95,7 +95,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/hasPart",
         "reverse": true
       },
-      "propertyName": "vocab:hasPart",
+      "propertyName": "hasPart",
       "ensureOrder": true,
       "structure": [
         {
@@ -111,7 +111,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/setup",
         "reverse": true
       },
-      "propertyName": "vocab:setup",
+      "propertyName": "setup",
       "ensureOrder": true,
       "structure": [
         {

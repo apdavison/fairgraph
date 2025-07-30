@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/contentTypePattern",
-      "propertyName": "vocab:contentTypePattern",
+      "propertyName": "contentTypePattern",
       "ensureOrder": true,
       "structure": [
         {
@@ -53,7 +53,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/format",
-      "propertyName": "vocab:format",
+      "propertyName": "format",
       "structure": [
         {
           "path": "@id"
@@ -61,28 +61,30 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hash",
-      "propertyName": "vocab:hash",
+      "propertyName": "hash",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/algorithm",
-          "propertyName": "vocab:algorithm"
+          "propertyName": "algorithm"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/digest",
-          "propertyName": "vocab:digest"
+          "propertyName": "digest"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/hostedBy",
-      "propertyName": "vocab:hostedBy",
+      "propertyName": "hostedBy",
       "structure": [
         {
           "path": "@id"
@@ -90,27 +92,28 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/IRI",
-      "propertyName": "vocab:IRI"
+      "propertyName": "IRI"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/name",
-      "propertyName": "vocab:name",
+      "propertyName": "name",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/storageSize",
-      "propertyName": "vocab:storageSize",
+      "propertyName": "storageSize",
       "structure": [
         {
           "path": "@type"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/typeOfUncertainty",
-          "propertyName": "vocab:typeOfUncertainty",
+          "propertyName": "typeOfUncertainty",
           "structure": [
             {
               "path": "@id"
@@ -118,16 +121,17 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/uncertainty",
-          "propertyName": "vocab:uncertainty",
+          "propertyName": "uncertainty",
           "ensureOrder": true
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/unit",
-          "propertyName": "vocab:unit",
+          "propertyName": "unit",
           "structure": [
             {
               "path": "@id"
@@ -135,17 +139,19 @@
             {
               "path": "@type"
             }
-          ]
+          ],
+          "singleValue": "FIRST"
         },
         {
           "path": "https://openminds.ebrains.eu/vocab/value",
-          "propertyName": "vocab:value"
+          "propertyName": "value"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/structurePattern",
-      "propertyName": "vocab:structurePattern",
+      "propertyName": "structurePattern",
       "structure": [
         {
           "path": "@id"
@@ -153,11 +159,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/type",
-      "propertyName": "vocab:type",
+      "propertyName": "type",
       "structure": [
         {
           "path": "@id"
@@ -165,14 +172,15 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": {
         "@id": "https://openminds.ebrains.eu/vocab/repository",
         "reverse": true
       },
-      "propertyName": "vocab:repository",
+      "propertyName": "repository",
       "ensureOrder": true,
       "structure": [
         {
@@ -188,7 +196,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/fileRepository",
         "reverse": true
       },
-      "propertyName": "vocab:fileRepository",
+      "propertyName": "fileRepository",
       "ensureOrder": true,
       "structure": [
         {
@@ -204,7 +212,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/isPartOf",
         "reverse": true
       },
-      "propertyName": "vocab:isPartOf",
+      "propertyName": "isPartOf",
       "ensureOrder": true,
       "structure": [
         {

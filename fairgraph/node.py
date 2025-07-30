@@ -21,7 +21,9 @@ from .errors import ResolutionFailure, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
-    invert_dict
+    invert_dict,
+    normalize_data,
+    types_match
 )
 
 if TYPE_CHECKING:
@@ -34,16 +36,15 @@ JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for
 
 default_context = {
     "v3": {
-        "vocab": "https://openminds.ebrains.eu/vocab/",
+        "@vocab": "https://openminds.ebrains.eu/vocab/",
     },
     "v4": {
-        "vocab": "https://openminds.om-i.org/props/"
+        "@vocab": "https://openminds.om-i.org/props/"
     }
 }
 
 
 class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMetadata
-    properties: List[Property] = []
     reverse_properties: List[Property] = []
     context: Dict[str, str] = default_context["v3"]
     type_: str
@@ -90,7 +91,10 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         self._raw_remote_data = data  # for debugging
         self.remote_data = {}
         if data:
-            self.remote_data = self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False)
+            self.remote_data = normalize_data(
+                self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
+                self.context
+            )
 
     def __getattribute__(self, name):
         try:
@@ -241,27 +245,48 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
     @classmethod
     def _deserialize_data(cls, data: JSONdict, include_id: bool = False):
-        # check types match
-        if cls.type_ not in data["@type"]:
-            if types_match(cls.type_, data["@type"][0]):
-                cls.type_ = data["@type"][0]
+
+        def _get_type_from_data(data_item):
+             # KG returns a list of types, openMINDS expects only a single string
+            if isinstance(data_item, dict) and "@type" in data_item:
+                if isinstance(data_item["@type"], list):
+                    assert len(data_item["@type"]) == 1
+                    return data_item["@type"][0]
+                else:
+                    return data_item["@type"]
             else:
-                raise TypeError("type mismatch {} - {}".format(cls.type_, data["@type"]))
+                return None
+
+        def _normalize_type(data_item):
+            # replace @type as list with @type as string
+            if isinstance(data_item, (list, tuple)):
+                data_item = [_normalize_type(part) for part in data_item]
+            else:
+                type_from_data_item = _get_type_from_data(data_item)
+                if type_from_data_item:
+                    data_item = data_item.copy()
+                    data_item["@type"] = type_from_data_item
+            return data_item
+
+        type_from_data = _get_type_from_data(data)
+        # check types match
+        if not types_match(cls.type_, type_from_data):
+            raise TypeError("type mismatch {} - {}".format(cls.type_, type_from_data))
+
         # normalize data by expanding keys
-        context = copy(cls.context)
-        if "om-i.org" in cls.type_:
+        if "om-i.org" in type_from_data:
             context = default_context["v4"]
         else:
             context = default_context["v3"]
 
-        D = {"@type": data["@type"]}
+        D = {"@type": type_from_data}
         if include_id:
             D["@id"] = data["@id"]
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
                 normalised_key = expand_uri(key, context)
-                value = [item for item in as_list(value) if item["@type"][0].endswith(type_filter)]
+                value = [item for item in as_list(value) if _get_type_from_data(item).endswith(type_filter)]
                 if normalised_key in D:
                     D[normalised_key].extend(value)
                 else:
@@ -272,17 +297,11 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 normalised_key = expand_uri(key, context)
                 D[normalised_key] = value
 
-        def _get_type_from_data(data_item):
-            type_ = data_item.get("@type", None)
-            if type_:
-                return type_[0]
-            else:
-                return None
-
         deserialized_data = {}
         for prop in cls.all_properties:
             expanded_path = expand_uri(prop.path, context)
-            data_item = D.get(expanded_path)
+            data_item = _normalize_type(D.get(expanded_path))
+
             if data_item is not None and prop.reverse:
                 # for reverse properties, more than one property can have the same path
                 # so we extract only those sub-items whose types match
@@ -295,21 +314,39 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     # problem when a forward and reverse path both given the same expanded path
                     # e.g. for Configuration
                     data_item = None
+
             # sometimes queries put single items in a list, this removes the enclosing list
             if (not prop.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
+
+            # deal with property names that conflict with kwargs in fairgraph
+            prop_name = prop.name
+            if prop_name == "scope":
+                prop_name = "model_scope"
+
             if data_item is None:
                 if prop.reverse and "@id" in data:
                     if isinstance(prop.reverse, list):
                         # todo: handle all possible reverses
                         #       for now, we just take the first
-                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse[0]: data["@id"]})
+                        deserialized_data[prop_name] = KGQuery(prop.types, {prop.reverse[0]: data["@id"]})
                     else:
-                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse: data["@id"]})
+                        deserialized_data[prop_name] = KGQuery(prop.types, {prop.reverse: data["@id"]})
                 else:
-                    deserialized_data[prop.name] = None
+                    deserialized_data[prop_name] = None
             else:
-                deserialized_data[prop.name] = prop.deserialize(data_item)
+                try:
+                    value = prop.deserialize(data_item)
+                except ValueError as err:
+                    ErrorHandling.handle_violation(cls.error_handling, str(err))
+                else:
+                    if isinstance(value, Link) and value.allowed_types is not None:
+                        value = KGProxy(value.allowed_types, value.identifier)
+                    elif isinstance(value, list) and len(value) > 0 and isinstance(value[0], Link):
+                        # here we assume that if the first item is a Link, they all are
+                        value = [KGProxy(item.allowed_types, item.identifier) for item in value]
+                    deserialized_data[prop_name] = value
+
         return deserialized_data
 
     def resolve(

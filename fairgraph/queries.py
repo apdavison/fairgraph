@@ -303,6 +303,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
     """
     expanded_path = expand_uri(property.path, {"@vocab": "https://openminds.ebrains.eu/vocab/"})
     properties = []
+
     if any(issubclass(_type, EmbeddedMetadata) for _type in property.types):
         if not all(issubclass(_type, EmbeddedMetadata) for _type in property.types):
             warn(f"Mixed types in {property}")
@@ -310,7 +311,8 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
         for cls in property.types:
             if len(property.types) > 1:
                 property_name = f"{property.path}__{cls.__name__}"
-                type_filter = cls.type_[0]
+                assert isinstance(cls.type_, str)
+                type_filter = cls.type_
             else:
                 property_name = property.path
                 type_filter = None
@@ -321,6 +323,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
                     reverse=property.reverse,
                     type_filter=type_filter,
                     ensure_order=property.multiple,
+                    expect_single=property.is_link and not property.multiple,
                     properties=cls.generate_query_properties(follow_links),
                 )
             )
@@ -331,7 +334,8 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
                 property_name = _get_query_property_name(property, possible_classes=[cls])
                 if len(property.types) > 1:
                     property_name = f"{property_name}__{cls.__name__}"
-                    type_filter = cls.type_[0]
+                    assert isinstance(cls.type_, str)
+                    type_filter = cls.type_
                 else:
                     type_filter = None
 
@@ -342,6 +346,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
                         reverse=property.reverse,
                         type_filter=type_filter,
                         ensure_order=property.multiple,
+                        expect_single=property.is_link and not property.multiple,
                         properties=[QueryProperty("@id"), *cls.generate_query_properties(follow_links)],
                     )
                 )
@@ -355,6 +360,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
                         reverse=property.reverse,
                         type_filter=None,
                         ensure_order=property.multiple,
+                        expect_single=property.is_link and not property.multiple,
                         properties=[
                             QueryProperty("@id"),
                             QueryProperty("@type"),
@@ -372,6 +378,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
                 name=property.path,
                 reverse=property.reverse,
                 ensure_order=property.multiple,
+                expect_single=property.is_link and not property.multiple,
             )
         )
     return properties
@@ -435,7 +442,7 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
                 val = UUID(val)
             except ValueError:
                 pass
-        return isinstance(val, (IRI, UUID, *property.types)) or (isinstance(val, KGProxy) and val.cls in property.types)
+        return isinstance(val, (IRI, UUID, *property.types)) or (isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types))
 
     if isinstance(value, list) and len(value) > 0:
         valid_type = all(is_valid(item) for item in value)

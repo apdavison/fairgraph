@@ -40,7 +40,7 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/biologicalSex",
-      "propertyName": "vocab:biologicalSex",
+      "propertyName": "biologicalSex",
       "structure": [
         {
           "path": "@id"
@@ -48,15 +48,16 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/internalIdentifier",
-      "propertyName": "vocab:internalIdentifier"
+      "propertyName": "internalIdentifier"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/isPartOf",
-      "propertyName": "vocab:isPartOf",
+      "propertyName": "isPartOf",
       "ensureOrder": true,
       "structure": [
         {
@@ -69,12 +70,12 @@
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/lookupLabel",
-      "propertyName": "vocab:lookupLabel",
+      "propertyName": "lookupLabel",
       "sort": true
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/species",
-      "propertyName": "vocab:species",
+      "propertyName": "species",
       "structure": [
         {
           "path": "@id"
@@ -82,11 +83,12 @@
         {
           "path": "@type"
         }
-      ]
+      ],
+      "singleValue": "FIRST"
     },
     {
       "path": "https://openminds.ebrains.eu/vocab/studiedState",
-      "propertyName": "vocab:studiedState",
+      "propertyName": "studiedState",
       "ensureOrder": true,
       "structure": [
         {
@@ -102,7 +104,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/studiedSpecimen",
         "reverse": true
       },
-      "propertyName": "vocab:studiedSpecimen",
+      "propertyName": "studiedSpecimen",
       "ensureOrder": true,
       "structure": [
         {
@@ -118,7 +120,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/groupedBy",
         "reverse": true
       },
-      "propertyName": "vocab:groupedBy",
+      "propertyName": "groupedBy",
       "ensureOrder": true,
       "structure": [
         {
@@ -134,7 +136,7 @@
         "@id": "https://openminds.ebrains.eu/vocab/usedSpecimen",
         "reverse": true
       },
-      "propertyName": "vocab:usedSpecimen",
+      "propertyName": "usedSpecimen",
       "ensureOrder": true,
       "structure": [
         {

@@ -198,19 +198,26 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
     normalized: JSONdict = {}
     for key, value in data.items():
         assert isinstance(key, str)
-        if key.startswith("Q"):
+        if key == "@context":
+            continue
+        elif key.startswith("Q"):
             expanded_key = key
         else:
             result = expand_uri(key, context)
             assert isinstance(result, str)  # for type checking
             expanded_key = result
         assert expanded_key.startswith("http") or expanded_key.startswith("@") or expanded_key.startswith("Q")
+
         if hasattr(value, "__len__") and len(value) == 0:
             pass
         elif value is None:
             pass
-        elif isinstance(value, (list, tuple)) and key != "@type":
-            # note that we special-case "@type" for now
+        elif expanded_key == "@type":
+            if isinstance(value, str):
+                # KG makes @type a list
+                value = [value]
+            normalized[expanded_key] = value
+        elif isinstance(value, (list, tuple)):
             normalized[expanded_key] = []
             for item in value:
                 if isinstance(item, dict):
@@ -219,7 +226,7 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
                     normalized[expanded_key].append(item)
             if len(value) == 1:
                 normalized[expanded_key] = normalized[expanded_key][0]
-        elif isinstance(value, dict) and expanded_key != "@context":
+        elif isinstance(value, dict):
             normalized[expanded_key] = normalize_data(value, context)
         else:
             normalized[expanded_key] = value
