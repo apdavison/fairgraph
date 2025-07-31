@@ -17,7 +17,7 @@ class AgeCategory(KGObject, AgeCategory):
     Structured information on the life cycle (semantic term) of a specific age group.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/AgeCategory"
+    type_ = "https://openminds.om-i.org/types/AgeCategory"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

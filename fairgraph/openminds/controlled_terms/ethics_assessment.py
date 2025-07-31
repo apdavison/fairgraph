@@ -17,7 +17,7 @@ class EthicsAssessment(KGObject, EthicsAssessment):
     Structured information on the ethics assessment of a dataset.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/EthicsAssessment"
+    type_ = "https://openminds.om-i.org/types/EthicsAssessment"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

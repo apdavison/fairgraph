@@ -14,7 +14,7 @@ class SWHID(KGObject, SWHID):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/SWHID"
+    type_ = "https://openminds.om-i.org/types/SWHID"
     default_space = "software"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

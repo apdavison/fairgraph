@@ -20,7 +20,7 @@ class DatasetVersion(KGObject, DatasetVersion):
     Structured information on data originating from human/animal studies or simulations (version level).
     """
 
-    type_ = "https://openminds.ebrains.eu/core/DatasetVersion"
+    type_ = "https://openminds.om-i.org/types/DatasetVersion"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

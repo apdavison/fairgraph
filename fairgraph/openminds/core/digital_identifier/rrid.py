@@ -14,7 +14,7 @@ class RRID(KGObject, RRID):
     A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/RRID"
+    type_ = "https://openminds.om-i.org/types/RRID"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

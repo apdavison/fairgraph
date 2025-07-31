@@ -90,7 +90,6 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         Save to the KG any sub-components of the metadata object that are KGObjects.
         """
         for prop in self.properties:
-            assert prop.intrinsic  # embedded metadata should not contain any reverse properties
             values = getattr(self, prop.name)
             for value in as_list(values):
                 if isinstance(value, ContainsMetadata):

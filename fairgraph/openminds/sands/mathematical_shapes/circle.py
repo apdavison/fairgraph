@@ -14,7 +14,7 @@ class Circle(EmbeddedMetadata, Circle):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/Circle"
+    type_ = "https://openminds.om-i.org/types/Circle"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

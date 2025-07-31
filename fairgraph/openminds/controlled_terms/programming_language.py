@@ -17,7 +17,7 @@ class ProgrammingLanguage(KGObject, ProgrammingLanguage):
     Structured information on the programming language.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/ProgrammingLanguage"
+    type_ = "https://openminds.om-i.org/types/ProgrammingLanguage"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

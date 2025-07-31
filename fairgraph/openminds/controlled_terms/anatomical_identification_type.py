@@ -17,7 +17,7 @@ class AnatomicalIdentificationType(KGObject, AnatomicalIdentificationType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/AnatomicalIdentificationType"
+    type_ = "https://openminds.om-i.org/types/AnatomicalIdentificationType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -14,7 +14,7 @@ class ORCID(KGObject, ORCID):
     A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ORCID"
+    type_ = "https://openminds.om-i.org/types/ORCID"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

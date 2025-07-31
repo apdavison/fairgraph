@@ -17,7 +17,7 @@ class CriteriaQualityType(KGObject, CriteriaQualityType):
     Structured information on the quality type of the defined criteria for a measurement.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/CriteriaQualityType"
+    type_ = "https://openminds.om-i.org/types/CriteriaQualityType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

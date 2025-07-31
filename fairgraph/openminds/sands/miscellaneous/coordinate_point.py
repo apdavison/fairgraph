@@ -14,7 +14,7 @@ class CoordinatePoint(EmbeddedMetadata, CoordinatePoint):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/CoordinatePoint"
+    type_ = "https://openminds.om-i.org/types/CoordinatePoint"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

@@ -14,7 +14,7 @@ class CustomAnnotation(EmbeddedMetadata, CustomAnnotation):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/CustomAnnotation"
+    type_ = "https://openminds.om-i.org/types/CustomAnnotation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

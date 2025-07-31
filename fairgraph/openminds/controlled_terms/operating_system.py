@@ -17,7 +17,7 @@ class OperatingSystem(KGObject, OperatingSystem):
     Structured information on the operating system.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/OperatingSystem"
+    type_ = "https://openminds.om-i.org/types/OperatingSystem"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

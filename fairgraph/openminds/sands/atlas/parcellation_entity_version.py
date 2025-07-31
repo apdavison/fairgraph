@@ -14,7 +14,7 @@ class ParcellationEntityVersion(KGObject, ParcellationEntityVersion):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/ParcellationEntityVersion"
+    type_ = "https://openminds.om-i.org/types/ParcellationEntityVersion"
     default_space = "atlas"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

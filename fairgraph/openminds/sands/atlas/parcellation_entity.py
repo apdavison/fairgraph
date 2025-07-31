@@ -14,7 +14,7 @@ class ParcellationEntity(KGObject, ParcellationEntity):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/ParcellationEntity"
+    type_ = "https://openminds.om-i.org/types/ParcellationEntity"
     default_space = "atlas"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

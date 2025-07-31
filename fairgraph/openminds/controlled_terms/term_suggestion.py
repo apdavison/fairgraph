@@ -17,7 +17,7 @@ class TermSuggestion(KGObject, TermSuggestion):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/TermSuggestion"
+    type_ = "https://openminds.om-i.org/types/TermSuggestion"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

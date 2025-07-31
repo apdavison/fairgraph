@@ -14,7 +14,7 @@ class Strain(KGObject, Strain):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Strain"
+    type_ = "https://openminds.om-i.org/types/Strain"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

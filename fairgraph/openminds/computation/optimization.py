@@ -17,7 +17,7 @@ class Optimization(KGObject, Optimization):
     Structured information about a process of optimizing a model or a piece of code.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/Optimization"
+    type_ = "https://openminds.om-i.org/types/Optimization"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

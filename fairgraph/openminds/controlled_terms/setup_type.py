@@ -17,7 +17,7 @@ class SetupType(KGObject, SetupType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/SetupType"
+    type_ = "https://openminds.om-i.org/types/SetupType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

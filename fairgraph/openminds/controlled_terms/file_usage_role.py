@@ -17,7 +17,7 @@ class FileUsageRole(KGObject, FileUsageRole):
     Structured information on the usage role of a file instance or bundle.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/FileUsageRole"
+    type_ = "https://openminds.om-i.org/types/FileUsageRole"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

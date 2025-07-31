@@ -19,7 +19,7 @@ class ModelVersion(KGObject, ModelVersion):
     Structured information on a computational model (version level).
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ModelVersion"
+    type_ = "https://openminds.om-i.org/types/ModelVersion"
     default_space = "model"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

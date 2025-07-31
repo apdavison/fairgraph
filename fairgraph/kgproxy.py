@@ -22,6 +22,7 @@ from __future__ import annotations
 import logging
 from typing import List, Optional, Tuple, Union, Dict, Any, TYPE_CHECKING
 
+from openminds.base import Link
 from openminds.registry import lookup
 
 from .errors import ResolutionFailure
@@ -36,7 +37,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class KGProxy(RepresentsSingleObject):
+class KGProxy(RepresentsSingleObject, Link):
     """
     Representation of an KGObject whose identifier, and possibly type, are known but whose
     other metadata have not been retrieved from the KG.
@@ -81,6 +82,7 @@ class KGProxy(RepresentsSingleObject):
         self.id = uri
         self.preferred_scope = preferred_scope
         self.remote_data = None
+        Link.__init__(self, self.id, allowed_types=self.classes)
 
     @property
     def type(self) -> List[str]:

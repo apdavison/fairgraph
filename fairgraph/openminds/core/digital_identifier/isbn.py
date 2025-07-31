@@ -14,7 +14,7 @@ class ISBN(KGObject, ISBN):
     An International Standard Book Number of the International ISBN Agency.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ISBN"
+    type_ = "https://openminds.om-i.org/types/ISBN"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

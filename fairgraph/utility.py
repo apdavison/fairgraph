@@ -18,10 +18,13 @@
 # limitations under the License.
 
 from __future__ import annotations
+from copy import deepcopy
 import hashlib
 import logging
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
+
+from openminds.registry import lookup_type
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -145,7 +148,10 @@ def compact_uri(
                 if uri.startswith(base_url):
                     start = len(base_url)
                     identifier = uri[start:].strip("/")
-                    compacted_uris.append(f"{prefix}:{identifier}")
+                    if prefix == "@vocab":
+                        compacted_uris.append(identifier)
+                    else:
+                        compacted_uris.append(f"{prefix}:{identifier}")
                     found = True
                     break
             if not found:
@@ -213,9 +219,6 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
         elif value is None:
             pass
         elif expanded_key == "@type":
-            if isinstance(value, str):
-                # KG makes @type a list
-                value = [value]
             normalized[expanded_key] = value
         elif isinstance(value, (list, tuple)):
             normalized[expanded_key] = []
@@ -224,8 +227,6 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
                     normalized[expanded_key].append(normalize_data(item, context))
                 else:
                     normalized[expanded_key].append(item)
-            if len(value) == 1:
-                normalized[expanded_key] = normalized[expanded_key][0]
         elif isinstance(value, dict):
             normalized[expanded_key] = normalize_data(value, context)
         else:
@@ -439,7 +440,89 @@ def types_match(a, b):
     if a == b:
         return True
     elif a.split("/")[-1] == b.split("/")[-1]:
-        logger.warning(f"Replacing {a} with {b}")
+        logger.warning(f"Assuming {a} matches {b} in types_match()")
         return True
     else:
         return False
+
+
+def _adapt_namespaces(data, adapt_keys, adapt_type):
+    if isinstance(data, list):
+        for item in data:
+            _adapt_namespaces(item, adapt_keys, adapt_type)
+    elif isinstance(data, dict):
+        # adapt property URIs
+        old_keys = tuple(data.keys())
+        new_keys = adapt_keys(old_keys)
+        for old_key, new_key in zip(old_keys, new_keys):
+            data[new_key] = data.pop(old_key)
+        for value in data.values():
+            if isinstance(value, (list, dict)):
+                _adapt_namespaces(value, adapt_keys, adapt_type)
+        # adapt @type URIs
+        if "@type" in data:
+            data["@type"] = adapt_type(data["@type"])
+    else:
+        pass
+
+
+def adapt_namespaces_3to4(data):
+
+    def adapt_keys_3to4(uri_list):
+        replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
+        return (uri.replace(*replacement) for uri in uri_list)
+
+    def adapt_type_3to4(uri):
+        if isinstance(uri, list):
+            assert len(uri) == 1
+            uri = uri[0]
+        return f"https://openminds.om-i.org/types/{uri.split('/')[-1]}"
+
+    return _adapt_namespaces(data, adapt_keys_3to4, adapt_type_3to4)
+
+
+def adapt_type_4to3(uri):
+        if isinstance(uri, list):
+            assert len(uri) == 1
+            uri = uri[0]
+        cls = lookup_type(uri)
+        module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
+        module_name = {
+            "controlled_terms": "controlledTerms",
+            "specimen_prep": "specimenPrep"
+        }.get(module_name, module_name)
+        return f"https://openminds.ebrains.eu/{module_name}/{cls.__name__}"
+
+
+def adapt_namespaces_4to3(data):
+
+    def adapt_keys_4to3(uri_list):
+        replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
+        return (uri.replace(*replacement) for uri in uri_list)
+
+    return _adapt_namespaces(data, adapt_keys_4to3, adapt_type_4to3)
+
+
+def adapt_namespaces_for_query(query):
+    """Map from v4+ to v3 openMINDS namespace"""
+
+    def adapt_structure(structure, replacement):
+        for item in structure:
+            if isinstance(item["path"], str):
+                item["path"] = item["path"].replace(*replacement)
+            elif isinstance(item["path"], list):
+                item["path"] = [part.replace(*replacement) for part in item["path"]]
+                # todo: individual parts could be dicts with "@id", "typeFilter"
+            else:
+                assert isinstance(item["path"], dict)
+                item["path"]["@id"] = item["path"]["@id"].replace(*replacement)
+                if "typeFilter" in item["path"]:
+                    item["path"]["typeFilter"]["@id"] = adapt_type_4to3(item["path"]["typeFilter"]["@id"])
+            if "structure" in item:
+                adapt_structure(item["structure"], replacement)
+
+    migrated_query = deepcopy(query)
+    migrated_query["meta"]["type"] = adapt_type_4to3(migrated_query["meta"]["type"])
+    replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
+    adapt_structure(migrated_query["structure"], replacement)
+    return migrated_query

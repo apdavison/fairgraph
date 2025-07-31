@@ -17,7 +17,7 @@ class GenericComputation(KGObject, GenericComputation):
     Structured information about a computation whose type is unknown or unspecified.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/GenericComputation"
+    type_ = "https://openminds.om-i.org/types/GenericComputation"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

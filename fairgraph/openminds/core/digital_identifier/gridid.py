@@ -14,7 +14,7 @@ class GRIDID(KGObject, GRIDID):
     A GRID (Global Research Identifier Database) identifier.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/GRIDID"
+    type_ = "https://openminds.om-i.org/types/GRIDID"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

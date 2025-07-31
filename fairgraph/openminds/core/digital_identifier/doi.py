@@ -14,7 +14,7 @@ class DOI(KGObject, DOI):
     Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/DOI"
+    type_ = "https://openminds.om-i.org/types/DOI"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

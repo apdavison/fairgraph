@@ -17,7 +17,6 @@ This module provides Python classes to assist in writing Knowledge Graph queries
 # limitations under the License.
 
 from __future__ import annotations
-from copy import deepcopy
 from typing import Optional, List, Any, Dict, Union
 from uuid import UUID
 from datetime import date, datetime
@@ -296,12 +295,12 @@ def _get_query_property_name(property, possible_classes):
     return property_name
 
 
-def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
+def get_query_properties(property, context, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
     """
     Generate one or more QueryProperty instances for this property,
     for use in constructing a KG query definition.
     """
-    expanded_path = expand_uri(property.path, {"@vocab": "https://openminds.ebrains.eu/vocab/"})
+    expanded_path = expand_uri(property.path, context)
     properties = []
 
     if any(issubclass(_type, EmbeddedMetadata) for _type in property.types):
@@ -384,7 +383,7 @@ def get_query_properties(property, follow_links: Optional[Dict[str, Any]] = None
     return properties
 
 
-def get_query_filter_property(property, filter: Any) -> QueryProperty:
+def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
     """
     Generate a QueryProperty instance containing a filter,
     for use in constructing a KG query definition.
@@ -401,7 +400,7 @@ def get_query_filter_property(property, filter: Any) -> QueryProperty:
             op = "CONTAINS"
         filter_obj = Filter(op, value=filter)
 
-    expanded_path = expand_uri(property.path, {"@vocab": "https://openminds.ebrains.eu/vocab/"})
+    expanded_path = expand_uri(property.path, context)
 
     if any(issubclass(_type, Node) for _type in property.types):
         assert all(issubclass(_type, Node) for _type in property.types)
@@ -484,17 +483,3 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
         return filter_items
     else:
         return filter_items[0]
-
-
-def migrate_query(query):
-    """Map from v3 to v4+ openMINDS namespace"""
-    migrated_query = deepcopy(query)
-    type_ = migrated_query["meta"]["type"]
-    migrated_query["meta"]["type"] = f'https://openminds.om-i.org/types/{type_.split("/")[-1]}'
-    replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
-    for item in migrated_query["structure"]:
-        if isinstance(item["path"], str):
-            item["path"] = item["path"].replace(*replacement)
-        else:
-            item["path"]["@id"] = item["path"]["@id"].replace(*replacement)
-    return migrated_query

@@ -17,7 +17,7 @@ class MetaDataModel(KGObject, MetaDataModel):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/MetaDataModel"
+    type_ = "https://openminds.om-i.org/types/MetaDataModel"
     default_space = "metadatamodel"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

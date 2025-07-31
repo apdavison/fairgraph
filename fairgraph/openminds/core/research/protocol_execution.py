@@ -17,7 +17,7 @@ class ProtocolExecution(KGObject, ProtocolExecution):
     Structured information on a protocol execution.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ProtocolExecution"
+    type_ = "https://openminds.om-i.org/types/ProtocolExecution"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

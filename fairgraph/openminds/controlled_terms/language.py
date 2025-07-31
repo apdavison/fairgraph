@@ -17,7 +17,7 @@ class Language(KGObject, Language):
     Structured information on the available language setting.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/Language"
+    type_ = "https://openminds.om-i.org/types/Language"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

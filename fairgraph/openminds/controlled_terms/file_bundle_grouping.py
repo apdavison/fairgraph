@@ -17,7 +17,7 @@ class FileBundleGrouping(KGObject, FileBundleGrouping):
     Structured information on the grouping mechanism of a file bundle.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/FileBundleGrouping"
+    type_ = "https://openminds.om-i.org/types/FileBundleGrouping"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

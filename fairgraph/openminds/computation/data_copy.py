@@ -17,7 +17,7 @@ class DataCopy(KGObject, DataCopy):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/DataCopy"
+    type_ = "https://openminds.om-i.org/types/DataCopy"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

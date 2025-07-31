@@ -17,7 +17,7 @@ class FileRepositoryType(KGObject, FileRepositoryType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/FileRepositoryType"
+    type_ = "https://openminds.om-i.org/types/FileRepositoryType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

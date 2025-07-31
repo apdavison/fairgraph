@@ -17,7 +17,7 @@ class ModelScope(KGObject, ModelScope):
     Structured information on the scope of the computational model.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/ModelScope"
+    type_ = "https://openminds.om-i.org/types/ModelScope"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -14,7 +14,7 @@ class HANDLE(KGObject, HANDLE):
     A persistent identifier for an information resource provided by the Handle System of the Corporation for National Research Initiatives.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/HANDLE"
+    type_ = "https://openminds.om-i.org/types/HANDLE"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

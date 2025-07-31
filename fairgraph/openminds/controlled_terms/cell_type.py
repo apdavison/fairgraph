@@ -17,7 +17,7 @@ class CellType(KGObject, CellType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/CellType"
+    type_ = "https://openminds.om-i.org/types/CellType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

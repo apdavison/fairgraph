@@ -19,7 +19,7 @@ class SoftwareVersion(KGObject, SoftwareVersion):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/SoftwareVersion"
+    type_ = "https://openminds.om-i.org/types/SoftwareVersion"
     default_space = "software"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

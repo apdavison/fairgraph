@@ -17,7 +17,7 @@ class MRAcquisitionType(KGObject, MRAcquisitionType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/MRAcquisitionType"
+    type_ = "https://openminds.om-i.org/types/MRAcquisitionType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

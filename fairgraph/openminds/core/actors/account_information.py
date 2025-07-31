@@ -14,7 +14,7 @@ class AccountInformation(KGObject, AccountInformation):
     Structured information about a user account for a web service.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/AccountInformation"
+    type_ = "https://openminds.om-i.org/types/AccountInformation"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

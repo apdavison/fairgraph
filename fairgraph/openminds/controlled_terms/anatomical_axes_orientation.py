@@ -17,7 +17,7 @@ class AnatomicalAxesOrientation(KGObject, AnatomicalAxesOrientation):
     Structured information on the anatomical directions of the X, Y, and Z axis.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/AnatomicalAxesOrientation"
+    type_ = "https://openminds.om-i.org/types/AnatomicalAxesOrientation"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

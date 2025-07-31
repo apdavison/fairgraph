@@ -19,7 +19,7 @@ class WebServiceVersion(KGObject, WebServiceVersion):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/WebServiceVersion"
+    type_ = "https://openminds.om-i.org/types/WebServiceVersion"
     default_space = "webservice"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

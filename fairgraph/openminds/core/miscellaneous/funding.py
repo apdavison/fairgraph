@@ -14,7 +14,7 @@ class Funding(KGObject, Funding):
     Structured information on used funding.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Funding"
+    type_ = "https://openminds.om-i.org/types/Funding"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

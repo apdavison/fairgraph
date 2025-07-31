@@ -17,7 +17,7 @@ class ContentType(KGObject, ContentType):
     Structured information on the content type of a file instance, bundle or repository.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ContentType"
+    type_ = "https://openminds.om-i.org/types/ContentType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

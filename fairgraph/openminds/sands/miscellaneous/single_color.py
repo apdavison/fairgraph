@@ -14,7 +14,7 @@ class SingleColor(KGObject, SingleColor):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/SingleColor"
+    type_ = "https://openminds.om-i.org/types/SingleColor"
     default_space = "atlas"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

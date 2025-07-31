@@ -17,7 +17,7 @@ class WebResource(KGObject, WebResource):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/WebResource"
+    type_ = "https://openminds.om-i.org/types/WebResource"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

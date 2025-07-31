@@ -17,7 +17,7 @@ class SemanticDataType(KGObject, SemanticDataType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/SemanticDataType"
+    type_ = "https://openminds.om-i.org/types/SemanticDataType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

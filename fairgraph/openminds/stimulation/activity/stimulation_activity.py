@@ -17,7 +17,7 @@ class StimulationActivity(KGObject, StimulationActivity):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/stimulation/StimulationActivity"
+    type_ = "https://openminds.om-i.org/types/StimulationActivity"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

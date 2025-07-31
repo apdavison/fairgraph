@@ -14,7 +14,7 @@ class ElectrodeUsage(KGObject, ElectrodeUsage):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/ElectrodeUsage"
+    type_ = "https://openminds.om-i.org/types/ElectrodeUsage"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

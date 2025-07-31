@@ -17,7 +17,7 @@ class SoftwareApplicationCategory(KGObject, SoftwareApplicationCategory):
     Structured information on the category of the software application.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/SoftwareApplicationCategory"
+    type_ = "https://openminds.om-i.org/types/SoftwareApplicationCategory"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

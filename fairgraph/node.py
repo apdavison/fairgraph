@@ -34,19 +34,11 @@ logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
-default_context = {
-    "v3": {
-        "@vocab": "https://openminds.ebrains.eu/vocab/",
-    },
-    "v4": {
-        "@vocab": "https://openminds.om-i.org/props/"
-    }
-}
-
 
 class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMetadata
+    properties: List[Property]
     reverse_properties: List[Property] = []
-    context: Dict[str, str] = default_context["v3"]
+    context: Dict[str, str]
     type_: str
     scope: Optional[str]
     space: Union[str, None]
@@ -216,13 +208,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         for prop in cls.all_properties:
             if prop.is_link and follow_links:
                 if prop.name in follow_links:
-                    properties.extend(get_query_properties(prop, follow_links[prop.name]))
+                    properties.extend(get_query_properties(prop, cls.context, follow_links[prop.name]))
                 elif reverse_aliases.get(prop.name, None) in follow_links:
-                    properties.extend(get_query_properties(prop, follow_links[reverse_aliases[prop.name]]))
+                    properties.extend(get_query_properties(prop, cls.context, follow_links[reverse_aliases[prop.name]]))
                 else:
-                    properties.extend(get_query_properties(prop))
+                    properties.extend(get_query_properties(prop, cls.context))
             else:
-                properties.extend(get_query_properties(prop))
+                properties.extend(get_query_properties(prop, cls.context))
         return properties
 
     @classmethod
@@ -240,7 +232,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         properties = []
         for prop in cls.all_properties:
             if prop.name in filters:
-                properties.append(get_query_filter_property(prop, filters[prop.name]))
+                properties.append(get_query_filter_property(prop, cls.context, filters[prop.name]))
         return properties
 
     @classmethod
@@ -249,7 +241,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         def _get_type_from_data(data_item):
              # KG returns a list of types, openMINDS expects only a single string
             if isinstance(data_item, dict) and "@type" in data_item:
-                if isinstance(data_item["@type"], list):
+                if isinstance(data_item["@type"], (list, tuple)):
                     assert len(data_item["@type"]) == 1
                     return data_item["@type"][0]
                 else:
@@ -274,18 +266,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             raise TypeError("type mismatch {} - {}".format(cls.type_, type_from_data))
 
         # normalize data by expanding keys
-        if "om-i.org" in type_from_data:
-            context = default_context["v4"]
-        else:
-            context = default_context["v3"]
-
         D = {"@type": type_from_data}
         if include_id:
             D["@id"] = data["@id"]
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
-                normalised_key = expand_uri(key, context)
+                normalised_key = expand_uri(key, cls.context)
                 value = [item for item in as_list(value) if _get_type_from_data(item).endswith(type_filter)]
                 if normalised_key in D:
                     D[normalised_key].extend(value)
@@ -294,12 +281,12 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             elif key.startswith("Q"):  # for 'Q' properties in data from queries
                 D[key] = value
             elif key[0] != "@":
-                normalised_key = expand_uri(key, context)
+                normalised_key = expand_uri(key, cls.context)
                 D[normalised_key] = value
 
         deserialized_data = {}
         for prop in cls.all_properties:
-            expanded_path = expand_uri(prop.path, context)
+            expanded_path = expand_uri(prop.path, cls.context)
             data_item = _normalize_type(D.get(expanded_path))
 
             if data_item is not None and prop.reverse:

@@ -14,7 +14,7 @@ class CustomAnatomicalEntity(KGObject, CustomAnatomicalEntity):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/CustomAnatomicalEntity"
+    type_ = "https://openminds.om-i.org/types/CustomAnatomicalEntity"
     default_space = "spatial"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -14,7 +14,7 @@ class Protocol(KGObject, Protocol):
     Structured information on a research project.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Protocol"
+    type_ = "https://openminds.om-i.org/types/Protocol"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

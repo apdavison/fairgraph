@@ -17,7 +17,7 @@ class WebService(KGObject, WebService):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/WebService"
+    type_ = "https://openminds.om-i.org/types/WebService"
     default_space = "webservice"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

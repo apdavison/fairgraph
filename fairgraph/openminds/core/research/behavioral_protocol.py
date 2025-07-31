@@ -14,7 +14,7 @@ class BehavioralProtocol(KGObject, BehavioralProtocol):
     Structured information about a protocol used in an experiment studying human or animal behavior.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/BehavioralProtocol"
+    type_ = "https://openminds.om-i.org/types/BehavioralProtocol"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

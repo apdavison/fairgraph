@@ -18,7 +18,7 @@ class WorkflowRecipeVersion(KGObject, WorkflowRecipeVersion):
     Structured information about a specific implemented version of a workflow recipe.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/WorkflowRecipeVersion"
+    type_ = "https://openminds.om-i.org/types/WorkflowRecipeVersion"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

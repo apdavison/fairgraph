@@ -17,7 +17,7 @@ class Model(KGObject, Model):
     Structured information on a computational model (concept level).
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Model"
+    type_ = "https://openminds.om-i.org/types/Model"
     default_space = "model"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

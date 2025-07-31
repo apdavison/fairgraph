@@ -17,7 +17,7 @@ class BiologicalSex(KGObject, BiologicalSex):
     Structured information on the biological sex of a subject.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/BiologicalSex"
+    type_ = "https://openminds.om-i.org/types/BiologicalSex"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -17,7 +17,7 @@ class Measurement(EmbeddedMetadata, Measurement):
     Structured information about a measurement performed during a scientific experiment.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Measurement"
+    type_ = "https://openminds.om-i.org/types/Measurement"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

@@ -14,7 +14,7 @@ class SubjectGroupState(KGObject, SubjectGroupState):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/SubjectGroupState"
+    type_ = "https://openminds.om-i.org/types/SubjectGroupState"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

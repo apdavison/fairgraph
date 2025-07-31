@@ -14,7 +14,7 @@ class Channel(EmbeddedMetadata, Channel):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/Channel"
+    type_ = "https://openminds.om-i.org/types/Channel"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

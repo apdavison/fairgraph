@@ -17,7 +17,7 @@ class Software(KGObject, Software):
     Structured information on a software tool (concept level).
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Software"
+    type_ = "https://openminds.om-i.org/types/Software"
     default_space = "software"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

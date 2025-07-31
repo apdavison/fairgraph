@@ -19,7 +19,7 @@ class ValidationTestVersion(KGObject, ValidationTestVersion):
     Structured information about a specific implementation of a validation test.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/ValidationTestVersion"
+    type_ = "https://openminds.om-i.org/types/ValidationTestVersion"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

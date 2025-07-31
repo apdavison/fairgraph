@@ -14,7 +14,7 @@ class ProductSource(KGObject, ProductSource):
     Structured information about the source of a chemical substance or mixture.
     """
 
-    type_ = "https://openminds.ebrains.eu/chemicals/ProductSource"
+    type_ = "https://openminds.om-i.org/types/ProductSource"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

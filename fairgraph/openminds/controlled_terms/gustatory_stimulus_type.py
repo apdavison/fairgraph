@@ -17,7 +17,7 @@ class GustatoryStimulusType(KGObject, GustatoryStimulusType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/GustatoryStimulusType"
+    type_ = "https://openminds.om-i.org/types/GustatoryStimulusType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -17,7 +17,7 @@ class ValidationTest(KGObject, ValidationTest):
     Structured information about the definition of a process for validating a computational model.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/ValidationTest"
+    type_ = "https://openminds.om-i.org/types/ValidationTest"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

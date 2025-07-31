@@ -17,7 +17,7 @@ class OlfactoryStimulusType(KGObject, OlfactoryStimulusType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/OlfactoryStimulusType"
+    type_ = "https://openminds.om-i.org/types/OlfactoryStimulusType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

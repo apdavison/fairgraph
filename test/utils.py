@@ -6,8 +6,8 @@ from fairgraph.errors import AuthenticationError, AuthorizationError
 
 import pytest
 
-#kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
-kg_host = "core.kg.ebrains.eu"  # don't use production for testing
+kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
+#kg_host = "core.kg.ebrains.eu"  # don't use production for testing
 have_kg_connection = False
 no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
 
@@ -64,7 +64,7 @@ class MockKGClient:
         require_full_data: bool = True,
     ):
         if uri == "0000":
-            return {"@id": "0000", "@type": ["https://openminds.ebrains.eu/core/Model"]}
+            return {"@id": "0000", "@type": ["https://openminds.om-i.org/types/Model"]}
         else:
             raise NotImplementedError
 
@@ -78,10 +78,10 @@ class MockKGClient:
                     return MockKGResponse(
                         [
                             {
-                                "vocab:name": filter_value,
+                                "https://openminds.om-i.org/props/name": filter_value,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"],
+                                "@type": ["https://openminds.om-i.org/types/ModelAbstractionLevel"],
                             }
                         ]
                     )
@@ -89,10 +89,10 @@ class MockKGClient:
                     return MockKGResponse(
                         [
                             {
-                                "vocab:name": filter_value,
+                                "https://openminds.om-i.org/props/name": filter_value,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.ebrains.eu/controlledTerms/ModelScope"],
+                                "@type": ["https://openminds.om-i.org/types/ModelScope"],
                             }
                         ]
                     )
@@ -100,10 +100,10 @@ class MockKGClient:
                     return MockKGResponse(
                         [
                             {
-                                "vocab:name": filter_value,
+                                "https://openminds.om-i.org/props/name": filter_value,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.ebrains.eu/controlledTerms/Species"],
+                                "@type": ["https://openminds.om-i.org/types/Species"],
                             }
                         ]
                     )
@@ -111,10 +111,10 @@ class MockKGClient:
                     return MockKGResponse(
                         [
                             {
-                                "vocab:name": filter_value,
+                                "https://openminds.om-i.org/props/name": filter_value,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.ebrains.eu/controlledTerms/CellType"],
+                                "@type": ["https://openminds.om-i.org/types/CellType"],
                             }
                         ]
                     )
@@ -122,10 +122,10 @@ class MockKGClient:
                     return MockKGResponse(
                         [
                             {
-                                "vocab:name": filter_value,
+                                "https://openminds.om-i.org/props/name": filter_value,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.ebrains.eu/controlledTerms/UBERONParcellation"],
+                                "@type": ["https://openminds.om-i.org/types/UBERONParcellation"],
                             }
                         ]
                     )

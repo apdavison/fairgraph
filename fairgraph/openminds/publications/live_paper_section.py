@@ -14,7 +14,7 @@ class LivePaperSection(KGObject, LivePaperSection):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/publications/LivePaperSection"
+    type_ = "https://openminds.om-i.org/types/LivePaperSection"
     default_space = "livepapers"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

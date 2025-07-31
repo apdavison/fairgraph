@@ -14,7 +14,7 @@ class CustomCoordinateSpace(KGObject, CustomCoordinateSpace):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/CustomCoordinateSpace"
+    type_ = "https://openminds.om-i.org/types/CustomCoordinateSpace"
     default_space = "spatial"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

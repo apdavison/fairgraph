@@ -14,7 +14,7 @@ class StockNumber(EmbeddedMetadata, StockNumber):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/StockNumber"
+    type_ = "https://openminds.om-i.org/types/StockNumber"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

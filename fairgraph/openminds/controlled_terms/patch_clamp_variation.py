@@ -17,7 +17,7 @@ class PatchClampVariation(KGObject, PatchClampVariation):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/PatchClampVariation"
+    type_ = "https://openminds.om-i.org/types/PatchClampVariation"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

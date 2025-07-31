@@ -14,7 +14,7 @@ class NumericalProperty(EmbeddedMetadata, NumericalProperty):
     Structured information about a property of some entity or process whose value is a number.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/NumericalProperty"
+    type_ = "https://openminds.om-i.org/types/NumericalProperty"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

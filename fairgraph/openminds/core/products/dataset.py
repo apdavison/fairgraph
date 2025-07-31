@@ -17,7 +17,7 @@ class Dataset(KGObject, Dataset):
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Dataset"
+    type_ = "https://openminds.om-i.org/types/Dataset"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

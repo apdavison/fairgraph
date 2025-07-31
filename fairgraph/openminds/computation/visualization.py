@@ -17,7 +17,7 @@ class Visualization(KGObject, Visualization):
     Structured information about a process of visualizing a computational model, a computational process, or a dataset.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/Visualization"
+    type_ = "https://openminds.om-i.org/types/Visualization"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

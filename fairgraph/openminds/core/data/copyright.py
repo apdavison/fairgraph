@@ -14,7 +14,7 @@ class Copyright(EmbeddedMetadata, Copyright):
     Structured information on the copyright.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Copyright"
+    type_ = "https://openminds.om-i.org/types/Copyright"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

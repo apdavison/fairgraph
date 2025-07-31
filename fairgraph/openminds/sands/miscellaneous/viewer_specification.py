@@ -14,7 +14,7 @@ class ViewerSpecification(EmbeddedMetadata, ViewerSpecification):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/ViewerSpecification"
+    type_ = "https://openminds.om-i.org/types/ViewerSpecification"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

@@ -17,7 +17,7 @@ class TissueSampleType(KGObject, TissueSampleType):
     Structured information on the general type of the tissue sample.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/TissueSampleType"
+    type_ = "https://openminds.om-i.org/types/TissueSampleType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

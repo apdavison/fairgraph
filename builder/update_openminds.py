@@ -586,17 +586,6 @@ from .web_service import WebService""",
 }
 
 
-def get_type_from_schema(schema_payload, override=True):
-    if override:  # temporarily use the old namespaces, until the KG is updated
-        cls_name = schema_payload["_type"].split("/")[-1]
-        module_name = schema_payload['_module']
-        if module_name == "SANDS":
-            module_name = "sands"
-        return f"https://openminds.ebrains.eu/{module_name}/{cls_name}"
-    else:
-        return schema_payload["_type"]
-
-
 class FairgraphClassBuilder:
     """docstring"""
 
@@ -783,7 +772,7 @@ class FairgraphClassBuilder:
             "module_name": module_name,
             "class_name": class_name,
             "default_space": default_space,
-            "openminds_type": get_type_from_schema(self._schema_payload, override=True),
+            "openminds_type": self._schema_payload["_type"],
             "properties": sorted(properties, key=lambda p: p["name"]),
             "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "additional_methods": "",

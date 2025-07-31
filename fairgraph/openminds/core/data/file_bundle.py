@@ -14,7 +14,7 @@ class FileBundle(KGObject, FileBundle):
     Structured information on a bundle of file instances.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/FileBundle"
+    type_ = "https://openminds.om-i.org/types/FileBundle"
     default_space = "files"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

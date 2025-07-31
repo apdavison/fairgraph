@@ -17,7 +17,7 @@ class TypeOfUncertainty(KGObject, TypeOfUncertainty):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/TypeOfUncertainty"
+    type_ = "https://openminds.om-i.org/types/TypeOfUncertainty"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

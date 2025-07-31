@@ -17,7 +17,7 @@ class QuantitativeValueArray(KGObject, QuantitativeValueArray):
     A representation of an array of quantitative values, optionally with uncertainties.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/QuantitativeValueArray"
+    type_ = "https://openminds.om-i.org/types/QuantitativeValueArray"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

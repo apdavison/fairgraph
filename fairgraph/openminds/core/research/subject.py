@@ -14,7 +14,7 @@ class Subject(KGObject, Subject):
     Structured information on a subject.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Subject"
+    type_ = "https://openminds.om-i.org/types/Subject"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

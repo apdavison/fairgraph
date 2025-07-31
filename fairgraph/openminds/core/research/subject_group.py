@@ -14,7 +14,7 @@ class SubjectGroup(KGObject, SubjectGroup):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/SubjectGroup"
+    type_ = "https://openminds.om-i.org/types/SubjectGroup"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

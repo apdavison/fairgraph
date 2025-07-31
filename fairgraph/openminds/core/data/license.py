@@ -17,7 +17,7 @@ class License(KGObject, License):
     Structured information on a used license.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/License"
+    type_ = "https://openminds.om-i.org/types/License"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

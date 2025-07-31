@@ -14,7 +14,7 @@ class Pipette(KGObject, Pipette):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/Pipette"
+    type_ = "https://openminds.om-i.org/types/Pipette"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

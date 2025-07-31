@@ -14,7 +14,7 @@ class TissueSampleCollectionState(KGObject, TissueSampleCollectionState):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/TissueSampleCollectionState"
+    type_ = "https://openminds.om-i.org/types/TissueSampleCollectionState"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

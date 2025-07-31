@@ -17,7 +17,7 @@ class Laterality(KGObject, Laterality):
     Structured information on the lateral direction.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/Laterality"
+    type_ = "https://openminds.om-i.org/types/Laterality"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

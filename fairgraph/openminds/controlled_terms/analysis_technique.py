@@ -17,7 +17,7 @@ class AnalysisTechnique(KGObject, AnalysisTechnique):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/AnalysisTechnique"
+    type_ = "https://openminds.om-i.org/types/AnalysisTechnique"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

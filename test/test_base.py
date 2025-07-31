@@ -216,7 +216,7 @@ class TestKGObject(object):
         data = {
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                 "https://openminds.ebrains.eu/vocab/aNumber": -1.0,
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
@@ -228,11 +228,11 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 100.0,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 200.0,
                 },
             ],
@@ -275,7 +275,7 @@ class TestKGObject(object):
         data = {
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                 "https://openminds.ebrains.eu/vocab/aNumber": -1.0,
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
@@ -287,11 +287,11 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 100.0,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 200.0,
                 },
             ],
@@ -303,7 +303,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredString": "apple",
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1605-11-05T00:00:00",
             "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": {
-                "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                 "https://openminds.ebrains.eu/vocab/aNumber": 17.0,
             },
             "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": {
@@ -315,11 +315,11 @@ class TestKGObject(object):
             ],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 18.0,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 19.0,
                 },
             ],
@@ -417,7 +417,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
                 "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                "https://openminds.ebrains.eu/vocab/aNumber": -1.0,
+                "https://openminds.ebrains.eu/vocab/aNumber": -1,
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
@@ -429,11 +429,11 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredListOfEmbeddedObjects": [
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aNumber": 100.0,
+                    "https://openminds.ebrains.eu/vocab/aNumber": 100,
                 },
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aNumber": 200.0,
+                    "https://openminds.ebrains.eu/vocab/aNumber": 200,
                 },
             ],
             "https://openminds.ebrains.eu/vocab/aRequiredListOfLinkedObjects": [
@@ -445,7 +445,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalDateTime": "1605-11-05T00:00:00",
             "https://openminds.ebrains.eu/vocab/anOptionalEmbeddedObject": {
                 "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                "https://openminds.ebrains.eu/vocab/aNumber": 17.0,
+                "https://openminds.ebrains.eu/vocab/aNumber": 17,
             },
             "https://openminds.ebrains.eu/vocab/anOptionalLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000123"
@@ -457,11 +457,11 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aNumber": 18.0,
+                    "https://openminds.ebrains.eu/vocab/aNumber": 18,
                 },
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                    "https://openminds.ebrains.eu/vocab/aNumber": 19.0,
+                    "https://openminds.ebrains.eu/vocab/aNumber": 19,
                 },
             ],
             "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": [
@@ -487,11 +487,11 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": -18,
                 },
                 {
-                    "@type": ["https://openminds.ebrains.eu/mock/MockEmbeddedObject"],
+                    "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
                     "https://openminds.ebrains.eu/vocab/aNumber": 19,
                 },
             ],
@@ -522,7 +522,6 @@ class TestKGObject(object):
                 data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=False)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
-                data["@context"] = orig_object.context
                 data["@type"] = orig_object.type_
                 return data
 
@@ -544,7 +543,6 @@ class TestKGObject(object):
 
         # check that all the metadata for the existing instance have been retrieved
         expected = {
-            "@context": MockKGObject.context,
             "@id": orig_object.id,
             "@type": MockKGObject.type_,
             "https://core.kg.ebrains.eu/vocab/meta/space": "collab-foobar",
@@ -594,7 +592,7 @@ class TestKGObject(object):
                 # not just those that have changed
                 "https://openminds.ebrains.eu/vocab/aNumber": 41,
                 "https://openminds.ebrains.eu/vocab/aString": "forty one",
-                "https://openminds.ebrains.eu/vocab/aDate": None,
+                #"https://openminds.ebrains.eu/vocab/aDate": None,
             },
         }
         assert new_obj.modified_data() == expected

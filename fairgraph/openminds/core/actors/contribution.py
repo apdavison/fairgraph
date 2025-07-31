@@ -14,7 +14,7 @@ class Contribution(EmbeddedMetadata, Contribution):
     Structured information on the contribution made to a research product.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Contribution"
+    type_ = "https://openminds.om-i.org/types/Contribution"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

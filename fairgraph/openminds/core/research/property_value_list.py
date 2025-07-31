@@ -14,7 +14,7 @@ class PropertyValueList(KGObject, PropertyValueList):
     An identifiable list of property-value pairs.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/PropertyValueList"
+    type_ = "https://openminds.om-i.org/types/PropertyValueList"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

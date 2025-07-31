@@ -14,7 +14,7 @@ class ContactInformation(KGObject, ContactInformation):
     Structured information about how to contact a given person or consortium.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ContactInformation"
+    type_ = "https://openminds.om-i.org/types/ContactInformation"
     default_space = "restricted"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -14,7 +14,7 @@ class Configuration(KGObject, Configuration):
     Structured information about the properties or parameters of an entity or process.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Configuration"
+    type_ = "https://openminds.om-i.org/types/Configuration"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

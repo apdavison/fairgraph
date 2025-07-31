@@ -28,7 +28,7 @@ class File(KGObject, File):
     Structured information on a file instance that is accessible via a URL.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/File"
+    type_ = "https://openminds.om-i.org/types/File"
     default_space = "files"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

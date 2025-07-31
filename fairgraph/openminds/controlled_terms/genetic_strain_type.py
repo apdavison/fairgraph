@@ -17,7 +17,7 @@ class GeneticStrainType(KGObject, GeneticStrainType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/GeneticStrainType"
+    type_ = "https://openminds.om-i.org/types/GeneticStrainType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

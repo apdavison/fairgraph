@@ -14,7 +14,7 @@ class ChemicalSubstance(KGObject, ChemicalSubstance):
     Structured information about a chemical substance.
     """
 
-    type_ = "https://openminds.ebrains.eu/chemicals/ChemicalSubstance"
+    type_ = "https://openminds.om-i.org/types/ChemicalSubstance"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

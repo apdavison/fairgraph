@@ -14,7 +14,7 @@ class Ellipse(EmbeddedMetadata, Ellipse):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/Ellipse"
+    type_ = "https://openminds.om-i.org/types/Ellipse"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

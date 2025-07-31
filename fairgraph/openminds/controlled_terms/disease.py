@@ -17,7 +17,7 @@ class Disease(KGObject, Disease):
     Structured information on a disease.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/Disease"
+    type_ = "https://openminds.om-i.org/types/Disease"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

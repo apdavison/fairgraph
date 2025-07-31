@@ -6,7 +6,6 @@ based on names and type identifiers.
 
 from __future__ import annotations
 from itertools import chain
-import logging
 from typing import TYPE_CHECKING, Union, List, Dict
 from warnings import warn
 

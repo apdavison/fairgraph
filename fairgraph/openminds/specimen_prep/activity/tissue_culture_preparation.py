@@ -17,7 +17,7 @@ class TissueCulturePreparation(KGObject, TissueCulturePreparation):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/specimenPrep/TissueCulturePreparation"
+    type_ = "https://openminds.om-i.org/types/TissueCulturePreparation"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

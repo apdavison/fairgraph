@@ -17,7 +17,7 @@ class Comment(KGObject, Comment):
     Structured information about a short text expressing an opinion on, or giving information about some entity.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Comment"
+    type_ = "https://openminds.om-i.org/types/Comment"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

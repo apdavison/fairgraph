@@ -14,7 +14,7 @@ class Person(KGObject, Person):
     Structured information on a person.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Person"
+    type_ = "https://openminds.om-i.org/types/Person"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

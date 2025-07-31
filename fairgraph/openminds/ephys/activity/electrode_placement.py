@@ -17,7 +17,7 @@ class ElectrodePlacement(KGObject, ElectrodePlacement):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/ElectrodePlacement"
+    type_ = "https://openminds.om-i.org/types/ElectrodePlacement"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

@@ -14,7 +14,7 @@ class ParcellationTerminologyVersion(EmbeddedMetadata, ParcellationTerminologyVe
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/ParcellationTerminologyVersion"
+    type_ = "https://openminds.om-i.org/types/ParcellationTerminologyVersion"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

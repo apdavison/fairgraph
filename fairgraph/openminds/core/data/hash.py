@@ -14,7 +14,7 @@ class Hash(EmbeddedMetadata, Hash):
     Structured information on a hash.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Hash"
+    type_ = "https://openminds.om-i.org/types/Hash"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

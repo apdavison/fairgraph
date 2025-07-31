@@ -14,7 +14,7 @@ class TissueSample(KGObject, TissueSample):
     Structured information on a tissue sample.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/TissueSample"
+    type_ = "https://openminds.om-i.org/types/TissueSample"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

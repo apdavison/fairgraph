@@ -14,7 +14,7 @@ class ISSN(KGObject, ISSN):
     An International Standard Serial Number of the ISSN International Centre.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/ISSN"
+    type_ = "https://openminds.om-i.org/types/ISSN"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

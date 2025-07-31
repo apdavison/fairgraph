@@ -14,7 +14,7 @@ class SlicingDeviceUsage(KGObject, SlicingDeviceUsage):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/specimenPrep/SlicingDeviceUsage"
+    type_ = "https://openminds.om-i.org/types/SlicingDeviceUsage"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

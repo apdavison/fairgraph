@@ -17,7 +17,7 @@ class UBERONParcellation(KGObject, UBERONParcellation):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/UBERONParcellation"
+    type_ = "https://openminds.om-i.org/types/UBERONParcellation"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

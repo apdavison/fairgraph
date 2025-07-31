@@ -14,7 +14,7 @@ class Electrode(KGObject, Electrode):
     Structured information on an electrode.
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/Electrode"
+    type_ = "https://openminds.om-i.org/types/Electrode"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

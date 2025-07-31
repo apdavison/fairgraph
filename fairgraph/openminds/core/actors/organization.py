@@ -17,7 +17,7 @@ class Organization(KGObject, Organization):
     An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Organization"
+    type_ = "https://openminds.om-i.org/types/Organization"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

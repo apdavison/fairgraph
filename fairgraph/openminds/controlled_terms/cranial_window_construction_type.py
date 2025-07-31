@@ -17,7 +17,7 @@ class CranialWindowConstructionType(KGObject, CranialWindowConstructionType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/CranialWindowConstructionType"
+    type_ = "https://openminds.om-i.org/types/CranialWindowConstructionType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

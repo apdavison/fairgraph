@@ -42,8 +42,10 @@ def test_spaces_names_only(kg_client):
 
 @skip_if_no_connection
 def test_query_filter_by_space(kg_client):
+    import fairgraph.openminds.core  # needed to populate registry
+
     query = Query(
-        node_type="https://openminds.ebrains.eu/core/Model",
+        node_type="https://openminds.om-i.org/types/Model",
         label="fg-testing-model",
         properties=[
             QueryProperty("@type"),
@@ -53,19 +55,19 @@ def test_query_filter_by_space(kg_client):
                 filter=Filter("EQUALS", value="model"),
             ),
             QueryProperty(
-                "https://openminds.ebrains.eu/vocab/fullName",
+                "https://openminds.om-i.org/props/fullName",
                 name="fullName",
                 filter=Filter("CONTAINS", parameter="name"),
                 sorted=True,
                 required=True,
             ),
             QueryProperty(
-                "https://openminds.ebrains.eu/vocab/custodian",
+                "https://openminds.om-i.org/props/custodian",
                 name="custodian",
-                type_filter="https://openminds.ebrains.eu/core/Person",
+                type_filter="https://openminds.om-i.org/types/Person",
                 properties=[
                     QueryProperty(
-                        "https://openminds.ebrains.eu/vocab/familyName",
+                        "https://openminds.om-i.org/props/familyName",
                         name="familyName",
                     ),
                 ],
@@ -94,9 +96,11 @@ def test_get_admin_client(kg_client):
 
 @skip_if_no_connection
 def test_list_scopes(kg_client):
+    import fairgraph.openminds.core
+
     def _get_models(scope):
         return kg_client.list(
-            target_type="https://openminds.ebrains.eu/core/Model",
+            target_type="https://openminds.om-i.org/types/Model",
             space="model",
             from_index=0,
             size=10000,

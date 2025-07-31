@@ -14,7 +14,7 @@ class PublicationVolume(KGObject, PublicationVolume):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/publications/PublicationVolume"
+    type_ = "https://openminds.om-i.org/types/PublicationVolume"
     default_space = "livepapers"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

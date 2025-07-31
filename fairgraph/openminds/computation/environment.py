@@ -14,7 +14,7 @@ class Environment(KGObject, Environment):
     Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/Environment"
+    type_ = "https://openminds.om-i.org/types/Environment"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

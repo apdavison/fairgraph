@@ -17,7 +17,7 @@ class Consortium(KGObject, Consortium):
     Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Consortium"
+    type_ = "https://openminds.om-i.org/types/Consortium"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

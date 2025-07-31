@@ -19,6 +19,7 @@ EBRAINS KG core API.
 # limitations under the License.
 
 from __future__ import annotations
+from copy import deepcopy
 import os
 import logging
 from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
@@ -36,7 +37,7 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .queries import migrate_query
+from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3
 
 if TYPE_CHECKING:
     from .kgobject import KGObject
@@ -134,7 +135,7 @@ class KGClient(object):
         self.cache: Dict[str, JsonLdDocument] = {}
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
-        self.migrated = None
+        self._migrated = None
 
     @property
     def _kg_admin_client(self):
@@ -183,7 +184,24 @@ class KGClient(object):
             else:
                 raise Exception(f"Error: {response.error} {error_context}")
         else:
+            if self.migrated is False:
+                adapt_namespaces_3to4(response.data)
             return response
+
+    @property
+    def migrated(self):
+        # This is a temporary work-around for use during the transitional period
+        # from openMINDS v3 to v4 (change of namespace)
+        if self._migrated is None:
+            self._migrated = True  # to stop the call to _check_response() in instance_from_full_uri from recurring
+
+            # This is the released controlled term for "left handedness", which should be accessible to everyone
+            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
+            if "om-i.org" in result["@type"]:
+                self._migrated = True
+            else:
+                self._migrated = False
+        return self._migrated
 
     def query(
         self,
@@ -216,18 +234,8 @@ class KGClient(object):
             along with metadata about the query results such as total number of instances, and pagination information.
         """
 
-        # the following section is a temporary work-around for use during the transitional period
-        # from openMINDS v3 to v4 (change of namespace)
-        if self.migrated is None:
-            # this is the released controlled term for "left handedness", which should be accessible to everyone
-            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
-            if "om-i.org" in result["@type"]:
-                self.migrated = True
-            else:
-                self.migrated = False
-
-        if self.migrated:
-            query = migrate_query(query)
+        if self.migrated is False:
+            query = adapt_namespaces_for_query(query)
 
         query_id = query.get("@id", None)
 
@@ -282,9 +290,9 @@ class KGClient(object):
             response.data = list(instances.values())[from_index : from_index + size]
             response.size = len(response.data)
             response.total = len(instances)
-            return response
         else:
-            return _query(scope, from_index, size)
+            response = _query(scope, from_index, size)
+        return response
 
     def list(
         self,
@@ -310,6 +318,9 @@ class KGClient(object):
             A ResultPage object containing the list of JSON-LD instances,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
+
+        if self.migrated is False:
+            target_type = adapt_type_4to3(target_type)
 
         def _list(scope, from_index, size):
             response = self._kg_client.instances.list(
@@ -414,6 +425,9 @@ class KGClient(object):
         """
         if "'@id': None" in str(data):
             raise ValueError("payload contains undefined ids")
+        if self.migrated is False:
+            data = deepcopy(data)
+            adapt_namespaces_4to3(data)
         if instance_id:
             response = self._kg_client.instances.create_new_with_id(
                 space=space,
@@ -438,6 +452,9 @@ class KGClient(object):
             instance_id (UUID): the instance's persistent identifier.
             data (dict): a JSON-LD document that modifies some or all of the data of the existing instance.
         """
+        if self.migrated is False:
+            data = deepcopy(data)
+            adapt_namespaces_4to3(data)
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
@@ -454,6 +471,9 @@ class KGClient(object):
             instance_id (UUID): the instance's persistent identifier.
             data (dict): a JSON-LD document that will replace the existing instance.
         """
+        if self.migrated is False:
+            data = deepcopy(data)
+            adapt_namespaces_4to3(data)
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,

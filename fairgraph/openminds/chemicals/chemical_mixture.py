@@ -14,7 +14,7 @@ class ChemicalMixture(KGObject, ChemicalMixture):
     Structured information about a mixture of chemical substances.
     """
 
-    type_ = "https://openminds.ebrains.eu/chemicals/ChemicalMixture"
+    type_ = "https://openminds.om-i.org/types/ChemicalMixture"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -17,7 +17,7 @@ class ContributionType(KGObject, ContributionType):
     Structured information on the type of contribution a person or organization performed.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/ContributionType"
+    type_ = "https://openminds.om-i.org/types/ContributionType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

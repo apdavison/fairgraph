@@ -14,7 +14,7 @@ class SubjectState(KGObject, SubjectState):
     Structured information on a temporary state of a subject.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/SubjectState"
+    type_ = "https://openminds.om-i.org/types/SubjectState"
     default_space = "dataset"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

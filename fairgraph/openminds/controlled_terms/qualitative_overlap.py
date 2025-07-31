@@ -17,7 +17,7 @@ class QualitativeOverlap(KGObject, QualitativeOverlap):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/QualitativeOverlap"
+    type_ = "https://openminds.om-i.org/types/QualitativeOverlap"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

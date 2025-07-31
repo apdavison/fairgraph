@@ -14,7 +14,7 @@ class SoftwareAgent(KGObject, SoftwareAgent):
     Structured information about a piece of software or web service that can perform a task autonomously.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/SoftwareAgent"
+    type_ = "https://openminds.om-i.org/types/SoftwareAgent"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

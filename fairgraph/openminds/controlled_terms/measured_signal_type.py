@@ -17,7 +17,7 @@ class MeasuredSignalType(KGObject, MeasuredSignalType):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/MeasuredSignalType"
+    type_ = "https://openminds.om-i.org/types/MeasuredSignalType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

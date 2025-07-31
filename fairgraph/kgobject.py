@@ -156,7 +156,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
             if results:
                 data = results[0]
-                data["@context"] = cls.context
             else:
                 data = None
         else:
@@ -236,7 +235,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if follow_links is not None:
                 raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
-            cls_from_data = lookup_type(data["@type"][0])
+            type_ = data["@type"]
+            if isinstance(type_, list):
+                assert len(type_) == 1
+                type_ = type_[0]
+            cls_from_data = lookup_type(type_)
             return cls_from_data.from_jsonld(data, scope=scope)
 
     @classmethod
@@ -365,8 +368,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 size=size,
                 scope=scope,
             ).data
-            for instance in instances:
-                instance["@context"] = cls.context
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -438,7 +439,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     setattr(self, prop.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
-            if not key.startswith("Q"):
+            if not (key.startswith("Q") or key == "@context"):
                 expanded_path = expand_uri(key, cls.context)
                 assert isinstance(expanded_path, str)
                 self.remote_data[expanded_path] = data[key]
@@ -913,7 +914,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             self.resolve(client, follow_links=follow_links)
         all_children = []
         for prop in self.properties:
-            assert prop.intrinsic
             if prop.is_link:
                 children = as_list(getattr(self, prop.name))
                 all_children.extend(children)

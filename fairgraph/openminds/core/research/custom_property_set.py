@@ -14,7 +14,7 @@ class CustomPropertySet(EmbeddedMetadata, CustomPropertySet):
     Structured information about properties of an entity that are not represented in an openMINDS schema.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/CustomPropertySet"
+    type_ = "https://openminds.om-i.org/types/CustomPropertySet"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

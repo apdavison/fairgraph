@@ -17,7 +17,7 @@ class WorkflowRecipe(KGObject, WorkflowRecipe):
     Structured information about the description of a prospective workflow.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/WorkflowRecipe"
+    type_ = "https://openminds.om-i.org/types/WorkflowRecipe"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

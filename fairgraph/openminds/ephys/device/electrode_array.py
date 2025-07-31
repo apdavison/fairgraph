@@ -14,7 +14,7 @@ class ElectrodeArray(KGObject, ElectrodeArray):
     Structured information on an electrode array.
     """
 
-    type_ = "https://openminds.ebrains.eu/ephys/ElectrodeArray"
+    type_ = "https://openminds.om-i.org/types/ElectrodeArray"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

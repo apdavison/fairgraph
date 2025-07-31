@@ -14,7 +14,7 @@ class RORID(KGObject, RORID):
     A persistent identifier for a research organization, provided by the Research Organization Registry.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/RORID"
+    type_ = "https://openminds.om-i.org/types/RORID"
     default_space = "common"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

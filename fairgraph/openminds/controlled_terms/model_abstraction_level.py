@@ -17,7 +17,7 @@ class ModelAbstractionLevel(KGObject, ModelAbstractionLevel):
     Structured information on abstraction level of the computational model.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/ModelAbstractionLevel"
+    type_ = "https://openminds.om-i.org/types/ModelAbstractionLevel"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -17,7 +17,7 @@ class Affiliation(EmbeddedMetadata, Affiliation):
     Structured information about a relationship between two entities, such as a person and their employer.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Affiliation"
+    type_ = "https://openminds.om-i.org/types/Affiliation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

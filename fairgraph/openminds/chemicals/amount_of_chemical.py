@@ -14,7 +14,7 @@ class AmountOfChemical(EmbeddedMetadata, AmountOfChemical):
     Structured information about the amount of a given chemical that was used.
     """
 
-    type_ = "https://openminds.ebrains.eu/chemicals/AmountOfChemical"
+    type_ = "https://openminds.om-i.org/types/AmountOfChemical"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 

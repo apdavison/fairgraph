@@ -14,7 +14,7 @@ class WorkflowExecution(KGObject, WorkflowExecution):
     Structured information about an execution of a computational workflow.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/WorkflowExecution"
+    type_ = "https://openminds.om-i.org/types/WorkflowExecution"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []

@@ -17,7 +17,7 @@ class OperatingDevice(KGObject, OperatingDevice):
     Structured information on the operating device.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/OperatingDevice"
+    type_ = "https://openminds.om-i.org/types/OperatingDevice"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

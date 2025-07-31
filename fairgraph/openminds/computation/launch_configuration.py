@@ -14,7 +14,7 @@ class LaunchConfiguration(KGObject, LaunchConfiguration):
     Structured information about the launch of a computational process.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/LaunchConfiguration"
+    type_ = "https://openminds.om-i.org/types/LaunchConfiguration"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

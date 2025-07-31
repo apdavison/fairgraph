@@ -17,7 +17,7 @@ class Simulation(KGObject, Simulation):
     Structured information about a process of running simulations of a computational model.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/Simulation"
+    type_ = "https://openminds.om-i.org/types/Simulation"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

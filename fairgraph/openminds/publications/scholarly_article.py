@@ -20,7 +20,7 @@ class ScholarlyArticle(KGObject, ScholarlyArticle):
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/publications/ScholarlyArticle"
+    type_ = "https://openminds.om-i.org/types/ScholarlyArticle"
     default_space = "livepapers"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

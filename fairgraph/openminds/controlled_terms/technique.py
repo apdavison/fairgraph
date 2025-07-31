@@ -17,7 +17,7 @@ class Technique(KGObject, Technique):
     Structured information on the technique.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/Technique"
+    type_ = "https://openminds.om-i.org/types/Technique"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

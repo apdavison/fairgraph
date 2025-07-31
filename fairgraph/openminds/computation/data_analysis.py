@@ -17,7 +17,7 @@ class DataAnalysis(KGObject, DataAnalysis):
     Structured information on inspecting, cleansing, transforming, and modelling data.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/DataAnalysis"
+    type_ = "https://openminds.om-i.org/types/DataAnalysis"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

@@ -14,7 +14,7 @@ class LocalFile(KGObject, LocalFile):
     Structured information about a file that is not accessible via a URL.
     """
 
-    type_ = "https://openminds.ebrains.eu/computation/LocalFile"
+    type_ = "https://openminds.om-i.org/types/LocalFile"
     default_space = "computation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [

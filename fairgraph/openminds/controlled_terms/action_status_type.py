@@ -17,7 +17,7 @@ class ActionStatusType(KGObject, ActionStatusType):
     Structured information about the status of an action.
     """
 
-    type_ = "https://openminds.ebrains.eu/controlledTerms/ActionStatusType"
+    type_ = "https://openminds.om-i.org/types/ActionStatusType"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
