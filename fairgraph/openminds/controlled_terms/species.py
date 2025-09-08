@@ -5,14 +5,14 @@ Structured information on the species.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Species
+from openminds.latest.controlled_terms import Species as OMSpecies
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Species(KGObject, Species):
+class Species(KGObject, OMSpecies):
     """
     Structured information on the species.
     """
@@ -141,3 +141,13 @@ class Species(KGObject, Species):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+    # @classmethod
+    # def instances(cls):
+    #     return [value for value in OMSpecies.__dict__.values() if isinstance(value, OMSpecies)]
+
+for key, value in OMSpecies.__dict__.items():
+    if isinstance(value, OMSpecies):
+        fg_instance = Species.from_jsonld(value.to_jsonld())
+        fg_instance._space = "controlled"
+        setattr(Species, key, fg_instance)

@@ -106,10 +106,12 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             else:
                 super().__setattr__(name, value)
         else:
-            failures = prop.validate(value)
-            if failures:
-                errmsg = str(failures)  # todo: create a nicer error message
-                ErrorHandling.handle_violation(self.error_handling, errmsg)
+            if not isinstance(value, KGQuery):
+                failures = prop.validate(value)
+                if failures:
+                    errmsg = str(failures)  # todo: create a nicer error message
+                    breakpoint()
+                    ErrorHandling.handle_violation(self.error_handling, errmsg)
             super().__setattr__(name, value)
 
     @classmethod

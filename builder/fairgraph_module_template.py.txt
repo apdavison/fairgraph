@@ -5,13 +5,13 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.{{ module_name }} import {{ class_name }}
+from openminds.latest.{{ module_name }} import {{ class_name }} as OM{{ class_name }}
 from fairgraph import {{ base_class }}
 
 {{preamble}}
 
 
-class {{ class_name }}({{base_class}}, {{ class_name }}):
+class {{ class_name }}({{base_class}}, OM{{ class_name }}):
     """
     {{ docstring }}
     """
@@ -49,3 +49,11 @@ class {{ class_name }}({{base_class}}, {{ class_name }}):
     def __init__(self {%- for arg in constructor_arguments -%}, {{arg}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
         return {{ base_class }}.__init__(self, {{ standard_init_properties }}data=data {%- for arg in constructor_arguments -%}, {{arg}}={{arg}}{%- endfor -%})
 {{ additional_methods }}
+
+
+# cast openMINDS instances to their fairgraph subclass
+for key, value in OM{{ class_name }}.__dict__.items():
+    if isinstance(value, OM{{ class_name }}):
+        fg_instance = {{ class_name }}.from_jsonld(value.to_jsonld())
+        fg_instance._space = {{ class_name }}.default_space
+        setattr({{ class_name }}, key, fg_instance)
