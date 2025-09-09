@@ -60,7 +60,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         template_parts = (
             "{}={{self.{}!r}}".format(prop.name, prop.name)
             for prop in self.properties
-            if getattr(self, prop.name) is not None
+            if getattr(self, prop.name, None) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)

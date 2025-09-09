@@ -91,7 +91,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         template_parts = (
             "{}={{self.{}!r}}".format(prop.name, prop.name)
             for prop in self.__class__.all_properties
-            if getattr(self, prop.name) is not None
+            if getattr(self, prop.name, None) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", space={self.space}, id={self.id})"
         return template.format(self=self)
