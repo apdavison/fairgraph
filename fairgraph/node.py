@@ -153,9 +153,16 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 the mode will be applied only to those properties.
         """
         if value is None:
-            cls.error_handling = ErrorHandling.none
+            value = ErrorHandling.none
         else:
-            cls.error_handling = ErrorHandling(value)
+            value = ErrorHandling(value)
+        cls.error_handling = value
+        # set the same action for all embedded types
+        for prop in cls.properties:
+            for type_ in prop.types:
+                if issubclass(type_, ContainsMetadata) and not issubclass(type_, RepresentsSingleObject):
+                    # i.e., is EmbeddedMetadata
+                    type_.set_error_handling(value)
 
     @classmethod
     def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
