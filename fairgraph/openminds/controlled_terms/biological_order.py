@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import BiologicalOrder
+from openminds.latest.controlled_terms import BiologicalOrder as OMBiologicalOrder
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class BiologicalOrder(KGObject, BiologicalOrder):
+class BiologicalOrder(KGObject, OMBiologicalOrder):
     """
     <description not available>
     """
@@ -115,3 +115,13 @@ class BiologicalOrder(KGObject, BiologicalOrder):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BiologicalOrder.set_error_handling(None)
+for key, value in OMBiologicalOrder.__dict__.items():
+    if isinstance(value, OMBiologicalOrder):
+        fg_instance = BiologicalOrder.from_jsonld(value.to_jsonld())
+        fg_instance._space = BiologicalOrder.default_space
+        setattr(BiologicalOrder, key, fg_instance)
+BiologicalOrder.set_error_handling("log")

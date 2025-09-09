@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import DifferenceMeasure
+from openminds.latest.controlled_terms import DifferenceMeasure as OMDifferenceMeasure
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class DifferenceMeasure(KGObject, DifferenceMeasure):
+class DifferenceMeasure(KGObject, OMDifferenceMeasure):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class DifferenceMeasure(KGObject, DifferenceMeasure):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DifferenceMeasure.set_error_handling(None)
+for key, value in OMDifferenceMeasure.__dict__.items():
+    if isinstance(value, OMDifferenceMeasure):
+        fg_instance = DifferenceMeasure.from_jsonld(value.to_jsonld())
+        fg_instance._space = DifferenceMeasure.default_space
+        setattr(DifferenceMeasure, key, fg_instance)
+DifferenceMeasure.set_error_handling("log")

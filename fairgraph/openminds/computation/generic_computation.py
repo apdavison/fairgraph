@@ -5,14 +5,14 @@ Structured information about a computation whose type is unknown or unspecified.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import GenericComputation
+from openminds.latest.computation import GenericComputation as OMGenericComputation
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class GenericComputation(KGObject, GenericComputation):
+class GenericComputation(KGObject, OMGenericComputation):
     """
     Structured information about a computation whose type is unknown or unspecified.
     """
@@ -102,3 +102,13 @@ class GenericComputation(KGObject, GenericComputation):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+GenericComputation.set_error_handling(None)
+for key, value in OMGenericComputation.__dict__.items():
+    if isinstance(value, OMGenericComputation):
+        fg_instance = GenericComputation.from_jsonld(value.to_jsonld())
+        fg_instance._space = GenericComputation.default_space
+        setattr(GenericComputation, key, fg_instance)
+GenericComputation.set_error_handling("log")

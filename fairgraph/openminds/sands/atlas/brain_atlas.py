@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import BrainAtlas
+from openminds.latest.sands import BrainAtlas as OMBrainAtlas
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class BrainAtlas(KGObject, BrainAtlas):
+class BrainAtlas(KGObject, OMBrainAtlas):
     """
     <description not available>
     """
@@ -111,3 +111,13 @@ class BrainAtlas(KGObject, BrainAtlas):
             used_species=used_species,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BrainAtlas.set_error_handling(None)
+for key, value in OMBrainAtlas.__dict__.items():
+    if isinstance(value, OMBrainAtlas):
+        fg_instance = BrainAtlas.from_jsonld(value.to_jsonld())
+        fg_instance._space = BrainAtlas.default_space
+        setattr(BrainAtlas, key, fg_instance)
+BrainAtlas.set_error_handling("log")

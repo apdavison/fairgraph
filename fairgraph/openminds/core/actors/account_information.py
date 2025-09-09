@@ -5,11 +5,11 @@ Structured information about a user account for a web service.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import AccountInformation
+from openminds.latest.core import AccountInformation as OMAccountInformation
 from fairgraph import KGObject
 
 
-class AccountInformation(KGObject, AccountInformation):
+class AccountInformation(KGObject, OMAccountInformation):
     """
     Structured information about a user account for a web service.
     """
@@ -40,3 +40,13 @@ class AccountInformation(KGObject, AccountInformation):
             service=service,
             user_name=user_name,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AccountInformation.set_error_handling(None)
+for key, value in OMAccountInformation.__dict__.items():
+    if isinstance(value, OMAccountInformation):
+        fg_instance = AccountInformation.from_jsonld(value.to_jsonld())
+        fg_instance._space = AccountInformation.default_space
+        setattr(AccountInformation, key, fg_instance)
+AccountInformation.set_error_handling("log")

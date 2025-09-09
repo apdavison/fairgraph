@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AnalysisTechnique
+from openminds.latest.controlled_terms import AnalysisTechnique as OMAnalysisTechnique
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AnalysisTechnique(KGObject, AnalysisTechnique):
+class AnalysisTechnique(KGObject, OMAnalysisTechnique):
     """
     <description not available>
     """
@@ -106,3 +106,13 @@ class AnalysisTechnique(KGObject, AnalysisTechnique):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AnalysisTechnique.set_error_handling(None)
+for key, value in OMAnalysisTechnique.__dict__.items():
+    if isinstance(value, OMAnalysisTechnique):
+        fg_instance = AnalysisTechnique.from_jsonld(value.to_jsonld())
+        fg_instance._space = AnalysisTechnique.default_space
+        setattr(AnalysisTechnique, key, fg_instance)
+AnalysisTechnique.set_error_handling("log")

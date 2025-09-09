@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import BiologicalProcess
+from openminds.latest.controlled_terms import BiologicalProcess as OMBiologicalProcess
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class BiologicalProcess(KGObject, BiologicalProcess):
+class BiologicalProcess(KGObject, OMBiologicalProcess):
     """
     <description not available>
     """
@@ -77,3 +77,13 @@ class BiologicalProcess(KGObject, BiologicalProcess):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BiologicalProcess.set_error_handling(None)
+for key, value in OMBiologicalProcess.__dict__.items():
+    if isinstance(value, OMBiologicalProcess):
+        fg_instance = BiologicalProcess.from_jsonld(value.to_jsonld())
+        fg_instance._space = BiologicalProcess.default_space
+        setattr(BiologicalProcess, key, fg_instance)
+BiologicalProcess.set_error_handling("log")

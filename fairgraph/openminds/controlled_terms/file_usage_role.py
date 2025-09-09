@@ -5,14 +5,14 @@ Structured information on the usage role of a file instance or bundle.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import FileUsageRole
+from openminds.latest.controlled_terms import FileUsageRole as OMFileUsageRole
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class FileUsageRole(KGObject, FileUsageRole):
+class FileUsageRole(KGObject, OMFileUsageRole):
     """
     Structured information on the usage role of a file instance or bundle.
     """
@@ -87,3 +87,13 @@ class FileUsageRole(KGObject, FileUsageRole):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileUsageRole.set_error_handling(None)
+for key, value in OMFileUsageRole.__dict__.items():
+    if isinstance(value, OMFileUsageRole):
+        fg_instance = FileUsageRole.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileUsageRole.default_space
+        setattr(FileUsageRole, key, fg_instance)
+FileUsageRole.set_error_handling("log")

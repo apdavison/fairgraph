@@ -5,14 +5,14 @@ Structured information on the biological sex of a subject.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import BiologicalSex
+from openminds.latest.controlled_terms import BiologicalSex as OMBiologicalSex
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class BiologicalSex(KGObject, BiologicalSex):
+class BiologicalSex(KGObject, OMBiologicalSex):
     """
     Structured information on the biological sex of a subject.
     """
@@ -130,3 +130,13 @@ class BiologicalSex(KGObject, BiologicalSex):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BiologicalSex.set_error_handling(None)
+for key, value in OMBiologicalSex.__dict__.items():
+    if isinstance(value, OMBiologicalSex):
+        fg_instance = BiologicalSex.from_jsonld(value.to_jsonld())
+        fg_instance._space = BiologicalSex.default_space
+        setattr(BiologicalSex, key, fg_instance)
+BiologicalSex.set_error_handling("log")

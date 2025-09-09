@@ -5,11 +5,11 @@ Structured information on a tissue sample.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import TissueSample
+from openminds.latest.core import TissueSample as OMTissueSample
 from fairgraph import KGObject
 
 
-class TissueSample(KGObject, TissueSample):
+class TissueSample(KGObject, OMTissueSample):
     """
     Structured information on a tissue sample.
     """
@@ -85,3 +85,13 @@ class TissueSample(KGObject, TissueSample):
             type=type,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TissueSample.set_error_handling(None)
+for key, value in OMTissueSample.__dict__.items():
+    if isinstance(value, OMTissueSample):
+        fg_instance = TissueSample.from_jsonld(value.to_jsonld())
+        fg_instance._space = TissueSample.default_space
+        setattr(TissueSample, key, fg_instance)
+TissueSample.set_error_handling("log")

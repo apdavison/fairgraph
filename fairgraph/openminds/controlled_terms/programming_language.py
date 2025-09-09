@@ -5,14 +5,14 @@ Structured information on the programming language.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ProgrammingLanguage
+from openminds.latest.controlled_terms import ProgrammingLanguage as OMProgrammingLanguage
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ProgrammingLanguage(KGObject, ProgrammingLanguage):
+class ProgrammingLanguage(KGObject, OMProgrammingLanguage):
     """
     Structured information on the programming language.
     """
@@ -86,3 +86,13 @@ class ProgrammingLanguage(KGObject, ProgrammingLanguage):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ProgrammingLanguage.set_error_handling(None)
+for key, value in OMProgrammingLanguage.__dict__.items():
+    if isinstance(value, OMProgrammingLanguage):
+        fg_instance = ProgrammingLanguage.from_jsonld(value.to_jsonld())
+        fg_instance._space = ProgrammingLanguage.default_space
+        setattr(ProgrammingLanguage, key, fg_instance)
+ProgrammingLanguage.set_error_handling("log")

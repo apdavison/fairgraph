@@ -5,11 +5,11 @@ Structured information on the computer system or set of systems in which a compu
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import Environment
+from openminds.latest.computation import Environment as OMEnvironment
 from fairgraph import KGObject
 
 
-class Environment(KGObject, Environment):
+class Environment(KGObject, OMEnvironment):
     """
     Structured information on the computer system or set of systems in which a computation is deployed and executed.
     """
@@ -64,3 +64,13 @@ class Environment(KGObject, Environment):
             software=software,
             used_for=used_for,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Environment.set_error_handling(None)
+for key, value in OMEnvironment.__dict__.items():
+    if isinstance(value, OMEnvironment):
+        fg_instance = Environment.from_jsonld(value.to_jsonld())
+        fg_instance._space = Environment.default_space
+        setattr(Environment, key, fg_instance)
+Environment.set_error_handling("log")

@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import Pipette
+from openminds.latest.ephys import Pipette as OMPipette
 from fairgraph import KGObject
 
 
-class Pipette(KGObject, Pipette):
+class Pipette(KGObject, OMPipette):
     """
     <description not available>
     """
@@ -79,3 +79,13 @@ class Pipette(KGObject, Pipette):
             serial_number=serial_number,
             usage=usage,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Pipette.set_error_handling(None)
+for key, value in OMPipette.__dict__.items():
+    if isinstance(value, OMPipette):
+        fg_instance = Pipette.from_jsonld(value.to_jsonld())
+        fg_instance._space = Pipette.default_space
+        setattr(Pipette, key, fg_instance)
+Pipette.set_error_handling("log")

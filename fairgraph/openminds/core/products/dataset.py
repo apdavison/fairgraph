@@ -5,14 +5,14 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Dataset
+from openminds.latest.core import Dataset as OMDataset
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Dataset(KGObject, Dataset):
+class Dataset(KGObject, OMDataset):
     """
     Structured information on data originating from human/animal studies or simulations (concept level).
     """
@@ -93,3 +93,13 @@ class Dataset(KGObject, Dataset):
             short_name=short_name,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Dataset.set_error_handling(None)
+for key, value in OMDataset.__dict__.items():
+    if isinstance(value, OMDataset):
+        fg_instance = Dataset.from_jsonld(value.to_jsonld())
+        fg_instance._space = Dataset.default_space
+        setattr(Dataset, key, fg_instance)
+Dataset.set_error_handling("log")

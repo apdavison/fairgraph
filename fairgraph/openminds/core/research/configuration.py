@@ -5,11 +5,11 @@ Structured information about the properties or parameters of an entity or proces
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Configuration
+from openminds.latest.core import Configuration as OMConfiguration
 from fairgraph import KGObject
 
 
-class Configuration(KGObject, Configuration):
+class Configuration(KGObject, OMConfiguration):
     """
     Structured information about the properties or parameters of an entity or process.
     """
@@ -66,3 +66,13 @@ class Configuration(KGObject, Configuration):
             is_configuration_of=is_configuration_of,
             specifies=specifies,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Configuration.set_error_handling(None)
+for key, value in OMConfiguration.__dict__.items():
+    if isinstance(value, OMConfiguration):
+        fg_instance = Configuration.from_jsonld(value.to_jsonld())
+        fg_instance._space = Configuration.default_space
+        setattr(Configuration, key, fg_instance)
+Configuration.set_error_handling("log")

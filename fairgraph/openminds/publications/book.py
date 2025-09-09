@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import Book
+from openminds.latest.publications import Book as OMBook
 from fairgraph import KGObject
 
 
@@ -13,7 +13,7 @@ from datetime import date
 from openminds import IRI
 
 
-class Book(KGObject, Book):
+class Book(KGObject, OMBook):
     """
     <description not available>
     """
@@ -104,3 +104,13 @@ class Book(KGObject, Book):
             related_to=related_to,
             version_identifier=version_identifier,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Book.set_error_handling(None)
+for key, value in OMBook.__dict__.items():
+    if isinstance(value, OMBook):
+        fg_instance = Book.from_jsonld(value.to_jsonld())
+        fg_instance._space = Book.default_space
+        setattr(Book, key, fg_instance)
+Book.set_error_handling("log")

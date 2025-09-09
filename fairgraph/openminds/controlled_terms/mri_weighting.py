@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import MRIWeighting
+from openminds.latest.controlled_terms import MRIWeighting as OMMRIWeighting
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class MRIWeighting(KGObject, MRIWeighting):
+class MRIWeighting(KGObject, OMMRIWeighting):
     """
     <description not available>
     """
@@ -96,3 +96,13 @@ class MRIWeighting(KGObject, MRIWeighting):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+MRIWeighting.set_error_handling(None)
+for key, value in OMMRIWeighting.__dict__.items():
+    if isinstance(value, OMMRIWeighting):
+        fg_instance = MRIWeighting.from_jsonld(value.to_jsonld())
+        fg_instance._space = MRIWeighting.default_space
+        setattr(MRIWeighting, key, fg_instance)
+MRIWeighting.set_error_handling("log")

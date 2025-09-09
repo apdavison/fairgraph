@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import ParcellationTerminology
+from openminds.latest.sands import ParcellationTerminology as OMParcellationTerminology
 from fairgraph import EmbeddedMetadata
 
 
-class ParcellationTerminology(EmbeddedMetadata, ParcellationTerminology):
+class ParcellationTerminology(EmbeddedMetadata, OMParcellationTerminology):
     """
     <description not available>
     """
@@ -35,3 +35,13 @@ class ParcellationTerminology(EmbeddedMetadata, ParcellationTerminology):
             has_entities=has_entities,
             ontology_identifiers=ontology_identifiers,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ParcellationTerminology.set_error_handling(None)
+for key, value in OMParcellationTerminology.__dict__.items():
+    if isinstance(value, OMParcellationTerminology):
+        fg_instance = ParcellationTerminology.from_jsonld(value.to_jsonld())
+        fg_instance._space = ParcellationTerminology.default_space
+        setattr(ParcellationTerminology, key, fg_instance)
+ParcellationTerminology.set_error_handling("log")

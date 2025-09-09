@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import BrainAtlasVersion
+from openminds.latest.sands import BrainAtlasVersion as OMBrainAtlasVersion
 from fairgraph import KGObject
 
 
@@ -13,7 +13,7 @@ from datetime import date
 from openminds import IRI
 
 
-class BrainAtlasVersion(KGObject, BrainAtlasVersion):
+class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
     """
     <description not available>
     """
@@ -172,3 +172,13 @@ class BrainAtlasVersion(KGObject, BrainAtlasVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BrainAtlasVersion.set_error_handling(None)
+for key, value in OMBrainAtlasVersion.__dict__.items():
+    if isinstance(value, OMBrainAtlasVersion):
+        fg_instance = BrainAtlasVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = BrainAtlasVersion.default_space
+        setattr(BrainAtlasVersion, key, fg_instance)
+BrainAtlasVersion.set_error_handling("log")

@@ -5,11 +5,11 @@ Structured information on a bundle of file instances.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileBundle
+from openminds.latest.core import FileBundle as OMFileBundle
 from fairgraph import KGObject
 
 
-class FileBundle(KGObject, FileBundle):
+class FileBundle(KGObject, OMFileBundle):
     """
     Structured information on a bundle of file instances.
     """
@@ -148,3 +148,13 @@ class FileBundle(KGObject, FileBundle):
             specifies=specifies,
             storage_size=storage_size,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileBundle.set_error_handling(None)
+for key, value in OMFileBundle.__dict__.items():
+    if isinstance(value, OMFileBundle):
+        fg_instance = FileBundle.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileBundle.default_space
+        setattr(FileBundle, key, fg_instance)
+FileBundle.set_error_handling("log")

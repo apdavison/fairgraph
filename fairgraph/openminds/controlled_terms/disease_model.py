@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import DiseaseModel
+from openminds.latest.controlled_terms import DiseaseModel as OMDiseaseModel
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class DiseaseModel(KGObject, DiseaseModel):
+class DiseaseModel(KGObject, OMDiseaseModel):
     """
     <description not available>
     """
@@ -140,3 +140,13 @@ class DiseaseModel(KGObject, DiseaseModel):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DiseaseModel.set_error_handling(None)
+for key, value in OMDiseaseModel.__dict__.items():
+    if isinstance(value, OMDiseaseModel):
+        fg_instance = DiseaseModel.from_jsonld(value.to_jsonld())
+        fg_instance._space = DiseaseModel.default_space
+        setattr(DiseaseModel, key, fg_instance)
+DiseaseModel.set_error_handling("log")

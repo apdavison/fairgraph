@@ -5,14 +5,14 @@ A representation of a range of quantitative values.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValueRange
+from openminds.latest.core import QuantitativeValueRange as OMQuantitativeValueRange
 from fairgraph import EmbeddedMetadata
 
 
 from numbers import Real
 
 
-class QuantitativeValueRange(EmbeddedMetadata, QuantitativeValueRange):
+class QuantitativeValueRange(EmbeddedMetadata, OMQuantitativeValueRange):
     """
     A representation of a range of quantitative values.
     """
@@ -40,3 +40,13 @@ class QuantitativeValueRange(EmbeddedMetadata, QuantitativeValueRange):
             min_value=min_value,
             min_value_unit=min_value_unit,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+QuantitativeValueRange.set_error_handling(None)
+for key, value in OMQuantitativeValueRange.__dict__.items():
+    if isinstance(value, OMQuantitativeValueRange):
+        fg_instance = QuantitativeValueRange.from_jsonld(value.to_jsonld())
+        fg_instance._space = QuantitativeValueRange.default_space
+        setattr(QuantitativeValueRange, key, fg_instance)
+QuantitativeValueRange.set_error_handling("log")

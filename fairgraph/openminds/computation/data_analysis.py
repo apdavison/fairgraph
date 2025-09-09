@@ -5,14 +5,14 @@ Structured information on inspecting, cleansing, transforming, and modelling dat
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import DataAnalysis
+from openminds.latest.computation import DataAnalysis as OMDataAnalysis
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class DataAnalysis(KGObject, DataAnalysis):
+class DataAnalysis(KGObject, OMDataAnalysis):
     """
     Structured information on inspecting, cleansing, transforming, and modelling data.
     """
@@ -102,3 +102,13 @@ class DataAnalysis(KGObject, DataAnalysis):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DataAnalysis.set_error_handling(None)
+for key, value in OMDataAnalysis.__dict__.items():
+    if isinstance(value, OMDataAnalysis):
+        fg_instance = DataAnalysis.from_jsonld(value.to_jsonld())
+        fg_instance._space = DataAnalysis.default_space
+        setattr(DataAnalysis, key, fg_instance)
+DataAnalysis.set_error_handling("log")

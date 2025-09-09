@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import QuantitativeRelationAssessment
+from openminds.latest.sands import QuantitativeRelationAssessment as OMQuantitativeRelationAssessment
 from fairgraph import EmbeddedMetadata
 
 
-class QuantitativeRelationAssessment(EmbeddedMetadata, QuantitativeRelationAssessment):
+class QuantitativeRelationAssessment(EmbeddedMetadata, OMQuantitativeRelationAssessment):
     """
     <description not available>
     """
@@ -28,3 +28,13 @@ class QuantitativeRelationAssessment(EmbeddedMetadata, QuantitativeRelationAsses
             in_relation_to=in_relation_to,
             quantitative_overlap=quantitative_overlap,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+QuantitativeRelationAssessment.set_error_handling(None)
+for key, value in OMQuantitativeRelationAssessment.__dict__.items():
+    if isinstance(value, OMQuantitativeRelationAssessment):
+        fg_instance = QuantitativeRelationAssessment.from_jsonld(value.to_jsonld())
+        fg_instance._space = QuantitativeRelationAssessment.default_space
+        setattr(QuantitativeRelationAssessment, key, fg_instance)
+QuantitativeRelationAssessment.set_error_handling("log")

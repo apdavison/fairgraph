@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import PipetteUsage
+from openminds.latest.ephys import PipetteUsage as OMPipetteUsage
 from fairgraph import KGObject
 
 
-class PipetteUsage(KGObject, PipetteUsage):
+class PipetteUsage(KGObject, OMPipetteUsage):
     """
     <description not available>
     """
@@ -121,3 +121,13 @@ class PipetteUsage(KGObject, PipetteUsage):
             used_to_measure=used_to_measure,
             used_to_record=used_to_record,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+PipetteUsage.set_error_handling(None)
+for key, value in OMPipetteUsage.__dict__.items():
+    if isinstance(value, OMPipetteUsage):
+        fg_instance = PipetteUsage.from_jsonld(value.to_jsonld())
+        fg_instance._space = PipetteUsage.default_space
+        setattr(PipetteUsage, key, fg_instance)
+PipetteUsage.set_error_handling("log")

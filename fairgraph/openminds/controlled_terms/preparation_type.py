@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import PreparationType
+from openminds.latest.controlled_terms import PreparationType as OMPreparationType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class PreparationType(KGObject, PreparationType):
+class PreparationType(KGObject, OMPreparationType):
     """
     <description not available>
     """
@@ -96,3 +96,13 @@ class PreparationType(KGObject, PreparationType):
             synonyms=synonyms,
             used_for=used_for,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+PreparationType.set_error_handling(None)
+for key, value in OMPreparationType.__dict__.items():
+    if isinstance(value, OMPreparationType):
+        fg_instance = PreparationType.from_jsonld(value.to_jsonld())
+        fg_instance._space = PreparationType.default_space
+        setattr(PreparationType, key, fg_instance)
+PreparationType.set_error_handling("log")

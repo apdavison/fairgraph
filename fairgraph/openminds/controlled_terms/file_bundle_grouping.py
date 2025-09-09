@@ -5,14 +5,14 @@ Structured information on the grouping mechanism of a file bundle.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import FileBundleGrouping
+from openminds.latest.controlled_terms import FileBundleGrouping as OMFileBundleGrouping
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class FileBundleGrouping(KGObject, FileBundleGrouping):
+class FileBundleGrouping(KGObject, OMFileBundleGrouping):
     """
     Structured information on the grouping mechanism of a file bundle.
     """
@@ -97,3 +97,13 @@ class FileBundleGrouping(KGObject, FileBundleGrouping):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileBundleGrouping.set_error_handling(None)
+for key, value in OMFileBundleGrouping.__dict__.items():
+    if isinstance(value, OMFileBundleGrouping):
+        fg_instance = FileBundleGrouping.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileBundleGrouping.default_space
+        setattr(FileBundleGrouping, key, fg_instance)
+FileBundleGrouping.set_error_handling("log")

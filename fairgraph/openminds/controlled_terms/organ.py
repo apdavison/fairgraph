@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Organ
+from openminds.latest.controlled_terms import Organ as OMOrgan
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Organ(KGObject, Organ):
+class Organ(KGObject, OMOrgan):
     """
     <description not available>
     """
@@ -159,3 +159,13 @@ class Organ(KGObject, Organ):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Organ.set_error_handling(None)
+for key, value in OMOrgan.__dict__.items():
+    if isinstance(value, OMOrgan):
+        fg_instance = Organ.from_jsonld(value.to_jsonld())
+        fg_instance._space = Organ.default_space
+        setattr(Organ, key, fg_instance)
+Organ.set_error_handling("log")

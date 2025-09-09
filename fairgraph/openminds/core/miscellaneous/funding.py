@@ -5,11 +5,11 @@ Structured information on used funding.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Funding
+from openminds.latest.core import Funding as OMFunding
 from fairgraph import KGObject
 
 
-class Funding(KGObject, Funding):
+class Funding(KGObject, OMFunding):
     """
     Structured information on used funding.
     """
@@ -68,3 +68,13 @@ class Funding(KGObject, Funding):
             funded=funded,
             funder=funder,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Funding.set_error_handling(None)
+for key, value in OMFunding.__dict__.items():
+    if isinstance(value, OMFunding):
+        fg_instance = Funding.from_jsonld(value.to_jsonld())
+        fg_instance._space = Funding.default_space
+        setattr(Funding, key, fg_instance)
+Funding.set_error_handling("log")

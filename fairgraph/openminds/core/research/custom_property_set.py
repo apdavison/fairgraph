@@ -5,11 +5,11 @@ Structured information about properties of an entity that are not represented in
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import CustomPropertySet
+from openminds.latest.core import CustomPropertySet as OMCustomPropertySet
 from fairgraph import EmbeddedMetadata
 
 
-class CustomPropertySet(EmbeddedMetadata, CustomPropertySet):
+class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
     """
     Structured information about properties of an entity that are not represented in an openMINDS schema.
     """
@@ -24,3 +24,13 @@ class CustomPropertySet(EmbeddedMetadata, CustomPropertySet):
         return EmbeddedMetadata.__init__(
             self, data=data, context=context, data_location=data_location, relevant_for=relevant_for
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CustomPropertySet.set_error_handling(None)
+for key, value in OMCustomPropertySet.__dict__.items():
+    if isinstance(value, OMCustomPropertySet):
+        fg_instance = CustomPropertySet.from_jsonld(value.to_jsonld())
+        fg_instance._space = CustomPropertySet.default_space
+        setattr(CustomPropertySet, key, fg_instance)
+CustomPropertySet.set_error_handling("log")

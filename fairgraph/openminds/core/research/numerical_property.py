@@ -5,11 +5,11 @@ Structured information about a property of some entity or process whose value is
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import NumericalProperty
+from openminds.latest.core import NumericalProperty as OMNumericalProperty
 from fairgraph import EmbeddedMetadata
 
 
-class NumericalProperty(EmbeddedMetadata, NumericalProperty):
+class NumericalProperty(EmbeddedMetadata, OMNumericalProperty):
     """
     Structured information about a property of some entity or process whose value is a number.
     """
@@ -20,3 +20,13 @@ class NumericalProperty(EmbeddedMetadata, NumericalProperty):
 
     def __init__(self, name=None, values=None, id=None, data=None, space=None, scope=None):
         return EmbeddedMetadata.__init__(self, data=data, name=name, values=values)
+
+
+# cast openMINDS instances to their fairgraph subclass
+NumericalProperty.set_error_handling(None)
+for key, value in OMNumericalProperty.__dict__.items():
+    if isinstance(value, OMNumericalProperty):
+        fg_instance = NumericalProperty.from_jsonld(value.to_jsonld())
+        fg_instance._space = NumericalProperty.default_space
+        setattr(NumericalProperty, key, fg_instance)
+NumericalProperty.set_error_handling("log")

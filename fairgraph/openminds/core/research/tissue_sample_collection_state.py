@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import TissueSampleCollectionState
+from openminds.latest.core import TissueSampleCollectionState as OMTissueSampleCollectionState
 from fairgraph import KGObject
 
 
-class TissueSampleCollectionState(KGObject, TissueSampleCollectionState):
+class TissueSampleCollectionState(KGObject, OMTissueSampleCollectionState):
     """
     <description not available>
     """
@@ -107,3 +107,13 @@ class TissueSampleCollectionState(KGObject, TissueSampleCollectionState):
             relative_time_indication=relative_time_indication,
             weight=weight,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TissueSampleCollectionState.set_error_handling(None)
+for key, value in OMTissueSampleCollectionState.__dict__.items():
+    if isinstance(value, OMTissueSampleCollectionState):
+        fg_instance = TissueSampleCollectionState.from_jsonld(value.to_jsonld())
+        fg_instance._space = TissueSampleCollectionState.default_space
+        setattr(TissueSampleCollectionState, key, fg_instance)
+TissueSampleCollectionState.set_error_handling("log")

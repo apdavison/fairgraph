@@ -5,14 +5,14 @@ Structured information about the definition of a process for validating a comput
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import ValidationTest
+from openminds.latest.computation import ValidationTest as OMValidationTest
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ValidationTest(KGObject, ValidationTest):
+class ValidationTest(KGObject, OMValidationTest):
     """
     Structured information about the definition of a process for validating a computational model.
     """
@@ -101,3 +101,13 @@ class ValidationTest(KGObject, ValidationTest):
             study_targets=study_targets,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ValidationTest.set_error_handling(None)
+for key, value in OMValidationTest.__dict__.items():
+    if isinstance(value, OMValidationTest):
+        fg_instance = ValidationTest.from_jsonld(value.to_jsonld())
+        fg_instance._space = ValidationTest.default_space
+        setattr(ValidationTest, key, fg_instance)
+ValidationTest.set_error_handling("log")

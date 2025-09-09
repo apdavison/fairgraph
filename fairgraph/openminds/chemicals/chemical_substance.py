@@ -5,11 +5,11 @@ Structured information about a chemical substance.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import ChemicalSubstance
+from openminds.latest.chemicals import ChemicalSubstance as OMChemicalSubstance
 from fairgraph import KGObject
 
 
-class ChemicalSubstance(KGObject, ChemicalSubstance):
+class ChemicalSubstance(KGObject, OMChemicalSubstance):
     """
     Structured information about a chemical substance.
     """
@@ -69,3 +69,13 @@ class ChemicalSubstance(KGObject, ChemicalSubstance):
             product_source=product_source,
             purity=purity,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ChemicalSubstance.set_error_handling(None)
+for key, value in OMChemicalSubstance.__dict__.items():
+    if isinstance(value, OMChemicalSubstance):
+        fg_instance = ChemicalSubstance.from_jsonld(value.to_jsonld())
+        fg_instance._space = ChemicalSubstance.default_space
+        setattr(ChemicalSubstance, key, fg_instance)
+ChemicalSubstance.set_error_handling("log")

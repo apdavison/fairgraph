@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import WebService
+from openminds.latest.core import WebService as OMWebService
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class WebService(KGObject, WebService):
+class WebService(KGObject, OMWebService):
     """
     <description not available>
     """
@@ -111,3 +111,13 @@ class WebService(KGObject, WebService):
             short_name=short_name,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+WebService.set_error_handling(None)
+for key, value in OMWebService.__dict__.items():
+    if isinstance(value, OMWebService):
+        fg_instance = WebService.from_jsonld(value.to_jsonld())
+        fg_instance._space = WebService.default_space
+        setattr(WebService, key, fg_instance)
+WebService.set_error_handling("log")

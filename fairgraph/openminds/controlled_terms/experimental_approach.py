@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ExperimentalApproach
+from openminds.latest.controlled_terms import ExperimentalApproach as OMExperimentalApproach
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ExperimentalApproach(KGObject, ExperimentalApproach):
+class ExperimentalApproach(KGObject, OMExperimentalApproach):
     """
     <description not available>
     """
@@ -77,3 +77,13 @@ class ExperimentalApproach(KGObject, ExperimentalApproach):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ExperimentalApproach.set_error_handling(None)
+for key, value in OMExperimentalApproach.__dict__.items():
+    if isinstance(value, OMExperimentalApproach):
+        fg_instance = ExperimentalApproach.from_jsonld(value.to_jsonld())
+        fg_instance._space = ExperimentalApproach.default_space
+        setattr(ExperimentalApproach, key, fg_instance)
+ExperimentalApproach.set_error_handling("log")

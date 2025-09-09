@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import ElectrodePlacement
+from openminds.latest.ephys import ElectrodePlacement as OMElectrodePlacement
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class ElectrodePlacement(KGObject, ElectrodePlacement):
+class ElectrodePlacement(KGObject, OMElectrodePlacement):
     """
     <description not available>
     """
@@ -65,3 +65,13 @@ class ElectrodePlacement(KGObject, ElectrodePlacement):
             study_targets=study_targets,
             target_position=target_position,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ElectrodePlacement.set_error_handling(None)
+for key, value in OMElectrodePlacement.__dict__.items():
+    if isinstance(value, OMElectrodePlacement):
+        fg_instance = ElectrodePlacement.from_jsonld(value.to_jsonld())
+        fg_instance._space = ElectrodePlacement.default_space
+        setattr(ElectrodePlacement, key, fg_instance)
+ElectrodePlacement.set_error_handling("log")

@@ -5,14 +5,14 @@ Structured information about a process of running simulations of a computational
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import Simulation
+from openminds.latest.computation import Simulation as OMSimulation
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class Simulation(KGObject, Simulation):
+class Simulation(KGObject, OMSimulation):
     """
     Structured information about a process of running simulations of a computational model.
     """
@@ -102,3 +102,13 @@ class Simulation(KGObject, Simulation):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Simulation.set_error_handling(None)
+for key, value in OMSimulation.__dict__.items():
+    if isinstance(value, OMSimulation):
+        fg_instance = Simulation.from_jsonld(value.to_jsonld())
+        fg_instance._space = Simulation.default_space
+        setattr(Simulation, key, fg_instance)
+Simulation.set_error_handling("log")

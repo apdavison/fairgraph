@@ -5,14 +5,14 @@ Structured information about a process of optimizing a model or a piece of code.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import Optimization
+from openminds.latest.computation import Optimization as OMOptimization
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class Optimization(KGObject, Optimization):
+class Optimization(KGObject, OMOptimization):
     """
     Structured information about a process of optimizing a model or a piece of code.
     """
@@ -102,3 +102,13 @@ class Optimization(KGObject, Optimization):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Optimization.set_error_handling(None)
+for key, value in OMOptimization.__dict__.items():
+    if isinstance(value, OMOptimization):
+        fg_instance = Optimization.from_jsonld(value.to_jsonld())
+        fg_instance._space = Optimization.default_space
+        setattr(Optimization, key, fg_instance)
+Optimization.set_error_handling("log")

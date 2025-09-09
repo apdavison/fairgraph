@@ -5,11 +5,11 @@ An identifiable list of property-value pairs.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import PropertyValueList
+from openminds.latest.core import PropertyValueList as OMPropertyValueList
 from fairgraph import KGObject
 
 
-class PropertyValueList(KGObject, PropertyValueList):
+class PropertyValueList(KGObject, OMPropertyValueList):
     """
     An identifiable list of property-value pairs.
     """
@@ -69,3 +69,13 @@ class PropertyValueList(KGObject, PropertyValueList):
             property_value_pairs=property_value_pairs,
             specifies=specifies,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+PropertyValueList.set_error_handling(None)
+for key, value in OMPropertyValueList.__dict__.items():
+    if isinstance(value, OMPropertyValueList):
+        fg_instance = PropertyValueList.from_jsonld(value.to_jsonld())
+        fg_instance._space = PropertyValueList.default_space
+        setattr(PropertyValueList, key, fg_instance)
+PropertyValueList.set_error_handling("log")

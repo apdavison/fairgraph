@@ -5,14 +5,14 @@ Structured information on the category of the software application.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import SoftwareApplicationCategory
+from openminds.latest.controlled_terms import SoftwareApplicationCategory as OMSoftwareApplicationCategory
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class SoftwareApplicationCategory(KGObject, SoftwareApplicationCategory):
+class SoftwareApplicationCategory(KGObject, OMSoftwareApplicationCategory):
     """
     Structured information on the category of the software application.
     """
@@ -77,3 +77,13 @@ class SoftwareApplicationCategory(KGObject, SoftwareApplicationCategory):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SoftwareApplicationCategory.set_error_handling(None)
+for key, value in OMSoftwareApplicationCategory.__dict__.items():
+    if isinstance(value, OMSoftwareApplicationCategory):
+        fg_instance = SoftwareApplicationCategory.from_jsonld(value.to_jsonld())
+        fg_instance._space = SoftwareApplicationCategory.default_space
+        setattr(SoftwareApplicationCategory, key, fg_instance)
+SoftwareApplicationCategory.set_error_handling("log")

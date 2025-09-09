@@ -5,14 +5,14 @@ Structured information on the life cycle (semantic term) of a specific age group
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AgeCategory
+from openminds.latest.controlled_terms import AgeCategory as OMAgeCategory
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AgeCategory(KGObject, AgeCategory):
+class AgeCategory(KGObject, OMAgeCategory):
     """
     Structured information on the life cycle (semantic term) of a specific age group.
     """
@@ -87,3 +87,13 @@ class AgeCategory(KGObject, AgeCategory):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AgeCategory.set_error_handling(None)
+for key, value in OMAgeCategory.__dict__.items():
+    if isinstance(value, OMAgeCategory):
+        fg_instance = AgeCategory.from_jsonld(value.to_jsonld())
+        fg_instance._space = AgeCategory.default_space
+        setattr(AgeCategory, key, fg_instance)
+AgeCategory.set_error_handling("log")

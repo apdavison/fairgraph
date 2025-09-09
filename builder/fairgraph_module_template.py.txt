@@ -52,8 +52,10 @@ class {{ class_name }}({{base_class}}, OM{{ class_name }}):
 
 
 # cast openMINDS instances to their fairgraph subclass
+{{ class_name }}.set_error_handling(None)
 for key, value in OM{{ class_name }}.__dict__.items():
     if isinstance(value, OM{{ class_name }}):
         fg_instance = {{ class_name }}.from_jsonld(value.to_jsonld())
         fg_instance._space = {{ class_name }}.default_space
         setattr({{ class_name }}, key, fg_instance)
+{{ class_name }}.set_error_handling("log")

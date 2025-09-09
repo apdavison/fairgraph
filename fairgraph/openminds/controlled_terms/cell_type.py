@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import CellType
+from openminds.latest.controlled_terms import CellType as OMCellType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class CellType(KGObject, CellType):
+class CellType(KGObject, OMCellType):
     """
     <description not available>
     """
@@ -149,3 +149,13 @@ class CellType(KGObject, CellType):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CellType.set_error_handling(None)
+for key, value in OMCellType.__dict__.items():
+    if isinstance(value, OMCellType):
+        fg_instance = CellType.from_jsonld(value.to_jsonld())
+        fg_instance._space = CellType.default_space
+        setattr(CellType, key, fg_instance)
+CellType.set_error_handling("log")

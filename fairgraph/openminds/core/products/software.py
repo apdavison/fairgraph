@@ -5,14 +5,14 @@ Structured information on a software tool (concept level).
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Software
+from openminds.latest.core import Software as OMSoftware
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Software(KGObject, Software):
+class Software(KGObject, OMSoftware):
     """
     Structured information on a software tool (concept level).
     """
@@ -93,3 +93,13 @@ class Software(KGObject, Software):
             short_name=short_name,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Software.set_error_handling(None)
+for key, value in OMSoftware.__dict__.items():
+    if isinstance(value, OMSoftware):
+        fg_instance = Software.from_jsonld(value.to_jsonld())
+        fg_instance._space = Software.default_space
+        setattr(Software, key, fg_instance)
+Software.set_error_handling("log")

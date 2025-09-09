@@ -5,11 +5,11 @@ Structured information about an execution of a computational workflow.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import WorkflowExecution
+from openminds.latest.computation import WorkflowExecution as OMWorkflowExecution
 from fairgraph import KGObject
 
 
-class WorkflowExecution(KGObject, WorkflowExecution):
+class WorkflowExecution(KGObject, OMWorkflowExecution):
     """
     Structured information about an execution of a computational workflow.
     """
@@ -34,3 +34,13 @@ class WorkflowExecution(KGObject, WorkflowExecution):
             stages=stages,
             started_by=started_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+WorkflowExecution.set_error_handling(None)
+for key, value in OMWorkflowExecution.__dict__.items():
+    if isinstance(value, OMWorkflowExecution):
+        fg_instance = WorkflowExecution.from_jsonld(value.to_jsonld())
+        fg_instance._space = WorkflowExecution.default_space
+        setattr(WorkflowExecution, key, fg_instance)
+WorkflowExecution.set_error_handling("log")

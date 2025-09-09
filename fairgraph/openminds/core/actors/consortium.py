@@ -5,14 +5,14 @@ Structured information about an association of two or more persons or organizati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Consortium
+from openminds.latest.core import Consortium as OMConsortium
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Consortium(KGObject, Consortium):
+class Consortium(KGObject, OMConsortium):
     """
     Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
     """
@@ -173,3 +173,13 @@ class Consortium(KGObject, Consortium):
             published=published,
             short_name=short_name,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Consortium.set_error_handling(None)
+for key, value in OMConsortium.__dict__.items():
+    if isinstance(value, OMConsortium):
+        fg_instance = Consortium.from_jsonld(value.to_jsonld())
+        fg_instance._space = Consortium.default_space
+        setattr(Consortium, key, fg_instance)
+Consortium.set_error_handling("log")

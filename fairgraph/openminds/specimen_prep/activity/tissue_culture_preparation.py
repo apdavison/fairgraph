@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import TissueCulturePreparation
+from openminds.latest.specimen_prep import TissueCulturePreparation as OMTissueCulturePreparation
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class TissueCulturePreparation(KGObject, TissueCulturePreparation):
+class TissueCulturePreparation(KGObject, OMTissueCulturePreparation):
     """
     <description not available>
     """
@@ -65,3 +65,13 @@ class TissueCulturePreparation(KGObject, TissueCulturePreparation):
             start_time=start_time,
             study_targets=study_targets,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TissueCulturePreparation.set_error_handling(None)
+for key, value in OMTissueCulturePreparation.__dict__.items():
+    if isinstance(value, OMTissueCulturePreparation):
+        fg_instance = TissueCulturePreparation.from_jsonld(value.to_jsonld())
+        fg_instance._space = TissueCulturePreparation.default_space
+        setattr(TissueCulturePreparation, key, fg_instance)
+TissueCulturePreparation.set_error_handling("log")

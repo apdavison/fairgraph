@@ -5,14 +5,14 @@ A representation of an array of quantitative values, optionally with uncertainti
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValueArray
+from openminds.latest.core import QuantitativeValueArray as OMQuantitativeValueArray
 from fairgraph import KGObject
 
 
 from numbers import Real
 
 
-class QuantitativeValueArray(KGObject, QuantitativeValueArray):
+class QuantitativeValueArray(KGObject, OMQuantitativeValueArray):
     """
     A representation of an array of quantitative values, optionally with uncertainties.
     """
@@ -47,3 +47,13 @@ class QuantitativeValueArray(KGObject, QuantitativeValueArray):
             unit=unit,
             values=values,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+QuantitativeValueArray.set_error_handling(None)
+for key, value in OMQuantitativeValueArray.__dict__.items():
+    if isinstance(value, OMQuantitativeValueArray):
+        fg_instance = QuantitativeValueArray.from_jsonld(value.to_jsonld())
+        fg_instance._space = QuantitativeValueArray.default_space
+        setattr(QuantitativeValueArray, key, fg_instance)
+QuantitativeValueArray.set_error_handling("log")

@@ -5,7 +5,7 @@ Structured information about a specific implemented version of a workflow recipe
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import WorkflowRecipeVersion
+from openminds.latest.computation import WorkflowRecipeVersion as OMWorkflowRecipeVersion
 from fairgraph import KGObject
 
 
@@ -13,7 +13,7 @@ from datetime import date
 from openminds import IRI
 
 
-class WorkflowRecipeVersion(KGObject, WorkflowRecipeVersion):
+class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
     """
     Structured information about a specific implemented version of a workflow recipe.
     """
@@ -163,3 +163,13 @@ class WorkflowRecipeVersion(KGObject, WorkflowRecipeVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+WorkflowRecipeVersion.set_error_handling(None)
+for key, value in OMWorkflowRecipeVersion.__dict__.items():
+    if isinstance(value, OMWorkflowRecipeVersion):
+        fg_instance = WorkflowRecipeVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = WorkflowRecipeVersion.default_space
+        setattr(WorkflowRecipeVersion, key, fg_instance)
+WorkflowRecipeVersion.set_error_handling("log")

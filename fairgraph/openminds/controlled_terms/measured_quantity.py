@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import MeasuredQuantity
+from openminds.latest.controlled_terms import MeasuredQuantity as OMMeasuredQuantity
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class MeasuredQuantity(KGObject, MeasuredQuantity):
+class MeasuredQuantity(KGObject, OMMeasuredQuantity):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class MeasuredQuantity(KGObject, MeasuredQuantity):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+MeasuredQuantity.set_error_handling(None)
+for key, value in OMMeasuredQuantity.__dict__.items():
+    if isinstance(value, OMMeasuredQuantity):
+        fg_instance = MeasuredQuantity.from_jsonld(value.to_jsonld())
+        fg_instance._space = MeasuredQuantity.default_space
+        setattr(MeasuredQuantity, key, fg_instance)
+MeasuredQuantity.set_error_handling("log")

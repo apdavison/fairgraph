@@ -5,11 +5,11 @@ Structured information about how to contact a given person or consortium.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContactInformation
+from openminds.latest.core import ContactInformation as OMContactInformation
 from fairgraph import KGObject
 
 
-class ContactInformation(KGObject, ContactInformation):
+class ContactInformation(KGObject, OMContactInformation):
     """
     Structured information about how to contact a given person or consortium.
     """
@@ -39,3 +39,13 @@ class ContactInformation(KGObject, ContactInformation):
             email=email,
             is_contact_information_of=is_contact_information_of,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ContactInformation.set_error_handling(None)
+for key, value in OMContactInformation.__dict__.items():
+    if isinstance(value, OMContactInformation):
+        fg_instance = ContactInformation.from_jsonld(value.to_jsonld())
+        fg_instance._space = ContactInformation.default_space
+        setattr(ContactInformation, key, fg_instance)
+ContactInformation.set_error_handling("log")

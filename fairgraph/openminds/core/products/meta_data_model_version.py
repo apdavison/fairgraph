@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import MetaDataModelVersion
+from openminds.latest.core import MetaDataModelVersion as OMMetaDataModelVersion
 from fairgraph import KGObject
 
 
@@ -13,7 +13,7 @@ from datetime import date
 from openminds import IRI
 
 
-class MetaDataModelVersion(KGObject, MetaDataModelVersion):
+class MetaDataModelVersion(KGObject, OMMetaDataModelVersion):
     """
     <description not available>
     """
@@ -146,3 +146,13 @@ class MetaDataModelVersion(KGObject, MetaDataModelVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+MetaDataModelVersion.set_error_handling(None)
+for key, value in OMMetaDataModelVersion.__dict__.items():
+    if isinstance(value, OMMetaDataModelVersion):
+        fg_instance = MetaDataModelVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = MetaDataModelVersion.default_space
+        setattr(MetaDataModelVersion, key, fg_instance)
+MetaDataModelVersion.set_error_handling("log")

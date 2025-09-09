@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LearningResource
+from openminds.latest.publications import LearningResource as OMLearningResource
 from fairgraph import KGObject
 
 
@@ -13,7 +13,7 @@ from datetime import date
 from openminds import IRI
 
 
-class LearningResource(KGObject, LearningResource):
+class LearningResource(KGObject, OMLearningResource):
     """
     <description not available>
     """
@@ -88,3 +88,13 @@ class LearningResource(KGObject, LearningResource):
             type=type,
             version_identifier=version_identifier,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+LearningResource.set_error_handling(None)
+for key, value in OMLearningResource.__dict__.items():
+    if isinstance(value, OMLearningResource):
+        fg_instance = LearningResource.from_jsonld(value.to_jsonld())
+        fg_instance._space = LearningResource.default_space
+        setattr(LearningResource, key, fg_instance)
+LearningResource.set_error_handling("log")

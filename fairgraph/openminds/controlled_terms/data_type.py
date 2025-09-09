@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import DataType
+from openminds.latest.controlled_terms import DataType as OMDataType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class DataType(KGObject, DataType):
+class DataType(KGObject, OMDataType):
     """
     <description not available>
     """
@@ -91,3 +91,13 @@ class DataType(KGObject, DataType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DataType.set_error_handling(None)
+for key, value in OMDataType.__dict__.items():
+    if isinstance(value, OMDataType):
+        fg_instance = DataType.from_jsonld(value.to_jsonld())
+        fg_instance._space = DataType.default_space
+        setattr(DataType, key, fg_instance)
+DataType.set_error_handling("log")

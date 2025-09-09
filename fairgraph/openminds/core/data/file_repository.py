@@ -5,14 +5,14 @@ Structured information on a file repository.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileRepository
+from openminds.latest.core import FileRepository as OMFileRepository
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class FileRepository(KGObject, FileRepository):
+class FileRepository(KGObject, OMFileRepository):
     """
     Structured information on a file repository.
     """
@@ -97,3 +97,13 @@ class FileRepository(KGObject, FileRepository):
             structure_pattern=structure_pattern,
             type=type,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileRepository.set_error_handling(None)
+for key, value in OMFileRepository.__dict__.items():
+    if isinstance(value, OMFileRepository):
+        fg_instance = FileRepository.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileRepository.default_space
+        setattr(FileRepository, key, fg_instance)
+FileRepository.set_error_handling("log")

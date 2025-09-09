@@ -5,14 +5,14 @@ Structured information on a computational model (concept level).
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Model
+from openminds.latest.core import Model as OMModel
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Model(KGObject, Model):
+class Model(KGObject, OMModel):
     """
     Structured information on a computational model (concept level).
     """
@@ -99,3 +99,13 @@ class Model(KGObject, Model):
             study_targets=study_targets,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Model.set_error_handling(None)
+for key, value in OMModel.__dict__.items():
+    if isinstance(value, OMModel):
+        fg_instance = Model.from_jsonld(value.to_jsonld())
+        fg_instance._space = Model.default_space
+        setattr(Model, key, fg_instance)
+Model.set_error_handling("log")

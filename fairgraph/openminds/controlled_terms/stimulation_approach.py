@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import StimulationApproach
+from openminds.latest.controlled_terms import StimulationApproach as OMStimulationApproach
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class StimulationApproach(KGObject, StimulationApproach):
+class StimulationApproach(KGObject, OMStimulationApproach):
     """
     <description not available>
     """
@@ -100,3 +100,13 @@ class StimulationApproach(KGObject, StimulationApproach):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+StimulationApproach.set_error_handling(None)
+for key, value in OMStimulationApproach.__dict__.items():
+    if isinstance(value, OMStimulationApproach):
+        fg_instance = StimulationApproach.from_jsonld(value.to_jsonld())
+        fg_instance._space = StimulationApproach.default_space
+        setattr(StimulationApproach, key, fg_instance)
+StimulationApproach.set_error_handling("log")

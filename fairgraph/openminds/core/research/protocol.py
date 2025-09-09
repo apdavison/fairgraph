@@ -5,11 +5,11 @@ Structured information on a research project.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Protocol
+from openminds.latest.core import Protocol as OMProtocol
 from fairgraph import KGObject
 
 
-class Protocol(KGObject, Protocol):
+class Protocol(KGObject, OMProtocol):
     """
     Structured information on a research project.
     """
@@ -65,3 +65,13 @@ class Protocol(KGObject, Protocol):
             techniques=techniques,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Protocol.set_error_handling(None)
+for key, value in OMProtocol.__dict__.items():
+    if isinstance(value, OMProtocol):
+        fg_instance = Protocol.from_jsonld(value.to_jsonld())
+        fg_instance._space = Protocol.default_space
+        setattr(Protocol, key, fg_instance)
+Protocol.set_error_handling("log")

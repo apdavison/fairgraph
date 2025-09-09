@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import SemanticDataType
+from openminds.latest.controlled_terms import SemanticDataType as OMSemanticDataType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class SemanticDataType(KGObject, SemanticDataType):
+class SemanticDataType(KGObject, OMSemanticDataType):
     """
     <description not available>
     """
@@ -77,3 +77,13 @@ class SemanticDataType(KGObject, SemanticDataType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SemanticDataType.set_error_handling(None)
+for key, value in OMSemanticDataType.__dict__.items():
+    if isinstance(value, OMSemanticDataType):
+        fg_instance = SemanticDataType.from_jsonld(value.to_jsonld())
+        fg_instance._space = SemanticDataType.default_space
+        setattr(SemanticDataType, key, fg_instance)
+SemanticDataType.set_error_handling("log")

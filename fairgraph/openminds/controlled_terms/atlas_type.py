@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AtlasType
+from openminds.latest.controlled_terms import AtlasType as OMAtlasType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AtlasType(KGObject, AtlasType):
+class AtlasType(KGObject, OMAtlasType):
     """
     <description not available>
     """
@@ -86,3 +86,13 @@ class AtlasType(KGObject, AtlasType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AtlasType.set_error_handling(None)
+for key, value in OMAtlasType.__dict__.items():
+    if isinstance(value, OMAtlasType):
+        fg_instance = AtlasType.from_jsonld(value.to_jsonld())
+        fg_instance._space = AtlasType.default_space
+        setattr(AtlasType, key, fg_instance)
+AtlasType.set_error_handling("log")

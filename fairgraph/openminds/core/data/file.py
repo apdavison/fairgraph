@@ -5,7 +5,7 @@ Structured information on a file instance that is accessible via a URL.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import File
+from openminds.latest.core import File as OMFile
 from fairgraph import KGObject
 
 import os
@@ -23,7 +23,7 @@ mimetypes.init()
 from openminds import IRI
 
 
-class File(KGObject, File):
+class File(KGObject, OMFile):
     """
     Structured information on a file instance that is accessible via a URL.
     """
@@ -273,3 +273,13 @@ class File(KGObject, File):
             #       rather than a filename, create that directory and save a file called self.name
             #       within it
             return local_filename
+
+
+# cast openMINDS instances to their fairgraph subclass
+File.set_error_handling(None)
+for key, value in OMFile.__dict__.items():
+    if isinstance(value, OMFile):
+        fg_instance = File.from_jsonld(value.to_jsonld())
+        fg_instance._space = File.default_space
+        setattr(File, key, fg_instance)
+File.set_error_handling("log")

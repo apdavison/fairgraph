@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import PatchClampVariation
+from openminds.latest.controlled_terms import PatchClampVariation as OMPatchClampVariation
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class PatchClampVariation(KGObject, PatchClampVariation):
+class PatchClampVariation(KGObject, OMPatchClampVariation):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class PatchClampVariation(KGObject, PatchClampVariation):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+PatchClampVariation.set_error_handling(None)
+for key, value in OMPatchClampVariation.__dict__.items():
+    if isinstance(value, OMPatchClampVariation):
+        fg_instance = PatchClampVariation.from_jsonld(value.to_jsonld())
+        fg_instance._space = PatchClampVariation.default_space
+        setattr(PatchClampVariation, key, fg_instance)
+PatchClampVariation.set_error_handling("log")

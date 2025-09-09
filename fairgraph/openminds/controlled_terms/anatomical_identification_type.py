@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AnatomicalIdentificationType
+from openminds.latest.controlled_terms import AnatomicalIdentificationType as OMAnatomicalIdentificationType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AnatomicalIdentificationType(KGObject, AnatomicalIdentificationType):
+class AnatomicalIdentificationType(KGObject, OMAnatomicalIdentificationType):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class AnatomicalIdentificationType(KGObject, AnatomicalIdentificationType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AnatomicalIdentificationType.set_error_handling(None)
+for key, value in OMAnatomicalIdentificationType.__dict__.items():
+    if isinstance(value, OMAnatomicalIdentificationType):
+        fg_instance = AnatomicalIdentificationType.from_jsonld(value.to_jsonld())
+        fg_instance._space = AnatomicalIdentificationType.default_space
+        setattr(AnatomicalIdentificationType, key, fg_instance)
+AnatomicalIdentificationType.set_error_handling("log")

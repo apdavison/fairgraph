@@ -5,11 +5,11 @@ Structured information about the source of a chemical substance or mixture.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import ProductSource
+from openminds.latest.chemicals import ProductSource as OMProductSource
 from fairgraph import KGObject
 
 
-class ProductSource(KGObject, ProductSource):
+class ProductSource(KGObject, OMProductSource):
     """
     Structured information about the source of a chemical substance or mixture.
     """
@@ -55,3 +55,13 @@ class ProductSource(KGObject, ProductSource):
             provider=provider,
             purity=purity,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ProductSource.set_error_handling(None)
+for key, value in OMProductSource.__dict__.items():
+    if isinstance(value, OMProductSource):
+        fg_instance = ProductSource.from_jsonld(value.to_jsonld())
+        fg_instance._space = ProductSource.default_space
+        setattr(ProductSource, key, fg_instance)
+ProductSource.set_error_handling("log")

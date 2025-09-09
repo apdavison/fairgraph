@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import OlfactoryStimulusType
+from openminds.latest.controlled_terms import OlfactoryStimulusType as OMOlfactoryStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class OlfactoryStimulusType(KGObject, OlfactoryStimulusType):
+class OlfactoryStimulusType(KGObject, OMOlfactoryStimulusType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class OlfactoryStimulusType(KGObject, OlfactoryStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+OlfactoryStimulusType.set_error_handling(None)
+for key, value in OMOlfactoryStimulusType.__dict__.items():
+    if isinstance(value, OMOlfactoryStimulusType):
+        fg_instance = OlfactoryStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = OlfactoryStimulusType.default_space
+        setattr(OlfactoryStimulusType, key, fg_instance)
+OlfactoryStimulusType.set_error_handling("log")

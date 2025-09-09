@@ -5,14 +5,14 @@ Structured information on the operating system.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import OperatingSystem
+from openminds.latest.controlled_terms import OperatingSystem as OMOperatingSystem
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class OperatingSystem(KGObject, OperatingSystem):
+class OperatingSystem(KGObject, OMOperatingSystem):
     """
     Structured information on the operating system.
     """
@@ -86,3 +86,13 @@ class OperatingSystem(KGObject, OperatingSystem):
             synonyms=synonyms,
             used_by=used_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+OperatingSystem.set_error_handling(None)
+for key, value in OMOperatingSystem.__dict__.items():
+    if isinstance(value, OMOperatingSystem):
+        fg_instance = OperatingSystem.from_jsonld(value.to_jsonld())
+        fg_instance._space = OperatingSystem.default_space
+        setattr(OperatingSystem, key, fg_instance)
+OperatingSystem.set_error_handling("log")

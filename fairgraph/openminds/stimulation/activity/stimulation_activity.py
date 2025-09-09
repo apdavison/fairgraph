@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.stimulation import StimulationActivity
+from openminds.latest.stimulation import StimulationActivity as OMStimulationActivity
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class StimulationActivity(KGObject, StimulationActivity):
+class StimulationActivity(KGObject, OMStimulationActivity):
     """
     <description not available>
     """
@@ -65,3 +65,13 @@ class StimulationActivity(KGObject, StimulationActivity):
             stimuli=stimuli,
             study_targets=study_targets,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+StimulationActivity.set_error_handling(None)
+for key, value in OMStimulationActivity.__dict__.items():
+    if isinstance(value, OMStimulationActivity):
+        fg_instance = StimulationActivity.from_jsonld(value.to_jsonld())
+        fg_instance._space = StimulationActivity.default_space
+        setattr(StimulationActivity, key, fg_instance)
+StimulationActivity.set_error_handling("log")

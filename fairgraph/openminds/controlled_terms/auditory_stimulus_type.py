@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AuditoryStimulusType
+from openminds.latest.controlled_terms import AuditoryStimulusType as OMAuditoryStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AuditoryStimulusType(KGObject, AuditoryStimulusType):
+class AuditoryStimulusType(KGObject, OMAuditoryStimulusType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class AuditoryStimulusType(KGObject, AuditoryStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AuditoryStimulusType.set_error_handling(None)
+for key, value in OMAuditoryStimulusType.__dict__.items():
+    if isinstance(value, OMAuditoryStimulusType):
+        fg_instance = AuditoryStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = AuditoryStimulusType.default_space
+        setattr(AuditoryStimulusType, key, fg_instance)
+AuditoryStimulusType.set_error_handling("log")

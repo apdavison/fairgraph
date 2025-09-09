@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import SetupType
+from openminds.latest.controlled_terms import SetupType as OMSetupType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class SetupType(KGObject, SetupType):
+class SetupType(KGObject, OMSetupType):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class SetupType(KGObject, SetupType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SetupType.set_error_handling(None)
+for key, value in OMSetupType.__dict__.items():
+    if isinstance(value, OMSetupType):
+        fg_instance = SetupType.from_jsonld(value.to_jsonld())
+        fg_instance._space = SetupType.default_space
+        setattr(SetupType, key, fg_instance)
+SetupType.set_error_handling("log")

@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileRepositoryStructure
+from openminds.latest.core import FileRepositoryStructure as OMFileRepositoryStructure
 from fairgraph import KGObject
 
 
-class FileRepositoryStructure(KGObject, FileRepositoryStructure):
+class FileRepositoryStructure(KGObject, OMFileRepositoryStructure):
     """
     <description not available>
     """
@@ -42,3 +42,13 @@ class FileRepositoryStructure(KGObject, FileRepositoryStructure):
             file_path_patterns=file_path_patterns,
             structures=structures,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileRepositoryStructure.set_error_handling(None)
+for key, value in OMFileRepositoryStructure.__dict__.items():
+    if isinstance(value, OMFileRepositoryStructure):
+        fg_instance = FileRepositoryStructure.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileRepositoryStructure.default_space
+        setattr(FileRepositoryStructure, key, fg_instance)
+FileRepositoryStructure.set_error_handling("log")

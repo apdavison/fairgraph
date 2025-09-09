@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import MolecularEntity
+from openminds.latest.controlled_terms import MolecularEntity as OMMolecularEntity
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class MolecularEntity(KGObject, MolecularEntity):
+class MolecularEntity(KGObject, OMMolecularEntity):
     """
     <description not available>
     """
@@ -140,3 +140,13 @@ class MolecularEntity(KGObject, MolecularEntity):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+MolecularEntity.set_error_handling(None)
+for key, value in OMMolecularEntity.__dict__.items():
+    if isinstance(value, OMMolecularEntity):
+        fg_instance = MolecularEntity.from_jsonld(value.to_jsonld())
+        fg_instance._space = MolecularEntity.default_space
+        setattr(MolecularEntity, key, fg_instance)
+MolecularEntity.set_error_handling("log")

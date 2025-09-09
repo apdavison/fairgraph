@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import WebResource
+from openminds.latest.core import WebResource as OMWebResource
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class WebResource(KGObject, WebResource):
+class WebResource(KGObject, OMWebResource):
     """
     <description not available>
     """
@@ -102,3 +102,13 @@ class WebResource(KGObject, WebResource):
             is_output_of=is_output_of,
             is_reference_for=is_reference_for,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+WebResource.set_error_handling(None)
+for key, value in OMWebResource.__dict__.items():
+    if isinstance(value, OMWebResource):
+        fg_instance = WebResource.from_jsonld(value.to_jsonld())
+        fg_instance._space = WebResource.default_space
+        setattr(WebResource, key, fg_instance)
+WebResource.set_error_handling("log")

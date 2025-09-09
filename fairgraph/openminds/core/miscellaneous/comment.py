@@ -5,14 +5,14 @@ Structured information about a short text expressing an opinion on, or giving in
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Comment
+from openminds.latest.core import Comment as OMComment
 from fairgraph import KGObject
 
 
 from datetime import datetime
 
 
-class Comment(KGObject, Comment):
+class Comment(KGObject, OMComment):
     """
     Structured information about a short text expressing an opinion on, or giving information about some entity.
     """
@@ -37,3 +37,13 @@ class Comment(KGObject, Comment):
             commenter=commenter,
             timestamp=timestamp,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Comment.set_error_handling(None)
+for key, value in OMComment.__dict__.items():
+    if isinstance(value, OMComment):
+        fg_instance = Comment.from_jsonld(value.to_jsonld())
+        fg_instance._space = Comment.default_space
+        setattr(Comment, key, fg_instance)
+Comment.set_error_handling("log")

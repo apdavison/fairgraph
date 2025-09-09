@@ -5,11 +5,11 @@ An International Standard Serial Number of the ISSN International Centre.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ISSN
+from openminds.latest.core import ISSN as OMISSN
 from fairgraph import KGObject
 
 
-class ISSN(KGObject, ISSN):
+class ISSN(KGObject, OMISSN):
     """
     An International Standard Serial Number of the ISSN International Centre.
     """
@@ -59,3 +59,13 @@ class ISSN(KGObject, ISSN):
             identifies=identifies,
             related_to=related_to,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ISSN.set_error_handling(None)
+for key, value in OMISSN.__dict__.items():
+    if isinstance(value, OMISSN):
+        fg_instance = ISSN.from_jsonld(value.to_jsonld())
+        fg_instance._space = ISSN.default_space
+        setattr(ISSN, key, fg_instance)
+ISSN.set_error_handling("log")

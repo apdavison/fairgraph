@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ElectricalStimulusType
+from openminds.latest.controlled_terms import ElectricalStimulusType as OMElectricalStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ElectricalStimulusType(KGObject, ElectricalStimulusType):
+class ElectricalStimulusType(KGObject, OMElectricalStimulusType):
     """
     <description not available>
     """
@@ -135,3 +135,13 @@ class ElectricalStimulusType(KGObject, ElectricalStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ElectricalStimulusType.set_error_handling(None)
+for key, value in OMElectricalStimulusType.__dict__.items():
+    if isinstance(value, OMElectricalStimulusType):
+        fg_instance = ElectricalStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = ElectricalStimulusType.default_space
+        setattr(ElectricalStimulusType, key, fg_instance)
+ElectricalStimulusType.set_error_handling("log")

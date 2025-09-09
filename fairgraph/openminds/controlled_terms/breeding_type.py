@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import BreedingType
+from openminds.latest.controlled_terms import BreedingType as OMBreedingType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class BreedingType(KGObject, BreedingType):
+class BreedingType(KGObject, OMBreedingType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class BreedingType(KGObject, BreedingType):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BreedingType.set_error_handling(None)
+for key, value in OMBreedingType.__dict__.items():
+    if isinstance(value, OMBreedingType):
+        fg_instance = BreedingType.from_jsonld(value.to_jsonld())
+        fg_instance._space = BreedingType.default_space
+        setattr(BreedingType, key, fg_instance)
+BreedingType.set_error_handling("log")

@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import Recording
+from openminds.latest.ephys import Recording as OMRecording
 from fairgraph import KGObject
 
 
-class Recording(KGObject, Recording):
+class Recording(KGObject, OMRecording):
     """
     <description not available>
     """
@@ -61,3 +61,13 @@ class Recording(KGObject, Recording):
             recorded_with=recorded_with,
             sampling_frequency=sampling_frequency,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Recording.set_error_handling(None)
+for key, value in OMRecording.__dict__.items():
+    if isinstance(value, OMRecording):
+        fg_instance = Recording.from_jsonld(value.to_jsonld())
+        fg_instance._space = Recording.default_space
+        setattr(Recording, key, fg_instance)
+Recording.set_error_handling("log")

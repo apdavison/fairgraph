@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import CranialWindowReinforcementType
+from openminds.latest.controlled_terms import CranialWindowReinforcementType as OMCranialWindowReinforcementType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class CranialWindowReinforcementType(KGObject, CranialWindowReinforcementType):
+class CranialWindowReinforcementType(KGObject, OMCranialWindowReinforcementType):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class CranialWindowReinforcementType(KGObject, CranialWindowReinforcementType):
             synonyms=synonyms,
             used_for=used_for,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CranialWindowReinforcementType.set_error_handling(None)
+for key, value in OMCranialWindowReinforcementType.__dict__.items():
+    if isinstance(value, OMCranialWindowReinforcementType):
+        fg_instance = CranialWindowReinforcementType.from_jsonld(value.to_jsonld())
+        fg_instance._space = CranialWindowReinforcementType.default_space
+        setattr(CranialWindowReinforcementType, key, fg_instance)
+CranialWindowReinforcementType.set_error_handling("log")

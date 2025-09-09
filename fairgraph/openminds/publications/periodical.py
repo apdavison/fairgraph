@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import Periodical
+from openminds.latest.publications import Periodical as OMPeriodical
 from fairgraph import KGObject
 
 
-class Periodical(KGObject, Periodical):
+class Periodical(KGObject, OMPeriodical):
     """
     <description not available>
     """
@@ -51,3 +51,13 @@ class Periodical(KGObject, Periodical):
             digital_identifier=digital_identifier,
             has_parts=has_parts,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Periodical.set_error_handling(None)
+for key, value in OMPeriodical.__dict__.items():
+    if isinstance(value, OMPeriodical):
+        fg_instance = Periodical.from_jsonld(value.to_jsonld())
+        fg_instance._space = Periodical.default_space
+        setattr(Periodical, key, fg_instance)
+Periodical.set_error_handling("log")

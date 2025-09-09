@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Strain
+from openminds.latest.core import Strain as OMStrain
 from fairgraph import KGObject
 
 
-class Strain(KGObject, Strain):
+class Strain(KGObject, OMStrain):
     """
     <description not available>
     """
@@ -88,3 +88,13 @@ class Strain(KGObject, Strain):
             stock_number=stock_number,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Strain.set_error_handling(None)
+for key, value in OMStrain.__dict__.items():
+    if isinstance(value, OMStrain):
+        fg_instance = Strain.from_jsonld(value.to_jsonld())
+        fg_instance._space = Strain.default_space
+        setattr(Strain, key, fg_instance)
+Strain.set_error_handling("log")

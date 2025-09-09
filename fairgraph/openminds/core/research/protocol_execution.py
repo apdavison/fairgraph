@@ -5,14 +5,14 @@ Structured information on a protocol execution.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ProtocolExecution
+from openminds.latest.core import ProtocolExecution as OMProtocolExecution
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class ProtocolExecution(KGObject, ProtocolExecution):
+class ProtocolExecution(KGObject, OMProtocolExecution):
     """
     Structured information on a protocol execution.
     """
@@ -74,3 +74,13 @@ class ProtocolExecution(KGObject, ProtocolExecution):
             start_time=start_time,
             study_targets=study_targets,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ProtocolExecution.set_error_handling(None)
+for key, value in OMProtocolExecution.__dict__.items():
+    if isinstance(value, OMProtocolExecution):
+        fg_instance = ProtocolExecution.from_jsonld(value.to_jsonld())
+        fg_instance._space = ProtocolExecution.default_space
+        setattr(ProtocolExecution, key, fg_instance)
+ProtocolExecution.set_error_handling("log")

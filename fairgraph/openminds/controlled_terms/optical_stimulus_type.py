@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import OpticalStimulusType
+from openminds.latest.controlled_terms import OpticalStimulusType as OMOpticalStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class OpticalStimulusType(KGObject, OpticalStimulusType):
+class OpticalStimulusType(KGObject, OMOpticalStimulusType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class OpticalStimulusType(KGObject, OpticalStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+OpticalStimulusType.set_error_handling(None)
+for key, value in OMOpticalStimulusType.__dict__.items():
+    if isinstance(value, OMOpticalStimulusType):
+        fg_instance = OpticalStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = OpticalStimulusType.default_space
+        setattr(OpticalStimulusType, key, fg_instance)
+OpticalStimulusType.set_error_handling("log")

@@ -5,7 +5,7 @@ Structured information on a computational model (version level).
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ModelVersion
+from openminds.latest.core import ModelVersion as OMModelVersion
 from fairgraph import KGObject
 
 from fairgraph.errors import ResolutionFailure
@@ -14,7 +14,7 @@ from datetime import date
 from openminds import IRI
 
 
-class ModelVersion(KGObject, ModelVersion):
+class ModelVersion(KGObject, OMModelVersion):
     """
     Structured information on a computational model (version level).
     """
@@ -207,3 +207,13 @@ class ModelVersion(KGObject, ModelVersion):
         else:
             assert len(parents) == 1
             return parents[0]
+
+
+# cast openMINDS instances to their fairgraph subclass
+ModelVersion.set_error_handling(None)
+for key, value in OMModelVersion.__dict__.items():
+    if isinstance(value, OMModelVersion):
+        fg_instance = ModelVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = ModelVersion.default_space
+        setattr(ModelVersion, key, fg_instance)
+ModelVersion.set_error_handling("log")

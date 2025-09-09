@@ -5,14 +5,14 @@ Structured information about the status of an action.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ActionStatusType
+from openminds.latest.controlled_terms import ActionStatusType as OMActionStatusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ActionStatusType(KGObject, ActionStatusType):
+class ActionStatusType(KGObject, OMActionStatusType):
     """
     Structured information about the status of an action.
     """
@@ -95,3 +95,13 @@ class ActionStatusType(KGObject, ActionStatusType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ActionStatusType.set_error_handling(None)
+for key, value in OMActionStatusType.__dict__.items():
+    if isinstance(value, OMActionStatusType):
+        fg_instance = ActionStatusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = ActionStatusType.default_space
+        setattr(ActionStatusType, key, fg_instance)
+ActionStatusType.set_error_handling("log")

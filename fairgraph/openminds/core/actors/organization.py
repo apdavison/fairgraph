@@ -5,14 +5,14 @@ An entity comprised of one or more natural persons with a particular purpose. [a
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Organization
+from openminds.latest.core import Organization as OMOrganization
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Organization(KGObject, Organization):
+class Organization(KGObject, OMOrganization):
     """
     An entity comprised of one or more natural persons with a particular purpose. [adapted from Wikipedia](https://en.wikipedia.org/wiki/Organization)
     """
@@ -197,3 +197,13 @@ class Organization(KGObject, Organization):
             published=published,
             short_name=short_name,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Organization.set_error_handling(None)
+for key, value in OMOrganization.__dict__.items():
+    if isinstance(value, OMOrganization):
+        fg_instance = Organization.from_jsonld(value.to_jsonld())
+        fg_instance._space = Organization.default_space
+        setattr(Organization, key, fg_instance)
+Organization.set_error_handling("log")

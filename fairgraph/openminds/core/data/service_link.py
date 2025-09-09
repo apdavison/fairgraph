@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ServiceLink
+from openminds.latest.core import ServiceLink as OMServiceLink
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ServiceLink(KGObject, ServiceLink):
+class ServiceLink(KGObject, OMServiceLink):
     """
     <description not available>
     """
@@ -47,3 +47,13 @@ class ServiceLink(KGObject, ServiceLink):
             preview_image=preview_image,
             service=service,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ServiceLink.set_error_handling(None)
+for key, value in OMServiceLink.__dict__.items():
+    if isinstance(value, OMServiceLink):
+        fg_instance = ServiceLink.from_jsonld(value.to_jsonld())
+        fg_instance._space = ServiceLink.default_space
+        setattr(ServiceLink, key, fg_instance)
+ServiceLink.set_error_handling("log")

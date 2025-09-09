@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContentTypePattern
+from openminds.latest.core import ContentTypePattern as OMContentTypePattern
 from fairgraph import KGObject
 
 
-class ContentTypePattern(KGObject, ContentTypePattern):
+class ContentTypePattern(KGObject, OMContentTypePattern):
     """
     <description not available>
     """
@@ -51,3 +51,13 @@ class ContentTypePattern(KGObject, ContentTypePattern):
             identifies_content_of=identifies_content_of,
             regex=regex,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ContentTypePattern.set_error_handling(None)
+for key, value in OMContentTypePattern.__dict__.items():
+    if isinstance(value, OMContentTypePattern):
+        fg_instance = ContentTypePattern.from_jsonld(value.to_jsonld())
+        fg_instance._space = ContentTypePattern.default_space
+        setattr(ContentTypePattern, key, fg_instance)
+ContentTypePattern.set_error_handling("log")

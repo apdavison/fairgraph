@@ -5,14 +5,14 @@ Structured information about a measurement performed during a scientific experim
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Measurement
+from openminds.latest.core import Measurement as OMMeasurement
 from fairgraph import EmbeddedMetadata
 
 
 from datetime import datetime
 
 
-class Measurement(EmbeddedMetadata, Measurement):
+class Measurement(EmbeddedMetadata, OMMeasurement):
     """
     Structured information about a measurement performed during a scientific experiment.
     """
@@ -42,3 +42,13 @@ class Measurement(EmbeddedMetadata, Measurement):
             timestamp=timestamp,
             values=values,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Measurement.set_error_handling(None)
+for key, value in OMMeasurement.__dict__.items():
+    if isinstance(value, OMMeasurement):
+        fg_instance = Measurement.from_jsonld(value.to_jsonld())
+        fg_instance._space = Measurement.default_space
+        setattr(Measurement, key, fg_instance)
+Measurement.set_error_handling("log")

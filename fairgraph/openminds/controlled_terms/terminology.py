@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Terminology
+from openminds.latest.controlled_terms import Terminology as OMTerminology
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Terminology(KGObject, Terminology):
+class Terminology(KGObject, OMTerminology):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class Terminology(KGObject, Terminology):
             suggested_in=suggested_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Terminology.set_error_handling(None)
+for key, value in OMTerminology.__dict__.items():
+    if isinstance(value, OMTerminology):
+        fg_instance = Terminology.from_jsonld(value.to_jsonld())
+        fg_instance._space = Terminology.default_space
+        setattr(Terminology, key, fg_instance)
+Terminology.set_error_handling("log")

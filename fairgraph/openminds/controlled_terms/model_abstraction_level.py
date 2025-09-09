@@ -5,14 +5,14 @@ Structured information on abstraction level of the computational model.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ModelAbstractionLevel
+from openminds.latest.controlled_terms import ModelAbstractionLevel as OMModelAbstractionLevel
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ModelAbstractionLevel(KGObject, ModelAbstractionLevel):
+class ModelAbstractionLevel(KGObject, OMModelAbstractionLevel):
     """
     Structured information on abstraction level of the computational model.
     """
@@ -87,3 +87,13 @@ class ModelAbstractionLevel(KGObject, ModelAbstractionLevel):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ModelAbstractionLevel.set_error_handling(None)
+for key, value in OMModelAbstractionLevel.__dict__.items():
+    if isinstance(value, OMModelAbstractionLevel):
+        fg_instance = ModelAbstractionLevel.from_jsonld(value.to_jsonld())
+        fg_instance._space = ModelAbstractionLevel.default_space
+        setattr(ModelAbstractionLevel, key, fg_instance)
+ModelAbstractionLevel.set_error_handling("log")

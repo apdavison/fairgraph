@@ -5,14 +5,14 @@ Structured information on the quality type of the defined criteria for a measure
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import CriteriaQualityType
+from openminds.latest.controlled_terms import CriteriaQualityType as OMCriteriaQualityType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class CriteriaQualityType(KGObject, CriteriaQualityType):
+class CriteriaQualityType(KGObject, OMCriteriaQualityType):
     """
     Structured information on the quality type of the defined criteria for a measurement.
     """
@@ -87,3 +87,13 @@ class CriteriaQualityType(KGObject, CriteriaQualityType):
             synonyms=synonyms,
             used_by_annotation=used_by_annotation,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CriteriaQualityType.set_error_handling(None)
+for key, value in OMCriteriaQualityType.__dict__.items():
+    if isinstance(value, OMCriteriaQualityType):
+        fg_instance = CriteriaQualityType.from_jsonld(value.to_jsonld())
+        fg_instance._space = CriteriaQualityType.default_space
+        setattr(CriteriaQualityType, key, fg_instance)
+CriteriaQualityType.set_error_handling("log")

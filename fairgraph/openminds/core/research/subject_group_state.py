@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SubjectGroupState
+from openminds.latest.core import SubjectGroupState as OMSubjectGroupState
 from fairgraph import KGObject
 
 
-class SubjectGroupState(KGObject, SubjectGroupState):
+class SubjectGroupState(KGObject, OMSubjectGroupState):
     """
     <description not available>
     """
@@ -111,3 +111,13 @@ class SubjectGroupState(KGObject, SubjectGroupState):
             relative_time_indication=relative_time_indication,
             weight=weight,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SubjectGroupState.set_error_handling(None)
+for key, value in OMSubjectGroupState.__dict__.items():
+    if isinstance(value, OMSubjectGroupState):
+        fg_instance = SubjectGroupState.from_jsonld(value.to_jsonld())
+        fg_instance._space = SubjectGroupState.default_space
+        setattr(SubjectGroupState, key, fg_instance)
+SubjectGroupState.set_error_handling("log")

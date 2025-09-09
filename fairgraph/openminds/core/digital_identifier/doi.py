@@ -5,11 +5,11 @@ Structured information about a digital object identifier, as standardized by the
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import DOI
+from openminds.latest.core import DOI as OMDOI
 from fairgraph import KGObject
 
 
-class DOI(KGObject, DOI):
+class DOI(KGObject, OMDOI):
     """
     Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
@@ -96,3 +96,13 @@ class DOI(KGObject, DOI):
             identifies=identifies,
             related_to=related_to,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DOI.set_error_handling(None)
+for key, value in OMDOI.__dict__.items():
+    if isinstance(value, OMDOI):
+        fg_instance = DOI.from_jsonld(value.to_jsonld())
+        fg_instance._space = DOI.default_space
+        setattr(DOI, key, fg_instance)
+DOI.set_error_handling("log")

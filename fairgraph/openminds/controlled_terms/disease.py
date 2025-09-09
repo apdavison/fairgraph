@@ -5,14 +5,14 @@ Structured information on a disease.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Disease
+from openminds.latest.controlled_terms import Disease as OMDisease
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Disease(KGObject, Disease):
+class Disease(KGObject, OMDisease):
     """
     Structured information on a disease.
     """
@@ -140,3 +140,13 @@ class Disease(KGObject, Disease):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Disease.set_error_handling(None)
+for key, value in OMDisease.__dict__.items():
+    if isinstance(value, OMDisease):
+        fg_instance = Disease.from_jsonld(value.to_jsonld())
+        fg_instance._space = Disease.default_space
+        setattr(Disease, key, fg_instance)
+Disease.set_error_handling("log")

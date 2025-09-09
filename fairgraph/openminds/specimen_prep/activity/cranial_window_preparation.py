@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import CranialWindowPreparation
+from openminds.latest.specimen_prep import CranialWindowPreparation as OMCranialWindowPreparation
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class CranialWindowPreparation(KGObject, CranialWindowPreparation):
+class CranialWindowPreparation(KGObject, OMCranialWindowPreparation):
     """
     <description not available>
     """
@@ -67,3 +67,13 @@ class CranialWindowPreparation(KGObject, CranialWindowPreparation):
             start_time=start_time,
             study_targets=study_targets,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CranialWindowPreparation.set_error_handling(None)
+for key, value in OMCranialWindowPreparation.__dict__.items():
+    if isinstance(value, OMCranialWindowPreparation):
+        fg_instance = CranialWindowPreparation.from_jsonld(value.to_jsonld())
+        fg_instance._space = CranialWindowPreparation.default_space
+        setattr(CranialWindowPreparation, key, fg_instance)
+CranialWindowPreparation.set_error_handling("log")

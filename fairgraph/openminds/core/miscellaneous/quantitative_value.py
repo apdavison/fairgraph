@@ -5,14 +5,14 @@ Structured information on a quantitative value.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValue
+from openminds.latest.core import QuantitativeValue as OMQuantitativeValue
 from fairgraph import EmbeddedMetadata
 
 
 from numbers import Real
 
 
-class QuantitativeValue(EmbeddedMetadata, QuantitativeValue):
+class QuantitativeValue(EmbeddedMetadata, OMQuantitativeValue):
     """
     Structured information on a quantitative value.
     """
@@ -40,3 +40,13 @@ class QuantitativeValue(EmbeddedMetadata, QuantitativeValue):
             unit=unit,
             value=value,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+QuantitativeValue.set_error_handling(None)
+for key, value in OMQuantitativeValue.__dict__.items():
+    if isinstance(value, OMQuantitativeValue):
+        fg_instance = QuantitativeValue.from_jsonld(value.to_jsonld())
+        fg_instance._space = QuantitativeValue.default_space
+        setattr(QuantitativeValue, key, fg_instance)
+QuantitativeValue.set_error_handling("log")

@@ -5,14 +5,14 @@ Structured information about the description of a prospective workflow.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import WorkflowRecipe
+from openminds.latest.computation import WorkflowRecipe as OMWorkflowRecipe
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class WorkflowRecipe(KGObject, WorkflowRecipe):
+class WorkflowRecipe(KGObject, OMWorkflowRecipe):
     """
     Structured information about the description of a prospective workflow.
     """
@@ -93,3 +93,13 @@ class WorkflowRecipe(KGObject, WorkflowRecipe):
             short_name=short_name,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+WorkflowRecipe.set_error_handling(None)
+for key, value in OMWorkflowRecipe.__dict__.items():
+    if isinstance(value, OMWorkflowRecipe):
+        fg_instance = WorkflowRecipe.from_jsonld(value.to_jsonld())
+        fg_instance._space = WorkflowRecipe.default_space
+        setattr(WorkflowRecipe, key, fg_instance)
+WorkflowRecipe.set_error_handling("log")

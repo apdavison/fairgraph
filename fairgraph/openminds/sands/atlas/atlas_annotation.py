@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import AtlasAnnotation
+from openminds.latest.sands import AtlasAnnotation as OMAtlasAnnotation
 from fairgraph import EmbeddedMetadata
 
 
-class AtlasAnnotation(EmbeddedMetadata, AtlasAnnotation):
+class AtlasAnnotation(EmbeddedMetadata, OMAtlasAnnotation):
     """
     <description not available>
     """
@@ -49,3 +49,13 @@ class AtlasAnnotation(EmbeddedMetadata, AtlasAnnotation):
             specification=specification,
             type=type,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AtlasAnnotation.set_error_handling(None)
+for key, value in OMAtlasAnnotation.__dict__.items():
+    if isinstance(value, OMAtlasAnnotation):
+        fg_instance = AtlasAnnotation.from_jsonld(value.to_jsonld())
+        fg_instance._space = AtlasAnnotation.default_space
+        setattr(AtlasAnnotation, key, fg_instance)
+AtlasAnnotation.set_error_handling("log")

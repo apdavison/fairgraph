@@ -5,11 +5,11 @@ A persistent identifier for a researcher provided by Open Researcher and Contrib
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ORCID
+from openminds.latest.core import ORCID as OMORCID
 from fairgraph import KGObject
 
 
-class ORCID(KGObject, ORCID):
+class ORCID(KGObject, OMORCID):
     """
     A persistent identifier for a researcher provided by Open Researcher and Contributor ID, Inc.
     """
@@ -33,3 +33,13 @@ class ORCID(KGObject, ORCID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ORCID.set_error_handling(None)
+for key, value in OMORCID.__dict__.items():
+    if isinstance(value, OMORCID):
+        fg_instance = ORCID.from_jsonld(value.to_jsonld())
+        fg_instance._space = ORCID.default_space
+        setattr(ORCID, key, fg_instance)
+ORCID.set_error_handling("log")

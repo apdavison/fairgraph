@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ResearchProductGroup
+from openminds.latest.core import ResearchProductGroup as OMResearchProductGroup
 from fairgraph import KGObject
 
 
-class ResearchProductGroup(KGObject, ResearchProductGroup):
+class ResearchProductGroup(KGObject, OMResearchProductGroup):
     """
     <description not available>
     """
@@ -24,3 +24,13 @@ class ResearchProductGroup(KGObject, ResearchProductGroup):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, context=context, has_parts=has_parts
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ResearchProductGroup.set_error_handling(None)
+for key, value in OMResearchProductGroup.__dict__.items():
+    if isinstance(value, OMResearchProductGroup):
+        fg_instance = ResearchProductGroup.from_jsonld(value.to_jsonld())
+        fg_instance._space = ResearchProductGroup.default_space
+        setattr(ResearchProductGroup, key, fg_instance)
+ResearchProductGroup.set_error_handling("log")

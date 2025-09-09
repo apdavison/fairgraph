@@ -5,14 +5,14 @@ Structured information on a used license.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import License
+from openminds.latest.core import License as OMLicense
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class License(KGObject, License):
+class License(KGObject, OMLicense):
     """
     Structured information on a used license.
     """
@@ -75,3 +75,13 @@ class License(KGObject, License):
             short_name=short_name,
             webpages=webpages,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+License.set_error_handling(None)
+for key, value in OMLicense.__dict__.items():
+    if isinstance(value, OMLicense):
+        fg_instance = License.from_jsonld(value.to_jsonld())
+        fg_instance._space = License.default_space
+        setattr(License, key, fg_instance)
+License.set_error_handling("log")

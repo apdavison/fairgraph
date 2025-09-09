@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import GustatoryStimulusType
+from openminds.latest.controlled_terms import GustatoryStimulusType as OMGustatoryStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class GustatoryStimulusType(KGObject, GustatoryStimulusType):
+class GustatoryStimulusType(KGObject, OMGustatoryStimulusType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class GustatoryStimulusType(KGObject, GustatoryStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+GustatoryStimulusType.set_error_handling(None)
+for key, value in OMGustatoryStimulusType.__dict__.items():
+    if isinstance(value, OMGustatoryStimulusType):
+        fg_instance = GustatoryStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = GustatoryStimulusType.default_space
+        setattr(GustatoryStimulusType, key, fg_instance)
+GustatoryStimulusType.set_error_handling("log")

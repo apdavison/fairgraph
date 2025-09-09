@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import QualitativeOverlap
+from openminds.latest.controlled_terms import QualitativeOverlap as OMQualitativeOverlap
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class QualitativeOverlap(KGObject, QualitativeOverlap):
+class QualitativeOverlap(KGObject, OMQualitativeOverlap):
     """
     <description not available>
     """
@@ -77,3 +77,13 @@ class QualitativeOverlap(KGObject, QualitativeOverlap):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+QualitativeOverlap.set_error_handling(None)
+for key, value in OMQualitativeOverlap.__dict__.items():
+    if isinstance(value, OMQualitativeOverlap):
+        fg_instance = QualitativeOverlap.from_jsonld(value.to_jsonld())
+        fg_instance._space = QualitativeOverlap.default_space
+        setattr(QualitativeOverlap, key, fg_instance)
+QualitativeOverlap.set_error_handling("log")

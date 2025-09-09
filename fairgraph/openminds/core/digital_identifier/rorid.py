@@ -5,11 +5,11 @@ A persistent identifier for a research organization, provided by the Research Or
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import RORID
+from openminds.latest.core import RORID as OMRORID
 from fairgraph import KGObject
 
 
-class RORID(KGObject, RORID):
+class RORID(KGObject, OMRORID):
     """
     A persistent identifier for a research organization, provided by the Research Organization Registry.
     """
@@ -33,3 +33,13 @@ class RORID(KGObject, RORID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+RORID.set_error_handling(None)
+for key, value in OMRORID.__dict__.items():
+    if isinstance(value, OMRORID):
+        fg_instance = RORID.from_jsonld(value.to_jsonld())
+        fg_instance._space = RORID.default_space
+        setattr(RORID, key, fg_instance)
+RORID.set_error_handling("log")

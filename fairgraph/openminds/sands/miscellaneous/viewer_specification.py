@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import ViewerSpecification
+from openminds.latest.sands import ViewerSpecification as OMViewerSpecification
 from fairgraph import EmbeddedMetadata
 
 
-class ViewerSpecification(EmbeddedMetadata, ViewerSpecification):
+class ViewerSpecification(EmbeddedMetadata, OMViewerSpecification):
     """
     <description not available>
     """
@@ -37,3 +37,13 @@ class ViewerSpecification(EmbeddedMetadata, ViewerSpecification):
             camera_position=camera_position,
             preferred_display_color=preferred_display_color,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ViewerSpecification.set_error_handling(None)
+for key, value in OMViewerSpecification.__dict__.items():
+    if isinstance(value, OMViewerSpecification):
+        fg_instance = ViewerSpecification.from_jsonld(value.to_jsonld())
+        fg_instance._space = ViewerSpecification.default_space
+        setattr(ViewerSpecification, key, fg_instance)
+ViewerSpecification.set_error_handling("log")

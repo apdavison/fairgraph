@@ -5,14 +5,14 @@ Structured information on the technique.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Technique
+from openminds.latest.controlled_terms import Technique as OMTechnique
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Technique(KGObject, Technique):
+class Technique(KGObject, OMTechnique):
     """
     Structured information on the technique.
     """
@@ -106,3 +106,13 @@ class Technique(KGObject, Technique):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Technique.set_error_handling(None)
+for key, value in OMTechnique.__dict__.items():
+    if isinstance(value, OMTechnique):
+        fg_instance = Technique.from_jsonld(value.to_jsonld())
+        fg_instance._space = Technique.default_space
+        setattr(Technique, key, fg_instance)
+Technique.set_error_handling("log")

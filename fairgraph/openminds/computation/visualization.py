@@ -5,14 +5,14 @@ Structured information about a process of visualizing a computational model, a c
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import Visualization
+from openminds.latest.computation import Visualization as OMVisualization
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class Visualization(KGObject, Visualization):
+class Visualization(KGObject, OMVisualization):
     """
     Structured information about a process of visualizing a computational model, a computational process, or a dataset.
     """
@@ -102,3 +102,13 @@ class Visualization(KGObject, Visualization):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Visualization.set_error_handling(None)
+for key, value in OMVisualization.__dict__.items():
+    if isinstance(value, OMVisualization):
+        fg_instance = Visualization.from_jsonld(value.to_jsonld())
+        fg_instance._space = Visualization.default_space
+        setattr(Visualization, key, fg_instance)
+Visualization.set_error_handling("log")

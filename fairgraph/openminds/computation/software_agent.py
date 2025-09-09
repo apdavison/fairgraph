@@ -5,11 +5,11 @@ Structured information about a piece of software or web service that can perform
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import SoftwareAgent
+from openminds.latest.computation import SoftwareAgent as OMSoftwareAgent
 from fairgraph import KGObject
 
 
-class SoftwareAgent(KGObject, SoftwareAgent):
+class SoftwareAgent(KGObject, OMSoftwareAgent):
     """
     Structured information about a piece of software or web service that can perform a task autonomously.
     """
@@ -79,3 +79,13 @@ class SoftwareAgent(KGObject, SoftwareAgent):
             software=software,
             started=started,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SoftwareAgent.set_error_handling(None)
+for key, value in OMSoftwareAgent.__dict__.items():
+    if isinstance(value, OMSoftwareAgent):
+        fg_instance = SoftwareAgent.from_jsonld(value.to_jsonld())
+        fg_instance._space = SoftwareAgent.default_space
+        setattr(SoftwareAgent, key, fg_instance)
+SoftwareAgent.set_error_handling("log")

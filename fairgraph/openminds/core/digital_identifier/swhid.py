@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SWHID
+from openminds.latest.core import SWHID as OMSWHID
 from fairgraph import KGObject
 
 
-class SWHID(KGObject, SWHID):
+class SWHID(KGObject, OMSWHID):
     """
     <description not available>
     """
@@ -40,3 +40,13 @@ class SWHID(KGObject, SWHID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SWHID.set_error_handling(None)
+for key, value in OMSWHID.__dict__.items():
+    if isinstance(value, OMSWHID):
+        fg_instance = SWHID.from_jsonld(value.to_jsonld())
+        fg_instance._space = SWHID.default_space
+        setattr(SWHID, key, fg_instance)
+SWHID.set_error_handling("log")

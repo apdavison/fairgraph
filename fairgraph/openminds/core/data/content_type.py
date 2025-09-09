@@ -5,14 +5,14 @@ Structured information on the content type of a file instance, bundle or reposit
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContentType
+from openminds.latest.core import ContentType as OMContentType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ContentType(KGObject, ContentType):
+class ContentType(KGObject, OMContentType):
     """
     Structured information on the content type of a file instance, bundle or repository.
     """
@@ -105,3 +105,13 @@ class ContentType(KGObject, ContentType):
             specification=specification,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ContentType.set_error_handling(None)
+for key, value in OMContentType.__dict__.items():
+    if isinstance(value, OMContentType):
+        fg_instance = ContentType.from_jsonld(value.to_jsonld())
+        fg_instance._space = ContentType.default_space
+        setattr(ContentType, key, fg_instance)
+ContentType.set_error_handling("log")

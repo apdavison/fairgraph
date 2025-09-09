@@ -5,11 +5,11 @@ Structured information about a file that is not accessible via a URL.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import LocalFile
+from openminds.latest.computation import LocalFile as OMLocalFile
 from fairgraph import KGObject
 
 
-class LocalFile(KGObject, LocalFile):
+class LocalFile(KGObject, OMLocalFile):
     """
     Structured information about a file that is not accessible via a URL.
     """
@@ -81,3 +81,13 @@ class LocalFile(KGObject, LocalFile):
             special_usage_role=special_usage_role,
             storage_size=storage_size,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+LocalFile.set_error_handling(None)
+for key, value in OMLocalFile.__dict__.items():
+    if isinstance(value, OMLocalFile):
+        fg_instance = LocalFile.from_jsonld(value.to_jsonld())
+        fg_instance._space = LocalFile.default_space
+        setattr(LocalFile, key, fg_instance)
+LocalFile.set_error_handling("log")

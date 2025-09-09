@@ -5,14 +5,14 @@ Structured information on the general type of the tissue sample.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import TissueSampleType
+from openminds.latest.controlled_terms import TissueSampleType as OMTissueSampleType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class TissueSampleType(KGObject, TissueSampleType):
+class TissueSampleType(KGObject, OMTissueSampleType):
     """
     Structured information on the general type of the tissue sample.
     """
@@ -125,3 +125,13 @@ class TissueSampleType(KGObject, TissueSampleType):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TissueSampleType.set_error_handling(None)
+for key, value in OMTissueSampleType.__dict__.items():
+    if isinstance(value, OMTissueSampleType):
+        fg_instance = TissueSampleType.from_jsonld(value.to_jsonld())
+        fg_instance._space = TissueSampleType.default_space
+        setattr(TissueSampleType, key, fg_instance)
+TissueSampleType.set_error_handling("log")

@@ -5,11 +5,11 @@ Structured information about a protocol used in an experiment studying human or 
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import BehavioralProtocol
+from openminds.latest.core import BehavioralProtocol as OMBehavioralProtocol
 from fairgraph import KGObject
 
 
-class BehavioralProtocol(KGObject, BehavioralProtocol):
+class BehavioralProtocol(KGObject, OMBehavioralProtocol):
     """
     Structured information about a protocol used in an experiment studying human or animal behavior.
     """
@@ -67,3 +67,13 @@ class BehavioralProtocol(KGObject, BehavioralProtocol):
             stimulus_types=stimulus_types,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+BehavioralProtocol.set_error_handling(None)
+for key, value in OMBehavioralProtocol.__dict__.items():
+    if isinstance(value, OMBehavioralProtocol):
+        fg_instance = BehavioralProtocol.from_jsonld(value.to_jsonld())
+        fg_instance._space = BehavioralProtocol.default_space
+        setattr(BehavioralProtocol, key, fg_instance)
+BehavioralProtocol.set_error_handling("log")

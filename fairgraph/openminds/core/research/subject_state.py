@@ -5,11 +5,11 @@ Structured information on a temporary state of a subject.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SubjectState
+from openminds.latest.core import SubjectState as OMSubjectState
 from fairgraph import KGObject
 
 
-class SubjectState(KGObject, SubjectState):
+class SubjectState(KGObject, OMSubjectState):
     """
     Structured information on a temporary state of a subject.
     """
@@ -136,3 +136,13 @@ class SubjectState(KGObject, SubjectState):
             used_in=used_in,
             weight=weight,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SubjectState.set_error_handling(None)
+for key, value in OMSubjectState.__dict__.items():
+    if isinstance(value, OMSubjectState):
+        fg_instance = SubjectState.from_jsonld(value.to_jsonld())
+        fg_instance._space = SubjectState.default_space
+        setattr(SubjectState, key, fg_instance)
+SubjectState.set_error_handling("log")

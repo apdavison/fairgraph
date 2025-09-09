@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LivePaperVersion
+from openminds.latest.publications import LivePaperVersion as OMLivePaperVersion
 from fairgraph import KGObject
 
 from fairgraph.errors import ResolutionFailure
@@ -15,7 +15,7 @@ from datetime import datetime
 from openminds import IRI
 
 
-class LivePaperVersion(KGObject, LivePaperVersion):
+class LivePaperVersion(KGObject, OMLivePaperVersion):
     """
     <description not available>
     """
@@ -164,3 +164,13 @@ class LivePaperVersion(KGObject, LivePaperVersion):
         else:
             assert len(parents) == 1
             return parents[0]
+
+
+# cast openMINDS instances to their fairgraph subclass
+LivePaperVersion.set_error_handling(None)
+for key, value in OMLivePaperVersion.__dict__.items():
+    if isinstance(value, OMLivePaperVersion):
+        fg_instance = LivePaperVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = LivePaperVersion.default_space
+        setattr(LivePaperVersion, key, fg_instance)
+LivePaperVersion.set_error_handling("log")

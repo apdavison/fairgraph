@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import SlicingDevice
+from openminds.latest.specimen_prep import SlicingDevice as OMSlicingDevice
 from fairgraph import KGObject
 
 
-class SlicingDevice(KGObject, SlicingDevice):
+class SlicingDevice(KGObject, OMSlicingDevice):
     """
     <description not available>
     """
@@ -71,3 +71,13 @@ class SlicingDevice(KGObject, SlicingDevice):
             serial_number=serial_number,
             usage=usage,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SlicingDevice.set_error_handling(None)
+for key, value in OMSlicingDevice.__dict__.items():
+    if isinstance(value, OMSlicingDevice):
+        fg_instance = SlicingDevice.from_jsonld(value.to_jsonld())
+        fg_instance._space = SlicingDevice.default_space
+        setattr(SlicingDevice, key, fg_instance)
+SlicingDevice.set_error_handling("log")

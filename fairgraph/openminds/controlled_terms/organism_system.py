@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import OrganismSystem
+from openminds.latest.controlled_terms import OrganismSystem as OMOrganismSystem
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class OrganismSystem(KGObject, OrganismSystem):
+class OrganismSystem(KGObject, OMOrganismSystem):
     """
     <description not available>
     """
@@ -115,3 +115,13 @@ class OrganismSystem(KGObject, OrganismSystem):
             studied_in=studied_in,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+OrganismSystem.set_error_handling(None)
+for key, value in OMOrganismSystem.__dict__.items():
+    if isinstance(value, OMOrganismSystem):
+        fg_instance = OrganismSystem.from_jsonld(value.to_jsonld())
+        fg_instance._space = OrganismSystem.default_space
+        setattr(OrganismSystem, key, fg_instance)
+OrganismSystem.set_error_handling("log")

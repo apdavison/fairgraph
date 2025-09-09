@@ -5,11 +5,11 @@ Structured information on a temporary state of a tissue sample.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import TissueSampleState
+from openminds.latest.core import TissueSampleState as OMTissueSampleState
 from fairgraph import KGObject
 
 
-class TissueSampleState(KGObject, TissueSampleState):
+class TissueSampleState(KGObject, OMTissueSampleState):
     """
     Structured information on a temporary state of a tissue sample.
     """
@@ -125,3 +125,13 @@ class TissueSampleState(KGObject, TissueSampleState):
             used_in=used_in,
             weight=weight,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TissueSampleState.set_error_handling(None)
+for key, value in OMTissueSampleState.__dict__.items():
+    if isinstance(value, OMTissueSampleState):
+        fg_instance = TissueSampleState.from_jsonld(value.to_jsonld())
+        fg_instance._space = TissueSampleState.default_space
+        setattr(TissueSampleState, key, fg_instance)
+TissueSampleState.set_error_handling("log")

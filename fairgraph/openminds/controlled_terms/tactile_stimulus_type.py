@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import TactileStimulusType
+from openminds.latest.controlled_terms import TactileStimulusType as OMTactileStimulusType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class TactileStimulusType(KGObject, TactileStimulusType):
+class TactileStimulusType(KGObject, OMTactileStimulusType):
     """
     <description not available>
     """
@@ -125,3 +125,13 @@ class TactileStimulusType(KGObject, TactileStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+TactileStimulusType.set_error_handling(None)
+for key, value in OMTactileStimulusType.__dict__.items():
+    if isinstance(value, OMTactileStimulusType):
+        fg_instance = TactileStimulusType.from_jsonld(value.to_jsonld())
+        fg_instance._space = TactileStimulusType.default_space
+        setattr(TactileStimulusType, key, fg_instance)
+TactileStimulusType.set_error_handling("log")

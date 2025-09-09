@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import FileRepositoryType
+from openminds.latest.controlled_terms import FileRepositoryType as OMFileRepositoryType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class FileRepositoryType(KGObject, FileRepositoryType):
+class FileRepositoryType(KGObject, OMFileRepositoryType):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class FileRepositoryType(KGObject, FileRepositoryType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileRepositoryType.set_error_handling(None)
+for key, value in OMFileRepositoryType.__dict__.items():
+    if isinstance(value, OMFileRepositoryType):
+        fg_instance = FileRepositoryType.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileRepositoryType.default_space
+        setattr(FileRepositoryType, key, fg_instance)
+FileRepositoryType.set_error_handling("log")

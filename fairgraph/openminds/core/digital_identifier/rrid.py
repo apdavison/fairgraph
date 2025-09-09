@@ -5,11 +5,11 @@ A persistent identifier for a research resource provided by the Resource Identif
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import RRID
+from openminds.latest.core import RRID as OMRRID
 from fairgraph import KGObject
 
 
-class RRID(KGObject, RRID):
+class RRID(KGObject, OMRRID):
     """
     A persistent identifier for a research resource provided by the Resource Identification Initiative.
     """
@@ -47,3 +47,13 @@ class RRID(KGObject, RRID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+RRID.set_error_handling(None)
+for key, value in OMRRID.__dict__.items():
+    if isinstance(value, OMRRID):
+        fg_instance = RRID.from_jsonld(value.to_jsonld())
+        fg_instance._space = RRID.default_space
+        setattr(RRID, key, fg_instance)
+RRID.set_error_handling("log")

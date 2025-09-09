@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AnatomicalPlane
+from openminds.latest.controlled_terms import AnatomicalPlane as OMAnatomicalPlane
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AnatomicalPlane(KGObject, AnatomicalPlane):
+class AnatomicalPlane(KGObject, OMAnatomicalPlane):
     """
     <description not available>
     """
@@ -87,3 +87,13 @@ class AnatomicalPlane(KGObject, AnatomicalPlane):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+AnatomicalPlane.set_error_handling(None)
+for key, value in OMAnatomicalPlane.__dict__.items():
+    if isinstance(value, OMAnatomicalPlane):
+        fg_instance = AnatomicalPlane.from_jsonld(value.to_jsonld())
+        fg_instance._space = AnatomicalPlane.default_space
+        setattr(AnatomicalPlane, key, fg_instance)
+AnatomicalPlane.set_error_handling("log")

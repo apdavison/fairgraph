@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LivePaperResourceItem
+from openminds.latest.publications import LivePaperResourceItem as OMLivePaperResourceItem
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class LivePaperResourceItem(KGObject, LivePaperResourceItem):
+class LivePaperResourceItem(KGObject, OMLivePaperResourceItem):
     """
     <description not available>
     """
@@ -56,3 +56,13 @@ class LivePaperResourceItem(KGObject, LivePaperResourceItem):
             is_location_of=is_location_of,
             is_part_of=is_part_of,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+LivePaperResourceItem.set_error_handling(None)
+for key, value in OMLivePaperResourceItem.__dict__.items():
+    if isinstance(value, OMLivePaperResourceItem):
+        fg_instance = LivePaperResourceItem.from_jsonld(value.to_jsonld())
+        fg_instance._space = LivePaperResourceItem.default_space
+        setattr(LivePaperResourceItem, key, fg_instance)
+LivePaperResourceItem.set_error_handling("log")

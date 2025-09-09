@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import RecordingActivity
+from openminds.latest.ephys import RecordingActivity as OMRecordingActivity
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class RecordingActivity(KGObject, RecordingActivity):
+class RecordingActivity(KGObject, OMRecordingActivity):
     """
     <description not available>
     """
@@ -65,3 +65,13 @@ class RecordingActivity(KGObject, RecordingActivity):
             start_time=start_time,
             study_targets=study_targets,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+RecordingActivity.set_error_handling(None)
+for key, value in OMRecordingActivity.__dict__.items():
+    if isinstance(value, OMRecordingActivity):
+        fg_instance = RecordingActivity.from_jsonld(value.to_jsonld())
+        fg_instance._space = RecordingActivity.default_space
+        setattr(RecordingActivity, key, fg_instance)
+RecordingActivity.set_error_handling("log")

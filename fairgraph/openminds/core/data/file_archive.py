@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileArchive
+from openminds.latest.core import FileArchive as OMFileArchive
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class FileArchive(KGObject, FileArchive):
+class FileArchive(KGObject, OMFileArchive):
     """
     <description not available>
     """
@@ -69,3 +69,13 @@ class FileArchive(KGObject, FileArchive):
             is_output_of=is_output_of,
             source_data=source_data,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+FileArchive.set_error_handling(None)
+for key, value in OMFileArchive.__dict__.items():
+    if isinstance(value, OMFileArchive):
+        fg_instance = FileArchive.from_jsonld(value.to_jsonld())
+        fg_instance._space = FileArchive.default_space
+        setattr(FileArchive, key, fg_instance)
+FileArchive.set_error_handling("log")

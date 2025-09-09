@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import CustomAnnotation
+from openminds.latest.sands import CustomAnnotation as OMCustomAnnotation
 from fairgraph import EmbeddedMetadata
 
 
-class CustomAnnotation(EmbeddedMetadata, CustomAnnotation):
+class CustomAnnotation(EmbeddedMetadata, OMCustomAnnotation):
     """
     <description not available>
     """
@@ -51,3 +51,13 @@ class CustomAnnotation(EmbeddedMetadata, CustomAnnotation):
             specification=specification,
             type=type,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CustomAnnotation.set_error_handling(None)
+for key, value in OMCustomAnnotation.__dict__.items():
+    if isinstance(value, OMCustomAnnotation):
+        fg_instance = CustomAnnotation.from_jsonld(value.to_jsonld())
+        fg_instance._space = CustomAnnotation.default_space
+        setattr(CustomAnnotation, key, fg_instance)
+CustomAnnotation.set_error_handling("log")

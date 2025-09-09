@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import CustomCoordinateSpace
+from openminds.latest.sands import CustomCoordinateSpace as OMCustomCoordinateSpace
 from fairgraph import KGObject
 
 
-class CustomCoordinateSpace(KGObject, CustomCoordinateSpace):
+class CustomCoordinateSpace(KGObject, OMCustomCoordinateSpace):
     """
     <description not available>
     """
@@ -65,3 +65,13 @@ class CustomCoordinateSpace(KGObject, CustomCoordinateSpace):
             is_used_to_group=is_used_to_group,
             native_unit=native_unit,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+CustomCoordinateSpace.set_error_handling(None)
+for key, value in OMCustomCoordinateSpace.__dict__.items():
+    if isinstance(value, OMCustomCoordinateSpace):
+        fg_instance = CustomCoordinateSpace.from_jsonld(value.to_jsonld())
+        fg_instance._space = CustomCoordinateSpace.default_space
+        setattr(CustomCoordinateSpace, key, fg_instance)
+CustomCoordinateSpace.set_error_handling("log")

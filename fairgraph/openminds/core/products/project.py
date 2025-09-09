@@ -5,14 +5,14 @@ Structured information on a research project.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Project
+from openminds.latest.core import Project as OMProject
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Project(KGObject, Project):
+class Project(KGObject, OMProject):
     """
     Structured information on a research project.
     """
@@ -54,3 +54,13 @@ class Project(KGObject, Project):
             homepage=homepage,
             short_name=short_name,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Project.set_error_handling(None)
+for key, value in OMProject.__dict__.items():
+    if isinstance(value, OMProject):
+        fg_instance = Project.from_jsonld(value.to_jsonld())
+        fg_instance._space = Project.default_space
+        setattr(Project, key, fg_instance)
+Project.set_error_handling("log")

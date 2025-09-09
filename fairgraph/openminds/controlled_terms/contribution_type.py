@@ -5,14 +5,14 @@ Structured information on the type of contribution a person or organization perf
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import ContributionType
+from openminds.latest.controlled_terms import ContributionType as OMContributionType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class ContributionType(KGObject, ContributionType):
+class ContributionType(KGObject, OMContributionType):
     """
     Structured information on the type of contribution a person or organization performed.
     """
@@ -77,3 +77,13 @@ class ContributionType(KGObject, ContributionType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ContributionType.set_error_handling(None)
+for key, value in OMContributionType.__dict__.items():
+    if isinstance(value, OMContributionType):
+        fg_instance = ContributionType.from_jsonld(value.to_jsonld())
+        fg_instance._space = ContributionType.default_space
+        setattr(ContributionType, key, fg_instance)
+ContributionType.set_error_handling("log")

@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import LearningResourceType
+from openminds.latest.controlled_terms import LearningResourceType as OMLearningResourceType
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class LearningResourceType(KGObject, LearningResourceType):
+class LearningResourceType(KGObject, OMLearningResourceType):
     """
     <description not available>
     """
@@ -86,3 +86,13 @@ class LearningResourceType(KGObject, LearningResourceType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+LearningResourceType.set_error_handling(None)
+for key, value in OMLearningResourceType.__dict__.items():
+    if isinstance(value, OMLearningResourceType):
+        fg_instance = LearningResourceType.from_jsonld(value.to_jsonld())
+        fg_instance._space = LearningResourceType.default_space
+        setattr(LearningResourceType, key, fg_instance)
+LearningResourceType.set_error_handling("log")

@@ -5,11 +5,11 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.stimulation import EphysStimulus
+from openminds.latest.stimulation import EphysStimulus as OMEphysStimulus
 from fairgraph import KGObject
 
 
-class EphysStimulus(KGObject, EphysStimulus):
+class EphysStimulus(KGObject, OMEphysStimulus):
     """
     <description not available>
     """
@@ -61,3 +61,13 @@ class EphysStimulus(KGObject, EphysStimulus):
             specifications=specifications,
             type=type,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+EphysStimulus.set_error_handling(None)
+for key, value in OMEphysStimulus.__dict__.items():
+    if isinstance(value, OMEphysStimulus):
+        fg_instance = EphysStimulus.from_jsonld(value.to_jsonld())
+        fg_instance._space = EphysStimulus.default_space
+        setattr(EphysStimulus, key, fg_instance)
+EphysStimulus.set_error_handling("log")

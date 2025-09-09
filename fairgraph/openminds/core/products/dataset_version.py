@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import DatasetVersion
+from openminds.latest.core import DatasetVersion as OMDatasetVersion
 from fairgraph import KGObject
 
 from urllib.request import urlretrieve
@@ -15,7 +15,7 @@ from datetime import date
 from openminds import IRI
 
 
-class DatasetVersion(KGObject, DatasetVersion):
+class DatasetVersion(KGObject, OMDatasetVersion):
     """
     Structured information on data originating from human/animal studies or simulations (version level).
     """
@@ -218,3 +218,13 @@ class DatasetVersion(KGObject, DatasetVersion):
             local_filename.parent.mkdir(parents=True, exist_ok=True)
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
             return local_filename, repo.iri.value
+
+
+# cast openMINDS instances to their fairgraph subclass
+DatasetVersion.set_error_handling(None)
+for key, value in OMDatasetVersion.__dict__.items():
+    if isinstance(value, OMDatasetVersion):
+        fg_instance = DatasetVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = DatasetVersion.default_space
+        setattr(DatasetVersion, key, fg_instance)
+DatasetVersion.set_error_handling("log")

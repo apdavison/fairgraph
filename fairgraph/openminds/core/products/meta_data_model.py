@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import MetaDataModel
+from openminds.latest.core import MetaDataModel as OMMetaDataModel
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class MetaDataModel(KGObject, MetaDataModel):
+class MetaDataModel(KGObject, OMMetaDataModel):
     """
     <description not available>
     """
@@ -93,3 +93,13 @@ class MetaDataModel(KGObject, MetaDataModel):
             short_name=short_name,
             versions=versions,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+MetaDataModel.set_error_handling(None)
+for key, value in OMMetaDataModel.__dict__.items():
+    if isinstance(value, OMMetaDataModel):
+        fg_instance = MetaDataModel.from_jsonld(value.to_jsonld())
+        fg_instance._space = MetaDataModel.default_space
+        setattr(MetaDataModel, key, fg_instance)
+MetaDataModel.set_error_handling("log")

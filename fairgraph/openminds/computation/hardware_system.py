@@ -5,11 +5,11 @@ Structured information about computing hardware.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import HardwareSystem
+from openminds.latest.computation import HardwareSystem as OMHardwareSystem
 from fairgraph import KGObject
 
 
-class HardwareSystem(KGObject, HardwareSystem):
+class HardwareSystem(KGObject, OMHardwareSystem):
     """
     Structured information about computing hardware.
     """
@@ -51,3 +51,13 @@ class HardwareSystem(KGObject, HardwareSystem):
             used_by=used_by,
             version_identifier=version_identifier,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+HardwareSystem.set_error_handling(None)
+for key, value in OMHardwareSystem.__dict__.items():
+    if isinstance(value, OMHardwareSystem):
+        fg_instance = HardwareSystem.from_jsonld(value.to_jsonld())
+        fg_instance._space = HardwareSystem.default_space
+        setattr(HardwareSystem, key, fg_instance)
+HardwareSystem.set_error_handling("log")

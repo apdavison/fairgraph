@@ -5,14 +5,14 @@ Structured information on the available language setting.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Language
+from openminds.latest.controlled_terms import Language as OMLanguage
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class Language(KGObject, Language):
+class Language(KGObject, OMLanguage):
     """
     Structured information on the available language setting.
     """
@@ -86,3 +86,13 @@ class Language(KGObject, Language):
             synonyms=synonyms,
             used_in=used_in,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+Language.set_error_handling(None)
+for key, value in OMLanguage.__dict__.items():
+    if isinstance(value, OMLanguage):
+        fg_instance = Language.from_jsonld(value.to_jsonld())
+        fg_instance._space = Language.default_space
+        setattr(Language, key, fg_instance)
+Language.set_error_handling("log")

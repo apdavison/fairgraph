@@ -5,11 +5,11 @@ An International Standard Book Number of the International ISBN Agency.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ISBN
+from openminds.latest.core import ISBN as OMISBN
 from fairgraph import KGObject
 
 
-class ISBN(KGObject, ISBN):
+class ISBN(KGObject, OMISBN):
     """
     An International Standard Book Number of the International ISBN Agency.
     """
@@ -86,3 +86,13 @@ class ISBN(KGObject, ISBN):
             identifies=identifies,
             related_to=related_to,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+ISBN.set_error_handling(None)
+for key, value in OMISBN.__dict__.items():
+    if isinstance(value, OMISBN):
+        fg_instance = ISBN.from_jsonld(value.to_jsonld())
+        fg_instance._space = ISBN.default_space
+        setattr(ISBN, key, fg_instance)
+ISBN.set_error_handling("log")

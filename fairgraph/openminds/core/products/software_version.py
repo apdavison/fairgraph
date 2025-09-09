@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SoftwareVersion
+from openminds.latest.core import SoftwareVersion as OMSoftwareVersion
 from fairgraph import KGObject
 
 from fairgraph.errors import ResolutionFailure
@@ -14,7 +14,7 @@ from datetime import date
 from openminds import IRI
 
 
-class SoftwareVersion(KGObject, SoftwareVersion):
+class SoftwareVersion(KGObject, OMSoftwareVersion):
     """
     <description not available>
     """
@@ -213,3 +213,13 @@ class SoftwareVersion(KGObject, SoftwareVersion):
         else:
             assert len(parents) == 1
             return parents[0]
+
+
+# cast openMINDS instances to their fairgraph subclass
+SoftwareVersion.set_error_handling(None)
+for key, value in OMSoftwareVersion.__dict__.items():
+    if isinstance(value, OMSoftwareVersion):
+        fg_instance = SoftwareVersion.from_jsonld(value.to_jsonld())
+        fg_instance._space = SoftwareVersion.default_space
+        setattr(SoftwareVersion, key, fg_instance)
+SoftwareVersion.set_error_handling("log")

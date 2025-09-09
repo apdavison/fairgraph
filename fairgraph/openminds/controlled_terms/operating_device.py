@@ -5,14 +5,14 @@ Structured information on the operating device.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import OperatingDevice
+from openminds.latest.controlled_terms import OperatingDevice as OMOperatingDevice
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class OperatingDevice(KGObject, OperatingDevice):
+class OperatingDevice(KGObject, OMOperatingDevice):
     """
     Structured information on the operating device.
     """
@@ -77,3 +77,13 @@ class OperatingDevice(KGObject, OperatingDevice):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+OperatingDevice.set_error_handling(None)
+for key, value in OMOperatingDevice.__dict__.items():
+    if isinstance(value, OMOperatingDevice):
+        fg_instance = OperatingDevice.from_jsonld(value.to_jsonld())
+        fg_instance._space = OperatingDevice.default_space
+        setattr(OperatingDevice, key, fg_instance)
+OperatingDevice.set_error_handling("log")

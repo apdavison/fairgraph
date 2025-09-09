@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import DataCopy
+from openminds.latest.computation import DataCopy as OMDataCopy
 from fairgraph import KGObject
 
 
 from datetime import datetime, time
 
 
-class DataCopy(KGObject, DataCopy):
+class DataCopy(KGObject, OMDataCopy):
     """
     <description not available>
     """
@@ -102,3 +102,13 @@ class DataCopy(KGObject, DataCopy):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+DataCopy.set_error_handling(None)
+for key, value in OMDataCopy.__dict__.items():
+    if isinstance(value, OMDataCopy):
+        fg_instance = DataCopy.from_jsonld(value.to_jsonld())
+        fg_instance._space = DataCopy.default_space
+        setattr(DataCopy, key, fg_instance)
+DataCopy.set_error_handling("log")

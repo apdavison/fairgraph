@@ -5,14 +5,14 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import SoftwareFeature
+from openminds.latest.controlled_terms import SoftwareFeature as OMSoftwareFeature
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class SoftwareFeature(KGObject, SoftwareFeature):
+class SoftwareFeature(KGObject, OMSoftwareFeature):
     """
     <description not available>
     """
@@ -77,3 +77,13 @@ class SoftwareFeature(KGObject, SoftwareFeature):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
+
+
+# cast openMINDS instances to their fairgraph subclass
+SoftwareFeature.set_error_handling(None)
+for key, value in OMSoftwareFeature.__dict__.items():
+    if isinstance(value, OMSoftwareFeature):
+        fg_instance = SoftwareFeature.from_jsonld(value.to_jsonld())
+        fg_instance._space = SoftwareFeature.default_space
+        setattr(SoftwareFeature, key, fg_instance)
+SoftwareFeature.set_error_handling("log")
