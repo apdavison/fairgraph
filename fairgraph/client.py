@@ -659,11 +659,15 @@ class KGClient(object):
         result = self._kg_admin_client.create_space_definition(space=space_name)
         if result:  # error
             err_msg = f"Unable to configure KG space for space '{space_name}': {result}"
-            if not space_name.startswith("collab="):
+            if not space_name.startswith("collab-"):
                 err_msg += f". If you are trying to configure a collab space, ensure the space name starts with 'collab-'"
             raise Exception(err_msg)
         for cls in types:
-            result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=cls.type_)
+            if self.migrated:
+                target_type = cls.type_
+            else:
+                target_type = adapt_type_4to3(cls.type_)
+            result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=target_type)
             if result:  # error
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
@@ -686,13 +690,20 @@ class KGClient(object):
         The return format is a dictionary whose keys are classes and the values are the
         number of instances of each class in the given spaces.
         """
+        # todo: if not self.migrated, adapt type before lookup
         result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[scope])
         if result.error:
             raise Exception(result.error)
         response = {}
         for item in result.data:
+            if self.migrated:
+                type_iri = item.identifier
+            else:
+                type_ = {"@type": item.identifier}
+                adapt_namespaces_3to4(type_)
+                type_iri = type_["@type"]
             try:
-                cls = lookup_type(item.identifier)
+                cls = lookup_type(type_iri)
             except KeyError as err:
                 ignore_list = [
                     "https://core.kg.ebrains.eu/vocab/type/Bookmark",
