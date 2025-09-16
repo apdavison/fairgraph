@@ -446,19 +446,21 @@ def types_match(a, b):
         return False
 
 
-def _adapt_namespaces(data, adapt_keys, adapt_type):
+def _adapt_namespaces(data, adapt_keys, adapt_type, adapt_instance_uri):
     if isinstance(data, list):
         for item in data:
-            _adapt_namespaces(item, adapt_keys, adapt_type)
+            _adapt_namespaces(item, adapt_keys, adapt_type, adapt_instance_uri)
     elif isinstance(data, dict):
         # adapt property URIs
         old_keys = tuple(data.keys())
         new_keys = adapt_keys(old_keys)
         for old_key, new_key in zip(old_keys, new_keys):
             data[new_key] = data.pop(old_key)
-        for value in data.values():
-            if isinstance(value, (list, dict)):
-                _adapt_namespaces(value, adapt_keys, adapt_type)
+        for key, value in data.items():
+            if key == "@id":
+                data[key] = adapt_instance_uri(value)
+            elif isinstance(value, (list, dict)):
+                _adapt_namespaces(value, adapt_keys, adapt_type, adapt_instance_uri)
         # adapt @type URIs
         if "@type" in data:
             data["@type"] = adapt_type(data["@type"])
@@ -478,7 +480,13 @@ def adapt_namespaces_3to4(data):
             uri = uri[0]
         return f"https://openminds.om-i.org/types/{uri.split('/')[-1]}"
 
-    return _adapt_namespaces(data, adapt_keys_3to4, adapt_type_3to4)
+    def adapt_instance_uri_3to4(uri):
+        if uri.startswith("https://openminds"):
+            return uri.replace("ebrains.eu", "om-i.org")
+        else:
+            return uri
+
+    return _adapt_namespaces(data, adapt_keys_3to4, adapt_type_3to4, adapt_instance_uri_3to4)
 
 
 def adapt_type_4to3(uri):
@@ -500,7 +508,13 @@ def adapt_namespaces_4to3(data):
         replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
         return (uri.replace(*replacement) for uri in uri_list)
 
-    return _adapt_namespaces(data, adapt_keys_4to3, adapt_type_4to3)
+    def adapt_instance_uri_4to3(uri):
+        if uri.startswith("https://openminds"):
+            return uri.replace("om-i.org", "ebrains.eu")
+        else:
+            return uri
+
+    return _adapt_namespaces(data, adapt_keys_4to3, adapt_type_4to3, adapt_instance_uri_4to3)
 
 
 def adapt_namespaces_for_query(query):

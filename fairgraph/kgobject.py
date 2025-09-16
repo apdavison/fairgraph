@@ -710,7 +710,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            local_data = self.to_jsonld(embed_linked_nodes=False)
+            local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
             logger.info("  - creating instance with data {}".format(local_data))
             try:
                 instance_data = client.create_new_instance(
