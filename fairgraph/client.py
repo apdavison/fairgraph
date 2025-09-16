@@ -377,20 +377,43 @@ class KGClient(object):
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
         else:
-
             def _get_instance(scope):
-                response = self._kg_client.instances.get_by_id(
-                    stage=STAGE_MAP[scope],
-                    instance_id=self.uuid_from_uri(uri),
-                    extended_response_configuration=default_response_configuration,
-                )
                 error_context = f"_get_instance(scope={scope} uri={uri})"
-                response = self._check_response(response, error_context=error_context, ignore_not_found=True)
-                if response.error:
-                    assert response.error.code == 404  # all other errors should have been trapped by the check
-                    data = None
+                # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
+                # but for openMINDS controlled terms we may have the openMINDS URI
+                # of the form https://openminds.ebrains.eu/instances/ageCategory/juvenile (v3)
+                # or https://openminds.om-i.org/instances/ageCategory/juvenile (v4)
+                # We use different query methods for these different cases.
+                kg_namespace = self._kg_client.instances._kg_config.id_namespace
+                if uri.startswith(kg_namespace):
+                    response = self._kg_client.instances.get_by_id(
+                        stage=STAGE_MAP[scope],
+                        instance_id=self.uuid_from_uri(uri),
+                        extended_response_configuration=default_response_configuration,
+                    )
+                    response = self._check_response(response, error_context=error_context, ignore_not_found=True)
+                    if response.error:
+                        assert response.error.code == 404  # all other errors should have been trapped by the check
+                        data = None
+                    else:
+                        data = response.data
+                elif uri.startswith("https://openminds.om-i.org/instances") or uri.startswith("https://openminds.ebrains.eu/instances"):
+                    if self.migrated and uri.startswith("https://openminds.ebrains.eu"):
+                        payload = [uri.replace("ebrains.eu", "om-i.org")]
+                    elif uri.startswith("https://openminds.om-i.org"):
+                        payload = [uri.replace("om-i.org", "ebrains.eu")]
+                    else:
+                        payload = [uri]
+                    response = self._kg_client.instances.get_by_identifiers(
+                        stage=STAGE_MAP[scope],
+                        payload=payload,
+                        extended_response_configuration=default_response_configuration,
+                    )
+                    # todo: handle errors
+                    data = response.data[payload[0]].data
                 else:
-                    data = response.data
+                    raise Exception(f"This client cannot retrieve instances from {uri}")
+
                 # in some circumstances, the KG returns "minimal" metadata,
                 # e.g. with just the id and fullName properties
                 # this means the user does not have full access, so we count this as no data
