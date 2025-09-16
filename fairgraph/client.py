@@ -757,12 +757,12 @@ class KGClient(object):
             for cls, count in space_info.items():
                 if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
                     print(f"Deleting {cls.__name__} instances", end="")
-                    instances = cls.list(self, scope="in progress", space=space_name)
-                    assert len(instances) <= count
-                    for instance in instances:
-                        assert instance.space == space_name
+                    response = self.list(cls.type_, scope="in progress", space=space_name)
+                    assert response.size <= count
+                    for instance in response.data:
+                        assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
                         print(".", end="")
-                        instance.delete(self, ignore_not_found=False)
+                        self.delete_instance(self.uuid_from_uri(instance["@id"]), ignore_not_found=False)
                     print()
         else:
             print(f"The space '{space_name}' is already clean")
