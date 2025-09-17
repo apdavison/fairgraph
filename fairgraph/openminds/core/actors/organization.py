@@ -197,13 +197,3 @@ class Organization(KGObject, OMOrganization):
             published=published,
             short_name=short_name,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Organization.set_error_handling(None)
-for key, value in OMOrganization.__dict__.items():
-    if isinstance(value, OMOrganization):
-        fg_instance = Organization.from_jsonld(value.to_jsonld())
-        fg_instance._space = Organization.default_space
-        setattr(Organization, key, fg_instance)
-Organization.set_error_handling("log")

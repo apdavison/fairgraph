@@ -87,13 +87,3 @@ class AnnotationCriteriaType(KGObject, OMAnnotationCriteriaType):
             synonyms=synonyms,
             used_by_annotation=used_by_annotation,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AnnotationCriteriaType.set_error_handling(None)
-for key, value in OMAnnotationCriteriaType.__dict__.items():
-    if isinstance(value, OMAnnotationCriteriaType):
-        fg_instance = AnnotationCriteriaType.from_jsonld(value.to_jsonld())
-        fg_instance._space = AnnotationCriteriaType.default_space
-        setattr(AnnotationCriteriaType, key, fg_instance)
-AnnotationCriteriaType.set_error_handling("log")

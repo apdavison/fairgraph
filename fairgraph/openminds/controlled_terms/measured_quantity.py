@@ -87,13 +87,3 @@ class MeasuredQuantity(KGObject, OMMeasuredQuantity):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MeasuredQuantity.set_error_handling(None)
-for key, value in OMMeasuredQuantity.__dict__.items():
-    if isinstance(value, OMMeasuredQuantity):
-        fg_instance = MeasuredQuantity.from_jsonld(value.to_jsonld())
-        fg_instance._space = MeasuredQuantity.default_space
-        setattr(MeasuredQuantity, key, fg_instance)
-MeasuredQuantity.set_error_handling("log")

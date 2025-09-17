@@ -71,13 +71,3 @@ class SlicingDevice(KGObject, OMSlicingDevice):
             serial_number=serial_number,
             usage=usage,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SlicingDevice.set_error_handling(None)
-for key, value in OMSlicingDevice.__dict__.items():
-    if isinstance(value, OMSlicingDevice):
-        fg_instance = SlicingDevice.from_jsonld(value.to_jsonld())
-        fg_instance._space = SlicingDevice.default_space
-        setattr(SlicingDevice, key, fg_instance)
-SlicingDevice.set_error_handling("log")

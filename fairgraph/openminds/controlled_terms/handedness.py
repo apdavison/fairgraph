@@ -125,13 +125,3 @@ class Handedness(KGObject, OMHandedness):
             subject_states=subject_states,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Handedness.set_error_handling(None)
-for key, value in OMHandedness.__dict__.items():
-    if isinstance(value, OMHandedness):
-        fg_instance = Handedness.from_jsonld(value.to_jsonld())
-        fg_instance._space = Handedness.default_space
-        setattr(Handedness, key, fg_instance)
-Handedness.set_error_handling("log")

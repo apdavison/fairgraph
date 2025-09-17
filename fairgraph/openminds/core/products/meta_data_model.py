@@ -93,13 +93,3 @@ class MetaDataModel(KGObject, OMMetaDataModel):
             short_name=short_name,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MetaDataModel.set_error_handling(None)
-for key, value in OMMetaDataModel.__dict__.items():
-    if isinstance(value, OMMetaDataModel):
-        fg_instance = MetaDataModel.from_jsonld(value.to_jsonld())
-        fg_instance._space = MetaDataModel.default_space
-        setattr(MetaDataModel, key, fg_instance)
-MetaDataModel.set_error_handling("log")

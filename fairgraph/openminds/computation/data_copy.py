@@ -102,13 +102,3 @@ class DataCopy(KGObject, OMDataCopy):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DataCopy.set_error_handling(None)
-for key, value in OMDataCopy.__dict__.items():
-    if isinstance(value, OMDataCopy):
-        fg_instance = DataCopy.from_jsonld(value.to_jsonld())
-        fg_instance._space = DataCopy.default_space
-        setattr(DataCopy, key, fg_instance)
-DataCopy.set_error_handling("log")

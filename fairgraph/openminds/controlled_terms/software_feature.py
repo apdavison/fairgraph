@@ -77,13 +77,3 @@ class SoftwareFeature(KGObject, OMSoftwareFeature):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SoftwareFeature.set_error_handling(None)
-for key, value in OMSoftwareFeature.__dict__.items():
-    if isinstance(value, OMSoftwareFeature):
-        fg_instance = SoftwareFeature.from_jsonld(value.to_jsonld())
-        fg_instance._space = SoftwareFeature.default_space
-        setattr(SoftwareFeature, key, fg_instance)
-SoftwareFeature.set_error_handling("log")

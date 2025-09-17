@@ -125,13 +125,3 @@ class TactileStimulusType(KGObject, OMTactileStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TactileStimulusType.set_error_handling(None)
-for key, value in OMTactileStimulusType.__dict__.items():
-    if isinstance(value, OMTactileStimulusType):
-        fg_instance = TactileStimulusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = TactileStimulusType.default_space
-        setattr(TactileStimulusType, key, fg_instance)
-TactileStimulusType.set_error_handling("log")

@@ -81,13 +81,3 @@ class LocalFile(KGObject, OMLocalFile):
             special_usage_role=special_usage_role,
             storage_size=storage_size,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-LocalFile.set_error_handling(None)
-for key, value in OMLocalFile.__dict__.items():
-    if isinstance(value, OMLocalFile):
-        fg_instance = LocalFile.from_jsonld(value.to_jsonld())
-        fg_instance._space = LocalFile.default_space
-        setattr(LocalFile, key, fg_instance)
-LocalFile.set_error_handling("log")

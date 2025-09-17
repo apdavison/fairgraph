@@ -69,13 +69,3 @@ class FileArchive(KGObject, OMFileArchive):
             is_output_of=is_output_of,
             source_data=source_data,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-FileArchive.set_error_handling(None)
-for key, value in OMFileArchive.__dict__.items():
-    if isinstance(value, OMFileArchive):
-        fg_instance = FileArchive.from_jsonld(value.to_jsonld())
-        fg_instance._space = FileArchive.default_space
-        setattr(FileArchive, key, fg_instance)
-FileArchive.set_error_handling("log")

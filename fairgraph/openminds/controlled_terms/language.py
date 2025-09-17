@@ -86,13 +86,3 @@ class Language(KGObject, OMLanguage):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Language.set_error_handling(None)
-for key, value in OMLanguage.__dict__.items():
-    if isinstance(value, OMLanguage):
-        fg_instance = Language.from_jsonld(value.to_jsonld())
-        fg_instance._space = Language.default_space
-        setattr(Language, key, fg_instance)
-Language.set_error_handling("log")

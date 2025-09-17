@@ -92,13 +92,3 @@ class Laterality(KGObject, OMLaterality):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Laterality.set_error_handling(None)
-for key, value in OMLaterality.__dict__.items():
-    if isinstance(value, OMLaterality):
-        fg_instance = Laterality.from_jsonld(value.to_jsonld())
-        fg_instance._space = Laterality.default_space
-        setattr(Laterality, key, fg_instance)
-Laterality.set_error_handling("log")

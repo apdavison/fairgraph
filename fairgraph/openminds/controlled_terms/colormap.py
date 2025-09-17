@@ -77,13 +77,3 @@ class Colormap(KGObject, OMColormap):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Colormap.set_error_handling(None)
-for key, value in OMColormap.__dict__.items():
-    if isinstance(value, OMColormap):
-        fg_instance = Colormap.from_jsonld(value.to_jsonld())
-        fg_instance._space = Colormap.default_space
-        setattr(Colormap, key, fg_instance)
-Colormap.set_error_handling("log")

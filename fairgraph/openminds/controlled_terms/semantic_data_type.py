@@ -77,13 +77,3 @@ class SemanticDataType(KGObject, OMSemanticDataType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SemanticDataType.set_error_handling(None)
-for key, value in OMSemanticDataType.__dict__.items():
-    if isinstance(value, OMSemanticDataType):
-        fg_instance = SemanticDataType.from_jsonld(value.to_jsonld())
-        fg_instance._space = SemanticDataType.default_space
-        setattr(SemanticDataType, key, fg_instance)
-SemanticDataType.set_error_handling("log")

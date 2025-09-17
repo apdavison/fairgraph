@@ -102,13 +102,3 @@ class DataAnalysis(KGObject, OMDataAnalysis):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DataAnalysis.set_error_handling(None)
-for key, value in OMDataAnalysis.__dict__.items():
-    if isinstance(value, OMDataAnalysis):
-        fg_instance = DataAnalysis.from_jsonld(value.to_jsonld())
-        fg_instance._space = DataAnalysis.default_space
-        setattr(DataAnalysis, key, fg_instance)
-DataAnalysis.set_error_handling("log")

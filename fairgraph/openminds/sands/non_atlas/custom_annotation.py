@@ -51,13 +51,3 @@ class CustomAnnotation(EmbeddedMetadata, OMCustomAnnotation):
             specification=specification,
             type=type,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CustomAnnotation.set_error_handling(None)
-for key, value in OMCustomAnnotation.__dict__.items():
-    if isinstance(value, OMCustomAnnotation):
-        fg_instance = CustomAnnotation.from_jsonld(value.to_jsonld())
-        fg_instance._space = CustomAnnotation.default_space
-        setattr(CustomAnnotation, key, fg_instance)
-CustomAnnotation.set_error_handling("log")

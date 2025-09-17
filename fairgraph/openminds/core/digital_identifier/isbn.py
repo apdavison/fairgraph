@@ -86,13 +86,3 @@ class ISBN(KGObject, OMISBN):
             identifies=identifies,
             related_to=related_to,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ISBN.set_error_handling(None)
-for key, value in OMISBN.__dict__.items():
-    if isinstance(value, OMISBN):
-        fg_instance = ISBN.from_jsonld(value.to_jsonld())
-        fg_instance._space = ISBN.default_space
-        setattr(ISBN, key, fg_instance)
-ISBN.set_error_handling("log")

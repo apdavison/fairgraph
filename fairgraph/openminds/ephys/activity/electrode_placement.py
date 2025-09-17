@@ -65,13 +65,3 @@ class ElectrodePlacement(KGObject, OMElectrodePlacement):
             study_targets=study_targets,
             target_position=target_position,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ElectrodePlacement.set_error_handling(None)
-for key, value in OMElectrodePlacement.__dict__.items():
-    if isinstance(value, OMElectrodePlacement):
-        fg_instance = ElectrodePlacement.from_jsonld(value.to_jsonld())
-        fg_instance._space = ElectrodePlacement.default_space
-        setattr(ElectrodePlacement, key, fg_instance)
-ElectrodePlacement.set_error_handling("log")

@@ -115,13 +115,3 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
             used_to_record=used_to_record,
             vibration_frequency=vibration_frequency,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SlicingDeviceUsage.set_error_handling(None)
-for key, value in OMSlicingDeviceUsage.__dict__.items():
-    if isinstance(value, OMSlicingDeviceUsage):
-        fg_instance = SlicingDeviceUsage.from_jsonld(value.to_jsonld())
-        fg_instance._space = SlicingDeviceUsage.default_space
-        setattr(SlicingDeviceUsage, key, fg_instance)
-SlicingDeviceUsage.set_error_handling("log")

@@ -97,13 +97,3 @@ class FileRepository(KGObject, OMFileRepository):
             structure_pattern=structure_pattern,
             type=type,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-FileRepository.set_error_handling(None)
-for key, value in OMFileRepository.__dict__.items():
-    if isinstance(value, OMFileRepository):
-        fg_instance = FileRepository.from_jsonld(value.to_jsonld())
-        fg_instance._space = FileRepository.default_space
-        setattr(FileRepository, key, fg_instance)
-FileRepository.set_error_handling("log")

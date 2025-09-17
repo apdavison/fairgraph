@@ -103,13 +103,3 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
             used_to_measure=used_to_measure,
             used_to_record=used_to_record,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ElectrodeArrayUsage.set_error_handling(None)
-for key, value in OMElectrodeArrayUsage.__dict__.items():
-    if isinstance(value, OMElectrodeArrayUsage):
-        fg_instance = ElectrodeArrayUsage.from_jsonld(value.to_jsonld())
-        fg_instance._space = ElectrodeArrayUsage.default_space
-        setattr(ElectrodeArrayUsage, key, fg_instance)
-ElectrodeArrayUsage.set_error_handling("log")

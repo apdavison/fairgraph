@@ -87,13 +87,3 @@ class ModelScope(KGObject, OMModelScope):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ModelScope.set_error_handling(None)
-for key, value in OMModelScope.__dict__.items():
-    if isinstance(value, OMModelScope):
-        fg_instance = ModelScope.from_jsonld(value.to_jsonld())
-        fg_instance._space = ModelScope.default_space
-        setattr(ModelScope, key, fg_instance)
-ModelScope.set_error_handling("log")

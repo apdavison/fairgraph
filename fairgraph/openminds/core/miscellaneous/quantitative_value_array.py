@@ -47,13 +47,3 @@ class QuantitativeValueArray(KGObject, OMQuantitativeValueArray):
             unit=unit,
             values=values,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QuantitativeValueArray.set_error_handling(None)
-for key, value in OMQuantitativeValueArray.__dict__.items():
-    if isinstance(value, OMQuantitativeValueArray):
-        fg_instance = QuantitativeValueArray.from_jsonld(value.to_jsonld())
-        fg_instance._space = QuantitativeValueArray.default_space
-        setattr(QuantitativeValueArray, key, fg_instance)
-QuantitativeValueArray.set_error_handling("log")

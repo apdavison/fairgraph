@@ -93,13 +93,3 @@ class LivePaper(KGObject, OMLivePaper):
             short_name=short_name,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-LivePaper.set_error_handling(None)
-for key, value in OMLivePaper.__dict__.items():
-    if isinstance(value, OMLivePaper):
-        fg_instance = LivePaper.from_jsonld(value.to_jsonld())
-        fg_instance._space = LivePaper.default_space
-        setattr(LivePaper, key, fg_instance)
-LivePaper.set_error_handling("log")

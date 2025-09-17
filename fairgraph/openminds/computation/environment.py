@@ -64,13 +64,3 @@ class Environment(KGObject, OMEnvironment):
             software=software,
             used_for=used_for,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Environment.set_error_handling(None)
-for key, value in OMEnvironment.__dict__.items():
-    if isinstance(value, OMEnvironment):
-        fg_instance = Environment.from_jsonld(value.to_jsonld())
-        fg_instance._space = Environment.default_space
-        setattr(Environment, key, fg_instance)
-Environment.set_error_handling("log")

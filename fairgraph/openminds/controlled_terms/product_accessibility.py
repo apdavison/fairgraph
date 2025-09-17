@@ -77,13 +77,3 @@ class ProductAccessibility(KGObject, OMProductAccessibility):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ProductAccessibility.set_error_handling(None)
-for key, value in OMProductAccessibility.__dict__.items():
-    if isinstance(value, OMProductAccessibility):
-        fg_instance = ProductAccessibility.from_jsonld(value.to_jsonld())
-        fg_instance._space = ProductAccessibility.default_space
-        setattr(ProductAccessibility, key, fg_instance)
-ProductAccessibility.set_error_handling("log")

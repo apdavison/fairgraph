@@ -75,13 +75,3 @@ class License(KGObject, OMLicense):
             short_name=short_name,
             webpages=webpages,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-License.set_error_handling(None)
-for key, value in OMLicense.__dict__.items():
-    if isinstance(value, OMLicense):
-        fg_instance = License.from_jsonld(value.to_jsonld())
-        fg_instance._space = License.default_space
-        setattr(License, key, fg_instance)
-License.set_error_handling("log")

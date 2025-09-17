@@ -111,13 +111,3 @@ class WebService(KGObject, OMWebService):
             short_name=short_name,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-WebService.set_error_handling(None)
-for key, value in OMWebService.__dict__.items():
-    if isinstance(value, OMWebService):
-        fg_instance = WebService.from_jsonld(value.to_jsonld())
-        fg_instance._space = WebService.default_space
-        setattr(WebService, key, fg_instance)
-WebService.set_error_handling("log")

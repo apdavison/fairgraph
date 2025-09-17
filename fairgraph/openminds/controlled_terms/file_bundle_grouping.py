@@ -97,13 +97,3 @@ class FileBundleGrouping(KGObject, OMFileBundleGrouping):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-FileBundleGrouping.set_error_handling(None)
-for key, value in OMFileBundleGrouping.__dict__.items():
-    if isinstance(value, OMFileBundleGrouping):
-        fg_instance = FileBundleGrouping.from_jsonld(value.to_jsonld())
-        fg_instance._space = FileBundleGrouping.default_space
-        setattr(FileBundleGrouping, key, fg_instance)
-FileBundleGrouping.set_error_handling("log")

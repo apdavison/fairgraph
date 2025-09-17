@@ -125,13 +125,3 @@ class GeneticStrainType(KGObject, OMGeneticStrainType):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-GeneticStrainType.set_error_handling(None)
-for key, value in OMGeneticStrainType.__dict__.items():
-    if isinstance(value, OMGeneticStrainType):
-        fg_instance = GeneticStrainType.from_jsonld(value.to_jsonld())
-        fg_instance._space = GeneticStrainType.default_space
-        setattr(GeneticStrainType, key, fg_instance)
-GeneticStrainType.set_error_handling("log")

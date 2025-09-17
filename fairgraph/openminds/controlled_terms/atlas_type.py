@@ -86,13 +86,3 @@ class AtlasType(KGObject, OMAtlasType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AtlasType.set_error_handling(None)
-for key, value in OMAtlasType.__dict__.items():
-    if isinstance(value, OMAtlasType):
-        fg_instance = AtlasType.from_jsonld(value.to_jsonld())
-        fg_instance._space = AtlasType.default_space
-        setattr(AtlasType, key, fg_instance)
-AtlasType.set_error_handling("log")

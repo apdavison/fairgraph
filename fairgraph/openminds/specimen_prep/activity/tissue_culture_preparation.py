@@ -65,13 +65,3 @@ class TissueCulturePreparation(KGObject, OMTissueCulturePreparation):
             start_time=start_time,
             study_targets=study_targets,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TissueCulturePreparation.set_error_handling(None)
-for key, value in OMTissueCulturePreparation.__dict__.items():
-    if isinstance(value, OMTissueCulturePreparation):
-        fg_instance = TissueCulturePreparation.from_jsonld(value.to_jsonld())
-        fg_instance._space = TissueCulturePreparation.default_space
-        setattr(TissueCulturePreparation, key, fg_instance)
-TissueCulturePreparation.set_error_handling("log")

@@ -40,13 +40,3 @@ class QuantitativeValueRange(EmbeddedMetadata, OMQuantitativeValueRange):
             min_value=min_value,
             min_value_unit=min_value_unit,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QuantitativeValueRange.set_error_handling(None)
-for key, value in OMQuantitativeValueRange.__dict__.items():
-    if isinstance(value, OMQuantitativeValueRange):
-        fg_instance = QuantitativeValueRange.from_jsonld(value.to_jsonld())
-        fg_instance._space = QuantitativeValueRange.default_space
-        setattr(QuantitativeValueRange, key, fg_instance)
-QuantitativeValueRange.set_error_handling("log")

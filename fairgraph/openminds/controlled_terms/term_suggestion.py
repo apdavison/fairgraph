@@ -119,13 +119,3 @@ class TermSuggestion(KGObject, OMTermSuggestion):
             suggest_new_terminology=suggest_new_terminology,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TermSuggestion.set_error_handling(None)
-for key, value in OMTermSuggestion.__dict__.items():
-    if isinstance(value, OMTermSuggestion):
-        fg_instance = TermSuggestion.from_jsonld(value.to_jsonld())
-        fg_instance._space = TermSuggestion.default_space
-        setattr(TermSuggestion, key, fg_instance)
-TermSuggestion.set_error_handling("log")

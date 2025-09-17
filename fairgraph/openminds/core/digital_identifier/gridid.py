@@ -33,13 +33,3 @@ class GRIDID(KGObject, OMGRIDID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-GRIDID.set_error_handling(None)
-for key, value in OMGRIDID.__dict__.items():
-    if isinstance(value, OMGRIDID):
-        fg_instance = GRIDID.from_jsonld(value.to_jsonld())
-        fg_instance._space = GRIDID.default_space
-        setattr(GRIDID, key, fg_instance)
-GRIDID.set_error_handling("log")

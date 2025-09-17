@@ -87,13 +87,3 @@ class AnatomicalIdentificationType(KGObject, OMAnatomicalIdentificationType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AnatomicalIdentificationType.set_error_handling(None)
-for key, value in OMAnatomicalIdentificationType.__dict__.items():
-    if isinstance(value, OMAnatomicalIdentificationType):
-        fg_instance = AnatomicalIdentificationType.from_jsonld(value.to_jsonld())
-        fg_instance._space = AnatomicalIdentificationType.default_space
-        setattr(AnatomicalIdentificationType, key, fg_instance)
-AnatomicalIdentificationType.set_error_handling("log")

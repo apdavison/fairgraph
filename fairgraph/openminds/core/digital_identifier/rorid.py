@@ -33,13 +33,3 @@ class RORID(KGObject, OMRORID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-RORID.set_error_handling(None)
-for key, value in OMRORID.__dict__.items():
-    if isinstance(value, OMRORID):
-        fg_instance = RORID.from_jsonld(value.to_jsonld())
-        fg_instance._space = RORID.default_space
-        setattr(RORID, key, fg_instance)
-RORID.set_error_handling("log")

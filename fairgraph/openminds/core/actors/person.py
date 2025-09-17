@@ -234,13 +234,3 @@ class Person(KGObject, OMPerson):
         else:
             raise Exception("Found multiple matches")
         return person
-
-
-# cast openMINDS instances to their fairgraph subclass
-Person.set_error_handling(None)
-for key, value in OMPerson.__dict__.items():
-    if isinstance(value, OMPerson):
-        fg_instance = Person.from_jsonld(value.to_jsonld())
-        fg_instance._space = Person.default_space
-        setattr(Person, key, fg_instance)
-Person.set_error_handling("log")

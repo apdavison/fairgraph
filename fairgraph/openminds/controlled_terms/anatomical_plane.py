@@ -87,13 +87,3 @@ class AnatomicalPlane(KGObject, OMAnatomicalPlane):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AnatomicalPlane.set_error_handling(None)
-for key, value in OMAnatomicalPlane.__dict__.items():
-    if isinstance(value, OMAnatomicalPlane):
-        fg_instance = AnatomicalPlane.from_jsonld(value.to_jsonld())
-        fg_instance._space = AnatomicalPlane.default_space
-        setattr(AnatomicalPlane, key, fg_instance)
-AnatomicalPlane.set_error_handling("log")

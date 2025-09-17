@@ -96,13 +96,3 @@ class MRIWeighting(KGObject, OMMRIWeighting):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MRIWeighting.set_error_handling(None)
-for key, value in OMMRIWeighting.__dict__.items():
-    if isinstance(value, OMMRIWeighting):
-        fg_instance = MRIWeighting.from_jsonld(value.to_jsonld())
-        fg_instance._space = MRIWeighting.default_space
-        setattr(MRIWeighting, key, fg_instance)
-MRIWeighting.set_error_handling("log")

@@ -93,13 +93,3 @@ class WorkflowRecipe(KGObject, OMWorkflowRecipe):
             short_name=short_name,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-WorkflowRecipe.set_error_handling(None)
-for key, value in OMWorkflowRecipe.__dict__.items():
-    if isinstance(value, OMWorkflowRecipe):
-        fg_instance = WorkflowRecipe.from_jsonld(value.to_jsonld())
-        fg_instance._space = WorkflowRecipe.default_space
-        setattr(WorkflowRecipe, key, fg_instance)
-WorkflowRecipe.set_error_handling("log")

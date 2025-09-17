@@ -77,13 +77,3 @@ class QualitativeOverlap(KGObject, OMQualitativeOverlap):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QualitativeOverlap.set_error_handling(None)
-for key, value in OMQualitativeOverlap.__dict__.items():
-    if isinstance(value, OMQualitativeOverlap):
-        fg_instance = QualitativeOverlap.from_jsonld(value.to_jsonld())
-        fg_instance._space = QualitativeOverlap.default_space
-        setattr(QualitativeOverlap, key, fg_instance)
-QualitativeOverlap.set_error_handling("log")

@@ -115,13 +115,3 @@ class CellCultureType(KGObject, OMCellCultureType):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CellCultureType.set_error_handling(None)
-for key, value in OMCellCultureType.__dict__.items():
-    if isinstance(value, OMCellCultureType):
-        fg_instance = CellCultureType.from_jsonld(value.to_jsonld())
-        fg_instance._space = CellCultureType.default_space
-        setattr(CellCultureType, key, fg_instance)
-CellCultureType.set_error_handling("log")

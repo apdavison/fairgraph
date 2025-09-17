@@ -173,13 +173,3 @@ class Consortium(KGObject, OMConsortium):
             published=published,
             short_name=short_name,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Consortium.set_error_handling(None)
-for key, value in OMConsortium.__dict__.items():
-    if isinstance(value, OMConsortium):
-        fg_instance = Consortium.from_jsonld(value.to_jsonld())
-        fg_instance._space = Consortium.default_space
-        setattr(Consortium, key, fg_instance)
-Consortium.set_error_handling("log")

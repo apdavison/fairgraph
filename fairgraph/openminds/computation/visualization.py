@@ -102,13 +102,3 @@ class Visualization(KGObject, OMVisualization):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Visualization.set_error_handling(None)
-for key, value in OMVisualization.__dict__.items():
-    if isinstance(value, OMVisualization):
-        fg_instance = Visualization.from_jsonld(value.to_jsonld())
-        fg_instance._space = Visualization.default_space
-        setattr(Visualization, key, fg_instance)
-Visualization.set_error_handling("log")

@@ -86,13 +86,3 @@ class LearningResourceType(KGObject, OMLearningResourceType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-LearningResourceType.set_error_handling(None)
-for key, value in OMLearningResourceType.__dict__.items():
-    if isinstance(value, OMLearningResourceType):
-        fg_instance = LearningResourceType.from_jsonld(value.to_jsonld())
-        fg_instance._space = LearningResourceType.default_space
-        setattr(LearningResourceType, key, fg_instance)
-LearningResourceType.set_error_handling("log")

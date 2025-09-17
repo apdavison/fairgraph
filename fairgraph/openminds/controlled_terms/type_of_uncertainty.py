@@ -87,13 +87,3 @@ class TypeOfUncertainty(KGObject, OMTypeOfUncertainty):
             synonyms=synonyms,
             value=value,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TypeOfUncertainty.set_error_handling(None)
-for key, value in OMTypeOfUncertainty.__dict__.items():
-    if isinstance(value, OMTypeOfUncertainty):
-        fg_instance = TypeOfUncertainty.from_jsonld(value.to_jsonld())
-        fg_instance._space = TypeOfUncertainty.default_space
-        setattr(TypeOfUncertainty, key, fg_instance)
-TypeOfUncertainty.set_error_handling("log")

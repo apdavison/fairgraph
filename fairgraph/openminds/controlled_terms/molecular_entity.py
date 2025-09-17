@@ -140,13 +140,3 @@ class MolecularEntity(KGObject, OMMolecularEntity):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MolecularEntity.set_error_handling(None)
-for key, value in OMMolecularEntity.__dict__.items():
-    if isinstance(value, OMMolecularEntity):
-        fg_instance = MolecularEntity.from_jsonld(value.to_jsonld())
-        fg_instance._space = MolecularEntity.default_space
-        setattr(MolecularEntity, key, fg_instance)
-MolecularEntity.set_error_handling("log")

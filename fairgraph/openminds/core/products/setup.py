@@ -67,13 +67,3 @@ class Setup(KGObject, OMSetup):
             types=types,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Setup.set_error_handling(None)
-for key, value in OMSetup.__dict__.items():
-    if isinstance(value, OMSetup):
-        fg_instance = Setup.from_jsonld(value.to_jsonld())
-        fg_instance._space = Setup.default_space
-        setattr(Setup, key, fg_instance)
-Setup.set_error_handling("log")

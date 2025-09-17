@@ -87,13 +87,3 @@ class SetupType(KGObject, OMSetupType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SetupType.set_error_handling(None)
-for key, value in OMSetupType.__dict__.items():
-    if isinstance(value, OMSetupType):
-        fg_instance = SetupType.from_jsonld(value.to_jsonld())
-        fg_instance._space = SetupType.default_space
-        setattr(SetupType, key, fg_instance)
-SetupType.set_error_handling("log")

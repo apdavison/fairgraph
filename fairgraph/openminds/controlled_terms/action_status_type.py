@@ -95,13 +95,3 @@ class ActionStatusType(KGObject, OMActionStatusType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ActionStatusType.set_error_handling(None)
-for key, value in OMActionStatusType.__dict__.items():
-    if isinstance(value, OMActionStatusType):
-        fg_instance = ActionStatusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = ActionStatusType.default_space
-        setattr(ActionStatusType, key, fg_instance)
-ActionStatusType.set_error_handling("log")

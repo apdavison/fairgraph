@@ -218,13 +218,3 @@ class DatasetVersion(KGObject, OMDatasetVersion):
             local_filename.parent.mkdir(parents=True, exist_ok=True)
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
             return local_filename, repo.iri.value
-
-
-# cast openMINDS instances to their fairgraph subclass
-DatasetVersion.set_error_handling(None)
-for key, value in OMDatasetVersion.__dict__.items():
-    if isinstance(value, OMDatasetVersion):
-        fg_instance = DatasetVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = DatasetVersion.default_space
-        setattr(DatasetVersion, key, fg_instance)
-DatasetVersion.set_error_handling("log")

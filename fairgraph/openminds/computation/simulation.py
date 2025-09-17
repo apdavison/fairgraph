@@ -102,13 +102,3 @@ class Simulation(KGObject, OMSimulation):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Simulation.set_error_handling(None)
-for key, value in OMSimulation.__dict__.items():
-    if isinstance(value, OMSimulation):
-        fg_instance = Simulation.from_jsonld(value.to_jsonld())
-        fg_instance._space = Simulation.default_space
-        setattr(Simulation, key, fg_instance)
-Simulation.set_error_handling("log")

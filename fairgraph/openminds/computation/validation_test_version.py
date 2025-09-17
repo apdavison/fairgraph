@@ -167,13 +167,3 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         else:
             assert len(parents) == 1
             return parents[0]
-
-
-# cast openMINDS instances to their fairgraph subclass
-ValidationTestVersion.set_error_handling(None)
-for key, value in OMValidationTestVersion.__dict__.items():
-    if isinstance(value, OMValidationTestVersion):
-        fg_instance = ValidationTestVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = ValidationTestVersion.default_space
-        setattr(ValidationTestVersion, key, fg_instance)
-ValidationTestVersion.set_error_handling("log")

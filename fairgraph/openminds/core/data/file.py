@@ -273,13 +273,3 @@ class File(KGObject, OMFile):
             #       rather than a filename, create that directory and save a file called self.name
             #       within it
             return local_filename
-
-
-# cast openMINDS instances to their fairgraph subclass
-File.set_error_handling(None)
-for key, value in OMFile.__dict__.items():
-    if isinstance(value, OMFile):
-        fg_instance = File.from_jsonld(value.to_jsonld())
-        fg_instance._space = File.default_space
-        setattr(File, key, fg_instance)
-File.set_error_handling("log")

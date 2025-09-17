@@ -67,13 +67,3 @@ class CranialWindowPreparation(KGObject, OMCranialWindowPreparation):
             start_time=start_time,
             study_targets=study_targets,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CranialWindowPreparation.set_error_handling(None)
-for key, value in OMCranialWindowPreparation.__dict__.items():
-    if isinstance(value, OMCranialWindowPreparation):
-        fg_instance = CranialWindowPreparation.from_jsonld(value.to_jsonld())
-        fg_instance._space = CranialWindowPreparation.default_space
-        setattr(CranialWindowPreparation, key, fg_instance)
-CranialWindowPreparation.set_error_handling("log")

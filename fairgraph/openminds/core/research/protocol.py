@@ -65,13 +65,3 @@ class Protocol(KGObject, OMProtocol):
             techniques=techniques,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Protocol.set_error_handling(None)
-for key, value in OMProtocol.__dict__.items():
-    if isinstance(value, OMProtocol):
-        fg_instance = Protocol.from_jsonld(value.to_jsonld())
-        fg_instance._space = Protocol.default_space
-        setattr(Protocol, key, fg_instance)
-Protocol.set_error_handling("log")

@@ -77,13 +77,3 @@ class ExperimentalApproach(KGObject, OMExperimentalApproach):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ExperimentalApproach.set_error_handling(None)
-for key, value in OMExperimentalApproach.__dict__.items():
-    if isinstance(value, OMExperimentalApproach):
-        fg_instance = ExperimentalApproach.from_jsonld(value.to_jsonld())
-        fg_instance._space = ExperimentalApproach.default_space
-        setattr(ExperimentalApproach, key, fg_instance)
-ExperimentalApproach.set_error_handling("log")

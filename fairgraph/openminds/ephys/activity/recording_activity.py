@@ -65,13 +65,3 @@ class RecordingActivity(KGObject, OMRecordingActivity):
             start_time=start_time,
             study_targets=study_targets,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-RecordingActivity.set_error_handling(None)
-for key, value in OMRecordingActivity.__dict__.items():
-    if isinstance(value, OMRecordingActivity):
-        fg_instance = RecordingActivity.from_jsonld(value.to_jsonld())
-        fg_instance._space = RecordingActivity.default_space
-        setattr(RecordingActivity, key, fg_instance)
-RecordingActivity.set_error_handling("log")

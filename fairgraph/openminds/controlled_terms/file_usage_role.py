@@ -87,13 +87,3 @@ class FileUsageRole(KGObject, OMFileUsageRole):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-FileUsageRole.set_error_handling(None)
-for key, value in OMFileUsageRole.__dict__.items():
-    if isinstance(value, OMFileUsageRole):
-        fg_instance = FileUsageRole.from_jsonld(value.to_jsonld())
-        fg_instance._space = FileUsageRole.default_space
-        setattr(FileUsageRole, key, fg_instance)
-FileUsageRole.set_error_handling("log")

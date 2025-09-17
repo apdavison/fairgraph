@@ -77,13 +77,3 @@ class EthicsAssessment(KGObject, OMEthicsAssessment):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-EthicsAssessment.set_error_handling(None)
-for key, value in OMEthicsAssessment.__dict__.items():
-    if isinstance(value, OMEthicsAssessment):
-        fg_instance = EthicsAssessment.from_jsonld(value.to_jsonld())
-        fg_instance._space = EthicsAssessment.default_space
-        setattr(EthicsAssessment, key, fg_instance)
-EthicsAssessment.set_error_handling("log")

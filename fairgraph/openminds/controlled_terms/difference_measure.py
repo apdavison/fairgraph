@@ -87,13 +87,3 @@ class DifferenceMeasure(KGObject, OMDifferenceMeasure):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DifferenceMeasure.set_error_handling(None)
-for key, value in OMDifferenceMeasure.__dict__.items():
-    if isinstance(value, OMDifferenceMeasure):
-        fg_instance = DifferenceMeasure.from_jsonld(value.to_jsonld())
-        fg_instance._space = DifferenceMeasure.default_space
-        setattr(DifferenceMeasure, key, fg_instance)
-DifferenceMeasure.set_error_handling("log")

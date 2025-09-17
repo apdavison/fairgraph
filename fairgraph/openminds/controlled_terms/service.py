@@ -97,13 +97,3 @@ class Service(KGObject, OMService):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Service.set_error_handling(None)
-for key, value in OMService.__dict__.items():
-    if isinstance(value, OMService):
-        fg_instance = Service.from_jsonld(value.to_jsonld())
-        fg_instance._space = Service.default_space
-        setattr(Service, key, fg_instance)
-Service.set_error_handling("log")

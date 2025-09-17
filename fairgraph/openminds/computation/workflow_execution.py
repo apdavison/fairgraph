@@ -34,13 +34,3 @@ class WorkflowExecution(KGObject, OMWorkflowExecution):
             stages=stages,
             started_by=started_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-WorkflowExecution.set_error_handling(None)
-for key, value in OMWorkflowExecution.__dict__.items():
-    if isinstance(value, OMWorkflowExecution):
-        fg_instance = WorkflowExecution.from_jsonld(value.to_jsonld())
-        fg_instance._space = WorkflowExecution.default_space
-        setattr(WorkflowExecution, key, fg_instance)
-WorkflowExecution.set_error_handling("log")

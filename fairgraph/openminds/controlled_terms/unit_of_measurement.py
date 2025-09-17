@@ -106,13 +106,3 @@ class UnitOfMeasurement(KGObject, OMUnitOfMeasurement):
             used_in=used_in,
             value=value,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-UnitOfMeasurement.set_error_handling(None)
-for key, value in OMUnitOfMeasurement.__dict__.items():
-    if isinstance(value, OMUnitOfMeasurement):
-        fg_instance = UnitOfMeasurement.from_jsonld(value.to_jsonld())
-        fg_instance._space = UnitOfMeasurement.default_space
-        setattr(UnitOfMeasurement, key, fg_instance)
-UnitOfMeasurement.set_error_handling("log")

@@ -40,13 +40,3 @@ class QuantitativeValue(EmbeddedMetadata, OMQuantitativeValue):
             unit=unit,
             value=value,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QuantitativeValue.set_error_handling(None)
-for key, value in OMQuantitativeValue.__dict__.items():
-    if isinstance(value, OMQuantitativeValue):
-        fg_instance = QuantitativeValue.from_jsonld(value.to_jsonld())
-        fg_instance._space = QuantitativeValue.default_space
-        setattr(QuantitativeValue, key, fg_instance)
-QuantitativeValue.set_error_handling("log")

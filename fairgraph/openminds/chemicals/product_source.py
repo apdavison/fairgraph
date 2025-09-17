@@ -55,13 +55,3 @@ class ProductSource(KGObject, OMProductSource):
             provider=provider,
             purity=purity,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ProductSource.set_error_handling(None)
-for key, value in OMProductSource.__dict__.items():
-    if isinstance(value, OMProductSource):
-        fg_instance = ProductSource.from_jsonld(value.to_jsonld())
-        fg_instance._space = ProductSource.default_space
-        setattr(ProductSource, key, fg_instance)
-ProductSource.set_error_handling("log")

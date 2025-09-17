@@ -77,13 +77,3 @@ class BiologicalProcess(KGObject, OMBiologicalProcess):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-BiologicalProcess.set_error_handling(None)
-for key, value in OMBiologicalProcess.__dict__.items():
-    if isinstance(value, OMBiologicalProcess):
-        fg_instance = BiologicalProcess.from_jsonld(value.to_jsonld())
-        fg_instance._space = BiologicalProcess.default_space
-        setattr(BiologicalProcess, key, fg_instance)
-BiologicalProcess.set_error_handling("log")

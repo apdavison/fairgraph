@@ -315,7 +315,6 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
             else:
                 property_name = property.path
                 type_filter = None
-            fg_cls = lookup_type(cls.type_)  # get the fairgraph version of cls
             properties.append(
                 QueryProperty(
                     expanded_path,
@@ -324,7 +323,7 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                     type_filter=type_filter,
                     ensure_order=property.multiple,
                     expect_single=property.is_link and not property.multiple,
-                    properties=fg_cls.generate_query_properties(follow_links),
+                    properties=cls.generate_query_properties(follow_links),
                 )
             )
     elif any(issubclass(_type, LinkedMetadata) for _type in property.types):
@@ -338,7 +337,6 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                     type_filter = cls.type_
                 else:
                     type_filter = None
-                fg_cls = lookup_type(cls.type_)
                 properties.append(
                     QueryProperty(
                         expanded_path,
@@ -347,7 +345,7 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                         type_filter=type_filter,
                         ensure_order=property.multiple,
                         expect_single=property.is_link and not property.multiple,
-                        properties=[QueryProperty("@id"), *fg_cls.generate_query_properties(follow_links)],
+                        properties=[QueryProperty("@id"), *cls.generate_query_properties(follow_links)],
                     )
                 )
         else:

@@ -160,13 +160,3 @@ class ParcellationEntityVersion(KGObject, OMParcellationEntityVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ParcellationEntityVersion.set_error_handling(None)
-for key, value in OMParcellationEntityVersion.__dict__.items():
-    if isinstance(value, OMParcellationEntityVersion):
-        fg_instance = ParcellationEntityVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = ParcellationEntityVersion.default_space
-        setattr(ParcellationEntityVersion, key, fg_instance)
-ParcellationEntityVersion.set_error_handling("log")

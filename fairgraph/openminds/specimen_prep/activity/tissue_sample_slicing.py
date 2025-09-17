@@ -67,13 +67,3 @@ class TissueSampleSlicing(KGObject, OMTissueSampleSlicing):
             temperature=temperature,
             tissue_bath_solution=tissue_bath_solution,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TissueSampleSlicing.set_error_handling(None)
-for key, value in OMTissueSampleSlicing.__dict__.items():
-    if isinstance(value, OMTissueSampleSlicing):
-        fg_instance = TissueSampleSlicing.from_jsonld(value.to_jsonld())
-        fg_instance._space = TissueSampleSlicing.default_space
-        setattr(TissueSampleSlicing, key, fg_instance)
-TissueSampleSlicing.set_error_handling("log")

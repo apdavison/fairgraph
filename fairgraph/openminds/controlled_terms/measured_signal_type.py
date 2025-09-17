@@ -77,13 +77,3 @@ class MeasuredSignalType(KGObject, OMMeasuredSignalType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MeasuredSignalType.set_error_handling(None)
-for key, value in OMMeasuredSignalType.__dict__.items():
-    if isinstance(value, OMMeasuredSignalType):
-        fg_instance = MeasuredSignalType.from_jsonld(value.to_jsonld())
-        fg_instance._space = MeasuredSignalType.default_space
-        setattr(MeasuredSignalType, key, fg_instance)
-MeasuredSignalType.set_error_handling("log")

@@ -33,13 +33,3 @@ class ORCID(KGObject, OMORCID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ORCID.set_error_handling(None)
-for key, value in OMORCID.__dict__.items():
-    if isinstance(value, OMORCID):
-        fg_instance = ORCID.from_jsonld(value.to_jsonld())
-        fg_instance._space = ORCID.default_space
-        setattr(ORCID, key, fg_instance)
-ORCID.set_error_handling("log")

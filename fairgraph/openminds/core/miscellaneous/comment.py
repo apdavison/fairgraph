@@ -37,13 +37,3 @@ class Comment(KGObject, OMComment):
             commenter=commenter,
             timestamp=timestamp,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Comment.set_error_handling(None)
-for key, value in OMComment.__dict__.items():
-    if isinstance(value, OMComment):
-        fg_instance = Comment.from_jsonld(value.to_jsonld())
-        fg_instance._space = Comment.default_space
-        setattr(Comment, key, fg_instance)
-Comment.set_error_handling("log")

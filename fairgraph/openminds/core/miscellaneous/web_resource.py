@@ -102,13 +102,3 @@ class WebResource(KGObject, OMWebResource):
             is_output_of=is_output_of,
             is_reference_for=is_reference_for,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-WebResource.set_error_handling(None)
-for key, value in OMWebResource.__dict__.items():
-    if isinstance(value, OMWebResource):
-        fg_instance = WebResource.from_jsonld(value.to_jsonld())
-        fg_instance._space = WebResource.default_space
-        setattr(WebResource, key, fg_instance)
-WebResource.set_error_handling("log")

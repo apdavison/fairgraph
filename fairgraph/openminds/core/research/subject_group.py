@@ -89,13 +89,3 @@ class SubjectGroup(KGObject, OMSubjectGroup):
             studied_states=studied_states,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SubjectGroup.set_error_handling(None)
-for key, value in OMSubjectGroup.__dict__.items():
-    if isinstance(value, OMSubjectGroup):
-        fg_instance = SubjectGroup.from_jsonld(value.to_jsonld())
-        fg_instance._space = SubjectGroup.default_space
-        setattr(SubjectGroup, key, fg_instance)
-SubjectGroup.set_error_handling("log")

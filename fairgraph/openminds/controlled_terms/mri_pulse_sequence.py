@@ -96,13 +96,3 @@ class MRIPulseSequence(KGObject, OMMRIPulseSequence):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MRIPulseSequence.set_error_handling(None)
-for key, value in OMMRIPulseSequence.__dict__.items():
-    if isinstance(value, OMMRIPulseSequence):
-        fg_instance = MRIPulseSequence.from_jsonld(value.to_jsonld())
-        fg_instance._space = MRIPulseSequence.default_space
-        setattr(MRIPulseSequence, key, fg_instance)
-MRIPulseSequence.set_error_handling("log")

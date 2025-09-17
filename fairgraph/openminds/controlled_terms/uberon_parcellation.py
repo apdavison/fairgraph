@@ -151,13 +151,3 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-UBERONParcellation.set_error_handling(None)
-for key, value in OMUBERONParcellation.__dict__.items():
-    if isinstance(value, OMUBERONParcellation):
-        fg_instance = UBERONParcellation.from_jsonld(value.to_jsonld())
-        fg_instance._space = UBERONParcellation.default_space
-        setattr(UBERONParcellation, key, fg_instance)
-UBERONParcellation.set_error_handling("log")

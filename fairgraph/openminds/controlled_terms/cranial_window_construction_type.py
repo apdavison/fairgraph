@@ -87,13 +87,3 @@ class CranialWindowConstructionType(KGObject, OMCranialWindowConstructionType):
             synonyms=synonyms,
             used_for=used_for,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CranialWindowConstructionType.set_error_handling(None)
-for key, value in OMCranialWindowConstructionType.__dict__.items():
-    if isinstance(value, OMCranialWindowConstructionType):
-        fg_instance = CranialWindowConstructionType.from_jsonld(value.to_jsonld())
-        fg_instance._space = CranialWindowConstructionType.default_space
-        setattr(CranialWindowConstructionType, key, fg_instance)
-CranialWindowConstructionType.set_error_handling("log")

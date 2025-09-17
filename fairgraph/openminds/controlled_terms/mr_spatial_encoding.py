@@ -5,19 +5,19 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import MRAcquisitionType as OMMRAcquisitionType
+from openminds.latest.controlled_terms import MRSpatialEncoding as OMMRSpatialEncoding
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class MRAcquisitionType(KGObject, OMMRAcquisitionType):
+class MRSpatialEncoding(KGObject, OMMRSpatialEncoding):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.om-i.org/types/MRAcquisitionType"
+    type_ = "https://openminds.om-i.org/types/MRSpatialEncoding"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
@@ -77,13 +77,3 @@ class MRAcquisitionType(KGObject, OMMRAcquisitionType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-MRAcquisitionType.set_error_handling(None)
-for key, value in OMMRAcquisitionType.__dict__.items():
-    if isinstance(value, OMMRAcquisitionType):
-        fg_instance = MRAcquisitionType.from_jsonld(value.to_jsonld())
-        fg_instance._space = MRAcquisitionType.default_space
-        setattr(MRAcquisitionType, key, fg_instance)
-MRAcquisitionType.set_error_handling("log")

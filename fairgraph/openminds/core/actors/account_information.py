@@ -40,13 +40,3 @@ class AccountInformation(KGObject, OMAccountInformation):
             service=service,
             user_name=user_name,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AccountInformation.set_error_handling(None)
-for key, value in OMAccountInformation.__dict__.items():
-    if isinstance(value, OMAccountInformation):
-        fg_instance = AccountInformation.from_jsonld(value.to_jsonld())
-        fg_instance._space = AccountInformation.default_space
-        setattr(AccountInformation, key, fg_instance)
-AccountInformation.set_error_handling("log")

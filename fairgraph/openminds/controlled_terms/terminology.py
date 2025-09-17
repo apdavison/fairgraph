@@ -87,13 +87,3 @@ class Terminology(KGObject, OMTerminology):
             suggested_in=suggested_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Terminology.set_error_handling(None)
-for key, value in OMTerminology.__dict__.items():
-    if isinstance(value, OMTerminology):
-        fg_instance = Terminology.from_jsonld(value.to_jsonld())
-        fg_instance._space = Terminology.default_space
-        setattr(Terminology, key, fg_instance)
-Terminology.set_error_handling("log")

@@ -87,13 +87,3 @@ class SubjectAttribute(KGObject, OMSubjectAttribute):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SubjectAttribute.set_error_handling(None)
-for key, value in OMSubjectAttribute.__dict__.items():
-    if isinstance(value, OMSubjectAttribute):
-        fg_instance = SubjectAttribute.from_jsonld(value.to_jsonld())
-        fg_instance._space = SubjectAttribute.default_space
-        setattr(SubjectAttribute, key, fg_instance)
-SubjectAttribute.set_error_handling("log")

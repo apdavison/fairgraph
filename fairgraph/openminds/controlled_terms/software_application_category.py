@@ -77,13 +77,3 @@ class SoftwareApplicationCategory(KGObject, OMSoftwareApplicationCategory):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SoftwareApplicationCategory.set_error_handling(None)
-for key, value in OMSoftwareApplicationCategory.__dict__.items():
-    if isinstance(value, OMSoftwareApplicationCategory):
-        fg_instance = SoftwareApplicationCategory.from_jsonld(value.to_jsonld())
-        fg_instance._space = SoftwareApplicationCategory.default_space
-        setattr(SoftwareApplicationCategory, key, fg_instance)
-SoftwareApplicationCategory.set_error_handling("log")

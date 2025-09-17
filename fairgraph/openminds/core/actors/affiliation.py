@@ -25,13 +25,3 @@ class Affiliation(EmbeddedMetadata, OMAffiliation):
         return EmbeddedMetadata.__init__(
             self, data=data, end_date=end_date, member_of=member_of, start_date=start_date
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Affiliation.set_error_handling(None)
-for key, value in OMAffiliation.__dict__.items():
-    if isinstance(value, OMAffiliation):
-        fg_instance = Affiliation.from_jsonld(value.to_jsonld())
-        fg_instance._space = Affiliation.default_space
-        setattr(Affiliation, key, fg_instance)
-Affiliation.set_error_handling("log")

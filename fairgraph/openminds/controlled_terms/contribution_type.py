@@ -77,13 +77,3 @@ class ContributionType(KGObject, OMContributionType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ContributionType.set_error_handling(None)
-for key, value in OMContributionType.__dict__.items():
-    if isinstance(value, OMContributionType):
-        fg_instance = ContributionType.from_jsonld(value.to_jsonld())
-        fg_instance._space = ContributionType.default_space
-        setattr(ContributionType, key, fg_instance)
-ContributionType.set_error_handling("log")

@@ -28,13 +28,3 @@ class QuantitativeRelationAssessment(EmbeddedMetadata, OMQuantitativeRelationAss
             in_relation_to=in_relation_to,
             quantitative_overlap=quantitative_overlap,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QuantitativeRelationAssessment.set_error_handling(None)
-for key, value in OMQuantitativeRelationAssessment.__dict__.items():
-    if isinstance(value, OMQuantitativeRelationAssessment):
-        fg_instance = QuantitativeRelationAssessment.from_jsonld(value.to_jsonld())
-        fg_instance._space = QuantitativeRelationAssessment.default_space
-        setattr(QuantitativeRelationAssessment, key, fg_instance)
-QuantitativeRelationAssessment.set_error_handling("log")

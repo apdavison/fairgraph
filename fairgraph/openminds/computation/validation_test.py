@@ -101,13 +101,3 @@ class ValidationTest(KGObject, OMValidationTest):
             study_targets=study_targets,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ValidationTest.set_error_handling(None)
-for key, value in OMValidationTest.__dict__.items():
-    if isinstance(value, OMValidationTest):
-        fg_instance = ValidationTest.from_jsonld(value.to_jsonld())
-        fg_instance._space = ValidationTest.default_space
-        setattr(ValidationTest, key, fg_instance)
-ValidationTest.set_error_handling("log")

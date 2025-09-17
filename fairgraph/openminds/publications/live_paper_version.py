@@ -164,13 +164,3 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         else:
             assert len(parents) == 1
             return parents[0]
-
-
-# cast openMINDS instances to their fairgraph subclass
-LivePaperVersion.set_error_handling(None)
-for key, value in OMLivePaperVersion.__dict__.items():
-    if isinstance(value, OMLivePaperVersion):
-        fg_instance = LivePaperVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = LivePaperVersion.default_space
-        setattr(LivePaperVersion, key, fg_instance)
-LivePaperVersion.set_error_handling("log")

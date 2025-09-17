@@ -37,13 +37,3 @@ class AnatomicalTargetPosition(EmbeddedMetadata, OMAnatomicalTargetPosition):
             spatial_locations=spatial_locations,
             target_identification_type=target_identification_type,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AnatomicalTargetPosition.set_error_handling(None)
-for key, value in OMAnatomicalTargetPosition.__dict__.items():
-    if isinstance(value, OMAnatomicalTargetPosition):
-        fg_instance = AnatomicalTargetPosition.from_jsonld(value.to_jsonld())
-        fg_instance._space = AnatomicalTargetPosition.default_space
-        setattr(AnatomicalTargetPosition, key, fg_instance)
-AnatomicalTargetPosition.set_error_handling("log")

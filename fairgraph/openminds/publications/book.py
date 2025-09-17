@@ -104,13 +104,3 @@ class Book(KGObject, OMBook):
             related_to=related_to,
             version_identifier=version_identifier,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Book.set_error_handling(None)
-for key, value in OMBook.__dict__.items():
-    if isinstance(value, OMBook):
-        fg_instance = Book.from_jsonld(value.to_jsonld())
-        fg_instance._space = Book.default_space
-        setattr(Book, key, fg_instance)
-Book.set_error_handling("log")

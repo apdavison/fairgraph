@@ -125,13 +125,3 @@ class OlfactoryStimulusType(KGObject, OMOlfactoryStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-OlfactoryStimulusType.set_error_handling(None)
-for key, value in OMOlfactoryStimulusType.__dict__.items():
-    if isinstance(value, OMOlfactoryStimulusType):
-        fg_instance = OlfactoryStimulusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = OlfactoryStimulusType.default_space
-        setattr(OlfactoryStimulusType, key, fg_instance)
-OlfactoryStimulusType.set_error_handling("log")

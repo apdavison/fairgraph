@@ -59,13 +59,3 @@ class ISSN(KGObject, OMISSN):
             identifies=identifies,
             related_to=related_to,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ISSN.set_error_handling(None)
-for key, value in OMISSN.__dict__.items():
-    if isinstance(value, OMISSN):
-        fg_instance = ISSN.from_jsonld(value.to_jsonld())
-        fg_instance._space = ISSN.default_space
-        setattr(ISSN, key, fg_instance)
-ISSN.set_error_handling("log")

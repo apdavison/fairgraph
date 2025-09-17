@@ -79,13 +79,3 @@ class Electrode(KGObject, OMElectrode):
             serial_number=serial_number,
             usage=usage,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Electrode.set_error_handling(None)
-for key, value in OMElectrode.__dict__.items():
-    if isinstance(value, OMElectrode):
-        fg_instance = Electrode.from_jsonld(value.to_jsonld())
-        fg_instance._space = Electrode.default_space
-        setattr(Electrode, key, fg_instance)
-Electrode.set_error_handling("log")

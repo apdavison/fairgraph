@@ -96,13 +96,3 @@ class DOI(KGObject, OMDOI):
             identifies=identifies,
             related_to=related_to,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DOI.set_error_handling(None)
-for key, value in OMDOI.__dict__.items():
-    if isinstance(value, OMDOI):
-        fg_instance = DOI.from_jsonld(value.to_jsonld())
-        fg_instance._space = DOI.default_space
-        setattr(DOI, key, fg_instance)
-DOI.set_error_handling("log")

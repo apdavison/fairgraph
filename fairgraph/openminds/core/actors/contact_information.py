@@ -39,13 +39,3 @@ class ContactInformation(KGObject, OMContactInformation):
             email=email,
             is_contact_information_of=is_contact_information_of,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ContactInformation.set_error_handling(None)
-for key, value in OMContactInformation.__dict__.items():
-    if isinstance(value, OMContactInformation):
-        fg_instance = ContactInformation.from_jsonld(value.to_jsonld())
-        fg_instance._space = ContactInformation.default_space
-        setattr(ContactInformation, key, fg_instance)
-ContactInformation.set_error_handling("log")

@@ -42,13 +42,3 @@ class PublicationVolume(KGObject, OMPublicationVolume):
             is_part_of=is_part_of,
             volume_number=volume_number,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-PublicationVolume.set_error_handling(None)
-for key, value in OMPublicationVolume.__dict__.items():
-    if isinstance(value, OMPublicationVolume):
-        fg_instance = PublicationVolume.from_jsonld(value.to_jsonld())
-        fg_instance._space = PublicationVolume.default_space
-        setattr(PublicationVolume, key, fg_instance)
-PublicationVolume.set_error_handling("log")

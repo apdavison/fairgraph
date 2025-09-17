@@ -125,13 +125,3 @@ class OpticalStimulusType(KGObject, OMOpticalStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-OpticalStimulusType.set_error_handling(None)
-for key, value in OMOpticalStimulusType.__dict__.items():
-    if isinstance(value, OMOpticalStimulusType):
-        fg_instance = OpticalStimulusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = OpticalStimulusType.default_space
-        setattr(OpticalStimulusType, key, fg_instance)
-OpticalStimulusType.set_error_handling("log")

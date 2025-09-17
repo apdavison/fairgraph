@@ -35,13 +35,3 @@ class ParcellationTerminologyVersion(EmbeddedMetadata, OMParcellationTerminology
             has_entities=has_entities,
             ontology_identifiers=ontology_identifiers,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ParcellationTerminologyVersion.set_error_handling(None)
-for key, value in OMParcellationTerminologyVersion.__dict__.items():
-    if isinstance(value, OMParcellationTerminologyVersion):
-        fg_instance = ParcellationTerminologyVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = ParcellationTerminologyVersion.default_space
-        setattr(ParcellationTerminologyVersion, key, fg_instance)
-ParcellationTerminologyVersion.set_error_handling("log")

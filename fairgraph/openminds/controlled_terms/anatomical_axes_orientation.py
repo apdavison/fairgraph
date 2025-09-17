@@ -87,13 +87,3 @@ class AnatomicalAxesOrientation(KGObject, OMAnatomicalAxesOrientation):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AnatomicalAxesOrientation.set_error_handling(None)
-for key, value in OMAnatomicalAxesOrientation.__dict__.items():
-    if isinstance(value, OMAnatomicalAxesOrientation):
-        fg_instance = AnatomicalAxesOrientation.from_jsonld(value.to_jsonld())
-        fg_instance._space = AnatomicalAxesOrientation.default_space
-        setattr(AnatomicalAxesOrientation, key, fg_instance)
-AnatomicalAxesOrientation.set_error_handling("log")

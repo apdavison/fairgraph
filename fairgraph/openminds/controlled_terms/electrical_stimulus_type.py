@@ -135,13 +135,3 @@ class ElectricalStimulusType(KGObject, OMElectricalStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ElectricalStimulusType.set_error_handling(None)
-for key, value in OMElectricalStimulusType.__dict__.items():
-    if isinstance(value, OMElectricalStimulusType):
-        fg_instance = ElectricalStimulusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = ElectricalStimulusType.default_space
-        setattr(ElectricalStimulusType, key, fg_instance)
-ElectricalStimulusType.set_error_handling("log")

@@ -54,13 +54,3 @@ class Project(KGObject, OMProject):
             homepage=homepage,
             short_name=short_name,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Project.set_error_handling(None)
-for key, value in OMProject.__dict__.items():
-    if isinstance(value, OMProject):
-        fg_instance = Project.from_jsonld(value.to_jsonld())
-        fg_instance._space = Project.default_space
-        setattr(Project, key, fg_instance)
-Project.set_error_handling("log")

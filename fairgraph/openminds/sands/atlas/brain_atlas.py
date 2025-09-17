@@ -111,13 +111,3 @@ class BrainAtlas(KGObject, OMBrainAtlas):
             used_species=used_species,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-BrainAtlas.set_error_handling(None)
-for key, value in OMBrainAtlas.__dict__.items():
-    if isinstance(value, OMBrainAtlas):
-        fg_instance = BrainAtlas.from_jsonld(value.to_jsonld())
-        fg_instance._space = BrainAtlas.default_space
-        setattr(BrainAtlas, key, fg_instance)
-BrainAtlas.set_error_handling("log")

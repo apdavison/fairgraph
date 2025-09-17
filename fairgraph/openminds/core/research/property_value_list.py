@@ -69,13 +69,3 @@ class PropertyValueList(KGObject, OMPropertyValueList):
             property_value_pairs=property_value_pairs,
             specifies=specifies,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-PropertyValueList.set_error_handling(None)
-for key, value in OMPropertyValueList.__dict__.items():
-    if isinstance(value, OMPropertyValueList):
-        fg_instance = PropertyValueList.from_jsonld(value.to_jsonld())
-        fg_instance._space = PropertyValueList.default_space
-        setattr(PropertyValueList, key, fg_instance)
-PropertyValueList.set_error_handling("log")

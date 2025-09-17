@@ -108,13 +108,3 @@ class CustomAnatomicalEntity(KGObject, OMCustomAnatomicalEntity):
             relation_assessments=relation_assessments,
             studied_in=studied_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CustomAnatomicalEntity.set_error_handling(None)
-for key, value in OMCustomAnatomicalEntity.__dict__.items():
-    if isinstance(value, OMCustomAnatomicalEntity):
-        fg_instance = CustomAnatomicalEntity.from_jsonld(value.to_jsonld())
-        fg_instance._space = CustomAnatomicalEntity.default_space
-        setattr(CustomAnatomicalEntity, key, fg_instance)
-CustomAnatomicalEntity.set_error_handling("log")

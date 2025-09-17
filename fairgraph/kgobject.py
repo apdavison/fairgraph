@@ -456,8 +456,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             val_self = getattr(self, prop.name)
             val_other = getattr(other, prop.name)
             if val_self != val_other:
-                #if self.uuid == "ab532423-1fd7-4255-8c6f-f99dc6df814f":
-                #    raise Exception("breakpoint")
                 return True
         return False
 

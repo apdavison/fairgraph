@@ -142,13 +142,3 @@ class ScholarlyArticle(KGObject, OMScholarlyArticle):
         journal_name = journal.name if journal else ""
         volume_number = f"{volume.volume_number}: " if (volume and volume.volume_number != "placeholder") else ""
         return f"{author_str} ({self.publication_date.year}). {title} {journal_name}, {volume_number}{self.pagination or ''}."
-
-
-# cast openMINDS instances to their fairgraph subclass
-ScholarlyArticle.set_error_handling(None)
-for key, value in OMScholarlyArticle.__dict__.items():
-    if isinstance(value, OMScholarlyArticle):
-        fg_instance = ScholarlyArticle.from_jsonld(value.to_jsonld())
-        fg_instance._space = ScholarlyArticle.default_space
-        setattr(ScholarlyArticle, key, fg_instance)
-ScholarlyArticle.set_error_handling("log")

@@ -88,13 +88,3 @@ class Strain(KGObject, OMStrain):
             stock_number=stock_number,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Strain.set_error_handling(None)
-for key, value in OMStrain.__dict__.items():
-    if isinstance(value, OMStrain):
-        fg_instance = Strain.from_jsonld(value.to_jsonld())
-        fg_instance._space = Strain.default_space
-        setattr(Strain, key, fg_instance)
-Strain.set_error_handling("log")

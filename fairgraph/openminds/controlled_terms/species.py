@@ -141,13 +141,3 @@ class Species(KGObject, OMSpecies):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Species.set_error_handling(None)
-for key, value in OMSpecies.__dict__.items():
-    if isinstance(value, OMSpecies):
-        fg_instance = Species.from_jsonld(value.to_jsonld())
-        fg_instance._space = Species.default_space
-        setattr(Species, key, fg_instance)
-Species.set_error_handling("log")

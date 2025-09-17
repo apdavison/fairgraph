@@ -102,13 +102,3 @@ class Optimization(KGObject, OMOptimization):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Optimization.set_error_handling(None)
-for key, value in OMOptimization.__dict__.items():
-    if isinstance(value, OMOptimization):
-        fg_instance = Optimization.from_jsonld(value.to_jsonld())
-        fg_instance._space = Optimization.default_space
-        setattr(Optimization, key, fg_instance)
-Optimization.set_error_handling("log")

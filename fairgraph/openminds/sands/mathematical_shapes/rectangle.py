@@ -20,13 +20,3 @@ class Rectangle(EmbeddedMetadata, OMRectangle):
 
     def __init__(self, length=None, width=None, id=None, data=None, space=None, scope=None):
         return EmbeddedMetadata.__init__(self, data=data, length=length, width=width)
-
-
-# cast openMINDS instances to their fairgraph subclass
-Rectangle.set_error_handling(None)
-for key, value in OMRectangle.__dict__.items():
-    if isinstance(value, OMRectangle):
-        fg_instance = Rectangle.from_jsonld(value.to_jsonld())
-        fg_instance._space = Rectangle.default_space
-        setattr(Rectangle, key, fg_instance)
-Rectangle.set_error_handling("log")

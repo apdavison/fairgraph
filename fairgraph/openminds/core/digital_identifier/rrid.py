@@ -47,13 +47,3 @@ class RRID(KGObject, OMRRID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-RRID.set_error_handling(None)
-for key, value in OMRRID.__dict__.items():
-    if isinstance(value, OMRRID):
-        fg_instance = RRID.from_jsonld(value.to_jsonld())
-        fg_instance._space = RRID.default_space
-        setattr(RRID, key, fg_instance)
-RRID.set_error_handling("log")

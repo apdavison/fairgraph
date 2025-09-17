@@ -148,13 +148,3 @@ class FileBundle(KGObject, OMFileBundle):
             specifies=specifies,
             storage_size=storage_size,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-FileBundle.set_error_handling(None)
-for key, value in OMFileBundle.__dict__.items():
-    if isinstance(value, OMFileBundle):
-        fg_instance = FileBundle.from_jsonld(value.to_jsonld())
-        fg_instance._space = FileBundle.default_space
-        setattr(FileBundle, key, fg_instance)
-FileBundle.set_error_handling("log")

@@ -87,13 +87,3 @@ class AgeCategory(KGObject, OMAgeCategory):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AgeCategory.set_error_handling(None)
-for key, value in OMAgeCategory.__dict__.items():
-    if isinstance(value, OMAgeCategory):
-        fg_instance = AgeCategory.from_jsonld(value.to_jsonld())
-        fg_instance._space = AgeCategory.default_space
-        setattr(AgeCategory, key, fg_instance)
-AgeCategory.set_error_handling("log")

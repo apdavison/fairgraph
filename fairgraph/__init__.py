@@ -25,9 +25,18 @@ from .kgobject import KGObject
 from .embedded import EmbeddedMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-
+from . import client, errors, openminds, utility
 
 __version__ = "0.12.2"
 
-# from . import (
-#    base, client, errors, utility, openminds)
+utility.initialise_instances([
+    openminds.sands.BrainAtlas,
+    openminds.sands.BrainAtlasVersion,
+    openminds.sands.CommonCoordinateSpace,
+    openminds.sands.CommonCoordinateSpaceVersion,
+    openminds.core.ContentType,
+    openminds.core.License,
+    openminds.sands.ParcellationEntity,
+    openminds.sands.ParcellationEntityVersion] +
+    openminds.controlled_terms.list_kg_classes()
+)

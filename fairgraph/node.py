@@ -110,7 +110,6 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 failures = prop.validate(value)
                 if failures:
                     errmsg = str(failures)  # todo: create a nicer error message
-                    breakpoint()
                     ErrorHandling.handle_violation(self.error_handling, errmsg)
             super().__setattr__(name, value)
 

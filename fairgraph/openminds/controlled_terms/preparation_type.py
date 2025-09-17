@@ -96,13 +96,3 @@ class PreparationType(KGObject, OMPreparationType):
             synonyms=synonyms,
             used_for=used_for,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-PreparationType.set_error_handling(None)
-for key, value in OMPreparationType.__dict__.items():
-    if isinstance(value, OMPreparationType):
-        fg_instance = PreparationType.from_jsonld(value.to_jsonld())
-        fg_instance._space = PreparationType.default_space
-        setattr(PreparationType, key, fg_instance)
-PreparationType.set_error_handling("log")

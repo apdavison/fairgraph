@@ -140,13 +140,3 @@ class DiseaseModel(KGObject, OMDiseaseModel):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DiseaseModel.set_error_handling(None)
-for key, value in OMDiseaseModel.__dict__.items():
-    if isinstance(value, OMDiseaseModel):
-        fg_instance = DiseaseModel.from_jsonld(value.to_jsonld())
-        fg_instance._space = DiseaseModel.default_space
-        setattr(DiseaseModel, key, fg_instance)
-DiseaseModel.set_error_handling("log")

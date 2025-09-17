@@ -56,13 +56,3 @@ class LivePaperResourceItem(KGObject, OMLivePaperResourceItem):
             is_location_of=is_location_of,
             is_part_of=is_part_of,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-LivePaperResourceItem.set_error_handling(None)
-for key, value in OMLivePaperResourceItem.__dict__.items():
-    if isinstance(value, OMLivePaperResourceItem):
-        fg_instance = LivePaperResourceItem.from_jsonld(value.to_jsonld())
-        fg_instance._space = LivePaperResourceItem.default_space
-        setattr(LivePaperResourceItem, key, fg_instance)
-LivePaperResourceItem.set_error_handling("log")

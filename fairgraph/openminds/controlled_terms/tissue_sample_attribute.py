@@ -87,13 +87,3 @@ class TissueSampleAttribute(KGObject, OMTissueSampleAttribute):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-TissueSampleAttribute.set_error_handling(None)
-for key, value in OMTissueSampleAttribute.__dict__.items():
-    if isinstance(value, OMTissueSampleAttribute):
-        fg_instance = TissueSampleAttribute.from_jsonld(value.to_jsonld())
-        fg_instance._space = TissueSampleAttribute.default_space
-        setattr(TissueSampleAttribute, key, fg_instance)
-TissueSampleAttribute.set_error_handling("log")

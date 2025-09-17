@@ -125,13 +125,3 @@ class AuditoryStimulusType(KGObject, OMAuditoryStimulusType):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-AuditoryStimulusType.set_error_handling(None)
-for key, value in OMAuditoryStimulusType.__dict__.items():
-    if isinstance(value, OMAuditoryStimulusType):
-        fg_instance = AuditoryStimulusType.from_jsonld(value.to_jsonld())
-        fg_instance._space = AuditoryStimulusType.default_space
-        setattr(AuditoryStimulusType, key, fg_instance)
-AuditoryStimulusType.set_error_handling("log")

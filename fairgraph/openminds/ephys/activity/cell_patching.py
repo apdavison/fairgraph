@@ -71,13 +71,3 @@ class CellPatching(KGObject, OMCellPatching):
             tissue_bath_solution=tissue_bath_solution,
             variation=variation,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CellPatching.set_error_handling(None)
-for key, value in OMCellPatching.__dict__.items():
-    if isinstance(value, OMCellPatching):
-        fg_instance = CellPatching.from_jsonld(value.to_jsonld())
-        fg_instance._space = CellPatching.default_space
-        setattr(CellPatching, key, fg_instance)
-CellPatching.set_error_handling("log")

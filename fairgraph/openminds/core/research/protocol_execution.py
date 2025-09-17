@@ -74,13 +74,3 @@ class ProtocolExecution(KGObject, OMProtocolExecution):
             start_time=start_time,
             study_targets=study_targets,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ProtocolExecution.set_error_handling(None)
-for key, value in OMProtocolExecution.__dict__.items():
-    if isinstance(value, OMProtocolExecution):
-        fg_instance = ProtocolExecution.from_jsonld(value.to_jsonld())
-        fg_instance._space = ProtocolExecution.default_space
-        setattr(ProtocolExecution, key, fg_instance)
-ProtocolExecution.set_error_handling("log")

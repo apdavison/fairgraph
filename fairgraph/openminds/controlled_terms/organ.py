@@ -159,13 +159,3 @@ class Organ(KGObject, OMOrgan):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Organ.set_error_handling(None)
-for key, value in OMOrgan.__dict__.items():
-    if isinstance(value, OMOrgan):
-        fg_instance = Organ.from_jsonld(value.to_jsonld())
-        fg_instance._space = Organ.default_space
-        setattr(Organ, key, fg_instance)
-Organ.set_error_handling("log")

@@ -77,13 +77,3 @@ class EducationalLevel(KGObject, OMEducationalLevel):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-EducationalLevel.set_error_handling(None)
-for key, value in OMEducationalLevel.__dict__.items():
-    if isinstance(value, OMEducationalLevel):
-        fg_instance = EducationalLevel.from_jsonld(value.to_jsonld())
-        fg_instance._space = EducationalLevel.default_space
-        setattr(EducationalLevel, key, fg_instance)
-EducationalLevel.set_error_handling("log")

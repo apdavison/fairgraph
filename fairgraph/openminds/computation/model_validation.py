@@ -105,13 +105,3 @@ class ModelValidation(KGObject, OMModelValidation):
             techniques=techniques,
             was_informed_by=was_informed_by,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ModelValidation.set_error_handling(None)
-for key, value in OMModelValidation.__dict__.items():
-    if isinstance(value, OMModelValidation):
-        fg_instance = ModelValidation.from_jsonld(value.to_jsonld())
-        fg_instance._space = ModelValidation.default_space
-        setattr(ModelValidation, key, fg_instance)
-ModelValidation.set_error_handling("log")

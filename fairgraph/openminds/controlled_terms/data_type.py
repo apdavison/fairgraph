@@ -91,13 +91,3 @@ class DataType(KGObject, OMDataType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DataType.set_error_handling(None)
-for key, value in OMDataType.__dict__.items():
-    if isinstance(value, OMDataType):
-        fg_instance = DataType.from_jsonld(value.to_jsonld())
-        fg_instance._space = DataType.default_space
-        setattr(DataType, key, fg_instance)
-DataType.set_error_handling("log")

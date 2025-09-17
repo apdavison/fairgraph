@@ -33,13 +33,3 @@ class IdentifiersDotOrgID(KGObject, OMIdentifiersDotOrgID):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-IdentifiersDotOrgID.set_error_handling(None)
-for key, value in OMIdentifiersDotOrgID.__dict__.items():
-    if isinstance(value, OMIdentifiersDotOrgID):
-        fg_instance = IdentifiersDotOrgID.from_jsonld(value.to_jsonld())
-        fg_instance._space = IdentifiersDotOrgID.default_space
-        setattr(IdentifiersDotOrgID, key, fg_instance)
-IdentifiersDotOrgID.set_error_handling("log")

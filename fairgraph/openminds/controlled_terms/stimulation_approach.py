@@ -100,13 +100,3 @@ class StimulationApproach(KGObject, OMStimulationApproach):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-StimulationApproach.set_error_handling(None)
-for key, value in OMStimulationApproach.__dict__.items():
-    if isinstance(value, OMStimulationApproach):
-        fg_instance = StimulationApproach.from_jsonld(value.to_jsonld())
-        fg_instance._space = StimulationApproach.default_space
-        setattr(StimulationApproach, key, fg_instance)
-StimulationApproach.set_error_handling("log")

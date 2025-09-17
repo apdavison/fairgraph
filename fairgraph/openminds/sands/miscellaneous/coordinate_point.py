@@ -20,13 +20,3 @@ class CoordinatePoint(EmbeddedMetadata, OMCoordinatePoint):
 
     def __init__(self, coordinate_space=None, coordinates=None, id=None, data=None, space=None, scope=None):
         return EmbeddedMetadata.__init__(self, data=data, coordinate_space=coordinate_space, coordinates=coordinates)
-
-
-# cast openMINDS instances to their fairgraph subclass
-CoordinatePoint.set_error_handling(None)
-for key, value in OMCoordinatePoint.__dict__.items():
-    if isinstance(value, OMCoordinatePoint):
-        fg_instance = CoordinatePoint.from_jsonld(value.to_jsonld())
-        fg_instance._space = CoordinatePoint.default_space
-        setattr(CoordinatePoint, key, fg_instance)
-CoordinatePoint.set_error_handling("log")

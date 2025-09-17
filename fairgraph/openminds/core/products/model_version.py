@@ -207,13 +207,3 @@ class ModelVersion(KGObject, OMModelVersion):
         else:
             assert len(parents) == 1
             return parents[0]
-
-
-# cast openMINDS instances to their fairgraph subclass
-ModelVersion.set_error_handling(None)
-for key, value in OMModelVersion.__dict__.items():
-    if isinstance(value, OMModelVersion):
-        fg_instance = ModelVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = ModelVersion.default_space
-        setattr(ModelVersion, key, fg_instance)
-ModelVersion.set_error_handling("log")

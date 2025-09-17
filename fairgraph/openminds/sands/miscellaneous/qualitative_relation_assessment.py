@@ -24,13 +24,3 @@ class QualitativeRelationAssessment(EmbeddedMetadata, OMQualitativeRelationAsses
         return EmbeddedMetadata.__init__(
             self, data=data, criteria=criteria, in_relation_to=in_relation_to, qualitative_overlap=qualitative_overlap
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-QualitativeRelationAssessment.set_error_handling(None)
-for key, value in OMQualitativeRelationAssessment.__dict__.items():
-    if isinstance(value, OMQualitativeRelationAssessment):
-        fg_instance = QualitativeRelationAssessment.from_jsonld(value.to_jsonld())
-        fg_instance._space = QualitativeRelationAssessment.default_space
-        setattr(QualitativeRelationAssessment, key, fg_instance)
-QualitativeRelationAssessment.set_error_handling("log")

@@ -141,13 +141,3 @@ class SubcellularEntity(KGObject, OMSubcellularEntity):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SubcellularEntity.set_error_handling(None)
-for key, value in OMSubcellularEntity.__dict__.items():
-    if isinstance(value, OMSubcellularEntity):
-        fg_instance = SubcellularEntity.from_jsonld(value.to_jsonld())
-        fg_instance._space = SubcellularEntity.default_space
-        setattr(SubcellularEntity, key, fg_instance)
-SubcellularEntity.set_error_handling("log")

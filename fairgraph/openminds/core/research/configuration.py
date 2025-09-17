@@ -66,13 +66,3 @@ class Configuration(KGObject, OMConfiguration):
             is_configuration_of=is_configuration_of,
             specifies=specifies,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Configuration.set_error_handling(None)
-for key, value in OMConfiguration.__dict__.items():
-    if isinstance(value, OMConfiguration):
-        fg_instance = Configuration.from_jsonld(value.to_jsonld())
-        fg_instance._space = Configuration.default_space
-        setattr(Configuration, key, fg_instance)
-Configuration.set_error_handling("log")

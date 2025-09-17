@@ -92,13 +92,3 @@ class DeviceType(KGObject, OMDeviceType):
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-DeviceType.set_error_handling(None)
-for key, value in OMDeviceType.__dict__.items():
-    if isinstance(value, OMDeviceType):
-        fg_instance = DeviceType.from_jsonld(value.to_jsonld())
-        fg_instance._space = DeviceType.default_space
-        setattr(DeviceType, key, fg_instance)
-DeviceType.set_error_handling("log")

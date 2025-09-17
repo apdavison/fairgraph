@@ -275,7 +275,7 @@ def invert_dict(D):
 
 
 DEFAULT_SPACES = {
-    "chemicals": {"default": "dataset"},
+    "chemicals": {"default": "in-depth"},
     "core": invert_dict(
         {
             "common": [
@@ -387,7 +387,6 @@ DEFAULT_SPACES = {
     ),
     "publications": {"default": "livepapers"},
     "ephys": {"default": "in-depth"},
-    "chemicals": {"default": "in-depth"},
     "specimen_prep": {"default": "in-depth"},
     "stimulation": {"default": "in-depth"},
 }
@@ -620,7 +619,6 @@ class FairgraphClassBuilder:
                 "email": "str",  # todo: add an Email class for validation?
                 "ECMA262": "str",  #       ...
             }
-            #breakpoint()
             if "_linkedTypes" in prop:
                 types = []
                 for item in prop["_linkedTypes"]:
@@ -839,7 +837,6 @@ class FairgraphClassBuilder:
                     reverse_link_name,
                 )  # linked from (cls, prop name, prop name plural, reverse name)
                 # if self._schema_payload["_type"].endswith("File"):
-                #     breakpoint()
         return embedded, linked
 
     def get_module_map(self):

@@ -105,13 +105,3 @@ class ContentType(KGObject, OMContentType):
             specification=specification,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-ContentType.set_error_handling(None)
-for key, value in OMContentType.__dict__.items():
-    if isinstance(value, OMContentType):
-        fg_instance = ContentType.from_jsonld(value.to_jsonld())
-        fg_instance._space = ContentType.default_space
-        setattr(ContentType, key, fg_instance)
-ContentType.set_error_handling("log")

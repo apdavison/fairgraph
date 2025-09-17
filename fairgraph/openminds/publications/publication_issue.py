@@ -40,13 +40,3 @@ class PublicationIssue(KGObject, OMPublicationIssue):
             is_part_of=is_part_of,
             issue_number=issue_number,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-PublicationIssue.set_error_handling(None)
-for key, value in OMPublicationIssue.__dict__.items():
-    if isinstance(value, OMPublicationIssue):
-        fg_instance = PublicationIssue.from_jsonld(value.to_jsonld())
-        fg_instance._space = PublicationIssue.default_space
-        setattr(PublicationIssue, key, fg_instance)
-PublicationIssue.set_error_handling("log")

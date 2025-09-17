@@ -169,13 +169,3 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         else:
             assert len(parents) == 1
             return parents[0]
-
-
-# cast openMINDS instances to their fairgraph subclass
-WebServiceVersion.set_error_handling(None)
-for key, value in OMWebServiceVersion.__dict__.items():
-    if isinstance(value, OMWebServiceVersion):
-        fg_instance = WebServiceVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = WebServiceVersion.default_space
-        setattr(WebServiceVersion, key, fg_instance)
-WebServiceVersion.set_error_handling("log")

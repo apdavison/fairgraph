@@ -24,13 +24,3 @@ class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
         return EmbeddedMetadata.__init__(
             self, data=data, context=context, data_location=data_location, relevant_for=relevant_for
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CustomPropertySet.set_error_handling(None)
-for key, value in OMCustomPropertySet.__dict__.items():
-    if isinstance(value, OMCustomPropertySet):
-        fg_instance = CustomPropertySet.from_jsonld(value.to_jsonld())
-        fg_instance._space = CustomPropertySet.default_space
-        setattr(CustomPropertySet, key, fg_instance)
-CustomPropertySet.set_error_handling("log")

@@ -44,13 +44,3 @@ class HANDLE(KGObject, OMHANDLE):
         return KGObject.__init__(
             self, id=id, space=space, scope=scope, data=data, identifier=identifier, related_to=related_to
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-HANDLE.set_error_handling(None)
-for key, value in OMHANDLE.__dict__.items():
-    if isinstance(value, OMHANDLE):
-        fg_instance = HANDLE.from_jsonld(value.to_jsonld())
-        fg_instance._space = HANDLE.default_space
-        setattr(HANDLE, key, fg_instance)
-HANDLE.set_error_handling("log")

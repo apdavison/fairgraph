@@ -202,13 +202,3 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-CommonCoordinateSpaceVersion.set_error_handling(None)
-for key, value in OMCommonCoordinateSpaceVersion.__dict__.items():
-    if isinstance(value, OMCommonCoordinateSpaceVersion):
-        fg_instance = CommonCoordinateSpaceVersion.from_jsonld(value.to_jsonld())
-        fg_instance._space = CommonCoordinateSpaceVersion.default_space
-        setattr(CommonCoordinateSpaceVersion, key, fg_instance)
-CommonCoordinateSpaceVersion.set_error_handling("log")

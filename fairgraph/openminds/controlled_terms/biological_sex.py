@@ -130,13 +130,3 @@ class BiologicalSex(KGObject, OMBiologicalSex):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-BiologicalSex.set_error_handling(None)
-for key, value in OMBiologicalSex.__dict__.items():
-    if isinstance(value, OMBiologicalSex):
-        fg_instance = BiologicalSex.from_jsonld(value.to_jsonld())
-        fg_instance._space = BiologicalSex.default_space
-        setattr(BiologicalSex, key, fg_instance)
-BiologicalSex.set_error_handling("log")

@@ -63,13 +63,3 @@ class LaunchConfiguration(KGObject, OMLaunchConfiguration):
             executable=executable,
             is_launch_configuration_of=is_launch_configuration_of,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-LaunchConfiguration.set_error_handling(None)
-for key, value in OMLaunchConfiguration.__dict__.items():
-    if isinstance(value, OMLaunchConfiguration):
-        fg_instance = LaunchConfiguration.from_jsonld(value.to_jsonld())
-        fg_instance._space = LaunchConfiguration.default_space
-        setattr(LaunchConfiguration, key, fg_instance)
-LaunchConfiguration.set_error_handling("log")

@@ -93,13 +93,3 @@ class Dataset(KGObject, OMDataset):
             short_name=short_name,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Dataset.set_error_handling(None)
-for key, value in OMDataset.__dict__.items():
-    if isinstance(value, OMDataset):
-        fg_instance = Dataset.from_jsonld(value.to_jsonld())
-        fg_instance._space = Dataset.default_space
-        setattr(Dataset, key, fg_instance)
-Dataset.set_error_handling("log")

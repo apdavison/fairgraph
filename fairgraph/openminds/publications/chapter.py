@@ -98,13 +98,3 @@ class Chapter(KGObject, OMChapter):
             related_to=related_to,
             version_identifier=version_identifier,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Chapter.set_error_handling(None)
-for key, value in OMChapter.__dict__.items():
-    if isinstance(value, OMChapter):
-        fg_instance = Chapter.from_jsonld(value.to_jsonld())
-        fg_instance._space = Chapter.default_space
-        setattr(Chapter, key, fg_instance)
-Chapter.set_error_handling("log")

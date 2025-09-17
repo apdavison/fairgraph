@@ -99,13 +99,3 @@ class Model(KGObject, OMModel):
             study_targets=study_targets,
             versions=versions,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Model.set_error_handling(None)
-for key, value in OMModel.__dict__.items():
-    if isinstance(value, OMModel):
-        fg_instance = Model.from_jsonld(value.to_jsonld())
-        fg_instance._space = Model.default_space
-        setattr(Model, key, fg_instance)
-Model.set_error_handling("log")

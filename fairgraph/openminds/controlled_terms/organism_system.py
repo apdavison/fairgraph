@@ -115,13 +115,3 @@ class OrganismSystem(KGObject, OMOrganismSystem):
             studied_in=studied_in,
             synonyms=synonyms,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-OrganismSystem.set_error_handling(None)
-for key, value in OMOrganismSystem.__dict__.items():
-    if isinstance(value, OMOrganismSystem):
-        fg_instance = OrganismSystem.from_jsonld(value.to_jsonld())
-        fg_instance._space = OrganismSystem.default_space
-        setattr(OrganismSystem, key, fg_instance)
-OrganismSystem.set_error_handling("log")

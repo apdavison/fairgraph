@@ -79,13 +79,3 @@ class SoftwareAgent(KGObject, OMSoftwareAgent):
             software=software,
             started=started,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-SoftwareAgent.set_error_handling(None)
-for key, value in OMSoftwareAgent.__dict__.items():
-    if isinstance(value, OMSoftwareAgent):
-        fg_instance = SoftwareAgent.from_jsonld(value.to_jsonld())
-        fg_instance._space = SoftwareAgent.default_space
-        setattr(SoftwareAgent, key, fg_instance)
-SoftwareAgent.set_error_handling("log")

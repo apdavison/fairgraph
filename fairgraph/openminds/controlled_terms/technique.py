@@ -106,13 +106,3 @@ class Technique(KGObject, OMTechnique):
             synonyms=synonyms,
             used_in=used_in,
         )
-
-
-# cast openMINDS instances to their fairgraph subclass
-Technique.set_error_handling(None)
-for key, value in OMTechnique.__dict__.items():
-    if isinstance(value, OMTechnique):
-        fg_instance = Technique.from_jsonld(value.to_jsonld())
-        fg_instance._space = Technique.default_space
-        setattr(Technique, key, fg_instance)
-Technique.set_error_handling("log")

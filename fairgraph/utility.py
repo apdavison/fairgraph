@@ -540,3 +540,20 @@ def adapt_namespaces_for_query(query):
     replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
     adapt_structure(migrated_query["structure"], replacement)
     return migrated_query
+
+
+def initialise_instances(class_list):
+    """Cast openMINDS instances to their fairgraph subclass"""
+    for cls in class_list:
+        cls.set_error_handling(None)
+        # find parent openMINDS class
+        for parent_cls in cls.__mro__[1:]:
+            if parent_cls.__name__ == cls.__name__:
+                # could also do this by looking for issubclass(parent_cls, openminds.Node)
+                break
+        for key, value in parent_cls.__dict__.items():
+            if isinstance(value, parent_cls):
+                fg_instance = cls.from_jsonld(value.to_jsonld())
+                fg_instance._space = cls.default_space
+                setattr(cls, key, fg_instance)
+        cls.set_error_handling("log")
