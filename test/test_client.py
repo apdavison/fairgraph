@@ -5,6 +5,7 @@ from kg_core.response import Error as KGError
 from fairgraph.kgobject import KGObject
 from fairgraph.queries import Query, QueryProperty, Filter
 from fairgraph.errors import AuthenticationError, AuthorizationError, ResourceExistsError
+from fairgraph.base import OPENMINDS_VERSION
 from .utils import kg_client, kg_client_curator, skip_if_no_connection, MockKGResponse
 
 
@@ -176,7 +177,7 @@ def test_store_and_retrieve_query(kg_client, mocker):
 @skip_if_no_connection
 def test_configure_space(kg_client, mocker):
     class MockType(KGObject):
-        schema_version = "latest"
+        schema_version = OPENMINDS_VERSION
         type_ = "hello"
 
     mocker.patch.object(kg_client._kg_admin_client, "create_space_definition", lambda space: None)

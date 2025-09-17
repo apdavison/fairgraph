@@ -38,6 +38,7 @@ from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
 from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3
+from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
     from .kgobject import KGObject
@@ -726,7 +727,7 @@ class KGClient(object):
                 adapt_namespaces_3to4(type_)
                 type_iri = type_["@type"]
             try:
-                cls = lookup_type(type_iri)
+                cls = lookup_type(type_iri, OPENMINDS_VERSION)
             except KeyError as err:
                 ignore_list = [
                     "https://core.kg.ebrains.eu/vocab/type/Bookmark",

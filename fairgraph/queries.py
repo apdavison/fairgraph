@@ -24,7 +24,6 @@ import logging
 from warnings import warn
 
 from openminds.base import IRI, EmbeddedMetadata, LinkedMetadata, Node
-from openminds.registry import lookup_type
 from .utility import as_list, expand_uri
 
 

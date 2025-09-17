@@ -11,6 +11,7 @@ import sys
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader
 
+OPENMINDS_VERSION = "latest"
 
 name_map = {
     "scope": "model_scope",  # this is because 'scope' is already a keyword
@@ -488,7 +489,7 @@ def generate_class_name(iri, module_map=None):
     assert isinstance(iri, str)
     class_name = iri.split("/")[-1]
     module_name = generate_python_name(module_map[iri])
-    return f"openminds.latest.{module_name}.{class_name}"
+    return f"openminds.{OPENMINDS_VERSION}.{module_name}.{class_name}"
 
 
 def get_controlled_terms_table(type_):
@@ -764,6 +765,7 @@ class FairgraphClassBuilder:
             with open(f"additional_methods/{class_name}.py.txt") as fp:
                 additional_methods = fp.read()
         self.context = {
+            "openminds_version": OPENMINDS_VERSION,
             "docstring": self._schema_payload.get("description", "<description not available>"),
             "base_class": base_class,
             "preamble": preamble.get(class_name, ""),  # default value, may be updated below

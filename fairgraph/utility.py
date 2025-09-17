@@ -26,6 +26,8 @@ import warnings
 
 from openminds.registry import lookup_type
 
+from .base import OPENMINDS_VERSION
+
 if TYPE_CHECKING:
     from .client import KGClient
     from .kgobject import KGObject
@@ -493,7 +495,7 @@ def adapt_type_4to3(uri):
         if isinstance(uri, list):
             assert len(uri) == 1
             uri = uri[0]
-        cls = lookup_type(uri)
+        cls = lookup_type(uri, OPENMINDS_VERSION)
 
         if cls.__module__ == "test.test_client":
             return cls.type_

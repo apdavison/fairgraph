@@ -12,6 +12,8 @@ from warnings import warn
 from openminds.properties import Property
 from openminds.registry import Registry
 
+from .base import OPENMINDS_VERSION
+
 if TYPE_CHECKING:
     from .node import ContainsMetadata
 
@@ -38,9 +40,9 @@ class Node(Registry):
         # set class_name so that the fairgraph class replaces the equivalent openminds class
         # in the registry
         # e.g.   'fairgraph.openminds.sands.miscellaneous.anatomical_target_position'
-        #   -->  'openminds.latest.sands.AnatomicalTargetPosition'
+        #   -->  'openminds.v4.sands.AnatomicalTargetPosition'
         class_dict["class_name"] = ".".join(
-            class_dict["__module__"].replace("fairgraph.openminds", "openminds.latest").split(".")[:3] + [name]
+            class_dict["__module__"].replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3] + [name]
         )
         class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)

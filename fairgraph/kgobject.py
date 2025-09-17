@@ -41,7 +41,7 @@ from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_
 from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
-from .base import RepresentsSingleObject, SupportsQuerying, JSONdict
+from .base import RepresentsSingleObject, SupportsQuerying, JSONdict, OPENMINDS_VERSION
 from .node import ContainsMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
@@ -239,7 +239,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if isinstance(type_, list):
                 assert len(type_) == 1
                 type_ = type_[0]
-            cls_from_data = lookup_type(type_)
+            cls_from_data = lookup_type(type_, OPENMINDS_VERSION)
             return cls_from_data.from_jsonld(data, scope=scope)
 
     @classmethod

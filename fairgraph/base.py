@@ -29,6 +29,8 @@ from .errors import AuthorizationError
 if TYPE_CHECKING:
     from .client import KGClient
 
+OPENMINDS_VERSION = "latest"
+
 logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
