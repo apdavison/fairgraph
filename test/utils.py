@@ -1,4 +1,5 @@
 from copy import deepcopy
+import os
 from uuid import uuid4
 from requests.exceptions import SSLError
 from fairgraph.client import KGClient
@@ -38,6 +39,14 @@ def skip_if_using_production_server(f):
 @pytest.fixture(scope="session")
 def kg_client():
     return client
+
+
+@pytest.fixture(scope="session")
+def kg_client_curator():
+    if "KG_AUTH_TOKEN_CURATOR" in os.environ:
+        return KGClient(host=kg_host, allow_interactive=False, token=os.environ["KG_AUTH_TOKEN_CURATOR"])
+    else:
+        return None
 
 
 class MockKGResponse:

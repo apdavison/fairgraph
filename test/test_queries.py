@@ -376,7 +376,7 @@ def test_execute_query(kg_client, example_query_model_version):
         query = adapt_namespaces_for_query(query)
     response = kg_client._kg_client.queries.test_query(
         payload=query,
-        stage=Stage.IN_PROGRESS,
+        stage=Stage.RELEASED,
         pagination=Pagination(start=0, size=3),
     )
     data = response.data
@@ -412,7 +412,7 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
     response = kg_client._kg_client.queries.test_query(
         payload=query,
         instance_id=kg_client.uuid_from_uri(target_id),
-        stage=Stage.IN_PROGRESS,
+        stage=Stage.RELEASED,
         pagination=Pagination(start=0, size=10),
     )
     data = response.data
@@ -424,24 +424,24 @@ def test_execute_query_with_id_filter(kg_client, example_query_model):
 
 @skip_if_no_connection
 def test_execute_query_with_reverse_properties_and_instance_id(kg_client, example_query_repository_with_reverse):
-    target_id = "https://kg.ebrains.eu/api/instances/2f8d64f3-d848-49bd-baa6-a2c7080c98da"
+    target_id = "https://kg.ebrains.eu/api/instances/1c846a5f-eac2-477a-9dc3-d2e51b00fda9"
     query = example_query_repository_with_reverse.serialize()
     if kg_client.migrated is False:
         query = adapt_namespaces_for_query(query)
     response = kg_client._kg_client.queries.test_query(
         payload=query,
         instance_id=kg_client.uuid_from_uri(target_id),
-        stage=Stage.IN_PROGRESS,
+        stage=Stage.RELEASED,
         pagination=Pagination(start=0, size=10),
     )
     data = response.data
     assert len(data) == 1
     assert (
         data[0]["location"]
-        == "https://data-proxy.ebrains.eu/api/v1/buckets/p7e415-brette-etal-2007?prefix=Benchmark2"
+        == "https://data-proxy.ebrains.eu/api/v1/buckets/p63ea6-Angelo_SGA1_1.2.4?prefix=hbp-00810/EPSC/"
     )
-    assert "VAbenchmarks" in data[0]["files"][0]["filename"]
-    assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
+    assert "hbp-00810_ESPC" in data[0]["files"][0]["filename"]
+    assert data[0]["files"][4]["hash"][0]["algorithm"] == "MD5"
 
 
 @skip_if_no_connection
@@ -451,19 +451,19 @@ def test_execute_query_with_reverse_properties_and_filter(kg_client, example_que
         query = adapt_namespaces_for_query(query)
     response = kg_client._kg_client.queries.test_query(
         payload=query,
-        additional_request_params={"dataset_alias": "data-brette-etal-2007-benchmark2-v1"},
-        stage=Stage.IN_PROGRESS,
+        additional_request_params={"dataset_alias": "Recordings of excitatory postsynaptic currents from cerebellar neurons"},
+        stage=Stage.RELEASED,
         pagination=Pagination(start=0, size=10),
     )
     data = response.data
     assert len(data) == 1
     assert (
         data[0]["location"]
-        == "https://data-proxy.ebrains.eu/api/v1/buckets/p7e415-brette-etal-2007?prefix=Benchmark2"
+        == "https://data-proxy.ebrains.eu/api/v1/buckets/p63ea6-Angelo_SGA1_1.2.4?prefix=hbp-00810/EPSC/"
     )
-    assert "VAbenchmarks" in data[0]["files"][0]["filename"]
-    assert data[0]["files"][5]["hash"][0]["algorithm"] == "MD5"
-    assert data[0]["contains_dataset_version"][0]["alias"] == "data-brette-etal-2007-benchmark2-v1"
+    assert "hbp-00810_ESPC" in data[0]["files"][0]["filename"]
+    assert data[0]["files"][4]["hash"][0]["algorithm"] == "MD5"
+    assert data[0]["contains_dataset_version"][0]["alias"] == "Recordings of excitatory postsynaptic currents from cerebellar neurons"
 
 
 def test_openminds_core_queries(mock_client):

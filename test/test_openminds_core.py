@@ -144,13 +144,13 @@ def test_resolve_model(kg_client):
     assert model.name == "Scaffold Model of Cerebellum microcircuit version 2.0"
     assert isinstance(model.versions, KGProxy)
     resolved_model2 = deepcopy(model).resolve(
-        kg_client, scope="in progress", follow_links={"versions": {}, "custodians": {"affiliations": {}}}
+        kg_client, scope="released", follow_links={"versions": {}, "custodians": {"affiliations": {}}}
     )
     assert isinstance(resolved_model2.versions, omcore.ModelVersion)
     assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
 
     resolved_model4 = deepcopy(model).resolve(
-        kg_client, scope="in progress", follow_links={"custodians": {"affiliations": {"member_of": {}}}}
+        kg_client, scope="released", follow_links={"custodians": {"affiliations": {"member_of": {}}}}
     )
     assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
 
@@ -292,7 +292,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
 def test_query_across_links(kg_client):
     models = omcore.Model.list(
         kg_client,
-        scope="in progress",
+        scope="released",
         space="model",
         api="query",
         follow_links={"developers": {"affiliations": {"member_of": {}}}},
@@ -311,7 +311,7 @@ def test_query_across_links(kg_client):
     # check that "follow_links" is not needed for the cross-link filter to work
     models2 = omcore.Model.list(
         kg_client,
-        scope="in progress",
+        scope="released",
         space="model",
         api="query",
         follow_links=None,
@@ -326,7 +326,7 @@ def test_query_across_links(kg_client):
 def test_query_across_reverse_links(kg_client):
     versions = omcore.ModelVersion.list(
         kg_client,
-        scope="in progress",
+        scope="released",
         space="model",
         api="query",
         follow_links={"is_version_of": {"developers": {"affiliations": {"member_of": {}}}}},

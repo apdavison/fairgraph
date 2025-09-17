@@ -494,6 +494,10 @@ def adapt_type_4to3(uri):
             assert len(uri) == 1
             uri = uri[0]
         cls = lookup_type(uri)
+
+        if cls.__module__ == "test.test_client":
+            return cls.type_
+
         module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
         module_name = {
             "controlled_terms": "controlledTerms",
