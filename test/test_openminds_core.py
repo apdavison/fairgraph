@@ -696,6 +696,20 @@ def test_normalize_filter():
     assert result == expected
 
 
+def test_normalize_filter_with_invalid_keys():
+    with pytest.raises(ValueError) as excinfo:
+        omcore.ModelVersion.normalize_filter({
+            "authors": {"given_name": "Zaphod"},
+            "documentation": {"iri": "http://example.org"}
+        })  # should be "developers", "full_documentation"
+    assert str(excinfo.value) == "Invalid filters: authors, documentation"
+    with pytest.raises(ValueError) as excinfo:
+        omcore.ModelVersion.normalize_filter({
+            "developers": {"digital_identifiers": {"id": "https://orcid.org/some-id"}}
+        }) # should be "identifier", not "id"
+    assert str(excinfo.value) == "Invalid filter: id"
+
+
 def test_class_docstring():
     assert "email address" in omcore.Person.__doc__
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, Dict, List, Union, Any
 from copy import copy
+from itertools import chain
 import logging
 from warnings import warn
 
@@ -164,7 +165,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     type_.set_error_handling(value)
 
     @classmethod
-    def normalize_filter(cls, filter_dict: Dict[str, Any]) -> Dict[str, Any]:
+    def normalize_filter(cls, filter_dict: Dict[str, Any], check_validity: bool = True) -> Dict[str, Any]:
         """
         Normalize a dict containing filter key:value pairs so that it can be used
         in a call to the KG query API.
@@ -185,15 +186,29 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             if name_ in filter_dict_copy:
                 filter_dict_copy[alias_] = filter_dict_copy.pop(name_)
 
+        def _check_validity(filters, property_names):
+            invalid_filters = set(filters).difference(property_names)
+            if invalid_filters:
+                if len(invalid_filters) == 1:
+                    msg = f"Invalid filter: "
+                else:
+                    msg = f"Invalid filters: "
+                raise ValueError(msg + ", ".join(invalid_filters))
+
+        if check_validity:
+            _check_validity(filter_dict_copy, cls.property_names)
+
         for prop in cls.all_properties:
             if prop.name in filter_dict_copy:
                 value = filter_dict_copy[prop.name]
                 if isinstance(value, dict):
+                    _check_validity(value, set(chain(*(child_cls.property_names for child_cls in prop.types))))
                     normalized[prop.name] = {}
                     for child_cls in prop.types:
-                        normalized[prop.name].update(child_cls.normalize_filter(value))
+                        normalized[prop.name].update(child_cls.normalize_filter(value, check_validity=False))
                 else:
                     normalized[prop.name] = get_filter_value(prop, value)
+
         return normalized
 
     @classmethod
