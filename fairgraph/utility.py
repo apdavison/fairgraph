@@ -526,18 +526,28 @@ def adapt_namespaces_4to3(data):
 def adapt_namespaces_for_query(query):
     """Map from v4+ to v3 openMINDS namespace"""
 
+    def adapt_path(item_path, replacement):
+        if isinstance(item_path, str):
+            return item_path.replace(*replacement)
+        elif isinstance(item_path, list):
+            return [adapt_path(part, replacement) for part in item_path]
+        else:
+            assert isinstance(item_path, dict)
+            new_item_path = item_path.copy()
+            new_item_path["@id"] = item_path["@id"].replace(*replacement)
+            if "typeFilter" in item_path:
+                if isinstance(item_path["typeFilter"], list):
+                    new_item_path["typeFilter"] = [
+                        {"@id": adapt_type_4to3(subitem["@id"])}
+                        for subitem in item_path["typeFilter"]
+                    ]
+                else:
+                    new_item_path["typeFilter"]["@id"] = adapt_type_4to3(item_path["typeFilter"]["@id"])
+            return new_item_path
+
     def adapt_structure(structure, replacement):
         for item in structure:
-            if isinstance(item["path"], str):
-                item["path"] = item["path"].replace(*replacement)
-            elif isinstance(item["path"], list):
-                item["path"] = [part.replace(*replacement) for part in item["path"]]
-                # todo: individual parts could be dicts with "@id", "typeFilter"
-            else:
-                assert isinstance(item["path"], dict)
-                item["path"]["@id"] = item["path"]["@id"].replace(*replacement)
-                if "typeFilter" in item["path"]:
-                    item["path"]["typeFilter"]["@id"] = adapt_type_4to3(item["path"]["typeFilter"]["@id"])
+            item["path"] = adapt_path(item["path"], replacement)
             if "structure" in item:
                 adapt_structure(item["structure"], replacement)
 

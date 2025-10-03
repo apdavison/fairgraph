@@ -235,9 +235,6 @@ class KGClient(object):
             along with metadata about the query results such as total number of instances, and pagination information.
         """
 
-        if self.migrated is False:
-            query = adapt_namespaces_for_query(query)
-
         query_id = query.get("@id", None)
 
         if use_stored_query:
@@ -257,6 +254,8 @@ class KGClient(object):
                 )
 
         else:
+            if self.migrated is False:
+                query = adapt_namespaces_for_query(query)
 
             def _query(scope, from_index, size):
                 response = self._kg_client.queries.test_query(

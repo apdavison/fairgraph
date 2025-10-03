@@ -148,9 +148,6 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             value (str): action to follow when there is a validation failure.
                 (e.g. if a required property is not provided).
                 Possible values: "error", "warning", "log", None
-            property_names (str or list of str, optional): If not provided, the error handling
-                mode will be applied to all properties. If a property name or list of names is given,
-                the mode will be applied only to those properties.
         """
         if value is None:
             value = ErrorHandling.none
@@ -298,7 +295,10 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 normalised_key = expand_uri(key, cls.context)
                 value = [item for item in as_list(value) if _get_type_from_data(item).endswith(type_filter)]
                 if normalised_key in D:
-                    D[normalised_key].extend(value)
+                    if isinstance(D[normalised_key], list):
+                        D[normalised_key].extend(value)
+                    else:
+                        D[normalised_key] = [D[normalised_key]] + value
                 else:
                     D[normalised_key] = value
             elif key.startswith("Q"):  # for 'Q' properties in data from queries
