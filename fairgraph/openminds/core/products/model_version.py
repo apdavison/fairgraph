@@ -201,6 +201,7 @@ class ModelVersion(KGObject, OMModelVersion):
         )
 
     def is_version_of(self, client):
+        # ??this method name shadows or overwrites the reverse property name "is_version_of"
         parents = Model.list(client, scope=self.scope, space=self.space, versions=self)
         if len(parents) == 0:
             raise ResolutionFailure("Unable to find parent")

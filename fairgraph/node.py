@@ -190,16 +190,26 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     msg = f"Invalid filter: "
                 else:
                     msg = f"Invalid filters: "
-                raise ValueError(msg + ", ".join(invalid_filters))
+                raise ValueError(msg + ", ".join(sorted(invalid_filters)))
 
         if check_validity:
-            _check_validity(filter_dict_copy, cls.property_names)
+            _check_validity(filter_dict_copy, cls.all_property_names)
 
         for prop in cls.all_properties:
             if prop.name in filter_dict_copy:
                 value = filter_dict_copy[prop.name]
                 if isinstance(value, dict):
-                    _check_validity(value, set(chain(*(child_cls.property_names for child_cls in prop.types))))
+                    _check_validity(
+                        value,
+                        set(
+                            chain(
+                                *(
+                                    child_cls.property_names + list(child_cls.aliases.keys())
+                                    for child_cls in prop.types
+                                )
+                            )
+                        ),
+                    )
                     normalized[prop.name] = {}
                     for child_cls in prop.types:
                         normalized[prop.name].update(child_cls.normalize_filter(value, check_validity=False))
@@ -209,33 +219,65 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         return normalized
 
     @classmethod
-    def generate_query_properties(cls, follow_links: Optional[Dict[str, Any]] = None):
+    def generate_query_properties(
+        cls, follow_links: Optional[Dict[str, Any]] = None, with_reverse_properties: Optional[bool] = False
+    ):
         """
         Generate a list of QueryProperty instances for this class
         for use in constructing a KG query definition.
 
         Args:
-            follow_links (dict): The links in the graph to follow when constructing the query. Defaults to None.
+            follow_links (dict): The links in the graph to follow when constructing the query.
+                                 Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties.
+                                       Defaults to False.`
         """
         if issubclass(cls, RepresentsSingleObject):  # KGObject
-            properties = [
+            query_properties = [
                 QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"),
                 QueryProperty("@type"),
             ]
         else:  # EmbeddedMetadata
-            properties = [QueryProperty("@type")]
+            query_properties = [QueryProperty("@type")]
         reverse_aliases = invert_dict(cls.aliases)
-        for prop in cls.all_properties:
+
+        if with_reverse_properties:
+            included_properties = cls.all_properties
+        else:
+            included_properties = cls.properties[:]  # need to make a copy because we may be appending to it
+            if follow_links:
+                for prop_name in follow_links:
+                    try:
+                        prop = cls.get_property(prop_name)
+                        # where a property can be of multiple types,
+                        # not all types may be relevant to follow_links
+                    except KeyError:
+                        pass
+                    else:
+                        if prop.reverse:
+                            included_properties.append(prop)
+
+        for prop in included_properties:
             if prop.is_link and follow_links:
                 if prop.name in follow_links:
-                    properties.extend(get_query_properties(prop, cls.context, follow_links[prop.name]))
+                    query_properties.extend(
+                        get_query_properties(prop, cls.context, follow_links[prop.name], with_reverse_properties)
+                    )
                 elif reverse_aliases.get(prop.name, None) in follow_links:
-                    properties.extend(get_query_properties(prop, cls.context, follow_links[reverse_aliases[prop.name]]))
+                    query_properties.extend(
+                        get_query_properties(
+                            prop, cls.context, follow_links[reverse_aliases[prop.name]], with_reverse_properties
+                        )
+                    )
                 else:
-                    properties.extend(get_query_properties(prop, cls.context))
+                    query_properties.extend(
+                        get_query_properties(prop, cls.context, with_reverse_properties=with_reverse_properties)
+                    )
             else:
-                properties.extend(get_query_properties(prop, cls.context))
-        return properties
+                query_properties.extend(
+                    get_query_properties(prop, cls.context, with_reverse_properties=with_reverse_properties)
+                )
+        return query_properties
 
     @classmethod
     def generate_query_filter_properties(

@@ -294,7 +294,9 @@ def _get_query_property_name(property, possible_classes):
     return property_name
 
 
-def get_query_properties(property, context, follow_links: Optional[Dict[str, Any]] = None) -> List[QueryProperty]:
+def get_query_properties(
+    property, context, follow_links: Optional[Dict[str, Any]] = None, with_reverse_properties: Optional[bool] = False
+) -> List[QueryProperty]:
     """
     Generate one or more QueryProperty instances for this property,
     for use in constructing a KG query definition.
@@ -318,11 +320,11 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                 QueryProperty(
                     expanded_path,
                     name=property_name,
-                    reverse=property.reverse,
+                    reverse=bool(property.reverse),
                     type_filter=type_filter,
                     ensure_order=property.multiple,
                     expect_single=property.is_link and not property.multiple,
-                    properties=cls.generate_query_properties(follow_links),
+                    properties=cls.generate_query_properties(follow_links, with_reverse_properties),
                 )
             )
     elif any(issubclass(_type, LinkedMetadata) for _type in property.types):
@@ -340,11 +342,14 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                     QueryProperty(
                         expanded_path,
                         name=property_name,
-                        reverse=property.reverse,
+                        reverse=bool(property.reverse),
                         type_filter=type_filter,
                         ensure_order=property.multiple,
                         expect_single=property.is_link and not property.multiple,
-                        properties=[QueryProperty("@id"), *cls.generate_query_properties(follow_links)],
+                        properties=[
+                            QueryProperty("@id"),
+                            *cls.generate_query_properties(follow_links, with_reverse_properties),
+                        ],
                     )
                 )
         else:
@@ -354,7 +359,7 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
                     QueryProperty(
                         expanded_path,
                         name=property_name,
-                        reverse=property.reverse,
+                        reverse=bool(property.reverse),
                         type_filter=None,
                         ensure_order=property.multiple,
                         expect_single=property.is_link and not property.multiple,
@@ -373,7 +378,7 @@ def get_query_properties(property, context, follow_links: Optional[Dict[str, Any
             QueryProperty(
                 expanded_path,
                 name=property.path,
-                reverse=property.reverse,
+                reverse=bool(property.reverse),
                 ensure_order=property.multiple,
                 expect_single=property.is_link and not property.multiple,
             )

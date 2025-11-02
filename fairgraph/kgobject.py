@@ -138,6 +138,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its URI.
@@ -149,10 +150,16 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
         """
         if follow_links:
-            query = cls.generate_query(space=None, client=client, filters=None, follow_links=follow_links)
+            query = cls.generate_query(
+                space=None,
+                client=client,
+                filters=None,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
             results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
             if results:
                 data = results[0]
@@ -173,6 +180,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its UUID.
@@ -184,6 +192,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
 
         """
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
@@ -194,7 +203,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+        return cls.from_uri(
+            uri,
+            client,
+            use_cache=use_cache,
+            scope=scope,
+            follow_links=follow_links,
+            with_reverse_properties=with_reverse_properties,
+        )
 
     @classmethod
     def from_id(
@@ -204,6 +220,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on either its URI or UUID.
@@ -215,6 +232,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
 
         Returns:
             Either a KGObject of the correct type, or None.
@@ -223,9 +241,17 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
-                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+                fn = cls.from_uri
             else:
-                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+                fn = cls.from_uuid
+            return fn(
+                id,
+                client,
+                use_cache=use_cache,
+                scope=scope,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
         else:
             # if we don't know the type
             if id.startswith("http"):
@@ -318,6 +344,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         space: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
         **filters,
     ) -> List[KGObject]:
         """
@@ -331,6 +358,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
             filters: Optional keyword arguments representing filters to apply to the query.
 
         Returns:
@@ -361,7 +389,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
 
         if api == "query":
-            query = cls.generate_query(space=space, client=client, filters=filters, follow_links=follow_links)
+            query = cls.generate_query(
+                space=space,
+                client=client,
+                filters=filters,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
             instances = client.query(
                 query=query,
                 from_index=from_index,
@@ -827,6 +861,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         space: Union[str, None],
         filters: Optional[Dict[str, Any]] = None,
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
         label: Optional[str] = None,
     ) -> Union[Dict[str, Any], None]:
         """
@@ -837,6 +872,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             filters (dict): A dictonary defining search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (dict): Whether to include reverse properties. Default False.
             label (str, optional): a label for the query
 
         Returns:
@@ -857,7 +893,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             node_type=cls.type_,
             label=label,
             space=real_space,
-            properties=cls.generate_query_properties(follow_links),
+            properties=cls.generate_query_properties(follow_links, with_reverse_properties),
         )
         # second pass, we add filters
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))

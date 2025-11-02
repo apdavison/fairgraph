@@ -25,7 +25,7 @@ from test.utils import mock_client, kg_client, skip_if_no_connection, skip_if_us
 
 def test_query_generation(mock_client):
     for cls in omcore.list_kg_classes():
-        generated = cls.generate_query(space="collab-foobar", client=mock_client)
+        generated = cls.generate_query(space="collab-foobar", client=mock_client, with_reverse_properties=True)
         filename = f"test/test_data/queries/openminds/core/{cls.__name__.lower()}_simple_query.json"
         with open(filename, "r") as fp:
             expected = json.load(fp)
@@ -164,7 +164,8 @@ def test_retrieve_released_models_follow_links(kg_client):
         api="query",
         size=5,
         from_index=randint(0, 80),
-        follow_links={"versions": {}, "developers": {"affiliation": {"member_of": {}}}, "abstraction_level": {}},
+        follow_links={"versions": {}, "developers": {"affiliations": {"member_of": {}}}, "abstraction_level": {}},
+        with_reverse_properties=True
     )
     assert len(models) == 5
     for model in models:
@@ -193,6 +194,7 @@ def test_retrieve_released_model_versions_no_follow(kg_client):
             api=api,
             size=5,
             from_index=randint(0, 80),
+            with_reverse_properties=True
         )
         for ver in versions:
             if ver.formats:
@@ -225,6 +227,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
                 "developers": {"affiliation": {"member_of": {}}},
             },
         },
+        with_reverse_properties=True
     )
     for ver in versions:
         # check first level forward links have been resolved

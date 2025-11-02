@@ -78,6 +78,10 @@ class Node(Registry):
         return chain(cls.properties, cls.reverse_properties)
 
     @property
+    def all_property_names(cls):
+        return [p.name for p in cls.all_properties]
+
+    @property
     def reverse_property_names(cls):
         return [p.name for p in cls.reverse_properties]
 

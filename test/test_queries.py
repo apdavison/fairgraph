@@ -480,6 +480,7 @@ def test_openminds_core_queries(mock_client):
             space="collab-foobar",
             client=mock_client,
             follow_links=None,
+            with_reverse_properties=True
         )
         with open(path_expected) as fp:
             expected = json.load(fp)
@@ -506,6 +507,7 @@ def test_generate_query_with_follow_one_link(mock_client):
                 "contact_information": {},
                 "digital_identifiers": {},
             },
+            with_reverse_properties=True
         )
         with open(path_expected) as fp:
             expected = json.load(fp)
@@ -527,6 +529,7 @@ def test_generate_query_with_follow_named_links(mock_client):
         client=mock_client,
         filters={"affiliations__member_of__has_parents__alias": "FZJ"},
         follow_links={"affiliations": {"member_of": {"has_parents": {}}}, "contact_information": {}},
+        with_reverse_properties=True
     )
     with open(path_expected) as fp:
         expected = json.load(fp)
