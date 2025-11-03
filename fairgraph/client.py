@@ -735,10 +735,11 @@ class KGClient(object):
                 type_iri = type_["@type"]
             try:
                 cls = lookup_type(type_iri, OPENMINDS_VERSION)
-            except KeyError as err:
+            except (KeyError, ValueError) as err:
                 ignore_list = [
                     "https://core.kg.ebrains.eu/vocab/type/Bookmark",
                     "https://core.kg.ebrains.eu/vocab/meta/type/Query",
+                    "https://openminds.om-i.org/types/Query",
                     "https://openminds.ebrains.eu/core/URL"
                 ]
                 if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
@@ -762,16 +763,23 @@ class KGClient(object):
             response = input("\nAre you sure you want to delete them? ")
             if response not in ("y", "Y", "yes", "YES"):
                 return
+            error_messages = []
             for cls, count in space_info.items():
                 if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
-                    print(f"Deleting {cls.__name__} instances", end="")
+                    print(f"Deleting {cls.__name__} instances", end=" ")
                     response = self.list(cls.type_, release_status="in progress", space=space_name)
                     assert response.size <= count
                     for instance in response.data:
                         assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
-                        print(".", end="")
-                        self.delete_instance(self.uuid_from_uri(instance["@id"]), ignore_not_found=False)
+                        error = self.delete_instance(self.uuid_from_uri(instance["@id"]), ignore_not_found=False)
+                        if error:
+                            print("x", end="")
+                            error_messages.append(error)
+                        else:
+                            print(".", end="")
                     print()
+            if error_messages:
+                print(error_messages)
         else:
             print(f"The space '{space_name}' is already clean")
 
