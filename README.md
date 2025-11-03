@@ -1,5 +1,9 @@
 # fairgraph: a Python API for the EBRAINS Knowledge Graph.
 
+[![tests](https://github.com/HumanBrainProject/fairgraph/actions/workflows/tests.yml/badge.svg)](https://github.com/HumanBrainProject/fairgraph/actions/workflows/tests.yml)
+[![Documentation](https://app.readthedocs.org/projects/fairgraph/badge/?version=latest)](https://fairgraph.readthedocs.io)
+![PyPI - Version](https://img.shields.io/pypi/v/fairgraph)
+
 Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi
 
 Copyright CNRS 2019-2025
