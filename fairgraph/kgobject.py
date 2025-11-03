@@ -840,7 +840,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             warn("Multiple objects with the same name, returning the first. " "Use 'all=True' to retrieve them all")
             return objects[0]
 
-    def show(self, max_width: Optional[int] = None, include_empty_properties=False):
+    def show(self, max_width: Optional[int] = 120, include_empty_properties=False):
         """
         Print a table showing the metadata contained in this object.
         """
