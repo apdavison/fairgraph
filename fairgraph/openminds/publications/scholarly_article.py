@@ -71,13 +71,13 @@ class ScholarlyArticle(KGObject, OMScholarlyArticle):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             name=name,
             abstract=abstract,
@@ -104,7 +104,9 @@ class ScholarlyArticle(KGObject, OMScholarlyArticle):
     def get_journal(self, client, with_volume=False, with_issue=False):
         journal = volume = issue = None
         if self.is_part_of:
-            issue_or_volume = self.is_part_of.resolve(client, scope=self.scope, follow_links={"is_part_of": {}})
+            issue_or_volume = self.is_part_of.resolve(
+                client, release_status=self.release_status, follow_links={"is_part_of": {}}
+            )
             if isinstance(issue_or_volume, PublicationIssue):
                 volume = issue_or_volume.is_part_of
                 issue = issue_or_volume

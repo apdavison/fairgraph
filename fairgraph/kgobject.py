@@ -72,12 +72,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         id: Optional[str] = None,
         data: Optional[JSONdict] = None,
         space: Optional[str] = None,
-        scope: Optional[str] = None,
+        release_status: Optional[str] = None,
         **properties,
     ):
         self.id = id
         self._space = space
-        self.scope = scope
+        self.release_status = release_status
         self.allow_update = True
         super().__init__(data=data, **properties)
         for prop in self.reverse_properties:
@@ -106,10 +106,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return self._space
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, scope: Optional[str] = None) -> KGObject:
+    def from_jsonld(cls, data: JSONdict, release_status: Optional[str] = None) -> KGObject:
         """Create an instance of the class from a JSON-LD document."""
         deserialized_data = cls._deserialize_data(data, include_id=True)
-        return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
+        return cls(id=data["@id"], data=data, release_status=release_status, **deserialized_data)
 
     # @classmethod
     # def _fix_keys(cls, data):
@@ -136,7 +136,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         uri: str,
         client: KGClient,
         use_cache: bool = True,
-        scope: str = "released",
+        release_status: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -146,7 +146,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Args:
             uri (str): long-form identifier for the KG instance (a full URI)
             client: a KGClient
-            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+            release_status (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
@@ -160,17 +160,17 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 follow_links=follow_links,
                 with_reverse_properties=with_reverse_properties,
             )
-            results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
+            results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, release_status=release_status).data
             if results:
                 data = results[0]
             else:
                 data = None
         else:
-            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, release_status=release_status)
         if data is None:
             return None
         else:
-            return cls.from_jsonld(data, scope=scope)
+            return cls.from_jsonld(data, release_status=release_status)
 
     @classmethod
     def from_uuid(
@@ -178,7 +178,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         uuid: str,
         client: KGClient,
         use_cache: bool = True,
-        scope: str = "released",
+        release_status: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -188,7 +188,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Args:
             uuid (str): short-form identifier for the KG instance (a UUID).
             client: a KGClient
-            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+            release_status (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
@@ -207,7 +207,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             uri,
             client,
             use_cache=use_cache,
-            scope=scope,
+            release_status=release_status,
             follow_links=follow_links,
             with_reverse_properties=with_reverse_properties,
         )
@@ -218,7 +218,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         id: str,
         client: KGClient,
         use_cache: bool = True,
-        scope: str = "released",
+        release_status: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -228,7 +228,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Args:
             id (str): short-form (UUID) or long-form (URI) identifier for the KG instance.
             client: a KGClient
-            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+            release_status (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
@@ -248,7 +248,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 id,
                 client,
                 use_cache=use_cache,
-                scope=scope,
+                release_status=release_status,
                 follow_links=follow_links,
                 with_reverse_properties=with_reverse_properties,
             )
@@ -260,13 +260,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 uri = client.uri_from_uuid(id)
             if follow_links is not None:
                 raise NotImplementedError
-            data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
+            data = client.instance_from_full_uri(uri, use_cache=use_cache, release_status=release_status)
             type_ = data["@type"]
             if isinstance(type_, list):
                 assert len(type_) == 1
                 type_ = type_[0]
             cls_from_data = lookup_type(type_, OPENMINDS_VERSION)
-            return cls_from_data.from_jsonld(data, scope=scope)
+            return cls_from_data.from_jsonld(data, release_status=release_status)
 
     @classmethod
     def from_alias(
@@ -274,7 +274,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         alias: str,
         client: KGClient,
         space: Optional[str] = None,
-        scope: str = "released",
+        release_status: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
@@ -286,7 +286,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             alias (str): a short name used to identify a KG instance.
             client: a KGClient
             space (str, optional): the KG space to look in. Default is to look in all available spaces.
-            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+            release_status (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
@@ -302,7 +302,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 size=20,
                 from_index=0,
                 api="query",
-                scope=scope,
+                release_status=release_status,
                 space=space,
                 alias=alias,
                 follow_links=follow_links,
@@ -341,7 +341,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         size: int = 100,
         from_index: int = 0,
         api: str = "auto",
-        scope: str = "released",
+        release_status: str = "released",
         space: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
@@ -355,7 +355,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             size (int, optional): The maximum number of instances to return. Default is 100.
             from_index (int, optional): The index of the first instance to return. Default is 0.
             api (str): The KG API to use for the query. Can be 'query', 'core', or 'auto'. Default is 'auto'.
-            scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
+            release_status (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
             follow_links (dict): The links in the graph to follow. Defaults to None.
             with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
@@ -400,24 +400,24 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 query=query,
                 from_index=from_index,
                 size=size,
-                scope=scope,
+                release_status=release_status,
             ).data
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
             if follow_links:
                 raise NotImplementedError("Following links with api='core' not yet implemented")
-            instances = client.list(cls.type_, space=space, from_index=from_index, size=size, scope=scope).data
+            instances = client.list(cls.type_, space=space, from_index=from_index, size=size, release_status=release_status).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
-        return [cls.from_jsonld(data=instance, scope=scope) for instance in instances]
+        return [cls.from_jsonld(data=instance, release_status=release_status) for instance in instances]
 
     @classmethod
     def count(
         cls,
         client: KGClient,
         api: str = "auto",
-        scope: str = "released",
+        release_status: str = "released",
         space: Optional[str] = None,
         **filters,
     ) -> int:
@@ -427,7 +427,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Args:
             client: KGClient object that handles the communication with the KG.
             api (str): The KG API to use for the query. Can be 'query', 'core', or 'auto'. Default is 'auto'.
-            scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
+            release_status (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be counted.
             filters: Optional keyword arguments representing filters to apply to the query.
 
@@ -454,11 +454,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
         if api == "query":
             query = cls.generate_query(space=space, client=client, filters=filters)
-            response = client.query(query=query, from_index=0, size=1, scope=scope)
+            response = client.query(query=query, from_index=0, size=1, release_status=release_status)
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
-            response = client.list(cls.type_, space=space, scope=scope, from_index=0, size=1)
+            response = client.list(cls.type_, space=space, release_status=release_status, from_index=0, size=1)
         return response.total
 
     def _update_empty_properties(self, data: JSONdict):
@@ -522,7 +522,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
             data = client.instance_from_full_uri(
-                self.id, use_cache=True, scope=self.scope or "any", require_full_data=False
+                self.id, use_cache=True, release_status=self.release_status or "any", require_full_data=False
             )
             if self._raw_remote_data is None:
                 self._raw_remote_data = data
@@ -559,7 +559,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     filters=query_filter,
                 )
 
-                instances = client.query(query=query, size=2, scope="any", restrict_to_spaces=in_spaces).data
+                instances = client.query(query=query, size=2, release_status="any", restrict_to_spaces=in_spaces).data
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
@@ -568,7 +568,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     # it seems that sometimes the "query" endpoint returns instances
                     # which the "instances" endpoint doesn't know about, so here we double check that
                     # the instance can be found
-                    instance = client.instance_from_full_uri(instances[0]["@id"], scope="any")
+                    instance = client.instance_from_full_uri(instances[0]["@id"], release_status="any")
                     if instance is None:
                         return False
 
@@ -791,7 +791,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         match: str = "equals",
         all: bool = False,
         space: Optional[str] = None,
-        scope: str = "released",
+        release_status: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[KGObject, List[KGObject], None]:
         """
@@ -805,7 +805,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             match (str, optional): either "equals" (exact match - default) or "contains".
             all (bool, optional): Whether to return all objects that match the name, or only the first. Defaults to False.
             space (str, optional): the KG space to search in. Default is to search in all available spaces.
-            scope (str, optional): The scope of the search. Valid values are "released", "in progress", or "any".
+            release_status (str, optional): The scope of the search. Valid values are "released", "in progress", or "any".
                 Defaults to "released".
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
@@ -813,7 +813,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # todo: move this to openminds generation, and include only in those subclasses
         # that have a name
         # todo: also count 'lookup_name', "family_name", "given_name" as a name
-        objects = cls.list(client, space=space, scope=scope, api="query", name=name, follow_links=follow_links)
+        objects = cls.list(client, space=space, release_status=release_status, api="query", name=name, follow_links=follow_links)
         if match == "equals":
             objects = [obj for obj in objects if hasattr(obj, "name") and obj.name == name]
         if len(objects) == 0:

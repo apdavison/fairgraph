@@ -80,28 +80,28 @@ Using these classes, it is possible to list all metadata matching a particular c
 ```
 
 ```
->>> datasets = DatasetVersion.list(client, techniques=whole_cell_patch, scope="in progress")
+>>> datasets = DatasetVersion.list(client, techniques=whole_cell_patch, release_status="in progress")
 ```
 
 For research products that are versioned, such as datasets, models, and software, certain attributes may be inherited from the parent (e.g. a DatasetVersion generally inherits its name from a Dataset). In this case, we have a convenience method to retrieve the parent's name:
 
 ```
->>> print(datasets[0].get_name(client, scope="in progress"))
+>>> print(datasets[0].get_name(client, release_status="in progress"))
 'Cholinergic interneurons in the striatum - Single cell patch clamp recordings'
 ```
 
 If you know the unique identifier of an object, you can retrieve it directly:
 
 ```
->>> dataset = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client, scope="in progress")
+>>> dataset = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client, release_status="in progress")
 ```
 
 Links between metadata in the Knowledge Graph are not followed automatically,
 to avoid unnecessary network traffic, but can be followed with the `resolve()` method:
 
 ```
->>> license = dataset.license.resolve(client, scope="in progress")
->>> authors = [author.resolve(client, scope="in progress") for author in dataset.authors]
+>>> license = dataset.license.resolve(client, release_status="in progress")
+>>> authors = [author.resolve(client, release_status="in progress") for author in dataset.authors]
 ```
 
 The associated metadata is accessible as attributes of the Python objects, e.g.:

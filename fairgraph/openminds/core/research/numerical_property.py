@@ -18,5 +18,5 @@ class NumericalProperty(EmbeddedMetadata, OMNumericalProperty):
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
-    def __init__(self, name=None, values=None, id=None, data=None, space=None, scope=None):
+    def __init__(self, name=None, values=None, id=None, data=None, space=None, release_status=None):
         return EmbeddedMetadata.__init__(self, data=data, name=name, values=values)

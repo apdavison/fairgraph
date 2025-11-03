@@ -518,7 +518,7 @@ class TestKGObject(object):
         orig_object = self._construct_object_required_properties()
 
         class MockClient:
-            def instance_from_full_uri(self, id, use_cache=True, scope="in progress", require_full_data=True):
+            def instance_from_full_uri(self, id, use_cache=True, release_status="in progress", require_full_data=True):
                 data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=False)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id

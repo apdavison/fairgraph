@@ -6,7 +6,7 @@
     def me(cls, client, allow_multiple=False, follow_links=None):
         user_info = client.user_info()
         possible_matches = cls.list(
-            client, scope="in progress", space="common",
+            client, release_status="in progress", space="common",
             follow_links=follow_links,
             family_name=user_info.family_name,
             given_name=user_info.given_name

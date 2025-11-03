@@ -56,7 +56,7 @@ class Resolvable:  # all
     def resolve(
         self,
         client: KGClient,
-        scope: Optional[str] = None,
+        release_status: Optional[str] = None,
         use_cache: bool = True,
         follow_links: Optional[Dict[str, Any]] = None,
     ):

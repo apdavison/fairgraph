@@ -19,7 +19,7 @@ class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
     reverse_properties = []
 
     def __init__(
-        self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, scope=None
+        self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, release_status=None
     ):
         return EmbeddedMetadata.__init__(
             self, data=data, context=context, data_location=data_location, relevant_for=relevant_for

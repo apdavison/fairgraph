@@ -41,7 +41,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
     reverse_properties: List[Property] = []
     context: Dict[str, str]
     type_: str
-    scope: Optional[str]
+    release_status: Optional[str]
     space: Union[str, None]
     default_space: Union[str, None]
     remote_data: Optional[JSONdict]
@@ -119,7 +119,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         return cls._property_lookup[name]
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, scope: Optional[str] = None) -> ContainsMetadata:
+    def from_jsonld(cls, data: JSONdict, release_status: Optional[str] = None) -> ContainsMetadata:
         """
         Create an instance of the class from a JSON-LD document.
         """
@@ -371,21 +371,16 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             if (not prop.multiple) and isinstance(data_item, (list, tuple)) and len(data_item) == 1:
                 data_item = data_item[0]
 
-            # deal with property names that conflict with kwargs in fairgraph
-            prop_name = prop.name
-            if prop_name == "scope":
-                prop_name = "model_scope"
-
             if data_item is None:
                 if prop.reverse and "@id" in data:
                     if isinstance(prop.reverse, list):
                         # todo: handle all possible reverses
                         #       for now, we just take the first
-                        deserialized_data[prop_name] = KGQuery(prop.types, {prop.reverse[0]: data["@id"]})
+                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse[0]: data["@id"]})
                     else:
-                        deserialized_data[prop_name] = KGQuery(prop.types, {prop.reverse: data["@id"]})
+                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse: data["@id"]})
                 else:
-                    deserialized_data[prop_name] = None
+                    deserialized_data[prop.name] = None
             else:
                 try:
                     value = prop.deserialize(data_item)
@@ -397,14 +392,14 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     elif isinstance(value, list) and len(value) > 0 and isinstance(value[0], Link):
                         # here we assume that if the first item is a Link, they all are
                         value = [KGProxy(item.allowed_types, item.identifier) for item in value]
-                    deserialized_data[prop_name] = value
+                    deserialized_data[prop.name] = value
 
         return deserialized_data
 
     def resolve(
         self,
         client: KGClient,
-        scope: Optional[str] = None,
+        release_status: Optional[str] = None,
         use_cache: bool = True,
         follow_links: Optional[Dict[str, Any]] = None,
     ):
@@ -413,14 +408,14 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
         Args:
             client: KGClient object that handles the communication with the KG.
-            scope (str): The scope of instances to include in the response.
+            release_status (str): The scope of instances to include in the response.
                    Valid values are 'released', 'in progress', 'any'.
             use_cache (bool): whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
         Note: a real (non-proxy) object resolves to itself.
         """
-        use_scope = scope or self.scope or "released"
+        use_release_status = release_status or self.release_status or "released"
         if follow_links:
             reverse_aliases = invert_dict(self.__class__.aliases)
             for prop in self.__class__.all_properties:
@@ -444,7 +439,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                                         try:
                                             resolved_value = value.resolve(
                                                 client,
-                                                scope=use_scope,
+                                                release_status=use_release_status,
                                                 use_cache=use_cache,
                                                 follow_links=follow_links[follow_name],
                                             )

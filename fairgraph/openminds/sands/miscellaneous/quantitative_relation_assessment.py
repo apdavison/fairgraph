@@ -19,7 +19,14 @@ class QuantitativeRelationAssessment(EmbeddedMetadata, OMQuantitativeRelationAss
     reverse_properties = []
 
     def __init__(
-        self, criteria=None, in_relation_to=None, quantitative_overlap=None, id=None, data=None, space=None, scope=None
+        self,
+        criteria=None,
+        in_relation_to=None,
+        quantitative_overlap=None,
+        id=None,
+        data=None,
+        space=None,
+        release_status=None,
     ):
         return EmbeddedMetadata.__init__(
             self,

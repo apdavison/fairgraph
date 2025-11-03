@@ -20,7 +20,7 @@ class ResearchProductGroup(KGObject, OMResearchProductGroup):
     reverse_properties = []
     existence_query_properties = ("context", "has_parts")
 
-    def __init__(self, context=None, has_parts=None, id=None, data=None, space=None, scope=None):
+    def __init__(self, context=None, has_parts=None, id=None, data=None, space=None, release_status=None):
         return KGObject.__init__(
-            self, id=id, space=space, scope=scope, data=data, context=context, has_parts=has_parts
+            self, id=id, space=space, release_status=release_status, data=data, context=context, has_parts=has_parts
         )

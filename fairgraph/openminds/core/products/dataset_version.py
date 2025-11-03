@@ -149,13 +149,13 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             name=name,
             alias=alias,
@@ -204,7 +204,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
 
     def download(self, local_path, client, accept_terms_of_use=False):
         if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
-            repo = self.repository.resolve(client, scope=self.scope or None)
+            repo = self.repository.resolve(client, release_status=self.release_status or None)
             if repo.iri.value.startswith("https://object.cscs.ch/v1/AUTH") or repo.iri.value.startswith(
                 "https://data-proxy.ebrains.eu/api/v1/public"
             ):

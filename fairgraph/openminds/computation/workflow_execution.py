@@ -21,13 +21,21 @@ class WorkflowExecution(KGObject, OMWorkflowExecution):
     existence_query_properties = ("stages",)
 
     def __init__(
-        self, configuration=None, recipe=None, stages=None, started_by=None, id=None, data=None, space=None, scope=None
+        self,
+        configuration=None,
+        recipe=None,
+        stages=None,
+        started_by=None,
+        id=None,
+        data=None,
+        space=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             configuration=configuration,
             recipe=recipe,

@@ -19,7 +19,14 @@ class QualitativeRelationAssessment(EmbeddedMetadata, OMQualitativeRelationAsses
     reverse_properties = []
 
     def __init__(
-        self, criteria=None, in_relation_to=None, qualitative_overlap=None, id=None, data=None, space=None, scope=None
+        self,
+        criteria=None,
+        in_relation_to=None,
+        qualitative_overlap=None,
+        id=None,
+        data=None,
+        space=None,
+        release_status=None,
     ):
         return EmbeddedMetadata.__init__(
             self, data=data, criteria=criteria, in_relation_to=in_relation_to, qualitative_overlap=qualitative_overlap

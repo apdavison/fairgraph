@@ -29,12 +29,14 @@ class ContactInformation(KGObject, OMContactInformation):
     ]
     existence_query_properties = ("email",)
 
-    def __init__(self, email=None, is_contact_information_of=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self, email=None, is_contact_information_of=None, id=None, data=None, space=None, release_status=None
+    ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             email=email,
             is_contact_information_of=is_contact_information_of,

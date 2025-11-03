@@ -51,13 +51,13 @@ class ProtocolExecution(KGObject, OMProtocolExecution):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             lookup_label=lookup_label,
             based_on_protocol_execution=based_on_protocol_execution,

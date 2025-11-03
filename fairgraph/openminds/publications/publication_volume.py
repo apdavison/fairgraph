@@ -30,13 +30,13 @@ class PublicationVolume(KGObject, OMPublicationVolume):
     existence_query_properties = ("is_part_of", "volume_number")
 
     def __init__(
-        self, has_parts=None, is_part_of=None, volume_number=None, id=None, data=None, space=None, scope=None
+        self, has_parts=None, is_part_of=None, volume_number=None, id=None, data=None, space=None, release_status=None
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             has_parts=has_parts,
             is_part_of=is_part_of,
