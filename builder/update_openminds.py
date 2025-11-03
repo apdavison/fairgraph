@@ -19,7 +19,8 @@ global_aliases = {
     "full_name": "name",
     "has_versions": "versions",
     "has_entity": "entities",
-    "hashes": "hash"
+    "hashes": "hash",
+    "scope": "model_scope"
 }
 
 

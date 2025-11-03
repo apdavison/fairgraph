@@ -1,6 +1,8 @@
 from copy import deepcopy
 import os
 from uuid import uuid4
+from typing import Optional
+
 from requests.exceptions import SSLError
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError

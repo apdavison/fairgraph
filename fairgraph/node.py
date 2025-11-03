@@ -193,7 +193,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 raise ValueError(msg + ", ".join(sorted(invalid_filters)))
 
         if check_validity:
-            _check_validity(filter_dict_copy, cls.all_property_names)
+            _check_validity(filter_dict_copy, cls.all_property_names + list(cls.aliases.keys()))
 
         for prop in cls.all_properties:
             if prop.name in filter_dict_copy:
@@ -204,7 +204,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                         set(
                             chain(
                                 *(
-                                    child_cls.property_names + list(child_cls.aliases.keys())
+                                    child_cls.all_property_names + list(child_cls.aliases.keys())
                                     for child_cls in prop.types
                                 )
                             )

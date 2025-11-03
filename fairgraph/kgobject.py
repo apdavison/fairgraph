@@ -37,7 +37,7 @@ except ImportError:
 from openminds.registry import lookup_type
 from openminds import IRI
 
-from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data
+from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data, handle_scope_keyword
 from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
@@ -137,6 +137,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         release_status: str = "released",
+        scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -152,6 +153,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             follow_links (dict): The links in the graph to follow. Defaults to None.
             with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         if follow_links:
             query = cls.generate_query(
                 space=None,
@@ -179,6 +181,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         release_status: str = "released",
+        scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -195,6 +198,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
 
         """
+        release_status = handle_scope_keyword(scope, release_status)
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
         if len(uuid) == 0:
             raise ValueError("Empty UUID")
@@ -219,6 +223,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         use_cache: bool = True,
         release_status: str = "released",
+        scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
     ):
@@ -239,6 +244,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             A return value of None means either the object doesn't exist
             or the user doesn't have permission to access it.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
                 fn = cls.from_uri
@@ -275,6 +281,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         space: Optional[str] = None,
         release_status: str = "released",
+        scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
     ):
         """
@@ -291,6 +298,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
+        release_status = handle_scope_keyword(scope, release_status)
         # todo: move this to openminds generation, and include only in those subclasses
         # that have an alias
         # todo: also count 'lookup_name' as an alias
@@ -342,6 +350,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         from_index: int = 0,
         api: str = "auto",
         release_status: str = "released",
+        scope: Optional[str] = None,
         space: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
@@ -381,6 +390,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             fast spiking interneuron       A parvalbumin positive GABAergic interneuron with a high-frequency firing pattern.
 
         """
+        release_status = handle_scope_keyword(scope, release_status)
 
         if api == "auto":
             if filters:
@@ -418,6 +428,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client: KGClient,
         api: str = "auto",
         release_status: str = "released",
+        scope: Optional[str] = None,
         space: Optional[str] = None,
         **filters,
     ) -> int:
@@ -447,6 +458,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             8
 
         """
+        release_status = handle_scope_keyword(scope, release_status)
         if api == "auto":
             if filters:
                 api = "query"
@@ -792,6 +804,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         all: bool = False,
         space: Optional[str] = None,
         release_status: str = "released",
+        scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[KGObject, List[KGObject], None]:
         """
@@ -810,6 +823,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
         """
+        release_status = handle_scope_keyword(scope, release_status)
         # todo: move this to openminds generation, and include only in those subclasses
         # that have a name
         # todo: also count 'lookup_name', "family_name", "given_name" as a name

@@ -374,7 +374,7 @@ def test_count_models_with_filters(kg_client):
         space="model",
         api="auto",
         study_targets=ca1,
-        scope=single_cell,
+        model_scope=single_cell,  # note that 'model_scope' is an alias for 'scope'
     )
     n_models = omcore.Model.count(
         kg_client,
@@ -382,7 +382,7 @@ def test_count_models_with_filters(kg_client):
         space="model",
         api="auto",
         study_targets=ca1,
-        scope=single_cell,
+        model_scope=single_cell,
     )
     assert len(models) == n_models
     assert n_models > 1
@@ -451,7 +451,7 @@ def test__update():
 def test_KGQuery_resolve(kg_client):
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
     single_cell = omterms.ModelScope.by_name("single cell", kg_client)
-    filters = {"study_targets": ca1, "scope": single_cell}
+    filters = {"study_targets": ca1, "model_scope": single_cell}
     q = KGQuery(omcore.Model, filters)
     models_q = q.resolve(kg_client, release_status="released")
     models_direct = omcore.Model.list(kg_client, release_status="released", space="model", api="query", **filters)
@@ -552,7 +552,7 @@ def test_save_new_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        release_status=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -582,7 +582,7 @@ def test_save_existing_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        release_status=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -613,7 +613,7 @@ def test_save_existing_mock_no_updates_allowed(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        release_status=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -645,7 +645,7 @@ def test_save_replace_existing_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        release_status=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),

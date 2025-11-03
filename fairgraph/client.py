@@ -37,7 +37,7 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3
+from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3, handle_scope_keyword
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
@@ -212,6 +212,7 @@ class KGClient(object):
         from_index: int = 0,
         size: int = 100,
         release_status: str = "released",
+        scope: Optional[str] = None,
         id_key: str = "@id",
         use_stored_query: bool = False,
         restrict_to_spaces: Optional[List[str]] = None
@@ -234,7 +235,7 @@ class KGClient(object):
             A ResultPage object containing a list of JSON-LD instances that satisfy the query,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
-
+        release_status = handle_scope_keyword(scope, release_status)
         query_id = query.get("@id", None)
 
         if use_stored_query:
@@ -301,6 +302,7 @@ class KGClient(object):
         from_index: int = 0,
         size: int = 100,
         release_status: str = "released",
+        scope: Optional[str] = None,
     ) -> ResultPage[JsonLdDocument]:
         """
         List KG instances of a given type.
@@ -318,6 +320,7 @@ class KGClient(object):
             A ResultPage object containing the list of JSON-LD instances,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
+        release_status = handle_scope_keyword(scope, release_status)
 
         if self.migrated is False:
             target_type = adapt_type_4to3(target_type)
@@ -359,6 +362,7 @@ class KGClient(object):
         uri: str,
         use_cache: bool = True,
         release_status: str = "released",
+        scope: Optional[str] = None,
         require_full_data: bool = True,
     ) -> JsonLdDocument:
         """
@@ -371,6 +375,7 @@ class KGClient(object):
                    Valid values are 'released', 'in progress', 'any'.
             require_full_data: Whether to only return instances for which the user has full read access.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
         data: JsonLdDocument
         if use_cache and uri in self.cache:
@@ -706,13 +711,14 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
-    def space_info(self, space_name: str, release_status: str = "released", ignore_errors: bool = False):
+    def space_info(self, space_name: str, release_status: str = "released", scope: Optional[str] = None, ignore_errors: bool = False):
         """
         Return information about the types and number of instances in a space.
 
         The return format is a dictionary whose keys are classes and the values are the
         number of instances of each class in the given spaces.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         # todo: if not self.migrated, adapt type before lookup
         result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[release_status])
         if result.error:
