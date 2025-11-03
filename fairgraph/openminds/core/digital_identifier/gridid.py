@@ -4,35 +4,32 @@ A GRID (Global Research Identifier Database) identifier.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import GRIDID as OMGRIDID
+from fairgraph import KGObject
 
 
-class GRIDID(KGObject):
+class GRIDID(KGObject, OMGRIDID):
     """
     A GRID (Global Research Identifier Database) identifier.
     """
 
+    type_ = "https://openminds.om-i.org/types/GRIDID"
     default_space = "common"
-    type_ = "https://openminds.ebrains.eu/core/GRIDID"
-    properties = [
-        Property(
-            "identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the GRIDID."
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "identifies",
-            "openminds.core.Organization",
-            "^vocab:digitalIdentifier",
+            "openminds.latest.core.Organization",
+            "digitalIdentifier",
             reverse="digital_identifiers",
             multiple=True,
-            doc="reverse of 'digital_identifiers'",
+            description="reverse of 'digital_identifiers'",
         ),
     ]
     existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, identifies=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(
-            id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
+        return KGObject.__init__(
+            self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )

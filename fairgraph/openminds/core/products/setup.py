@@ -4,79 +4,35 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Setup as OMSetup
+from fairgraph import KGObject
 
 
-class Setup(KGObject):
+class Setup(KGObject, OMSetup):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/Setup"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/Setup"
-    properties = [
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the setup.",
-        ),
-        Property(
-            "has_parts",
-            [
-                "openminds.core.Setup",
-                "openminds.core.SoftwareVersion",
-                "openminds.ephys.Electrode",
-                "openminds.ephys.ElectrodeArray",
-                "openminds.ephys.Pipette",
-                "openminds.specimen_prep.SlicingDevice",
-            ],
-            "vocab:hasPart",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property("location", str, "vocab:location", doc="no description available"),
-        Property(
-            "manufacturers",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:manufacturer",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the setup.",
-        ),
-        Property(
-            "types",
-            "openminds.controlled_terms.SetupType",
-            "vocab:type",
-            multiple=True,
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.core.Setup",
-            "^vocab:hasPart",
+            "openminds.latest.core.Setup",
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "used_in",
-            "openminds.stimulation.StimulationActivity",
-            "^vocab:setup",
+            "openminds.latest.stimulation.StimulationActivity",
+            "setup",
             reverse="setup",
             multiple=True,
-            doc="reverse of 'setup'",
+            description="reverse of 'setup'",
         ),
     ]
     existence_query_properties = ("description", "has_parts", "name")
@@ -96,7 +52,8 @@ class Setup(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

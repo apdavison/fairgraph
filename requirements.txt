@@ -1,4 +1,5 @@
 ebrains-kg-core
+openminds @ git+https://github.com/apdavison/openMINDS_Python@custom
 python-dateutil
 tabulate
 requests

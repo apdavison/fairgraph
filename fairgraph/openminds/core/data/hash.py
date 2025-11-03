@@ -4,29 +4,19 @@ Structured information on a hash.
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Hash as OMHash
+from fairgraph import EmbeddedMetadata
 
 
-class Hash(EmbeddedMetadata):
+class Hash(EmbeddedMetadata, OMHash):
     """
     Structured information on a hash.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Hash"
-    properties = [
-        Property(
-            "algorithm",
-            str,
-            "vocab:algorithm",
-            required=True,
-            doc="Procedure for solving a mathematical problem in a finite number of steps. Can involve repetition of an operation.",
-        ),
-        Property(
-            "digest", str, "vocab:digest", required=True, doc="Summation or condensation of a body of information."
-        ),
-    ]
+    type_ = "https://openminds.om-i.org/types/Hash"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, algorithm=None, digest=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, algorithm=algorithm, digest=digest)
+        return EmbeddedMetadata.__init__(self, data=data, algorithm=algorithm, digest=digest)

@@ -4,87 +4,37 @@ Structured information on a research project.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Protocol as OMProtocol
+from fairgraph import KGObject
 
 
-class Protocol(KGObject):
+class Protocol(KGObject, OMProtocol):
     """
     Structured information on a research project.
     """
 
+    type_ = "https://openminds.om-i.org/types/Protocol"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/Protocol"
-    properties = [
-        Property(
-            "described_in",
-            ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
-            "vocab:describedIn",
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the protocol.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the protocol.",
-        ),
-        Property(
-            "stimulus_types",
-            [
-                "openminds.controlled_terms.AuditoryStimulusType",
-                "openminds.controlled_terms.ElectricalStimulusType",
-                "openminds.controlled_terms.GustatoryStimulusType",
-                "openminds.controlled_terms.OlfactoryStimulusType",
-                "openminds.controlled_terms.OpticalStimulusType",
-                "openminds.controlled_terms.TactileStimulusType",
-                "openminds.controlled_terms.VisualStimulusType",
-            ],
-            "vocab:stimulusType",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "techniques",
-            [
-                "openminds.controlled_terms.AnalysisTechnique",
-                "openminds.controlled_terms.MRIPulseSequence",
-                "openminds.controlled_terms.MRIWeighting",
-                "openminds.controlled_terms.StimulationApproach",
-                "openminds.controlled_terms.StimulationTechnique",
-                "openminds.controlled_terms.Technique",
-            ],
-            "vocab:technique",
-            multiple=True,
-            required=True,
-            doc="Method of accomplishing a desired aim.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "used_in",
             [
-                "openminds.core.DatasetVersion",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimen_prep.CranialWindowPreparation",
-                "openminds.specimen_prep.TissueCulturePreparation",
-                "openminds.specimen_prep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.ProtocolExecution",
+                "openminds.latest.ephys.CellPatching",
+                "openminds.latest.ephys.ElectrodePlacement",
+                "openminds.latest.ephys.RecordingActivity",
+                "openminds.latest.specimen_prep.CranialWindowPreparation",
+                "openminds.latest.specimen_prep.TissueCulturePreparation",
+                "openminds.latest.specimen_prep.TissueSampleSlicing",
+                "openminds.latest.stimulation.StimulationActivity",
             ],
-            "^vocab:protocol",
+            "protocol",
             reverse="protocols",
             multiple=True,
-            doc="reverse of 'protocols'",
+            description="reverse of 'protocols'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -102,7 +52,8 @@ class Protocol(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

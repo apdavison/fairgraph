@@ -4,73 +4,72 @@ Structured information about a digital object identifier, as standardized by the
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import DOI as OMDOI
+from fairgraph import KGObject
 
 
-class DOI(KGObject):
+class DOI(KGObject, OMDOI):
     """
     Structured information about a digital object identifier, as standardized by the International Organization for Standardization.
     """
 
+    type_ = "https://openminds.om-i.org/types/DOI"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/DOI"
-    properties = [
-        Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the DOI."),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "describes",
-            ["openminds.core.BehavioralProtocol", "openminds.core.Protocol"],
-            "^vocab:describedIn",
+            ["openminds.latest.core.BehavioralProtocol", "openminds.latest.core.Protocol"],
+            "describedIn",
             reverse="described_in",
             multiple=True,
-            doc="reverse of 'described_in'",
+            description="reverse of 'described_in'",
         ),
         Property(
             "identifies",
             [
-                "openminds.computation.ValidationTest",
-                "openminds.computation.WorkflowRecipe",
-                "openminds.core.Dataset",
-                "openminds.core.MetaDataModel",
-                "openminds.core.Model",
-                "openminds.core.Software",
-                "openminds.ephys.Electrode",
-                "openminds.ephys.ElectrodeArray",
-                "openminds.ephys.Pipette",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaper",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlas",
-                "openminds.sands.CommonCoordinateSpace",
-                "openminds.specimen_prep.SlicingDevice",
+                "openminds.latest.computation.ValidationTest",
+                "openminds.latest.computation.WorkflowRecipe",
+                "openminds.latest.core.Dataset",
+                "openminds.latest.core.MetaDataModel",
+                "openminds.latest.core.Model",
+                "openminds.latest.core.Software",
+                "openminds.latest.ephys.Electrode",
+                "openminds.latest.ephys.ElectrodeArray",
+                "openminds.latest.ephys.Pipette",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaper",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlas",
+                "openminds.latest.sands.CommonCoordinateSpace",
+                "openminds.latest.specimen_prep.SlicingDevice",
             ],
-            "^vocab:digitalIdentifier",
+            "digitalIdentifier",
             reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digital_identifier'",
+            description="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:relatedPublication",
+            "relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'related_publications'",
+            description="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)
@@ -86,7 +85,8 @@ class DOI(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -5,19 +5,19 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import AnalysisTechnique as OMAnalysisTechnique
+from openminds.latest.controlled_terms import MRSpatialEncoding as OMMRSpatialEncoding
 from fairgraph import KGObject
 
 
 from openminds import IRI
 
 
-class AnalysisTechnique(KGObject, OMAnalysisTechnique):
+class MRSpatialEncoding(KGObject, OMMRSpatialEncoding):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.om-i.org/types/AnalysisTechnique"
+    type_ = "https://openminds.om-i.org/types/MRSpatialEncoding"
     default_space = "controlled"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
@@ -26,6 +26,7 @@ class AnalysisTechnique(KGObject, OMAnalysisTechnique):
             [
                 "openminds.latest.computation.ValidationTestVersion",
                 "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
                 "openminds.latest.core.MetaDataModelVersion",
                 "openminds.latest.core.ModelVersion",
                 "openminds.latest.core.SoftwareVersion",
@@ -43,32 +44,6 @@ class AnalysisTechnique(KGObject, OMAnalysisTechnique):
             multiple=True,
             description="reverse of 'keywords'",
         ),
-        Property(
-            "is_used_to_group",
-            "openminds.latest.core.FileBundle",
-            "groupedBy",
-            reverse="grouped_by",
-            multiple=True,
-            description="reverse of 'grouped_by'",
-        ),
-        Property(
-            "used_in",
-            [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.Protocol",
-            ],
-            "technique",
-            reverse="techniques",
-            multiple=True,
-            description="reverse of 'techniques'",
-        ),
     ]
     existence_query_properties = ("name",)
 
@@ -79,11 +54,9 @@ class AnalysisTechnique(KGObject, OMAnalysisTechnique):
         describes=None,
         description=None,
         interlex_identifier=None,
-        is_used_to_group=None,
         knowledge_space_link=None,
         preferred_ontology_identifier=None,
         synonyms=None,
-        used_in=None,
         id=None,
         data=None,
         space=None,
@@ -100,9 +73,7 @@ class AnalysisTechnique(KGObject, OMAnalysisTechnique):
             describes=describes,
             description=description,
             interlex_identifier=interlex_identifier,
-            is_used_to_group=is_used_to_group,
             knowledge_space_link=knowledge_space_link,
             preferred_ontology_identifier=preferred_ontology_identifier,
             synonyms=synonyms,
-            used_in=used_in,
         )

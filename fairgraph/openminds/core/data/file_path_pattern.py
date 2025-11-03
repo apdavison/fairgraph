@@ -4,28 +4,19 @@
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import FilePathPattern as OMFilePathPattern
+from fairgraph import EmbeddedMetadata
 
 
-class FilePathPattern(EmbeddedMetadata):
+class FilePathPattern(EmbeddedMetadata, OMFilePathPattern):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/core/FilePathPattern"
-    properties = [
-        Property(
-            "grouping_types",
-            "openminds.controlled_terms.FileBundleGrouping",
-            "vocab:groupingType",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property("regex", str, "vocab:regex", required=True, doc="no description available"),
-    ]
+    type_ = "https://openminds.om-i.org/types/FilePathPattern"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, grouping_types=grouping_types, regex=regex)
+        return EmbeddedMetadata.__init__(self, data=data, grouping_types=grouping_types, regex=regex)

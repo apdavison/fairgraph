@@ -22,7 +22,9 @@ from __future__ import annotations
 import logging
 from typing import List, Optional, Tuple, Union, Dict, Any, TYPE_CHECKING
 
-from .registry import lookup
+from openminds.base import Link
+from openminds.registry import lookup
+
 from .errors import ResolutionFailure
 from .caching import object_cache
 from .base import RepresentsSingleObject
@@ -35,13 +37,13 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class KGProxy(RepresentsSingleObject):
+class KGProxy(RepresentsSingleObject, Link):
     """
-    Representation of an KGObject whose type and identifier are known but whose
+    Representation of an KGObject whose identifier, and possibly type, are known but whose
     other metadata have not been retrieved from the KG.
 
     Args:
-        cls (str, KGObject): the type of the associated KG object, defined by a KGObject subclass
+        cls (str, KGObject, List[KGObject]): the possible types of the associated KG object, defined by a KGObject subclass
             or by the name of the subclass.
         uri (URI): The global identifier of the KG object.
         preferred_scope (str, optional): The preferred scope used to resolve the proxy.
@@ -59,20 +61,28 @@ class KGProxy(RepresentsSingleObject):
 
     # todo: rename uri to id, for consistency?
 
-    def __init__(self, cls: Union[str, KGObject], uri: str, preferred_scope: str = "released"):
-        self.cls: KGObject
-        if isinstance(cls, str):
-            resolved_cls = lookup(cls)
+    def __init__(
+            self,
+            classes: Union[str, KGObject, List[KGObject], Tuple[KGObject]],
+            uri: str,
+            preferred_scope: str = "released"
+    ):
+        self.classes: List[KGObject]  # todo: make this a set?
+        if isinstance(classes, str):
+            resolved_cls = lookup(classes)
             if TYPE_CHECKING:
                 assert isinstance(resolved_cls, KGObject)
-            self.cls = resolved_cls
+            self.classes = [resolved_cls]
+        elif isinstance(classes, (list, tuple)):
+            self.classes = list(classes)
         else:
-            self.cls = cls
+            self.classes = [classes]
         if TYPE_CHECKING:
-            assert isinstance(self.cls, KGObject)
+            assert all(isinstance(cls, KGObject) for cls in self.classes)
         self.id = uri
         self.preferred_scope = preferred_scope
         self.remote_data = None
+        Link.__init__(self, self.id, allowed_types=self.classes)
 
     @property
     def type(self) -> List[str]:
@@ -80,21 +90,24 @@ class KGProxy(RepresentsSingleObject):
         Provide the global identifiers of the object type (as a list of URIs).
         """
         try:
-            return self.cls.type_
+            return [cls.type_ for cls in self.classes]
         except AttributeError as err:
-            raise AttributeError(f"{err} self.cls={self.cls}")
+            raise AttributeError(f"{err} self.classes={self.classes}")
 
     @property
-    def classes(self) -> Union[Tuple[KGObject], List[KGObject]]:
+    def cls(self):
         """
-        Provide the metadata class associated with this object in a list.
-
-        This is provided for consistency with the KGQuery interface.
+        For backwards compatibility
         """
-        if isinstance(self.cls, (list, tuple)):
-            return self.cls
+        if len(self.classes) == 1:
+            return self.classes[0]
         else:
-            return [self.cls]
+            raise AttributeError("This KGProxy has multiple possible types, use the 'classes' attribute instead")
+
+    def to_jsonld(self, **kwargs):
+        return {
+            "@id": self.id
+        }
 
     def resolve(
         self,
@@ -120,19 +133,17 @@ class KGProxy(RepresentsSingleObject):
             obj = object_cache[self.id]
         else:
             scope = scope or self.preferred_scope
-            if len(self.classes) > 1:
-                obj = None
-                for cls in self.classes:
-                    try:
-                        obj = cls.from_uri(self.id, client, scope=scope)
-                    except TypeError:
-                        pass
-                    else:
-                        break
-            else:
-                obj = self.cls.from_uri(self.id, client, scope=scope)
+            obj = None
+            for cls in self.classes:
+                # this is inefficient, we should just get the data from the id, then get the correct type from the data
+                try:
+                    obj = cls.from_uri(self.id, client, scope=scope)
+                except TypeError:
+                    pass
+                else:
+                    break
             if obj is None:
-                raise ResolutionFailure(f"Cannot resolve proxy object of type {self.cls} with id {self.uuid}")
+                raise ResolutionFailure(f"Cannot resolve proxy object of type {self.classes} with id {self.uuid}")
             object_cache[self.id] = obj
         if follow_links:
             return obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)

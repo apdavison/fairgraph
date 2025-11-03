@@ -4,49 +4,22 @@ A representation of an array of quantitative values, optionally with uncertainti
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import QuantitativeValueArray as OMQuantitativeValueArray
+from fairgraph import KGObject
 
 
 from numbers import Real
 
 
-class QuantitativeValueArray(KGObject):
+class QuantitativeValueArray(KGObject, OMQuantitativeValueArray):
     """
     A representation of an array of quantitative values, optionally with uncertainties.
     """
 
+    type_ = "https://openminds.om-i.org/types/QuantitativeValueArray"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/QuantitativeValueArray"
-    properties = [
-        Property(
-            "negative_uncertainties",
-            Real,
-            "vocab:negativeUncertainties",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "positive_uncertainties",
-            Real,
-            "vocab:positiveUncertainties",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "type_of_uncertainty",
-            "openminds.controlled_terms.TypeOfUncertainty",
-            "vocab:typeOfUncertainty",
-            doc="Distinct technique used to quantify the uncertainty of a measurement.",
-        ),
-        Property(
-            "unit",
-            "openminds.controlled_terms.UnitOfMeasurement",
-            "vocab:unit",
-            doc="Determinate quantity adopted as a standard of measurement.",
-        ),
-        Property("values", Real, "vocab:values", multiple=True, required=True, doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("values",)
 
@@ -62,7 +35,8 @@ class QuantitativeValueArray(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -4,22 +4,19 @@
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import Circle as OMCircle
+from fairgraph import EmbeddedMetadata
 
 
-class Circle(EmbeddedMetadata):
+class Circle(EmbeddedMetadata, OMCircle):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/Circle"
-    properties = [
-        Property(
-            "radius", "openminds.core.QuantitativeValue", "vocab:radius", required=True, doc="no description available"
-        ),
-    ]
+    type_ = "https://openminds.om-i.org/types/Circle"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, radius=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, radius=radius)
+        return EmbeddedMetadata.__init__(self, data=data, radius=radius)

@@ -4,120 +4,35 @@ Structured information on an electrode array.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.ephys import ElectrodeArray as OMElectrodeArray
+from fairgraph import KGObject
 
 
-class ElectrodeArray(KGObject):
+class ElectrodeArray(KGObject, OMElectrodeArray):
     """
     Structured information on an electrode array.
     """
 
+    type_ = "https://openminds.om-i.org/types/ElectrodeArray"
     default_space = "in-depth"
-    type_ = "https://openminds.ebrains.eu/ephys/ElectrodeArray"
-    properties = [
-        Property(
-            "conductor_material",
-            [
-                "openminds.chemicals.ChemicalMixture",
-                "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlled_terms.MolecularEntity",
-            ],
-            "vocab:conductorMaterial",
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the electrode array.",
-        ),
-        Property(
-            "device_type",
-            "openminds.controlled_terms.DeviceType",
-            "vocab:deviceType",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "digital_identifier",
-            ["openminds.core.DOI", "openminds.core.RRID"],
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "electrode_identifiers",
-            str,
-            "vocab:electrodeIdentifier",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "insulator_material",
-            [
-                "openminds.chemicals.ChemicalMixture",
-                "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlled_terms.MolecularEntity",
-            ],
-            "vocab:insulatorMaterial",
-            doc="no description available",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            doc="Term or code that identifies the electrode array within a particular product.",
-        ),
-        Property(
-            "intrinsic_resistance",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:intrinsicResistance",
-            doc="no description available",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "manufacturers",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:manufacturer",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the electrode array.",
-        ),
-        Property(
-            "number_of_electrodes", int, "vocab:numberOfElectrodes", required=True, doc="no description available"
-        ),
-        Property(
-            "owners",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:owner",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property("serial_number", str, "vocab:serialNumber", doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.core.Setup",
-            "^vocab:hasPart",
+            "openminds.latest.core.Setup",
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "usage",
-            "openminds.ephys.ElectrodeArrayUsage",
-            "^vocab:device",
+            "openminds.latest.ephys.ElectrodeArrayUsage",
+            "device",
             reverse="device",
             multiple=True,
-            doc="reverse of 'device'",
+            description="reverse of 'device'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -145,7 +60,8 @@ class ElectrodeArray(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

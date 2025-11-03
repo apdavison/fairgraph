@@ -18,10 +18,15 @@
 # limitations under the License.
 
 from __future__ import annotations
+from copy import deepcopy
 import hashlib
 import logging
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
+
+from openminds.registry import lookup_type
+
+from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -96,11 +101,14 @@ def expand_uri(uri_list: Union[str, List[str]], context: Dict[str, Any]) -> Unio
         if uri.startswith("http") or uri.startswith("@"):
             expanded_uris.append(uri)
         else:
-            prefix, identifier = uri.split(":")
-            if prefix.startswith("^"):  # used to indicate a reverse connection
-                prefix = prefix[1:]
+            parts = uri.split(":")
+            if len(parts) == 1:
+                prefix = "@vocab"
+                identifier = uri
+            else:
+                prefix, identifier = parts
             if prefix not in context:
-                raise ValueError("prefix {prefix} not found in context")
+                raise ValueError(f"prefix {prefix} not found in context")
             base_url = context[prefix]
             if not base_url.endswith("/"):
                 base_url += "/"
@@ -142,7 +150,10 @@ def compact_uri(
                 if uri.startswith(base_url):
                     start = len(base_url)
                     identifier = uri[start:].strip("/")
-                    compacted_uris.append(f"{prefix}:{identifier}")
+                    if prefix == "@vocab":
+                        compacted_uris.append(identifier)
+                    else:
+                        compacted_uris.append(f"{prefix}:{identifier}")
                     found = True
                     break
             if not found:
@@ -195,28 +206,30 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
     normalized: JSONdict = {}
     for key, value in data.items():
         assert isinstance(key, str)
-        if key.startswith("Q"):
+        if key == "@context":
+            continue
+        elif key.startswith("Q"):
             expanded_key = key
         else:
             result = expand_uri(key, context)
             assert isinstance(result, str)  # for type checking
             expanded_key = result
         assert expanded_key.startswith("http") or expanded_key.startswith("@") or expanded_key.startswith("Q")
+
         if hasattr(value, "__len__") and len(value) == 0:
             pass
         elif value is None:
             pass
-        elif isinstance(value, (list, tuple)) and key != "@type":
-            # note that we special-case "@type" for now
+        elif expanded_key == "@type":
+            normalized[expanded_key] = value
+        elif isinstance(value, (list, tuple)):
             normalized[expanded_key] = []
             for item in value:
                 if isinstance(item, dict):
                     normalized[expanded_key].append(normalize_data(item, context))
                 else:
                     normalized[expanded_key].append(item)
-            if len(value) == 1:
-                normalized[expanded_key] = normalized[expanded_key][0]
-        elif isinstance(value, dict) and expanded_key != "@context":
+        elif isinstance(value, dict):
             normalized[expanded_key] = normalize_data(value, context)
         else:
             normalized[expanded_key] = value
@@ -429,7 +442,134 @@ def types_match(a, b):
     if a == b:
         return True
     elif a.split("/")[-1] == b.split("/")[-1]:
-        logger.warning(f"Replacing {a} with {b}")
+        logger.warning(f"Assuming {a} matches {b} in types_match()")
         return True
     else:
         return False
+
+
+def _adapt_namespaces(data, adapt_keys, adapt_type, adapt_instance_uri):
+    if isinstance(data, list):
+        for item in data:
+            _adapt_namespaces(item, adapt_keys, adapt_type, adapt_instance_uri)
+    elif isinstance(data, dict):
+        # adapt property URIs
+        old_keys = tuple(data.keys())
+        new_keys = adapt_keys(old_keys)
+        for old_key, new_key in zip(old_keys, new_keys):
+            data[new_key] = data.pop(old_key)
+        for key, value in data.items():
+            if key == "@id":
+                data[key] = adapt_instance_uri(value)
+            elif isinstance(value, (list, dict)):
+                _adapt_namespaces(value, adapt_keys, adapt_type, adapt_instance_uri)
+        # adapt @type URIs
+        if "@type" in data:
+            data["@type"] = adapt_type(data["@type"])
+    else:
+        pass
+
+
+def adapt_namespaces_3to4(data):
+
+    def adapt_keys_3to4(uri_list):
+        replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
+        return (uri.replace(*replacement) for uri in uri_list)
+
+    def adapt_type_3to4(uri):
+        if isinstance(uri, list):
+            assert len(uri) == 1
+            uri = uri[0]
+        return f"https://openminds.om-i.org/types/{uri.split('/')[-1]}"
+
+    def adapt_instance_uri_3to4(uri):
+        if uri.startswith("https://openminds"):
+            return uri.replace("ebrains.eu", "om-i.org")
+        else:
+            return uri
+
+    return _adapt_namespaces(data, adapt_keys_3to4, adapt_type_3to4, adapt_instance_uri_3to4)
+
+
+def adapt_type_4to3(uri):
+        if isinstance(uri, list):
+            assert len(uri) == 1
+            uri = uri[0]
+        cls = lookup_type(uri, OPENMINDS_VERSION)
+
+        if cls.__module__ == "test.test_client":
+            return cls.type_
+
+        module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
+        module_name = {
+            "controlled_terms": "controlledTerms",
+            "specimen_prep": "specimenPrep"
+        }.get(module_name, module_name)
+        return f"https://openminds.ebrains.eu/{module_name}/{cls.__name__}"
+
+
+def adapt_namespaces_4to3(data):
+
+    def adapt_keys_4to3(uri_list):
+        replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
+        return (uri.replace(*replacement) for uri in uri_list)
+
+    def adapt_instance_uri_4to3(uri):
+        if uri.startswith("https://openminds"):
+            return uri.replace("om-i.org", "ebrains.eu")
+        else:
+            return uri
+
+    return _adapt_namespaces(data, adapt_keys_4to3, adapt_type_4to3, adapt_instance_uri_4to3)
+
+
+def adapt_namespaces_for_query(query):
+    """Map from v4+ to v3 openMINDS namespace"""
+
+    def adapt_path(item_path, replacement):
+        if isinstance(item_path, str):
+            return item_path.replace(*replacement)
+        elif isinstance(item_path, list):
+            return [adapt_path(part, replacement) for part in item_path]
+        else:
+            assert isinstance(item_path, dict)
+            new_item_path = item_path.copy()
+            new_item_path["@id"] = item_path["@id"].replace(*replacement)
+            if "typeFilter" in item_path:
+                if isinstance(item_path["typeFilter"], list):
+                    new_item_path["typeFilter"] = [
+                        {"@id": adapt_type_4to3(subitem["@id"])}
+                        for subitem in item_path["typeFilter"]
+                    ]
+                else:
+                    new_item_path["typeFilter"]["@id"] = adapt_type_4to3(item_path["typeFilter"]["@id"])
+            return new_item_path
+
+    def adapt_structure(structure, replacement):
+        for item in structure:
+            item["path"] = adapt_path(item["path"], replacement)
+            if "structure" in item:
+                adapt_structure(item["structure"], replacement)
+
+    migrated_query = deepcopy(query)
+    migrated_query["meta"]["type"] = adapt_type_4to3(migrated_query["meta"]["type"])
+    replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
+    adapt_structure(migrated_query["structure"], replacement)
+    return migrated_query
+
+
+def initialise_instances(class_list):
+    """Cast openMINDS instances to their fairgraph subclass"""
+    for cls in class_list:
+        cls.set_error_handling(None)
+        # find parent openMINDS class
+        for parent_cls in cls.__mro__[1:]:
+            if parent_cls.__name__ == cls.__name__:
+                # could also do this by looking for issubclass(parent_cls, openminds.Node)
+                break
+        for key, value in parent_cls.__dict__.items():
+            if isinstance(value, parent_cls):
+                fg_instance = cls.from_jsonld(value.to_jsonld())
+                fg_instance._space = cls.default_space
+                setattr(cls, key, fg_instance)
+        cls.set_error_handling("log")

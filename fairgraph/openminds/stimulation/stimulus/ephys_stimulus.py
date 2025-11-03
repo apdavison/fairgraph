@@ -4,82 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.stimulation import EphysStimulus as OMEphysStimulus
+from fairgraph import KGObject
 
 
-class EphysStimulus(KGObject):
+class EphysStimulus(KGObject, OMEphysStimulus):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/EphysStimulus"
     default_space = "in-depth"
-    type_ = "https://openminds.ebrains.eu/stimulation/EphysStimulus"
-    properties = [
-        Property(
-            "delivered_by",
-            [
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
-            ],
-            "vocab:deliveredBy",
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the ephys stimulus.",
-        ),
-        Property("epoch", "openminds.core.QuantitativeValue", "vocab:epoch", doc="no description available"),
-        Property(
-            "generated_by",
-            [
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
-                "openminds.specimen_prep.SlicingDeviceUsage",
-            ],
-            "vocab:generatedBy",
-            doc="no description available",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            required=True,
-            doc="Term or code that identifies the ephys stimulus within a particular product.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "specifications",
-            [
-                "openminds.core.Configuration",
-                "openminds.core.File",
-                "openminds.core.FileBundle",
-                "openminds.core.PropertyValueList",
-            ],
-            "vocab:specification",
-            multiple=True,
-            doc="Detailed and precise presentation of, or proposal for something.",
-        ),
-        Property(
-            "type",
-            "openminds.controlled_terms.ElectricalStimulusType",
-            "vocab:type",
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_stimulus_for",
-            "openminds.stimulation.StimulationActivity",
-            "^vocab:stimulus",
+            "openminds.latest.stimulation.StimulationActivity",
+            "stimulus",
             reverse="stimuli",
             multiple=True,
-            doc="reverse of 'stimuli'",
+            description="reverse of 'stimuli'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -100,7 +45,8 @@ class EphysStimulus(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

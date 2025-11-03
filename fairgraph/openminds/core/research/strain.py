@@ -4,113 +4,40 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Strain as OMStrain
+from fairgraph import KGObject
 
 
-class Strain(KGObject):
+class Strain(KGObject, OMStrain):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/Strain"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/Strain"
-    properties = [
-        Property(
-            "alternate_identifiers", str, "vocab:alternateIdentifier", multiple=True, doc="no description available"
-        ),
-        Property(
-            "background_strains",
-            "openminds.core.Strain",
-            "vocab:backgroundStrain",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "breeding_type",
-            "openminds.controlled_terms.BreedingType",
-            "vocab:breedingType",
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the strain.",
-        ),
-        Property(
-            "digital_identifier",
-            "openminds.core.RRID",
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "disease_models",
-            ["openminds.controlled_terms.Disease", "openminds.controlled_terms.DiseaseModel"],
-            "vocab:diseaseModel",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "genetic_strain_type",
-            "openminds.controlled_terms.GeneticStrainType",
-            "vocab:geneticStrainType",
-            required=True,
-            doc="no description available",
-        ),
-        Property("laboratory_code", str, "vocab:laboratoryCode", doc="no description available"),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the strain.",
-        ),
-        Property(
-            "ontology_identifiers",
-            str,
-            "vocab:ontologyIdentifier",
-            multiple=True,
-            doc="Term or code used to identify the strain registered within a particular ontology.",
-        ),
-        Property("phenotype", str, "vocab:phenotype", doc="Physical expression of one or more genes of an organism."),
-        Property(
-            "species",
-            "openminds.controlled_terms.Species",
-            "vocab:species",
-            required=True,
-            doc="Category of biological classification comprising related organisms or populations potentially capable of interbreeding, and being designated by a binomial that consists of the name of a genus followed by a Latin or latinized uncapitalized noun or adjective.",
-        ),
-        Property("stock_number", "openminds.core.StockNumber", "vocab:stockNumber", doc="no description available"),
-        Property(
-            "synonyms",
-            str,
-            "vocab:synonym",
-            multiple=True,
-            doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_background_strain_of",
-            "openminds.core.Strain",
-            "^vocab:backgroundStrain",
+            "openminds.latest.core.Strain",
+            "backgroundStrain",
             reverse="background_strains",
             multiple=True,
-            doc="reverse of 'background_strains'",
+            description="reverse of 'background_strains'",
         ),
         Property(
             "is_species_of",
             [
-                "openminds.core.Subject",
-                "openminds.core.SubjectGroup",
-                "openminds.core.TissueSample",
-                "openminds.core.TissueSampleCollection",
+                "openminds.latest.core.Subject",
+                "openminds.latest.core.SubjectGroup",
+                "openminds.latest.core.TissueSample",
+                "openminds.latest.core.TissueSampleCollection",
             ],
-            "^vocab:species",
+            "species",
             reverse="species",
             multiple=True,
-            doc="reverse of 'species'",
+            description="reverse of 'species'",
         ),
     ]
     existence_query_properties = ("genetic_strain_type", "name", "species")
@@ -138,7 +65,8 @@ class Strain(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

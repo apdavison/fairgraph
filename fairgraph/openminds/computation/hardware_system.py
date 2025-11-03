@@ -4,46 +4,27 @@ Structured information about computing hardware.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import HardwareSystem as OMHardwareSystem
+from fairgraph import KGObject
 
 
-class HardwareSystem(KGObject):
+class HardwareSystem(KGObject, OMHardwareSystem):
     """
     Structured information about computing hardware.
     """
 
+    type_ = "https://openminds.om-i.org/types/HardwareSystem"
     default_space = "computation"
-    type_ = "https://openminds.ebrains.eu/computation/HardwareSystem"
-    properties = [
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the hardware system.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the hardware system.",
-        ),
-        Property(
-            "version_identifier",
-            str,
-            "vocab:versionIdentifier",
-            doc="Term or code used to identify the version of something.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "used_by",
-            "openminds.computation.Environment",
-            "^vocab:hardware",
+            "openminds.latest.computation.Environment",
+            "hardware",
             reverse="hardware",
             multiple=True,
-            doc="reverse of 'hardware'",
+            description="reverse of 'hardware'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -59,7 +40,8 @@ class HardwareSystem(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

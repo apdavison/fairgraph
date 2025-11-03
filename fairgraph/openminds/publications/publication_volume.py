@@ -4,35 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.publications import PublicationVolume as OMPublicationVolume
+from fairgraph import KGObject
 
 
-class PublicationVolume(KGObject):
+class PublicationVolume(KGObject, OMPublicationVolume):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/PublicationVolume"
     default_space = "livepapers"
-    type_ = "https://openminds.ebrains.eu/publications/PublicationVolume"
-    properties = [
-        Property(
-            "is_part_of",
-            "openminds.publications.Periodical",
-            "vocab:isPartOf",
-            required=True,
-            doc="Reference to the ensemble of multiple things or beings.",
-        ),
-        Property("volume_number", str, "vocab:volumeNumber", required=True, doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_parts",
-            ["openminds.publications.PublicationIssue", "openminds.publications.ScholarlyArticle"],
-            "^vocab:isPartOf",
+            ["openminds.latest.publications.PublicationIssue", "openminds.latest.publications.ScholarlyArticle"],
+            "isPartOf",
             reverse="is_part_of",
             multiple=True,
-            doc="reverse of 'is_part_of'",
+            description="reverse of 'is_part_of'",
         ),
     ]
     existence_query_properties = ("is_part_of", "volume_number")
@@ -40,7 +32,8 @@ class PublicationVolume(KGObject):
     def __init__(
         self, has_parts=None, is_part_of=None, volume_number=None, id=None, data=None, space=None, scope=None
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

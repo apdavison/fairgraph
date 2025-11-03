@@ -4,35 +4,19 @@ Structured information on the copyright.
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Copyright as OMCopyright
+from fairgraph import EmbeddedMetadata
 
 
-class Copyright(EmbeddedMetadata):
+class Copyright(EmbeddedMetadata, OMCopyright):
     """
     Structured information on the copyright.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/Copyright"
-    properties = [
-        Property(
-            "holders",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:holder",
-            multiple=True,
-            required=True,
-            doc="Legal person in possession of something.",
-        ),
-        Property(
-            "years",
-            str,
-            "vocab:year",
-            multiple=True,
-            required=True,
-            doc="Cycle in the Gregorian calendar specified by a number and comprised of 365 or 366 days divided into 12 months beginning with January and ending with December.",
-        ),
-    ]
+    type_ = "https://openminds.om-i.org/types/Copyright"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, holders=None, years=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, holders=holders, years=years)
+        return EmbeddedMetadata.__init__(self, data=data, holders=holders, years=years)

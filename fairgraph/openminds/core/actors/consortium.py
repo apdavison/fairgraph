@@ -4,137 +4,126 @@ Structured information about an association of two or more persons or organizati
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import Consortium as OMConsortium
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class Consortium(KGObject):
+class Consortium(KGObject, OMConsortium):
     """
     Structured information about an association of two or more persons or organizations, with the objective of participating in a common activity.
     """
 
+    type_ = "https://openminds.om-i.org/types/Consortium"
     default_space = "common"
-    type_ = "https://openminds.ebrains.eu/core/Consortium"
-    properties = [
-        Property(
-            "contact_information",
-            "openminds.core.ContactInformation",
-            "vocab:contactInformation",
-            doc="Any available way used to contact a person or business (e.g., address, phone number, email address, etc.).",
-        ),
-        Property(
-            "full_name", str, "vocab:fullName", required=True, doc="Whole, non-abbreviated name of the consortium."
-        ),
-        Property("homepage", IRI, "vocab:homepage", doc="Main website of the consortium."),
-        Property("short_name", str, "vocab:shortName", doc="Shortened or fully abbreviated name of the consortium."),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "coordinated_projects",
-            "openminds.core.Project",
-            "^vocab:coordinator",
+            "openminds.latest.core.Project",
+            "coordinator",
             reverse="coordinators",
             multiple=True,
-            doc="reverse of 'coordinators'",
+            description="reverse of 'coordinators'",
         ),
         Property(
             "developed",
             [
-                "openminds.computation.ValidationTest",
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipe",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.MetaDataModel",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.Model",
-                "openminds.core.ModelVersion",
-                "openminds.core.Software",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebService",
-                "openminds.core.WebServiceVersion",
+                "openminds.latest.computation.ValidationTest",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipe",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.MetaDataModel",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.Model",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.Software",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebService",
+                "openminds.latest.core.WebServiceVersion",
             ],
-            "^vocab:developer",
+            "developer",
             reverse="developers",
             multiple=True,
-            doc="reverse of 'developers'",
+            description="reverse of 'developers'",
         ),
         Property(
             "funded",
-            "openminds.core.Funding",
-            "^vocab:funder",
+            "openminds.latest.core.Funding",
+            "funder",
             reverse="funder",
             multiple=True,
-            doc="reverse of 'funder'",
+            description="reverse of 'funder'",
         ),
         Property(
             "has_members",
-            "openminds.core.Affiliation",
-            "^vocab:memberOf",
+            "openminds.latest.core.Affiliation",
+            "memberOf",
             reverse="member_of",
             multiple=True,
-            doc="reverse of 'member_of'",
+            description="reverse of 'member_of'",
         ),
         Property(
             "is_custodian_of",
             [
-                "openminds.core.Dataset",
-                "openminds.core.DatasetVersion",
-                "openminds.publications.LivePaper",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlas",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpace",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.core.Dataset",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.publications.LivePaper",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.sands.BrainAtlas",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpace",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:custodian",
+            "custodian",
             reverse="custodians",
             multiple=True,
-            doc="reverse of 'custodians'",
+            description="reverse of 'custodians'",
         ),
         Property(
             "is_owner_of",
             [
-                "openminds.ephys.Electrode",
-                "openminds.ephys.ElectrodeArray",
-                "openminds.ephys.Pipette",
-                "openminds.specimen_prep.SlicingDevice",
+                "openminds.latest.ephys.Electrode",
+                "openminds.latest.ephys.ElectrodeArray",
+                "openminds.latest.ephys.Pipette",
+                "openminds.latest.specimen_prep.SlicingDevice",
             ],
-            "^vocab:owner",
+            "owner",
             reverse="owners",
             multiple=True,
-            doc="reverse of 'owners'",
+            description="reverse of 'owners'",
         ),
         Property(
             "is_provider_of",
-            "openminds.chemicals.ProductSource",
-            "^vocab:provider",
+            "openminds.latest.chemicals.ProductSource",
+            "provider",
             reverse="provider",
             multiple=True,
-            doc="reverse of 'provider'",
+            description="reverse of 'provider'",
         ),
         Property(
             "manufactured",
-            "openminds.core.Setup",
-            "^vocab:manufacturer",
+            "openminds.latest.core.Setup",
+            "manufacturer",
             reverse="manufacturers",
             multiple=True,
-            doc="reverse of 'manufacturers'",
+            description="reverse of 'manufacturers'",
         ),
         Property(
             "published",
             [
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.ScholarlyArticle",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.ScholarlyArticle",
             ],
-            "^vocab:publisher",
+            "publisher",
             reverse="publisher",
             multiple=True,
-            doc="reverse of 'publisher'",
+            description="reverse of 'publisher'",
         ),
     ]
     aliases = {"name": "full_name", "alias": "short_name"}
@@ -162,7 +151,8 @@ class Consortium(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

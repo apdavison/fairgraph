@@ -4,58 +4,30 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.publications import LivePaperResourceItem as OMLivePaperResourceItem
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class LivePaperResourceItem(KGObject):
+class LivePaperResourceItem(KGObject, OMLivePaperResourceItem):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/LivePaperResourceItem"
     default_space = "livepapers"
-    type_ = "https://openminds.ebrains.eu/publications/LivePaperResourceItem"
-    properties = [
-        Property(
-            "hosted_by",
-            ["openminds.core.Organization", "openminds.core.WebService", "openminds.controlled_terms.Service"],
-            "vocab:hostedBy",
-            required=True,
-            doc="Reference to an organization that provides facilities and services for something.",
-        ),
-        Property(
-            "iri",
-            IRI,
-            "vocab:IRI",
-            required=True,
-            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
-        ),
-        Property(
-            "is_part_of",
-            "openminds.publications.LivePaperSection",
-            "vocab:isPartOf",
-            required=True,
-            doc="Reference to the ensemble of multiple things or beings.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the live paper resource item.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_location_of",
-            "openminds.core.ServiceLink",
-            "^vocab:dataLocation",
+            "openminds.latest.core.ServiceLink",
+            "dataLocation",
             reverse="data_location",
             multiple=True,
-            doc="reverse of 'data_location'",
+            description="reverse of 'data_location'",
         ),
     ]
     existence_query_properties = ("name", "iri", "is_part_of")
@@ -72,7 +44,8 @@ class LivePaperResourceItem(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

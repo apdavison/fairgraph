@@ -4,59 +4,62 @@ An International Standard Book Number of the International ISBN Agency.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import ISBN as OMISBN
+from fairgraph import KGObject
 
 
-class ISBN(KGObject):
+class ISBN(KGObject, OMISBN):
     """
     An International Standard Book Number of the International ISBN Agency.
     """
 
+    type_ = "https://openminds.om-i.org/types/ISBN"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/ISBN"
-    properties = [
-        Property("identifier", str, "vocab:identifier", required=True, doc="Term or code used to identify the ISBN."),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "cited_in",
             [
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.ScholarlyArticle",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.ScholarlyArticle",
             ],
-            "^vocab:citedPublication",
+            "citedPublication",
             reverse="cited_publications",
             multiple=True,
-            doc="reverse of 'cited_publications'",
+            description="reverse of 'cited_publications'",
         ),
         Property(
             "identifies",
-            ["openminds.publications.Book", "openminds.sands.BrainAtlas", "openminds.sands.CommonCoordinateSpace"],
-            "^vocab:digitalIdentifier",
+            [
+                "openminds.latest.publications.Book",
+                "openminds.latest.sands.BrainAtlas",
+                "openminds.latest.sands.CommonCoordinateSpace",
+            ],
+            "digitalIdentifier",
             reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digital_identifier'",
+            description="reverse of 'digital_identifier'",
         ),
         Property(
             "related_to",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.SoftwareVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:relatedPublication",
+            "relatedPublication",
             reverse="related_publications",
             multiple=True,
-            doc="reverse of 'related_publications'",
+            description="reverse of 'related_publications'",
         ),
     ]
     existence_query_properties = ("identifier",)
@@ -72,7 +75,8 @@ class ISBN(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

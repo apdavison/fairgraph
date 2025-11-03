@@ -4,34 +4,19 @@ Structured information about a property of some entity or process whose value is
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import NumericalProperty as OMNumericalProperty
+from fairgraph import EmbeddedMetadata
 
 
-class NumericalProperty(EmbeddedMetadata):
+class NumericalProperty(EmbeddedMetadata, OMNumericalProperty):
     """
     Structured information about a property of some entity or process whose value is a number.
     """
 
-    type_ = "https://openminds.ebrains.eu/core/NumericalProperty"
-    properties = [
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the numerical property.",
-        ),
-        Property(
-            "values",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:value",
-            multiple=True,
-            required=True,
-            doc="Entry for a property.",
-        ),
-    ]
+    type_ = "https://openminds.om-i.org/types/NumericalProperty"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(self, name=None, values=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(data=data, name=name, values=values)
+        return EmbeddedMetadata.__init__(self, data=data, name=name, values=values)

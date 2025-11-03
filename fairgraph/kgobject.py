@@ -33,12 +33,16 @@ try:
     have_tabulate = True
 except ImportError:
     have_tabulate = False
-from .utility import expand_uri, as_list, expand_filter, ActivityLog
-from .registry import lookup_type
+
+from openminds.registry import lookup_type
+from openminds import IRI
+
+from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data
 from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
-from .base import RepresentsSingleObject, ContainsMetadata, SupportsQuerying, IRI, JSONdict
+from .base import RepresentsSingleObject, SupportsQuerying, JSONdict, OPENMINDS_VERSION
+from .node import ContainsMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 
@@ -57,7 +61,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     Should not be instantiated directly, intended to be subclassed.
     """
 
-    properties: List[Property] = []
     existence_query_properties: Tuple[str, ...] = ("name",)
     # Note that this default value of existence_query_properties should in
     # many cases be over-ridden.
@@ -88,7 +91,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         template_parts = (
             "{}={{self.{}!r}}".format(prop.name, prop.name)
             for prop in self.__class__.all_properties
-            if getattr(self, prop.name) is not None
+            if getattr(self, prop.name, None) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ", space={self.space}, id={self.id})"
         return template.format(self=self)
@@ -103,9 +106,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return self._space
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient, scope: Optional[str] = None):
+    def from_jsonld(cls, data: JSONdict, scope: Optional[str] = None) -> KGObject:
         """Create an instance of the class from a JSON-LD document."""
-        deserialized_data = cls._deserialize_data(data, client, include_id=True)
+        deserialized_data = cls._deserialize_data(data, include_id=True)
         return cls(id=data["@id"], data=data, scope=scope, **deserialized_data)
 
     # @classmethod
@@ -135,6 +138,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its URI.
@@ -146,14 +150,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
         """
         if follow_links:
-            query = cls.generate_query(space=None, client=client, filters=None, follow_links=follow_links)
+            query = cls.generate_query(
+                space=None,
+                client=client,
+                filters=None,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
             results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, scope=scope).data
             if results:
                 data = results[0]
-                data["@context"] = cls.context
             else:
                 data = None
         else:
@@ -161,7 +170,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if data is None:
             return None
         else:
-            return cls.from_kg_instance(data, client, scope=scope)
+            return cls.from_jsonld(data, scope=scope)
 
     @classmethod
     def from_uuid(
@@ -171,6 +180,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on its UUID.
@@ -182,6 +192,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
 
         """
         logger.info("Attempting to retrieve {} with uuid {}".format(cls.__name__, uuid))
@@ -192,7 +203,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         except ValueError as err:
             raise ValueError("{} - {}".format(err, uuid))
         uri = cls.uri_from_uuid(uuid, client)
-        return cls.from_uri(uri, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+        return cls.from_uri(
+            uri,
+            client,
+            use_cache=use_cache,
+            scope=scope,
+            follow_links=follow_links,
+            with_reverse_properties=with_reverse_properties,
+        )
 
     @classmethod
     def from_id(
@@ -202,6 +220,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         use_cache: bool = True,
         scope: str = "released",
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
     ):
         """
         Retrieve an instance from the Knowledge Graph based on either its URI or UUID.
@@ -213,6 +232,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
 
         Returns:
             Either a KGObject of the correct type, or None.
@@ -221,9 +241,17 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if hasattr(cls, "type_") and cls.type_:
             if id.startswith("http"):
-                return cls.from_uri(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+                fn = cls.from_uri
             else:
-                return cls.from_uuid(id, client, use_cache=use_cache, scope=scope, follow_links=follow_links)
+                fn = cls.from_uuid
+            return fn(
+                id,
+                client,
+                use_cache=use_cache,
+                scope=scope,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
         else:
             # if we don't know the type
             if id.startswith("http"):
@@ -233,8 +261,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if follow_links is not None:
                 raise NotImplementedError
             data = client.instance_from_full_uri(uri, use_cache=use_cache, scope=scope)
-            cls_from_data = lookup_type(data["@type"][0])
-            return cls_from_data.from_kg_instance(data, client, scope=scope)
+            type_ = data["@type"]
+            if isinstance(type_, list):
+                assert len(type_) == 1
+                type_ = type_[0]
+            cls_from_data = lookup_type(type_, OPENMINDS_VERSION)
+            return cls_from_data.from_jsonld(data, scope=scope)
 
     @classmethod
     def from_alias(
@@ -312,6 +344,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         scope: str = "released",
         space: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
         **filters,
     ) -> List[KGObject]:
         """
@@ -325,6 +358,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             scope (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
             filters: Optional keyword arguments representing filters to apply to the query.
 
         Returns:
@@ -355,15 +389,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 api = "core"
 
         if api == "query":
-            query = cls.generate_query(space=space, client=client, filters=filters, follow_links=follow_links)
+            query = cls.generate_query(
+                space=space,
+                client=client,
+                filters=filters,
+                follow_links=follow_links,
+                with_reverse_properties=with_reverse_properties,
+            )
             instances = client.query(
                 query=query,
                 from_index=from_index,
                 size=size,
                 scope=scope,
             ).data
-            for instance in instances:
-                instance["@context"] = cls.context
         elif api == "core":
             if filters:
                 raise ValueError("Cannot use filters with api='core'")
@@ -372,8 +410,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             instances = client.list(cls.type_, space=space, from_index=from_index, size=size, scope=scope).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
-
-        return [cls.from_kg_instance(instance, client, scope=scope) for instance in instances]
+        return [cls.from_jsonld(data=instance, scope=scope) for instance in instances]
 
     @classmethod
     def count(
@@ -424,18 +461,19 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             response = client.list(cls.type_, space=space, scope=scope, from_index=0, size=1)
         return response.total
 
-    def _update_empty_properties(self, data: JSONdict, client: KGClient):
+    def _update_empty_properties(self, data: JSONdict):
         """Replace any empty properties (value None) with the supplied data"""
         cls = self.__class__
-        deserialized_data = cls._deserialize_data(data, client, include_id=True)
+        deserialized_data = cls._deserialize_data(data, include_id=True)
         for prop in cls.all_properties:
             current_value = getattr(self, prop.name, None)
             if current_value is None:
                 value = deserialized_data[prop.name]
-                setattr(self, prop.name, value)
+                if value is not None:
+                    setattr(self, prop.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
-            if not key.startswith("Q"):
+            if not (key.startswith("Q") or key == "@context"):
                 expanded_path = expand_uri(key, cls.context)
                 assert isinstance(expanded_path, str)
                 self.remote_data[expanded_path] = data[key]
@@ -449,7 +487,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         if self.id and other.id and self.id != other.id:
             return True
         for prop in self.properties:
-            assert prop.intrinsic
             val_self = getattr(self, prop.name)
             val_other = getattr(other, prop.name)
             if val_self != val_other:
@@ -467,7 +504,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             if self.id != other.id:
                 differences["id"] = (self.id, other.id)
             for prop in self.properties:
-                assert prop.intrinsic
                 val_self = getattr(self, prop.name)
                 val_other = getattr(other, prop.name)
                 if val_self != val_other:
@@ -492,7 +528,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 self._raw_remote_data = data
             obj_exists = bool(data)
             if obj_exists:
-                self._update_empty_properties(data, client)  # also updates `remote_data`
+                self._update_empty_properties(data)  # also updates `remote_data`
             return obj_exists
         else:
             try:
@@ -539,7 +575,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     self.id = instance["@id"]
                     assert isinstance(self.id, str)
                     save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_properties(instance, client)  # also updates `remote_data`
+                    self._update_empty_properties(instance)  # also updates `remote_data`
                 return bool(instances)
 
     def modified_data(self) -> JSONdict:
@@ -547,14 +583,30 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         Return a dict containing the properties that have been modified locally
         from the values originally obtained from the Knowledge Graph.
         """
-        current_data = self.to_jsonld(include_empty_properties=True, follow_links=False)
+
+        def values_are_equal(local, remote):
+            if type(local) != type(remote):
+                return False
+            if isinstance(local, list):
+                if len(local) != len(remote):
+                    return False
+                return all(values_are_equal(a, b) for a, b in zip(local, remote))
+            elif isinstance(local, dict):
+                return all(values_are_equal(local[key], remote.get(key, None)) for key in local.keys() if not (local[key] is None and key not in remote))
+            else:
+                return local == remote
+
+        current_data = normalize_data(
+            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
+            self.context
+        )
         modified_data = {}
         for key, current_value in current_data.items():
             if not key.startswith("@"):
                 assert key.startswith("http")  # keys should all be expanded by this point
                 assert self.remote_data is not None
                 remote_value = self.remote_data.get(key, None)
-                if current_value != remote_value:
+                if not values_are_equal(current_value, remote_value):
                     modified_data[key] = current_value
         return modified_data
 
@@ -588,7 +640,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if recursive:
             for prop in self.properties:
-                assert prop.intrinsic
                 # we do not save reverse properties, those objects must be saved separately
                 # this could be revisited, but we'll have to be careful about loops
                 # if saving recursively
@@ -635,7 +686,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                local_data = self.to_jsonld()
+                local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
@@ -657,9 +708,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             f"  - updating - {self.__class__.__name__}(id={self.id}) - properties changed: {modified_data.keys()}"
                         )
                         skip_update = False
-                        if "vocab:storageSize" in modified_data:
+                        if "storageSize" in modified_data:
                             warn("Removing storage size from update because this prop is currently locked by the KG")
-                            modified_data.pop("vocab:storageSize")
+                            modified_data.pop("storageSize")
                             skip_update = len(modified_data) == 0
 
                         if skip_update:
@@ -667,6 +718,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                                 activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
                         else:
                             try:
+                                # Note: if modified_data includes embedded objects
+                                # then _all_ fields of the embedded objects must be provided,
+                                # not only those that have changed.
                                 client.update_instance(self.uuid, modified_data)
                             except AuthorizationError as err:
                                 if ignore_auth_errors:
@@ -688,7 +742,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            local_data = self.to_jsonld()
+            local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
             logger.info("  - creating instance with data {}".format(local_data))
             try:
                 instance_data = client.create_new_instance(
@@ -714,7 +768,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         if self.id:
-            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld()))
+            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld(embed_linked_nodes=False)))
             object_cache[self.id] = self
         else:
             logger.warning("Object has no id - see log for the underlying error")
@@ -807,6 +861,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         space: Union[str, None],
         filters: Optional[Dict[str, Any]] = None,
         follow_links: Optional[Dict[str, Any]] = None,
+        with_reverse_properties: Optional[bool] = False,
         label: Optional[str] = None,
     ) -> Union[Dict[str, Any], None]:
         """
@@ -817,6 +872,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             filters (dict): A dictonary defining search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
+            with_reverse_properties (dict): Whether to include reverse properties. Default False.
             label (str, optional): a label for the query
 
         Returns:
@@ -837,13 +893,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             node_type=cls.type_,
             label=label,
             space=real_space,
-            properties=cls.generate_query_properties(follow_links),
+            properties=cls.generate_query_properties(follow_links, with_reverse_properties),
         )
         # second pass, we add filters
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         # third pass, we add sorting, which can only happen at the top level
         for prop in query.properties:
-            if prop.name in ("vocab:name", "vocab:fullName", "vocab:lookupLabel"):
+            if prop.name in ("name", "fullName", "lookupLabel"):
                 prop.sorted = True
         # implementation note: the three-pass approach generates queries that are sometimes more verbose
         #                      than necessary, but it makes the logic easier to understand.
@@ -892,7 +948,6 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             self.resolve(client, follow_links=follow_links)
         all_children = []
         for prop in self.properties:
-            assert prop.intrinsic
             if prop.is_link:
                 children = as_list(getattr(self, prop.name))
                 all_children.extend(children)

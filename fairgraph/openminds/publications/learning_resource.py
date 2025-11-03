@@ -4,239 +4,23 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.publications import LearningResource as OMLearningResource
+from fairgraph import KGObject
 
 
 from datetime import date
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class LearningResource(KGObject):
+class LearningResource(KGObject, OMLearningResource):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/LearningResource"
     default_space = "livepapers"
-    type_ = "https://openminds.ebrains.eu/publications/LearningResource"
-    properties = [
-        Property(
-            "about",
-            [
-                "openminds.computation.ValidationTest",
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipe",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.Dataset",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModel",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.Model",
-                "openminds.core.ModelVersion",
-                "openminds.core.Software",
-                "openminds.core.SoftwareVersion",
-                "openminds.core.WebService",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.LivePaper",
-                "openminds.publications.LivePaperVersion",
-                "openminds.sands.BrainAtlas",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpace",
-                "openminds.sands.CommonCoordinateSpaceVersion",
-            ],
-            "vocab:about",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property("abstract", str, "vocab:abstract", doc="no description available"),
-        Property(
-            "authors",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:author",
-            multiple=True,
-            doc="Creator of a literary or creative work, as well as a dataset publication.",
-        ),
-        Property(
-            "cited_publications",
-            ["openminds.core.DOI", "openminds.core.ISBN"],
-            "vocab:citedPublication",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "copyright",
-            "openminds.core.Copyright",
-            "vocab:copyright",
-            doc="Exclusive and assignable legal right of an originator to reproduce, publish, sell, or distribute the matter and form of a creative work for a defined time period.",
-        ),
-        Property("creation_date", date, "vocab:creationDate", doc="no description available"),
-        Property(
-            "custodians",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:custodian",
-            multiple=True,
-            doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
-        ),
-        Property(
-            "digital_identifier",
-            "openminds.core.DOI",
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property("editors", "openminds.core.Person", "vocab:editor", multiple=True, doc="no description available"),
-        Property(
-            "educational_level",
-            "openminds.controlled_terms.EducationalLevel",
-            "vocab:educationalLevel",
-            doc="no description available",
-        ),
-        Property(
-            "funding",
-            "openminds.core.Funding",
-            "vocab:funding",
-            multiple=True,
-            doc="Money provided by a legal person for a particular purpose.",
-        ),
-        Property(
-            "iri",
-            IRI,
-            "vocab:IRI",
-            doc="Stands for Internationalized Resource Identifier which is an internet protocol standard that builds on the URI protocol, extending the set of permitted characters to include Unicode/ISO 10646.",
-        ),
-        Property(
-            "keywords",
-            [
-                "openminds.controlled_terms.ActionStatusType",
-                "openminds.controlled_terms.AgeCategory",
-                "openminds.controlled_terms.AnalysisTechnique",
-                "openminds.controlled_terms.AnatomicalAxesOrientation",
-                "openminds.controlled_terms.AnatomicalIdentificationType",
-                "openminds.controlled_terms.AnatomicalPlane",
-                "openminds.controlled_terms.AnnotationCriteriaType",
-                "openminds.controlled_terms.AnnotationType",
-                "openminds.controlled_terms.AtlasType",
-                "openminds.controlled_terms.AuditoryStimulusType",
-                "openminds.controlled_terms.BiologicalOrder",
-                "openminds.controlled_terms.BiologicalProcess",
-                "openminds.controlled_terms.BiologicalSex",
-                "openminds.controlled_terms.BreedingType",
-                "openminds.controlled_terms.CellCultureType",
-                "openminds.controlled_terms.CellType",
-                "openminds.controlled_terms.ChemicalMixtureType",
-                "openminds.controlled_terms.Colormap",
-                "openminds.controlled_terms.ContributionType",
-                "openminds.controlled_terms.CranialWindowConstructionType",
-                "openminds.controlled_terms.CranialWindowReinforcementType",
-                "openminds.controlled_terms.CriteriaQualityType",
-                "openminds.controlled_terms.DataType",
-                "openminds.controlled_terms.DeviceType",
-                "openminds.controlled_terms.DifferenceMeasure",
-                "openminds.controlled_terms.Disease",
-                "openminds.controlled_terms.DiseaseModel",
-                "openminds.controlled_terms.EducationalLevel",
-                "openminds.controlled_terms.ElectricalStimulusType",
-                "openminds.controlled_terms.EthicsAssessment",
-                "openminds.controlled_terms.ExperimentalApproach",
-                "openminds.controlled_terms.FileBundleGrouping",
-                "openminds.controlled_terms.FileRepositoryType",
-                "openminds.controlled_terms.FileUsageRole",
-                "openminds.controlled_terms.GeneticStrainType",
-                "openminds.controlled_terms.GustatoryStimulusType",
-                "openminds.controlled_terms.Handedness",
-                "openminds.controlled_terms.Language",
-                "openminds.controlled_terms.Laterality",
-                "openminds.controlled_terms.LearningResourceType",
-                "openminds.controlled_terms.MRAcquisitionType",
-                "openminds.controlled_terms.MRIPulseSequence",
-                "openminds.controlled_terms.MRIWeighting",
-                "openminds.controlled_terms.MeasuredQuantity",
-                "openminds.controlled_terms.MeasuredSignalType",
-                "openminds.controlled_terms.MetaDataModelType",
-                "openminds.controlled_terms.ModelAbstractionLevel",
-                "openminds.controlled_terms.ModelScope",
-                "openminds.controlled_terms.MolecularEntity",
-                "openminds.controlled_terms.OlfactoryStimulusType",
-                "openminds.controlled_terms.OperatingDevice",
-                "openminds.controlled_terms.OperatingSystem",
-                "openminds.controlled_terms.OpticalStimulusType",
-                "openminds.controlled_terms.Organ",
-                "openminds.controlled_terms.OrganismSubstance",
-                "openminds.controlled_terms.OrganismSystem",
-                "openminds.controlled_terms.PatchClampVariation",
-                "openminds.controlled_terms.PreparationType",
-                "openminds.controlled_terms.ProductAccessibility",
-                "openminds.controlled_terms.ProgrammingLanguage",
-                "openminds.controlled_terms.QualitativeOverlap",
-                "openminds.controlled_terms.SemanticDataType",
-                "openminds.controlled_terms.Service",
-                "openminds.controlled_terms.SetupType",
-                "openminds.controlled_terms.SoftwareApplicationCategory",
-                "openminds.controlled_terms.SoftwareFeature",
-                "openminds.controlled_terms.Species",
-                "openminds.controlled_terms.StimulationApproach",
-                "openminds.controlled_terms.StimulationTechnique",
-                "openminds.controlled_terms.SubcellularEntity",
-                "openminds.controlled_terms.SubjectAttribute",
-                "openminds.controlled_terms.TactileStimulusType",
-                "openminds.controlled_terms.Technique",
-                "openminds.controlled_terms.TermSuggestion",
-                "openminds.controlled_terms.Terminology",
-                "openminds.controlled_terms.TissueSampleAttribute",
-                "openminds.controlled_terms.TissueSampleType",
-                "openminds.controlled_terms.TypeOfUncertainty",
-                "openminds.controlled_terms.UBERONParcellation",
-                "openminds.controlled_terms.UnitOfMeasurement",
-                "openminds.controlled_terms.VisualStimulusType",
-            ],
-            "vocab:keyword",
-            multiple=True,
-            doc="Significant word or concept that are representative of the learning resource.",
-        ),
-        Property("learning_outcome", str, "vocab:learningOutcome", doc="no description available"),
-        Property(
-            "license",
-            "openminds.core.License",
-            "vocab:license",
-            doc="Grant by a party to another party as an element of an agreement between those parties that permits to do, use, or own something.",
-        ),
-        Property("modification_date", date, "vocab:modificationDate", doc="no description available"),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the learning resource.",
-        ),
-        Property("order", int, "vocab:order", doc="no description available"),
-        Property("prerequisite", str, "vocab:prerequisite", doc="no description available"),
-        Property("publication_date", date, "vocab:publicationDate", required=True, doc="no description available"),
-        Property(
-            "publisher",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:publisher",
-            doc="no description available",
-        ),
-        Property(
-            "required_time",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:requiredTime",
-            doc="no description available",
-        ),
-        Property("topic", str, "vocab:topic", doc="no description available"),
-        Property(
-            "type",
-            "openminds.controlled_terms.LearningResourceType",
-            "vocab:type",
-            doc="Distinct class to which a group of entities or concepts with similar characteristics or attributes belong to.",
-        ),
-        Property(
-            "version_identifier",
-            str,
-            "vocab:versionIdentifier",
-            doc="Term or code used to identify the version of something.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("about", "name", "publication_date")
 
@@ -272,7 +56,8 @@ class LearningResource(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

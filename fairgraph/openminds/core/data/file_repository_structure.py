@@ -4,36 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import FileRepositoryStructure as OMFileRepositoryStructure
+from fairgraph import KGObject
 
 
-class FileRepositoryStructure(KGObject):
+class FileRepositoryStructure(KGObject, OMFileRepositoryStructure):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/FileRepositoryStructure"
     default_space = "files"
-    type_ = "https://openminds.ebrains.eu/core/FileRepositoryStructure"
-    properties = [
-        Property(
-            "file_path_patterns",
-            "openminds.core.FilePathPattern",
-            "vocab:filePathPattern",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "structures",
-            "openminds.core.FileRepository",
-            "^vocab:structurePattern",
+            "openminds.latest.core.FileRepository",
+            "structurePattern",
             reverse="structure_pattern",
             multiple=True,
-            doc="reverse of 'structure_pattern'",
+            description="reverse of 'structure_pattern'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -41,7 +32,8 @@ class FileRepositoryStructure(KGObject):
     def __init__(
         self, lookup_label=None, file_path_patterns=None, structures=None, id=None, data=None, space=None, scope=None
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

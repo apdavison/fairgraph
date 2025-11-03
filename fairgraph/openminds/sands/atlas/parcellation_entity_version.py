@@ -4,97 +4,39 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import ParcellationEntityVersion as OMParcellationEntityVersion
+from fairgraph import KGObject
 
 
-class ParcellationEntityVersion(KGObject):
+class ParcellationEntityVersion(KGObject, OMParcellationEntityVersion):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/ParcellationEntityVersion"
     default_space = "atlas"
-    type_ = "https://openminds.ebrains.eu/sands/ParcellationEntityVersion"
-    properties = [
-        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Property(
-            "additional_remarks",
-            str,
-            "vocab:additionalRemarks",
-            doc="Mention of what deserves additional attention or notice.",
-        ),
-        Property("alternate_names", str, "vocab:alternateName", multiple=True, doc="no description available"),
-        Property("corrected_name", str, "vocab:correctedName", doc="no description available"),
-        Property(
-            "has_annotations",
-            "openminds.sands.AtlasAnnotation",
-            "vocab:hasAnnotation",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "has_parents",
-            ["openminds.sands.ParcellationEntity", "openminds.sands.ParcellationEntityVersion"],
-            "vocab:hasParent",
-            multiple=True,
-            doc="Reference to a parent object or legal person.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the parcellation entity version.",
-        ),
-        Property(
-            "ontology_identifiers",
-            str,
-            "vocab:ontologyIdentifier",
-            multiple=True,
-            doc="Term or code used to identify the parcellation entity version registered within a particular ontology.",
-        ),
-        Property(
-            "relation_assessments",
-            ["openminds.sands.QualitativeRelationAssessment", "openminds.sands.QuantitativeRelationAssessment"],
-            "vocab:relationAssessment",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "version_identifier",
-            str,
-            "vocab:versionIdentifier",
-            required=True,
-            doc="Term or code used to identify the version of something.",
-        ),
-        Property(
-            "version_innovation",
-            str,
-            "vocab:versionInnovation",
-            doc="Documentation on what changed in comparison to a previously published form of something.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "has_children",
-            "openminds.sands.ParcellationEntityVersion",
-            "^vocab:hasParent",
+            "openminds.latest.sands.ParcellationEntityVersion",
+            "hasParent",
             reverse="has_parents",
             multiple=True,
-            doc="reverse of 'has_parents'",
+            description="reverse of 'has_parents'",
         ),
         Property(
             "is_location_of",
             [
-                "openminds.core.ServiceLink",
-                "openminds.core.TissueSample",
-                "openminds.core.TissueSampleCollection",
-                "openminds.ephys.ElectrodeArrayUsage",
-                "openminds.ephys.ElectrodeUsage",
-                "openminds.ephys.PipetteUsage",
+                "openminds.latest.core.ServiceLink",
+                "openminds.latest.core.TissueSample",
+                "openminds.latest.core.TissueSampleCollection",
+                "openminds.latest.ephys.ElectrodeArrayUsage",
+                "openminds.latest.ephys.ElectrodeUsage",
+                "openminds.latest.ephys.PipetteUsage",
             ],
-            ["^vocab:anatomicalLocation", "^vocab:anatomicalLocationOfElectrodes", "^vocab:dataLocation"],
+            ["anatomicalLocation", "anatomicalLocationOfElectrodes", "dataLocation"],
             reverse=[
                 "anatomical_location",
                 "anatomical_locations",
@@ -102,66 +44,66 @@ class ParcellationEntityVersion(KGObject):
                 "data_location",
             ],
             multiple=True,
-            doc="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes, data_location",
+            description="reverse of anatomical_location, anatomical_locations, anatomical_locations_of_electrodes, data_location",
         ),
         Property(
             "is_part_of",
-            "openminds.sands.ParcellationTerminologyVersion",
-            "^vocab:hasEntity",
+            "openminds.latest.sands.ParcellationTerminologyVersion",
+            "hasEntity",
             reverse="has_entities",
             multiple=True,
-            doc="reverse of 'has_entities'",
+            description="reverse of 'has_entities'",
         ),
         Property(
             "is_target_of",
-            "openminds.sands.AnatomicalTargetPosition",
-            "^vocab:anatomicalTarget",
+            "openminds.latest.sands.AnatomicalTargetPosition",
+            "anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
-            doc="reverse of 'anatomical_targets'",
+            description="reverse of 'anatomical_targets'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "is_version_of",
-            "openminds.sands.ParcellationEntity",
-            "^vocab:hasVersion",
+            "openminds.latest.sands.ParcellationEntity",
+            "hasVersion",
             reverse="has_versions",
             multiple=True,
-            doc="reverse of 'has_versions'",
+            description="reverse of 'has_versions'",
         ),
         Property(
             "studied_in",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.ValidationTest",
-                "openminds.computation.Visualization",
-                "openminds.core.DatasetVersion",
-                "openminds.core.Model",
-                "openminds.core.ProtocolExecution",
-                "openminds.ephys.CellPatching",
-                "openminds.ephys.ElectrodePlacement",
-                "openminds.ephys.RecordingActivity",
-                "openminds.specimen_prep.CranialWindowPreparation",
-                "openminds.specimen_prep.TissueCulturePreparation",
-                "openminds.specimen_prep.TissueSampleSlicing",
-                "openminds.stimulation.StimulationActivity",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.ValidationTest",
+                "openminds.latest.computation.Visualization",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.Model",
+                "openminds.latest.core.ProtocolExecution",
+                "openminds.latest.ephys.CellPatching",
+                "openminds.latest.ephys.ElectrodePlacement",
+                "openminds.latest.ephys.RecordingActivity",
+                "openminds.latest.specimen_prep.CranialWindowPreparation",
+                "openminds.latest.specimen_prep.TissueCulturePreparation",
+                "openminds.latest.specimen_prep.TissueSampleSlicing",
+                "openminds.latest.stimulation.StimulationActivity",
             ],
-            "^vocab:studyTarget",
+            "studyTarget",
             reverse="study_targets",
             multiple=True,
-            doc="reverse of 'study_targets'",
+            description="reverse of 'study_targets'",
         ),
     ]
     existence_query_properties = ("name", "version_identifier")
@@ -192,7 +134,8 @@ class ParcellationEntityVersion(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

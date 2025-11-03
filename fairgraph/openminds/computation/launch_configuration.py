@@ -4,55 +4,35 @@ Structured information about the launch of a computational process.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import LaunchConfiguration as OMLaunchConfiguration
+from fairgraph import KGObject
 
 
-class LaunchConfiguration(KGObject):
+class LaunchConfiguration(KGObject, OMLaunchConfiguration):
     """
     Structured information about the launch of a computational process.
     """
 
+    type_ = "https://openminds.om-i.org/types/LaunchConfiguration"
     default_space = "computation"
-    type_ = "https://openminds.ebrains.eu/computation/LaunchConfiguration"
-    properties = [
-        Property("arguments", str, "vocab:argument", multiple=True, doc="no description available"),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the launch configuration.",
-        ),
-        Property(
-            "environment_variables",
-            "openminds.core.PropertyValueList",
-            "vocab:environmentVariable",
-            doc="no description available",
-        ),
-        Property("executable", str, "vocab:executable", required=True, doc="no description available"),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            doc="Word or phrase that constitutes the distinctive designation of the launch configuration.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_launch_configuration_of",
             [
-                "openminds.computation.DataAnalysis",
-                "openminds.computation.DataCopy",
-                "openminds.computation.GenericComputation",
-                "openminds.computation.ModelValidation",
-                "openminds.computation.Optimization",
-                "openminds.computation.Simulation",
-                "openminds.computation.Visualization",
+                "openminds.latest.computation.DataAnalysis",
+                "openminds.latest.computation.DataCopy",
+                "openminds.latest.computation.GenericComputation",
+                "openminds.latest.computation.ModelValidation",
+                "openminds.latest.computation.Optimization",
+                "openminds.latest.computation.Simulation",
+                "openminds.latest.computation.Visualization",
             ],
-            "^vocab:launchConfiguration",
+            "launchConfiguration",
             reverse="launch_configuration",
             multiple=True,
-            doc="reverse of 'launch_configuration'",
+            description="reverse of 'launch_configuration'",
         ),
     ]
     existence_query_properties = ("executable", "name")
@@ -70,7 +50,8 @@ class LaunchConfiguration(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

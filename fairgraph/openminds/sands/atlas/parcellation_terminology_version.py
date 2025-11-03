@@ -4,40 +4,18 @@
 
 # this file was auto-generated
 
-from fairgraph import EmbeddedMetadata, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import ParcellationTerminologyVersion as OMParcellationTerminologyVersion
+from fairgraph import EmbeddedMetadata
 
 
-class ParcellationTerminologyVersion(EmbeddedMetadata):
+class ParcellationTerminologyVersion(EmbeddedMetadata, OMParcellationTerminologyVersion):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.ebrains.eu/sands/ParcellationTerminologyVersion"
-    properties = [
-        Property(
-            "data_locations",
-            "openminds.core.File",
-            "vocab:dataLocation",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "has_entities",
-            "openminds.sands.ParcellationEntityVersion",
-            "vocab:hasEntity",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "ontology_identifiers",
-            str,
-            "vocab:ontologyIdentifier",
-            multiple=True,
-            doc="Term or code used to identify the parcellation terminology version registered within a particular ontology.",
-        ),
-    ]
+    type_ = "https://openminds.om-i.org/types/ParcellationTerminologyVersion"
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
 
     def __init__(
@@ -50,7 +28,8 @@ class ParcellationTerminologyVersion(EmbeddedMetadata):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return EmbeddedMetadata.__init__(
+            self,
             data=data,
             data_locations=data_locations,
             has_entities=has_entities,

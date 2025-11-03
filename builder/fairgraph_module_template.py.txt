@@ -4,28 +4,22 @@
 
 # this file was auto-generated
 
-from fairgraph import {{ base_class }}, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.{{ openminds_version }}.{{ module_name }} import {{ class_name }} as OM{{ class_name }}
+from fairgraph import {{ base_class }}
 
 {{preamble}}
 
 
-class {{ class_name }}({{ base_class }}):
+class {{ class_name }}({{base_class}}, OM{{ class_name }}):
     """
     {{ docstring }}
     """
+    type_ = "{{ openminds_type }}"
     {%- if default_space %}
     default_space = "{{ default_space }}"
     {%- endif %}
-    type_ = "{{ openminds_type }}"
-    properties = [
-        {% for prop in properties -%}
-        Property("{{prop.name}}", {{prop.type_str}}, "{{prop.iri}}",
-            {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
-            {%- if prop.required %}required={{prop.required}},{% endif -%}
-            doc="{{prop.doc}}"),
-        {% endfor %}
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         {% for prop in reverse_properties -%}
         Property(
@@ -42,7 +36,7 @@ class {{ class_name }}({{ base_class }}):
             {% endif -%}
             {%- if prop.allow_multiple %}multiple={{prop.allow_multiple}},{% endif -%}
             {%- if prop.required %}, required={{prop.required}},{% endif -%}
-            doc="{{prop.doc}}"),
+            description="{{prop.doc}}"),
         {% endfor %}
     ]
     {%- if aliases %}
@@ -53,5 +47,5 @@ class {{ class_name }}({{ base_class }}):
     {%- endif %}
 
     def __init__(self {%- for arg in constructor_arguments -%}, {{arg}}=None{%- endfor -%}, id=None, data=None, space=None, scope=None):
-        return super().__init__({{ standard_init_properties }}data=data {%- for arg in constructor_arguments -%}, {{arg}}={{arg}}{%- endfor -%})
+        return {{ base_class }}.__init__(self, {{ standard_init_properties }}data=data {%- for arg in constructor_arguments -%}, {{arg}}={{arg}}{%- endfor -%})
 {{ additional_methods }}

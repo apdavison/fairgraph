@@ -4,124 +4,67 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.specimen_prep import SlicingDeviceUsage as OMSlicingDeviceUsage
+from fairgraph import KGObject
 
 
-class SlicingDeviceUsage(KGObject):
+class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/SlicingDeviceUsage"
     default_space = "in-depth"
-    type_ = "https://openminds.ebrains.eu/specimenPrep/SlicingDeviceUsage"
-    properties = [
-        Property(
-            "device",
-            "openminds.specimen_prep.SlicingDevice",
-            "vocab:device",
-            required=True,
-            doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "metadata_locations",
-            ["openminds.core.File", "openminds.core.FileBundle"],
-            "vocab:metadataLocation",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "oscillation_amplitude",
-            "openminds.core.QuantitativeValue",
-            "vocab:oscillationAmplitude",
-            doc="no description available",
-        ),
-        Property(
-            "slice_thickness",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:sliceThickness",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "slicing_angles",
-            ["openminds.core.QuantitativeValue", "openminds.core.NumericalProperty"],
-            "vocab:slicingAngle",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "slicing_plane",
-            "openminds.controlled_terms.AnatomicalPlane",
-            "vocab:slicingPlane",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "slicing_speed", "openminds.core.QuantitativeValue", "vocab:slicingSpeed", doc="no description available"
-        ),
-        Property(
-            "used_specimen",
-            ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
-            "vocab:usedSpecimen",
-            doc="no description available",
-        ),
-        Property(
-            "vibration_frequency",
-            "openminds.core.QuantitativeValue",
-            "vocab:vibrationFrequency",
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "generation_device",
-            "openminds.stimulation.EphysStimulus",
-            "^vocab:generatedBy",
+            "openminds.latest.stimulation.EphysStimulus",
+            "generatedBy",
             reverse="generated_by",
             multiple=True,
-            doc="reverse of 'generated_by'",
+            description="reverse of 'generated_by'",
         ),
         Property(
             "placed_by",
-            "openminds.ephys.ElectrodePlacement",
-            "^vocab:device",
+            "openminds.latest.ephys.ElectrodePlacement",
+            "device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'devices'",
+            description="reverse of 'devices'",
         ),
         Property(
             "used_for",
-            "openminds.specimen_prep.TissueSampleSlicing",
-            "^vocab:device",
+            "openminds.latest.specimen_prep.TissueSampleSlicing",
+            "device",
             reverse="device",
             multiple=True,
-            doc="reverse of 'device'",
+            description="reverse of 'device'",
         ),
         Property(
             "used_in",
-            "openminds.ephys.CellPatching",
-            "^vocab:device",
+            "openminds.latest.ephys.CellPatching",
+            "device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'devices'",
+            description="reverse of 'devices'",
         ),
         Property(
             "used_to_measure",
-            "openminds.core.Measurement",
-            "^vocab:measuredWith",
+            "openminds.latest.core.Measurement",
+            "measuredWith",
             reverse="measured_with",
             multiple=True,
-            doc="reverse of 'measured_with'",
+            description="reverse of 'measured_with'",
         ),
         Property(
             "used_to_record",
-            "openminds.ephys.Recording",
-            "^vocab:recordedWith",
+            "openminds.latest.ephys.Recording",
+            "recordedWith",
             reverse="recorded_with",
             multiple=True,
-            doc="reverse of 'recorded_with'",
+            description="reverse of 'recorded_with'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -149,7 +92,8 @@ class SlicingDeviceUsage(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

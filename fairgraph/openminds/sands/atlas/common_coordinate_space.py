@@ -4,133 +4,62 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.sands import CommonCoordinateSpace as OMCommonCoordinateSpace
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class CommonCoordinateSpace(KGObject):
+class CommonCoordinateSpace(KGObject, OMCommonCoordinateSpace):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/CommonCoordinateSpace"
     default_space = "atlas"
-    type_ = "https://openminds.ebrains.eu/sands/CommonCoordinateSpace"
-    properties = [
-        Property("abbreviation", str, "vocab:abbreviation", doc="no description available"),
-        Property(
-            "authors",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:author",
-            multiple=True,
-            doc="Creator of a literary or creative work, as well as a dataset publication.",
-        ),
-        Property(
-            "custodians",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:custodian",
-            multiple=True,
-            doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the common coordinate space.",
-        ),
-        Property(
-            "digital_identifier",
-            ["openminds.core.DOI", "openminds.core.ISBN", "openminds.core.RRID"],
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "full_name",
-            str,
-            "vocab:fullName",
-            required=True,
-            doc="Whole, non-abbreviated name of the common coordinate space.",
-        ),
-        Property(
-            "has_versions",
-            "openminds.sands.CommonCoordinateSpaceVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            required=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property("homepage", IRI, "vocab:homepage", doc="Main website of the common coordinate space."),
-        Property(
-            "how_to_cite",
-            str,
-            "vocab:howToCite",
-            doc="Preferred format for citing a particular object or legal person.",
-        ),
-        Property(
-            "ontology_identifiers",
-            str,
-            "vocab:ontologyIdentifier",
-            multiple=True,
-            doc="Term or code used to identify the common coordinate space registered within a particular ontology.",
-        ),
-        Property(
-            "short_name",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the common coordinate space.",
-        ),
-        Property(
-            "used_species",
-            "openminds.controlled_terms.Species",
-            "vocab:usedSpecies",
-            required=True,
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "comments",
-            "openminds.core.Comment",
-            "^vocab:about",
+            "openminds.latest.core.Comment",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
         Property(
             "is_input_to",
-            "openminds.core.DatasetVersion",
-            "^vocab:inputData",
+            "openminds.latest.core.DatasetVersion",
+            "inputData",
             reverse="input_data",
             multiple=True,
-            doc="reverse of 'input_data'",
+            description="reverse of 'input_data'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
-            "^vocab:hasPart",
+            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "learning_resources",
-            "openminds.publications.LearningResource",
-            "^vocab:about",
+            "openminds.latest.publications.LearningResource",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
     ]
     aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
@@ -163,7 +92,8 @@ class CommonCoordinateSpace(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

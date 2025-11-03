@@ -4,84 +4,35 @@ Structured information about a protocol used in an experiment studying human or 
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import BehavioralProtocol as OMBehavioralProtocol
+from fairgraph import KGObject
 
 
-class BehavioralProtocol(KGObject):
+class BehavioralProtocol(KGObject, OMBehavioralProtocol):
     """
     Structured information about a protocol used in an experiment studying human or animal behavior.
     """
 
+    type_ = "https://openminds.om-i.org/types/BehavioralProtocol"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/BehavioralProtocol"
-    properties = [
-        Property(
-            "described_in",
-            ["openminds.core.DOI", "openminds.core.File", "openminds.core.WebResource"],
-            "vocab:describedIn",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the behavioral protocol.",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            doc="Term or code that identifies the behavioral protocol within a particular product.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the behavioral protocol.",
-        ),
-        Property(
-            "stimulations",
-            ["openminds.controlled_terms.StimulationApproach", "openminds.controlled_terms.StimulationTechnique"],
-            "vocab:stimulation",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "stimulus_types",
-            [
-                "openminds.controlled_terms.AuditoryStimulusType",
-                "openminds.controlled_terms.ElectricalStimulusType",
-                "openminds.controlled_terms.GustatoryStimulusType",
-                "openminds.controlled_terms.OlfactoryStimulusType",
-                "openminds.controlled_terms.OpticalStimulusType",
-                "openminds.controlled_terms.TactileStimulusType",
-                "openminds.controlled_terms.VisualStimulusType",
-            ],
-            "vocab:stimulusType",
-            multiple=True,
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_used_to_group",
-            "openminds.core.FileBundle",
-            "^vocab:groupedBy",
+            "openminds.latest.core.FileBundle",
+            "groupedBy",
             reverse="grouped_by",
             multiple=True,
-            doc="reverse of 'grouped_by'",
+            description="reverse of 'grouped_by'",
         ),
         Property(
             "used_in",
-            ["openminds.core.DatasetVersion", "openminds.core.ProtocolExecution"],
-            "^vocab:behavioralProtocol",
+            ["openminds.latest.core.DatasetVersion", "openminds.latest.core.ProtocolExecution"],
+            "behavioralProtocol",
             reverse="behavioral_protocols",
             multiple=True,
-            doc="reverse of 'behavioral_protocols'",
+            description="reverse of 'behavioral_protocols'",
         ),
     ]
     existence_query_properties = ("description", "name")
@@ -101,7 +52,8 @@ class BehavioralProtocol(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

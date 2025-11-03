@@ -4,127 +4,59 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.ephys import ElectrodeArrayUsage as OMElectrodeArrayUsage
+from fairgraph import KGObject
 
 
-class ElectrodeArrayUsage(KGObject):
+class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/ElectrodeArrayUsage"
     default_space = "in-depth"
-    type_ = "https://openminds.ebrains.eu/ephys/ElectrodeArrayUsage"
-    properties = [
-        Property(
-            "anatomical_locations_of_arrays",
-            [
-                "openminds.controlled_terms.CellType",
-                "openminds.controlled_terms.Organ",
-                "openminds.controlled_terms.OrganismSubstance",
-                "openminds.controlled_terms.SubcellularEntity",
-                "openminds.controlled_terms.UBERONParcellation",
-                "openminds.sands.CustomAnatomicalEntity",
-                "openminds.sands.ParcellationEntity",
-                "openminds.sands.ParcellationEntityVersion",
-            ],
-            "vocab:anatomicalLocationOfArray",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "anatomical_locations_of_electrodes",
-            [
-                "openminds.controlled_terms.CellType",
-                "openminds.controlled_terms.Organ",
-                "openminds.controlled_terms.OrganismSubstance",
-                "openminds.controlled_terms.SubcellularEntity",
-                "openminds.controlled_terms.UBERONParcellation",
-                "openminds.sands.CustomAnatomicalEntity",
-                "openminds.sands.ParcellationEntity",
-                "openminds.sands.ParcellationEntityVersion",
-            ],
-            "vocab:anatomicalLocationOfElectrodes",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "contact_resistances",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:contactResistances",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "device",
-            "openminds.ephys.ElectrodeArray",
-            "vocab:device",
-            required=True,
-            doc="Piece of equipment or mechanism (hardware) designed to serve a special purpose or perform a special function.",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "metadata_locations",
-            ["openminds.core.File", "openminds.core.FileBundle"],
-            "vocab:metadataLocation",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "spatial_locations_of_electrodes",
-            "openminds.sands.CoordinatePoint",
-            "vocab:spatialLocationOfElectrodes",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property("used_electrodes", str, "vocab:usedElectrode", multiple=True, doc="no description available"),
-        Property(
-            "used_specimen",
-            ["openminds.core.SubjectState", "openminds.core.TissueSampleState"],
-            "vocab:usedSpecimen",
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "generation_device",
-            "openminds.stimulation.EphysStimulus",
-            "^vocab:generatedBy",
+            "openminds.latest.stimulation.EphysStimulus",
+            "generatedBy",
             reverse="generated_by",
             multiple=True,
-            doc="reverse of 'generated_by'",
+            description="reverse of 'generated_by'",
         ),
         Property(
             "placed_by",
-            "openminds.ephys.ElectrodePlacement",
-            "^vocab:device",
+            "openminds.latest.ephys.ElectrodePlacement",
+            "device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'devices'",
+            description="reverse of 'devices'",
         ),
         Property(
             "used_in",
-            ["openminds.ephys.CellPatching", "openminds.ephys.RecordingActivity"],
-            "^vocab:device",
+            ["openminds.latest.ephys.CellPatching", "openminds.latest.ephys.RecordingActivity"],
+            "device",
             reverse="devices",
             multiple=True,
-            doc="reverse of 'devices'",
+            description="reverse of 'devices'",
         ),
         Property(
             "used_to_measure",
-            "openminds.core.Measurement",
-            "^vocab:measuredWith",
+            "openminds.latest.core.Measurement",
+            "measuredWith",
             reverse="measured_with",
             multiple=True,
-            doc="reverse of 'measured_with'",
+            description="reverse of 'measured_with'",
         ),
         Property(
             "used_to_record",
-            "openminds.ephys.Recording",
-            "^vocab:recordedWith",
+            "openminds.latest.ephys.Recording",
+            "recordedWith",
             reverse="recorded_with",
             multiple=True,
-            doc="reverse of 'recorded_with'",
+            description="reverse of 'recorded_with'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -150,7 +82,8 @@ class ElectrodeArrayUsage(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

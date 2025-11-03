@@ -4,96 +4,52 @@ Structured information on the operating system.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.controlled_terms import OperatingSystem as OMOperatingSystem
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class OperatingSystem(KGObject):
+class OperatingSystem(KGObject, OMOperatingSystem):
     """
     Structured information on the operating system.
     """
 
+    type_ = "https://openminds.om-i.org/types/OperatingSystem"
     default_space = "controlled"
-    type_ = "https://openminds.ebrains.eu/controlledTerms/OperatingSystem"
-    properties = [
-        Property(
-            "definition",
-            str,
-            "vocab:definition",
-            doc="Short, but precise statement of the meaning of a word, word group, sign or a symbol.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the operating system.",
-        ),
-        Property(
-            "interlex_identifier",
-            IRI,
-            "vocab:interlexIdentifier",
-            doc="Persistent identifier for a term registered in the InterLex project.",
-        ),
-        Property(
-            "knowledge_space_link",
-            IRI,
-            "vocab:knowledgeSpaceLink",
-            doc="Persistent link to an encyclopedia entry in the Knowledge Space project.",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the operating system.",
-        ),
-        Property(
-            "preferred_ontology_identifier",
-            IRI,
-            "vocab:preferredOntologyIdentifier",
-            doc="Persistent identifier of a preferred ontological term.",
-        ),
-        Property(
-            "synonyms",
-            str,
-            "vocab:synonym",
-            multiple=True,
-            doc="Words or expressions used in the same language that have the same or nearly the same meaning in some or all senses.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "describes",
             [
-                "openminds.computation.ValidationTestVersion",
-                "openminds.computation.WorkflowRecipeVersion",
-                "openminds.core.DatasetVersion",
-                "openminds.core.MetaDataModelVersion",
-                "openminds.core.ModelVersion",
-                "openminds.core.WebServiceVersion",
-                "openminds.publications.Book",
-                "openminds.publications.Chapter",
-                "openminds.publications.LearningResource",
-                "openminds.publications.LivePaperVersion",
-                "openminds.publications.ScholarlyArticle",
-                "openminds.sands.BrainAtlasVersion",
-                "openminds.sands.CommonCoordinateSpaceVersion",
+                "openminds.latest.computation.ValidationTestVersion",
+                "openminds.latest.computation.WorkflowRecipeVersion",
+                "openminds.latest.core.DatasetVersion",
+                "openminds.latest.core.MetaDataModelVersion",
+                "openminds.latest.core.ModelVersion",
+                "openminds.latest.core.WebServiceVersion",
+                "openminds.latest.publications.Book",
+                "openminds.latest.publications.Chapter",
+                "openminds.latest.publications.LearningResource",
+                "openminds.latest.publications.LivePaperVersion",
+                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.latest.sands.CommonCoordinateSpaceVersion",
             ],
-            "^vocab:keyword",
+            "keyword",
             reverse="keywords",
             multiple=True,
-            doc="reverse of 'keywords'",
+            description="reverse of 'keywords'",
         ),
         Property(
             "used_by",
-            "openminds.core.SoftwareVersion",
-            "^vocab:operatingSystem",
+            "openminds.latest.core.SoftwareVersion",
+            "operatingSystem",
             reverse="operating_systems",
             multiple=True,
-            doc="reverse of 'operating_systems'",
+            description="reverse of 'operating_systems'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -114,7 +70,8 @@ class OperatingSystem(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

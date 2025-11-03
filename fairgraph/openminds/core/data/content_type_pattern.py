@@ -4,36 +4,27 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import ContentTypePattern as OMContentTypePattern
+from fairgraph import KGObject
 
 
-class ContentTypePattern(KGObject):
+class ContentTypePattern(KGObject, OMContentTypePattern):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/ContentTypePattern"
     default_space = "files"
-    type_ = "https://openminds.ebrains.eu/core/ContentTypePattern"
-    properties = [
-        Property(
-            "content_type",
-            "openminds.core.ContentType",
-            "vocab:contentType",
-            required=True,
-            doc="no description available",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property("regex", str, "vocab:regex", required=True, doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "identifies_content_of",
-            "openminds.core.FileRepository",
-            "^vocab:contentTypePattern",
+            "openminds.latest.core.FileRepository",
+            "contentTypePattern",
             reverse="content_type_patterns",
             multiple=True,
-            doc="reverse of 'content_type_patterns'",
+            description="reverse of 'content_type_patterns'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -49,7 +40,8 @@ class ContentTypePattern(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

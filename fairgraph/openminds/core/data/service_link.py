@@ -4,46 +4,22 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import ServiceLink as OMServiceLink
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class ServiceLink(KGObject):
+class ServiceLink(KGObject, OMServiceLink):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/ServiceLink"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/ServiceLink"
-    properties = [
-        Property(
-            "data_location",
-            [
-                "openminds.core.File",
-                "openminds.core.FileArchive",
-                "openminds.core.FileBundle",
-                "openminds.core.ModelVersion",
-                "openminds.publications.LivePaperResourceItem",
-                "openminds.sands.ParcellationEntityVersion",
-            ],
-            "vocab:dataLocation",
-            required=True,
-            doc="no description available",
-        ),
-        Property("display_label", str, "vocab:displayLabel", doc="no description available"),
-        Property("open_data_in", IRI, "vocab:openDataIn", required=True, doc="no description available"),
-        Property("preview_image", "openminds.core.File", "vocab:previewImage", doc="no description available"),
-        Property(
-            "service",
-            "openminds.controlled_terms.Service",
-            "vocab:service",
-            required=True,
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("data_location", "open_data_in", "service")
 
@@ -59,7 +35,8 @@ class ServiceLink(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

@@ -11,6 +11,7 @@ import sys
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader
 
+OPENMINDS_VERSION = "latest"
 
 name_map = {
     "scope": "model_scope",  # this is because 'scope' is already a keyword
@@ -275,7 +276,7 @@ def invert_dict(D):
 
 
 DEFAULT_SPACES = {
-    "chemicals": {"default": "dataset"},
+    "chemicals": {"default": "in-depth"},
     "core": invert_dict(
         {
             "common": [
@@ -387,7 +388,6 @@ DEFAULT_SPACES = {
     ),
     "publications": {"default": "livepapers"},
     "ephys": {"default": "in-depth"},
-    "chemicals": {"default": "in-depth"},
     "specimen_prep": {"default": "in-depth"},
     "stimulation": {"default": "in-depth"},
 }
@@ -489,7 +489,7 @@ def generate_class_name(iri, module_map=None):
     assert isinstance(iri, str)
     class_name = iri.split("/")[-1]
     module_name = generate_python_name(module_map[iri])
-    return f"openminds.{module_name}.{class_name}"
+    return f"openminds.{OPENMINDS_VERSION}.{module_name}.{class_name}"
 
 
 def get_controlled_terms_table(type_):
@@ -586,17 +586,6 @@ from .web_service import WebService""",
 }
 
 
-def get_type_from_schema(schema_payload, override=True):
-    if override:  # temporarily use the old namespaces, until the KG is updated
-        cls_name = schema_payload["_type"].split("/")[-1]
-        module_name = schema_payload['_module']
-        if module_name == "SANDS":
-            module_name = "sands"
-        return f"https://openminds.ebrains.eu/{module_name}/{cls_name}"
-    else:
-        return schema_payload["_type"]
-
-
 class FairgraphClassBuilder:
     """docstring"""
 
@@ -631,7 +620,6 @@ class FairgraphClassBuilder:
                 "email": "str",  # todo: add an Email class for validation?
                 "ECMA262": "str",  #       ...
             }
-            #breakpoint()
             if "_linkedTypes" in prop:
                 types = []
                 for item in prop["_linkedTypes"]:
@@ -697,7 +685,7 @@ class FairgraphClassBuilder:
                 {
                     "name": python_name,
                     "type_str": get_type(prop),  # compress using JSON-LD context
-                    "iri": f"vocab:{prop['name']}",
+                    "iri": f"{prop['name']}",
                     "allow_multiple": allow_multiple,
                     "required": iri in self._schema_payload.get("required", []),
                     "doc": generate_doc(prop, class_name),
@@ -732,7 +720,7 @@ class FairgraphClassBuilder:
                         # todo: we should fix this at some point, using just the first forward_link_name causes things to break
                         #       making this a dictionary keyed by class names should work?
                     _forward_link_name_python = generate_python_name(forward_link_name)
-                    iri = f"^vocab:{forward_iri}"
+                    iri = forward_iri
                     doc = f"reverse of '{_forward_link_name_python}'"
                     types_str = sorted(types_str)
                     if len(types_str) == 1:
@@ -749,7 +737,7 @@ class FairgraphClassBuilder:
                         forward_iri = linked_from[reverse_link_name][0]
                         forward_link_name = linked_from[reverse_link_name][1]
                     _forward_link_name_python = [generate_python_name(name) for name in forward_link_name]
-                    iri = [f"^vocab:{part}" for part in forward_iri]
+                    iri = [part for part in forward_iri]
                     doc = "reverse of " + ", ".join(name for name in _forward_link_name_python)
                 reverse_name_python = generate_python_name(reverse_link_name)
                 if reverse_name_python in forward_property_names:
@@ -777,12 +765,14 @@ class FairgraphClassBuilder:
             with open(f"additional_methods/{class_name}.py.txt") as fp:
                 additional_methods = fp.read()
         self.context = {
+            "openminds_version": OPENMINDS_VERSION,
             "docstring": self._schema_payload.get("description", "<description not available>"),
             "base_class": base_class,
             "preamble": preamble.get(class_name, ""),  # default value, may be updated below
+            "module_name": module_name,
             "class_name": class_name,
             "default_space": default_space,
-            "openminds_type": get_type_from_schema(self._schema_payload, override=True),
+            "openminds_type": self._schema_payload["_type"],
             "properties": sorted(properties, key=lambda p: p["name"]),
             "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "additional_methods": "",
@@ -799,7 +789,7 @@ class FairgraphClassBuilder:
             "date": "from datetime import date",
             "datetime": "from datetime import datetime",
             "time": "from datetime import time",
-            "IRI": "from fairgraph.base import IRI",
+            "IRI": "from openminds import IRI",
             "[datetime, time]": "from datetime import datetime, time",
             "Real": "from numbers import Real"
         }
@@ -849,7 +839,6 @@ class FairgraphClassBuilder:
                     reverse_link_name,
                 )  # linked from (cls, prop name, prop name plural, reverse name)
                 # if self._schema_payload["_type"].endswith("File"):
-                #     breakpoint()
         return embedded, linked
 
     def get_module_map(self):

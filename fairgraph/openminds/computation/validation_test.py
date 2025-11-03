@@ -4,153 +4,46 @@ Structured information about the definition of a process for validating a comput
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.computation import ValidationTest as OMValidationTest
+from fairgraph import KGObject
 
 
-from fairgraph.base import IRI
+from openminds import IRI
 
 
-class ValidationTest(KGObject):
+class ValidationTest(KGObject, OMValidationTest):
     """
     Structured information about the definition of a process for validating a computational model.
     """
 
+    type_ = "https://openminds.om-i.org/types/ValidationTest"
     default_space = "computation"
-    type_ = "https://openminds.ebrains.eu/computation/ValidationTest"
-    properties = [
-        Property(
-            "custodians",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:custodian",
-            multiple=True,
-            doc="The 'custodian' is a legal person who is responsible for the content and quality of the data, metadata, and/or code of a research product.",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            required=True,
-            doc="Longer statement or account giving the characteristics of the validation test.",
-        ),
-        Property(
-            "developers",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:developer",
-            multiple=True,
-            required=True,
-            doc="Legal person that creates or improves products or services (e.g., software, applications, etc.).",
-        ),
-        Property(
-            "digital_identifier",
-            "openminds.core.DOI",
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "full_name",
-            str,
-            "vocab:fullName",
-            required=True,
-            doc="Whole, non-abbreviated name of the validation test.",
-        ),
-        Property(
-            "has_versions",
-            "openminds.computation.ValidationTestVersion",
-            "vocab:hasVersion",
-            multiple=True,
-            required=True,
-            doc="Reference to variants of an original.",
-        ),
-        Property("homepage", IRI, "vocab:homepage", doc="Main website of the validation test."),
-        Property(
-            "how_to_cite",
-            str,
-            "vocab:howToCite",
-            doc="Preferred format for citing a particular object or legal person.",
-        ),
-        Property("model_scope", "openminds.controlled_terms.ModelScope", "vocab:scope", doc="Extent of something."),
-        Property(
-            "reference_data_acquisitions",
-            "openminds.controlled_terms.Technique",
-            "vocab:referenceDataAcquisition",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "score_type",
-            "openminds.controlled_terms.DifferenceMeasure",
-            "vocab:scoreType",
-            doc="no description available",
-        ),
-        Property(
-            "short_name",
-            str,
-            "vocab:shortName",
-            required=True,
-            doc="Shortened or fully abbreviated name of the validation test.",
-        ),
-        Property(
-            "study_targets",
-            [
-                "openminds.controlled_terms.AuditoryStimulusType",
-                "openminds.controlled_terms.BiologicalOrder",
-                "openminds.controlled_terms.BiologicalSex",
-                "openminds.controlled_terms.BreedingType",
-                "openminds.controlled_terms.CellCultureType",
-                "openminds.controlled_terms.CellType",
-                "openminds.controlled_terms.Disease",
-                "openminds.controlled_terms.DiseaseModel",
-                "openminds.controlled_terms.ElectricalStimulusType",
-                "openminds.controlled_terms.GeneticStrainType",
-                "openminds.controlled_terms.GustatoryStimulusType",
-                "openminds.controlled_terms.Handedness",
-                "openminds.controlled_terms.MolecularEntity",
-                "openminds.controlled_terms.OlfactoryStimulusType",
-                "openminds.controlled_terms.OpticalStimulusType",
-                "openminds.controlled_terms.Organ",
-                "openminds.controlled_terms.OrganismSubstance",
-                "openminds.controlled_terms.OrganismSystem",
-                "openminds.controlled_terms.Species",
-                "openminds.controlled_terms.SubcellularEntity",
-                "openminds.controlled_terms.TactileStimulusType",
-                "openminds.controlled_terms.TermSuggestion",
-                "openminds.controlled_terms.TissueSampleType",
-                "openminds.controlled_terms.UBERONParcellation",
-                "openminds.controlled_terms.VisualStimulusType",
-                "openminds.sands.CustomAnatomicalEntity",
-                "openminds.sands.ParcellationEntity",
-                "openminds.sands.ParcellationEntityVersion",
-            ],
-            "vocab:studyTarget",
-            multiple=True,
-            doc="Structure or function that was targeted within a study.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "comments",
-            "openminds.core.Comment",
-            "^vocab:about",
+            "openminds.latest.core.Comment",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
         Property(
             "is_part_of",
-            ["openminds.core.Project", "openminds.core.ResearchProductGroup"],
-            "^vocab:hasPart",
+            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "learning_resources",
-            "openminds.publications.LearningResource",
-            "^vocab:about",
+            "openminds.latest.publications.LearningResource",
+            "about",
             reverse="about",
             multiple=True,
-            doc="reverse of 'about'",
+            description="reverse of 'about'",
         ),
     ]
     aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
@@ -182,7 +75,8 @@ class ValidationTest(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

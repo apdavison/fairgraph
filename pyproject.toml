@@ -18,6 +18,7 @@ classifiers = [
 keywords = ["ebrains", "hbp", "metadata", "electrophysiology", "knowledge-graph"]
 dependencies=[
     "ebrains-kg-core",
+    "openminds",
     "python-dateutil",
     "tabulate",
     "requests"

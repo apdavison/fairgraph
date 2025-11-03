@@ -6,55 +6,16 @@ based on names and type identifiers.
 
 from __future__ import annotations
 from itertools import chain
-from typing import TYPE_CHECKING, Union, List
+from typing import TYPE_CHECKING, Union, List, Dict
 from warnings import warn
 
+from openminds.properties import Property
+from openminds.registry import Registry
+
+from .base import OPENMINDS_VERSION
+
 if TYPE_CHECKING:
-    from .base import ContainsMetadata
-
-registry: dict = {"names": {}, "types": {}}
-
-
-def register_class(target_class: ContainsMetadata):
-    """Add a class to the registry"""
-    if "openminds" in target_class.__module__:
-        parts = target_class.__module__.split(".")
-        name = ".".join(parts[1:3] + [target_class.__name__])  # e.g. openminds.core.Dataset
-    else:
-        name = target_class.__module__.split(".")[-1] + "." + target_class.__name__
-
-    registry["names"][name] = target_class
-    if hasattr(target_class, "type_"):
-        assert isinstance(target_class.type_, str)
-        type_ = target_class.type_
-        if type_ in registry["types"]:
-            if isinstance(registry["types"][type_], list):
-                registry["types"][type_].append(target_class)
-            else:
-                registry["types"][type_] = [registry["types"][type_], target_class]
-        else:
-            registry["types"][type_] = target_class
-            # during the openMINDS v3 - v4 transition, we register both
-            # old and new type namespaces
-            if "openminds.ebrains.eu" in type_:
-                alt_type = f"https://openminds.om-i.org/types/{type_.split('/')[-1]}"
-                registry["types"][alt_type] = target_class
-
-
-def lookup(class_name: str) -> ContainsMetadata:
-    """Return the class whose name is given."""
-    return registry["names"][class_name]
-
-
-def lookup_type(class_type: Union[str, List[str]]) -> ContainsMetadata:
-    """Return the class whose global type identifier (a URI) is given."""
-    if isinstance(class_type, str):
-        if class_type in registry["types"]:
-            return registry["types"][class_type]
-        else:
-            return registry["types"][(class_type,)]
-    else:
-        return registry["types"][tuple(sorted(class_type))]
+    from .node import ContainsMetadata
 
 
 docstring_template = """
@@ -67,25 +28,32 @@ Args
 """
 
 
-class Registry(type):
+class Node(Registry):
     """Metaclass for registering Knowledge Graph classes."""
 
-    properties = []
-    reverse_properties = []
-    aliases = {}
+    properties: List[Property] = []
+    type_: Union[str, List[str]]
+    context: Dict[str, str]
+    _base_docstring: str
 
     def __new__(meta, name, bases, class_dict):
-        cls = type.__new__(meta, name, bases, class_dict)
-        cls._base_docstring = class_dict.get("__doc__", "").strip()
-        cls._property_lookup = {
-            prop.name: prop for prop in (cls.properties + cls.reverse_properties)
-        }
-        register_class(cls)
+        # set class_name so that the fairgraph class replaces the equivalent openminds class
+        # in the registry
+        # e.g.   'fairgraph.openminds.sands.miscellaneous.anatomical_target_position'
+        #   -->  'openminds.v4.sands.AnatomicalTargetPosition'
+        class_dict["class_name"] = ".".join(
+            class_dict["__module__"].replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3] + [name]
+        )
+        class_dict["preferred_import_path"] = class_dict["class_name"]
+        cls = Registry.__new__(meta, name, bases, class_dict)
+        cls._property_lookup = {prop.name: prop for prop in (cls.properties + cls.reverse_properties)}
         return cls
 
     def _get_doc(cls) -> str:
         """Dynamically generate docstrings"""
-        property_docs = []
+        # todo: consider generating the docstring in the build pipeline,
+        #       avoiding all this run-time messing about
+        field_docs = []
         if hasattr(cls, "properties"):
 
             def gen_path(type_):
@@ -94,24 +62,28 @@ class Registry(type):
                 else:
                     return "~{}.{}".format(type_.__module__, type_.__name__)
 
-            for prop in cls.all_properties:
-                doc = "{} : {}\n    {}".format(prop.name, ", ".join(gen_path(t) for t in prop.types), prop.doc)
-                property_docs.append(doc)
-        return docstring_template.format(base=cls._base_docstring, args="\n".join(property_docs))
+            for property in cls.all_properties:
+                doc = "{} : {}\n    {}".format(
+                    property.name, ", ".join(gen_path(t) for t in property.types), property.description
+                )
+                # todo: add property.instructions if present
+                field_docs.append(doc)
+        # todo: also document id, data, space, scope
+        return docstring_template.format(base=cls._base_docstring, args="\n".join(field_docs))
 
-    __doc__ = property(_get_doc)
-
-    @property
-    def property_names(cls) -> List[str]:
-        return list(cls._property_lookup.keys())
-
-    @property
-    def required_property_names(cls) -> List[str]:
-        return [f.name for f in cls.properties if f.required]
+    __doc__ = property(_get_doc)  # type: ignore[assignment]
 
     @property
     def all_properties(cls):
         return chain(cls.properties, cls.reverse_properties)
+
+    @property
+    def all_property_names(cls):
+        return [p.name for p in cls.all_properties]
+
+    @property
+    def reverse_property_names(cls):
+        return [p.name for p in cls.reverse_properties]
 
     @property
     def fields(cls):

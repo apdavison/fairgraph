@@ -4,39 +4,32 @@
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import IdentifiersDotOrgID as OMIdentifiersDotOrgID
+from fairgraph import KGObject
 
 
-class IdentifiersDotOrgID(KGObject):
+class IdentifiersDotOrgID(KGObject, OMIdentifiersDotOrgID):
     """
     <description not available>
     """
 
+    type_ = "https://openminds.om-i.org/types/IdentifiersDotOrgID"
     default_space = "common"
-    type_ = "https://openminds.ebrains.eu/core/IdentifiersDotOrgID"
-    properties = [
-        Property(
-            "identifier",
-            str,
-            "vocab:identifier",
-            required=True,
-            doc="Term or code used to identify the identifiers dot org i d.",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "identifies",
-            ["openminds.core.Dataset", "openminds.core.DatasetVersion"],
-            "^vocab:digitalIdentifier",
+            ["openminds.latest.core.Dataset", "openminds.latest.core.DatasetVersion"],
+            "digitalIdentifier",
             reverse="digital_identifier",
             multiple=True,
-            doc="reverse of 'digital_identifier'",
+            description="reverse of 'digital_identifier'",
         ),
     ]
     existence_query_properties = ("identifier",)
 
     def __init__(self, identifier=None, identifies=None, id=None, data=None, space=None, scope=None):
-        return super().__init__(
-            id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
+        return KGObject.__init__(
+            self, id=id, space=space, scope=scope, data=data, identifier=identifier, identifies=identifies
         )

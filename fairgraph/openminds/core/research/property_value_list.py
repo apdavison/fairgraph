@@ -4,52 +4,43 @@ An identifiable list of property-value pairs.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.core import PropertyValueList as OMPropertyValueList
+from fairgraph import KGObject
 
 
-class PropertyValueList(KGObject):
+class PropertyValueList(KGObject, OMPropertyValueList):
     """
     An identifiable list of property-value pairs.
     """
 
+    type_ = "https://openminds.om-i.org/types/PropertyValueList"
     default_space = "dataset"
-    type_ = "https://openminds.ebrains.eu/core/PropertyValueList"
-    properties = [
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "property_value_pairs",
-            ["openminds.core.NumericalProperty", "openminds.core.StringProperty"],
-            "vocab:propertyValuePair",
-            multiple=True,
-            required=True,
-            doc="no description available",
-        ),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "defines_environment_of",
-            "openminds.computation.LaunchConfiguration",
-            "^vocab:environmentVariable",
+            "openminds.latest.computation.LaunchConfiguration",
+            "environmentVariable",
             reverse="environment_variable",
             multiple=True,
-            doc="reverse of 'environment_variable'",
+            description="reverse of 'environment_variable'",
         ),
         Property(
             "is_configuration_of",
-            ["openminds.computation.ValidationTestVersion", "openminds.core.ModelVersion"],
-            "^vocab:configuration",
+            ["openminds.latest.computation.ValidationTestVersion", "openminds.latest.core.ModelVersion"],
+            "configuration",
             reverse="configuration",
             multiple=True,
-            doc="reverse of 'configuration'",
+            description="reverse of 'configuration'",
         ),
         Property(
             "specifies",
-            ["openminds.sands.CustomAnnotation", "openminds.stimulation.EphysStimulus"],
-            "^vocab:specification",
+            ["openminds.latest.sands.CustomAnnotation", "openminds.latest.stimulation.EphysStimulus"],
+            "specification",
             reverse="specification",
             multiple=True,
-            doc="reverse of 'specification'",
+            description="reverse of 'specification'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -66,7 +57,8 @@ class PropertyValueList(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,

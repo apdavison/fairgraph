@@ -24,7 +24,8 @@ from typing import Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 from .utility import as_list, ActivityLog
-from .base import Resolvable, ContainsMetadata, JSONdict
+from .base import Resolvable, JSONdict
+from .node import ContainsMetadata
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -41,8 +42,6 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         data (dict, optional): a JSON-LD document containing the KG representation of the metadata.
         properties: the metadata properties (property names and values)
     """
-
-    properties = []
 
     def __init__(self, data: Optional[JSONdict] = None, **properties):
         super().__init__(data=data, **properties)
@@ -61,21 +60,21 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         template_parts = (
             "{}={{self.{}!r}}".format(prop.name, prop.name)
             for prop in self.properties
-            if getattr(self, prop.name) is not None
+            if getattr(self, prop.name, None) is not None
         )
         template = "{self.__class__.__name__}(" + ", ".join(template_parts) + ")"
         return template.format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.to_jsonld() == other.to_jsonld()
+        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(embed_linked_nodes=False)
 
     @classmethod
-    def from_kg_instance(cls, data: JSONdict, client: KGClient) -> Union[None, EmbeddedMetadata]:
+    def from_jsonld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
         """Create an instance of the class from a JSON-LD document."""
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")
             return None
-        deserialized_data = cls._deserialize_data(data, client)
+        deserialized_data = cls._deserialize_data(data)
         return cls(data=data, **deserialized_data)
 
     def save(
@@ -91,7 +90,6 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         Save to the KG any sub-components of the metadata object that are KGObjects.
         """
         for prop in self.properties:
-            assert prop.intrinsic  # embedded metadata should not contain any reverse properties
             values = getattr(self, prop.name)
             for value in as_list(values):
                 if isinstance(value, ContainsMetadata):

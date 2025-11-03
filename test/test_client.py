@@ -1,11 +1,12 @@
 import os
-import json
 import pytest
 
 from kg_core.response import Error as KGError
+from fairgraph.kgobject import KGObject
 from fairgraph.queries import Query, QueryProperty, Filter
 from fairgraph.errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .utils import kg_client, skip_if_no_connection, MockKGResponse
+from fairgraph.base import OPENMINDS_VERSION
+from .utils import kg_client, kg_client_curator, skip_if_no_connection, MockKGResponse
 
 
 @skip_if_no_connection
@@ -42,8 +43,9 @@ def test_spaces_names_only(kg_client):
 
 @skip_if_no_connection
 def test_query_filter_by_space(kg_client):
+
     query = Query(
-        node_type="https://openminds.ebrains.eu/core/Model",
+        node_type="https://openminds.om-i.org/types/Model",
         label="fg-testing-model",
         properties=[
             QueryProperty("@type"),
@@ -53,20 +55,20 @@ def test_query_filter_by_space(kg_client):
                 filter=Filter("EQUALS", value="model"),
             ),
             QueryProperty(
-                "https://openminds.ebrains.eu/vocab/fullName",
-                name="vocab:fullName",
+                "https://openminds.om-i.org/props/fullName",
+                name="fullName",
                 filter=Filter("CONTAINS", parameter="name"),
                 sorted=True,
                 required=True,
             ),
             QueryProperty(
-                "https://openminds.ebrains.eu/vocab/custodian",
-                name="vocab:custodian",
-                type_filter="https://openminds.ebrains.eu/core/Person",
+                "https://openminds.om-i.org/props/custodian",
+                name="custodian",
+                type_filter="https://openminds.om-i.org/types/Person",
                 properties=[
                     QueryProperty(
-                        "https://openminds.ebrains.eu/vocab/familyName",
-                        name="vocab:familyName",
+                        "https://openminds.om-i.org/props/familyName",
+                        name="familyName",
                     ),
                 ],
             ),
@@ -94,9 +96,10 @@ def test_get_admin_client(kg_client):
 
 @skip_if_no_connection
 def test_list_scopes(kg_client):
+
     def _get_models(scope):
         return kg_client.list(
-            target_type="https://openminds.ebrains.eu/core/Model",
+            target_type="https://openminds.om-i.org/types/Model",
             space="model",
             from_index=0,
             size=10000,
@@ -173,7 +176,8 @@ def test_store_and_retrieve_query(kg_client, mocker):
 
 @skip_if_no_connection
 def test_configure_space(kg_client, mocker):
-    class MockType:
+    class MockType(KGObject):
+        schema_version = OPENMINDS_VERSION
         type_ = "hello"
 
     mocker.patch.object(kg_client._kg_admin_client, "create_space_definition", lambda space: None)
@@ -184,10 +188,12 @@ def test_configure_space(kg_client, mocker):
 
 
 @skip_if_no_connection
-def test_is_released(kg_client):
+def test_is_released(kg_client_curator):
+    if kg_client_curator is None:
+        pytest.skip("Need to set environment variable KG_AUTH_TOKEN_CURATOR")
     instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
-    kg_client.is_released(instance_id, with_children=True)
-    kg_client.is_released(instance_id, with_children=False)
+    kg_client_curator.is_released(instance_id, with_children=True)
+    kg_client_curator.is_released(instance_id, with_children=False)
 
 
 @skip_if_no_connection

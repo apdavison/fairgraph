@@ -4,109 +4,35 @@ Structured information on an electrode.
 
 # this file was auto-generated
 
-from fairgraph import KGObject, IRI
-from fairgraph.properties import Property
+from openminds.properties import Property
+from openminds.latest.ephys import Electrode as OMElectrode
+from fairgraph import KGObject
 
 
-class Electrode(KGObject):
+class Electrode(KGObject, OMElectrode):
     """
     Structured information on an electrode.
     """
 
+    type_ = "https://openminds.om-i.org/types/Electrode"
     default_space = "in-depth"
-    type_ = "https://openminds.ebrains.eu/ephys/Electrode"
-    properties = [
-        Property(
-            "conductor_material",
-            [
-                "openminds.chemicals.ChemicalMixture",
-                "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlled_terms.MolecularEntity",
-            ],
-            "vocab:conductorMaterial",
-            doc="no description available",
-        ),
-        Property(
-            "description",
-            str,
-            "vocab:description",
-            doc="Longer statement or account giving the characteristics of the electrode.",
-        ),
-        Property(
-            "device_type",
-            "openminds.controlled_terms.DeviceType",
-            "vocab:deviceType",
-            required=True,
-            doc="no description available",
-        ),
-        Property(
-            "digital_identifier",
-            ["openminds.core.DOI", "openminds.core.RRID"],
-            "vocab:digitalIdentifier",
-            doc="Digital handle to identify objects or legal persons.",
-        ),
-        Property(
-            "insulator_material",
-            [
-                "openminds.chemicals.ChemicalMixture",
-                "openminds.chemicals.ChemicalSubstance",
-                "openminds.controlled_terms.MolecularEntity",
-            ],
-            "vocab:insulatorMaterial",
-            doc="no description available",
-        ),
-        Property(
-            "internal_identifier",
-            str,
-            "vocab:internalIdentifier",
-            doc="Term or code that identifies the electrode within a particular product.",
-        ),
-        Property(
-            "intrinsic_resistance",
-            ["openminds.core.QuantitativeValue", "openminds.core.QuantitativeValueRange"],
-            "vocab:intrinsicResistance",
-            doc="no description available",
-        ),
-        Property("lookup_label", str, "vocab:lookupLabel", doc="no description available"),
-        Property(
-            "manufacturers",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:manufacturer",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property(
-            "name",
-            str,
-            "vocab:name",
-            required=True,
-            doc="Word or phrase that constitutes the distinctive designation of the electrode.",
-        ),
-        Property(
-            "owners",
-            ["openminds.core.Consortium", "openminds.core.Organization", "openminds.core.Person"],
-            "vocab:owner",
-            multiple=True,
-            doc="no description available",
-        ),
-        Property("serial_number", str, "vocab:serialNumber", doc="no description available"),
-    ]
+    # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.core.Setup",
-            "^vocab:hasPart",
+            "openminds.latest.core.Setup",
+            "hasPart",
             reverse="has_parts",
             multiple=True,
-            doc="reverse of 'has_parts'",
+            description="reverse of 'has_parts'",
         ),
         Property(
             "usage",
-            "openminds.ephys.ElectrodeUsage",
-            "^vocab:device",
+            "openminds.latest.ephys.ElectrodeUsage",
+            "device",
             reverse="device",
             multiple=True,
-            doc="reverse of 'device'",
+            description="reverse of 'device'",
         ),
     ]
     existence_query_properties = ("lookup_label",)
@@ -132,7 +58,8 @@ class Electrode(KGObject):
         space=None,
         scope=None,
     ):
-        return super().__init__(
+        return KGObject.__init__(
+            self,
             id=id,
             space=space,
             scope=scope,
