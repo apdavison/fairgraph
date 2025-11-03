@@ -50,6 +50,14 @@ class Filter:
         self.parameter = parameter
         self.value = value
 
+    def __repr__(self):
+        repr = f"Filter(operation='{self.operation}'"
+        if self.parameter:
+            repr += f", parameter='{self.parameter}'"
+        if self.value:
+            repr += f", value='{self.value}'"
+        return repr + ")"
+
     def serialize(self):
         data = {"op": self.operation}
         if self.parameter:
@@ -406,7 +414,11 @@ def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
         assert all(issubclass(_type, Node) for _type in property.types)
         prop = QueryProperty(expanded_path, name=f"Q{property.name}", required=True, reverse=property.reverse)
         if filter_obj:
-            prop.properties.append(QueryProperty("@id", filter=filter_obj))
+            if filter_obj.value.startswith("https://kg.ebrains.eu/api/instances"):
+                filter_path = "@id"
+            else:
+                filter_path = "http://schema.org/identifier"
+            prop.properties.append(QueryProperty(filter_path, filter=filter_obj))
         else:
             for cls in property.types:
                 child_properties = cls.generate_query_filter_properties(filter)

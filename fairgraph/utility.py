@@ -549,10 +549,17 @@ def adapt_namespaces_for_query(query):
             if "structure" in item:
                 adapt_structure(item["structure"], replacement)
 
+    def adapt_filters(structure, replacement):
+        for item in structure:
+            if "filter" in item and "value" in item["filter"]:
+                item["filter"]["value"] = item["filter"]["value"].replace(*replacement)
+            if "structure" in item:
+                adapt_filters(item["structure"], replacement)
+
     migrated_query = deepcopy(query)
     migrated_query["meta"]["type"] = adapt_type_4to3(migrated_query["meta"]["type"])
-    replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
-    adapt_structure(migrated_query["structure"], replacement)
+    adapt_structure(migrated_query["structure"], ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab"))
+    adapt_filters(migrated_query["structure"], ("openminds.om-i.org/instances", "openminds.ebrains.eu/instances"))
     return migrated_query
 
 

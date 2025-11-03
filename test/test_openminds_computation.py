@@ -73,7 +73,7 @@ class TestEnvironment:
                     "path": "https://openminds.om-i.org/props/hardware",
                     "propertyName": "Qhardware",
                     "required": True,
-                    "structure": [{"path": "@id", "filter": {"op": "CONTAINS", "value": "some_id"}}],
+                    "structure": [{"path": "http://schema.org/identifier", "filter": {"op": "CONTAINS", "value": "some_id"}}],
                 },
                 {
                     "path": "https://openminds.om-i.org/props/name",
@@ -85,7 +85,7 @@ class TestEnvironment:
                     "path": "https://openminds.om-i.org/props/software",
                     "propertyName": "Qsoftware",
                     "required": True,
-                    "structure": [{"path": "@id", "filter": {"op": "CONTAINS", "value": "another_id"}}],
+                    "structure": [{"path": "http://schema.org/identifier", "filter": {"op": "CONTAINS", "value": "another_id"}}],
                 },
             ],
         }

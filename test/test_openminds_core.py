@@ -69,6 +69,21 @@ def test_retrieve_released_models_filter_species_by_obj(kg_client):
 
 
 @skip_if_no_connection
+def test_retrieve_released_datasets_filter_species_by_openminds_obj(kg_client):
+    rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
+    rat_om = omterms.Species.rattus_norvegicus
+    assert rat.name == rat_om.name == "Rattus norvegicus"
+    follow_links = {"study_targets": {}}
+    datasets = omcore.DatasetVersion.list(kg_client, space="dataset", study_targets=rat, follow_links=follow_links)
+    datasets_om = omcore.DatasetVersion.list(kg_client, space="dataset", study_targets=rat_om, follow_links=follow_links)
+    assert len(datasets) > 0
+    assert len(datasets) == len(datasets_om)
+    assert [ds.id for ds in datasets] == [ds.id for ds in datasets_om]
+    for dataset in datasets_om:
+        assert rat in dataset.study_targets
+
+
+@skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_uuid(kg_client):
     human = omterms.Species.by_name("Homo sapiens", kg_client)
     models = omcore.Model.list(
