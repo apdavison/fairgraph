@@ -68,7 +68,7 @@ class Node(Registry):
                 )
                 # todo: add property.instructions if present
                 field_docs.append(doc)
-        # todo: also document id, data, space, scope
+        # todo: also document id, data, space, release_status
         return docstring_template.format(base=cls._base_docstring, args="\n".join(field_docs))
 
     __doc__ = property(_get_doc)  # type: ignore[assignment]

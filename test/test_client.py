@@ -80,7 +80,7 @@ def test_query_filter_by_space(kg_client):
         instance_id=None,
         from_index=0,
         size=1000,
-        scope="in progress",
+        release_status="in progress",
         id_key="uri",
     )
     spaces = set(result["project_id"] for result in results.data)
@@ -97,13 +97,13 @@ def test_get_admin_client(kg_client):
 @skip_if_no_connection
 def test_list_scopes(kg_client):
 
-    def _get_models(scope):
+    def _get_models(release_status):
         return kg_client.list(
             target_type="https://openminds.om-i.org/types/Model",
             space="model",
             from_index=0,
             size=10000,
-            scope=scope,
+            release_status=release_status,
         )
 
     released_models = _get_models("released")
@@ -150,7 +150,7 @@ def test_get_instance_from_cache(kg_client):
 @skip_if_no_connection
 def test_get_instance_no_cache(kg_client):
     instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
-    instance1 = kg_client.instance_from_full_uri(instance_id, use_cache=False, scope="any")
+    instance1 = kg_client.instance_from_full_uri(instance_id, use_cache=False, release_status="any")
     instance2 = kg_client.instance_from_full_uri(instance_id, use_cache=False)
     assert instance2 is not instance1
 

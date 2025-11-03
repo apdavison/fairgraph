@@ -13,20 +13,14 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 OPENMINDS_VERSION = "latest"
 
-name_map = {
-    "scope": "model_scope",  # this is because 'scope' is already a keyword
-                             # we could rename the 'scope' keyword to 'stage'
-                             # but we would have the same problem, as there is
-                             # a property named 'stage'
-                             # Suggested resolution: rename the property "scope" in openMINDS to "hasScope"
-}
 
 global_aliases = {
     "short_name": "alias",
     "full_name": "name",
     "has_versions": "versions",
     "has_entity": "entities",
-    "hashes": "hash"
+    "hashes": "hash",
+    "scope": "model_scope"
 }
 
 
@@ -235,20 +229,17 @@ number_names = {
 }
 
 def generate_python_name(json_name):
-    if json_name in name_map:
-        python_name = name_map[json_name]
-    else:
-        python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name.strip())
-        python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
-        replacements = [
-            ("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")
-        ]
-        for before, after in replacements:
-            python_name = python_name.replace(before, after)
-        if python_name[0] in number_names:  # Python variables can't start with a number
-            python_name = number_names[python_name[0]] + python_name[1:]
-        if not python_name.isidentifier():
-            raise NameError(f"Cannot generate a valid Python name from '{json_name}'")
+    python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name.strip())
+    python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
+    replacements = [
+        ("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")
+    ]
+    for before, after in replacements:
+        python_name = python_name.replace(before, after)
+    if python_name[0] in number_names:  # Python variables can't start with a number
+        python_name = number_names[python_name[0]] + python_name[1:]
+    if not python_name.isidentifier():
+        raise NameError(f"Cannot generate a valid Python name from '{json_name}'")
     return python_name
 
 
@@ -665,7 +656,7 @@ class FairgraphClassBuilder:
         else:
             base_class = "KGObject"
             default_space = get_default_space(module_name, class_name)
-            standard_init_properties = "id=id, space=space, scope=scope, "
+            standard_init_properties = "id=id, space=space, release_status=release_status, "
         properties = []
         plurals_special_cases = {
             # because this is a single item (PropertyValueList), but that item contains a list

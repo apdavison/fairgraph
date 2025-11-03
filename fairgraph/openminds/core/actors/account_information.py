@@ -29,12 +29,14 @@ class AccountInformation(KGObject, OMAccountInformation):
     ]
     existence_query_properties = ("service", "user_name")
 
-    def __init__(self, belongs_to=None, service=None, user_name=None, id=None, data=None, space=None, scope=None):
+    def __init__(
+        self, belongs_to=None, service=None, user_name=None, id=None, data=None, space=None, release_status=None
+    ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             belongs_to=belongs_to,
             service=service,

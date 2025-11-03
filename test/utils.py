@@ -1,6 +1,8 @@
 from copy import deepcopy
 import os
 from uuid import uuid4
+from typing import Optional
+
 from requests.exceptions import SSLError
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
@@ -69,7 +71,7 @@ class MockKGClient:
         self,
         uri: str,
         use_cache: bool = True,
-        scope: str = "released",
+        release_status: str = "released",
         require_full_data: bool = True,
     ):
         if uri == "0000":
@@ -77,7 +79,7 @@ class MockKGClient:
         else:
             raise NotImplementedError
 
-    def query(self, query, filter=None, space=None, size=100, from_index=0, scope="released", restrict_to_spaces=None):
+    def query(self, query, filter=None, space=None, size=100, from_index=0, release_status="released", restrict_to_spaces=None):
         for prop in query["structure"]:
             if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
                 filter_value = prop["filter"]["value"]

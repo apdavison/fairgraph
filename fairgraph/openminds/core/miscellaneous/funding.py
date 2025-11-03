@@ -54,13 +54,13 @@ class Funding(KGObject, OMFunding):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             acknowledgement=acknowledgement,
             award_number=award_number,

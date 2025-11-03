@@ -27,7 +27,7 @@ class ViewerSpecification(EmbeddedMetadata, OMViewerSpecification):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return EmbeddedMetadata.__init__(
             self,

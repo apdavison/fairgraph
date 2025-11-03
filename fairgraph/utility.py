@@ -573,3 +573,15 @@ def initialise_instances(class_list):
                 fg_instance._space = cls.default_space
                 setattr(cls, key, fg_instance)
         cls.set_error_handling("log")
+
+
+def handle_scope_keyword(scope, release_status):
+    """
+    The keyword 'scope' has been renamed 'release_status',
+    use of 'scope' is deprecated but still accepted.
+    """
+    if scope in ("released", "in progress", "any"):
+        warnings.warn("The keyword 'scope' is deprecated, and will be removed in version 1.0; it has been renamed to 'release_status'", DeprecationWarning, stacklevel=2)
+        return scope
+    else:
+        return release_status

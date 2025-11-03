@@ -48,9 +48,9 @@ class ModelScope(KGObject, OMModelScope):
             "is_scope_of",
             ["openminds.latest.computation.ValidationTest", "openminds.latest.core.Model"],
             "scope",
-            reverse="model_scope",
+            reverse="scope",
             multiple=True,
-            description="reverse of 'model_scope'",
+            description="reverse of 'scope'",
         ),
     ]
     existence_query_properties = ("name",)
@@ -69,13 +69,13 @@ class ModelScope(KGObject, OMModelScope):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             name=name,
             definition=definition,

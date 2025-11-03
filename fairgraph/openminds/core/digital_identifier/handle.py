@@ -40,7 +40,13 @@ class HANDLE(KGObject, OMHANDLE):
     ]
     existence_query_properties = ("identifier",)
 
-    def __init__(self, identifier=None, related_to=None, id=None, data=None, space=None, scope=None):
+    def __init__(self, identifier=None, related_to=None, id=None, data=None, space=None, release_status=None):
         return KGObject.__init__(
-            self, id=id, space=space, scope=scope, data=data, identifier=identifier, related_to=related_to
+            self,
+            id=id,
+            space=space,
+            release_status=release_status,
+            data=data,
+            identifier=identifier,
+            related_to=related_to,
         )

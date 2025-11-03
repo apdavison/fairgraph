@@ -195,12 +195,12 @@
     },
     {
       "https://core.kg.ebrains.eu/vocab/query/propertyName": {
-        "@id": "https://schema.hbp.eu/myQuery/model_scope"
+        "@id": "https://schema.hbp.eu/myQuery/scope"
       },
       "https://core.kg.ebrains.eu/vocab/query/singleValue": "FIRST",
       "https://core.kg.ebrains.eu/vocab/query/filter": {
         "https://core.kg.ebrains.eu/vocab/query/op": "CONTAINS",
-        "https://core.kg.ebrains.eu/vocab/query/parameter": "model_scope"
+        "https://core.kg.ebrains.eu/vocab/query/parameter": "scope"
       },
       "https://core.kg.ebrains.eu/vocab/query/path": [
         {

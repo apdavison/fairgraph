@@ -37,7 +37,7 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3
+from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3, handle_scope_keyword
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
@@ -197,7 +197,7 @@ class KGClient(object):
             self._migrated = True  # to stop the call to _check_response() in instance_from_full_uri from recurring
 
             # This is the released controlled term for "left handedness", which should be accessible to everyone
-            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", scope="released")
+            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", release_status="released")
             if "om-i.org" in result["@type"]:
                 self._migrated = True
             else:
@@ -211,7 +211,8 @@ class KGClient(object):
         instance_id: Optional[str] = None,
         from_index: int = 0,
         size: int = 100,
-        scope: str = "released",
+        release_status: str = "released",
+        scope: Optional[str] = None,
         id_key: str = "@id",
         use_stored_query: bool = False,
         restrict_to_spaces: Optional[List[str]] = None
@@ -226,7 +227,7 @@ class KGClient(object):
             instance_id (Optional[URI]): The URI of a specific KG instance to retrieve.
             from_index (int): The index of the first result to return (0-based).
             size (int): The maximum number of results to return.
-            scope (str): The scope of the query. Valid values are "released", "in progress", or "any". Default is "released".
+            release_status (str): The scope of the query. Valid values are "released", "in progress", or "any". Default is "released".
             id_key (str): The key that identifies the ID of a JSON-LD document. Default is "@id".
             use_stored_query (bool): Whether to use a stored query with the given query_id instead of a dynamic query. Default is False.
 
@@ -234,21 +235,21 @@ class KGClient(object):
             A ResultPage object containing a list of JSON-LD instances that satisfy the query,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
-
+        release_status = handle_scope_keyword(scope, release_status)
         query_id = query.get("@id", None)
 
         if use_stored_query:
 
-            def _query(scope, from_index, size):
+            def _query(release_status, from_index, size):
                 response = self._kg_client.queries.execute_query_by_id(
                     query_id=self.uuid_from_uri(query_id),
                     additional_request_params=filter or {},
-                    stage=STAGE_MAP[scope],
+                    stage=STAGE_MAP[release_status],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
                     restrict_to_spaces=restrict_to_spaces
                 )
-                error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
                     response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
                 )
@@ -257,21 +258,21 @@ class KGClient(object):
             if self.migrated is False:
                 query = adapt_namespaces_for_query(query)
 
-            def _query(scope, from_index, size):
+            def _query(release_status, from_index, size):
                 response = self._kg_client.queries.test_query(
                     query,
                     additional_request_params=filter or {},
-                    stage=STAGE_MAP[scope],
+                    stage=STAGE_MAP[release_status],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
                     restrict_to_spaces=restrict_to_spaces
                 )
-                error_context = f"_query(scope={scope} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
+                error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
                     response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
                 )
 
-        if scope == "any":
+        if release_status == "any":
             # the following implementation is simple but very inefficient
             # because we retrieve _all_ instances and then apply the limits
             # from_index and size.
@@ -291,7 +292,7 @@ class KGClient(object):
             response.size = len(response.data)
             response.total = len(instances)
         else:
-            response = _query(scope, from_index, size)
+            response = _query(release_status, from_index, size)
         return response
 
     def list(
@@ -300,7 +301,8 @@ class KGClient(object):
         space: Optional[str] = None,
         from_index: int = 0,
         size: int = 100,
-        scope: str = "released",
+        release_status: str = "released",
+        scope: Optional[str] = None,
     ) -> ResultPage[JsonLdDocument]:
         """
         List KG instances of a given type.
@@ -310,7 +312,7 @@ class KGClient(object):
             space: If specified, restricts the search to the given space.
             from_index: The index of the first result to include in the response.
             size: The maximum number of results to include in the response.
-            scope: The scope of instances to include in the response. Valid values are
+            release_status: The scope of instances to include in the response. Valid values are
                    'released', 'in progress', 'any'. If 'any' is specified, all accessible instances
                    are included in the response, but this may be slow where there are large numbers of instances.
 
@@ -318,24 +320,25 @@ class KGClient(object):
             A ResultPage object containing the list of JSON-LD instances,
             along with metadata about the query results such as total number of instances, and pagination information.
         """
+        release_status = handle_scope_keyword(scope, release_status)
 
         if self.migrated is False:
             target_type = adapt_type_4to3(target_type)
 
-        def _list(scope, from_index, size):
+        def _list(release_status, from_index, size):
             response = self._kg_client.instances.list(
-                stage=STAGE_MAP[scope],
+                stage=STAGE_MAP[release_status],
                 target_type=target_type,
                 space=space,
                 response_configuration=default_response_configuration,
                 pagination=Pagination(start=from_index, size=size),
             )
             error_context = (
-                f"_list(scope={scope} space={space} target_type={target_type} size={size} from_index={from_index})"
+                f"_list(release_status={release_status} space={space} target_type={target_type} size={size} from_index={from_index})"
             )
             return self._check_response(response, error_context=error_context)
 
-        if scope == "any":
+        if release_status == "any":
             # see comments in query() about this implementation
             instances = {}
             # first we get the released instances
@@ -352,13 +355,14 @@ class KGClient(object):
             response.total = len(instances)
             return response
         else:
-            return _list(scope, from_index, size)
+            return _list(release_status, from_index, size)
 
     def instance_from_full_uri(
         self,
         uri: str,
         use_cache: bool = True,
-        scope: str = "released",
+        release_status: str = "released",
+        scope: Optional[str] = None,
         require_full_data: bool = True,
     ) -> JsonLdDocument:
         """
@@ -367,18 +371,19 @@ class KGClient(object):
         Args:
             uri: The global identifier of the instance
             use_cache: whether to use cached data if they exist. Defaults to True.
-            scope: The scope of instances to include in the response.
+            release_status: The release_status of instances to include in the response.
                    Valid values are 'released', 'in progress', 'any'.
             require_full_data: Whether to only return instances for which the user has full read access.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
         data: JsonLdDocument
         if use_cache and uri in self.cache:
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
         else:
-            def _get_instance(scope):
-                error_context = f"_get_instance(scope={scope} uri={uri})"
+            def _get_instance(release_status):
+                error_context = f"_get_instance(release_status={release_status} uri={uri})"
                 # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
                 # but for openMINDS controlled terms we may have the openMINDS URI
                 # of the form https://openminds.ebrains.eu/instances/ageCategory/juvenile (v3)
@@ -387,7 +392,7 @@ class KGClient(object):
                 kg_namespace = self._kg_client.instances._kg_config.id_namespace
                 if uri.startswith(kg_namespace):
                     response = self._kg_client.instances.get_by_id(
-                        stage=STAGE_MAP[scope],
+                        stage=STAGE_MAP[release_status],
                         instance_id=self.uuid_from_uri(uri),
                         extended_response_configuration=default_response_configuration,
                     )
@@ -405,7 +410,7 @@ class KGClient(object):
                     else:
                         payload = [uri]
                     response = self._kg_client.instances.get_by_identifiers(
-                        stage=STAGE_MAP[scope],
+                        stage=STAGE_MAP[release_status],
                         payload=payload,
                         extended_response_configuration=default_response_configuration,
                     )
@@ -421,14 +426,14 @@ class KGClient(object):
                     data = None
                 return data
 
-            if scope == "any":
+            if release_status == "any":
                 data_ip = _get_instance("in progress")
                 data_rel = _get_instance("released")
                 data = data_rel or data_ip
                 if data_ip is not None:
                     data.update(data_ip)
             else:
-                data = _get_instance(scope)
+                data = _get_instance(release_status)
 
             if data:
                 self.cache[uri] = data
@@ -706,15 +711,16 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
-    def space_info(self, space_name: str, scope: str = "released", ignore_errors: bool = False):
+    def space_info(self, space_name: str, release_status: str = "released", scope: Optional[str] = None, ignore_errors: bool = False):
         """
         Return information about the types and number of instances in a space.
 
         The return format is a dictionary whose keys are classes and the values are the
         number of instances of each class in the given spaces.
         """
+        release_status = handle_scope_keyword(scope, release_status)
         # todo: if not self.migrated, adapt type before lookup
-        result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[scope])
+        result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[release_status])
         if result.error:
             raise Exception(result.error)
         response = {}
@@ -745,7 +751,7 @@ class KGClient(object):
         """Delete all instances from a given space."""
         # todo: check for released instances, they must be unreleased
         #       before deletion.
-        space_info = self.space_info(space_name, scope="in progress", ignore_errors=True)
+        space_info = self.space_info(space_name, release_status="in progress", ignore_errors=True)
         if sum(space_info.values()) > 0:
             print(f"The space '{space_name}' contains the following instances:\n")
             for cls, count in space_info.items():
@@ -757,7 +763,7 @@ class KGClient(object):
             for cls, count in space_info.items():
                 if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
                     print(f"Deleting {cls.__name__} instances", end="")
-                    response = self.list(cls.type_, scope="in progress", space=space_name)
+                    response = self.list(cls.type_, release_status="in progress", space=space_name)
                     assert response.size <= count
                     for instance in response.data:
                         assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
@@ -772,7 +778,7 @@ class KGClient(object):
         Move all the KG instances in one space to another.
         """
         assert source_space != destination_space
-        space_info = self.space_info(source_space, scope="in progress")
+        space_info = self.space_info(source_space, release_status="in progress")
         if sum(space_info.values()) > 0:
             print(f"The space '{source_space}' contains the following instances:\n")
             for cls, count in space_info.items():
@@ -784,7 +790,7 @@ class KGClient(object):
             for cls, count in space_info.items():
                 if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
                     print(f"Moving {cls.__name__} instances", end="")
-                    instances = cls.list(self, scope="in progress", space=source_space)
+                    instances = cls.list(self, release_status="in progress", space=source_space)
                     assert len(instances) <= count
                     for instance in instances:
                         assert instance.space == source_space

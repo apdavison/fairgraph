@@ -20,5 +20,5 @@ class SingleColor(KGObject, OMSingleColor):
     reverse_properties = []
     existence_query_properties = ("value",)
 
-    def __init__(self, value=None, id=None, data=None, space=None, scope=None):
-        return KGObject.__init__(self, id=id, space=space, scope=scope, data=data, value=value)
+    def __init__(self, value=None, id=None, data=None, space=None, release_status=None):
+        return KGObject.__init__(self, id=id, space=space, release_status=release_status, data=data, value=value)

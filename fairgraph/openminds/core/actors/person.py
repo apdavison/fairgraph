@@ -182,13 +182,13 @@ class Person(KGObject, OMPerson):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             activities=activities,
             affiliations=affiliations,
@@ -219,7 +219,7 @@ class Person(KGObject, OMPerson):
         user_info = client.user_info()
         possible_matches = cls.list(
             client,
-            scope="in progress",
+            release_status="in progress",
             space="common",
             follow_links=follow_links,
             family_name=user_info.family_name,

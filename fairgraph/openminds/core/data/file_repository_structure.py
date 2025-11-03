@@ -30,13 +30,20 @@ class FileRepositoryStructure(KGObject, OMFileRepositoryStructure):
     existence_query_properties = ("lookup_label",)
 
     def __init__(
-        self, lookup_label=None, file_path_patterns=None, structures=None, id=None, data=None, space=None, scope=None
+        self,
+        lookup_label=None,
+        file_path_patterns=None,
+        structures=None,
+        id=None,
+        data=None,
+        space=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             lookup_label=lookup_label,
             file_path_patterns=file_path_patterns,

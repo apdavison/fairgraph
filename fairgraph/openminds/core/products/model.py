@@ -46,7 +46,7 @@ class Model(KGObject, OMModel):
             description="reverse of 'about'",
         ),
     ]
-    aliases = {"name": "full_name", "versions": "has_versions", "alias": "short_name"}
+    aliases = {"name": "full_name", "versions": "has_versions", "model_scope": "scope", "alias": "short_name"}
     existence_query_properties = ("full_name",)
 
     def __init__(
@@ -66,19 +66,20 @@ class Model(KGObject, OMModel):
         is_part_of=None,
         learning_resources=None,
         model_scope=None,
+        scope=None,
         short_name=None,
         study_targets=None,
         versions=None,
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             name=name,
             alias=alias,
@@ -95,6 +96,7 @@ class Model(KGObject, OMModel):
             is_part_of=is_part_of,
             learning_resources=learning_resources,
             model_scope=model_scope,
+            scope=scope,
             short_name=short_name,
             study_targets=study_targets,
             versions=versions,

@@ -45,7 +45,7 @@ class KGQuery(Resolvable, SupportsQuerying):
     Args:
         classes (list of KGObject subclasses): a list of types to query.
         filter (dict): key:value pairs that should be matched. All pairs must match.
-        preferred_scope (str): The preferred scope used to resolve the query.
+        preferred_release_status (str): The preferred scope used to resolve the query.
             Valid values are "released", "in progress", or "any".
 
     Example:
@@ -63,7 +63,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         self,
         classes: Union[str, KGObject, List[Union[str, KGObject]]],
         filter: Dict[str, str],
-        preferred_scope: str = "released",
+        preferred_release_status: str = "released",
     ):
         self.classes: List[KGObject] = []
         for cls in as_list(classes):
@@ -74,7 +74,7 @@ class KGQuery(Resolvable, SupportsQuerying):
             else:
                 self.classes.append(cls)
         self.filter = filter
-        self.preferred_scope = preferred_scope
+        self.preferred_release_status = preferred_release_status
 
     def __repr__(self):
         return "{self.__class__.__name__}(" "{self.classes!r}, {self.filter!r})".format(self=self)
@@ -85,7 +85,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         size: int = 10000,
         from_index: int = 0,
         space: Optional[str] = None,
-        scope: Optional[str] = None,
+        release_status: Optional[str] = None,
         use_cache: bool = True,
         follow_links: Optional[Dict[str, Any]] = None,
         with_reverse_properties: Optional[bool] = False,
@@ -98,8 +98,8 @@ class KGQuery(Resolvable, SupportsQuerying):
             from_index: The index of the first result to include in the response.
             size: The maximum number of results to include in the response.
             space: If specified, queries only in the given space.
-            scope (str, optional): The scope of the query. Valid values are "released", "in progress", or "any".
-                If not provided, the "preferred_scope" provided when creating the proxy object will be used.
+            release_status (str, optional): The scope of the query. Valid values are "released", "in progress", or "any".
+                If not provided, the "preferred_release_status" provided when creating the proxy object will be used.
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
             with_reverse_properties (dict): Whether to include reverse properties. Defaults to False.
@@ -107,7 +107,7 @@ class KGQuery(Resolvable, SupportsQuerying):
         Returns:
             a KGObject instance, of the appropriate subclass.
         """
-        scope = scope or self.preferred_scope
+        release_status = release_status or self.preferred_release_status
         objects: List[KGObject] = []
         for cls in self.classes:
             if hasattr(cls, "generate_query"):
@@ -123,7 +123,7 @@ class KGQuery(Resolvable, SupportsQuerying):
                     query=query,
                     size=size,
                     from_index=from_index,
-                    scope=scope,
+                    release_status=release_status,
                 ).data
                 objects.extend(cls.from_jsonld(instance_data, client) for instance_data in instances)
         for obj in objects:
@@ -131,19 +131,19 @@ class KGQuery(Resolvable, SupportsQuerying):
 
         if follow_links:
             for obj in objects:
-                obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
+                obj.resolve(client, release_status=release_status, use_cache=use_cache, follow_links=follow_links)
 
         if len(objects) == 1:
             return objects[0]
         else:
             return objects
 
-    def count(self, client: KGClient, space: Optional[str] = None, scope: Optional[str] = None):
+    def count(self, client: KGClient, space: Optional[str] = None, release_status: Optional[str] = None):
         """
         Return the number of objects that would be returned by resolving this query.
         """
-        scope = scope or self.preferred_scope
+        release_status = release_status or self.preferred_release_status
         n = 0
         for cls in self.classes:
-            n += cls.count(client, api="query", scope=scope, space=space, **self.filter)
+            n += cls.count(client, api="query", release_status=release_status, space=space, **self.filter)
         return n

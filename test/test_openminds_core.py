@@ -35,7 +35,7 @@ def test_query_generation(mock_client):
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_core(kg_client):
     models = omcore.Model.list(
-        kg_client, scope="released", space="model", api="core", size=20, from_index=randint(0, 80)
+        kg_client, release_status="released", space="model", api="core", size=20, from_index=randint(0, 80)
     )
     assert len(models) == 20
     for m in models:
@@ -45,7 +45,7 @@ def test_retrieve_released_models_no_filter_api_core(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_no_filter_api_query(kg_client):
     models = omcore.Model.list(
-        kg_client, scope="released", space="model", api="query", size=20, from_index=randint(0, 80)
+        kg_client, release_status="released", space="model", api="query", size=20, from_index=randint(0, 80)
     )
     assert len(models) == 20
 
@@ -53,17 +53,17 @@ def test_retrieve_released_models_no_filter_api_query(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_with_filter_api_core(kg_client):
     with pytest.raises(ValueError):
-        models = omcore.Model.list(kg_client, scope="released", api="core", name="foo")
+        models = omcore.Model.list(kg_client, release_status="released", api="core", name="foo")
 
 
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_obj(kg_client):
     rat = omterms.Species.by_name("Rattus norvegicus", kg_client)
     assert rat.name == "Rattus norvegicus"
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=rat)
+    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", study_targets=rat)
     assert len(models) > 0
     for model in models:
-        study_targets = [st.resolve(kg_client, scope="released") for st in as_list(model.study_targets)]
+        study_targets = [st.resolve(kg_client, release_status="released") for st in as_list(model.study_targets)]
         if study_targets:
             assert rat in study_targets
 
@@ -71,7 +71,7 @@ def test_retrieve_released_models_filter_species_by_obj(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_uuid(kg_client):
     human = omterms.Species.by_name("Homo sapiens", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=UUID(human.uuid))
+    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", study_targets=UUID(human.uuid))
     assert len(models) > 0
     for model in models:
         if model.study_targets:
@@ -81,7 +81,7 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", study_targets=IRI(mouse.id))
+    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", study_targets=IRI(mouse.id))
     # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
     for model in models:
@@ -93,7 +93,7 @@ def test_retrieve_released_models_filter_species_by_id(kg_client):
 def test_retrieve_released_models_filter_custodian(kg_client):
     alain = omcore.Person.list(kg_client, family_name="Destexhe", given_name="Alain")[0]
     assert alain.given_name == "Alain"
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="query", custodians=alain)
+    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", custodians=alain)
     assert len(models) > 0
     for model in models:
         assert alain.id in [c.id for c in as_list(model.custodians)]
@@ -101,9 +101,9 @@ def test_retrieve_released_models_filter_custodian(kg_client):
 
 @skip_if_no_connection
 def test_retrieve_models_filter_by_space(kg_client):
-    all_models = omcore.Model.list(kg_client, scope="in progress", space=None, size=10000)
-    n_models_in_model_space_core = omcore.Model.count(kg_client, scope="in progress", space="model", api="core")
-    n_models_in_model_space_query = omcore.Model.count(kg_client, scope="in progress", space="model", api="query")
+    all_models = omcore.Model.list(kg_client, release_status="in progress", space=None, size=10000)
+    n_models_in_model_space_core = omcore.Model.count(kg_client, release_status="in progress", space="model", api="core")
+    n_models_in_model_space_query = omcore.Model.count(kg_client, release_status="in progress", space="model", api="query")
     assert n_models_in_model_space_core == n_models_in_model_space_query
     assert len(all_models) > n_models_in_model_space_core
     assert len([m for m in all_models if m.space == "model"]) == n_models_in_model_space_query
@@ -117,7 +117,7 @@ def test_retrieve_single_model_with_followed_links(kg_client):
         follow_links={"abstraction_level": {}},
     )
     assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)  # followed
-    assert isinstance(model.model_scope, KGProxy)  # not followed
+    assert isinstance(model.scope, KGProxy)  # not followed
 
 
 @skip_if_no_connection
@@ -144,13 +144,13 @@ def test_resolve_model(kg_client):
     assert model.name == "Scaffold Model of Cerebellum microcircuit version 2.0"
     assert isinstance(model.versions, KGProxy)
     resolved_model2 = deepcopy(model).resolve(
-        kg_client, scope="released", follow_links={"versions": {}, "custodians": {"affiliations": {}}}
+        kg_client, release_status="released", follow_links={"versions": {}, "custodians": {"affiliations": {}}}
     )
     assert isinstance(resolved_model2.versions, omcore.ModelVersion)
     assert isinstance(resolved_model2.custodians[0].affiliations[0].member_of, KGProxy)
 
     resolved_model4 = deepcopy(model).resolve(
-        kg_client, scope="released", follow_links={"custodians": {"affiliations": {"member_of": {}}}}
+        kg_client, release_status="released", follow_links={"custodians": {"affiliations": {"member_of": {}}}}
     )
     assert isinstance(resolved_model4.custodians[0].affiliations[0].member_of, omcore.Organization)
 
@@ -159,7 +159,7 @@ def test_resolve_model(kg_client):
 def test_retrieve_released_models_follow_links(kg_client):
     models = omcore.Model.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="query",
         size=5,
@@ -189,7 +189,7 @@ def test_retrieve_released_model_versions_no_follow(kg_client):
     for api in ("query", "core"):
         versions = omcore.ModelVersion.list(
             kg_client,
-            scope="released",
+            release_status="released",
             space="model",
             api=api,
             size=5,
@@ -213,7 +213,7 @@ def test_retrieve_released_model_versions_no_follow(kg_client):
 def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
     versions = omcore.ModelVersion.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="query",
         size=5,
@@ -243,8 +243,8 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
         assert ver.id in [ver2.id for ver2 in as_list(model.versions)]
         if model.abstraction_level:
             assert isinstance(model.abstraction_level, omterms.ModelAbstractionLevel)
-        if model.model_scope:
-            assert isinstance(model.model_scope, KGProxy)
+        if model.scope:
+            assert isinstance(model.scope, KGProxy)
         for developer in as_list(model.developers):
             assert isinstance(developer, (omcore.Person, omcore.Organization, omcore.Consortium))
 
@@ -253,7 +253,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
 # def test_retrieve_released_people_resolve_two_steps(kg_client):
 #     people = omcore.Person.list(
 #         kg_client,
-#         scope="released",
+#         release_status="released",
 #         space="common",
 #         api="query",
 #         size=5,
@@ -265,7 +265,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
 
 # @skip_if_no_connection
 # def test_retrieve_released_models_resolve_two_steps(kg_client):
-#     models = omcore.Model.list(kg_client, scope="released", space="model",
+#     models = omcore.Model.list(kg_client, release_status="released", space="model",
 #                                api="query", size=10, from_index=randint(0, 80),
 #                                follow_links=2)
 #     assert len(models) == 10
@@ -295,7 +295,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
 def test_query_across_links(kg_client):
     models = omcore.Model.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="query",
         follow_links={"developers": {"affiliations": {"member_of": {}}}},
@@ -314,7 +314,7 @@ def test_query_across_links(kg_client):
     # check that "follow_links" is not needed for the cross-link filter to work
     models2 = omcore.Model.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="query",
         follow_links=None,
@@ -329,7 +329,7 @@ def test_query_across_links(kg_client):
 def test_query_across_reverse_links(kg_client):
     versions = omcore.ModelVersion.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="query",
         follow_links={"is_version_of": {"developers": {"affiliations": {"member_of": {}}}}},
@@ -356,8 +356,8 @@ def test_resolve_reverse_link(kg_client):
 
 @skip_if_no_connection
 def test_count_released_models(kg_client):
-    models = omcore.Model.list(kg_client, scope="released", space="model", api="core", size=1000)
-    n_models = omcore.Model.count(kg_client, scope="released", space="model", api="core")
+    models = omcore.Model.list(kg_client, release_status="released", space="model", api="core", size=1000)
+    n_models = omcore.Model.count(kg_client, release_status="released", space="model", api="core")
     assert len(models) == n_models
     assert n_models > 100
 
@@ -370,15 +370,15 @@ def test_count_models_with_filters(kg_client):
 
     models = omcore.Model.list(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="auto",
         study_targets=ca1,
-        model_scope=single_cell,
+        model_scope=single_cell,  # note that 'model_scope' is an alias for 'scope'
     )
     n_models = omcore.Model.count(
         kg_client,
-        scope="released",
+        release_status="released",
         space="model",
         api="auto",
         study_targets=ca1,
@@ -434,7 +434,7 @@ def test__update():
         "https://openminds.om-i.org/props/familyName": "Bianchi",
         "https://openminds.om-i.org/props/givenName": "Daniela",
     }
-    person = omcore.Person.from_jsonld(example_data, scope="in progress")
+    person = omcore.Person.from_jsonld(example_data, release_status="in progress")
     for key in (
         "http://schema.org/identifier",
         "https://core.kg.ebrains.eu/vocab/meta/revision",
@@ -453,8 +453,8 @@ def test_KGQuery_resolve(kg_client):
     single_cell = omterms.ModelScope.by_name("single cell", kg_client)
     filters = {"study_targets": ca1, "model_scope": single_cell}
     q = KGQuery(omcore.Model, filters)
-    models_q = q.resolve(kg_client, scope="released")
-    models_direct = omcore.Model.list(kg_client, scope="released", space="model", api="query", **filters)
+    models_q = q.resolve(kg_client, release_status="released")
+    models_direct = omcore.Model.list(kg_client, release_status="released", space="model", api="query", **filters)
     assert models_q == models_direct
 
 
@@ -462,10 +462,10 @@ def test_KGQuery_resolve(kg_client):
 def test_KGQuery_count(kg_client):
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
     single_cell = omterms.ModelScope.by_name("single cell", kg_client)
-    filters = {"study_targets": ca1, "model_scope": single_cell}
+    filters = {"study_targets": ca1, "scope": single_cell}
     q = KGQuery(omcore.Model, filters)
-    n_models_q = q.count(kg_client, space="model", scope="released")
-    n_models_direct = omcore.Model.count(kg_client, scope="released", space="model", api="query", **filters)
+    n_models_q = q.count(kg_client, space="model", release_status="released")
+    n_models_direct = omcore.Model.count(kg_client, release_status="released", space="model", api="query", **filters)
     assert n_models_q == n_models_direct
     assert n_models_q > 1
 
@@ -552,7 +552,7 @@ def test_save_new_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -582,7 +582,7 @@ def test_save_existing_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -613,7 +613,7 @@ def test_save_existing_mock_no_updates_allowed(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -645,7 +645,7 @@ def test_save_replace_existing_mock(mock_client):
         versions=None,
         homepage=IRI("http://example.com"),
         how_to_cite=None,
-        model_scope=omterms.ModelScope.by_name("subcellular", mock_client),
+        scope=omterms.ModelScope.by_name("subcellular", mock_client),
         study_targets=[
             omterms.Species.by_name("Mus musculus", mock_client),
             omterms.CellType.by_name("astrocyte", mock_client),
@@ -878,7 +878,7 @@ def test_with_new_namespace_from_core():
         "https://core.kg.ebrains.eu/vocab/meta/lastReleasedAt": "2023-03-23T10:09:30.130Z",
     }
     orig_type = omcore.Model.type_
-    obj = omcore.Model.from_jsonld(data, scope="released")
+    obj = omcore.Model.from_jsonld(data, release_status="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_ = orig_type
@@ -968,7 +968,7 @@ def test_with_new_namespace_from_query():
     }
     #omcore.set_error_handling("error")
     orig_types = (omcore.Model.type_, omcore.Person.type_)
-    obj = omcore.Model.from_jsonld(data, scope="released")
+    obj = omcore.Model.from_jsonld(data, release_status="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_, omcore.Person.type_ = orig_types

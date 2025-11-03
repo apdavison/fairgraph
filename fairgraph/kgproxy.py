@@ -46,7 +46,7 @@ class KGProxy(RepresentsSingleObject, Link):
         cls (str, KGObject, List[KGObject]): the possible types of the associated KG object, defined by a KGObject subclass
             or by the name of the subclass.
         uri (URI): The global identifier of the KG object.
-        preferred_scope (str, optional): The preferred scope used to resolve the proxy.
+        preferred_release_status (str, optional): The preferred scope used to resolve the proxy.
             Valid values are "released", "in progress", or "any".
 
     Example:
@@ -65,7 +65,7 @@ class KGProxy(RepresentsSingleObject, Link):
             self,
             classes: Union[str, KGObject, List[KGObject], Tuple[KGObject]],
             uri: str,
-            preferred_scope: str = "released"
+            preferred_release_status: str = "released"
     ):
         self.classes: List[KGObject]  # todo: make this a set?
         if isinstance(classes, str):
@@ -80,7 +80,7 @@ class KGProxy(RepresentsSingleObject, Link):
         if TYPE_CHECKING:
             assert all(isinstance(cls, KGObject) for cls in self.classes)
         self.id = uri
-        self.preferred_scope = preferred_scope
+        self.preferred_release_status = preferred_release_status
         self.remote_data = None
         Link.__init__(self, self.id, allowed_types=self.classes)
 
@@ -112,7 +112,7 @@ class KGProxy(RepresentsSingleObject, Link):
     def resolve(
         self,
         client: KGClient,
-        scope: Optional[str] = None,
+        release_status: Optional[str] = None,
         use_cache: bool = True,
         follow_links: Optional[Dict[str, Any]] = None,
     ):
@@ -121,8 +121,8 @@ class KGProxy(RepresentsSingleObject, Link):
 
         Args:
             client: a KGClient
-            scope (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
-                If not provided, the "preferred_scope" provided when creating the proxy object will be used.
+            release_status (str, optional): The scope of the lookup. Valid values are "released", "in progress", or "any".
+                If not provided, the "preferred_release_status" provided when creating the proxy object will be used.
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
 
@@ -132,12 +132,12 @@ class KGProxy(RepresentsSingleObject, Link):
         if use_cache and self.id in object_cache:
             obj = object_cache[self.id]
         else:
-            scope = scope or self.preferred_scope
+            release_status = release_status or self.preferred_release_status
             obj = None
             for cls in self.classes:
                 # this is inefficient, we should just get the data from the id, then get the correct type from the data
                 try:
-                    obj = cls.from_uri(self.id, client, scope=scope)
+                    obj = cls.from_uri(self.id, client, release_status=release_status)
                 except TypeError:
                     pass
                 else:
@@ -146,7 +146,7 @@ class KGProxy(RepresentsSingleObject, Link):
                 raise ResolutionFailure(f"Cannot resolve proxy object of type {self.classes} with id {self.uuid}")
             object_cache[self.id] = obj
         if follow_links:
-            return obj.resolve(client, scope=scope, use_cache=use_cache, follow_links=follow_links)
+            return obj.resolve(client, release_status=release_status, use_cache=use_cache, follow_links=follow_links)
         else:
             return obj
 
@@ -170,7 +170,7 @@ class KGProxy(RepresentsSingleObject, Link):
     def delete(self, client: KGClient, ignore_not_found: bool = True):
         """Delete the instance which this proxy represents"""
         try:
-            obj = self.resolve(client, scope="in progress")
+            obj = self.resolve(client, release_status="in progress")
         except ResolutionFailure as err:
             logger.warning(str(err))
             obj = None

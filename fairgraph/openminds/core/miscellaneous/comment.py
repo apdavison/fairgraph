@@ -24,13 +24,21 @@ class Comment(KGObject, OMComment):
     existence_query_properties = ("about", "comment", "commenter", "timestamp")
 
     def __init__(
-        self, about=None, comment=None, commenter=None, timestamp=None, id=None, data=None, space=None, scope=None
+        self,
+        about=None,
+        comment=None,
+        commenter=None,
+        timestamp=None,
+        id=None,
+        data=None,
+        space=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             about=about,
             comment=comment,

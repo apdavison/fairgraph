@@ -43,13 +43,13 @@ class Recording(KGObject, OMRecording):
         id=None,
         data=None,
         space=None,
-        scope=None,
+        release_status=None,
     ):
         return KGObject.__init__(
             self,
             id=id,
             space=space,
-            scope=scope,
+            release_status=release_status,
             data=data,
             name=name,
             additional_remarks=additional_remarks,
