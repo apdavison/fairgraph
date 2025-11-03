@@ -161,11 +161,3 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
-
-    def is_version_of(self, client):
-        parents = WebService.list(client, scope=self.scope, space=self.space, versions=self)
-        if len(parents) == 0:
-            raise ResolutionFailure("Unable to find parent")
-        else:
-            assert len(parents) == 1
-            return parents[0]
