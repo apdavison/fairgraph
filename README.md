@@ -2,7 +2,7 @@
 
 Authors: Andrew P. Davison, Onur Ates, Nico Feld, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi
 
-Copyright CNRS 2019-2024
+Copyright CNRS 2019-2025
 
 **fairgraph** is a Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
@@ -24,9 +24,10 @@ git clone https://github.com/HumanBrainProject/fairgraph.git
 pip install -U ./fairgraph
 ```
 
-## Knowledge Graph versions
+## Knowledge Graph and openMINDS versions
 
-This version of fairgraph supports version 3 of the EBRAINS Knowledge Graph (KG).
+This version of fairgraph supports version 3 of the EBRAINS Knowledge Graph (KG),
+and version 4 of the openMINDS metadata schemas.
 
 ## Basic setup
 
@@ -34,29 +35,22 @@ The basic idea of the library is to represent metadata nodes from the Knowledge 
 Communication with the Knowledge Graph service is through a client object,
 for which an access token associated with an EBRAINS account is needed.
 
-If you are working in a Collaboratory Jupyter notebook, the client will find your token automatically.
+If you are working in an EBRAINS Lab Jupyter notebook, the client will find your token automatically.
 
-If working outside the Collaboratory, we recommend you obtain a token from whichever authentication endpoint
-is available to you, and save it as an environment variable so the client can find it, e.g. at a shell prompt:
-
-```
-export KG_AUTH_TOKEN=eyJhbGci...nPq
-```
-
-You can then create the client object:
+If working outside EBRAINS Lab, we recommend you use the `allow_interactive` option:
 
 ```
->>> from fairgraph import KGClient
-
->>> client = KGClient(host="core.kg.ebrains.eu")
+>>> client = KGClient(host="core.kg.ebrains.eu", allow_interactive=True)
 ```
 
-You can also pass the token explicitly to the client:
+This prints the URL of a log-in page, which you should open in a web-browser.
+Once you have logged in, close the tab and return to your Python prompt.
+
+You can also obtains a token elsewhere and pass it to the client:
 
 ```
->>> client = KGClient(token)
+>>> client = KGClient(host="core.kg.ebrains.eu", token)
 ```
-
 
 ## Retrieving metadata from the Knowledge Graph
 
@@ -75,41 +69,76 @@ Using these classes, it is possible to list all metadata matching a particular c
 ```
 >>> patch_techniques = Technique.list(client, name="patch clamp")
 >>> print([technique.name for technique in patch_techniques])
-['cell attached patch clamp', 'multiple whole cell patch clamp', 'patch clamp', 'patch clamp technique', 'whole cell patch clamp']
->>> whole_cell_patch = patch_techniques[4]
+['cell attached patch clamp', 'multiple whole cell patch clamp', 'patch clamp', 'whole cell patch clamp']
+>>> whole_cell_patch = patch_techniques[3]
 ```
 
 ```
->>> datasets = DatasetVersion.list(client, techniques=whole_cell_patch, release_status="in progress")
+>>> datasets = DatasetVersion.list(client, techniques=whole_cell_patch)
 ```
 
-For research products that are versioned, such as datasets, models, and software, certain attributes may be inherited from the parent (e.g. a DatasetVersion generally inherits its name from a Dataset). In this case, we have a convenience method to retrieve the parent's name:
+The associated metadata are accessible as attributes of the Python objects, e.g.:
 
 ```
->>> print(datasets[0].get_name(client, release_status="in progress"))
-'Cholinergic interneurons in the striatum - Single cell patch clamp recordings'
+>>> print(datasets[0].version_innovation)
+'This is the only version of this dataset.'
 ```
+
+You can also access any associated data:
+
+```
+>>> datasets[0].download(client, local_directory="downloads")
+```
+
+### Inherited attributes
+
+For research products that are versioned, such as datasets, models, and software, certain attributes may be inherited from the parent (e.g., a DatasetVersion generally inherits its name from a Dataset).
+In this case, we have a convenience method to retrieve the parent's name:
+
+```
+>>> print(datasets[0].get_full_name(client))
+'Recordings of excitatory postsynaptic currents from cerebellar neurons'
+```
+
+### Unique identifiers
 
 If you know the unique identifier of an object, you can retrieve it directly:
 
 ```
->>> dataset = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client, release_status="in progress")
+>>> dataset = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client)
 ```
+
+### Following links in the knowledge graph
 
 Links between metadata in the Knowledge Graph are not followed automatically,
 to avoid unnecessary network traffic, but can be followed with the `resolve()` method:
 
 ```
->>> license = dataset.license.resolve(client, release_status="in progress")
->>> authors = [author.resolve(client, release_status="in progress") for author in dataset.authors]
+>>> license = dataset.license.resolve(client)
+>>> authors = [author.resolve(client) for author in dataset.get_authors(client)]
 ```
 
-The associated metadata is accessible as attributes of the Python objects, e.g.:
+If you know in advance which links you wish to follow, you can use the `follow_links` option:
 
 ```
->>> print(dataset.version_innovation)
-This is the first version of this research product.
+>>> dataset = DatasetVersion.from_id(
+...     "17196b79-04db-4ea4-bb69-d20aab6f1d62",
+...     client,
+...     follow_links={
+...         "license": {},
+...         "is_version_of": {
+...             "authors": {}
+...         }
+...     }
+... )
+>>> dataset.is_version_of[0].authors[0].given_name
+'Francesca'
+>>> dataset.license.short_name
+'CC-BY-NC-SA-4.0'
 ```
+
+Note that this can also be used to follow multiple links in the graph;
+in the example above we asked for the authors of the parent `Dataset`.
 
 To print out all the metadata for a given object, use the `show()` method:
 
@@ -121,13 +150,6 @@ legal_code  https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 alias       CC BY-NC-SA 4.0
 webpages    ['https://creativecommons.org/licenses/by-nc-sa/4.0', 'https://spdx.org/licenses/CC-BY-NC-SA-4.0.html']
 ```
-
-You can also access any associated data:
-
-```
->>> dataset.download(client, local_directory=dataset.alias)
-```
-
 
 ## Storing and editing metadata
 
