@@ -8,7 +8,9 @@ from openminds.properties import Property
 from openminds.latest.sands import BrainAtlasVersion as OMBrainAtlasVersion
 from fairgraph import KGObject
 
-
+from urllib.request import urlretrieve
+from pathlib import Path
+from ....utility import accepted_terms_of_use
 from datetime import date
 from openminds import IRI
 

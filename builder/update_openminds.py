@@ -545,6 +545,10 @@ def get_controlled_terms_table(type_):
     return ""
 
 
+preamble_for_download = """from urllib.request import urlretrieve
+from pathlib import Path
+from ....utility import accepted_terms_of_use"""
+
 preamble = {
     "File": """import os
 import mimetypes
@@ -558,22 +562,13 @@ from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
 from fairgraph.utility import accepted_terms_of_use, sha1sum
 
 mimetypes.init()""",
-    "DatasetVersion": """from urllib.request import urlretrieve
-from pathlib import Path
-from ....utility import accepted_terms_of_use""",
-    "ModelVersion": """from fairgraph.errors import ResolutionFailure
-from .model import Model""",
-    "ValidationTestVersion": """from fairgraph.errors import ResolutionFailure
-from .validation_test import ValidationTest""",
-    "LivePaperVersion": """from fairgraph.errors import ResolutionFailure
-from .live_paper import LivePaper""",
+    "DatasetVersion": preamble_for_download,
+    "ModelVersion": preamble_for_download,
+    "BrainAtlasVersion": preamble_for_download,
+    "CommonCoordinateSpaceVersion": preamble_for_download,
     "ScholarlyArticle": """from fairgraph.utility import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical""",
-    "SoftwareVersion": """from fairgraph.errors import ResolutionFailure
-from .software import Software""",
-    "WebServiceVersion": """from fairgraph.errors import ResolutionFailure
-from .web_service import WebService""",
 }
 
 

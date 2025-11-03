@@ -8,8 +8,7 @@ from openminds.properties import Property
 from openminds.latest.publications import LivePaperVersion as OMLivePaperVersion
 from fairgraph import KGObject
 
-from fairgraph.errors import ResolutionFailure
-from .live_paper import LivePaper
+
 from datetime import date
 from datetime import datetime
 from openminds import IRI

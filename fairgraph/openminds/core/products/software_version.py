@@ -8,8 +8,7 @@ from openminds.properties import Property
 from openminds.latest.core import SoftwareVersion as OMSoftwareVersion
 from fairgraph import KGObject
 
-from fairgraph.errors import ResolutionFailure
-from .software import Software
+
 from datetime import date
 from openminds import IRI
 

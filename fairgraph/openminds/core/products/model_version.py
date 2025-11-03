@@ -8,8 +8,9 @@ from openminds.properties import Property
 from openminds.latest.core import ModelVersion as OMModelVersion
 from fairgraph import KGObject
 
-from fairgraph.errors import ResolutionFailure
-from .model import Model
+from urllib.request import urlretrieve
+from pathlib import Path
+from ....utility import accepted_terms_of_use
 from datetime import date
 from openminds import IRI
 

@@ -8,8 +8,7 @@ from openminds.properties import Property
 from openminds.latest.computation import ValidationTestVersion as OMValidationTestVersion
 from fairgraph import KGObject
 
-from fairgraph.errors import ResolutionFailure
-from .validation_test import ValidationTest
+
 from datetime import date
 from openminds import IRI
 

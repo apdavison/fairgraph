@@ -8,8 +8,7 @@ from openminds.properties import Property
 from openminds.latest.core import WebServiceVersion as OMWebServiceVersion
 from fairgraph import KGObject
 
-from fairgraph.errors import ResolutionFailure
-from .web_service import WebService
+
 from datetime import date
 from openminds import IRI
 
