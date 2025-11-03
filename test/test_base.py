@@ -659,7 +659,4 @@ class TestKGProxy:
     def test_repr(self):
         uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
         proxy = KGProxy(MockKGObject, uri)
-        assert repr(proxy) == (
-            "KGProxy([<class 'test.test_base.MockKGObject'>], "
-            "'https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234')"
-        )
+        assert repr(proxy) == 'KGProxy([MockKGObject], id="00000000-0000-0000-0000-000000001234")'

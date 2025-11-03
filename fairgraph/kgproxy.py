@@ -151,7 +151,7 @@ class KGProxy(RepresentsSingleObject, Link):
             return obj
 
     def __repr__(self):
-        return "{self.__class__.__name__}(" "{self.classes!r}, {self.id!r})".format(self=self)
+        return f"""{self.__class__.__name__}([{", ".join(cls.__name__ for cls in self.classes)}], id="{self.id.split('/')[-1]}")"""
 
     def __eq__(self, other):
         return (

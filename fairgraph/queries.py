@@ -118,7 +118,7 @@ class QueryProperty:
                 raise ValueError("Sorting is only allowed on the root level of a query.")
 
     def __repr__(self):
-        return f"QueryProperty({self.path}, name={self.name})"
+        return f"QueryProperty({self.path}, name={self.name}, reverse={self.reverse})"
 
     def add_property(self, prop: QueryProperty):
         assert isinstance(prop, QueryProperty)
